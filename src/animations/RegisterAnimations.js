@@ -29,6 +29,12 @@ export const registerAnimations = () => {
         delay: 500
     });
     anime({
+        targets: '.password2',
+        translateY: [-top, 0],
+        easing: 'easeOutElastic(1, 1.1)',
+        delay: 600
+    });
+    anime({
         targets: '.submit',
         translateY: [-top, 0],
         easing: 'easeOutElastic(1, 1.1)',

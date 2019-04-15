@@ -1,0 +1,41 @@
+@media (max-width: 768px) {
+  body {
+    overflow-y: scroll;
+  }
+  .home {
+    -ms-grid-rows: 50% 50%;
+        grid-template-rows: 50% 50%;
+  }
+  .home .home-welcome .home-welcome-text {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .home .home-welcome .home-welcome-text .text {
+    font-size: 25px;
+  }
+  .home .home-welcome .home-welcome-text .buttons .btn {
+    width: 200px;
+    height: 40px;
+    margin: 20px 0px;
+    font-size: 18px;
+  }
+  .home .home-boxes {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .home .home-boxes .home-box {
+    margin: 0;
+    height: auto;
+    border: none;
+  }
+  .home .home-boxes .home-box .home-box-text {
+    font-size: 15px;
+  }
+}
+/*# sourceMappingURL=responsiveness.css.map */

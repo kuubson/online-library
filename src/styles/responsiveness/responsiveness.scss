@@ -1,0 +1,42 @@
+@media (max-width: 768px) {
+  body {
+    overflow-y: scroll;
+  }
+  .home {
+    grid-template-rows: 50% 50%;
+
+    .home-welcome {
+      .home-welcome-text {
+        justify-content: center;
+
+        .text {
+          font-size: 25px;
+        }
+
+        .buttons {
+          .btn {
+            width: 200px;
+            height: 40px;
+            margin: 20px 0px;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+
+    .home-boxes {
+      flex-direction: column;
+      align-items: center;
+
+      .home-box {
+        margin: 0;
+        height: auto;
+        border: none;
+
+        .home-box-text {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}
