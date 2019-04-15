@@ -5,17 +5,18 @@ export const homeAnimations = () => {
     const right = window.innerWidth;
     const left = -window.innerWidth;
     const bottom = window.innerHeight;
+    const top = -window.innerHeight;
 
     anime({
         targets: '.login',
-        translateX: [right, 0],
-        easing: 'easeOutElastic(1, 1.1)',
+        translateY: [top, 0],
+        easing: 'easeInOutQuad',
         delay: 500
     });
     anime({
         targets: '.register',
-        translateX: [right, 0],
-        easing: 'easeOutElastic(1, 1.1)',
+        translateY: [top, 0],
+        easing: 'easeInOutQuad',
         delay: 600
     });
 

@@ -14,10 +14,16 @@ export class Home extends Component {
       <div className="home">
         <div className="home-welcome">
           <div className="home-welcome-text">
-            <h1>Online Library</h1>
+            <div className="text">
+              <h1>Online Library</h1>
+            </div>
             <div className="buttons">
-              <button className="btn login" onClick={() => this.handleClick('login')}>Login</button>
-              <button className="btn register" onClick={() => this.handleClick('register')} >Register</button>
+              <span className="login-button">
+                <button className="btn login" onClick={() => this.handleClick('login')}>Login</button>
+              </span>
+              <span className="register-button">
+                <button className="btn register" onClick={() => this.handleClick('register')} >Register</button>
+              </span>
             </div>
           </div>
         </div>

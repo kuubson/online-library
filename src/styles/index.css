@@ -49,11 +49,11 @@ body {
 }
 
 .home .home-welcome .home-welcome-text .buttons {
-  margin-top: 40px;
+  padding-top: 20px;
 }
 
 .home .home-welcome .home-welcome-text .buttons .btn {
-  width: 220px;
+  width: 250px;
   height: 45px;
   display: block;
   margin: 25px 0px;
@@ -61,13 +61,13 @@ body {
   outline: none;
   background: #333;
   color: white;
-  text-transform: uppercase;
   font-family: "Indie Flower", cursive;
   font-size: 20px;
 }
 
 .home .home-welcome .home-welcome-text .buttons .btn:hover {
-  background: black;
+  color: black;
+  background: white;
   cursor: pointer;
 }
 
@@ -94,9 +94,173 @@ body {
 .home .home-boxes .home-box .home-box-text {
   text-transform: uppercase;
   color: white;
-  font-size: 25px;
+  font-size: 27px;
   line-height: 1.2;
   display: inline-block;
   vertical-align: middle;
+}
+
+.register {
+  width: 100%;
+  height: 100vh;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.2)), to(rgba(0, 0, 0, 0.2))), url("../img/home-bg.jpg") no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("../img/home-bg.jpg") no-repeat center center;
+  background-size: cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.register .register-form {
+  margin: auto;
+  padding: 30px;
+}
+
+.register .register-form .input {
+  margin: 20px 0px;
+  position: relative;
+}
+
+.register .register-form .input label {
+  display: block;
+  font-weight: bold;
+  font-size: 20px;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.register .register-form .input .register-input[type="text"],
+.register .register-form .input .register-input[type="password"] {
+  width: 300px;
+  height: 35px;
+  display: block;
+  outline: none;
+  border: none;
+  border-bottom: 3px solid white;
+  background: none;
+  text-indent: 10px;
+  font-family: "Indie Flower", cursive;
+  font-size: 15px;
+  color: white;
+}
+
+.register .register-form .input .register-input[type="text"]::-webkit-input-placeholder,
+.register .register-form .input .register-input[type="password"]::-webkit-input-placeholder {
+  color: white;
+}
+
+.register .register-form .input .register-input[type="text"]:-ms-input-placeholder,
+.register .register-form .input .register-input[type="password"]:-ms-input-placeholder {
+  color: white;
+}
+
+.register .register-form .input .register-input[type="text"]::-ms-input-placeholder,
+.register .register-form .input .register-input[type="password"]::-ms-input-placeholder {
+  color: white;
+}
+
+.register .register-form .input .register-input[type="text"]::placeholder,
+.register .register-form .input .register-input[type="password"]::placeholder {
+  color: white;
+}
+
+.register .register-form .input .register-input[type="text"]:not(:placeholder-shown),
+.register .register-form .input .register-input[type="password"]:not(:placeholder-shown) {
+  border-left: 3px solid white;
+}
+
+.register .register-form .input .register-input[type="submit"] {
+  width: 300px;
+  height: 35px;
+  margin-top: 30px;
+  outline: none;
+  border: 3px solid white;
+  background: none;
+  text-indent: 10px;
+  font-family: "Indie Flower", cursive;
+  font-size: 15px;
+  color: white;
+}
+
+.login {
+  width: 100%;
+  height: 100vh;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.2)), to(rgba(0, 0, 0, 0.2))), url("../img/home-bg.jpg") no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("../img/home-bg.jpg") no-repeat center center;
+  background-size: cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.login .login-form {
+  margin: auto;
+  padding: 30px;
+}
+
+.login .login-form .input {
+  margin: 20px 0px;
+  position: relative;
+}
+
+.login .login-form .input label {
+  display: block;
+  font-weight: bold;
+  font-size: 20px;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.login .login-form .input .login-input[type="text"],
+.login .login-form .input .login-input[type="password"] {
+  width: 300px;
+  height: 35px;
+  display: block;
+  outline: none;
+  border: none;
+  border-bottom: 3px solid white;
+  background: none;
+  text-indent: 10px;
+  font-family: "Indie Flower", cursive;
+  font-size: 15px;
+  color: white;
+}
+
+.login .login-form .input .login-input[type="text"]::-webkit-input-placeholder,
+.login .login-form .input .login-input[type="password"]::-webkit-input-placeholder {
+  color: white;
+}
+
+.login .login-form .input .login-input[type="text"]:-ms-input-placeholder,
+.login .login-form .input .login-input[type="password"]:-ms-input-placeholder {
+  color: white;
+}
+
+.login .login-form .input .login-input[type="text"]::-ms-input-placeholder,
+.login .login-form .input .login-input[type="password"]::-ms-input-placeholder {
+  color: white;
+}
+
+.login .login-form .input .login-input[type="text"]::placeholder,
+.login .login-form .input .login-input[type="password"]::placeholder {
+  color: white;
+}
+
+.login .login-form .input .login-input[type="text"]:not(:placeholder-shown),
+.login .login-form .input .login-input[type="password"]:not(:placeholder-shown) {
+  border-left: 3px solid white;
+}
+
+.login .login-form .input .login-input[type="submit"] {
+  width: 300px;
+  height: 35px;
+  margin-top: 30px;
+  outline: none;
+  border: 3px solid white;
+  background: none;
+  text-indent: 10px;
+  font-family: "Indie Flower", cursive;
+  font-size: 15px;
+  color: white;
 }
 /*# sourceMappingURL=index.css.map */
