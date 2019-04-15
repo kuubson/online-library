@@ -1,0 +1,73 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+body {
+  font-family: "Indie Flower", cursive;
+}
+
+.home {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/home-bg.jpg") no-repeat center center;
+  background-size: cover;
+  display: grid;
+  grid-template-rows: 50vh;
+  .home-welcome {
+    display: flex;
+    justify-content: space-around;
+    color: white;
+    .home-welcome-text {
+      font-size: 35px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      .buttons {
+        margin-top: 40px;
+        .btn {
+          width: 220px;
+          height: 45px;
+          display: block;
+          margin: 25px 0px;
+          border: none;
+          outline: none;
+          background: #333;
+          color: white;
+          text-transform: uppercase;
+          font-family: "Indie Flower", cursive;
+          font-size: 20px;
+          &:hover {
+            background: black;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .home-boxes {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    .home-box {
+      margin-bottom: 50px;
+      width: 200px;
+      height: 200px;
+      border-bottom: 4px solid white;
+      line-height: 200px;
+      text-align: center;
+      .home-box-text {
+        text-transform: uppercase;
+        color: white;
+        font-size: 25px;
+        line-height: 1.2;
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+  }
+}

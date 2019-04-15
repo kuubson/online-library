@@ -1,0 +1,102 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  overflow: hidden;
+}
+
+body {
+  font-family: "Indie Flower", cursive;
+}
+
+.home {
+  width: 100%;
+  height: 100vh;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url("../img/home-bg.jpg") no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/home-bg.jpg") no-repeat center center;
+  background-size: cover;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 50vh;
+      grid-template-rows: 50vh;
+}
+
+.home .home-welcome {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  color: white;
+}
+
+.home .home-welcome .home-welcome-text {
+  font-size: 35px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.home .home-welcome .home-welcome-text .buttons {
+  margin-top: 40px;
+}
+
+.home .home-welcome .home-welcome-text .buttons .btn {
+  width: 220px;
+  height: 45px;
+  display: block;
+  margin: 25px 0px;
+  border: none;
+  outline: none;
+  background: #333;
+  color: white;
+  text-transform: uppercase;
+  font-family: "Indie Flower", cursive;
+  font-size: 20px;
+}
+
+.home .home-welcome .home-welcome-text .buttons .btn:hover {
+  background: black;
+  cursor: pointer;
+}
+
+.home .home-boxes {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.home .home-boxes .home-box {
+  margin-bottom: 50px;
+  width: 200px;
+  height: 200px;
+  border-bottom: 4px solid white;
+  line-height: 200px;
+  text-align: center;
+}
+
+.home .home-boxes .home-box .home-box-text {
+  text-transform: uppercase;
+  color: white;
+  font-size: 25px;
+  line-height: 1.2;
+  display: inline-block;
+  vertical-align: middle;
+}
+/*# sourceMappingURL=index.css.map */
