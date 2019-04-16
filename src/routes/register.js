@@ -12,7 +12,6 @@ router.post('/register', (req, res) => {
     const savedSurame = surname;
     const savedEmail = email;
     const savedPassword = password;
-
     const checkedName = validator.blacklist(name, `!@#$%^&*()_+;',./{}:"<>?|~`);
     const checkedSurname = validator.blacklist(surname, `!@#$%^&*()_+;',./{}:"<>?|~`);
     const checkedEmail = validator.blacklist(email, '$');

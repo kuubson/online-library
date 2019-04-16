@@ -6,6 +6,7 @@ import passwordValidator from 'password-validator'
 import axios from 'axios'
 
 export class Register extends Component {
+    _isMounted = false;
     state = {
         name: "",
         surname: "",
@@ -21,7 +22,12 @@ export class Register extends Component {
         errorMessage: ""
     }
     componentDidMount() {
+        sessionStorage.getItem('jwt') && this.props.history.push('/account');
+        this._isMounted = true;
         registerAnimations();
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
     }
     handleChange = (e) => {
         this.setState({
@@ -30,11 +36,11 @@ export class Register extends Component {
     }
     handleSubmit = async (e) => {
 
+        e.preventDefault();
         this.setState({
             successMessage: "",
             errorMessage: ""
         })
-        e.preventDefault();
         const { name, surname, email, password, password2 } = this.state;
         const passwordSchema = new passwordValidator();
         passwordSchema.is().min(8).max(20).has().uppercase().has().lowercase().has().digits().has().not().spaces();
@@ -44,15 +50,17 @@ export class Register extends Component {
         validator.isEmpty(password) ? this.setState({ passwordError: "You have to have your password!" }) : passwordSchema.validate(password) ? this.setState({ passwordError: "" }) : this.setState({ passwordError: "Your password must: be at least 8 chars long, have: digits, no spaces, small, capital letters" })
         validator.equals(password, password2) ? this.setState({ password2Error: "" }) : this.setState({ password2Error: "Passwords do not match!" });
         if (validator.isLength(name, { min: 2 }) && validator.isLength(surname, { min: 2 }) && validator.isEmail(email) && passwordSchema.validate(password) && validator.equals(password, password2)) {
-            const registerProcess = await axios.post('/register', {
-                name,
-                surname,
-                email,
-                password
-            })
-            registerProcess.data.done ? this.setState({ successMessage: registerProcess.data.msg }) || setTimeout(() => {
-                this.props.history.push('/login')
-            }, 1000) : this.setState({ errorMessage: registerProcess.data.msg })
+            if (this._isMounted) {
+                const registerProcess = await axios.post('/register', {
+                    name,
+                    surname,
+                    email,
+                    password
+                })
+                registerProcess.data.done ? this.setState({ successMessage: registerProcess.data.msg }) || setTimeout(() => {
+                    this.props.history.push('/login')
+                }, 1000) : this.setState({ errorMessage: registerProcess.data.msg })
+            }
         }
 
     }
@@ -88,11 +96,11 @@ export class Register extends Component {
                     <div className="input submit">
                         <input className="register-input" type="submit" value="Register" />
                     </div>
+                    {this.state.successMessage && <div className="success">{this.state.successMessage}</div>}
+                    {this.state.errorMessage && <div className="error">{this.state.errorMessage}</div>}
                     <div className="form-link-container">
                         <a href="/login" className="form-link">Have already account? Log in now!</a>
                     </div>
-                    {this.state.successMessage && <div className="success">{this.state.successMessage}</div>}
-                    {this.state.errorMessage && <div className="error">{this.state.errorMessage}</div>}
                 </form>
             </div>
         )

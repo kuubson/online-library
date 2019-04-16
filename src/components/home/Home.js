@@ -4,6 +4,7 @@ import { homeAnimations } from '../../animations/HomeAnimations'
 
 export class Home extends Component {
   componentDidMount() {
+    sessionStorage.getItem('jwt') && this.props.history.push('/account');
     homeAnimations();
   }
   handleClick = (where) => {

@@ -2,31 +2,51 @@ import React, { Component } from 'react'
 
 import { loginAnimations } from '../../animations/LoginAnimations'
 import validator from 'validator'
+import axios from 'axios'
 
 export class Login extends Component {
+    _isMounted = false;
     state = {
         email: "",
         password: "",
         emailError: "",
         passwordError: "",
+        successMessage: "",
+        errorMessage: ""
     }
-
     componentDidMount() {
+        sessionStorage.getItem('jwt') && this.props.history.push('/account');
+        this._isMounted = true;
         loginAnimations();
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
     }
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
         })
     }
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
 
         e.preventDefault();
+        this.setState({
+            successMessage: "",
+            errorMessage: ""
+        })
         const { email, password } = this.state;
-        validator.isEmpty(email) ? this.setState({ emailError: "You cannot login without email!" }) : this.setState({ emailError: "" });
+        validator.isEmpty(email) ? this.setState({ emailError: "You cannot login without email!" }) : validator.isEmail(email) ? this.setState({ emailError: "" }) : this.setState({ emailError: "This is not a proper email!" });
         validator.isEmpty(password) ? this.setState({ passwordError: "You cannot login without password!" }) : this.setState({ passwordError: "" });
-        if (!validator.isEmpty(email) && !validator.isEmpty(password)) {
-            console.log("Validated");
+        if (!validator.isEmpty(email) && validator.isEmail(email) && !validator.isEmpty(password)) {
+            if (this._isMounted) {
+                const loginProcess = await axios.post('/login', {
+                    email,
+                    password
+                })
+                loginProcess.data.done ? this.setState({ successMessage: loginProcess.data.msg }) || sessionStorage.setItem('jwt', loginProcess.data.token) || setTimeout(() => {
+                    this.props.history.push('/account');
+                }, 1000) : this.setState({ errorMessage: loginProcess.data.msg })
+            }
         }
 
     }
@@ -47,6 +67,8 @@ export class Login extends Component {
                     <div className="input submit">
                         <input className="login-input" type="submit" value="Login" />
                     </div>
+                    {this.state.successMessage && <div className="success">{this.state.successMessage}</div>}
+                    {this.state.errorMessage && <div className="error">{this.state.errorMessage}</div>}
                     <div className="form-link-container">
                         <a href="/register" className="form-link">Feel free to register now!</a>
                     </div>
