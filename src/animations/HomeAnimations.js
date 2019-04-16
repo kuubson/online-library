@@ -8,13 +8,13 @@ export const homeAnimations = () => {
     const top = -window.innerHeight;
 
     anime({
-        targets: '.login',
+        targets: '.btn-login',
         translateY: [top, 0],
         easing: 'easeInOutQuad',
         delay: 500
     });
     anime({
-        targets: '.register',
+        targets: '.btn-register',
         translateY: [top, 0],
         easing: 'easeInOutQuad',
         delay: 600

@@ -47,6 +47,9 @@ export class Login extends Component {
                     <div className="input submit">
                         <input className="login-input" type="submit" value="Login" />
                     </div>
+                    <div className="form-link-container">
+                        <a href="/register" className="form-link">Feel free to register now!</a>
+                    </div>
                 </form>
             </div>
         )

@@ -1,7 +1,4 @@
 @media (max-width: 768px) {
-  body {
-    overflow-y: scroll;
-  }
   .home {
     grid-template-rows: 50% 50%;
 
@@ -29,7 +26,7 @@
       align-items: center;
 
       .home-box {
-        margin: 0;
+        margin: 15px 0px;
         height: auto;
         border: none;
 

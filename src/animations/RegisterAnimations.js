@@ -3,6 +3,7 @@ import anime from 'animejs'
 export const registerAnimations = () => {
 
     const top = window.innerHeight;
+    const right = window.innerWidth;
 
     anime({
         targets: '.name',
@@ -38,7 +39,13 @@ export const registerAnimations = () => {
         targets: '.submit',
         translateY: [-top, 0],
         easing: 'easeOutElastic(1, 1.1)',
-        delay: 600
+        delay: 700
+    });
+    anime({
+        targets: '.form-link-container',
+        translateX: [right, 0],
+        easing: 'easeOutElastic(1, 1.1)',
+        delay: 800
     });
 
 }

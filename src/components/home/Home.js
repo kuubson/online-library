@@ -19,10 +19,10 @@ export class Home extends Component {
             </div>
             <div className="buttons">
               <span className="login-button">
-                <button className="btn login" onClick={() => this.handleClick('login')}>Login</button>
+                <button className="btn btn-login" onClick={() => this.handleClick('login')}>Login</button>
               </span>
               <span className="register-button">
-                <button className="btn register" onClick={() => this.handleClick('register')} >Register</button>
+                <button className="btn btn-register" onClick={() => this.handleClick('register')}>Register</button>
               </span>
             </div>
           </div>
