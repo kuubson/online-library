@@ -300,4 +300,283 @@ body {
   font-size: 15px;
   color: white;
 }
+
+.account {
+  width: 100%;
+  height: 100vh;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url("../img/home-bg.jpg") no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/home-bg.jpg") no-repeat center center;
+  background-size: cover;
+  padding: 20px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  -ms-grid-rows: 70px 100px 1fr 1fr;
+      grid-template-rows: 70px 100px 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.account .navbar {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 9;
+  grid-column: 1/10;
+  height: 70px;
+  line-height: 70px;
+}
+
+.account .navbar .navbar-logo-items {
+  float: left;
+  list-style: none;
+}
+
+.account .navbar .navbar-logo-items .navbar-logo-item {
+  color: white;
+  font-weight: bold;
+  font-size: 35px;
+  margin-left: 30px;
+}
+
+.account .navbar .navbar-links-items {
+  float: right;
+}
+
+.account .navbar .navbar-links-items .navbar-links-item {
+  list-style: none;
+  float: left;
+}
+
+.account .navbar .navbar-links-items .navbar-links-item .navbar-link {
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  margin-right: 40px;
+}
+
+.account .navbar .navbar-links-items .navbar-links-item .navbar-link:hover {
+  color: black;
+}
+
+.account .buy-book {
+  -ms-grid-column: 7;
+  -ms-grid-column-span: 3;
+  grid-column: 7/10;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 3;
+  grid-row: 2/5;
+}
+
+.account .socials {
+  -ms-grid-column: 6;
+  -ms-grid-column-span: 1;
+  grid-column: 6/7;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 3;
+  grid-row: 2/5;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.account .socials .social {
+  font-size: 50px;
+}
+
+.account .socials .social .fb {
+  color: #3b5998;
+}
+
+.account .socials .social .ig {
+  color: #c32aa3;
+}
+
+.account .socials .social .tw {
+  color: #1da1f2;
+}
+
+.account .socials .social .yt {
+  color: #ff0000;
+}
+
+.account .find-book {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 5;
+  grid-column: 1/6;
+  -ms-grid-row: 2;
+  grid-row: 2;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.account .find-book .find-book-title {
+  color: white;
+  font-size: 12px;
+  margin-right: 30px;
+}
+
+.account .find-book .find-field {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.account .find-book .find-field .find-button {
+  width: 70px;
+  height: 35px;
+  display: block;
+  margin: 25px 0px;
+  border: none;
+  outline: none;
+  background: white;
+  font-family: "Indie Flower", cursive;
+  font-size: 20px;
+}
+
+.account .find-book .find-field .find-book-input {
+  width: 200px;
+  height: 35px;
+  display: block;
+  outline: none;
+  border: none;
+  border-bottom: 3px solid white;
+  background: none;
+  text-indent: 10px;
+  font-family: "Indie Flower", cursive;
+  font-size: 15px;
+  color: white;
+  margin-left: 20px;
+}
+
+.account .find-book .find-field .find-book-input::-webkit-input-placeholder {
+  color: white;
+}
+
+.account .find-book .find-field .find-book-input:-ms-input-placeholder {
+  color: white;
+}
+
+.account .find-book .find-field .find-book-input::-ms-input-placeholder {
+  color: white;
+}
+
+.account .find-book .find-field .find-book-input::placeholder {
+  color: white;
+}
+
+.account .books {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 5;
+  grid-column: 1/6;
+  -ms-grid-row: 3;
+  -ms-grid-row-span: 2;
+  grid-row: 3/5;
+}
+
+.account .books .books-container {
+  width: 100%;
+  height: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  -ms-grid-rows: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+  grid-gap: 20px;
+  padding: 30px;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+.account .books .books-container .book {
+  position: relative;
+  text-align: center;
+}
+
+.account .books .books-container .crimix {
+  background: url("../img/books/crimix.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+.account .books .books-container .wayup {
+  background: url("../img/books/wayup.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+.account .books .books-container .nothingimpossible {
+  background: url("../img/books/nothingimpossible.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+.account .books .books-container .dancestep {
+  background: url("../img/books/dancestep.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+.account .books .books-container .armynation {
+  background: url("../img/books/armynation.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+.account .books .books-container .aroundtheworld {
+  background: url("../img/books/aroundtheworld.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+.account .books .books-container .title {
+  margin-top: 20px;
+  font-size: 15px;
+  white-space: nowrap;
+  font-style: italic;
+  color: white;
+  text-transform: uppercase;
+}
+
+.account .books .books-container .borrow-button {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -90%);
+          transform: translate(-50%, -90%);
+  width: 70px;
+  height: 25px;
+  display: block;
+  border: none;
+  outline: none;
+  background: #333;
+  color: white;
+  border-radius: 10px;
+  font-family: "Indie Flower", cursive;
+  font-size: 15px;
+}
+
+.account .account-item:nth-child(even) {
+  background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+}
+
+.account .account-item:nth-child(odd) {
+  background-image: -webkit-gradient(linear, left top, right top, from(#4facfe), to(#00f2fe));
+  background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+}
 /*# sourceMappingURL=index.css.map */

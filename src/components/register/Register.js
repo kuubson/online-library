@@ -85,12 +85,12 @@ export class Register extends Component {
                     {this.state.emailError && <div className="error">{this.state.emailError}</div>}
                     <div className="input password">
                         <label htmlFor="password">Password:</label>
-                        <input className="register-input" name="password" type="text" placeholder="Type your password..." onChange={this.handleChange} />
+                        <input className="register-input" name="password" type="password" placeholder="Type your password..." onChange={this.handleChange} />
                     </div>
                     {this.state.passwordError && <div className="error">{this.state.passwordError}</div>}
                     <div className="input password2">
                         <label htmlFor="password2">Password:</label>
-                        <input className="register-input" name="password2" type="text" placeholder="Type again your password..." onChange={this.handleChange} />
+                        <input className="register-input" name="password2" type="password" placeholder="Type again your password..." onChange={this.handleChange} />
                     </div>
                     {this.state.password2Error && <div className="error">{this.state.password2Error}</div>}
                     <div className="input submit">

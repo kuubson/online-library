@@ -56,7 +56,7 @@ export class Login extends Component {
                 <form className="login-form" onSubmit={this.handleSubmit}>
                     <div className="input email">
                         <label htmlFor="email">Email:</label>
-                        <input className="login-input" id="email" name="email" type="text" placeholder="Type your email..." onChange={this.handleChange} />
+                        <input className="login-input" name="email" type="text" placeholder="Type your email..." onChange={this.handleChange} />
                     </div>
                     {this.state.emailError && <div className="error">{this.state.emailError}</div>}
                     <div className="input password">
