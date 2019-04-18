@@ -380,36 +380,37 @@ body {
       text-align: center;
     }
     .find-field {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      .find-button {
-        width: 70px;
-        height: 35px;
-        display: block;
-        margin: 25px 0px;
-        border: none;
-        outline: none;
-        background: white;
-        font-family: "Indie Flower", cursive;
-        font-size: 20px;
-      }
-      .find-book-input {
-        width: 200px;
-        height: 35px;
-        display: block;
-        outline: none;
-        border: none;
-        border-bottom: 3px solid white;
-        background: none;
-        text-indent: 10px;
-        font-family: "Indie Flower", cursive;
-        font-size: 15px;
-        color: white;
-        margin-left: 20px;
-        &::placeholder {
+      .find-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .find-button {
+          width: 70px;
+          height: 35px;
+          display: block;
+          margin: 25px 0px;
+          border: none;
+          outline: none;
+          background: white;
+          font-family: "Indie Flower", cursive;
+          font-size: 20px;
+        }
+        .find-book-input {
+          width: 200px;
+          height: 35px;
+          display: block;
+          outline: none;
+          border: none;
+          border-bottom: 3px solid white;
+          background: none;
+          text-indent: 10px;
+          font-family: "Indie Flower", cursive;
+          font-size: 15px;
           color: white;
+          margin-left: 20px;
+          &::placeholder {
+            color: white;
+          }
         }
       }
     }

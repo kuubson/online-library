@@ -523,7 +523,7 @@ body {
   text-align: center;
 }
 
-.account .find-book .find-field {
+.account .find-book .find-field .find-form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -535,7 +535,7 @@ body {
           align-items: center;
 }
 
-.account .find-book .find-field .find-button {
+.account .find-book .find-field .find-form .find-button {
   width: 70px;
   height: 35px;
   display: block;
@@ -547,7 +547,7 @@ body {
   font-size: 20px;
 }
 
-.account .find-book .find-field .find-book-input {
+.account .find-book .find-field .find-form .find-book-input {
   width: 200px;
   height: 35px;
   display: block;
@@ -562,19 +562,19 @@ body {
   margin-left: 20px;
 }
 
-.account .find-book .find-field .find-book-input::-webkit-input-placeholder {
+.account .find-book .find-field .find-form .find-book-input::-webkit-input-placeholder {
   color: white;
 }
 
-.account .find-book .find-field .find-book-input:-ms-input-placeholder {
+.account .find-book .find-field .find-form .find-book-input:-ms-input-placeholder {
   color: white;
 }
 
-.account .find-book .find-field .find-book-input::-ms-input-placeholder {
+.account .find-book .find-field .find-form .find-book-input::-ms-input-placeholder {
   color: white;
 }
 
-.account .find-book .find-field .find-book-input::placeholder {
+.account .find-book .find-field .find-form .find-book-input::placeholder {
   color: white;
 }
 

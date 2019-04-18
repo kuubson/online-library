@@ -1,12 +1,69 @@
 import React, { Component } from 'react'
 
+import axios from 'axios'
+
 export class Account extends Component {
+    _isMounted = false;
+    state = {
+        booktitle: "",
+        freebooks: [],
+        paidbooks: []
+    }
     componentDidMount() {
+        this._isMounted = true;
         !sessionStorage.getItem('jwt') && this.props.history.push('/login');
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
     }
     handleLogout = () => {
         sessionStorage.clear();
         this.props.history.push('/');
+    }
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+    handleFind = async (e) => {
+        e.preventDefault();
+        if (this._isMounted) {
+            const gettingBooksProcess = await axios.post('/getBooks', {
+                booktitle: this.state.booktitle
+            });
+            const book = gettingBooksProcess.data.book;
+            const imageUrl = btoa(new Uint8Array(book.cover.data.data).reduce(function (data, byte) {
+                return data + String.fromCharCode(byte);
+            }, ''));
+            if ('price' in book) {
+                function paidbook() {
+                    return (
+                        <div className="book" style={{ background: `url(data:image/jpeg;base64,${imageUrl}) no-repeat center center`, backgroundSize: 'cover' }}>
+                            <h4 className="title">{book.title}</h4>
+                            <div className="buy-details">
+                                <h4 className="price">{book.price + "$"}</h4>
+                                <button className="buy-button">Buy</button>
+                            </div>
+                        </div>
+                    )
+                }
+                this.setState({
+                    paidbooks: [...this.state.paidbooks, paidbook()]
+                })
+            } else {
+                function freebook() {
+                    return (
+                        <div className="book" style={{ background: `url(data:image/jpeg;base64,${imageUrl}) no-repeat center center`, backgroundSize: 'cover' }}>
+                            <h4 className="title">{freebook.title}</h4>
+                            <button className="borrow-button">Borrow</button>
+                        </div>
+                    )
+                }
+                this.setState({
+                    freebooks: [...this.state.freebooks, freebook()]
+                })
+            }
+        }
     }
     render() {
         return (
@@ -25,27 +82,7 @@ export class Account extends Component {
                         <h1>Buy premium books!</h1>
                     </div>
                     <div className="buy-books-container">
-                        <div className="book soadventure">
-                            <h4 className="title">So Adventure</h4>
-                            <div className="buy-details">
-                                <h4 className="price">9.99$</h4>
-                                <button className="buy-button">Buy</button>
-                            </div>
-                        </div>
-                        <div className="book waterstory">
-                            <h4 className="title">Water Story</h4>
-                            <div className="buy-details">
-                                <h4 className="price">9.99$</h4>
-                                <button className="buy-button">Buy</button>
-                            </div>
-                        </div>
-                        <div className="book wildnature">
-                            <h4 className="title">Wild Nature</h4>
-                            <div className="buy-details">
-                                <h4 className="price">9.99$</h4>
-                                <button className="buy-button">Buy</button>
-                            </div>
-                        </div>
+                        {this.state.paidbooks}
                     </div>
                 </div>
                 <div className="account-item find-book">
@@ -53,36 +90,15 @@ export class Account extends Component {
                         <h1>Find here awesome books!</h1>
                     </div>
                     <div className="find-field">
-                        <input className="find-book-input" name="book" type="text" placeholder="Type title of book..." />
-                        <button className="find-button">Find</button>
+                        <form className="find-form" onSubmit={this.handleFind}>
+                            <input className="find-book-input" name="booktitle" type="text" placeholder="Type title of book..." onChange={this.handleChange} />
+                            <button className="find-button">Find</button>
+                        </form>
                     </div>
                 </div>
                 <div className="account-item books">
                     <div className="find-books-container">
-                        <div className="book crimix">
-                            <h4 className="title">Crimix</h4>
-                            <button className="borrow-button">Borrow</button>
-                        </div>
-                        <div className="book wayup">
-                            <h4 className="title">Way Up</h4>
-                            <button className="borrow-button">Borrow</button>
-                        </div>
-                        <div className="book nothingimpossible">
-                            <h4 className="title">Nothing Impossible</h4>
-                            <button className="borrow-button">Borrow</button>
-                        </div>
-                        <div className="book dancestep">
-                            <h4 className="title">Dance Step</h4>
-                            <button className="borrow-button">Borrow</button>
-                        </div>
-                        <div className="book armynation">
-                            <h4 className="title">Army Nation</h4>
-                            <button className="borrow-button">Borrow</button>
-                        </div>
-                        <div className="book aroundtheworld">
-                            <h4 className="title">Arount The World</h4>
-                            <button className="borrow-button">Borrow</button>
-                        </div>
+                        {this.state.freebooks}
                     </div>
                 </div>
             </div>
