@@ -19,8 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/', require('./routes/register'));
 app.use('/', require('./routes/login'));
+app.use('/', require('./routes/getBook'));
 app.use('/', require('./routes/getBooks'));
-app.use('/', require('./routes/getPremiumBooks'));
 
 app.use('/books', express.static(path.join(__dirname, './img/books')));
 

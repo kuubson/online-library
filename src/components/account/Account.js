@@ -16,7 +16,7 @@ export class Account extends Component {
         !sessionStorage.getItem('jwt') && this.props.history.push('/login');
 
         if (this._isMounted) {
-            const gettingBooksProcess = await axios.post('/getPremiumBooks');
+            const gettingBooksProcess = await axios.post('/getBooks');
             const books = gettingBooksProcess.data.books;
             books.map(book => {
                 const imageUrl = btoa(new Uint8Array(book.cover.data.data).reduce(function (data, byte) {
@@ -68,7 +68,7 @@ export class Account extends Component {
     handleFind = async (e) => {
         e.preventDefault();
         if (this._isMounted) {
-            const gettingBooksProcess = await axios.post('/getBooks', {
+            const gettingBooksProcess = await axios.post('/getBook', {
                 booktitle: this.state.booktitle
             });
             const book = gettingBooksProcess.data.book;
@@ -78,7 +78,8 @@ export class Account extends Component {
             if ('price' in book) {
                 const paidbook = () => {
                     return (
-                        <div className="book" style={{ background: `url(data:image/jpeg;base64,${imageUrl}) no-repeat center center`, backgroundSize: 'cover' }} key={uuid()}>
+                        <div className="book" key={uuid()}>
+                            <img src="data:image/jpeg;base64,${imageUrl}" />
                             <h4 className="title">{book.title}</h4>
                             <div className="buy-details">
                                 <h4 className="price">{book.price + "$"}</h4>
