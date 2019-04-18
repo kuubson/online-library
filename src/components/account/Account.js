@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import axios from 'axios'
+import uuid from 'uuid'
 
 export class Account extends Component {
     _isMounted = false;
@@ -9,9 +10,48 @@ export class Account extends Component {
         freebooks: [],
         paidbooks: []
     }
-    componentDidMount() {
+    async componentDidMount() {
+
         this._isMounted = true;
         !sessionStorage.getItem('jwt') && this.props.history.push('/login');
+
+        if (this._isMounted) {
+            const gettingBooksProcess = await axios.post('/getPremiumBooks');
+            const books = gettingBooksProcess.data.books;
+            books.map(book => {
+                const imageUrl = btoa(new Uint8Array(book.cover.data.data).reduce(function (data, byte) {
+                    return data + String.fromCharCode(byte);
+                }, ''));
+                if ('price' in book) {
+                    const paidbook = () => {
+                        return (
+                            <div className="book" style={{ background: `url(data:image/jpeg;base64,${imageUrl}) no-repeat center center`, backgroundSize: 'cover' }} key={uuid()}>
+                                <h4 className="title">{book.title}</h4>
+                                <div className="buy-details">
+                                    <h4 className="price">{book.price + "$"}</h4>
+                                    <button className="buy-button">Buy</button>
+                                </div>
+                            </div>
+                        )
+                    }
+                    this.setState({
+                        paidbooks: [...this.state.paidbooks, paidbook()]
+                    })
+                } else {
+                    const freebook = () => {
+                        return (
+                            <div className="book" style={{ background: `url(data:image/jpeg;base64,${imageUrl}) no-repeat center center`, backgroundSize: 'cover' }} key={uuid()}>
+                                <h4 className="title">{book.title}</h4>
+                                <button className="borrow-button">Borrow</button>
+                            </div>
+                        )
+                    }
+                    this.setState({
+                        freebooks: [...this.state.freebooks, freebook()]
+                    })
+                }
+            })
+        }
     }
     componentWillUnmount() {
         this._isMounted = false;
@@ -36,9 +76,9 @@ export class Account extends Component {
                 return data + String.fromCharCode(byte);
             }, ''));
             if ('price' in book) {
-                function paidbook() {
+                const paidbook = () => {
                     return (
-                        <div className="book" style={{ background: `url(data:image/jpeg;base64,${imageUrl}) no-repeat center center`, backgroundSize: 'cover' }}>
+                        <div className="book" style={{ background: `url(data:image/jpeg;base64,${imageUrl}) no-repeat center center`, backgroundSize: 'cover' }} key={uuid()}>
                             <h4 className="title">{book.title}</h4>
                             <div className="buy-details">
                                 <h4 className="price">{book.price + "$"}</h4>
@@ -51,10 +91,10 @@ export class Account extends Component {
                     paidbooks: [...this.state.paidbooks, paidbook()]
                 })
             } else {
-                function freebook() {
+                const freebook = () => {
                     return (
-                        <div className="book" style={{ background: `url(data:image/jpeg;base64,${imageUrl}) no-repeat center center`, backgroundSize: 'cover' }}>
-                            <h4 className="title">{freebook.title}</h4>
+                        <div className="book" style={{ background: `url(data:image/jpeg;base64,${imageUrl}) no-repeat center center`, backgroundSize: 'cover' }} key={uuid()}>
+                            <h4 className="title">{book.title}</h4>
                             <button className="borrow-button">Borrow</button>
                         </div>
                     )
