@@ -242,6 +242,36 @@ body {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 70px 100px 1fr 1fr;
   grid-gap: 20px;
+  .modal {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    overflow: auto;
+    display: none;
+    .modal-content {
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40%;
+      height: 50%;
+      background: white;
+      .close {
+        font-size: 50px;
+        position: absolute;
+        top: 5%;
+        right: 0%;
+        transform: translate(-50%, -50%);
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
   .navbar {
     grid-column: 1/10;
     height: 70px;
@@ -295,18 +325,6 @@ body {
       grid-gap: 15px;
       padding: 15px;
       justify-content: center;
-      .soadventure {
-        background: url("../img/books/soadventure.jpg") no-repeat center center;
-        background-size: cover;
-      }
-      .waterstory {
-        background: url("../img/books/waterstory.jpg") no-repeat center center;
-        background-size: cover;
-      }
-      .wildnature {
-        background: url("../img/books/wildnature.jpg") no-repeat center center;
-        background-size: cover;
-      }
       .book {
         text-align: center;
         position: relative;
@@ -380,6 +398,10 @@ body {
       text-align: center;
     }
     .find-field {
+      position: relative;
+      .find-error {
+        position: absolute;
+      }
       .find-form {
         display: flex;
         justify-content: center;
@@ -431,30 +453,6 @@ body {
         position: relative;
         text-align: center;
       }
-      .crimix {
-        background: url("../img/books/crimix.jpg") no-repeat center center;
-        background-size: cover;
-      }
-      .wayup {
-        background: url("../img/books/wayup.jpg") no-repeat center center;
-        background-size: cover;
-      }
-      .nothingimpossible {
-        background: url("../img/books/nothingimpossible.jpg") no-repeat center center;
-        background-size: cover;
-      }
-      .dancestep {
-        background: url("../img/books/dancestep.jpg") no-repeat center center;
-        background-size: cover;
-      }
-      .armynation {
-        background: url("../img/books/armynation.jpg") no-repeat center center;
-        background-size: cover;
-      }
-      .aroundtheworld {
-        background: url("../img/books/aroundtheworld.jpg") no-repeat center center;
-        background-size: cover;
-      }
       .title {
         margin-top: 20px;
         font-size: 15px;
@@ -463,7 +461,7 @@ body {
         color: white;
         text-transform: uppercase;
       }
-      .borrow-button {
+      .checkout-button {
         position: absolute;
         top: 90%;
         left: 50%;
@@ -478,6 +476,9 @@ body {
         border-radius: 10px;
         font-family: "Indie Flower", cursive;
         font-size: 15px;
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
   }
