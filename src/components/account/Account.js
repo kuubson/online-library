@@ -14,6 +14,7 @@ export class Account extends Component {
         paidbooks: [],
         modalBookTitle: "",
         modalBookAuthor: "",
+        modalBookCover: "",
         errorMessage: ""
     }
     async componentDidMount() {
@@ -75,6 +76,7 @@ export class Account extends Component {
         this.setState({
             modalBookTitle: bookTitle,
             modalBookAuthor: bookAuthor,
+            modalBookCover: bookCover
         })
         $('.modal').css('display', 'block');
         anime({
@@ -106,6 +108,7 @@ export class Account extends Component {
                     const imageUrl = btoa(new Uint8Array(book.cover.data.data).reduce(function (data, byte) {
                         return data + String.fromCharCode(byte);
                     }, ''));
+                    book.coverUrl = imageUrl;
                     if ('price' in book) {
                         const paidbook = () => {
                             return (
@@ -155,9 +158,21 @@ export class Account extends Component {
             <div className="account">
                 <div className="modal">
                     <div className="modal-content">
-                        <span className="close" onClick={this.handleCancelModal}>&times;</span>
-                        {this.state.modalBookTitle}
-                        {this.state.modalBookAuthor}
+                        <div className="box box1">
+                            <img className="book-img" src={`data:image/jpeg;base64,${this.state.modalBookCover}`} alt="book" />
+                        </div>
+                        <div className="box box2">
+                            <div className="text">That's just a small step from checking out this book:</div>
+                            <div className="bookTitle">Book written by {this.state.modalBookAuthor}</div>
+                            <div className="bookTitle">Named {this.state.modalBookTitle}</div>
+                        </div>
+                        <div className="box box3">
+                            <div className="text">I am sure I want this book</div>
+                            <div className="buttons">
+                                <button className="button button-yes">Yes</button>
+                                <button className="button button-no" onClick={this.handleCancelModal}>No</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="account-item navbar">
