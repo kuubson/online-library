@@ -26,6 +26,7 @@ export class Account extends Component {
         !sessionStorage.getItem('jwt') && this.props.history.push('/login');
 
         if (this._isMounted) {
+
             const gettingBooksProcess = await axios.post('/getBooks');
             const books = gettingBooksProcess.data.books;
             books.map(book => {
@@ -45,9 +46,11 @@ export class Account extends Component {
                             </div>
                         )
                     }
-                    this.setState({
-                        paidbooks: [...this.state.paidbooks, paidbook()]
-                    })
+                    if (this._isMounted) {
+                        this.setState({
+                            paidbooks: [...this.state.paidbooks, paidbook()]
+                        })
+                    }
                 } else {
                     const freebook = () => {
                         return (
@@ -57,23 +60,26 @@ export class Account extends Component {
                             </div>
                         )
                     }
-                    this.setState({
-                        freebooks: [...this.state.freebooks, freebook()]
-                    })
+                    if (this._isMounted) {
+                        this.setState({
+                            freebooks: [...this.state.freebooks, freebook()]
+                        })
+                    }
                 }
                 return null;
             })
-        }
 
-        accountAnimations();
+            accountAnimations();
+
+        }
 
     }
     componentWillUnmount() {
         this._isMounted = false;
-        this.props.setEmail("");
     }
     handleLogout = () => {
         sessionStorage.clear();
+        this.props.setEmail("");
         this.props.history.push('/');
     }
     handleCheckOutModal = (bookTitle, bookAuthor, bookCover) => {
@@ -94,7 +100,7 @@ export class Account extends Component {
     }
     handleCheckOut = async () => {
         const checkingOutBookProcess = await axios.post('/checkOutBook', {
-            email: 'example@gmail.com',
+            email: this.props.email,
             author: this.state.modalBookAuthor,
             title: this.state.modalBookTitle
         })
@@ -105,6 +111,9 @@ export class Account extends Component {
                 errorMessage: ""
             })
         }, 5000);
+    }
+    handleClick = () => {
+        this.props.history.push('/profile')
     }
     handleChange = (e) => {
         this.setState({
@@ -198,9 +207,8 @@ export class Account extends Component {
                         <li className="navbar-logo-item">Online library</li>
                     </ul>
                     <ul className="navbar-links-items">
-                        <li className="navbar-links-item"><a href="#templink" className="navbar-link">My profile</a></li>
-                        <li className="navbar-links-item"><a href="#templink" className="navbar-link" onClick={this.handleLogout}>Logout</a></li>
-                        <li className="navbar-links-item"><a href="#templink" className="navbar-link">{this.props.email}</a></li>
+                        <li className="navbar-links-item"><div className="navbar-link" onClick={this.handleClick}>My profile</div></li>
+                        <li className="navbar-links-item"><div className="navbar-link" onClick={this.handleLogout}>Logout</div></li>
                     </ul>
                 </div>
                 <div className="account-item buy-book">

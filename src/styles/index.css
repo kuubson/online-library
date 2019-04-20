@@ -302,7 +302,8 @@ body {
   color: white;
 }
 
-.account {
+.account,
+.profile {
   width: 100%;
   height: 100vh;
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url("../img/home-bg.jpg") no-repeat center center;
@@ -318,7 +319,8 @@ body {
   grid-gap: 20px;
 }
 
-.account .modal {
+.account .modal,
+.profile .modal {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -330,7 +332,8 @@ body {
   display: none;
 }
 
-.account .modal .modal-content {
+.account .modal .modal-content,
+.profile .modal .modal-content {
   position: relative;
   top: 50%;
   left: 50%;
@@ -349,7 +352,8 @@ body {
   padding: 10px;
 }
 
-.account .modal .modal-content .box1 {
+.account .modal .modal-content .box1,
+.profile .modal .modal-content .box1 {
   -ms-grid-column: 1;
   -ms-grid-column-span: 2;
   grid-column: 1/3;
@@ -358,14 +362,16 @@ body {
   grid-row: 1/5;
 }
 
-.account .modal .modal-content .box1 .book-img {
+.account .modal .modal-content .box1 .book-img,
+.profile .modal .modal-content .box1 .book-img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
 
-.account .modal .modal-content .box2 {
+.account .modal .modal-content .box2,
+.profile .modal .modal-content .box2 {
   -ms-grid-column: 3;
   -ms-grid-column-span: 2;
   grid-column: 3/5;
@@ -389,12 +395,14 @@ body {
   padding: 15px;
 }
 
-.account .modal .modal-content .box2 .text {
+.account .modal .modal-content .box2 .text,
+.profile .modal .modal-content .box2 .text {
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-.account .modal .modal-content .box3 {
+.account .modal .modal-content .box3,
+.profile .modal .modal-content .box3 {
   -ms-grid-column: 3;
   -ms-grid-column-span: 2;
   grid-column: 3/5;
@@ -419,7 +427,8 @@ body {
   margin-bottom: 10px;
 }
 
-.account .modal .modal-content .box3 .buttons .button {
+.account .modal .modal-content .box3 .buttons .button,
+.profile .modal .modal-content .box3 .buttons .button {
   margin: 0px 10px;
   margin-top: 30px;
   width: 70px;
@@ -433,11 +442,13 @@ body {
   font-size: 15px;
 }
 
-.account .modal .modal-content .box3 .buttons .button:hover {
+.account .modal .modal-content .box3 .buttons .button:hover,
+.profile .modal .modal-content .box3 .buttons .button:hover {
   cursor: pointer;
 }
 
-.account .modal .modal-content .box {
+.account .modal .modal-content .box,
+.profile .modal .modal-content .box {
   /*    &:nth-child(even) {
           background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
         }
@@ -446,7 +457,8 @@ body {
         } */
 }
 
-.account .modal .modal-content .close {
+.account .modal .modal-content .close,
+.profile .modal .modal-content .close {
   font-size: 50px;
   position: absolute;
   top: 5%;
@@ -455,11 +467,13 @@ body {
           transform: translate(-50%, -50%);
 }
 
-.account .modal .modal-content .close:hover {
+.account .modal .modal-content .close:hover,
+.profile .modal .modal-content .close:hover {
   cursor: pointer;
 }
 
-.account .navbar {
+.account .navbar,
+.profile .navbar {
   -ms-grid-column: 1;
   -ms-grid-column-span: 9;
   grid-column: 1/10;
@@ -469,39 +483,47 @@ body {
   background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
 }
 
-.account .navbar .navbar-logo-items {
+.account .navbar .navbar-logo-items,
+.profile .navbar .navbar-logo-items {
   float: left;
   list-style: none;
 }
 
-.account .navbar .navbar-logo-items .navbar-logo-item {
+.account .navbar .navbar-logo-items .navbar-logo-item,
+.profile .navbar .navbar-logo-items .navbar-logo-item {
   color: white;
   font-weight: bold;
   font-size: 35px;
   margin-left: 30px;
 }
 
-.account .navbar .navbar-links-items {
+.account .navbar .navbar-links-items,
+.profile .navbar .navbar-links-items {
   float: right;
 }
 
-.account .navbar .navbar-links-items .navbar-links-item {
+.account .navbar .navbar-links-items .navbar-links-item,
+.profile .navbar .navbar-links-items .navbar-links-item {
   list-style: none;
   float: left;
 }
 
-.account .navbar .navbar-links-items .navbar-links-item .navbar-link {
+.account .navbar .navbar-links-items .navbar-links-item .navbar-link,
+.profile .navbar .navbar-links-items .navbar-links-item .navbar-link {
   text-decoration: none;
   color: white;
   font-size: 20px;
   margin-right: 40px;
 }
 
-.account .navbar .navbar-links-items .navbar-links-item .navbar-link:hover {
+.account .navbar .navbar-links-items .navbar-links-item .navbar-link:hover,
+.profile .navbar .navbar-links-items .navbar-links-item .navbar-link:hover {
   color: black;
+  cursor: pointer;
 }
 
-.account .buy-book {
+.account .buy-book,
+.profile .buy-book {
   -ms-grid-column: 6;
   -ms-grid-column-span: 4;
   grid-column: 6/10;
@@ -516,7 +538,8 @@ body {
       grid-template-columns: 1fr;
 }
 
-.account .buy-book .buy-book-title {
+.account .buy-book .buy-book-title,
+.profile .buy-book .buy-book-title {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -531,7 +554,8 @@ body {
   font-size: 12px;
 }
 
-.account .buy-book .buy-books-container {
+.account .buy-book .buy-books-container,
+.profile .buy-book .buy-books-container {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 50%;
@@ -545,19 +569,22 @@ body {
           justify-content: center;
 }
 
-.account .buy-book .buy-books-container .book {
+.account .buy-book .buy-books-container .book,
+.profile .buy-book .buy-books-container .book {
   text-align: center;
   position: relative;
 }
 
-.account .buy-book .buy-books-container .book .title {
+.account .buy-book .buy-books-container .book .title,
+.profile .buy-book .buy-books-container .book .title {
   padding-top: 15px;
   color: white;
   text-transform: uppercase;
   font-size: 15px;
 }
 
-.account .buy-book .buy-books-container .book .buy-details .price {
+.account .buy-book .buy-books-container .book .buy-details .price,
+.profile .buy-book .buy-books-container .book .buy-details .price {
   position: absolute;
   top: 70%;
   left: 50%;
@@ -566,7 +593,8 @@ body {
   color: white;
 }
 
-.account .buy-book .buy-books-container .book .buy-details .buy-button {
+.account .buy-book .buy-books-container .book .buy-details .buy-button,
+.profile .buy-book .buy-books-container .book .buy-details .buy-button {
   position: absolute;
   top: 90%;
   left: 50%;
@@ -584,7 +612,8 @@ body {
   font-size: 15px;
 }
 
-.account .socials {
+.account .socials,
+.profile .socials {
   -ms-grid-column: 6;
   -ms-grid-column-span: 1;
   grid-column: 6/7;
@@ -605,27 +634,33 @@ body {
           align-items: center;
 }
 
-.account .socials .social {
+.account .socials .social,
+.profile .socials .social {
   font-size: 50px;
 }
 
-.account .socials .social .fb {
+.account .socials .social .fb,
+.profile .socials .social .fb {
   color: #3b5998;
 }
 
-.account .socials .social .ig {
+.account .socials .social .ig,
+.profile .socials .social .ig {
   color: #c32aa3;
 }
 
-.account .socials .social .tw {
+.account .socials .social .tw,
+.profile .socials .social .tw {
   color: #1da1f2;
 }
 
-.account .socials .social .yt {
+.account .socials .social .yt,
+.profile .socials .social .yt {
   color: #ff0000;
 }
 
-.account .find-book {
+.account .find-book,
+.profile .find-book {
   -ms-grid-column: 1;
   -ms-grid-column-span: 5;
   grid-column: 1/6;
@@ -642,22 +677,26 @@ body {
           align-items: center;
 }
 
-.account .find-book .find-book-title {
+.account .find-book .find-book-title,
+.profile .find-book .find-book-title {
   color: white;
   font-size: 12px;
   margin-right: 30px;
   text-align: center;
 }
 
-.account .find-book .find-field {
+.account .find-book .find-field,
+.profile .find-book .find-field {
   position: relative;
 }
 
-.account .find-book .find-field .find-error {
+.account .find-book .find-field .find-error,
+.profile .find-book .find-field .find-error {
   position: absolute;
 }
 
-.account .find-book .find-field .find-form {
+.account .find-book .find-field .find-form,
+.profile .find-book .find-field .find-form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -669,7 +708,8 @@ body {
           align-items: center;
 }
 
-.account .find-book .find-field .find-form .find-button {
+.account .find-book .find-field .find-form .find-button,
+.profile .find-book .find-field .find-form .find-button {
   width: 70px;
   height: 35px;
   display: block;
@@ -681,7 +721,8 @@ body {
   font-size: 20px;
 }
 
-.account .find-book .find-field .find-form .find-book-input {
+.account .find-book .find-field .find-form .find-book-input,
+.profile .find-book .find-field .find-form .find-book-input {
   width: 200px;
   height: 35px;
   display: block;
@@ -696,23 +737,28 @@ body {
   margin-left: 20px;
 }
 
-.account .find-book .find-field .find-form .find-book-input::-webkit-input-placeholder {
+.account .find-book .find-field .find-form .find-book-input::-webkit-input-placeholder,
+.profile .find-book .find-field .find-form .find-book-input::-webkit-input-placeholder {
   color: white;
 }
 
-.account .find-book .find-field .find-form .find-book-input:-ms-input-placeholder {
+.account .find-book .find-field .find-form .find-book-input:-ms-input-placeholder,
+.profile .find-book .find-field .find-form .find-book-input:-ms-input-placeholder {
   color: white;
 }
 
-.account .find-book .find-field .find-form .find-book-input::-ms-input-placeholder {
+.account .find-book .find-field .find-form .find-book-input::-ms-input-placeholder,
+.profile .find-book .find-field .find-form .find-book-input::-ms-input-placeholder {
   color: white;
 }
 
-.account .find-book .find-field .find-form .find-book-input::placeholder {
+.account .find-book .find-field .find-form .find-book-input::placeholder,
+.profile .find-book .find-field .find-form .find-book-input::placeholder {
   color: white;
 }
 
-.account .books {
+.account .books,
+.profile .books {
   -ms-grid-column: 1;
   -ms-grid-column-span: 5;
   grid-column: 1/6;
@@ -721,7 +767,8 @@ body {
   grid-row: 3/5;
 }
 
-.account .books .find-books-container {
+.account .books .find-books-container,
+.profile .books .find-books-container {
   width: 100%;
   height: 100%;
   display: -ms-grid;
@@ -736,12 +783,14 @@ body {
       align-content: center;
 }
 
-.account .books .find-books-container .book {
+.account .books .find-books-container .book,
+.profile .books .find-books-container .book {
   position: relative;
   text-align: center;
 }
 
-.account .books .find-books-container .title {
+.account .books .find-books-container .title,
+.profile .books .find-books-container .title {
   margin-top: 20px;
   font-size: 15px;
   white-space: nowrap;
@@ -750,7 +799,8 @@ body {
   text-transform: uppercase;
 }
 
-.account .books .find-books-container .checkout-button {
+.account .books .find-books-container .checkout-button,
+.profile .books .find-books-container .checkout-button {
   position: absolute;
   top: 90%;
   left: 50%;
@@ -768,16 +818,71 @@ body {
   font-size: 15px;
 }
 
-.account .books .find-books-container .checkout-button:hover {
+.account .books .find-books-container .checkout-button:hover,
+.profile .books .find-books-container .checkout-button:hover {
   cursor: pointer;
 }
 
-.account .account-item {
+.account .account-item,
+.profile .account-item {
   /*    &:nth-child(even) {
       background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
       }
     &:nth-child(odd) {
       background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
     } */
+}
+
+.profile {
+  width: 100%;
+  height: 100vh;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url("../img/home-bg.jpg") no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/home-bg.jpg") no-repeat center center;
+  background-size: cover;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  -ms-grid-rows: 70px 1fr 1fr;
+      grid-template-rows: 70px 1fr 1fr;
+}
+
+.profile .box:nth-child(even) {
+  background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+}
+
+.profile .box:nth-child(odd) {
+  background-image: -webkit-gradient(linear, left top, right top, from(#4facfe), to(#00f2fe));
+  background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+}
+
+.profile .box2 {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 4;
+  grid-column: 1/5;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 2;
+  grid-row: 2/4;
+}
+
+.profile .box3 {
+  -ms-grid-column: 5;
+  -ms-grid-column-span: 3;
+  grid-column: 5/8;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 2;
+  grid-row: 2/4;
+}
+
+.profile .box4 {
+  -ms-grid-column: 8;
+  -ms-grid-column-span: 2;
+  grid-column: 8/10;
+}
+
+.profile .box5 {
+  -ms-grid-column: 8;
+  -ms-grid-column-span: 2;
+  grid-column: 8/10;
 }
 /*# sourceMappingURL=index.css.map */

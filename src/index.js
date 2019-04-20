@@ -6,10 +6,7 @@ import './styles/responsiveness/responsiveness.css';
 import App from './App';
 import { Provider } from 'react-redux';
 import { store } from './store'
-import { setEmail } from './actions/user'
-
-window.store = store;
-window.setEmail = setEmail;
-
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistor } from './store'
+ReactDOM.render(<Provider store={store}><PersistGate persistor={persistor}><App /></PersistGate></Provider>, document.getElementById('root'));
 
