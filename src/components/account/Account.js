@@ -15,6 +15,7 @@ export class Account extends Component {
         modalBookTitle: "",
         modalBookAuthor: "",
         modalBookCover: "",
+        successMessage: "",
         errorMessage: ""
     }
     async componentDidMount() {
@@ -87,6 +88,20 @@ export class Account extends Component {
     }
     handleCancelModal = () => {
         $('.modal').css('display', 'none');
+    }
+    handleCheckOut = async () => {
+        const checkingOutBookProcess = await axios.post('/checkOutBook', {
+            email: 'example@gmail.com',
+            author: this.state.modalBookAuthor,
+            title: this.state.modalBookTitle
+        })
+        checkingOutBookProcess.data.done ? this.setState({ successMessage: checkingOutBookProcess.data.msg, errorMessage: "" }) || $('.modal').css('display', 'none') : this.setState({ successMessage: "", errorMessage: checkingOutBookProcess.data.msg }) || $('.modal').css('display', 'none');
+        setTimeout(() => {
+            this.setState({
+                successMessage: "",
+                errorMessage: ""
+            })
+        }, 3000);
     }
     handleChange = (e) => {
         this.setState({
@@ -169,7 +184,7 @@ export class Account extends Component {
                         <div className="box box3">
                             <div className="text">I am sure I want this book</div>
                             <div className="buttons">
-                                <button className="button button-yes">Yes</button>
+                                <button className="button button-yes" onClick={this.handleCheckOut}>Yes</button>
                                 <button className="button button-no" onClick={this.handleCancelModal}>No</button>
                             </div>
                         </div>
@@ -202,6 +217,7 @@ export class Account extends Component {
                             <button className="find-button">Find</button>
                         </form>
                         <div className="find-error">
+                            {this.state.successMessage !== "" && <div className="success">{this.state.successMessage}</div>}
                             {this.state.errorMessage !== "" && <div className="error">{this.state.errorMessage}</div>}
                         </div>
                     </div>

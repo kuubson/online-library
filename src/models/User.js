@@ -17,6 +17,9 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    books: {
+        type: Array
+    }
 })
 
 const User = mongoose.model('User', UserSchema, 'users');
