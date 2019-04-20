@@ -5,6 +5,8 @@ import uuid from 'uuid'
 import { accountAnimations } from '../../animations/AccountAnimations'
 import $ from 'jquery'
 import anime from 'animejs'
+import { setEmail } from '../../actions/user'
+import { connect } from 'react-redux'
 
 export class Account extends Component {
     _isMounted = false;
@@ -68,6 +70,7 @@ export class Account extends Component {
     }
     componentWillUnmount() {
         this._isMounted = false;
+        this.props.setEmail("");
     }
     handleLogout = () => {
         sessionStorage.clear();
@@ -101,7 +104,7 @@ export class Account extends Component {
                 successMessage: "",
                 errorMessage: ""
             })
-        }, 3000);
+        }, 5000);
     }
     handleChange = (e) => {
         this.setState({
@@ -197,6 +200,7 @@ export class Account extends Component {
                     <ul className="navbar-links-items">
                         <li className="navbar-links-item"><a href="#templink" className="navbar-link">My profile</a></li>
                         <li className="navbar-links-item"><a href="#templink" className="navbar-link" onClick={this.handleLogout}>Logout</a></li>
+                        <li className="navbar-links-item"><a href="#templink" className="navbar-link">{this.props.email}</a></li>
                     </ul>
                 </div>
                 <div className="account-item buy-book">
@@ -232,4 +236,16 @@ export class Account extends Component {
     }
 }
 
-export default Account
+const mapStateToProps = (state) => {
+    return {
+        email: state.user.email
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setEmail: payload => dispatch(setEmail(payload))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Account)

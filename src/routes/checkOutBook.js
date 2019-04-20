@@ -37,7 +37,8 @@ router.post('/checkOutBook', (req, res) => {
                     }, {
                             books: updatedBooks
                         }, {
-                            new: true
+                            new: true,
+                            useFindAndModify: false
                         }, (error, doc) => {
                             if (error) {
                                 res.send({
