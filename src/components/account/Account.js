@@ -102,7 +102,8 @@ export class Account extends Component {
         const checkingOutBookProcess = await axios.post('/checkOutBook', {
             email: this.props.email,
             author: this.state.modalBookAuthor,
-            title: this.state.modalBookTitle
+            title: this.state.modalBookTitle,
+            cover: this.state.modalBookCover
         })
         checkingOutBookProcess.data.done ? this.setState({ successMessage: checkingOutBookProcess.data.msg, errorMessage: "" }) || $('.modal').css('display', 'none') : this.setState({ successMessage: "", errorMessage: checkingOutBookProcess.data.msg }) || $('.modal').css('display', 'none');
         setTimeout(() => {

@@ -4,7 +4,7 @@ const User = require('../models/User');
 
 router.post('/checkOutBook', (req, res) => {
 
-    const { email, author, title } = req.body;
+    const { email, author, title, cover } = req.body;
 
     CheckedOutBook.findOne({
         email,
@@ -28,7 +28,8 @@ router.post('/checkOutBook', (req, res) => {
                 } else {
                     const book = {
                         author,
-                        title
+                        title,
+                        cover
                     }
                     const updatedBooks = user.books;
                     updatedBooks.push(book);

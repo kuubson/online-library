@@ -1,9 +1,11 @@
-import { SET_EMAIL, SET_FREEBOOKS, SET_PAIDBOOKS } from '../actions/actionTypes'
+import { SET_EMAIL, SET_FREEBOOKS, SET_PAIDBOOKS, SET_BOUGHTBOOKS, SET_CHECKEDOUTBOOKS } from '../actions/actionTypes'
 
 const initialState = {
     email: "",
     freebooks: [],
-    paidbooks: []
+    paidbooks: [],
+    checkedOutBooks: [],
+    boughtBooks: []
 }
 
 export const user = (state = initialState, action) => {
@@ -23,6 +25,18 @@ export const user = (state = initialState, action) => {
         return {
             ...state,
             paidbooks: action.payload
+        }
+    }
+    if (action.type === SET_CHECKEDOUTBOOKS) {
+        return {
+            ...state,
+            checkedOutBooks: action.payload
+        }
+    }
+    if (action.type === SET_BOUGHTBOOKS) {
+        return {
+            ...state,
+            boughtBooks: action.payload
         }
     }
     return state;
