@@ -5,7 +5,7 @@ import uuid from 'uuid'
 import { accountAnimations } from '../../animations/AccountAnimations'
 import $ from 'jquery'
 import anime from 'animejs'
-import { setEmail } from '../../actions/user'
+import { setEmail, setFreeBooks, setPaidBooks } from '../../actions/user'
 import { connect } from 'react-redux'
 
 export class Account extends Component {
@@ -25,54 +25,54 @@ export class Account extends Component {
         this._isMounted = true;
         !sessionStorage.getItem('jwt') && this.props.history.push('/login');
 
-        if (this._isMounted) {
-
-            const gettingBooksProcess = await axios.post('/getBooks');
-            const books = gettingBooksProcess.data.books;
-            books.map(book => {
+        function sortBooks(paidBooks, freeBooks, handleCheckOutModal) {
+            const paidbooks = paidBooks.map(book => {
                 const imageUrl = btoa(new Uint8Array(book.cover.data.data).reduce(function (data, byte) {
                     return data + String.fromCharCode(byte);
                 }, ''));
                 book.coverUrl = imageUrl;
-                if ('price' in book) {
-                    const paidbook = () => {
-                        return (
-                            <div className="book" style={{ background: `url(data:image/jpeg;base64,${imageUrl}) no-repeat center center`, backgroundSize: 'cover' }} key={uuid()}>
-                                <h4 className="title">{book.title}</h4>
-                                <div className="buy-details">
-                                    <h4 className="price">{book.price + "$"}</h4>
-                                    <button className="buy-button">Buy</button>
-                                </div>
-                            </div>
-                        )
-                    }
-                    if (this._isMounted) {
-                        this.setState({
-                            paidbooks: [...this.state.paidbooks, paidbook()]
-                        })
-                    }
-                } else {
-                    const freebook = () => {
-                        return (
-                            <div className="book" style={{ background: `url(data:image/jpeg;base64,${imageUrl}) no-repeat center center`, backgroundSize: 'cover' }} key={uuid()}>
-                                <h4 className="title">{book.title}</h4>
-                                <button className="checkout-button" onClick={() => this.handleCheckOutModal(book.title, book.author, book.coverUrl)}>Check out</button>
-                            </div>
-                        )
-                    }
-                    if (this._isMounted) {
-                        this.setState({
-                            freebooks: [...this.state.freebooks, freebook()]
-                        })
-                    }
-                }
-                return null;
+                return (
+                    <div className="book" style={{ background: `url(data:image/jpeg;base64,${imageUrl}) no-repeat center center`, backgroundSize: 'cover' }} key={uuid()}>
+                        <h4 className="title">{book.title}</h4>
+                        <div className="buy-details">
+                            <h4 className="price">{book.price + "$"}</h4>
+                            <button className="buy-button">Buy</button>
+                        </div>
+                    </div>
+                )
             })
-
-            accountAnimations();
-
+            const freebooks = freeBooks.map(book => {
+                const imageUrl = btoa(new Uint8Array(book.cover.data.data).reduce(function (data, byte) {
+                    return data + String.fromCharCode(byte);
+                }, ''));
+                book.coverUrl = imageUrl;
+                return (
+                    <div className="book" style={{ background: `url(data:image/jpeg;base64,${imageUrl}) no-repeat center center`, backgroundSize: 'cover' }} key={uuid()}>
+                        <h4 className="title">{book.title}</h4>
+                        <button className="checkout-button" onClick={() => handleCheckOutModal(book.title, book.author, book.coverUrl)}>Check out</button>
+                    </div>
+                )
+            })
+            return {
+                freebooks,
+                paidbooks
+            }
         }
 
+        if (this._isMounted) {
+
+            if (this.props.freebooks.length === 0 && this.props.paidbooks.length === 0) {
+                const gettingBooksProcess = await axios.get('/getBooks');
+                const freebooks = gettingBooksProcess.data.freebooks;
+                const paidbooks = gettingBooksProcess.data.paidbooks;
+                this.props.setFreeBooks(freebooks);
+                this.props.setPaidBooks(paidbooks);
+                this.setState(sortBooks(this.props.paidbooks, this.props.freebooks, this.handleCheckOutModal));
+                accountAnimations();
+            } else {
+                this.setState(sortBooks(this.props.paidbooks, this.props.freebooks, this.handleCheckOutModal));
+            }
+        }
     }
     componentWillUnmount() {
         this._isMounted = false;
@@ -246,13 +246,17 @@ export class Account extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        email: state.user.email
+        email: state.user.email,
+        freebooks: state.user.freebooks,
+        paidbooks: state.user.paidbooks
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setEmail: payload => dispatch(setEmail(payload))
+        setEmail: payload => dispatch(setEmail(payload)),
+        setFreeBooks: payload => dispatch(setFreeBooks(payload)),
+        setPaidBooks: payload => dispatch(setPaidBooks(payload)),
     }
 }
 
