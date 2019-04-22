@@ -3,6 +3,9 @@ import React, { Component } from 'react'
 import { loginAnimations } from '../../animations/LoginAnimations'
 import validator from 'validator'
 import axios from 'axios'
+import { connect } from 'react-redux'
+
+import { setEmail } from '../../actions/user'
 
 export class Login extends Component {
     _isMounted = false;
@@ -43,7 +46,7 @@ export class Login extends Component {
                     email,
                     password
                 })
-                loginProcess.data.done ? this.setState({ successMessage: loginProcess.data.msg }) || sessionStorage.setItem('jwt', loginProcess.data.token) || setTimeout(() => {
+                loginProcess.data.done ? this.setState({ successMessage: loginProcess.data.msg }) || sessionStorage.setItem('jwt', loginProcess.data.token) || this.props.setEmail(email) || setTimeout(() => {
                     this.props.history.push('/account');
                 }, 1000) : this.setState({ errorMessage: loginProcess.data.msg })
             }
@@ -78,4 +81,12 @@ export class Login extends Component {
     }
 }
 
-export default Login
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setEmail: (payload) => {
+            dispatch(setEmail(payload))
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Login)

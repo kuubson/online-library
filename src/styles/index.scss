@@ -1,330 +1,733 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  outline: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
 }
 
 body {
-  font-family: "Indie Flower", cursive;
-  overflow-x: hidden;
+    font-family: "Indie Flower", cursive;
+    overflow-x: hidden;
 }
 
 .error {
-  color: red;
-  text-align: center;
-  font-weight: bold;
-  width: 310px;
+    color: red;
+    text-align: center;
+    font-weight: bold;
+    width: 310px;
 }
 
 .success {
-  color: green;
-  text-align: center;
-  font-weight: bold;
+    color: green;
+    text-align: center;
+    font-weight: bold;
 }
 
 .form-link-container {
-  text-align: center;
-  padding-top: 15px;
-  .form-link {
-    text-decoration: none;
-    color: black;
-    color: white;
+    text-align: center;
+    padding-top: 15px;
 
-    &:hover {
-      color: black;
-      font-weight: bold;
+    .form-link {
+        text-decoration: none;
+        color: black;
+        color: white;
+
+        &:hover {
+            color: black;
+            font-weight: bold;
+        }
     }
-  }
 }
 
 .home {
-  overflow: hidden;
-  width: 100%;
-  min-height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/home-bg.jpg") no-repeat center center;
-  background-size: cover;
-  display: grid;
-  grid-template-rows: 55% 45%;
+    overflow: hidden;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/home-bg.jpg") no-repeat center center;
+    background-size: cover;
+    display: grid;
+    grid-template-rows: 55% 45%;
 
-  .home-welcome {
-    display: flex;
-    justify-content: center;
-    color: white;
-
-    .home-welcome-text {
-      font-size: 35px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: center;
-
-      .buttons {
-        padding-top: 20px;
-
-        .btn {
-          width: 250px;
-          height: 45px;
-          display: block;
-          margin: 25px 0px;
-          border: none;
-          border-left: 2px solid white;
-          border-right: 2px solid white;
-          outline: none;
-          background: #333;
-          color: white;
-          font-family: "Indie Flower", cursive;
-          font-size: 20px;
-
-          &:hover {
-            border: 2px solid white;
-            cursor: pointer;
-          }
-        }
-      }
-    }
-  }
-
-  .home-boxes {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-
-    .home-box {
-      margin-bottom: 50px;
-      width: 200px;
-      height: 200px;
-      border-bottom: 4px solid white;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      .home-box-text {
-        text-transform: uppercase;
+    .home-welcome {
+        display: flex;
+        justify-content: center;
         color: white;
-        font-size: 27px;
-      }
+
+        .home-welcome-text {
+            font-size: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+
+            .buttons {
+                padding-top: 20px;
+
+                .btn {
+                    width: 250px;
+                    height: 45px;
+                    display: block;
+                    margin: 25px 0px;
+                    border: none;
+                    border-left: 2px solid white;
+                    border-right: 2px solid white;
+                    outline: none;
+                    background: #333;
+                    color: white;
+                    font-family: "Indie Flower", cursive;
+                    font-size: 20px;
+
+                    &:hover {
+                        border: 2px solid white;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
     }
-  }
+
+    .home-boxes {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-end;
+
+        .home-box {
+            margin-bottom: 50px;
+            width: 200px;
+            height: 200px;
+            border-bottom: 4px solid white;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .home-box-text {
+                text-transform: uppercase;
+                color: white;
+                font-size: 27px;
+            }
+        }
+    }
 }
 
 .register {
-  width: 100%;
-  min-height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("../img/home-bg.jpg") no-repeat center center;
-  background-size: cover;
-  display: flex;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("../img/home-bg.jpg") no-repeat center center;
+    background-size: cover;
+    display: flex;
 
-  .register-form {
-    margin: auto;
-    padding: 30px;
+    .register-form {
+        margin: auto;
+        padding: 30px;
 
-    .input {
-      margin: 20px 0px;
-      position: relative;
+        .input {
+            margin: 20px 0px;
+            position: relative;
 
-      label {
-        display: block;
-        font-weight: bold;
-        font-size: 20px;
-        color: black;
-        margin-bottom: 5px;
-      }
+            label {
+                display: block;
+                font-weight: bold;
+                font-size: 20px;
+                color: black;
+                margin-bottom: 5px;
+            }
 
-      .register-input[type="text"],
-      .register-input[type="password"] {
-        width: 300px;
-        height: 35px;
-        display: block;
-        outline: none;
-        border: none;
-        border-bottom: 3px solid white;
-        background: none;
-        text-indent: 10px;
-        font-family: "Indie Flower", cursive;
-        font-size: 15px;
-        color: white;
+            .register-input[type="text"],
+            .register-input[type="password"] {
+                width: 300px;
+                height: 35px;
+                display: block;
+                outline: none;
+                border: none;
+                border-bottom: 3px solid white;
+                background: none;
+                text-indent: 10px;
+                font-family: "Indie Flower", cursive;
+                font-size: 15px;
+                color: white;
 
-        &::placeholder {
-          color: white;
+                &::placeholder {
+                    color: white;
+                }
+
+                &:not(:placeholder-shown) {
+                    border-left: 3px solid white;
+                }
+            }
+
+            .register-input[type="submit"] {
+                width: 300px;
+                height: 35px;
+                margin-top: 30px;
+                outline: none;
+                border: 3px solid white;
+                background: none;
+                text-indent: 10px;
+                font-family: "Indie Flower", cursive;
+                font-size: 15px;
+                color: white;
+            }
         }
-
-        &:not(:placeholder-shown) {
-          border-left: 3px solid white;
-        }
-      }
-      .register-input[type="submit"] {
-        width: 300px;
-        height: 35px;
-        margin-top: 30px;
-        outline: none;
-        border: 3px solid white;
-        background: none;
-        text-indent: 10px;
-        font-family: "Indie Flower", cursive;
-        font-size: 15px;
-        color: white;
-      }
     }
-  }
 }
 
 .login {
-  width: 100%;
-  min-height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("../img/home-bg.jpg") no-repeat center center;
-  background-size: cover;
-  display: flex;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("../img/home-bg.jpg") no-repeat center center;
+    background-size: cover;
+    display: flex;
 
-  .login-form {
-    margin: auto;
-    padding: 30px;
+    .login-form {
+        margin: auto;
+        padding: 30px;
 
-    .input {
-      margin: 20px 0px;
-      position: relative;
+        .input {
+            margin: 20px 0px;
+            position: relative;
 
-      label {
-        display: block;
-        font-weight: bold;
-        font-size: 20px;
-        color: black;
-        margin-bottom: 5px;
-      }
+            label {
+                display: block;
+                font-weight: bold;
+                font-size: 20px;
+                color: black;
+                margin-bottom: 5px;
+            }
 
-      .login-input[type="text"],
-      .login-input[type="password"] {
-        width: 300px;
-        height: 35px;
-        display: block;
-        outline: none;
-        border: none;
-        border-bottom: 3px solid white;
-        background: none;
-        text-indent: 10px;
-        font-family: "Indie Flower", cursive;
-        font-size: 15px;
-        color: white;
+            .login-input[type="text"],
+            .login-input[type="password"] {
+                width: 300px;
+                height: 35px;
+                display: block;
+                outline: none;
+                border: none;
+                border-bottom: 3px solid white;
+                background: none;
+                text-indent: 10px;
+                font-family: "Indie Flower", cursive;
+                font-size: 15px;
+                color: white;
 
-        &::placeholder {
-          color: white;
+                &::placeholder {
+                    color: white;
+                }
+
+                &:not(:placeholder-shown) {
+                    border-left: 3px solid white;
+                }
+            }
+
+            .login-input[type="submit"] {
+                width: 300px;
+                height: 35px;
+                margin-top: 30px;
+                outline: none;
+                border: 3px solid white;
+                background: none;
+                text-indent: 10px;
+                font-family: "Indie Flower", cursive;
+                font-size: 15px;
+                color: white;
+            }
         }
-
-        &:not(:placeholder-shown) {
-          border-left: 3px solid white;
-        }
-      }
-
-      .login-input[type="submit"] {
-        width: 300px;
-        height: 35px;
-        margin-top: 30px;
-        outline: none;
-        border: 3px solid white;
-        background: none;
-        text-indent: 10px;
-        font-family: "Indie Flower", cursive;
-        font-size: 15px;
-        color: white;
-      }
     }
-  }
 }
 
-.account {
-  width: 100%;
-  height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/home-bg.jpg") no-repeat center center;
-  background-size: cover;
-  padding: 20px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 70px 100px 1fr 1fr;
-  grid-gap: 20px;
-  .navbar {
-    grid-column: 1/10;
-    height: 70px;
-    line-height: 70px;
-    background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-    .navbar-logo-items {
-      float: left;
-      list-style: none;
-      .navbar-logo-item {
-        color: white;
-        font-weight: bold;
-        font-size: 35px;
-        margin-left: 30px;
-      }
-    }
-    .navbar-links-items {
-      float: right;
-      .navbar-links-item {
-        list-style: none;
-        float: left;
-        .navbar-link {
-          text-decoration: none;
-          color: white;
-          font-size: 20px;
-          margin-right: 40px;
-          &:hover {
-            color: black;
-          }
-        }
-      }
-    }
-  }
-  .buy-book {
-    grid-column: 6/10;
-    grid-row: 2/5;
+.account,
+.profile {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/home-bg.jpg") no-repeat center center;
+    background-size: cover;
+    padding: 20px;
     display: grid;
-    grid-template-rows: 60px 1fr;
-    grid-template-columns: 1fr;
-    .buy-book-title {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      color: white;
-      font-size: 12px;
-    }
-    .buy-books-container {
-      display: grid;
-      grid-template-columns: 50%;
-      grid-template-rows: 1fr 1fr 1fr;
-      grid-gap: 15px;
-      padding: 15px;
-      justify-content: center;
-      .soadventure {
-        background: url("../img/books/soadventure.jpg") no-repeat center center;
-        background-size: cover;
-      }
-      .waterstory {
-        background: url("../img/books/waterstory.jpg") no-repeat center center;
-        background-size: cover;
-      }
-      .wildnature {
-        background: url("../img/books/wildnature.jpg") no-repeat center center;
-        background-size: cover;
-      }
-      .book {
-        text-align: center;
-        position: relative;
-        .title {
-          padding-top: 15px;
-          color: white;
-          text-transform: uppercase;
-          font-size: 15px;
-        }
-        .buy-details {
-          .price {
-            position: absolute;
-            top: 70%;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 70px 100px 1fr 1fr;
+    grid-gap: 20px;
+
+    .modal,
+    .modal2 {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        overflow: auto;
+        display: none;
+
+        .modal-content {
+            position: relative;
+            top: 50%;
             left: 50%;
-            transform: translate(-50%, -70%);
+            transform: translate(-50%, -50%);
+            width: 40%;
+            height: 50%;
+            background: white;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            grid-gap: 10px;
+            padding: 10px;
+
+            .box1 {
+                grid-column: 1/3;
+                grid-row: 1/5;
+
+                .book-img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .box2 {
+                grid-column: 3/5;
+                grid-row: 1/3;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                padding: 15px;
+
+                .text {
+                    font-weight: bold;
+                    margin-bottom: 10px;
+                }
+            }
+
+            .box3 {
+                grid-column: 3/5;
+                grid-row: 3/5;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                align-items: center;
+                text-align: center;
+                padding: 15px;
+                margin-bottom: 10px;
+
+                .buttons {
+                    .button {
+                        margin: 0px 10px;
+                        margin-top: 30px;
+                        min-width: 70px;
+                        height: auto;
+                        padding: 5px 10px;
+                        border: none;
+                        outline: none;
+                        background: #333;
+                        color: white;
+                        border-radius: 10px;
+                        font-family: "Indie Flower", cursive;
+                        font-size: 15px;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+            .box {
+                /*    &:nth-child(even) {
+          background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+        }
+        &:nth-child(odd) {
+          background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+        } */
+            }
+
+            .close {
+                font-size: 50px;
+                position: absolute;
+                top: 5%;
+                right: 0%;
+                transform: translate(-50%, -50%);
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .navbar {
+        grid-column: 1/10;
+        height: 70px;
+        line-height: 70px;
+        background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+
+        .navbar-logo-items {
+            float: left;
+            list-style: none;
+
+            .navbar-logo-item {
+                color: white;
+                font-weight: bold;
+                font-size: 35px;
+                margin-left: 30px;
+            }
+        }
+
+        .navbar-links-items {
+            float: right;
+
+            .navbar-links-item {
+                list-style: none;
+                float: left;
+
+                .navbar-link {
+                    text-decoration: none;
+                    color: white;
+                    font-size: 20px;
+                    margin-right: 40px;
+
+                    &:hover {
+                        color: black;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+
+    .buy-book {
+        grid-column: 6/10;
+        grid-row: 2/5;
+        display: grid;
+        grid-template-rows: 60px 1fr;
+        grid-template-columns: 1fr;
+
+        .buy-book-title {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             color: white;
-          }
-          .buy-button {
+            font-size: 12px;
+        }
+
+        .buy-books-container {
+            display: grid;
+            grid-template-columns: 50%;
+            grid-template-rows: 1fr 1fr 1fr;
+            grid-gap: 15px;
+            padding: 15px;
+            justify-content: center;
+
+            .book {
+                text-align: center;
+                position: relative;
+
+                .title {
+                    padding-top: 15px;
+                    color: white;
+                    text-transform: uppercase;
+                    font-size: 15px;
+                }
+
+                .buy-details {
+                    .price {
+                        position: absolute;
+                        top: 70%;
+                        left: 50%;
+                        transform: translate(-50%, -70%);
+                        color: white;
+                    }
+
+                    .buy-button {
+                        position: absolute;
+                        top: 90%;
+                        left: 50%;
+                        transform: translate(-50%, -90%);
+                        width: 70px;
+                        height: 25px;
+                        display: block;
+                        border: none;
+                        outline: none;
+                        background: #333;
+                        color: white;
+                        border-radius: 10px;
+                        font-family: "Indie Flower", cursive;
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+    }
+
+    .socials {
+        grid-column: 6/7;
+        grid-row: 3/5;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+        .social {
+            font-size: 50px;
+
+            .fb {
+                color: #3b5998;
+            }
+
+            .ig {
+                color: #c32aa3;
+            }
+
+            .tw {
+                color: #1da1f2;
+            }
+
+            .yt {
+                color: #ff0000;
+            }
+        }
+    }
+
+    .find-book {
+        grid-column: 1/6;
+        grid-row: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .find-book-title {
+            color: white;
+            font-size: 12px;
+            margin-right: 30px;
+            text-align: center;
+        }
+
+        .find-field {
+            position: relative;
+
+            .find-error {
+                position: absolute;
+            }
+
+            .find-form {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .find-button {
+                    width: 70px;
+                    height: 35px;
+                    display: block;
+                    margin: 25px 0px;
+                    border: none;
+                    outline: none;
+                    background: white;
+                    font-family: "Indie Flower", cursive;
+                    font-size: 20px;
+                }
+
+                .find-book-input {
+                    width: 200px;
+                    height: 35px;
+                    display: block;
+                    outline: none;
+                    border: none;
+                    border-bottom: 3px solid white;
+                    background: none;
+                    text-indent: 10px;
+                    font-family: "Indie Flower", cursive;
+                    font-size: 15px;
+                    color: white;
+                    margin-left: 20px;
+
+                    &::placeholder {
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+
+    .books {
+        grid-column: 1/6;
+        grid-row: 3/5;
+
+        .find-books-container {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            grid-gap: 20px;
+            padding: 30px;
+            align-content: center;
+
+            .book {
+                position: relative;
+                text-align: center;
+            }
+
+            .title {
+                margin-top: 20px;
+                font-size: 15px;
+                white-space: nowrap;
+                font-style: italic;
+                color: white;
+                text-transform: uppercase;
+            }
+
+            .checkout-button {
+                position: absolute;
+                top: 90%;
+                left: 50%;
+                transform: translate(-50%, -90%);
+                width: 70px;
+                height: 25px;
+                display: block;
+                border: none;
+                outline: none;
+                background: #333;
+                color: white;
+                border-radius: 10px;
+                font-family: "Indie Flower", cursive;
+                font-size: 15px;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .account-item {
+        /*    &:nth-child(even) {
+      background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+      }
+    &:nth-child(odd) {
+      background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+    } */
+    }
+}
+
+.profile {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/home-bg.jpg') no-repeat center center;
+    background-size: cover;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 70px 70px auto;
+
+    .checked-out-books {
+        grid-column: 6/10;
+        grid-row: 2/5;
+
+        .checked-out-books-container {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 80px auto;
+            grid-gap: 20px;
+            padding: 20px;
+
+            .checked-out-book-title {
+                grid-column: 1/4;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                text-align: center;
+                font-size: 12px;
+            }
+
+            .checked-out-book {
+                position: relative;
+                text-align: center;
+
+                &:nth-child(even) {
+                    background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
+                }
+
+                &:nth-child(odd) {
+                    background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+                }
+
+                .title {
+                    padding-top: 20px;
+                    color: white;
+                    text-transform: uppercase;
+                    font-size: 15px;
+                }
+
+                .open-button {
+                    position: absolute;
+                    top: 90%;
+                    left: 50%;
+                    transform: translate(-50%, -90%);
+                    width: 70px;
+                    height: 25px;
+                    display: block;
+                    border: none;
+                    outline: none;
+                    background: #333;
+                    color: white;
+                    border-radius: 10px;
+                    font-family: "Indie Flower", cursive;
+                    font-size: 15px;
+                }
+
+            }
+        }
+    }
+
+    .bought-books {
+        grid-column: 1/4;
+        grid-row: 2/5;
+
+        .bought-books-container {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 80px 1fr 1fr;
+            grid-gap: 20px;
+            padding: 20px;
+
+            .bought-book-title {
+                grid-column: 1/3;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                text-align: center;
+                font-size: 12px;
+            }
+
+            .bought-book {
+                position: relative;
+                text-align: center;
+
+                &:nth-child(even) {
+                    background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
+                }
+
+                &:nth-child(odd) {
+                    background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+                }
+
+
+                .title {
+                    padding-top: 20px;
+                    color: white;
+                    text-transform: uppercase;
+                    font-size: 15px;
+                }
+            }
+        }
+
+        .open-button {
             position: absolute;
             top: 90%;
             left: 50%;
@@ -339,153 +742,211 @@ body {
             border-radius: 10px;
             font-family: "Indie Flower", cursive;
             font-size: 15px;
-          }
         }
-      }
-    }
-  }
-  .socials {
-    grid-column: 6/7;
-    grid-row: 3/5;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    .social {
-      font-size: 50px;
-      .fb {
-        color: #3b5998;
-      }
-      .ig {
-        color: #c32aa3;
-      }
-      .tw {
-        color: #1da1f2;
-      }
-      .yt {
-        color: #ff0000;
-      }
-    }
-  }
-  .find-book {
-    grid-column: 1/6;
-    grid-row: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .find-book-title {
-      color: white;
-      font-size: 12px;
-      margin-right: 30px;
-      text-align: center;
-    }
-    .find-field {
-      display: flex;
-      justify-content: center;
-      align-items: center;
 
-      .find-button {
-        width: 70px;
-        height: 35px;
-        display: block;
-        margin: 25px 0px;
-        border: none;
-        outline: none;
-        background: white;
-        font-family: "Indie Flower", cursive;
-        font-size: 20px;
-      }
-      .find-book-input {
-        width: 200px;
-        height: 35px;
-        display: block;
-        outline: none;
-        border: none;
-        border-bottom: 3px solid white;
-        background: none;
-        text-indent: 10px;
-        font-family: "Indie Flower", cursive;
-        font-size: 15px;
-        color: white;
-        margin-left: 20px;
-        &::placeholder {
-          color: white;
-        }
-      }
+
     }
-  }
-  .books {
-    grid-column: 1/6;
-    grid-row: 3/5;
-    .find-books-container {
-      width: 100%;
-      height: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      grid-gap: 20px;
-      padding: 30px;
-      align-content: center;
-      .book {
-        position: relative;
+
+    .bought-books-info {
+        grid-column: 4/6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         text-align: center;
-      }
-      .crimix {
-        background: url("../img/books/crimix.jpg") no-repeat center center;
-        background-size: cover;
-      }
-      .wayup {
-        background: url("../img/books/wayup.jpg") no-repeat center center;
-        background-size: cover;
-      }
-      .nothingimpossible {
-        background: url("../img/books/nothingimpossible.jpg") no-repeat center center;
-        background-size: cover;
-      }
-      .dancestep {
-        background: url("../img/books/dancestep.jpg") no-repeat center center;
-        background-size: cover;
-      }
-      .armynation {
-        background: url("../img/books/armynation.jpg") no-repeat center center;
-        background-size: cover;
-      }
-      .aroundtheworld {
-        background: url("../img/books/aroundtheworld.jpg") no-repeat center center;
-        background-size: cover;
-      }
-      .title {
-        margin-top: 20px;
-        font-size: 15px;
-        white-space: nowrap;
-        font-style: italic;
         color: white;
-        text-transform: uppercase;
-      }
-      .borrow-button {
-        position: absolute;
-        top: 90%;
-        left: 50%;
-        transform: translate(-50%, -90%);
-        width: 70px;
-        height: 25px;
-        display: block;
-        border: none;
-        outline: none;
-        background: #333;
-        color: white;
-        border-radius: 10px;
-        font-family: "Indie Flower", cursive;
-        font-size: 15px;
-      }
+        font-size: 25px;
+        padding: 20px;
     }
-  }
-  .account-item {
-    /*    &:nth-child(even) {
-      background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
-      }
-    &:nth-child(odd) {
-      background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-    } */
-  }
+
+    .info1 {
+        grid-row: 3/4;
+    }
+
+    .info2 {
+        grid-row: 4/5;
+    }
+
+}
+
+.cart {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/home-bg.jpg") no-repeat center center;
+    background-size: cover;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 70px 1fr;
+    grid-gap: 20px;
+
+    .summary {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+        grid-gap: 15px;
+        padding: 15px;
+
+        .boxik {}
+
+        .chosen-books {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 70px auto;
+            grid-gap: 15px;
+            padding: 15px;
+
+            .header-title {
+                grid-column: 1/4;
+                font-weight: bold;
+                font-size: 30px;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .chosen-book {
+                height: 200px;
+                position: relative;
+                text-align: center;
+                color: white;
+
+                .chosen-book-title {
+                    font-size: 25px;
+                    margin-top: 10px;
+                }
+
+                .cancel {
+                    position: absolute;
+                    top: 90%;
+                    left: 50%;
+                    transform: translate(-50%, -90%);
+                    width: 70px;
+                    height: 23px;
+                    display: block;
+                    border: none;
+                    outline: none;
+                    background: #333;
+                    color: white;
+                    border-radius: 10px;
+                    font-family: "Indie Flower", cursive;
+                    font-size: 13px;
+                }
+
+                .chosen-book-price {
+                    position: absolute;
+                    top: 75%;
+                    left: 50%;
+                    transform: translate(-50%, -75%);
+                }
+            }
+        }
+
+        .chosen-books-summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 70px auto;
+            grid-gap: 15px;
+            padding: 15px;
+            position: relative;
+
+            .header-title {
+                grid-column: 1/4;
+                font-weight: bold;
+                font-size: 30px;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .chosen-book-details {
+                grid-column: 1/4;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .chosen-book-detail-title {
+                    font-weight: bold;
+                    font-size: 30px;
+                    color: white;
+                    display: flex;
+                }
+
+                .chosen-book-detail-price {
+                    margin-left: 50px;
+                    font-weight: bold;
+                    font-size: 30px;
+                    color: white;
+                }
+            }
+
+            .summary-total {
+                display: flex;
+                justify-content: center;
+                align-items: flex-end;
+                grid-column: 1/4;
+
+                .total-price {
+                    font-weight: bold;
+                    font-size: 30px;
+                    color: white;
+                }
+
+                .paypal {
+                    width: 100px;
+                    height: 40px;
+                    margin-left: 30px;
+                    margin-bottom: 5px;
+                    display: block;
+                    border: none;
+                    outline: none;
+                    background: #333;
+                    color: white;
+                    border-radius: 10px;
+                    font-family: "Indie Flower", cursive;
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+
+    .navbar {
+        height: 70px;
+        line-height: 70px;
+        background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+
+        .navbar-logo-items {
+            float: left;
+            list-style: none;
+
+            .navbar-logo-item {
+                color: white;
+                font-weight: bold;
+                font-size: 35px;
+                margin-left: 30px;
+            }
+        }
+
+        .navbar-links-items {
+            float: right;
+
+            .navbar-links-item {
+                list-style: none;
+                float: left;
+
+                .navbar-link {
+                    text-decoration: none;
+                    color: white;
+                    font-size: 20px;
+                    margin-right: 40px;
+
+                    &:hover {
+                        color: black;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
 }
