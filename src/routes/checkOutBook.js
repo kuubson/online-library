@@ -47,14 +47,25 @@ router.post('/checkOutBook', (req, res) => {
                                     msg: 'Something went wrong! Try again!'
                                 })
                             } else {
-                                new CheckedOutBook({
-                                    email,
-                                    author,
-                                    title
-                                }).save().then(res.send({
-                                    done: true,
-                                    msg: 'You successfully have checked out a book!'
-                                }));
+                                User.findOne({
+                                    email
+                                }).then(user => {
+                                    if (!user) {
+                                        res.send({
+                                            done: false,
+                                            msg: 'Something went wrong! Try again!'
+                                        })
+                                    } else {
+                                        new CheckedOutBook({
+                                            email,
+                                            author,
+                                            title
+                                        }).save().then(res.send({
+                                            done: true,
+                                            msg: 'You successfully have checked out a book!'
+                                        }));
+                                    }
+                                })
                             }
                         });
                 }

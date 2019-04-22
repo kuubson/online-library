@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { setCheckedOutBooks, setBoughtBooks } from '../../actions/user'
+import { setCheckedOutBooks, setBoughtBooks, setEmail, setFreeBooks, setPaidBooks } from '../../actions/user'
 import uuid from 'uuid'
 
 export class Profile extends Component {
@@ -38,28 +38,33 @@ export class Profile extends Component {
             }
         }
 
-        if (this.props.boughtBooks.length === 0 && this.props.checkedOutBooks.length === 0) {
+        if (this._isMounted) {
+
+            const gettingUsersBooks = await axios.post('/getUsersBooks', {
+                email: this.props.email
+            })
+            this.props.setBoughtBooks(gettingUsersBooks.data.boughtBooks);
+            this.props.setCheckedOutBooks(gettingUsersBooks.data.checkedOutBooks);
+            console.log(gettingUsersBooks.data.boughtBooks);
+            console.log(gettingUsersBooks.data.checkedOutBooks);
 
             if (this._isMounted) {
-                const gettingUsersBooks = await axios.post('/getUsersBooks', {
-                    email: this.props.email
-                })
-                this.props.setBoughtBooks(gettingUsersBooks.data.boughtBooks);
-                this.props.setCheckedOutBooks(gettingUsersBooks.data.checkedOutBooks);
-                console.log(gettingUsersBooks.data.boughtBooks);
-                console.log(gettingUsersBooks.data.checkedOutBooks);
                 this.setState(sortBooks(this.props.boughtBooks, this.props.checkedOutBooks));
             }
 
-        } else {
-            this.setState(sortBooks(this.props.boughtBooks, this.props.checkedOutBooks));
         }
+
     }
     componentWillUnmount() {
         this._isMounted = false;
     }
     handleLogout = () => {
         sessionStorage.clear();
+        this.props.setEmail("");
+        this.props.setBoughtBooks([]);
+        this.props.setCheckedOutBooks([]);
+        this.props.setPaidBooks([]);
+        this.props.setFreeBooks([]);
         this.props.history.push('/');
     }
     handleClick = () => {
@@ -115,7 +120,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setCheckedOutBooks: payload => dispatch(setCheckedOutBooks(payload)),
-        setBoughtBooks: payload => dispatch(setBoughtBooks(payload))
+        setBoughtBooks: payload => dispatch(setBoughtBooks(payload)),
+        setEmail: payload => dispatch(setEmail(payload)),
+        setFreeBooks: payload => dispatch(setFreeBooks(payload)),
+        setPaidBooks: payload => dispatch(setPaidBooks(payload)),
     }
 }
 

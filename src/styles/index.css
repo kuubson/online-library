@@ -320,7 +320,9 @@ body {
 }
 
 .account .modal,
-.profile .modal {
+.account .modal2,
+.profile .modal,
+.profile .modal2 {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -333,13 +335,15 @@ body {
 }
 
 .account .modal .modal-content,
-.profile .modal .modal-content {
+.account .modal2 .modal-content,
+.profile .modal .modal-content,
+.profile .modal2 .modal-content {
   position: relative;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  width: 40%;
+  width: 50%;
   height: 50%;
   background: white;
   display: -ms-grid;
@@ -353,7 +357,9 @@ body {
 }
 
 .account .modal .modal-content .box1,
-.profile .modal .modal-content .box1 {
+.account .modal2 .modal-content .box1,
+.profile .modal .modal-content .box1,
+.profile .modal2 .modal-content .box1 {
   -ms-grid-column: 1;
   -ms-grid-column-span: 2;
   grid-column: 1/3;
@@ -363,7 +369,9 @@ body {
 }
 
 .account .modal .modal-content .box1 .book-img,
-.profile .modal .modal-content .box1 .book-img {
+.account .modal2 .modal-content .box1 .book-img,
+.profile .modal .modal-content .box1 .book-img,
+.profile .modal2 .modal-content .box1 .book-img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -371,7 +379,9 @@ body {
 }
 
 .account .modal .modal-content .box2,
-.profile .modal .modal-content .box2 {
+.account .modal2 .modal-content .box2,
+.profile .modal .modal-content .box2,
+.profile .modal2 .modal-content .box2 {
   -ms-grid-column: 3;
   -ms-grid-column-span: 2;
   grid-column: 3/5;
@@ -396,13 +406,17 @@ body {
 }
 
 .account .modal .modal-content .box2 .text,
-.profile .modal .modal-content .box2 .text {
+.account .modal2 .modal-content .box2 .text,
+.profile .modal .modal-content .box2 .text,
+.profile .modal2 .modal-content .box2 .text {
   font-weight: bold;
   margin-bottom: 10px;
 }
 
 .account .modal .modal-content .box3,
-.profile .modal .modal-content .box3 {
+.account .modal2 .modal-content .box3,
+.profile .modal .modal-content .box3,
+.profile .modal2 .modal-content .box3 {
   -ms-grid-column: 3;
   -ms-grid-column-span: 2;
   grid-column: 3/5;
@@ -428,11 +442,14 @@ body {
 }
 
 .account .modal .modal-content .box3 .buttons .button,
-.profile .modal .modal-content .box3 .buttons .button {
+.account .modal2 .modal-content .box3 .buttons .button,
+.profile .modal .modal-content .box3 .buttons .button,
+.profile .modal2 .modal-content .box3 .buttons .button {
   margin: 0px 10px;
   margin-top: 30px;
-  width: 70px;
-  height: 25px;
+  min-width: 70px;
+  height: auto;
+  padding: 5px 10px;
   border: none;
   outline: none;
   background: #333;
@@ -443,12 +460,16 @@ body {
 }
 
 .account .modal .modal-content .box3 .buttons .button:hover,
-.profile .modal .modal-content .box3 .buttons .button:hover {
+.account .modal2 .modal-content .box3 .buttons .button:hover,
+.profile .modal .modal-content .box3 .buttons .button:hover,
+.profile .modal2 .modal-content .box3 .buttons .button:hover {
   cursor: pointer;
 }
 
 .account .modal .modal-content .box,
-.profile .modal .modal-content .box {
+.account .modal2 .modal-content .box,
+.profile .modal .modal-content .box,
+.profile .modal2 .modal-content .box {
   /*    &:nth-child(even) {
           background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
         }
@@ -458,7 +479,9 @@ body {
 }
 
 .account .modal .modal-content .close,
-.profile .modal .modal-content .close {
+.account .modal2 .modal-content .close,
+.profile .modal .modal-content .close,
+.profile .modal2 .modal-content .close {
   font-size: 50px;
   position: absolute;
   top: 5%;
@@ -468,7 +491,9 @@ body {
 }
 
 .account .modal .modal-content .close:hover,
-.profile .modal .modal-content .close:hover {
+.account .modal2 .modal-content .close:hover,
+.profile .modal .modal-content .close:hover,
+.profile .modal2 .modal-content .close:hover {
   cursor: pointer;
 }
 

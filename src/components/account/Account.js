@@ -5,7 +5,7 @@ import uuid from 'uuid'
 import { accountAnimations } from '../../animations/AccountAnimations'
 import $ from 'jquery'
 import anime from 'animejs'
-import { setEmail, setFreeBooks, setPaidBooks } from '../../actions/user'
+import { setCheckedOutBooks, setBoughtBooks, setEmail, setFreeBooks, setPaidBooks } from '../../actions/user'
 import { connect } from 'react-redux'
 
 export class Account extends Component {
@@ -17,6 +17,7 @@ export class Account extends Component {
         modalBookTitle: "",
         modalBookAuthor: "",
         modalBookCover: "",
+        modalBookPrice: "",
         successMessage: "",
         errorMessage: ""
     }
@@ -25,7 +26,7 @@ export class Account extends Component {
         this._isMounted = true;
         !sessionStorage.getItem('jwt') && this.props.history.push('/login');
 
-        function sortBooks(paidBooks, freeBooks, handleCheckOutModal) {
+        function sortBooks(paidBooks, freeBooks, handleCheckOutModal, handleBuyModal) {
             const paidbooks = paidBooks.map(book => {
                 const imageUrl = btoa(new Uint8Array(book.cover.data.data).reduce(function (data, byte) {
                     return data + String.fromCharCode(byte);
@@ -36,7 +37,7 @@ export class Account extends Component {
                         <h4 className="title">{book.title}</h4>
                         <div className="buy-details">
                             <h4 className="price">{book.price + "$"}</h4>
-                            <button className="buy-button">Buy</button>
+                            <button className="buy-button" onClick={() => handleBuyModal(book.title, book.author, book.price, imageUrl)}>Buy</button>
                         </div>
                     </div>
                 )
@@ -67,10 +68,10 @@ export class Account extends Component {
                 const paidbooks = gettingBooksProcess.data.paidbooks;
                 this.props.setFreeBooks(freebooks);
                 this.props.setPaidBooks(paidbooks);
-                this.setState(sortBooks(this.props.paidbooks, this.props.freebooks, this.handleCheckOutModal));
+                this.setState(sortBooks(this.props.paidbooks, this.props.freebooks, this.handleCheckOutModal, this.handleBuyModal));
                 accountAnimations();
             } else {
-                this.setState(sortBooks(this.props.paidbooks, this.props.freebooks, this.handleCheckOutModal));
+                this.setState(sortBooks(this.props.paidbooks, this.props.freebooks, this.handleCheckOutModal, this.handleBuyModal));
             }
         }
     }
@@ -80,6 +81,10 @@ export class Account extends Component {
     handleLogout = () => {
         sessionStorage.clear();
         this.props.setEmail("");
+        this.props.setBoughtBooks([]);
+        this.props.setCheckedOutBooks([]);
+        this.props.setPaidBooks([]);
+        this.props.setFreeBooks([]);
         this.props.history.push('/');
     }
     handleCheckOutModal = (bookTitle, bookAuthor, bookCover) => {
@@ -98,6 +103,9 @@ export class Account extends Component {
     handleCancelModal = () => {
         $('.modal').css('display', 'none');
     }
+    handleCancelModal2 = () => {
+        $('.modal2').css('display', 'none');
+    }
     handleCheckOut = async () => {
         const checkingOutBookProcess = await axios.post('/checkOutBook', {
             email: this.props.email,
@@ -107,11 +115,30 @@ export class Account extends Component {
         })
         checkingOutBookProcess.data.done ? this.setState({ successMessage: checkingOutBookProcess.data.msg, errorMessage: "" }) || $('.modal').css('display', 'none') : this.setState({ successMessage: "", errorMessage: checkingOutBookProcess.data.msg }) || $('.modal').css('display', 'none');
         setTimeout(() => {
-            this.setState({
-                successMessage: "",
-                errorMessage: ""
-            })
+            if (this._isMounted) {
+                this.setState({
+                    successMessage: "",
+                    errorMessage: ""
+                })
+            }
         }, 5000);
+    }
+    handleBuyModal = (bookTitle, bookAuthor, bookPrice, bookCover) => {
+        this.setState({
+            modalBookTitle: bookTitle,
+            modalBookAuthor: bookAuthor,
+            modalBookCover: bookCover,
+            modalBookPrice: bookPrice
+        })
+        $('.modal2').css('display', 'block');
+        anime({
+            targets: '.modal2',
+            scale: [2, 1],
+            easing: 'easeOutElastic(1, 2)'
+        });
+    }
+    handleBuy = () => {
+
     }
     handleClick = () => {
         this.props.history.push('/profile')
@@ -144,7 +171,7 @@ export class Account extends Component {
                                     <h4 className="title">{book.title}</h4>
                                     <div className="buy-details">
                                         <h4 className="price">{book.price + "$"}</h4>
-                                        <button className="buy-button">Buy</button>
+                                        <button className="buy-button" onClick={() => this.handleBuyModal(book.title, book.author, book.price, imageUrl)}>Buy</button>
                                     </div>
                                 </div>
                             )
@@ -199,6 +226,26 @@ export class Account extends Component {
                             <div className="buttons">
                                 <button className="button button-yes" onClick={this.handleCheckOut}>Yes</button>
                                 <button className="button button-no" onClick={this.handleCancelModal}>No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="modal2">
+                    <div className="modal-content">
+                        <div className="box box1">
+                            <img className="book-img" src={`data:image/jpeg;base64,${this.state.modalBookCover}`} alt="book" />
+                        </div>
+                        <div className="box box2">
+                            <div className="text">That's just a small step from buying this book:</div>
+                            <div className="bookTitle">Book written by {this.state.modalBookAuthor}</div>
+                            <div className="bookTitle">Named {this.state.modalBookTitle}</div>
+                            <div className="bookTitle">That costs {this.state.modalBookPrice}$</div>
+                        </div>
+                        <div className="box box3">
+                            <div className="text">I am sure I buy this book right now!</div>
+                            <div className="buttons">
+                                <button className="button button-yes" onClick={this.handleBuy}>Yes, add to cart</button>
+                                <button className="button button-no" onClick={this.handleCancelModal2}>No, close this</button>
                             </div>
                         </div>
                     </div>
@@ -258,6 +305,8 @@ const mapDispatchToProps = (dispatch) => {
         setEmail: payload => dispatch(setEmail(payload)),
         setFreeBooks: payload => dispatch(setFreeBooks(payload)),
         setPaidBooks: payload => dispatch(setPaidBooks(payload)),
+        setCheckedOutBooks: payload => dispatch(setCheckedOutBooks(payload)),
+        setBoughtBooks: payload => dispatch(setBoughtBooks(payload))
     }
 }
 
