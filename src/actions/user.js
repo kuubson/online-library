@@ -1,4 +1,4 @@
-import { SET_EMAIL, SET_FREEBOOKS, SET_PAIDBOOKS, SET_BOUGHTBOOKS, SET_CHECKEDOUTBOOKS } from '../actions/actionTypes'
+import { SET_EMAIL, SET_FREEBOOKS, SET_PAIDBOOKS, SET_BOUGHTBOOKS, SET_CHECKEDOUTBOOKS, SET_CART } from '../actions/actionTypes'
 
 export const setEmail = (payload) => {
     return {
@@ -31,6 +31,13 @@ export const setBoughtBooks = (payload) => {
 export const setCheckedOutBooks = (payload) => {
     return {
         type: SET_CHECKEDOUTBOOKS,
+        payload
+    }
+}
+
+export const setCart = (payload) => {
+    return {
+        type: SET_CART,
         payload
     }
 }

@@ -5,7 +5,7 @@ import uuid from 'uuid'
 import { accountAnimations } from '../../animations/AccountAnimations'
 import $ from 'jquery'
 import anime from 'animejs'
-import { setCheckedOutBooks, setBoughtBooks, setEmail, setFreeBooks, setPaidBooks } from '../../actions/user'
+import { setCheckedOutBooks, setBoughtBooks, setEmail, setFreeBooks, setPaidBooks, setCart } from '../../actions/user'
 import { connect } from 'react-redux'
 
 export class Account extends Component {
@@ -19,7 +19,8 @@ export class Account extends Component {
         modalBookCover: "",
         modalBookPrice: "",
         successMessage: "",
-        errorMessage: ""
+        errorMessage: "",
+        cart: ""
     }
     async componentDidMount() {
 
@@ -61,6 +62,10 @@ export class Account extends Component {
         }
 
         if (this._isMounted) {
+
+            this.setState({
+                cart: this.props.cart
+            })
 
             if (this.props.freebooks.length === 0 && this.props.paidbooks.length === 0) {
                 const gettingBooksProcess = await axios.get('/getBooks');
@@ -138,6 +143,19 @@ export class Account extends Component {
         });
     }
     handleBuy = () => {
+        const book = {
+            id: uuid(),
+            author: this.state.modalBookAuthor,
+            title: this.state.modalBookTitle,
+            price: this.state.modalBookPrice,
+            cover: this.state.modalBookCover
+        }
+        this.setState({
+            cart: [...this.state.cart, book]
+        }, () => {
+            this.props.setCart(this.state.cart);
+        })
+        $('.modal2').css('display', 'none');
 
     }
     handleClick = (where) => {
@@ -297,7 +315,8 @@ const mapStateToProps = (state) => {
     return {
         email: state.user.email,
         freebooks: state.user.freebooks,
-        paidbooks: state.user.paidbooks
+        paidbooks: state.user.paidbooks,
+        cart: state.user.cart
     }
 }
 
@@ -307,7 +326,8 @@ const mapDispatchToProps = (dispatch) => {
         setFreeBooks: payload => dispatch(setFreeBooks(payload)),
         setPaidBooks: payload => dispatch(setPaidBooks(payload)),
         setCheckedOutBooks: payload => dispatch(setCheckedOutBooks(payload)),
-        setBoughtBooks: payload => dispatch(setBoughtBooks(payload))
+        setBoughtBooks: payload => dispatch(setBoughtBooks(payload)),
+        setCart: payload => dispatch(setCart(payload))
     }
 }
 

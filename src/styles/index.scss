@@ -612,12 +612,12 @@ body {
 
 .profile {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/home-bg.jpg') no-repeat center center;
     background-size: cover;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 70px 70px 1fr 1fr;
+    grid-template-rows: 70px 70px auto;
 
     .checked-out-books {
         grid-column: 6/10;
@@ -628,7 +628,7 @@ body {
             height: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 80px 1fr 1fr;
+            grid-template-rows: 80px auto;
             grid-gap: 20px;
             padding: 20px;
 
@@ -779,7 +779,7 @@ body {
     grid-template-rows: 70px 1fr;
     grid-gap: 20px;
 
-    .box1 {
+    .summary {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr;
@@ -788,14 +788,14 @@ body {
 
         .boxik {}
 
-        .boxik1 {
+        .chosen-books {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             grid-template-rows: 70px auto;
             grid-gap: 15px;
             padding: 15px;
 
-            .title {
+            .header-title {
                 grid-column: 1/4;
                 font-weight: bold;
                 font-size: 30px;
@@ -805,26 +805,13 @@ body {
                 align-items: center;
             }
 
-            .boks1 {
-                background: url('../img/books/dancestep.jpg') no-repeat center center;
-                background-size: cover;
-            }
-
-            .boks {
+            .chosen-book {
                 height: 200px;
                 position: relative;
                 text-align: center;
                 color: white;
 
-                &:nth-child(even) {
-                    background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
-                }
-
-                &:nth-child(odd) {
-                    background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
-                }
-
-                .book-title {
+                .chosen-book-title {
                     font-size: 25px;
                     margin-top: 10px;
                 }
@@ -835,7 +822,7 @@ body {
                     left: 50%;
                     transform: translate(-50%, -90%);
                     width: 70px;
-                    height: 20px;
+                    height: 23px;
                     display: block;
                     border: none;
                     outline: none;
@@ -846,24 +833,24 @@ body {
                     font-size: 13px;
                 }
 
-                .price {
+                .chosen-book-price {
                     position: absolute;
-                    top: 70%;
+                    top: 75%;
                     left: 50%;
-                    transform: translate(-50%, -70%);
+                    transform: translate(-50%, -75%);
                 }
             }
         }
 
-        .boxik2 {
+        .chosen-books-summary {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 70px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows: 70px auto;
             grid-gap: 15px;
             padding: 15px;
             position: relative;
 
-            .title {
+            .header-title {
                 grid-column: 1/4;
                 font-weight: bold;
                 font-size: 30px;
@@ -873,13 +860,20 @@ body {
                 align-items: center;
             }
 
-            .item {
+            .chosen-book-details {
                 grid-column: 1/4;
                 display: flex;
                 align-items: center;
                 justify-content: center;
 
-                .price {
+                .chosen-book-detail-title {
+                    font-weight: bold;
+                    font-size: 30px;
+                    color: white;
+                    display: flex;
+                }
+
+                .chosen-book-detail-price {
                     margin-left: 50px;
                     font-weight: bold;
                     font-size: 30px;
@@ -887,16 +881,13 @@ body {
                 }
             }
 
-            .summary {
+            .summary-total {
                 display: flex;
                 justify-content: center;
-                align-items: center;
-                position: absolute;
-                top: 85%;
-                left: 50%;
-                transform: translate(-50%, 85%);
+                align-items: flex-end;
+                grid-column: 1/4;
 
-                .total {
+                .total-price {
                     font-weight: bold;
                     font-size: 30px;
                     color: white;
