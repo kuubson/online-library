@@ -140,8 +140,8 @@ export class Account extends Component {
     handleBuy = () => {
 
     }
-    handleClick = () => {
-        this.props.history.push('/profile')
+    handleClick = (where) => {
+        this.props.history.push(where)
     }
     handleChange = (e) => {
         this.setState({
@@ -255,7 +255,8 @@ export class Account extends Component {
                         <li className="navbar-logo-item">Online library</li>
                     </ul>
                     <ul className="navbar-links-items">
-                        <li className="navbar-links-item"><div className="navbar-link" onClick={this.handleClick}>My profile</div></li>
+                        <li className="navbar-links-item"><div className="navbar-link" onClick={() => this.handleClick('/profile')}>My profile</div></li>
+                        <li className="navbar-links-item"><div className="navbar-link" onClick={() => this.handleClick('/cart')}>Cart</div></li>
                         <li className="navbar-links-item"><div className="navbar-link" onClick={this.handleLogout}>Logout</div></li>
                     </ul>
                 </div>

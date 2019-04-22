@@ -263,7 +263,7 @@ body {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 50%;
+            width: 40%;
             height: 50%;
             background: white;
             display: grid;
@@ -766,4 +766,196 @@ body {
         grid-row: 4/5;
     }
 
+}
+
+.cart {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/home-bg.jpg") no-repeat center center;
+    background-size: cover;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 70px 1fr;
+    grid-gap: 20px;
+
+    .box1 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+        grid-gap: 15px;
+        padding: 15px;
+
+        .boxik {}
+
+        .boxik1 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 70px auto;
+            grid-gap: 15px;
+            padding: 15px;
+
+            .title {
+                grid-column: 1/4;
+                font-weight: bold;
+                font-size: 30px;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .boks1 {
+                background: url('../img/books/dancestep.jpg') no-repeat center center;
+                background-size: cover;
+            }
+
+            .boks {
+                height: 200px;
+                position: relative;
+                text-align: center;
+                color: white;
+
+                &:nth-child(even) {
+                    background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+                }
+
+                &:nth-child(odd) {
+                    background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+                }
+
+                .book-title {
+                    font-size: 25px;
+                    margin-top: 10px;
+                }
+
+                .cancel {
+                    position: absolute;
+                    top: 90%;
+                    left: 50%;
+                    transform: translate(-50%, -90%);
+                    width: 70px;
+                    height: 20px;
+                    display: block;
+                    border: none;
+                    outline: none;
+                    background: #333;
+                    color: white;
+                    border-radius: 10px;
+                    font-family: "Indie Flower", cursive;
+                    font-size: 13px;
+                }
+
+                .price {
+                    position: absolute;
+                    top: 70%;
+                    left: 50%;
+                    transform: translate(-50%, -70%);
+                }
+            }
+        }
+
+        .boxik2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 70px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-gap: 15px;
+            padding: 15px;
+            position: relative;
+
+            .title {
+                grid-column: 1/4;
+                font-weight: bold;
+                font-size: 30px;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .item {
+                grid-column: 1/4;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .price {
+                    margin-left: 50px;
+                    font-weight: bold;
+                    font-size: 30px;
+                    color: white;
+                }
+            }
+
+            .summary {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                top: 85%;
+                left: 50%;
+                transform: translate(-50%, 85%);
+
+                .total {
+                    font-weight: bold;
+                    font-size: 30px;
+                    color: white;
+                }
+
+                .paypal {
+                    width: 100px;
+                    height: 40px;
+                    margin-left: 30px;
+                    margin-bottom: 5px;
+                    display: block;
+                    border: none;
+                    outline: none;
+                    background: #333;
+                    color: white;
+                    border-radius: 10px;
+                    font-family: "Indie Flower", cursive;
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+
+    .navbar {
+        height: 70px;
+        line-height: 70px;
+        background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+
+        .navbar-logo-items {
+            float: left;
+            list-style: none;
+
+            .navbar-logo-item {
+                color: white;
+                font-weight: bold;
+                font-size: 35px;
+                margin-left: 30px;
+            }
+        }
+
+        .navbar-links-items {
+            float: right;
+
+            .navbar-links-item {
+                list-style: none;
+                float: left;
+
+                .navbar-link {
+                    text-decoration: none;
+                    color: white;
+                    font-size: 20px;
+                    margin-right: 40px;
+
+                    &:hover {
+                        color: black;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
 }

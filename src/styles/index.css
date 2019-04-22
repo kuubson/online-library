@@ -343,7 +343,7 @@ body {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  width: 50%;
+  width: 40%;
   height: 50%;
   background: white;
   display: -ms-grid;
@@ -1061,5 +1061,244 @@ body {
   -ms-grid-row: 4;
   -ms-grid-row-span: 1;
   grid-row: 4/5;
+}
+
+.cart {
+  width: 100%;
+  min-height: 100vh;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url("../img/home-bg.jpg") no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/home-bg.jpg") no-repeat center center;
+  background-size: cover;
+  padding: 20px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  -ms-grid-rows: 70px 1fr;
+      grid-template-rows: 70px 1fr;
+  grid-gap: 20px;
+}
+
+.cart .box1 {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: 1fr;
+      grid-template-rows: 1fr;
+  grid-gap: 15px;
+  padding: 15px;
+}
+
+.cart .box1 .boxik1 {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  -ms-grid-rows: 70px auto;
+      grid-template-rows: 70px auto;
+  grid-gap: 15px;
+  padding: 15px;
+}
+
+.cart .box1 .boxik1 .title {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: 1/4;
+  font-weight: bold;
+  font-size: 30px;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.cart .box1 .boxik1 .boks1 {
+  background: url("../img/books/dancestep.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+.cart .box1 .boxik1 .boks {
+  height: 200px;
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.cart .box1 .boxik1 .boks:nth-child(even) {
+  background-image: -webkit-gradient(linear, left top, right top, from(#b8cbb8), color-stop(0%, #b8cbb8), color-stop(0%, #b465da), color-stop(33%, #cf6cc9), color-stop(66%, #ee609c), to(#ee609c));
+  background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+}
+
+.cart .box1 .boxik1 .boks:nth-child(odd) {
+  background-image: -webkit-gradient(linear, left top, right top, from(#f78ca0), color-stop(19%, #f9748f), color-stop(60%, #fd868c), to(#fe9a8b));
+  background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+}
+
+.cart .box1 .boxik1 .boks .book-title {
+  font-size: 25px;
+  margin-top: 10px;
+}
+
+.cart .box1 .boxik1 .boks .cancel {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -90%);
+          transform: translate(-50%, -90%);
+  width: 70px;
+  height: 20px;
+  display: block;
+  border: none;
+  outline: none;
+  background: #333;
+  color: white;
+  border-radius: 10px;
+  font-family: "Indie Flower", cursive;
+  font-size: 13px;
+}
+
+.cart .box1 .boxik1 .boks .price {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -70%);
+          transform: translate(-50%, -70%);
+}
+
+.cart .box1 .boxik2 {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  -ms-grid-rows: 70px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-rows: 70px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 15px;
+  padding: 15px;
+  position: relative;
+}
+
+.cart .box1 .boxik2 .title {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: 1/4;
+  font-weight: bold;
+  font-size: 30px;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.cart .box1 .boxik2 .item {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: 1/4;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.cart .box1 .boxik2 .item .price {
+  margin-left: 50px;
+  font-weight: bold;
+  font-size: 30px;
+  color: white;
+}
+
+.cart .box1 .boxik2 .summary {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  -webkit-transform: translate(-50%, 85%);
+          transform: translate(-50%, 85%);
+}
+
+.cart .box1 .boxik2 .summary .total {
+  font-weight: bold;
+  font-size: 30px;
+  color: white;
+}
+
+.cart .box1 .boxik2 .summary .paypal {
+  width: 100px;
+  height: 40px;
+  margin-left: 30px;
+  margin-bottom: 5px;
+  display: block;
+  border: none;
+  outline: none;
+  background: #333;
+  color: white;
+  border-radius: 10px;
+  font-family: "Indie Flower", cursive;
+  font-size: 16px;
+}
+
+.cart .navbar {
+  height: 70px;
+  line-height: 70px;
+  background-image: -webkit-gradient(linear, left top, right top, from(#4facfe), to(#00f2fe));
+  background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+}
+
+.cart .navbar .navbar-logo-items {
+  float: left;
+  list-style: none;
+}
+
+.cart .navbar .navbar-logo-items .navbar-logo-item {
+  color: white;
+  font-weight: bold;
+  font-size: 35px;
+  margin-left: 30px;
+}
+
+.cart .navbar .navbar-links-items {
+  float: right;
+}
+
+.cart .navbar .navbar-links-items .navbar-links-item {
+  list-style: none;
+  float: left;
+}
+
+.cart .navbar .navbar-links-items .navbar-links-item .navbar-link {
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  margin-right: 40px;
+}
+
+.cart .navbar .navbar-links-items .navbar-links-item .navbar-link:hover {
+  color: black;
+  cursor: pointer;
 }
 /*# sourceMappingURL=index.css.map */
