@@ -1,6 +1,12 @@
 import React, { useEffect } from 'react'
 
 const Home = ({ history }) => {
+    useEffect(() => {
+        const jwt = sessionStorage.getItem('jwt');
+        if (jwt) {
+            history.push('/account');
+        }
+    })
     const handleClick = (where) => {
         history.push(where)
     }

@@ -4,6 +4,17 @@ import passwordValidator from 'password-validator'
 import axios from 'axios'
 
 const Register = ({ history }) => {
+    let _isMounted = false;
+    useEffect(() => {
+        _isMounted = true;
+        const jwt = sessionStorage.getItem('jwt');
+        if (jwt) {
+            history.push('/account');
+        }
+        return () => {
+            _isMounted = false;
+        }
+    })
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
     const [email, setEmail] = useState("");
@@ -24,29 +35,31 @@ const Register = ({ history }) => {
         validator.isEmpty(password) ? setPasswordError("You have to have your password!") : passwordSchema.validate(password) ? setPasswordError("") : setPasswordError("Your password must: be at least 8 chars long, have: digits, no spaces, small, capital letters")
         validator.equals(password, password2) ? setPassword2Error("") : setPassword2Error("Passwords do not match!");
         if (validator.isLength(name, { min: 2 }) && validator.isLength(surname, { min: 2 }) && validator.isEmail(email) && passwordSchema.validate(password) && validator.equals(password, password2)) {
-            return true
+            return true;
         } else {
-            return false
+            return false;
         }
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (validate()) {
-            const register = await axios.post('/register', {
-                name,
-                surname,
-                email,
-                password
-            })
-            const response = register.data;
-            if (response.done) {
-                setSuccessMessage(response.msg);
-                setErrorMessage("");
-                setTimeout(() => {
-                    history.push('/login')
-                }, 1000);
-            } else {
-                setErrorMessage(response.msg)
+        if (_isMounted) {
+            if (validate()) {
+                const register = await axios.post('/register', {
+                    name,
+                    surname,
+                    email,
+                    password
+                })
+                const response = register.data;
+                if (response.done) {
+                    setSuccessMessage(response.msg);
+                    setErrorMessage("");
+                    setTimeout(() => {
+                        history.push('/login')
+                    }, 1000);
+                } else {
+                    setErrorMessage(response.msg)
+                }
             }
         }
     }

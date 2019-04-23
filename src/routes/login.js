@@ -1,8 +1,9 @@
 const router = require('express').Router();
-const validator = require('validator');
-const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const validator = require('validator');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const User = require('../models/User');
 
 router.post('/login', (req, res) => {
 
@@ -42,7 +43,9 @@ router.post('/login', (req, res) => {
                             msg: 'Bad password! Try again!'
                         })
                     } else {
-                        const payload = { id: user._id, email: user.email };
+                        const payload = {
+                            email: user.email
+                        };
                         const token = jwt.sign(payload, process.env.SECRET_OR_KEY)
                         res.send({
                             done: true,
