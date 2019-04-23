@@ -1,0 +1,20 @@
+@media (max-width: 768px) {
+    .home {
+        grid-template-rows: repeat(2, 1fr);
+
+        .header-title {
+            font-size: 50px;
+        }
+
+        .header-buttons {
+            .header-button {
+                min-width: 150px;
+                height: auto;
+            }
+        }
+
+        .header-infos {
+            display: none;
+        }
+    }
+}
