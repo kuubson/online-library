@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react'
 
 const Home = ({ history }) => {
-    useEffect(() => {
-
-    })
     const handleClick = (where) => {
         history.push(where)
     }
     return (
-        <div className="home fullsize">
+        <div className="home darkfullsize">
             <div className="header-title title fullflex">
                 Online Library
             </div>

@@ -7,11 +7,22 @@
     text-align: center;
 }
 
-.fullsize {
+.darkfullsize {
     width: 100%;
     min-height: 100vh;
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/home-bg.jpg') no-repeat center center;
     background-size: cover;
+}
+
+.fullsize {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../img/home-bg.jpg') no-repeat center center;
+    background-size: cover;
+}
+
+.flex {
+    display: flex;
 }
 
 .fullflex {
@@ -33,6 +44,16 @@
     align-items: center;
 }
 
+.error,
+.success {
+    font-weight: bold;
+    color: red;
+}
+
+.success {
+    color: green;
+}
+
 .button {
     min-width: 200px;
     min-height: 50px;
@@ -44,6 +65,10 @@
     border-right: 3px solid white;
     border-left: 3px solid white;
     margin: 10px 0px;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .title {
@@ -69,6 +94,68 @@
     transform: translate(-50%, -50%);
 }
 
+.form {
+    padding: 30px;
+    margin: auto;
+
+    .form-input-container {
+        margin: 30px 0px;
+        position: relative;
+
+        .form-input-label {
+            text-align: left;
+            display: block;
+            font-weight: bold;
+            font-size: 18px;
+            color: black;
+            margin-bottom: 5px;
+        }
+
+        .form-input {
+            width: 100%;
+            height: 35px;
+            display: block;
+            outline: none;
+            border: none;
+            border-bottom: 3px solid white;
+            background: none;
+            text-indent: 10px;
+            font-size: 15px;
+            color: white;
+            text-align: left;
+
+            &::placeholder {
+                color: white;
+            }
+
+            &:not(:placeholder-shown) {
+                border-left: 3px solid white;
+            }
+        }
+
+        .form-input[type="submit"] {
+            min-width: 250px;
+            border: 3px solid white;
+            text-align: center;
+        }
+    }
+
+    .form-text-container {
+        margin-top: 10px;
+
+        .form-text {
+            text-decoration: none;
+            color: black;
+            color: white;
+
+            &:hover {
+                color: black;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
 // END OF MAJOR CLASSES
 
 .home {
@@ -79,5 +166,11 @@
     .header-info {
         max-width: 200px;
         height: 200px;
+    }
+}
+
+.register {
+    .register-form {
+        margin: auto;
     }
 }

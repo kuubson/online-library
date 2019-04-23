@@ -8,12 +8,26 @@
   text-align: center;
 }
 
-.fullsize {
+.darkfullsize {
   width: 100%;
   min-height: 100vh;
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url("../img/home-bg.jpg") no-repeat center center;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/home-bg.jpg") no-repeat center center;
   background-size: cover;
+}
+
+.fullsize {
+  width: 100%;
+  min-height: 100vh;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.3)), to(rgba(0, 0, 0, 0.3))), url("../img/home-bg.jpg") no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../img/home-bg.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .fullflex {
@@ -55,6 +69,16 @@
           align-items: center;
 }
 
+.error,
+.success {
+  font-weight: bold;
+  color: red;
+}
+
+.success {
+  color: green;
+}
+
 .button {
   min-width: 200px;
   min-height: 50px;
@@ -66,6 +90,10 @@
   border-right: 3px solid white;
   border-left: 3px solid white;
   margin: 10px 0px;
+}
+
+.button:hover {
+  cursor: pointer;
 }
 
 .title {
@@ -92,6 +120,80 @@
           transform: translate(-50%, -50%);
 }
 
+.form {
+  padding: 30px;
+  margin: auto;
+}
+
+.form .form-input-container {
+  margin: 30px 0px;
+  position: relative;
+}
+
+.form .form-input-container .form-input-label {
+  text-align: left;
+  display: block;
+  font-weight: bold;
+  font-size: 18px;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.form .form-input-container .form-input {
+  width: 100%;
+  height: 35px;
+  display: block;
+  outline: none;
+  border: none;
+  border-bottom: 3px solid white;
+  background: none;
+  text-indent: 10px;
+  font-size: 15px;
+  color: white;
+  text-align: left;
+}
+
+.form .form-input-container .form-input::-webkit-input-placeholder {
+  color: white;
+}
+
+.form .form-input-container .form-input:-ms-input-placeholder {
+  color: white;
+}
+
+.form .form-input-container .form-input::-ms-input-placeholder {
+  color: white;
+}
+
+.form .form-input-container .form-input::placeholder {
+  color: white;
+}
+
+.form .form-input-container .form-input:not(:placeholder-shown) {
+  border-left: 3px solid white;
+}
+
+.form .form-input-container .form-input[type="submit"] {
+  min-width: 250px;
+  border: 3px solid white;
+  text-align: center;
+}
+
+.form .form-text-container {
+  margin-top: 10px;
+}
+
+.form .form-text-container .form-text {
+  text-decoration: none;
+  color: black;
+  color: white;
+}
+
+.form .form-text-container .form-text:hover {
+  color: black;
+  font-weight: bold;
+}
+
 .home {
   display: -ms-grid;
   display: grid;
@@ -104,5 +206,9 @@
 .home .header-info {
   max-width: 200px;
   height: 200px;
+}
+
+.register .register-form {
+  margin: auto;
 }
 /*# sourceMappingURL=index.css.map */
