@@ -1,4 +1,4 @@
-import { SET_TITLE, SET_AUTHOR, SET_PRICE, SET_COVER, SET_FREE_BOOKS, SET_PAID_BOOKS } from '../actions/actionTypes'
+import { SET_TITLE, SET_AUTHOR, SET_PRICE, SET_COVER, SET_FREE_BOOKS, SET_PAID_BOOKS, SET_BORROWED_BOOKS, SET_BOUGHT_BOOKS } from '../actions/actionTypes'
 
 export const setTitle = (payload) => {
     return {
@@ -39,6 +39,20 @@ export const setFreeBooks = (payload) => {
 export const setPaidBooks = (payload) => {
     return {
         type: SET_PAID_BOOKS,
+        payload
+    }
+}
+
+export const setBorrowedBooks = (payload) => {
+    return {
+        type: SET_BORROWED_BOOKS,
+        payload
+    }
+}
+
+export const setBoughtBooks = (payload) => {
+    return {
+        type: SET_BOUGHT_BOOKS,
         payload
     }
 }

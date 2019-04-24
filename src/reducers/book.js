@@ -1,4 +1,4 @@
-import { SET_TITLE, SET_AUTHOR, SET_PRICE, SET_COVER, SET_FREE_BOOKS, SET_PAID_BOOKS } from '../actions/actionTypes'
+import { SET_TITLE, SET_AUTHOR, SET_PRICE, SET_COVER, SET_FREE_BOOKS, SET_PAID_BOOKS, SET_BORROWED_BOOKS, SET_BOUGHT_BOOKS } from '../actions/actionTypes'
 
 const initialState = {
     title: "",
@@ -6,7 +6,9 @@ const initialState = {
     price: "",
     cover: "",
     freeBooks: "",
-    paidBooks: ""
+    paidBooks: "",
+    borrowedBooks: "",
+    boughtBooks: ""
 }
 
 export const book = (state = initialState, action) => {
@@ -44,6 +46,18 @@ export const book = (state = initialState, action) => {
         return {
             ...state,
             paidBooks: action.payload
+        }
+    }
+    if (action.type === SET_BORROWED_BOOKS) {
+        return {
+            ...state,
+            borrowedBooks: action.payload
+        }
+    }
+    if (action.type === SET_BOUGHT_BOOKS) {
+        return {
+            ...state,
+            boughtBooks: action.payload
         }
     }
     return state;

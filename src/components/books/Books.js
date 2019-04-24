@@ -12,34 +12,27 @@ const Books = ({ freeBooks, paidBooks, setTitle, setAuthor, setPrice, setCover, 
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     useEffect(() => {
-        getFreeBooks();
-        getPaidBooks();
+        getBooks();
     }, [])
-    const getFreeBooks = () => {
+    const getBooks = () => {
         if (freeBooks.length === 0) {
             axios.get('/getFreeBooks').then(result => {
                 const books = result.data.books;
                 setFreeBooks(books);
                 setSavedFreeBooks(sortFreeBooks(books, setTitle, setAuthor, setCover));
             })
-        } else {
-            setSavedFreeBooks(sortFreeBooks(freeBooks, setTitle, setAuthor, setCover));
-        }
-    }
-    const getPaidBooks = () => {
-        if (paidBooks.length === 0) {
             axios.get('/getPaidBooks').then(result => {
                 const books = result.data.books;
                 setPaidBooks(books);
                 setSavedPaidBooks(sortPaidBooks(books, setTitle, setAuthor, setPrice, setCover));
             })
         } else {
+            setSavedFreeBooks(sortFreeBooks(freeBooks, setTitle, setAuthor, setCover));
             setSavedPaidBooks(sortPaidBooks(paidBooks, setTitle, setAuthor, setPrice, setCover));
         }
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-
         if (bookTitle.length !== 0) {
             axios.post('/findNewBook', {
                 title: bookTitle
@@ -63,10 +56,16 @@ const Books = ({ freeBooks, paidBooks, setTitle, setAuthor, setPrice, setCover, 
                     }
                 } else {
                     setErrorMessage(message)
+                    setTimeout(() => {
+                        setErrorMessage("")
+                    }, 3000);
                 }
             })
         } else {
             setErrorMessage("You have to type book's title!");
+            setTimeout(() => {
+                setErrorMessage("")
+            }, 3000);
         }
     }
     return (

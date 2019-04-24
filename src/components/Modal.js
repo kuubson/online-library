@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { setTitle, setAuthor, setPrice, setCover } from '../actions/book'
 import $ from 'jquery'
@@ -28,10 +28,16 @@ const Modal = (props) => {
                 closeModal();
                 props.setSuccessMessage(message);
                 props.setErrorMessage("");
+                setTimeout(() => {
+                    props.setSuccessMessage("");
+                }, 3000);
             } else {
                 closeModal();
                 props.setErrorMessage(message);
                 props.setSuccessMessage("");
+                setTimeout(() => {
+                    props.setErrorMessage("");
+                }, 3000);
             }
         })
     }
