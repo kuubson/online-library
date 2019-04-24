@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import validator from 'validator'
 import axios from 'axios'
+import { connect } from 'react-redux'
+import { setEmail } from '../actions/user';
 
-const Login = ({ history }) => {
+const Login = (props) => {
     let _isMounted = false;
     useEffect(() => {
         _isMounted = true;
         const jwt = sessionStorage.getItem('jwt');
         if (jwt) {
-            history.push('/account');
+            props.history.push('/account');
         }
         return () => {
             _isMounted = false;
@@ -39,12 +41,11 @@ const Login = ({ history }) => {
                 });
                 const response = login.data;
                 if (response.done) {
-                    sessionStorage.setItem('jwt', response.token);
                     setSuccessMessage(response.msg);
                     setErrorMessage("");
-                    setTimeout(() => {
-                        history.push('/account')
-                    }, 1000);
+                    props.setEmail(email);
+                    sessionStorage.setItem('jwt', response.token);
+                    props.history.push('/account')
                 } else {
                     setErrorMessage(response.msg)
                 }
@@ -77,4 +78,10 @@ const Login = ({ history }) => {
     )
 }
 
-export default Login
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setEmail: payload => dispatch(setEmail(payload))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Login)

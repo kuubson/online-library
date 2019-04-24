@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const CheckedOutBookSchema = new mongoose.Schema({
+const BorrowedBookSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true
@@ -15,6 +15,6 @@ const CheckedOutBookSchema = new mongoose.Schema({
     }
 })
 
-const CheckedOutBook = mongoose.model('CheckedOutBook', CheckedOutBookSchema, 'checkedOutBooks');
+const BorrowedBook = mongoose.model('BorrowedBook', BorrowedBookSchema, 'borrowedBooks');
 
-module.exports = CheckedOutBook;
+module.exports = BorrowedBook;

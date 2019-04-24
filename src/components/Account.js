@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 import Navbar from './navbar/Navbar'
 import NavbarLink from './navbar/NavbarLink'
 import Books from './books/Books'
-import Modal from './Modal'
 
 const Account = ({ history }) => {
     useEffect(() => {
@@ -14,7 +13,6 @@ const Account = ({ history }) => {
     })
     return (
         <div className="account fullsize">
-            <Modal />
             <Navbar>
                 <NavbarLink name="My profile" where="/profile" />
                 <NavbarLink name="Cart" where="/cart" />

@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { setTitle, setAuthor, setPrice, setCover } from '../actions/book'
 import $ from 'jquery'
+import axios from 'axios'
 
 const Modal = (props) => {
     const closeModal = () => {
@@ -10,6 +11,29 @@ const Modal = (props) => {
         props.setAuthor("");
         props.setPrice("");
         props.setCover("");
+    }
+    const borrowBook = () => {
+        const book = {
+            title: props.title,
+            author: props.author,
+            cover: props.cover,
+        }
+        axios.post('/borrowBook', {
+            email: props.email,
+            book
+        }).then(result => {
+            const done = result.data.done;
+            const message = result.data.msg;
+            if (done) {
+                closeModal();
+                props.setSuccessMessage(message);
+                props.setErrorMessage("");
+            } else {
+                closeModal();
+                props.setErrorMessage(message);
+                props.setSuccessMessage("");
+            }
+        })
     }
     return (
         <div className="modal">
@@ -26,7 +50,8 @@ const Modal = (props) => {
                 <div className="choice">
                     <div className="text">I am sure I want this book</div>
                     <div className="buttons">
-                        <button className="button button-yes">Yes</button>
+                        {props.price && <button className="button button-yes" onClick={() => console.log('Buy')}>Yes</button>}
+                        {!props.price && <button className="button button-yes" onClick={borrowBook}>Yes</button>}
                         <button className="button button-no" onClick={closeModal}>No</button>
                     </div>
                 </div>
@@ -37,6 +62,7 @@ const Modal = (props) => {
 
 const mapStateToProps = (state) => {
     return {
+        email: state.user.email,
         title: state.book.title,
         author: state.book.author,
         price: state.book.price,
