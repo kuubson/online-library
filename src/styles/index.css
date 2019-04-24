@@ -517,13 +517,12 @@
   -ms-grid-columns: 1fr 1fr 1fr;
       grid-template-columns: 1fr 1fr 1fr;
   grid-auto-rows: 250px;
-  -ms-flex-line-pack: center;
-      align-content: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   grid-gap: 15px;
   padding: 15px;
+  padding-top: 30px;
 }
 
 .account .books .free-books-container .free-books-items .free-book-item {
@@ -545,8 +544,8 @@
 .account .books .paid-books-container .paid-books-items {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 0.5fr;
-      grid-template-columns: 0.5fr;
+  -ms-grid-columns: 0.5fr 0.5fr;
+      grid-template-columns: 0.5fr 0.5fr;
   grid-auto-rows: 240px;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
