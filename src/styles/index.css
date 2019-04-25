@@ -11,8 +11,8 @@
 .darkfullsize {
   width: 100%;
   min-height: 100vh;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url("../img/home-bg.jpg") no-repeat center center;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/home-bg.jpg") no-repeat center center;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.7))), url("../img/home-bg.jpg") no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../img/home-bg.jpg") no-repeat center center;
   background-size: cover;
   padding: 15px;
 }
@@ -20,8 +20,8 @@
 .fullsize {
   width: 100%;
   min-height: 100vh;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../img/home-bg.jpg") no-repeat center center;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../img/home-bg.jpg") no-repeat center center;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url("../img/home-bg.jpg") no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/home-bg.jpg") no-repeat center center;
   background-size: cover;
   padding: 15px;
 }
@@ -600,7 +600,7 @@
   display: grid;
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
-  grid-auto-rows: 200px;
+  grid-auto-rows: 220px;
   grid-gap: 10px;
   padding: 10px;
 }
@@ -616,7 +616,7 @@
   display: grid;
   -ms-grid-columns: 1fr 1fr 1fr;
       grid-template-columns: 1fr 1fr 1fr;
-  grid-auto-rows: 200px;
+  grid-auto-rows: 220px;
   grid-gap: 10px;
   padding: 10px;
 }
@@ -645,5 +645,92 @@
   color: white;
   font-size: 25px;
   padding: 15px;
+}
+
+.cart {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  -ms-grid-rows: 80px 1fr;
+      grid-template-rows: 80px 1fr;
+  grid-gap: 15px;
+}
+
+.cart .summary {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: 1fr;
+      grid-template-rows: 1fr;
+  grid-gap: 15px;
+  padding: 15px;
+}
+
+.cart .summary .selected-books-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  -ms-grid-rows: 80px 1fr;
+      grid-template-rows: 80px 1fr;
+  grid-gap: 15px;
+}
+
+.cart .summary .selected-books-container .selected-books-items {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: 210px;
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+.cart .summary .summary-books-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  -ms-grid-rows: 80px 1fr 80px;
+      grid-template-rows: 80px 1fr 80px;
+  grid-gap: 15px;
+}
+
+.cart .summary .summary-books-container .summary-books-items {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  grid-auto-rows: 50px;
+  grid-gap: 10px;
+}
+
+.cart .summary .summary-books-container .summary-books-items .summary-book-item {
+  font-size: 30px;
+  color: white;
+}
+
+.cart .summary .summary-books-container .summary-books-items .summary-book-item .summary-book-title {
+  margin: 0px 20px;
+}
+
+.cart .summary .summary-books-container .summary-books-items .summary-book-item .summary-book.price {
+  margin: 0px 20px;
+}
+
+.cart .summary .total {
+  font-size: 30px;
+  color: white;
+  margin: 0px 10px;
+}
+
+.cart .summary .total .total-price {
+  margin: 5px 0px;
+}
+
+.cart .summary .total .paypal-button {
+  margin: 5px 0px;
 }
 /*# sourceMappingURL=index.css.map */

@@ -8,7 +8,7 @@ import Info from './Info';
 
 const Profile = () => {
     return (
-        <div className="profile fullsize">
+        <div className="profile darkfullsize">
             <Navbar>
                 <NavbarLink name="Home" where="/account" />
                 <NavbarLink name="Cart" where="/cart" />

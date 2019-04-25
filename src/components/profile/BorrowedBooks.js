@@ -10,23 +10,19 @@ const BorrowedBooks = (props) => {
     }, [])
     const [savedBorrowedBooks, setSavedBorrowedBooks] = useState("");
     const getBooks = () => {
-        if (props.borrowedBooks.length === 0) {
-            axios.post('/getBorrowedBooks', {
-                email: props.email
-            }).then(result => {
-                const done = result.data.done;
-                const message = result.data.msg;
-                const borrowedBooks = result.data.borrowedBooks;
-                if (done) {
-                    props.setBorrowedBooks(borrowedBooks);
-                    setSavedBorrowedBooks(sortBorrowedBooks(borrowedBooks));
-                } else {
-                    console.log(message);
-                }
-            })
-        } else {
-            setSavedBorrowedBooks(sortBorrowedBooks(props.borrowedBooks));
-        }
+        axios.post('/getBorrowedBooks', {
+            email: props.email
+        }).then(result => {
+            const done = result.data.done;
+            const message = result.data.msg;
+            const borrowedBooks = result.data.borrowedBooks;
+            if (done) {
+                props.setBorrowedBooks(borrowedBooks);
+                setSavedBorrowedBooks(sortBorrowedBooks(borrowedBooks));
+            } else {
+                console.log(message);
+            }
+        })
     }
     return (
         <div className="borrowed-books-container books-container profile-container">

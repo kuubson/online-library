@@ -7,3 +7,4 @@ export const SET_FREE_BOOKS = "SET_FREE_BOOKS";
 export const SET_PAID_BOOKS = "SET_PAID_BOOKS";
 export const SET_BORROWED_BOOKS = "SET_BORROWED_BOOKS";
 export const SET_BOUGHT_BOOKS = "SET_BOUGHT_BOOKS";
+export const SET_CART = "SET_CART";

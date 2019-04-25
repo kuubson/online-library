@@ -12,7 +12,7 @@ const Account = ({ history }) => {
         }
     })
     return (
-        <div className="account fullsize">
+        <div className="account darkfullsize">
             <Navbar>
                 <NavbarLink name="My profile" where="/profile" />
                 <NavbarLink name="Cart" where="/cart" />

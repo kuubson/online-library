@@ -11,7 +11,7 @@ const Home = ({ history }) => {
         history.push(where)
     }
     return (
-        <div className="home darkfullsize">
+        <div className="home fullsize">
             <div className="header-title title fullflex">
                 Online Library
             </div>

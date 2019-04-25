@@ -15,21 +15,16 @@ const Books = ({ freeBooks, paidBooks, setTitle, setAuthor, setPrice, setCover, 
         getBooks();
     }, [])
     const getBooks = () => {
-        if (freeBooks.length === 0) {
-            axios.get('/getFreeBooks').then(result => {
-                const books = result.data.books;
-                setFreeBooks(books);
-                setSavedFreeBooks(sortFreeBooks(books, setTitle, setAuthor, setCover));
-            })
-            axios.get('/getPaidBooks').then(result => {
-                const books = result.data.books;
-                setPaidBooks(books);
-                setSavedPaidBooks(sortPaidBooks(books, setTitle, setAuthor, setPrice, setCover));
-            })
-        } else {
-            setSavedFreeBooks(sortFreeBooks(freeBooks, setTitle, setAuthor, setCover));
-            setSavedPaidBooks(sortPaidBooks(paidBooks, setTitle, setAuthor, setPrice, setCover));
-        }
+        axios.get('/getFreeBooks').then(result => {
+            const books = result.data.books;
+            setFreeBooks(books);
+            setSavedFreeBooks(sortFreeBooks(books, setTitle, setAuthor, setCover));
+        })
+        axios.get('/getPaidBooks').then(result => {
+            const books = result.data.books;
+            setPaidBooks(books);
+            setSavedPaidBooks(sortPaidBooks(books, setTitle, setAuthor, setPrice, setCover));
+        })
     }
     const handleSubmit = (e) => {
         e.preventDefault();

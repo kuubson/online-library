@@ -17,7 +17,7 @@ router.post('/getBoughtBooks', (req, res) => {
             const books = user.books;
             const boughtBooks = [];
             books.forEach(book => {
-                if (!book.price) {
+                if (book.price) {
                     boughtBooks.push(book);
                 }
             })

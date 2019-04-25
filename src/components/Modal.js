@@ -1,8 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { setTitle, setAuthor, setPrice, setCover } from '../actions/book'
+import { setCart } from '../actions/cart'
 import $ from 'jquery'
 import axios from 'axios'
+import uuid from 'uuid'
 
 const Modal = (props) => {
     const closeModal = () => {
@@ -41,6 +43,23 @@ const Modal = (props) => {
             }
         })
     }
+    const buyBook = () => {
+        const book = {
+            id: uuid(),
+            title: props.title,
+            author: props.author,
+            price: props.price,
+            cover: props.cover,
+        }
+        const currentCart = props.cart;
+        currentCart.unshift(book);
+        props.setCart(currentCart);
+        closeModal();
+        props.setSuccessMessage("Book has been added to cart");
+        setTimeout(() => {
+            props.setSuccessMessage("");
+        }, 3000);
+    }
     return (
         <div className="modal">
             <div className="modal-content">
@@ -56,7 +75,7 @@ const Modal = (props) => {
                 <div className="choice">
                     <div className="text">I am sure I want this book</div>
                     <div className="buttons">
-                        {props.price && <button className="button button-yes" onClick={() => console.log('Buy')}>Yes</button>}
+                        {props.price && <button className="button button-yes" onClick={buyBook}>Yes, add to cart</button>}
                         {!props.price && <button className="button button-yes" onClick={borrowBook}>Yes</button>}
                         <button className="button button-no" onClick={closeModal}>No</button>
                     </div>
@@ -72,12 +91,14 @@ const mapStateToProps = (state) => {
         title: state.book.title,
         author: state.book.author,
         price: state.book.price,
-        cover: state.book.cover
+        cover: state.book.cover,
+        cart: state.cart.cart
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        setCart: payload => dispatch(setCart(payload)),
         setTitle: payload => dispatch(setTitle(payload)),
         setAuthor: payload => dispatch(setAuthor(payload)),
         setPrice: payload => dispatch(setPrice(payload)),
