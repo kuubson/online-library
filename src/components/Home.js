@@ -6,7 +6,7 @@ const Home = ({ history }) => {
         if (jwt) {
             history.push('/account');
         }
-    })
+    }, [])
     const handleClick = (where) => {
         history.push(where)
     }

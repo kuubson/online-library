@@ -5,11 +5,12 @@ import { sortSelectedBooks, setSummary, countTotal } from './SortBooks'
 
 import Navbar from '../navbar/Navbar'
 import NavbarLink from '../navbar/NavbarLink'
+import PayPalButton from '../paypal/PayPalButton'
 
 const Cart = (props) => {
     const [selectedBooks, setSelectedBooks] = useState("");
     const [summaryDetails, setSummaryDetails] = useState("");
-    const [totalPrice, setTotalPrice] = useState("");
+    const [totalPrice, setTotalPrice] = useState(0);
     useEffect(() => {
         supplyCart();
     }, [props.cart]);
@@ -46,7 +47,7 @@ const Cart = (props) => {
                             {'Total: ' + totalPrice + '$'}
                         </div>
                         <div className="paypal-button">
-                            <button className="button">Pay</button>
+                            <PayPalButton totalPrice={totalPrice} resetBooks={setSelectedBooks} resetDetails={setSummaryDetails} resetPrice={setTotalPrice} />
                         </div>
                     </div>
                 </div>

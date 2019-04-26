@@ -21,6 +21,7 @@ app.use('/', require('./routes/getFreeBooks'));
 app.use('/', require('./routes/getPaidBooks'));
 app.use('/', require('./routes/findNewBook'));
 app.use('/', require('./routes/borrowBook'));
+app.use('/', require('./routes/buyBook'));
 app.use('/', require('./routes/getBorrowedBooks'));
 app.use('/', require('./routes/getBoughtBooks'));
 
