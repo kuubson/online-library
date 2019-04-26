@@ -31,7 +31,8 @@
     "validator": "^10.11.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node ./src/server.js",
+    "run": "react-scripts start",
     "dev": "concurrently \"nodemon ./src/server.js\" \"npm start\" ",
     "build": "react-scripts build",
     "test": "react-scripts test",

@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3001;
+const path = require('path');
 
 const mongoose = require('mongoose');
 require('./config/database')(mongoose);
@@ -24,5 +25,11 @@ app.use('/', require('./routes/borrowBook'));
 app.use('/', require('./routes/buyBook'));
 app.use('/', require('./routes/getBorrowedBooks'));
 app.use('/', require('./routes/getBoughtBooks'));
+
+app.use(express.static(path.resolve(__dirname, '../build')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
+});
 
 app.listen(port, () => console.log(`Successfully started server at port ${port}!`));
