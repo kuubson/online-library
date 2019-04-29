@@ -155,7 +155,7 @@
     }
 
     .form-text-container {
-        margin-top: 10px;
+        margin-top: 20px;
 
         .form-text {
             text-decoration: none;
@@ -363,6 +363,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(3, 1fr);
+    overflow-x: hidden;
 
     .header-buttons {
         .header-button {
@@ -377,7 +378,13 @@
     }
 }
 
+.login {
+    overflow-x: hidden;
+}
+
 .register {
+    overflow-x: hidden;
+
     .register-form {
         margin: auto;
     }
@@ -438,10 +445,6 @@
                 grid-gap: 15px;
                 padding: 15px;
                 padding-top: 30px;
-
-                .free-book-item {
-                    background: red;
-                }
             }
         }
 
@@ -479,29 +482,26 @@
         grid-template-columns: 1fr;
         grid-template-rows: 80px 1fr;
         grid-gap: 15px;
+        padding: 10px;
     }
 
     .books {
         display: grid;
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: 3fr 1fr 3fr;
         grid-template-rows: 1fr;
-        padding: 15px;
         grid-gap: 15px;
 
         .bought-books-container {
-            grid-column: 1/3;
 
             .bought-books-items {
                 display: grid;
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr 1fr 1fr;
                 grid-auto-rows: 220px;
                 grid-gap: 10px;
-                padding: 10px;
             }
         }
 
         .borrowed-books-container {
-            grid-column: 4/7;
 
             .borrowed-books-header {}
 
@@ -510,7 +510,6 @@
                 grid-template-columns: 1fr 1fr 1fr;
                 grid-auto-rows: 220px;
                 grid-gap: 10px;
-                padding: 10px;
             }
         }
 
@@ -531,7 +530,7 @@
 
                 .info-item {
                     color: white;
-                    font-size: 25px;
+                    font-size: 20px;
                     padding: 15px;
                 }
             }

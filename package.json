@@ -32,8 +32,7 @@
   },
   "scripts": {
     "start": "node ./src/server.js",
-    "run": "react-scripts start",
-    "dev": "concurrently \"nodemon ./src/server.js\" \"npm start\" ",
+    "dev": "concurrently \"nodemon ./src/server.js\" \"react-scripts start\" ",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

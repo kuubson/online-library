@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useLayoutEffect } from 'react'
 import validator from 'validator'
 import passwordValidator from 'password-validator'
 import axios from 'axios'
 
+import { registerAnimations } from '../animations/registerAnimations'
+
 const Register = ({ history }) => {
     let _isMounted = false;
+    useLayoutEffect(() => {
+        registerAnimations();
+    }, [])
     useEffect(() => {
         _isMounted = true;
         const jwt = sessionStorage.getItem('jwt');
@@ -66,37 +71,37 @@ const Register = ({ history }) => {
     return (
         <div className="register fullsize flex">
             <form className="register-form form" onSubmit={handleSubmit}>
-                <div className="register-form-input-container form-input-container">
+                <div className="register-form-input-container form-input-container name">
                     <label htmlFor="name" className="register-form-input-label form-input-label">Name:</label>
                     <input className="register-form-input form-input" id="name" name="name" type="text" placeholder="Type your name..." onChange={e => setName(e.target.value)} />
                 </div>
                 {nameError && <div className="error">{nameError}</div>}
-                <div className="register-form-input-container form-input-container">
+                <div className="register-form-input-container form-input-container surname">
                     <label htmlFor="surname" className="register-form-input-label form-input-label">Surname:</label>
                     <input className="register-form-input form-input" id="surname" name="surname" type="text" placeholder="Type your surname..." onChange={e => setSurname(e.target.value)} />
                 </div>
                 {surnameError && <div className="error">{surnameError}</div>}
-                <div className="register-form-input-container form-input-container">
+                <div className="register-form-input-container form-input-container email">
                     <label htmlFor="email" className="register-form-input-label form-input-label">Email:</label>
                     <input className="register-form-input form-input" id="email" name="email" type="text" placeholder="Type your email..." onChange={e => setEmail(e.target.value)} />
                 </div>
                 {emailError && <div className="error">{emailError}</div>}
-                <div className="register-form-input-container form-input-container">
+                <div className="register-form-input-container form-input-container password">
                     <label htmlFor="password" className="register-form-input-label form-input-label">Password:</label>
                     <input className="register-form-input form-input" id="password" name="password" type="password" placeholder="Type your password..." onChange={e => setPassword(e.target.value)} />
                 </div>
                 {passwordError && <div className="error">{passwordError}</div>}
-                <div className="register-form-input-container form-input-container">
+                <div className="register-form-input-container form-input-container password2">
                     <label htmlFor="password2" className="register-form-input-label form-input-label">Password again:</label>
                     <input className="register-form-input form-input" id="password2" name="password2" type="password" placeholder="Type again your password..." onChange={e => setPassword2(e.target.value)} />
                 </div>
                 {password2Error && <div className="error">{password2Error}</div>}
-                <div className="register-form-input-container form-input-container">
+                <div className="register-form-input-container form-input-container submit">
                     <input className="register-form-input form-input" type="submit" value="Register" />
                 </div>
                 {successMessage && <div className="success">{successMessage}</div>}
                 {errorMessage && <div className="error">{errorMessage}</div>}
-                <div className="register-form-text-container form-text-container">
+                <div className="register-form-text-container form-text-container form-link">
                     <a href="/login" className="register-form-text form-text">Have already account? Log in now!</a>
                 </div>
             </form>

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux'
 import { setBoughtBooks } from '../../actions/book'
 import { sortBoughtBooks } from './SortBook'
+import { booksAnimations } from '../../animations/booksAnimations'
 
 const BoughtBooks = (props) => {
     useEffect(() => {
@@ -20,6 +21,7 @@ const BoughtBooks = (props) => {
             if (done) {
                 props.setBoughtBooks(boughtBooks);
                 setSavedBoughtBooks(sortBoughtBooks(boughtBooks));
+                booksAnimations('.bought-book-item');
             } else {
                 console.log(message);
             }

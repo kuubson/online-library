@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useLayoutEffect } from 'react'
 import validator from 'validator'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { setEmail } from '../actions/user';
 
+import { loginAnimations } from '../animations/loginAnimations'
+
 const Login = (props) => {
     let _isMounted = false;
+    useLayoutEffect(() => {
+        loginAnimations();
+    }, [])
     useEffect(() => {
         _isMounted = true;
         const jwt = sessionStorage.getItem('jwt');
@@ -55,22 +60,22 @@ const Login = (props) => {
     return (
         <div className="login fullsize flex">
             <form className="login-form form" onSubmit={handleSubmit}>
-                <div className="login-form-input-container form-input-container">
+                <div className="login-form-input-container form-input-container email">
                     <label htmlFor="email" className="login-form-input-label form-input-label">Email:</label>
                     <input className="login-form-input form-input" id="email" name="email" type="text" placeholder="Type your email..." onChange={e => setEmail(e.target.value)} />
                 </div>
                 {emailError && <div className="error">{emailError}</div>}
-                <div className="login-form-input-container form-input-container">
+                <div className="login-form-input-container form-input-container password">
                     <label htmlFor="password" className="login-form-input-label form-input-label">Password:</label>
                     <input className="login-form-input form-input" id="password" name="password" type="password" placeholder="Type your password..." onChange={e => setPassword(e.target.value)} />
                 </div>
                 {passwordError && <div className="error">{passwordError}</div>}
-                <div className="login-form-input-container form-input-container">
+                <div className="login-form-input-container form-input-container submit">
                     <input className="login-form-input form-input" type="submit" value="Login" />
                 </div>
                 {successMessage && <div className="success">{successMessage}</div>}
                 {errorMessage && <div className="error">{errorMessage}</div>}
-                <div className="login-form-text-container form-text-container">
+                <div className="login-form-text-container form-text-container form-link">
                     <a href="/register" className="login-form-text form-text">Feel free to register now!</a>
                 </div>
             </form>

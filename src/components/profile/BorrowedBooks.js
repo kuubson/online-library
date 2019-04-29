@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux'
 import { setBorrowedBooks } from '../../actions/book'
 import { sortBorrowedBooks } from './SortBook'
+import { booksAnimations } from '../../animations/booksAnimations'
 
 const BorrowedBooks = (props) => {
     useEffect(() => {
@@ -19,6 +20,7 @@ const BorrowedBooks = (props) => {
             if (done) {
                 props.setBorrowedBooks(borrowedBooks);
                 setSavedBorrowedBooks(sortBorrowedBooks(borrowedBooks));
+                booksAnimations('.borrowed-book-item');
             } else {
                 console.log(message);
             }

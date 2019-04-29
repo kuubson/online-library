@@ -21,7 +21,8 @@ const PayPalButton = (props) => {
         })
     }
     const onCancel = (data) => {
-        console.log('The payment was cancelled!', data);
+        /*   console.log('The payment was cancelled!', data); */
+        alert('Payment has been canceled!');
     }
     const onError = (err) => {
         console.log("Error!", err);

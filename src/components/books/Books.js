@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { setTitle, setAuthor, setPrice, setCover, setPaidBooks, setFreeBooks } from '../../actions/book'
 import { sortFreeBooks, sortPaidBooks } from './SortBooks'
 import axios from 'axios'
-import Modal from '../Modal';
+import Modal from '../Modal'
+import { booksAnimations } from '../../animations/booksAnimations'
 
 const Books = ({ freeBooks, paidBooks, setTitle, setAuthor, setPrice, setCover, setPaidBooks, setFreeBooks }) => {
     const [bookTitle, setBookTitle] = useState("");
@@ -19,11 +20,13 @@ const Books = ({ freeBooks, paidBooks, setTitle, setAuthor, setPrice, setCover, 
             const books = result.data.books;
             setFreeBooks(books);
             setSavedFreeBooks(sortFreeBooks(books, setTitle, setAuthor, setCover));
+            booksAnimations('.free-book-item');
         })
         axios.get('/getPaidBooks').then(result => {
             const books = result.data.books;
             setPaidBooks(books);
             setSavedPaidBooks(sortPaidBooks(books, setTitle, setAuthor, setPrice, setCover));
+            booksAnimations('.paid-book-item');
         })
     }
     const handleSubmit = (e) => {
@@ -44,10 +47,12 @@ const Books = ({ freeBooks, paidBooks, setTitle, setAuthor, setPrice, setCover, 
                         currentPaidBooks.unshift(book);
                         setPaidBooks(currentPaidBooks);
                         setSavedPaidBooks(sortPaidBooks(paidBooks, setTitle, setAuthor, setPrice, setCover));
+                        booksAnimations('.paid-book-item');
                     } else {
                         currentFreeBooks.unshift(book);
                         setFreeBooks(currentFreeBooks);
                         setSavedFreeBooks(sortFreeBooks(freeBooks, setTitle, setAuthor, setCover));
+                        booksAnimations('.free-book-item');
                     }
                 } else {
                     setErrorMessage(message)
