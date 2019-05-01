@@ -30,34 +30,29 @@
   .home .header-infos {
     display: none;
   }
-  .navbar .navbar-items-container .navbar-items {
-    list-style-type: none;
+  .navbar .hamburger {
+    display: block;
   }
   .navbar .navbar-logo-items-container {
-    float: left;
+    float: unset;
   }
   .navbar .navbar-logo-items-container .navbar-logo-items .navbar-logo-item {
-    color: white;
-    font-weight: bold;
-    font-size: 35px;
-    margin-left: 30px;
+    font-size: 20px;
+    width: 100%;
+    margin: 0;
   }
   .navbar .navbar-links-items-container {
-    float: right;
     display: none;
+    float: unset;
+    overflow: hidden;
   }
   .navbar .navbar-links-items-container .navbar-links-items .navbar-links-item {
-    float: left;
+    width: 100%;
+    float: unset;
   }
   .navbar .navbar-links-items-container .navbar-links-items .navbar-links-item .navbar-link {
-    text-decoration: none;
-    color: white;
     font-size: 20px;
-    margin-right: 40px;
-  }
-  .navbar .navbar-links-items-container .navbar-links-items .navbar-links-item .navbar-link:hover {
-    color: black;
-    cursor: pointer;
+    margin-right: 0;
   }
   .account .books {
     display: block;
@@ -245,34 +240,28 @@
   .home .header-infos {
     display: none;
   }
-  .navbar .navbar-items-container .navbar-items {
-    list-style-type: none;
+  .navbar .hamburger {
+    display: block;
   }
   .navbar .navbar-logo-items-container {
-    float: left;
+    float: unset;
   }
   .navbar .navbar-logo-items-container .navbar-logo-items .navbar-logo-item {
-    color: white;
-    font-weight: bold;
-    font-size: 35px;
-    margin-left: 30px;
+    font-size: 20px;
+    width: 100%;
+    margin: 0;
   }
   .navbar .navbar-links-items-container {
-    float: right;
     display: none;
+    float: unset;
   }
   .navbar .navbar-links-items-container .navbar-links-items .navbar-links-item {
-    float: left;
+    width: 100%;
+    float: unset;
   }
   .navbar .navbar-links-items-container .navbar-links-items .navbar-links-item .navbar-link {
-    text-decoration: none;
-    color: white;
     font-size: 20px;
-    margin-right: 40px;
-  }
-  .navbar .navbar-links-items-container .navbar-links-items .navbar-links-item .navbar-link:hover {
-    color: black;
-    cursor: pointer;
+    margin-right: 0;
   }
   .account .books {
     display: block;

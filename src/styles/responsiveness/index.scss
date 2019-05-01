@@ -49,43 +49,36 @@
     }
 
     .navbar {
-        .navbar-items-container {
-            .navbar-items {
-                list-style-type: none;
-            }
+
+        .hamburger {
+            display: block;
         }
 
         .navbar-logo-items-container {
-            float: left;
+            float: unset;
 
             .navbar-logo-items {
                 .navbar-logo-item {
-                    color: white;
-                    font-weight: bold;
-                    font-size: 35px;
-                    margin-left: 30px;
+                    font-size: 20px;
+                    width: 100%;
+                    margin: 0;
                 }
             }
         }
 
         .navbar-links-items-container {
-            float: right;
             display: none;
+            float: unset;
+            overflow: hidden;
 
             .navbar-links-items {
                 .navbar-links-item {
-                    float: left;
+                    width: 100%;
+                    float: unset;
 
                     .navbar-link {
-                        text-decoration: none;
-                        color: white;
                         font-size: 20px;
-                        margin-right: 40px;
-
-                        &:hover {
-                            color: black;
-                            cursor: pointer;
-                        }
+                        margin-right: 0;
                     }
                 }
             }
@@ -93,6 +86,7 @@
     }
 
     .account {
+
         .books {
             display: block;
 
@@ -310,43 +304,34 @@
 
     .navbar {
 
-        .navbar-items-container {
-            .navbar-items {
-                list-style-type: none;
-            }
+        .hamburger {
+            display: block;
         }
 
         .navbar-logo-items-container {
-            float: left;
+            float: unset;
 
             .navbar-logo-items {
                 .navbar-logo-item {
-                    color: white;
-                    font-weight: bold;
-                    font-size: 35px;
-                    margin-left: 30px;
+                    font-size: 20px;
+                    width: 100%;
+                    margin: 0;
                 }
             }
         }
 
         .navbar-links-items-container {
-            float: right;
             display: none;
+            float: unset;
 
             .navbar-links-items {
                 .navbar-links-item {
-                    float: left;
+                    width: 100%;
+                    float: unset;
 
                     .navbar-link {
-                        text-decoration: none;
-                        color: white;
                         font-size: 20px;
-                        margin-right: 40px;
-
-                        &:hover {
-                            color: black;
-                            cursor: pointer;
-                        }
+                        margin-right: 0;
                     }
                 }
             }

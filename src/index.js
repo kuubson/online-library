@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './fontello/css/fontello.css'
 import './styles/index.css';
 import './styles/responsiveness/index.css'
 import App from './App';

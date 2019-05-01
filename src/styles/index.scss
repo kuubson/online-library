@@ -171,6 +171,15 @@
 .navbar {
     line-height: 80px;
     background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+    position: relative;
+
+    .hamburger {
+        display: none;
+        position: absolute;
+        top: 80px;
+        left: 95%;
+        transform: translate(-95%, -80px);
+    }
 
     .navbar-items-container {
         .navbar-items {
@@ -193,6 +202,7 @@
 
     .navbar-links-items-container {
         float: right;
+        transition: 1s all ease-out;
 
         .navbar-links-items {
             .navbar-links-item {
@@ -379,7 +389,7 @@
 .account {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 80px 1fr;
+    grid-template-rows: auto 1fr;
     grid-gap: 15px;
 
     .books {
@@ -467,7 +477,7 @@
 .profile {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 80px 1fr;
+    grid-template-rows: auto 1fr;
     grid-gap: 15px;
 
     .profile-container {
@@ -519,7 +529,7 @@
 .cart {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 80px 1fr;
+    grid-template-rows: auto 1fr;
     grid-gap: 15px;
 
     .summary {
