@@ -68,9 +68,9 @@ const Modal = (props) => {
                 </div>
                 <div className="details">
                     <div className="text">That's just a small step from getting this book:</div>
-                    <div className="bookTitle">{`Book written by ${props.author}`}</div>
-                    <div className="bookTitle">{`Named ${props.title}`}</div>
-                    {props.price && <div className="bookTitle">{`That costs ${props.price}$`}</div>}
+                    <div className="book-author">{`Book written by ${props.author}`}</div>
+                    <div className="book-title">{`Named ${props.title}`}</div>
+                    {props.price && <div className="book-price">{`That costs ${props.price}$`}</div>}
                 </div>
                 <div className="choice">
                     <div className="text">I am sure I want this book</div>

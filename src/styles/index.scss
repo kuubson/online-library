@@ -62,7 +62,6 @@
     border: none;
     color: white;
     font-size: 15px;
-    padding: 10px;
     border-right: 3px solid white;
     border-left: 3px solid white;
     margin: 10px 0px;
@@ -108,7 +107,6 @@
 }
 
 .form {
-    padding: 30px;
     margin: auto;
 
     .form-input-container {
@@ -230,7 +228,7 @@
             .book-title {
                 color: white;
                 font-weight: bold;
-                font-size: 18px;
+                font-size: 15px;
                 text-transform: uppercase;
                 margin-top: 20px;
             }
@@ -239,6 +237,7 @@
                 border: none;
                 padding: 5px 10px;
                 border-radius: 10px;
+                font-size: 14px;
                 position: absolute;
                 top: 85%;
                 left: 50%;
@@ -248,11 +247,11 @@
             .book-price {
                 color: white;
                 font-weight: bold;
-                font-size: 18px;
+                font-size: 16px;
                 position: absolute;
-                top: 70%;
+                top: 73%;
                 left: 50%;
-                transform: translate(-50%, -70%);
+                transform: translate(-50%, -73%);
             }
         }
     }
@@ -268,7 +267,6 @@
     left: 0;
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
-    overflow: auto;
     display: none;
 
     .modal-content {
@@ -276,7 +274,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 60%;
+        width: 55%;
         height: 60%;
         background: white;
         display: grid;
@@ -344,18 +342,6 @@
                 }
             }
         }
-
-        .close {
-            font-size: 50px;
-            position: absolute;
-            top: 5%;
-            right: 0%;
-            transform: translate(-50%, -50%);
-
-            &:hover {
-                cursor: pointer;
-            }
-        }
     }
 }
 
@@ -368,7 +354,7 @@
     .header-buttons {
         .header-button {
             min-width: 200px;
-            min-height: 50px;
+            height: 50px;
         }
     }
 
@@ -412,7 +398,9 @@
                 grid-template-columns: 1fr 1fr;
                 grid-template-rows: 1fr;
 
-                .free-books-title {}
+                .free-books-title {
+                    font-size: 20px;
+                }
 
                 .free-books-search {
 
@@ -454,6 +442,12 @@
             grid-template-columns: 1fr;
             grid-template-rows: 100px 1fr;
 
+            .paid-books-header {
+                .paid-books-title {
+                    font-size: 22px;
+                }
+            }
+
             .paid-books-items {
                 display: grid;
                 grid-template-columns: 0.5fr 0.5fr;
@@ -464,7 +458,6 @@
 
                 .paid-books-item {
                     background: red;
-
                 }
             }
         }
@@ -487,11 +480,15 @@
 
     .books {
         display: grid;
-        grid-template-columns: 3fr 1fr 3fr;
+        grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr;
         grid-gap: 15px;
 
         .bought-books-container {
+
+            .bought-books-title {
+                font-size: 22px;
+            }
 
             .bought-books-items {
                 display: grid;
@@ -503,36 +500,17 @@
 
         .borrowed-books-container {
 
-            .borrowed-books-header {}
+            .borrowed-books-header {
+                .borrowed-books-title {
+                    font-size: 22px;
+                }
+            }
 
             .borrowed-books-items {
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr;
                 grid-auto-rows: 220px;
                 grid-gap: 10px;
-            }
-        }
-
-        .info-container {
-
-            .info-items {
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-columns: 1fr;
-
-                .item1 {
-                    align-items: flex-end;
-                }
-
-                .item2 {
-                    align-items: flex-start;
-                }
-
-                .info-item {
-                    color: white;
-                    font-size: 20px;
-                    padding: 15px;
-                }
             }
         }
     }
@@ -558,7 +536,11 @@
             grid-template-rows: 80px 1fr;
             grid-gap: 15px;
 
-            .selected-books-header {}
+            .selected-books-header {
+                .selected-books-title {
+                    font-size: 22px;
+                }
+            }
 
             .selected-books-items {
                 display: grid;
@@ -575,7 +557,11 @@
             grid-template-rows: 80px 1fr 80px;
             grid-gap: 15px;
 
-            .summary-books-header {}
+            .summary-books-header {
+                .summary-books-title {
+                    font-size: 22px;
+                }
+            }
 
             .summary-books-items {
                 display: grid;
@@ -584,7 +570,7 @@
                 grid-gap: 10px;
 
                 .summary-book-item {
-                    font-size: 30px;
+                    font-size: 22px;
                     color: white;
 
                     .summary-book-title {
@@ -599,7 +585,7 @@
         }
 
         .total {
-            font-size: 30px;
+            font-size: 22px;
             color: white;
             margin: 0px 10px;
 
@@ -608,7 +594,7 @@
             }
 
             .paypal-button {
-                margin: 5px 0px;
+                margin: 5px 0px 0px;
             }
         }
     }
