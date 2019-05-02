@@ -1,7 +1,8 @@
 const router = require('express').Router();
-const Books = require('../models/Book')
+const Books = require('../models/Book');
+const passport = require('passport');
 
-router.get('/getPaidBooks', (req, res) => {
+router.get('/getPaidBooks', passport.authenticate('jwt', { session: false }), (req, res) => {
 
     Books.find({}).then(books => {
         if (!books) {

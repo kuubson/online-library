@@ -8,6 +8,12 @@ import NavbarLink from '../navbar/NavbarLink'
 import PayPalButton from '../paypal/PayPalButton'
 
 const Cart = (props) => {
+    useEffect(() => {
+        const jwt = sessionStorage.getItem('jwt');
+        if (!jwt) {
+            props.history.push('/login');
+        }
+    })
     const [selectedBooks, setSelectedBooks] = useState("");
     const [summaryDetails, setSummaryDetails] = useState("");
     const [totalPrice, setTotalPrice] = useState(0);
@@ -21,6 +27,9 @@ const Cart = (props) => {
     }
     return (
         <div className="cart darkfullsize">
+            <div className="paymentProgress">
+                <div className="loading"></div>
+            </div>
             <Navbar>
                 <NavbarLink name="Home" where="/account" />
                 <NavbarLink name="My profile" where="/profile" />

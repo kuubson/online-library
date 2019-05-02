@@ -70,7 +70,7 @@ const Register = ({ history }) => {
     }
     return (
         <div className="register fullsize flex">
-            <form className="register-form form" onSubmit={handleSubmit}>
+            <form autoComplete="off" className="register-form form" onSubmit={handleSubmit}>
                 <div className="register-form-input-container form-input-container name">
                     <label htmlFor="name" className="register-form-input-label form-input-label">Name:</label>
                     <input className="register-form-input form-input" id="name" name="name" type="text" placeholder="Type your name..." onChange={e => setName(e.target.value)} />

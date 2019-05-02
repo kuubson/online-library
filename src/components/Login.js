@@ -59,7 +59,7 @@ const Login = (props) => {
     }
     return (
         <div className="login fullsize flex">
-            <form className="login-form form" onSubmit={handleSubmit}>
+            <form autoComplete="off" className="login-form form" onSubmit={handleSubmit}>
                 <div className="login-form-input-container form-input-container email">
                     <label htmlFor="email" className="login-form-input-label form-input-label">Email:</label>
                     <input className="login-form-input form-input" id="email" name="email" type="text" placeholder="Type your email..." onChange={e => setEmail(e.target.value)} />

@@ -8,6 +8,7 @@ import Register from './components/Register';
 import Account from './components/Account';
 import Profile from './components/profile/Profile'
 import Cart from './components/cart/Cart'
+import Redirect from './components/Redirect';
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
           <Route path="/account" component={Account} />
           <Route path="/profile" component={Profile} />
           <Route path="/cart" component={Cart} />
+          <Route component={Redirect} />
         </Switch>
       </Router>
     );

@@ -1,22 +1,27 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Button from 'react-paypal-express-checkout';
 import { setCart } from '../../actions/cart'
 import axios from 'axios'
+import $ from 'jquery'
 
 const PayPalButton = (props) => {
     const onSuccess = (payment) => {
         console.log("The payment was succeeded!", payment);
+        $('.paymentProgress').css('display', 'flex');
         axios.post('/buyBook', {
             email: props.email,
             cart: props.cart
-        }).then(result => {
+        }, { headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` } }).then(result => {
             if (result.data.done) {
+                $('.paymentProgress').css('display', 'none');
                 alert('Payment has been received! Enjoy reading!');
                 props.setCart([]);
                 props.resetBooks("");
                 props.resetDetails("");
                 props.resetPrice(parseFloat(0).toFixed(2));
+                props.history.push('/profile');
             }
         })
     }
@@ -52,4 +57,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PayPalButton)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PayPalButton))

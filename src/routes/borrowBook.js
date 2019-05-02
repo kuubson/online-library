@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const BorrowedBook = require('../models/BorrowedBook');
 const User = require('../models/User');
+const passport = require('passport');
 
-router.post('/borrowBook', (req, res) => {
+router.post('/borrowBook', passport.authenticate('jwt', { session: false }), (req, res) => {
 
     const { email, book } = req.body;
 

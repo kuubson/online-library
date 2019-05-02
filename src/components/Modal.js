@@ -23,7 +23,7 @@ const Modal = (props) => {
         axios.post('/borrowBook', {
             email: props.email,
             book
-        }).then(result => {
+        }, { headers: { Authorization: `Bearer ${sessionStorage.getItem('jwt')}` } }).then(result => {
             const done = result.data.done;
             const message = result.data.msg;
             if (done) {

@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const Books = require('../models/Book')
+const passport = require('passport');
 
-router.post('/findNewBook', (req, res) => {
+router.post('/findNewBook', passport.authenticate('jwt', { session: false }), (req, res) => {
 
     const { title } = req.body;
 
