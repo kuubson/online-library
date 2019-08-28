@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
 
 import MainBackground from '../../assets/img/MainBackground.jpg'
 import LoginInput from './LoginInput'
@@ -19,11 +20,23 @@ const LoginWrapper = styled.div`
 const Login = () => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+    const [emailError, setEmailError] = useState()
+    const [passwordError, setPasswordError] = useState()
+    const [successResponseMessage, setsuccessResponseMessage] = useState()
+    const [errorResponseMessage, seterrorResponseMessage] = useState()
+    const handleLogin = () => {
+        axios.post('/login', {
+            email,
+            password
+        }).then(res => {
+            console.log(res)
+        })
+    }
     return (
         <LoginWrapper>
             <LoginInput placeholder="Type your e-mail..." label="E-mail" onChange={setEmail} />
             <LoginInput secure placeholder="Type your password..." label="Password" onChange={setPassword} />
-            <LoginSubmit />
+            <LoginSubmit onClick={handleLogin} />
         </LoginWrapper>
     )
 }

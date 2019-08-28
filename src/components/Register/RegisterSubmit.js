@@ -39,7 +39,7 @@ const RegisterSubmit = props => {
     const handleClick = where => props.history.push(where)
     return (
         <RegisterSubmitWrapper>
-            <RegisterSubmitContent>Register</RegisterSubmitContent>
+            <RegisterSubmitContent onClick={props.onClick}>Register</RegisterSubmitContent>
             <RegisterSubmitAnnotation onClick={() => handleClick('/login')}>Have already account? Log in now!</RegisterSubmitAnnotation>
         </RegisterSubmitWrapper>
     )
