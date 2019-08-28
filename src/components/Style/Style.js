@@ -47,6 +47,9 @@ const Style = createGlobalStyle`
         border-collapse: collapse;
         border-spacing: 0;
     }
+    *{
+        outline: none;
+    }
 `;
 
 export default Style

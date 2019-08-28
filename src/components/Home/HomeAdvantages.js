@@ -4,25 +4,16 @@ import styled from 'styled-components'
 const HomeAdvantagesWrapper = styled.div`
     display: flex;
     justify-content: space-around;
+    flex-direction: column;
     align-items: center;
     flex: 1;
 `;
 const HomeAdvantage = styled.div`
     color: white;
     font-size: 1.8rem;
-    max-width: 20%;
+    max-width: 50%;
     text-align: center;
-    position: relative;
-    ::after{
-        content: '';
-        width: 70%;
-        height: 3px;
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translate(-50%, 0);
-        background: white;
-    }
+    margin: 30px 0px;
 `;
 
 const HomeAdvantages = () => {

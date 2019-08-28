@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { withRouter } from 'react-router-dom'
 
 const HomeButtonsWrapper = styled.div`
     display: flex;
@@ -9,7 +10,7 @@ const HomeButtonsWrapper = styled.div`
     flex: 1;
 `;
 const HomeButton = styled.div`
-    width: 170px;
+    width: 200px;
     background: #333333;
     color: white;
     border-right: 2px solid white;
@@ -27,13 +28,16 @@ const HomeButton = styled.div`
     }
 `;
 
-const HomeButtons = () => {
+const HomeButtons = props => {
+    const handleClick = where => {
+        props.history.push(where)
+    }
     return (
         <HomeButtonsWrapper>
-            <HomeButton>Login</HomeButton>
-            <HomeButton>Register</HomeButton>
+            <HomeButton onClick={() => handleClick('/login')}>Login</HomeButton>
+            <HomeButton onClick={() => handleClick('/register')}>Register</HomeButton>
         </HomeButtonsWrapper>
     )
 }
 
-export default HomeButtons
+export default withRouter(HomeButtons)
