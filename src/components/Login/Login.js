@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import MainBackground from '../../assets/img/MainBackground.jpg'
@@ -17,10 +17,12 @@ const LoginWrapper = styled.div`
 `;
 
 const Login = () => {
+    const [email, setEmail] = useState()
+    const [password, setPassword] = useState()
     return (
         <LoginWrapper>
-            <LoginInput placeholder="Type your e-mail..." label="E-mail" />
-            <LoginInput secure placeholder="Type your password..." label="Password" />
+            <LoginInput placeholder="Type your e-mail..." label="E-mail" onChange={setEmail} />
+            <LoginInput secure placeholder="Type your password..." label="Password" onChange={setPassword} />
             <LoginSubmit />
         </LoginWrapper>
     )

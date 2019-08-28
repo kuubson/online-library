@@ -1,7 +1,13 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 
-const LoginSubmitWrapper = styled.div``;
+const LoginSubmitWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
 const LoginSubmitContent = styled.div`
     width: 200px;
     color: white;
@@ -29,13 +35,14 @@ const LoginSubmitAnnotation = styled.div`
     }
 `;
 
-const LoginSubmit = () => {
+const LoginSubmit = props => {
+    const handleClick = where => props.history.push(where)
     return (
         <LoginSubmitWrapper>
             <LoginSubmitContent>Login</LoginSubmitContent>
-            <LoginSubmitAnnotation>Feel free to register now!</LoginSubmitAnnotation>
+            <LoginSubmitAnnotation onClick={() => handleClick('/register')}>Feel free to register now!</LoginSubmitAnnotation>
         </LoginSubmitWrapper>
     )
 }
 
-export default LoginSubmit
+export default withRouter(LoginSubmit)

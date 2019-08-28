@@ -26,11 +26,12 @@ const RegisterInputContent = styled.input`
     }
 `;
 
-const RegisterInput = ({ secure, placeholder, label }) => {
+const RegisterInput = ({ secure, placeholder, label, onChange }) => {
+    const handleOnChange = e => onChange(e.target.value)
     return (
         <RegisterInputWrapper>
             <RegisterLabel>{label}</RegisterLabel>
-            <RegisterInputContent type={secure ? 'password' : 'text'} placeholder={placeholder} />
+            <RegisterInputContent type={secure ? 'password' : 'text'} placeholder={placeholder} onChange={handleOnChange} />
         </RegisterInputWrapper>
     )
 }

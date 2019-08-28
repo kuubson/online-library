@@ -1,7 +1,13 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 
-const RegisterSubmitWrapper = styled.div``;
+const RegisterSubmitWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
 const RegisterSubmitContent = styled.div`
     width: 200px;
     color: white;
@@ -29,13 +35,14 @@ const RegisterSubmitAnnotation = styled.div`
     }
 `;
 
-const RegisterSubmit = () => {
+const RegisterSubmit = props => {
+    const handleClick = where => props.history.push(where)
     return (
         <RegisterSubmitWrapper>
             <RegisterSubmitContent>Register</RegisterSubmitContent>
-            <RegisterSubmitAnnotation>Have already account? Log in now!</RegisterSubmitAnnotation>
+            <RegisterSubmitAnnotation onClick={() => handleClick('/login')}>Have already account? Log in now!</RegisterSubmitAnnotation>
         </RegisterSubmitWrapper>
     )
 }
 
-export default RegisterSubmit
+export default withRouter(RegisterSubmit)

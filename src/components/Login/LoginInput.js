@@ -26,11 +26,12 @@ const LoginInputContent = styled.input`
     }
 `;
 
-const LoginInput = ({ secure, placeholder, label }) => {
+const LoginInput = ({ secure, placeholder, label, onChange }) => {
+    const handleOnChange = e => onChange(e.target.value)
     return (
         <LoginInputWrapper>
             <LoginLabel>{label}</LoginLabel>
-            <LoginInputContent type={secure ? 'password' : 'text'} placeholder={placeholder} />
+            <LoginInputContent type={secure ? 'password' : 'text'} placeholder={placeholder} onChange={handleOnChange} />
         </LoginInputWrapper>
     )
 }

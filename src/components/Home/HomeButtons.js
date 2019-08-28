@@ -1,6 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
+import styled from 'styled-components'
 
 const HomeButtonsWrapper = styled.div`
     display: flex;
@@ -29,9 +29,7 @@ const HomeButton = styled.div`
 `;
 
 const HomeButtons = props => {
-    const handleClick = where => {
-        props.history.push(where)
-    }
+    const handleClick = where => props.history.push(where)
     return (
         <HomeButtonsWrapper>
             <HomeButton onClick={() => handleClick('/login')}>Login</HomeButton>

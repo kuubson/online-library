@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import MainBackground from '../../assets/img/MainBackground.jpg'
@@ -17,13 +17,18 @@ const RegisterWrapper = styled.div`
 `;
 
 const Register = () => {
+    const [name, setName] = useState()
+    const [surname, setSurname] = useState()
+    const [email, setEmail] = useState()
+    const [password, setPassword] = useState()
+    const [repeatedPassword, setRepeatedPassword] = useState()
     return (
         <RegisterWrapper>
-            <RegisterInput placeholder="Type your name..." label="Name" />
-            <RegisterInput placeholder="Type your surname..." label="Surname" />
-            <RegisterInput placeholder="Type your e-mail..." label="E-mail" />
-            <RegisterInput secure placeholder="Type your password..." label="Password" />
-            <RegisterInput secure placeholder="Type your password again..." label="Repeat Password" />
+            <RegisterInput placeholder="Type your name..." label="Name" onChange={setName} />
+            <RegisterInput placeholder="Type your surname..." label="Surname" onChange={setSurname} />
+            <RegisterInput placeholder="Type your e-mail..." label="E-mail" onChange={setEmail} />
+            <RegisterInput secure placeholder="Type your password..." label="Password" onChange={setPassword} />
+            <RegisterInput secure placeholder="Type your password again..." label="Repeat Password" onChange={setRepeatedPassword} />
             <RegisterSubmit />
         </RegisterWrapper>
     )
