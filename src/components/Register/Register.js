@@ -39,7 +39,9 @@ const Register = ({ history }) => {
     const [responseMessageError, setResponseMessageError] = useState()
     const [responseMessageWarning, setResponseMessageWarning] = useState()
     const [responseMessageSuccess, setResponseMessageSuccess] = useState()
-    useLayoutEffect(() => getCookie('token') && history.push('/store'), [])
+    useLayoutEffect(() => {
+        if (getCookie('token')) history.push('/store')
+    }, [])
     const validate = () => {
         validator.isEmpty(name) ? setNameError('Your name field is empty!') : setNameError('')
         validator.isEmpty(surname) ? setSurnameError('Your surname field is empty!') : setSurnameError('')

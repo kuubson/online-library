@@ -36,7 +36,9 @@ const Login = ({ history }) => {
     const [responseMessageError, setResponseMessageError] = useState()
     const [responseMessageWarning, setResponseMessageWarning] = useState()
     const [responseMessageSuccess, setResponseMessageSuccess] = useState()
-    useLayoutEffect(() => getCookie('token') && history.push('/store'), [])
+    useLayoutEffect(() => {
+        if (getCookie('token')) history.push('/store')
+    }, [])
     const validate = () => {
         validator.isEmpty(email) ? setEmailError('Your e-mail field is empty!') : !validator.isEmail(email) ? setEmailError('This is not a proper e-mail!') : setEmailError('')
         validator.isEmpty(password) ? setPasswordError('Your have to type your password!') : setPasswordError('')
@@ -65,6 +67,7 @@ const Login = ({ history }) => {
                     setCookie('token', res.data.token, {
                         httpOnly: false, // change to true for deploy
                         secure: false, // change to true for deploy
+                        expires: new Date(new Date().getTime() + (7 * 24 * 60 * 60 * 1000))
                     })
                 }
             })

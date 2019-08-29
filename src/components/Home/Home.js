@@ -23,7 +23,9 @@ const HomeHeaderAndButtonsWrapper = styled.div`
 `;
 
 const Home = ({ history }) => {
-    useLayoutEffect(() => getCookie('token') && history.push('/store'), [])
+    useLayoutEffect(() => {
+        if (getCookie('token')) history.push('/store')
+    }, [])
     return (
         <HomeWrapper>
             <HomeHeaderAndButtonsWrapper>
