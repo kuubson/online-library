@@ -16,7 +16,7 @@ const LoginSubmitContent = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 15px;
+    font-size: 0.95rem;
     margin-top: 30px;
     cursor: pointer;
     transition: 0.5s;

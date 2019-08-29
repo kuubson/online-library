@@ -65,6 +65,11 @@ const Login = () => {
         setResponseMessageError()
         setResponseMessageWarning()
         setResponseMessageSuccess()
+        if (responseMessageSuccess) {
+            setTimeout(() => {
+                // alert('login')
+            }, 550);
+        }
     }
     return (
         <LoginWrapper>

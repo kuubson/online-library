@@ -31,8 +31,8 @@ const ApiErrorWrapper = styled.div`
     }}
 `;
 const ApiErrorContent = styled.div`
-    padding: 60px 100px;
     font-weight: bold;
+    font-size: 1.2rem;
     ${props => {
         if (props.error) {
             return css`
@@ -55,7 +55,7 @@ const ApiErrorCloseButton = styled.div`
     border: 1.5px solid white;
     padding: 12px 50px;
     color: white;
-    margin-top: 40px;
+    margin-top: 60px;
     cursor: pointer;
 `;
 

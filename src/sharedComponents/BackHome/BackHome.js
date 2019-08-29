@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 
 const BackHomeWrapper = styled.div`
     color: white;
-    font-size: 15px;
+    font-size: 0.9rem;
     border: 1.5px solid white;
     cursor:pointer;
     padding: 10px 15px;
