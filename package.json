@@ -15,7 +15,8 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
     "react-spinkit": "^3.0.0",
-    "styled-components": "^4.3.2"
+    "styled-components": "^4.3.2",
+    "validator": "^11.1.0"
   },
   "scripts": {
     "start": "concurrently \"nodemon ./src/server.js\" \"react-scripts start\"",
