@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { CookiesProvider } from 'react-cookie'
 
 import Style from './Style/Style'
 import Home from './Home/Home'
@@ -11,16 +12,18 @@ const AppWrapper = styled.div``;
 
 const App = () => {
   return (
-    <AppWrapper>
-      <Style />
-      <Router>
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route path='/login' component={Login} />
-          <Route path='/register' component={Register} />
-        </Switch>
-      </Router>
-    </AppWrapper>
+    <CookiesProvider>
+      <AppWrapper>
+        <Style />
+        <Router>
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route path='/login' component={Login} />
+            <Route path='/register' component={Register} />
+          </Switch>
+        </Router>
+      </AppWrapper>
+    </CookiesProvider>
   )
 }
 

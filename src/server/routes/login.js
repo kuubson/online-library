@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const User = require('../database/schemas/user')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 router.post('/login', (req, res) => {
     const { email, password } = req.body
@@ -25,9 +26,11 @@ router.post('/login', (req, res) => {
                         warningMessage: 'You have provided a bad password!'
                     })
                 } else {
+                    const token = jwt.sign({ email }, process.env.JWT_KEY, { expiresIn: '3d' })
                     res.send({
                         success: true,
-                        successMessage: 'You have been successfully logged in!'
+                        successMessage: 'You have been successfully logged in!',
+                        token
                     })
                 }
             })

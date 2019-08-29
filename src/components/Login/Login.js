@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import validator from 'validator'
+import { useCookies } from 'react-cookie'
 
 import MainBackground from '../../assets/img/MainBackground.jpg'
 import LoginInput from './LoginInput'
@@ -24,6 +25,7 @@ const LoginWrapper = styled.div`
 `;
 
 const Login = () => {
+    const [cookies, setCookie] = useCookies();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [emailError, setEmailError] = useState()
@@ -57,6 +59,10 @@ const Login = () => {
                 }
                 if (res.data.success) {
                     setResponseMessageSuccess(res.data.successMessage)
+                    setCookie('token', res.data.token, {
+                        httpOnly: false, // change to true for deploy
+                        secure: false, // change to true for deploy
+                    })
                 }
             })
         }
@@ -66,9 +72,7 @@ const Login = () => {
         setResponseMessageWarning()
         setResponseMessageSuccess()
         if (responseMessageSuccess) {
-            setTimeout(() => {
-                // alert('login')
-            }, 550);
+
         }
     }
     return (
