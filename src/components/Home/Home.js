@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useLayoutEffect } from 'react'
 import styled from 'styled-components'
+import getCookie from '../../resources/helpers/getCookie'
 
 import MainBackground from '../../assets/img/MainBackground.jpg'
 import HomeHeader from './HomeHeader'
@@ -21,7 +22,8 @@ const HomeHeaderAndButtonsWrapper = styled.div`
     flex: 1;
 `;
 
-const Home = () => {
+const Home = ({ history }) => {
+    useLayoutEffect(() => getCookie('token') && history.push('/store'), [])
     return (
         <HomeWrapper>
             <HomeHeaderAndButtonsWrapper>

@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useLayoutEffect } from 'react'
+import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import axios from 'axios'
 import validator from 'validator'
 import { useCookies } from 'react-cookie'
+import getCookie from '../../resources/helpers/getCookie'
 
 import MainBackground from '../../assets/img/MainBackground.jpg'
 import LoginInput from './LoginInput'
@@ -24,7 +26,7 @@ const LoginWrapper = styled.div`
     position: relative;
 `;
 
-const Login = () => {
+const Login = ({ history }) => {
     const [cookies, setCookie] = useCookies();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -34,6 +36,7 @@ const Login = () => {
     const [responseMessageError, setResponseMessageError] = useState()
     const [responseMessageWarning, setResponseMessageWarning] = useState()
     const [responseMessageSuccess, setResponseMessageSuccess] = useState()
+    useLayoutEffect(() => getCookie('token') && history.push('/store'), [])
     const validate = () => {
         validator.isEmpty(email) ? setEmailError('Your e-mail field is empty!') : !validator.isEmail(email) ? setEmailError('This is not a proper e-mail!') : setEmailError('')
         validator.isEmpty(password) ? setPasswordError('Your have to type your password!') : setPasswordError('')
@@ -72,7 +75,7 @@ const Login = () => {
         setResponseMessageWarning()
         setResponseMessageSuccess()
         if (responseMessageSuccess) {
-
+            history.push('/store')
         }
     }
     return (
@@ -91,4 +94,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default withRouter(Login)

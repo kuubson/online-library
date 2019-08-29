@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import validator from 'validator'
+import getCookie from '../../resources/helpers/getCookie'
 
 import MainBackground from '../../assets/img/MainBackground.jpg'
 import RegisterInput from './RegisterInput'
@@ -23,7 +24,7 @@ const RegisterWrapper = styled.div`
     position:relative;
 `;
 
-const Register = () => {
+const Register = ({ history }) => {
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')
     const [email, setEmail] = useState('')
@@ -38,6 +39,7 @@ const Register = () => {
     const [responseMessageError, setResponseMessageError] = useState()
     const [responseMessageWarning, setResponseMessageWarning] = useState()
     const [responseMessageSuccess, setResponseMessageSuccess] = useState()
+    useLayoutEffect(() => getCookie('token') && history.push('/store'), [])
     const validate = () => {
         validator.isEmpty(name) ? setNameError('Your name field is empty!') : setNameError('')
         validator.isEmpty(surname) ? setSurnameError('Your surname field is empty!') : setSurnameError('')
