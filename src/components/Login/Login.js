@@ -9,6 +9,7 @@ import LoginSubmit from './LoginSubmit'
 import Loader from '../../sharedComponents/Loader/Loader'
 import ApiResponseHandler from '../../sharedComponents/Errors/ApiResponseHandler'
 import ValidationError from '../../sharedComponents/Errors/ValidationError'
+import BackHome from '../../sharedComponents/BackHome/BackHome'
 
 const LoginWrapper = styled.div`
     width: 100%;
@@ -19,6 +20,7 @@ const LoginWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 `;
 
 const Login = () => {
@@ -71,6 +73,7 @@ const Login = () => {
             <LoginInput secure placeholder='Type your password...' label='Password' onChange={setPassword} />
             <ValidationError error={passwordError} />
             <LoginSubmit onClick={handleLogin} />
+            <BackHome />
             {isLoading && <Loader />}
             {responseMessageError && <ApiResponseHandler error responseMessage={responseMessageError} onClick={hideApiResponseHandler} />}
             {responseMessageWarning && <ApiResponseHandler warning responseMessage={responseMessageWarning} onClick={hideApiResponseHandler} />}

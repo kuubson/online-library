@@ -9,6 +9,7 @@ import RegisterSubmit from './RegisterSubmit'
 import Loader from '../../sharedComponents/Loader/Loader'
 import ApiResponseHandler from '../../sharedComponents/Errors/ApiResponseHandler'
 import ValidationError from '../../sharedComponents/Errors/ValidationError'
+import BackHome from '../../sharedComponents/BackHome/BackHome'
 
 const RegisterWrapper = styled.div`
     width: 100%;
@@ -19,6 +20,7 @@ const RegisterWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position:relative;
 `;
 
 const Register = () => {
@@ -88,6 +90,7 @@ const Register = () => {
             <RegisterInput secure placeholder='Type your password again...' label='Repeat Password' onChange={setRepeatedPassword} />
             <ValidationError error={repeatedPasswordError} />
             <RegisterSubmit onClick={handleRegister} />
+            <BackHome />
             {isLoading && <Loader />}
             {responseMessageError && <ApiResponseHandler error responseMessage={responseMessageError} onClick={hideApiResponseHandler} />}
             {responseMessageWarning && <ApiResponseHandler warning responseMessage={responseMessageWarning} onClick={hideApiResponseHandler} />}
