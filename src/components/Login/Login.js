@@ -5,6 +5,8 @@ import axios from 'axios'
 import MainBackground from '../../assets/img/MainBackground.jpg'
 import LoginInput from './LoginInput'
 import LoginSubmit from './LoginSubmit'
+import Loader from '../../sharedComponents/Loader/Loader'
+import ApiResponseHandler from '../../sharedComponents/Errors/ApiResponseHandler'
 
 const LoginWrapper = styled.div`
     width: 100%;
@@ -22,21 +24,42 @@ const Login = () => {
     const [password, setPassword] = useState()
     const [emailError, setEmailError] = useState()
     const [passwordError, setPasswordError] = useState()
-    const [successResponseMessage, setsuccessResponseMessage] = useState()
-    const [errorResponseMessage, seterrorResponseMessage] = useState()
+    const [isLoading, setIsLoading] = useState(false)
+    const [responseMessageError, setResponseMessageError] = useState()
+    const [responseMessageWarning, setResponseMessageWarning] = useState()
+    const [responseMessageSuccess, setResponseMessageSuccess] = useState()
     const handleLogin = () => {
+        setIsLoading(true)
         axios.post('/login', {
             email,
             password
         }).then(res => {
-            console.log(res)
+            setIsLoading(false)
+            if (res.data.error) {
+                setResponseMessageError(res.data.errorMessage)
+            }
+            if (res.data.warning) {
+                setResponseMessageWarning(res.data.warningMessage)
+            }
+            if (res.data.success) {
+                setResponseMessageSuccess(res.data.successMessage)
+            }
         })
+    }
+    const hideApiResponseHandler = () => {
+        setResponseMessageError()
+        setResponseMessageWarning()
+        setResponseMessageSuccess()
     }
     return (
         <LoginWrapper>
             <LoginInput placeholder="Type your e-mail..." label="E-mail" onChange={setEmail} />
             <LoginInput secure placeholder="Type your password..." label="Password" onChange={setPassword} />
             <LoginSubmit onClick={handleLogin} />
+            {isLoading && <Loader />}
+            {responseMessageError && <ApiResponseHandler error responseMessage={responseMessageError} onClick={hideApiResponseHandler} />}
+            {responseMessageWarning && <ApiResponseHandler warning responseMessage={responseMessageWarning} onClick={hideApiResponseHandler} />}
+            {responseMessageSuccess && <ApiResponseHandler success responseMessage={responseMessageSuccess} onClick={hideApiResponseHandler} />}
         </LoginWrapper>
     )
 }

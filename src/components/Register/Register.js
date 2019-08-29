@@ -5,6 +5,8 @@ import axios from 'axios'
 import MainBackground from '../../assets/img/MainBackground.jpg'
 import RegisterInput from './RegisterInput'
 import RegisterSubmit from './RegisterSubmit'
+import Loader from '../../sharedComponents/Loader/Loader'
+import ApiResponseHandler from '../../sharedComponents/Errors/ApiResponseHandler'
 
 const RegisterWrapper = styled.div`
     width: 100%;
@@ -28,17 +30,34 @@ const Register = () => {
     const [emailError, setEmailError] = useState()
     const [passwordError, setPasswordError] = useState()
     const [passwordRepeatedError, setPasswordRepeatedError] = useState()
-    const [successResponseMessage, setSuccessResponseMessage] = useState()
-    const [errorResponseMessage, setErrorResponseMessage] = useState()
+    const [isLoading, setIsLoading] = useState(false)
+    const [responseMessageError, setResponseMessageError] = useState()
+    const [responseMessageWarning, setResponseMessageWarning] = useState()
+    const [responseMessageSuccess, setResponseMessageSuccess] = useState()
     const handleRegister = () => {
+        setIsLoading(true)
         axios.post('/register', {
             name,
             surname,
             email,
             password
         }).then(res => {
-            console.log(res)
+            setIsLoading(false)
+            if (res.data.error) {
+                setResponseMessageError(res.data.errorMessage)
+            }
+            if (res.data.warning) {
+                setResponseMessageWarning(res.data.warningMessage)
+            }
+            if (res.data.success) {
+                setResponseMessageSuccess(res.data.successMessage)
+            }
         })
+    }
+    const hideApiResponseHandler = () => {
+        setResponseMessageError()
+        setResponseMessageWarning()
+        setResponseMessageSuccess()
     }
     return (
         <RegisterWrapper>
@@ -48,6 +67,10 @@ const Register = () => {
             <RegisterInput secure placeholder="Type your password..." label="Password" onChange={setPassword} />
             <RegisterInput secure placeholder="Type your password again..." label="Repeat Password" onChange={setRepeatedPassword} />
             <RegisterSubmit onClick={handleRegister} />
+            {isLoading && <Loader />}
+            {responseMessageError && <ApiResponseHandler error responseMessage={responseMessageError} onClick={hideApiResponseHandler} />}
+            {responseMessageWarning && <ApiResponseHandler warning responseMessage={responseMessageWarning} onClick={hideApiResponseHandler} />}
+            {responseMessageSuccess && <ApiResponseHandler success responseMessage={responseMessageSuccess} onClick={hideApiResponseHandler} />}
         </RegisterWrapper>
     )
 }

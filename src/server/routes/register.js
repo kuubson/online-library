@@ -8,12 +8,16 @@ router.post('/register', (req, res) => {
         email
     }).then(result => {
         if (result) {
-            res.send('This e-mail is already registered! Try another one or log in!')
+            res.send({
+                warning: true,
+                warningMessage: 'This e-mail is already registered! Try another one or log in!'
+            })
         } else {
             bcrypt.hash(password, 10, (error, hashedPassword) => {
                 if (error) {
                     res.send({
-                        error: true
+                        error: true,
+                        errorMessage: 'Something went wrong when creating a new account! Try later!'
                     })
                 } else {
                     new User({
@@ -22,11 +26,15 @@ router.post('/register', (req, res) => {
                         email,
                         password: hashedPassword,
                     }).save().then(() => {
-                        res.send('You have been successfully registered an account!')
+                        res.send({
+                            success: true,
+                            successMessage: 'You have been successfully registered an account!'
+                        })
                     }).catch(error => {
                         if (error) {
                             res.send({
-                                error: true
+                                error: true,
+                                errorMessage: 'Something went wrong when creating a new account! Try later!'
                             })
                         }
                     })

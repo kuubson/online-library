@@ -8,24 +8,35 @@ router.post('/login', (req, res) => {
         email
     }).then(result => {
         if (!result) {
-            res.send('This e-mail is not registered!')
+            res.send({
+                error: true,
+                errorMessage: 'This e-mail is not registered!'
+            })
         } else {
             bcrypt.compare(password, result.password, (error, proper) => {
                 if (error) {
                     res.send({
-                        error: true
+                        error: true,
+                        errorMessage: 'Something went wrong when trying to log in! Try later!'
                     })
                 } else if (!proper) {
-                    res.send('You have provided a bad password!')
+                    res.send({
+                        warning: true,
+                        warningMessage: 'You have provided a bad password!'
+                    })
                 } else {
-                    res.send('You have been successfully logged in!')
+                    res.send({
+                        success: true,
+                        successMessage: 'You have been successfully logged in!'
+                    })
                 }
             })
         }
     }).catch(error => {
         if (error) {
             res.send({
-                error: true
+                error: true,
+                errorMessage: 'Something went wrong when trying to log in! Try later!'
             })
         }
     })
