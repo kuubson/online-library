@@ -8,6 +8,7 @@ import Home from './Home/Home'
 import Login from './Login/Login'
 import Register from './Register/Register'
 import Store from './Store/Store'
+import Profile from './Profile/Profile'
 
 const AppWrapper = styled.div``;
 
@@ -22,6 +23,7 @@ const App = () => {
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
             <Route path='/store' component={Store} />
+            <Route path='/profile' component={Profile} />
           </Switch>
         </Router>
       </AppWrapper>
