@@ -11,7 +11,7 @@ const fadeOut = keyframes`
 `
 
 const ApiErrorWrapper = styled.div`
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     background: rgba(0,0,0,0.7);
     display: flex;
@@ -64,9 +64,7 @@ const ApiError = ({ responseMessage, onClick, error, warning, success }) => {
     const [shouldFadeIn, setShouldFadeIn] = useState()
     const handleClick = () => {
         setShouldFadeIn(false)
-        setTimeout(() => {
-            onClick()
-        }, 500);
+        onClick()
     }
     return (
         <ApiErrorWrapper shouldFadeIn={shouldFadeIn}>

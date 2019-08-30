@@ -4,6 +4,7 @@ const initialState = {
     storeModalData: {},
     isLoading: false,
     userEmail: '',
+    cart: []
 }
 
 export const global = (state = initialState, { payload, type }) => {
@@ -32,6 +33,11 @@ export const global = (state = initialState, { payload, type }) => {
             return {
                 ...state,
                 isLoading: payload
+            }
+        case "setCart":
+            return {
+                ...state,
+                cart: payload
             }
         default: return state
     }

@@ -39,9 +39,11 @@ const StoreModalButtons = () => {
     const price = useSelector(state => state.global.storeModalData.price)
     const cover = useSelector(state => state.global.storeModalData.cover)
     const email = useSelector(state => state.global.userEmail)
+    const cart = useSelector(state => state.global.cart)
     const hideModal = () => dispatch({ type: 'setShouldStoreModalAppear', payload: false })
     const showLoader = () => dispatch({ type: 'setIsLoading', payload: true })
     const hideLoader = () => dispatch({ type: 'setIsLoading', payload: false })
+    const setCart = payload => dispatch({ type: 'setCart', payload })
     const borrowBook = () => {
         showLoader()
         axios.post('/borrowBook', {
@@ -63,21 +65,16 @@ const StoreModalButtons = () => {
         })
     }
     const buyBook = () => {
-        showLoader(true)
-        axios.post('/buyBook', {
-
-        }).then(res => {
-            showLoader(false)
-            if (res.data.error) {
-                setResponseMessageError(res.data.errorMessage)
-            }
-            if (res.data.warning) {
-                setResponseMessageWarning(res.data.warningMessage)
-            }
-            if (res.data.success) {
-                setResponseMessageSuccess(res.data.successMessage)
-            }
-        })
+        let currentCart = [...cart]
+        let newBook = {
+            title,
+            author,
+            price,
+            cover
+        }
+        currentCart.unshift(newBook)
+        setCart(currentCart)
+        setResponseMessageSuccess('Book has been added to the cart!')
     }
     const hideApiResponseHandler = () => {
         hideModal()
