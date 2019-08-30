@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
 import NavbarBrand from './NavbarBrand'
@@ -11,18 +12,20 @@ const NavbarWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
-    padding: 20px 15px;
+    padding: 25px 15px;
     margin: 20px;
 `;
 
 const Navbar = ({ store }) => {
+    const dispatch = useDispatch()
+    const showBookUploader = () => dispatch({ type: 'setShouldBookUploaderAppear', payload: true })
     return (
         <NavbarWrapper>
             <NavbarBrand />
             {store &&
                 <NavbarItems>
                     <NavbarItem>My profile</NavbarItem>
-                    <NavbarItem>Upload own book</NavbarItem>
+                    <NavbarItem onClick={showBookUploader}>Upload own book</NavbarItem>
                     <NavbarItem>Cart</NavbarItem>
                     <NavbarItem>Logout</NavbarItem>
                 </NavbarItems>}

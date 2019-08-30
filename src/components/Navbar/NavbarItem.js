@@ -8,9 +8,9 @@ const NavbarItemWrapper = styled.div`
     cursor: pointer;
 `;
 
-const NavbarItem = ({ children }) => {
+const NavbarItem = ({ children, onClick }) => {
     return (
-        <NavbarItemWrapper>{children}</NavbarItemWrapper>
+        <NavbarItemWrapper onClick={onClick}>{children}</NavbarItemWrapper>
     )
 }
 
