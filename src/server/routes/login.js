@@ -29,7 +29,7 @@ router.post('/login', (req, res) => {
                     const token = jwt.sign({ email }, process.env.JWT_KEY, { expiresIn: '3d' })
                     res.send({
                         success: true,
-                        successMessage: 'You have been successfully logged in!',
+                        successMessage: 'You have successfully logged in!',
                         token
                     })
                 }

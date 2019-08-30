@@ -102,11 +102,11 @@ const BookUploader = props => {
     const upload = () => {
         if (validate()) {
             setIsLoading(true)
-            axios.post('/uploadBook', {
-                bookTitle,
-                bookAuthor,
-                bookCover
-            }).then(res => {
+            const book = new FormData();
+            book.append('bookTitle', bookTitle)
+            book.append('bookAuthor', bookAuthor)
+            book.append('bookCover', bookCover)
+            axios.post('/uploadBook', book).then(res => {
                 setIsLoading(false)
                 if (res.data.error) {
                     setResponseMessageError(res.data.errorMessage)
