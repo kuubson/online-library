@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
 
 import StoreFreeBooks from './StoreFreeBooks/StoreFreeBooks'
 import StorePaidBooks from './StorePaidBooks/StorePaidBooks'
@@ -18,6 +19,21 @@ const StoreBooksWrapper = styled.div`
 `;
 
 const StoreBooks = () => {
+    const [freeBooks, setFreeBooks] = useState([])
+    const [paidBooks, setPaidBooks] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
+    useLayoutEffect(() => {
+        setIsLoading(true)
+        axios.get('/getBooks').then(res => {
+            setIsLoading(false)
+            setFreeBooks(res.data.filter(book => {
+                return !book.price
+            }))
+            setPaidBooks(res.data.filter(book => {
+                return book.price
+            }))
+        })
+    }, [])
     return (
         <StoreBooksWrapper>
             <StoreFreeBooks>
@@ -25,13 +41,13 @@ const StoreBooks = () => {
                     <StoreBooksHeaderTitle title="Find here awesome books!" />
                     <StoreFreeBooksHeaderInput />
                 </StoreBooksHeader>
-                <StoreFreeBooksContainer />
+                <StoreFreeBooksContainer isLoading={isLoading} freeBooks={freeBooks} />
             </StoreFreeBooks>
             <StorePaidBooks>
                 <StoreBooksHeader>
                     <StoreBooksHeaderTitle title="Choose premium books!" />
                 </StoreBooksHeader>
-                <StorePaidBooksContainer />
+                <StorePaidBooksContainer isLoading={isLoading} paidBooks={paidBooks} />
             </StorePaidBooks>
         </StoreBooksWrapper>
     )

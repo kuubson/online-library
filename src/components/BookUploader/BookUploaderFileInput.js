@@ -29,7 +29,7 @@ const BookUploaderFileInput = ({ onChange }) => {
     const [fileName, setFileName] = useState()
     const handleOnChange = e => {
         onChange(e.target.files[0])
-        setFileName(e.target.files[0].name)
+        if (e.target.files[0]) setFileName(e.target.files[0].name)
     }
     return (
         <BookUploaderFileInputWrapper>

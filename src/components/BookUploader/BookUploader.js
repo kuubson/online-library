@@ -1,4 +1,5 @@
 import React, { useState, useLayoutEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import styled, { css, keyframes } from 'styled-components'
 import axios from 'axios'
 import validator from 'validator'
@@ -20,14 +21,6 @@ const fadeIn = keyframes`
         opacity:1
     }
 `;
-const fadeOut = keyframes`
-    from{
-        opacity: 1
-    }
-    to{
-        opacity:0
-    }
-`;
 
 const BookUploaderWrapper = styled.div`
     width: 100%;
@@ -42,11 +35,6 @@ const BookUploaderWrapper = styled.div`
         if (props.shouldFadeIn) {
             return css`
                 animation: ${fadeIn} 0.5s ease-in-out both;
-            `
-        }
-        if (!props.shouldFadeIn) {
-            return css`
-                animation: ${fadeOut} 0.5s ease-in-out both;
             `
         }
     }}
@@ -83,12 +71,8 @@ const BookUploader = props => {
     useLayoutEffect(() => {
         setShouldFadeIn(true)
     }, [])
-    const hideBookUploader = () => {
-        setShouldFadeIn(false)
-        setTimeout(() => {
-            props.setShouldBookUploaderAppear(false)
-        }, 500);
-    }
+    const dispatch = useDispatch()
+    const hideBookUploader = () => dispatch({ type: 'setShouldBookUploaderAppear', payload: false })
     const validate = () => {
         validator.isEmpty(bookTitle) ? setBookTitleError('You have to name your book!') : setBookTitleError('')
         validator.isEmpty(bookAuthor) ? setBookAuthorError('Become famous by giving at least your name :)') : setBookAuthorError('')

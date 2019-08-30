@@ -1,5 +1,4 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
 const BookUploaderCloseButtonWrapper = styled.div`
@@ -14,11 +13,9 @@ const BookUploaderCloseButtonWrapper = styled.div`
     }
 `;
 
-const BookUploaderCloseButton = () => {
-    const dispatch = useDispatch()
-    const hideBookUploader = () => dispatch({ type: 'setShouldBookUploaderAppear', payload: false })
+const BookUploaderCloseButton = ({ onClick }) => {
     return (
-        <BookUploaderCloseButtonWrapper onClick={hideBookUploader}>✕</BookUploaderCloseButtonWrapper>
+        <BookUploaderCloseButtonWrapper onClick={onClick}>✕</BookUploaderCloseButtonWrapper>
     )
 }
 

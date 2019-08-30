@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Buffer } from 'buffer'
 
 import StoreBook from '../StoreBook/StoreBook'
+import Loader from '../../../../sharedComponents/Loader/Loader'
 
 const StorePaidBooksContainerWrapper = styled.div`
     padding: 10px;
@@ -11,14 +13,19 @@ const StorePaidBooksContainerWrapper = styled.div`
     grid-auto-rows: 300px;
     grid-gap: 20px;
     flex: 1;
+    position: relative;
 `;
 
-const StorePaidBooksContainer = () => {
+const StorePaidBooksContainer = ({ paidBooks, isLoading }) => {
     return (
         <StorePaidBooksContainerWrapper>
-            <StoreBook />
-            <StoreBook author="Kyle" title="Wat up" price="5.55" paid />
-            <StoreBook author="Kyle" title="Wat up" free />
+            {paidBooks.map(book => {
+                return (
+                    // <StoreBook key={book._id} paid author={book.author} title={book.title} price={book.price} cover={`data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`} />
+                    <StoreBook key={book._id} paid author={book.author} title={book.title} price={book.price} cover="https://picsum.photos/200/300" />
+                )
+            })}
+            {isLoading && <Loader noShadow />}
         </StorePaidBooksContainerWrapper>
     )
 }

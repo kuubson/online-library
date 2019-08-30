@@ -13,8 +13,8 @@ const fadeIn = keyframes`
 
 const LoaderWrapper = styled.div`
     width: 100%;
-    height: 100vh;
-    background: rgba(0,0,0,0.7);
+    height:${props => props.noShadow ? '`100%' : '100vh'};
+    background: ${props => props.noShadow ? 'none' : 'rgba(0,0,0,0.7)'};        
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,13 +32,13 @@ const LoaderWrapper = styled.div`
     }}
 `;
 
-const Loader = () => {
+const Loader = ({ noShadow }) => {
     const [shouldFadeIn, setShouldFadeIn] = useState()
     useEffect(() => {
         setShouldFadeIn(true)
     }, [])
     return (
-        <LoaderWrapper shouldFadeIn={shouldFadeIn}>
+        <LoaderWrapper shouldFadeIn={shouldFadeIn} noShadow={noShadow}>
             <Spinner name="ball-spin-fade-loader" fadeIn="quarter" color="white" />
         </LoaderWrapper>
     )

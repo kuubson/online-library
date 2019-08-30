@@ -7,23 +7,36 @@ const upload = multer({ dest: 'uploads/' })
 
 router.post('/uploadBook', upload.single('bookCover'), (req, res) => {
     const { bookTitle, bookAuthor } = req.body
-    new Book({
+    Book.findOne({
         title: bookTitle,
-        author: bookAuthor,
-        cover: {
-            data: fs.readFileSync(req.file.path),
-            contentType: 'image/png'
-        }
-    }).save().then(() => {
-        res.send({
-            success: true,
-            successMessage: 'Your book has been added to the store!'
-        })
-    }).catch(error => {
-        if (error) {
+        author: bookAuthor
+    }).then(result => {
+        if (result) {
             res.send({
-                error: true,
-                errorMessage: 'Something went wrong when uploading your book! Try again later!'
+                warning: true,
+                warningMessage: 'This book is already in our store!'
+            })
+        } else {
+            new Book({
+                title: bookTitle,
+                author: bookAuthor,
+                price: undefined,
+                cover: {
+                    data: fs.readFileSync(req.file.path),
+                    contentType: 'image/png'
+                }
+            }).save().then(() => {
+                res.send({
+                    success: true,
+                    successMessage: 'Your book has been added to the store!'
+                })
+            }).catch(error => {
+                if (error) {
+                    res.send({
+                        error: true,
+                        errorMessage: 'Something went wrong when uploading your book! Try again later!'
+                    })
+                }
             })
         }
     })

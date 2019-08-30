@@ -25,10 +25,10 @@ const StoreBookAuthorAndTitleWrapper = styled.div`
     transform: translate(-50%, 0px);
 `;
 
-const StoreBook = ({ author, title, price, free, paid }) => {
+const StoreBook = ({ author, title, price, cover, free, paid }) => {
     return (
         <StoreBookWrapper>
-            <StoreBookContent src="https://picsum.photos/200/300" />
+            <StoreBookContent src={cover} />
             <StoreBookAuthorAndTitleWrapper>
                 {author && <StoreBookAuthor author={author} />}
                 {title && <StoreBookTitle title={title} />}
