@@ -18,11 +18,12 @@ const LoaderWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    position:absolute;
+    position:fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0;
+    z-index: 2;
     ${props => {
         if (props.shouldFadeIn) {
             return css`

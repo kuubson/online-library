@@ -18,10 +18,11 @@ const ApiErrorWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position:absolute;
+    position:fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 3;
     ${props => {
         if (props.shouldFadeIn === false) {
             return css`

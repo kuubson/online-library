@@ -34,12 +34,22 @@ const StoreBooks = () => {
             }))
         })
     }, [])
+    const updateFreeBooks = book => {
+        let currentBooks = [...freeBooks];
+        currentBooks.unshift(book)
+        setFreeBooks(currentBooks)
+    }
+    const updatePaidBooks = book => {
+        let currentBooks = [...paidBooks]
+        currentBooks.unshift(book)
+        setPaidBooks(currentBooks)
+    }
     return (
         <StoreBooksWrapper>
             <StoreFreeBooks>
                 <StoreBooksHeader>
                     <StoreBooksHeaderTitle title="Find here awesome books!" />
-                    <StoreFreeBooksHeaderInput />
+                    <StoreFreeBooksHeaderInput updateFreeBooks={updateFreeBooks} updatePaidBooks={updatePaidBooks} />
                 </StoreBooksHeader>
                 <StoreFreeBooksContainer isLoading={isLoading} freeBooks={freeBooks} />
             </StoreFreeBooks>

@@ -4,4 +4,5 @@ module.exports = app => {
     app.use('/', require('./uploadBook'))
     app.use('/', require('./getBooks'))
     app.use('/', require('./borrowBook'))
+    app.use('/', require('./findBook'))
 }

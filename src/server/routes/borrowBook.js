@@ -52,7 +52,7 @@ router.post('/borrowBook', (req, res) => {
                         if (error) {
                             res.send({
                                 error: true,
-                                errorMessage: error
+                                errorMessage: 'Something went wrong when trying to borrow a book! Try later!'
                             })
                         }
                     })
