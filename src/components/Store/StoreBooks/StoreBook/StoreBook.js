@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useDispatch } from 'react-redux'
 
 import StoreBookTitle from './StoreBookTitle'
 import StoreBookAuthor from './StoreBookAuthor'
@@ -26,6 +27,18 @@ const StoreBookAuthorAndTitleWrapper = styled.div`
 `;
 
 const StoreBook = ({ author, title, price, cover, free, paid }) => {
+    const dispatch = useDispatch()
+    const showStoreModal = () => {
+        dispatch({ type: 'setShouldStoreModalAppear', payload: true })
+        dispatch({
+            type: 'setStoreModalData', payload: {
+                title,
+                author,
+                price,
+                cover
+            }
+        })
+    }
     return (
         <StoreBookWrapper>
             <StoreBookContent src={cover} />
@@ -34,8 +47,8 @@ const StoreBook = ({ author, title, price, cover, free, paid }) => {
                 {title && <StoreBookTitle title={title} />}
             </StoreBookAuthorAndTitleWrapper>
             {price && <StoreBookPrice price={price} />}
-            {free && <StoreBookButton text="Borrow" />}
-            {paid && <StoreBookButton text="Buy" />}
+            {free && <StoreBookButton text="Borrow" onClick={showStoreModal} />}
+            {paid && <StoreBookButton text="Buy" onClick={showStoreModal} />}
         </StoreBookWrapper>
     )
 }

@@ -19,9 +19,9 @@ const StoreBookButtonWrapper = styled.div`
     }
 `;
 
-const StoreBookButton = ({ text }) => {
+const StoreBookButton = ({ text, onClick }) => {
     return (
-        <StoreBookButtonWrapper>{text}</StoreBookButtonWrapper>
+        <StoreBookButtonWrapper onClick={onClick}>{text}</StoreBookButtonWrapper>
     )
 }
 
