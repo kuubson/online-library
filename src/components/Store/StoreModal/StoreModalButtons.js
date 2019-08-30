@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import axios from 'axios'
+import ApiResponseHandler from '../../../sharedComponents/Errors/ApiResponseHandler'
 
 const StoreModalButtonsWrapper = styled.div`
     flex: 1;
@@ -29,16 +31,72 @@ const StoreModalButtonsAnnotation = styled.div`
 
 const StoreModalButtons = () => {
     const dispatch = useDispatch()
-    const hideModal = () => dispatch({ type: 'setShouldStoreModalAppear', payload: false })
+    const [responseMessageError, setResponseMessageError] = useState()
+    const [responseMessageWarning, setResponseMessageWarning] = useState()
+    const [responseMessageSuccess, setResponseMessageSuccess] = useState()
+    const title = useSelector(state => state.global.storeModalData.title)
+    const author = useSelector(state => state.global.storeModalData.author)
     const price = useSelector(state => state.global.storeModalData.price)
+    const cover = useSelector(state => state.global.storeModalData.cover)
+    const email = useSelector(state => state.global.userEmail)
+    const hideModal = () => dispatch({ type: 'setShouldStoreModalAppear', payload: false })
+    const showLoader = () => dispatch({ type: 'setIsLoading', payload: true })
+    const hideLoader = () => dispatch({ type: 'setIsLoading', payload: false })
+    const borrowBook = () => {
+        showLoader()
+        axios.post('/borrowBook', {
+            email,
+            title,
+            author,
+            cover
+        }).then(res => {
+            hideLoader()
+            if (res.data.error) {
+                setResponseMessageError(res.data.errorMessage)
+            }
+            if (res.data.warning) {
+                setResponseMessageWarning(res.data.warningMessage)
+            }
+            if (res.data.success) {
+                setResponseMessageSuccess(res.data.successMessage)
+            }
+        })
+    }
+    const buyBook = () => {
+        showLoader(true)
+        axios.post('/buyBook', {
+
+        }).then(res => {
+            showLoader(false)
+            if (res.data.error) {
+                setResponseMessageError(res.data.errorMessage)
+            }
+            if (res.data.warning) {
+                setResponseMessageWarning(res.data.warningMessage)
+            }
+            if (res.data.success) {
+                setResponseMessageSuccess(res.data.successMessage)
+            }
+        })
+    }
+    const hideApiResponseHandler = () => {
+        hideModal()
+        setResponseMessageError()
+        setResponseMessageWarning()
+        setResponseMessageSuccess()
+    }
     return (
         <StoreModalButtonsWrapper>
             {price ? <StoreModalButtonsAnnotation>Add this book to a cart:</StoreModalButtonsAnnotation>
                 : <StoreModalButtonsAnnotation>I am sure I want this book:</StoreModalButtonsAnnotation>}
             <StoreModalButtonsContent>
-                <StoreModalButton>Yes</StoreModalButton>
+                {price ? <StoreModalButton onClick={buyBook}>Yes</StoreModalButton>
+                    : <StoreModalButton onClick={borrowBook}>Yes</StoreModalButton>}
                 <StoreModalButton onClick={hideModal}>No</StoreModalButton>
             </StoreModalButtonsContent>
+            {responseMessageError && <ApiResponseHandler error responseMessage={responseMessageError} onClick={hideApiResponseHandler} />}
+            {responseMessageWarning && <ApiResponseHandler warning responseMessage={responseMessageWarning} onClick={hideApiResponseHandler} />}
+            {responseMessageSuccess && <ApiResponseHandler success responseMessage={responseMessageSuccess} onClick={hideApiResponseHandler} />}
         </StoreModalButtonsWrapper>
     )
 }

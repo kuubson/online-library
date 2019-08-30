@@ -17,11 +17,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    borrowedBooks: {
-        type: Array,
-        default: []
-    },
-    boughtBooks: {
+    books: {
         type: Array,
         default: []
     }

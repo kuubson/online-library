@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const StoreModalBookImageWrapper = styled.div`
     flex: 1;
     align-self: stretch;
-    padding: 20px;
+    padding: 15px;
 `;
 const StoreModalBookImageContent = styled.img`
     width: 100%;

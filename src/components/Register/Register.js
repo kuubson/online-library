@@ -80,6 +80,9 @@ const Register = ({ history }) => {
         setResponseMessageError()
         setResponseMessageWarning()
         setResponseMessageSuccess()
+        if (responseMessageSuccess) {
+            history.push('/login')
+        }
     }
     return (
         <RegisterWrapper>

@@ -1,7 +1,9 @@
 const initialState = {
     shouldBookUploaderAppear: false,
     shouldStoreModalAppear: false,
-    storeModalData: {}
+    storeModalData: {},
+    isLoading: false,
+    userEmail: '',
 }
 
 export const global = (state = initialState, { payload, type }) => {
@@ -20,6 +22,16 @@ export const global = (state = initialState, { payload, type }) => {
             return {
                 ...state,
                 storeModalData: payload
+            }
+        case "setUserEmail":
+            return {
+                ...state,
+                userEmail: payload
+            }
+        case "setIsLoading":
+            return {
+                ...state,
+                isLoading: payload
             }
         default: return state
     }

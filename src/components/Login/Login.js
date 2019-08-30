@@ -1,4 +1,5 @@
 import React, { useState, useLayoutEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import axios from 'axios'
@@ -36,6 +37,7 @@ const Login = ({ history }) => {
     const [responseMessageError, setResponseMessageError] = useState()
     const [responseMessageWarning, setResponseMessageWarning] = useState()
     const [responseMessageSuccess, setResponseMessageSuccess] = useState()
+    const dispatch = useDispatch()
     useLayoutEffect(() => {
         if (getCookie('token')) history.push('/store')
     }, [])
@@ -69,6 +71,7 @@ const Login = ({ history }) => {
                         secure: false, // change to true for deploy
                         expires: new Date(new Date().getTime() + (7 * 24 * 60 * 60 * 1000))
                     })
+                    dispatch({ type: 'setUserEmail', payload: email })
                 }
             })
         }

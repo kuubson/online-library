@@ -8,6 +8,7 @@ import Navbar from '../../sharedComponents/Navbar/Navbar'
 import StoreBooks from './StoreBooks/StoreBooks'
 import BookUploader from '../../sharedComponents/BookUploader/BookUploader'
 import StoreModal from './StoreModal/StoreModal'
+import Loader from '../../sharedComponents/Loader/Loader'
 
 const StoreWrapper = styled.div`
     width: 100%;
@@ -23,6 +24,7 @@ const StoreWrapper = styled.div`
 const Store = props => {
     const shouldBookUploaderAppear = useSelector(state => state.global.shouldBookUploaderAppear)
     const shouldStoreModalAppear = useSelector(state => state.global.shouldStoreModalAppear)
+    const isLoading = useSelector(state => state.global.isLoading)
     useLayoutEffect(() => {
         if (!getCookie('token')) props.history.push('/login')
     }, [])
@@ -32,6 +34,7 @@ const Store = props => {
             <StoreBooks />
             {shouldBookUploaderAppear && <BookUploader />}
             {shouldStoreModalAppear && <StoreModal />}
+            {isLoading && <Loader />}
         </StoreWrapper>
     )
 }
