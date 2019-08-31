@@ -5,7 +5,7 @@ import getCookie from '../../resources/helpers/getCookie'
 
 import MainBackground from '../../assets/img/MainBackground.jpg'
 import Navbar from '../../sharedComponents/Navbar/Navbar'
-import StoreBooks from './StoreBooks/StoreBooks'
+import StoreBooks from './StoreBooks'
 import BookUploader from '../../sharedComponents/BookUploader/BookUploader'
 import StoreModal from './StoreModal/StoreModal'
 import Loader from '../../sharedComponents/Loader/Loader'

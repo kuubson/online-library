@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { Buffer } from 'buffer'
 
-import ProfileBook from '../ProfileBook/ProfileBook'
-import Loader from '../../../../sharedComponents/Loader/Loader'
+import ProfileBook from './ProfileBook/ProfileBook'
+import Loader from '../../sharedComponents/Loader/Loader'
 
 const ProfilePaidBooksContainerWrapper = styled.div`
     padding: 10px;

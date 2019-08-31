@@ -2,13 +2,13 @@ import React, { useState, useLayoutEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 
-import StoreFreeBooks from './StoreFreeBooks/StoreFreeBooks'
-import StorePaidBooks from './StorePaidBooks/StorePaidBooks'
+import StoreFreeBooks from './StoreFreeBooks'
+import StorePaidBooks from './StorePaidBooks'
 import StoreBooksHeader from './StoreBooksHeader'
 import StoreBooksHeaderTitle from './StoreBooksHeaderTitle'
-import StorePaidBooksContainer from './StorePaidBooks/StorePaidBooksContainer'
-import StoreFreeBooksHeaderInput from './StoreFreeBooks/StoreFreeBooksHeaderInput'
-import StoreFreeBooksContainer from './StoreFreeBooks/StoreFreeBooksContainer'
+import StorePaidBooksContainer from './StorePaidBooksContainer'
+import StoreFreeBooksHeaderInput from './StoreFreeBooksHeaderInput'
+import StoreFreeBooksContainer from './StoreFreeBooksContainer'
 
 const StoreBooksWrapper = styled.div`
     margin: 20px;
@@ -27,10 +27,10 @@ const StoreBooks = () => {
         axios.get('/getBooksForStore').then(res => {
             setIsLoading(false)
             setFreeBooks(res.data.filter(book => {
-                return !book.price
+                return book.price === undefined
             }))
             setPaidBooks(res.data.filter(book => {
-                return book.price
+                return book.price !== undefined
             }))
         })
     }, [])

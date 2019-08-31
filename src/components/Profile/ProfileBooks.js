@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import axios from 'axios'
 
-import ProfileBorrowedBooks from './ProfileBorrowedBooks/ProfileBorrowedBooks'
-import ProfilePaidBooks from './ProfileBoughtBooks/ProfileBoughtBooks'
+import ProfileBorrowedBooks from './ProfileBorrowedBooks'
+import ProfilePaidBooks from './ProfileBoughtBooks'
 import ProfileBooksHeader from './ProfileBooksHeader'
 import ProfileBooksHeaderTitle from './ProfileBooksHeaderTitle'
-import ProfilePaidBooksContainer from './ProfileBoughtBooks/ProfileBoughtBooksContainer'
-import ProfileBorrowedBooksContainer from './ProfileBorrowedBooks/ProfileBorrowedBooksContainer'
+import ProfilePaidBooksContainer from './ProfileBoughtBooksContainer'
+import ProfileBorrowedBooksContainer from './ProfileBorrowedBooksContainer'
 
 const ProfileBooksWrapper = styled.div`
     margin: 20px;
@@ -28,7 +28,6 @@ const ProfileBooks = () => {
         axios.post('/getBooksForProfile', {
             email
         }).then(res => {
-            console.log(res)
             setIsLoading(false)
             setBorrowedBooks(res.data.filter(book => {
                 return !book.price

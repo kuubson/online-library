@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import validator from 'validator'
-import ApiResponseHandler from '../../../../sharedComponents/Errors/ApiResponseHandler'
-import ValidationError from '../../../../sharedComponents/Errors/ValidationError'
+import ApiResponseHandler from '../../sharedComponents/Errors/ApiResponseHandler'
+import ValidationError from '../../sharedComponents/Errors/ValidationError'
 
 const StoreFreeBooksHeaderInputWrapper = styled.div`
     flex: 1;
