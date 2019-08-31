@@ -9,6 +9,7 @@ import Login from './Login/Login'
 import Register from './Register/Register'
 import Store from './Store/Store'
 import Profile from './Profile/Profile'
+import Cart from './Cart/Cart'
 
 const AppWrapper = styled.div``;
 
@@ -24,6 +25,7 @@ const App = () => {
             <Route path='/register' component={Register} />
             <Route path='/store' component={Store} />
             <Route path='/profile' component={Profile} />
+            <Route path='/cart' component={Cart} />
           </Switch>
         </Router>
       </AppWrapper>

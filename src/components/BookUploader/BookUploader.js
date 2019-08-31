@@ -10,8 +10,8 @@ import BookUploaderFileInput from './BookUploaderFileInput'
 import BookUploaderButton from './BookUploaderButton'
 import BookUploaderCloseButton from './BookUploaderCloseButton'
 import Loader from '../Loader/Loader'
-import ValidationError from '../Errors/ValidationError'
-import ApiResponseHandler from '../Errors/ApiResponseHandler'
+import ValidationError from '../../sharedComponents/Errors/ValidationError'
+import ApiResponseHandler from '../../sharedComponents/Errors/ApiResponseHandler'
 
 const fadeIn = keyframes`
     from{
