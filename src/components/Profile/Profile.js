@@ -6,7 +6,7 @@ import getCookie from '../../resources/helpers/getCookie'
 import MainBackground from '../../assets/img/MainBackground.jpg'
 import Navbar from '../../sharedComponents/Navbar/Navbar'
 import ProfileBooks from './ProfileBooks'
-import BookUploader from '../BookUploader/BookUploader'
+import BookUploader from '../../sharedComponents/BookUploader/BookUploader'
 import ProfileModal from './ProfileModal/ProfileModal'
 import Loader from '../../sharedComponents/Loader/Loader'
 

@@ -5,7 +5,7 @@ import getCookie from '../../resources/helpers/getCookie'
 
 import MainBackground from "../../assets/img/MainBackground.jpg";
 import Navbar from '../../sharedComponents/Navbar/Navbar'
-import BookUploader from '..//BookUploader/BookUploader'
+import BookUploader from '../../sharedComponents/BookUploader/BookUploader'
 import Loader from '../../sharedComponents/Loader/Loader'
 import CartBooks from './CartBooks'
 
