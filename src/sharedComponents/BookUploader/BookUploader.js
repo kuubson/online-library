@@ -31,6 +31,7 @@ const BookUploaderWrapper = styled.div`
     transform: translate(-50%, -50%);
     background: rgba(0,0,0,0.8);
     opacity: 0;
+    z-index: 4;
     ${props => {
         if (props.shouldFadeIn) {
             return css`

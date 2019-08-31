@@ -24,7 +24,7 @@ const StoreBooks = () => {
     const [isLoading, setIsLoading] = useState(false)
     useLayoutEffect(() => {
         setIsLoading(true)
-        axios.get('/getBooks').then(res => {
+        axios.get('/getBooksForStore').then(res => {
             setIsLoading(false)
             setFreeBooks(res.data.filter(book => {
                 return !book.price

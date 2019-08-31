@@ -13,12 +13,12 @@ const fadeIn = keyframes`
 
 const LoaderWrapper = styled.div`
     width: 100%;
-    height:${props => props.noShadow ? '`100%' : '100vh'};
+    height:${props => props.noShadow ? '100%' : '100vh'};
     background: ${props => props.noShadow ? 'none' : 'rgba(0,0,0,0.7)'};        
     display: flex;
     justify-content: center;
     align-items: center;
-    position:fixed;
+    position:${props => props.noShadow ? 'absolute' : 'fixed'};
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

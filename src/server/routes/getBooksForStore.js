@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const Book = require('../database/schemas/book')
 
-router.get('/getBooks', (req, res) => {
+router.get('/getBooksForStore', (req, res) => {
     // Book.find({}).then(result => {
     //     res.send(result)
     // })

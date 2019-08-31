@@ -1,6 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import { withRouter } from 'react-router-dom'
+import removeCookie from '../../resources/helpers/removeCookie'
 
 import NavbarBrand from './NavbarBrand'
 import NavbarItems from './NavbarItems'
@@ -16,21 +18,28 @@ const NavbarWrapper = styled.div`
     margin: 20px;
 `;
 
-const Navbar = ({ store }) => {
+const Navbar = ({ store, profile, history, cart }) => {
     const dispatch = useDispatch()
     const showBookUploader = () => dispatch({ type: 'setShouldBookUploaderAppear', payload: true })
+    const navigate = where => {
+        history.push(where)
+    }
+    const logout = () => {
+        removeCookie('token')
+        history.push('/login')
+    }
     return (
         <NavbarWrapper>
             <NavbarBrand />
-            {store &&
-                <NavbarItems>
-                    <NavbarItem>My profile</NavbarItem>
-                    <NavbarItem onClick={showBookUploader}>Upload own book</NavbarItem>
-                    <NavbarItem>Cart</NavbarItem>
-                    <NavbarItem>Logout</NavbarItem>
-                </NavbarItems>}
+            <NavbarItems>
+                {(store || cart) && <NavbarItem onClick={() => navigate('/profile')}>My profile</NavbarItem>}
+                {(profile || cart) && <NavbarItem onClick={() => navigate('/store')}>Store</NavbarItem>}
+                <NavbarItem onClick={showBookUploader}>Upload own book</NavbarItem>
+                {!cart && <NavbarItem onClick={() => navigate('/cart')}>Cart</NavbarItem>}
+                <NavbarItem onClick={logout}>Logout</NavbarItem>
+            </NavbarItems>
         </NavbarWrapper>
     )
 }
 
-export default Navbar
+export default withRouter(Navbar)
