@@ -2,12 +2,11 @@ const router = require('express').Router()
 const User = require('../database/schemas/user')
 
 router.post('/getBooksForProfile', (req, res) => {
-    // const { email } = req.body
-    // User.find({
+    const { email } = req.body
+    // User.findOne({
     //     email
     // }).then(result => {
-    //     console.log(result.books)
-    //     res.send(result)
+    //     res.send(result.books)
     // })
     res.send([
         {

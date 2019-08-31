@@ -30,10 +30,10 @@ const ProfileBooks = () => {
         }).then(res => {
             setIsLoading(false)
             setBorrowedBooks(res.data.filter(book => {
-                return !book.price
+                return book.price === undefined
             }))
             setPaidBooks(res.data.filter(book => {
-                return book.price
+                return book.price !== undefined
             }))
         })
     }, [])
