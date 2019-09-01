@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+const fs = require('fs')
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3001
@@ -14,5 +15,11 @@ app.use(require('cookie-parser')())
 app.use(require('passport').initialize())
 
 require('./server/routes/routes')(app)
+
+app.use(express.static(__dirname + '/public'))
+
+app.get('*', (req, res) => {
+    res.sendFile(fs.createReadStream(__dirname + '/build/index.html', 'urf8'));
+});
 
 app.listen(port, () => console.log(`Server started at port ${port}`))
