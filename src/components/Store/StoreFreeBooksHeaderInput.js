@@ -44,8 +44,7 @@ const StoreFreeBooksHeaderInput = props => {
     const [responseMessageWarning, setResponseMessageWarning] = useState()
     const [responseMessageSuccess, setResponseMessageSuccess] = useState()
     const [bookTitleError, setBookTitleError] = useState()
-    const showLoader = () => dispatch({ type: 'setIsLoading', payload: true })
-    const hideLoader = () => dispatch({ type: 'setIsLoading', payload: false })
+    const setIsLoading = payload => dispatch({ type: 'setIsLoading', payload })
     const handleOnChange = e => setBookTitle(e.target.value)
     const validate = () => {
         validator.isEmpty(bookTitle) ? setBookTitleError(`Give book's title!`) : setBookTitleError('')
@@ -57,11 +56,11 @@ const StoreFreeBooksHeaderInput = props => {
     }
     const findBook = () => {
         if (validate()) {
-            showLoader()
+            setIsLoading(true)
             axios.post('/findBook', {
                 bookTitle
             }).then(res => {
-                hideLoader()
+                setIsLoading(false)
                 if (res.data.error) {
                     setResponseMessageError(res.data.errorMessage)
                 }

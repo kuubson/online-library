@@ -1,12 +1,9 @@
 import React, { useLayoutEffect } from 'react'
-import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import getCookie from '../../resources/helpers/getCookie'
 
 import MainBackground from "../../assets/img/MainBackground.jpg";
 import Navbar from '../../sharedComponents/Navbar/Navbar'
-import BookUploader from '../../sharedComponents/BookUploader/BookUploader'
-import Loader from '../../sharedComponents/Loader/Loader'
 import CartBooks from './CartBooks'
 
 const CartWrapper = styled.div`
@@ -22,8 +19,6 @@ const CartWrapper = styled.div`
 `;
 
 const Cart = props => {
-  const shouldBookUploaderAppear = useSelector(state => state.global.shouldBookUploaderAppear)
-  const isLoading = useSelector(state => state.global.isLoading)
   useLayoutEffect(() => {
     if (!getCookie('token')) props.history.push('/login')
   }, [])
@@ -31,8 +26,6 @@ const Cart = props => {
     <CartWrapper>
       <Navbar cart />
       <CartBooks />
-      {shouldBookUploaderAppear && <BookUploader />}
-      {isLoading && <Loader />}
     </CartWrapper>
   );
 };

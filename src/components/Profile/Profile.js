@@ -1,14 +1,10 @@
 import React, { useLayoutEffect } from 'react'
-import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import getCookie from '../../resources/helpers/getCookie'
 
 import MainBackground from '../../assets/img/MainBackground.jpg'
 import Navbar from '../../sharedComponents/Navbar/Navbar'
 import ProfileBooks from './ProfileBooks'
-import BookUploader from '../../sharedComponents/BookUploader/BookUploader'
-import ProfileModal from './ProfileModal/ProfileModal'
-import Loader from '../../sharedComponents/Loader/Loader'
 
 const ProfileWrapper = styled.div`
     width: 100%;
@@ -23,9 +19,6 @@ const ProfileWrapper = styled.div`
 `;
 
 const Profile = props => {
-    const shouldBookUploaderAppear = useSelector(state => state.global.shouldBookUploaderAppear)
-    const shouldProfileModalAppear = useSelector(state => state.global.shouldProfileModalAppear)
-    const isLoading = useSelector(state => state.global.isLoading)
     useLayoutEffect(() => {
         if (!getCookie('token')) props.history.push('/login')
     }, [])
@@ -33,9 +26,6 @@ const Profile = props => {
         <ProfileWrapper>
             <Navbar profile />
             <ProfileBooks />
-            {shouldBookUploaderAppear && <BookUploader />}
-            {/* {shouldProfileModalAppear && <ProfileModal />} */}
-            {isLoading && <Loader />}
         </ProfileWrapper>
     )
 }

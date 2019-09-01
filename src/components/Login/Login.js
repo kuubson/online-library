@@ -10,7 +10,6 @@ import getCookie from '../../resources/helpers/getCookie'
 import MainBackground from '../../assets/img/MainBackground.jpg'
 import LoginInput from './LoginInput'
 import LoginSubmit from './LoginSubmit'
-import Loader from '../../sharedComponents/Loader/Loader'
 import ApiResponseHandler from '../../sharedComponents/Errors/ApiResponseHandler'
 import ValidationError from '../../sharedComponents/Errors/ValidationError'
 import BackHome from '../../sharedComponents/BackHome/BackHome'
@@ -28,16 +27,16 @@ const LoginWrapper = styled.div`
 `;
 
 const Login = ({ history }) => {
+    const dispatch = useDispatch()
     const [cookies, setCookie] = useCookies();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [emailError, setEmailError] = useState()
     const [passwordError, setPasswordError] = useState()
-    const [isLoading, setIsLoading] = useState(false)
     const [responseMessageError, setResponseMessageError] = useState()
     const [responseMessageWarning, setResponseMessageWarning] = useState()
     const [responseMessageSuccess, setResponseMessageSuccess] = useState()
-    const dispatch = useDispatch()
+    const setIsLoading = payload => dispatch({ type: 'setIsLoading', payload })
     useLayoutEffect(() => {
         if (getCookie('token')) history.push('/store')
     }, [])
@@ -67,8 +66,8 @@ const Login = ({ history }) => {
                 if (res.data.success) {
                     setResponseMessageSuccess(res.data.successMessage)
                     setCookie('token', res.data.token, {
-                        httpOnly: false, // change to true for deploy
-                        secure: false, // change to true for deploy
+                        httpOnly: false,
+                        secure: false,
                         expires: new Date(new Date().getTime() + (7 * 24 * 60 * 60 * 1000))
                     })
                     dispatch({ type: 'setUserEmail', payload: email })
@@ -92,7 +91,6 @@ const Login = ({ history }) => {
             <ValidationError error={passwordError} />
             <LoginSubmit onClick={handleLogin} />
             <BackHome />
-            {isLoading && <Loader />}
             {responseMessageError && <ApiResponseHandler error responseMessage={responseMessageError} onClick={hideApiResponseHandler} />}
             {responseMessageWarning && <ApiResponseHandler warning responseMessage={responseMessageWarning} onClick={hideApiResponseHandler} />}
             {responseMessageSuccess && <ApiResponseHandler success responseMessage={responseMessageSuccess} onClick={hideApiResponseHandler} />}

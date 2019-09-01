@@ -19,8 +19,7 @@ const PayPalButton = props => {
     const [responseMessageSuccess, setResponseMessageSuccess] = useState()
     const cart = useSelector(state => state.global.cart)
     const email = useSelector(state => state.global.userEmail)
-    const showLoader = () => dispatch({ type: 'setIsLoading', payload: true })
-    const hideLoader = () => dispatch({ type: 'setIsLoading', payload: false })
+    const setIsLoading = payload => dispatch({ type: 'setIsLoading', payload })
     const setCart = () => dispatch({ type: 'setCart', payload: [] })
     const hideApiResponseHandler = () => {
         setResponseMessageError()
@@ -32,9 +31,9 @@ const PayPalButton = props => {
         }
     }
     const onSuccess = payment => {
-        showLoader()
+        setIsLoading(true)
         axios.post('/buyBook', { cart, email }).then(res => {
-            hideLoader()
+            setIsLoading(false)
             if (res.data.error) {
                 setResponseMessageError(res.data.errorMessage)
             }

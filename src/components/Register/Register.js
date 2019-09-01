@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import axios from 'axios'
 import validator from 'validator'
 import getCookie from '../../resources/helpers/getCookie'
+import { useDispatch } from 'react-redux'
 
 import MainBackground from '../../assets/img/MainBackground.jpg'
 import RegisterInput from './RegisterInput'
@@ -25,6 +26,7 @@ const RegisterWrapper = styled.div`
 `;
 
 const Register = ({ history }) => {
+    const dispatch = useDispatch()
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')
     const [email, setEmail] = useState('')
@@ -35,10 +37,10 @@ const Register = ({ history }) => {
     const [emailError, setEmailError] = useState()
     const [passwordError, setPasswordError] = useState()
     const [repeatedPasswordError, setRepeatedPasswordError] = useState()
-    const [isLoading, setIsLoading] = useState(false)
     const [responseMessageError, setResponseMessageError] = useState()
     const [responseMessageWarning, setResponseMessageWarning] = useState()
     const [responseMessageSuccess, setResponseMessageSuccess] = useState()
+    const setIsLoading = payload => dispatch({ type: 'setIsLoading', payload })
     useLayoutEffect(() => {
         if (getCookie('token')) history.push('/store')
     }, [])
@@ -98,7 +100,6 @@ const Register = ({ history }) => {
             <ValidationError error={repeatedPasswordError} />
             <RegisterSubmit onClick={handleRegister} />
             <BackHome />
-            {isLoading && <Loader />}
             {responseMessageError && <ApiResponseHandler error responseMessage={responseMessageError} onClick={hideApiResponseHandler} />}
             {responseMessageWarning && <ApiResponseHandler warning responseMessage={responseMessageWarning} onClick={hideApiResponseHandler} />}
             {responseMessageSuccess && <ApiResponseHandler success responseMessage={responseMessageSuccess} onClick={hideApiResponseHandler} />}

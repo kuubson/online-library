@@ -43,18 +43,17 @@ const StoreModalButtons = () => {
     const email = useSelector(state => state.global.userEmail)
     const cart = useSelector(state => state.global.cart)
     const hideModal = () => dispatch({ type: 'setShouldStoreModalAppear', payload: false })
-    const showLoader = () => dispatch({ type: 'setIsLoading', payload: true })
-    const hideLoader = () => dispatch({ type: 'setIsLoading', payload: false })
+    const setIsLoading = payload => dispatch({ type: 'setIsLoading', payload })
     const setCart = payload => dispatch({ type: 'setCart', payload })
     const borrowBook = () => {
-        showLoader()
+        setIsLoading(true)
         axios.post('/borrowBook', {
             email,
             title,
             author,
             cover
         }).then(res => {
-            hideLoader()
+            setIsLoading(false)
             if (res.data.error) {
                 setResponseMessageError(res.data.errorMessage)
             }

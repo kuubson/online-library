@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Buffer } from 'buffer'
 
 import ProfileBook from './ProfileBook/ProfileBook'
 import Loader from '../../sharedComponents/Loader/Loader'

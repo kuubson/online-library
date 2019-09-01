@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Buffer } from 'buffer'
 
 import ProfileBook from './ProfileBook/ProfileBook'
 import Loader from '../../sharedComponents/Loader/Loader'
@@ -21,7 +20,6 @@ const ProfilePaidBooksContainer = ({ boughtBooks, isLoading }) => {
         <ProfilePaidBooksContainerWrapper>
             {boughtBooks.map(book => {
                 return (
-                    // <ProfileBook key={book._id} paid author={book.author} title={book.title} price={book.price} cover={`data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`} />
                     <ProfileBook key={book._id} paid author={book.author} title={book.title} price={book.price} cover={book.cover} />
                     // <ProfileBook key={book._id} paid author={book.author} title={book.title} price={book.price} cover="https://picsum.photos/200/300" />
                 )
