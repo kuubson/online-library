@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import CartSummaryItem from './CartSummaryItem';
+import PayPalButton from '../../sharedComponents/PayPalButton/PayPalButton'
 
 const CartSummaryWrapper = styled.div`
     display: flex;
@@ -28,6 +29,7 @@ const CartSummary = () => {
                 )
             })}
             {totalPrice > 0 && <CartSummaryTotalPrice>Total: ${totalPrice.toFixed(2)}</CartSummaryTotalPrice>}
+            {totalPrice > 0 && <PayPalButton price={+totalPrice.toFixed(2)} />}
         </CartSummaryWrapper>
     )
 }

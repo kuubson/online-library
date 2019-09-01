@@ -13,9 +13,6 @@ const BorrowedBookSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    price: {
-        type: String
-    },
     cover: {
         type: String,
         required: true

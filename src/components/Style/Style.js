@@ -64,7 +64,7 @@ const Style = createGlobalStyle`
         -webkit-text-fill-color: white;
         -webkit-box-shadow: 0 0 0px 1000px transparent inset;
         transition: background-color 5000s ease-in-out 0s;
-    }          
+    }         
 `;
 
 export default Style
