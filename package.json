@@ -31,8 +31,8 @@
     "validator": "^11.1.0"
   },
   "scripts": {
-    "start": "concurrently \"nodemon ./src/server.js\" \"react-scripts start\"",
-    "dev": "react-scripts start",
+    "start": "node ./src/server.js",
+    "dev": "concurrently \"nodemon ./src/server.js\" \"react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
