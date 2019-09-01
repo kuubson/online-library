@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import axios from 'axios'
+import uuid from 'uuid'
+
 import ApiResponseHandler from '../../../sharedComponents/Errors/ApiResponseHandler'
 
 const StoreModalButtonsWrapper = styled.div`
@@ -67,6 +69,7 @@ const StoreModalButtons = () => {
     const buyBook = () => {
         let currentCart = [...cart]
         let newBook = {
+            id: uuid(),
             title,
             author,
             price,

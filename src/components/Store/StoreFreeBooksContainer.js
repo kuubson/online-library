@@ -21,8 +21,8 @@ const StoreFreeBooksContainer = ({ freeBooks, isLoading }) => {
         <StoreFreeBooksContainerWrapper>
             {freeBooks && freeBooks.map(book => {
                 return (
-                    // <StoreBook key={book._id} free author={book.author} title={book.title} cover={`data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`} />
-                    <StoreBook key={book._id} free author={book.author} title={book.title} cover="https://picsum.photos/200/300" />
+                    <StoreBook key={book._id} free author={book.author} title={book.title} cover={`data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`} />
+                    // <StoreBook key={book._id} free author={book.author} title={book.title} cover="https://picsum.photos/200/300" />
                 )
             })}
             {isLoading && <Loader noShadow />}

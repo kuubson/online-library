@@ -11,7 +11,7 @@ import CartBooks from './CartBooks'
 
 const CartWrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${MainBackground}) center center no-repeat;
   background-size: cover;
   display: flex;

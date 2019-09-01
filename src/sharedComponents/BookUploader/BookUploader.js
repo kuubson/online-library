@@ -9,7 +9,7 @@ import BookUploaderInput from './BookUploaderInput'
 import BookUploaderFileInput from './BookUploaderFileInput'
 import BookUploaderButton from './BookUploaderButton'
 import BookUploaderCloseButton from './BookUploaderCloseButton'
-import Loader from '../../components/Loader/Loader'
+import Loader from '../Loader/Loader'
 import ValidationError from '../Errors/ValidationError'
 import ApiResponseHandler from '../Errors/ApiResponseHandler'
 
