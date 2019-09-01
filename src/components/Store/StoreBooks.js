@@ -49,7 +49,7 @@ const StoreBooks = () => {
             <StoreFreeBooks>
                 <StoreBooksHeader>
                     <StoreBooksHeaderTitle title="Find here awesome books!" />
-                    <StoreFreeBooksHeaderInput updateFreeBooks={updateFreeBooks} updatePaidBooks={updatePaidBooks} />
+                    {!isLoading && <StoreFreeBooksHeaderInput updateFreeBooks={updateFreeBooks} updatePaidBooks={updatePaidBooks} />}
                 </StoreBooksHeader>
                 <StoreFreeBooksContainer isLoading={isLoading} freeBooks={freeBooks} />
             </StoreFreeBooks>
