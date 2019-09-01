@@ -21,8 +21,8 @@ const ProfileBorrowedBooksContainer = ({ borrowedBooks, isLoading }) => {
         <ProfileBorrowedBooksContainerWrapper>
             {borrowedBooks.map(book => {
                 return (
-                    // <ProfileBook key={book._id} free author={book.author} title={book.title} cover={`data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`} />
-                    <ProfileBook key={book._id} free author={book.author} title={book.title} price={book.price} cover="https://picsum.photos/200/300" />
+                    <ProfileBook key={book._id} free author={book.author} title={book.title} cover={book.cover} />
+                    // <ProfileBook key={book._id} free author={book.author} title={book.title} price={book.price} cover="https://picsum.photos/200/300" />
                 )
             })}
             {isLoading && <Loader noShadow />}

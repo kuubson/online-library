@@ -22,7 +22,8 @@ const ProfilePaidBooksContainer = ({ boughtBooks, isLoading }) => {
             {boughtBooks.map(book => {
                 return (
                     // <ProfileBook key={book._id} paid author={book.author} title={book.title} price={book.price} cover={`data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`} />
-                    <ProfileBook key={book._id} paid author={book.author} title={book.title} price={book.price} cover="https://picsum.photos/200/300" />
+                    <ProfileBook key={book._id} paid author={book.author} title={book.title} price={book.price} cover={book.cover} />
+                    // <ProfileBook key={book._id} paid author={book.author} title={book.title} price={book.price} cover="https://picsum.photos/200/300" />
                 )
             })}
             {isLoading && <Loader noShadow />}
