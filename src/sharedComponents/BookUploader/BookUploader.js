@@ -9,7 +9,6 @@ import BookUploaderInput from './BookUploaderInput'
 import BookUploaderFileInput from './BookUploaderFileInput'
 import BookUploaderButton from './BookUploaderButton'
 import BookUploaderCloseButton from './BookUploaderCloseButton'
-import Loader from '../Loader/Loader'
 import ValidationError from '../Errors/ValidationError'
 import ApiResponseHandler from '../Errors/ApiResponseHandler'
 
@@ -57,7 +56,8 @@ const BookUploaderInputsWrapper = styled.div`
 
 `;
 
-const BookUploader = props => {
+const BookUploader = () => {
+    const dispatch = useDispatch()
     const [bookTitle, setBookTitle] = useState('')
     const [bookAuthor, setBookAuthor] = useState('')
     const [bookCover, setBookCover] = useState()
@@ -65,14 +65,13 @@ const BookUploader = props => {
     const [bookAuthorError, setBookAuthorError] = useState()
     const [bookCoverError, setBookCoverError] = useState()
     const [shouldFadeIn, setShouldFadeIn] = useState()
-    const [isLoading, setIsLoading] = useState(false)
     const [responseMessageError, setResponseMessageError] = useState()
     const [responseMessageWarning, setResponseMessageWarning] = useState()
     const [responseMessageSuccess, setResponseMessageSuccess] = useState()
+    const setIsLoading = payload => dispatch({ type: 'setIsLoading', payload })
     useLayoutEffect(() => {
         setShouldFadeIn(true)
     }, [])
-    const dispatch = useDispatch()
     const hideBookUploader = () => dispatch({ type: 'setShouldBookUploaderAppear', payload: false })
     const validate = () => {
         validator.isEmpty(bookTitle) ? setBookTitleError('You have to name your book!') : setBookTitleError('')
@@ -125,7 +124,6 @@ const BookUploader = props => {
                 </BookUploaderInputsWrapper>
                 <BookUploaderButton onClick={upload} />
             </BookUploaderContent>
-            {isLoading && <Loader />}
             {responseMessageError && <ApiResponseHandler error responseMessage={responseMessageError} onClick={hideApiResponseHandler} />}
             {responseMessageWarning && <ApiResponseHandler warning responseMessage={responseMessageWarning} onClick={hideApiResponseHandler} />}
             {responseMessageSuccess && <ApiResponseHandler success responseMessage={responseMessageSuccess} onClick={hideApiResponseHandler} />}
