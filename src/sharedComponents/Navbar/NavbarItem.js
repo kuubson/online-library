@@ -6,6 +6,13 @@ const NavbarItemWrapper = styled.div`
     margin: 0px 25px;
     font-size: 1.3rem;
     cursor: pointer;
+    transition: 0.5s;
+    @media (max-width: 1150px) {
+        font-size: 1.2rem;
+    }
+    @media (max-width: 900px) {
+        margin: 30px 0px;
+    }
 `;
 
 const NavbarItem = ({ children, onClick }) => {
