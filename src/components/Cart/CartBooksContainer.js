@@ -12,6 +12,12 @@ const CartBooksContainerWrapper = styled.div`
     grid-gap: 20px;
     flex: 1;
     position: relative;
+    @media (max-width: 1200px) {
+        grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 950px) {
+        grid-template-columns: 1fr;
+    }
 `;
 
 const CartBooksContainer = ({ cartBooks }) => {

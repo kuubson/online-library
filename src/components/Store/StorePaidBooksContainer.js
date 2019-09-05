@@ -14,6 +14,15 @@ const StorePaidBooksContainerWrapper = styled.div`
     grid-gap: 20px;
     flex: 1;
     position: relative;
+    @media (max-width: 1000px) {
+        grid-template-columns: 1fr;
+    }
+    @media (max-width: 670px) {
+        grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 500px) {
+        grid-template-columns: 1fr;
+    }
 `;
 
 const StorePaidBooksContainer = ({ paidBooks, isLoading }) => {
@@ -21,8 +30,8 @@ const StorePaidBooksContainer = ({ paidBooks, isLoading }) => {
         <StorePaidBooksContainerWrapper>
             {paidBooks && paidBooks.map(book => {
                 return (
-                    <StoreBook key={book._id} _id={book._id} paid author={book.author} title={book.title} price={book.price} cover={`data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`} />
-                    // <StoreBook key={book._id} paid author={book.author} title={book.title} price={book.price} cover="https://picsum.photos/200/300" />
+                    // <StoreBook key={book._id} _id={book._id} paid author={book.author} title={book.title} price={book.price} cover={`data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`} />
+                    <StoreBook key={book._id} paid author={book.author} title={book.title} price={book.price} cover="https://picsum.photos/200/300" />
                 )
             })}
             {isLoading && <Loader noShadow />}

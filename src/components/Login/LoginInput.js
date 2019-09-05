@@ -5,12 +5,18 @@ const LoginInputWrapper = styled.div`
     display: flex;
     flex-direction: column;
     margin: 14px 0px;
+    @media (max-width: 450px) {
+        margin: 10px 0px;
+    }
 `;
 const LoginLabel = styled.label`
     font-size: 1.05rem;
     font-weight: bold;
     color: white;
     margin-bottom: 5px;
+    @media (max-width: 400px) {
+        font-size: 0.85rem;
+    }
 `;
 const LoginInputContent = styled.input`
     width: 250px;
@@ -23,6 +29,11 @@ const LoginInputContent = styled.input`
     text-indent: 5px;
     ::placeholder{
         color: white;
+    }
+    @media (max-width: 400px) {
+        font-size: 0.75rem;
+        width: 210px;
+        border-bottom: 1.6px solid white;
     }
 `;
 

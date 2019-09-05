@@ -7,6 +7,12 @@ const ProfileBooksHeaderTitleWrapper = styled.div`
     font-weight: bold;
     text-align: center;
     flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media (max-width: 1200px) {
+        font-size: 1.15rem;
+    }
 `;
 
 const ProfileBooksHeaderTitle = ({ title }) => {

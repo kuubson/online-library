@@ -23,6 +23,9 @@ const LoginSubmitContent = styled.div`
     :hover{
         transform: scale(1.08)
     }
+    @media (max-width: 400px) {
+        font-size: 0.75rem;
+    }
 `;
 const LoginSubmitAnnotation = styled.div`
     color: white;
@@ -32,6 +35,9 @@ const LoginSubmitAnnotation = styled.div`
     transition: 0.5s;
     :hover{
         transform: scale(1.03)
+    }
+    @media (max-width: 400px) {
+        font-size: 0.70rem;
     }
 `;
 

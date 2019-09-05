@@ -16,6 +16,9 @@ const ProfileBooksWrapper = styled.div`
     display: flex;
     flex: 1;
     align-self: stretch;
+    @media (max-width: 670px) {
+        flex-direction: column;
+    }
 `;
 
 const ProfileBooks = () => {

@@ -15,9 +15,20 @@ const StoreModalBookDetailsHeader = styled.div`
     font-weight: bold;
     font-size: 1.2rem;
     margin-bottom: 25px;
+    @media (max-width: 900px) {
+        font-size: 1rem;
+    }
+    @media (max-width: 400px) {
+        font-size: 0.8rem;
+        padding: 0px 8px;
+    }
 `;
 const StoreModalBookDetailsDetail = styled.div`
     margin: 10px 0px;
+    @media (max-width: 900px) {
+        margin: 5px 0px;
+        font-size: 0.8rem;
+    }
 `;
 
 const StoreModalBookDetails = () => {

@@ -17,6 +17,9 @@ const ProfileBookButtonWrapper = styled.div`
         transform: scale(1.05) translate(-50%, 0px);
         transform-origin: center left;
     }
+    @media (max-width: 1000px) {
+        font-size: 0.8rem;
+    }
 `;
 
 const ProfileBookButton = ({ text, onClick }) => {

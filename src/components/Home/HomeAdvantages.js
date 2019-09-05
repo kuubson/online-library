@@ -7,6 +7,9 @@ const HomeAdvantagesWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     flex: 1;
+    @media (max-width: 700px) {
+        display: none;
+    }
 `;
 const HomeAdvantage = styled.div`
     color: white;
@@ -14,6 +17,12 @@ const HomeAdvantage = styled.div`
     max-width: 50%;
     text-align: center;
     margin: 30px 0px;
+    @media (max-width: 1110px) {
+        font-size: 1.65rem;
+    }
+    @media (max-width: 900px) {
+        font-size: 1.35rem;
+    }
 `;
 
 const HomeAdvantages = () => {

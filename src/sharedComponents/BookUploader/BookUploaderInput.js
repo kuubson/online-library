@@ -5,10 +5,20 @@ const BookUploaderWrapper = styled.div`
     display: flex;
     flex-direction: column;
     margin: 20px 0px;
+    @media (max-width: 370px) {
+        justify-content: center;
+        align-items: center;
+    }
 `;
 const BookUploaderInputLabel = styled.label`
     font-size: 1.05rem;
     margin-bottom: 5px;
+    @media (max-width: 450px) {
+        font-size: 0.9rem;
+    }
+    @media (max-width: 370px) {
+        align-self: flex-start;
+    }
 `;
 const BookUploaderContent = styled.input`
     width: 250px;
@@ -20,6 +30,15 @@ const BookUploaderContent = styled.input`
     text-indent: 5px;
     ::placeholder{
         color: black;
+    }
+    @media (max-width: 450px) {
+        font-size: 0.75rem;
+    }
+    @media (max-width: 370px) {
+        width: 180px;
+    }
+    @media (max-width: 300px) {
+        width: 150px;
     }
 `;
 

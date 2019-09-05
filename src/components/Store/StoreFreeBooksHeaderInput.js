@@ -8,6 +8,10 @@ import ValidationError from '../../sharedComponents/Errors/ValidationError'
 
 const StoreFreeBooksHeaderInputWrapper = styled.div`
     flex: 1;
+    @media (max-width: 1100px) {
+        margin-top: 20px;
+        width: 100%;
+    }
 `;
 const StoreFreeBooksHeaderInputContent = styled.input`
     flex: 0.8;
@@ -21,6 +25,11 @@ const StoreFreeBooksHeaderInputContent = styled.input`
     ::placeholder{
         color: white;
     }
+    @media (max-width: 1200px) {
+        font-size: 0.75rem;
+        flex: 1;
+        align-self: stretch;
+    }
 `;
 const StoreFreeBooksHeaderInputContentWrapper = styled.div`
     display:flex;
@@ -32,6 +41,13 @@ const StoreFreeBooksHeaderInputButton = styled.div`
     justify-content:center;
     align-items: center;
     cursor: pointer;
+    @media (max-width: 1200px) {
+        font-size: 0.9rem;
+    }
+    @media (max-width: 400px) {
+        padding: 0px 18px;
+        font-size: 0.75rem;
+    }
 `;
 const ValidationErrorWrapper = styled.div`
     margin-top: 10px;

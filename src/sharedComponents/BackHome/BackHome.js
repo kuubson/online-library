@@ -15,6 +15,15 @@ const BackHomeWrapper = styled.div`
     :hover{
         transform: scale(1.08)
     }
+    @media (max-width: 550px) {
+        font-size: 0.6rem;
+        padding: 8px 12px; 
+        top: 15px;
+        left: 15px;
+    }
+    @media (max-width: 500px) {
+        display: none;
+    }
 `;
 
 const BackHome = ({ history }) => {

@@ -6,7 +6,14 @@ const CartHeaderWrapper = styled.div`
     justify-content: space-around;
     align-items: center;
     padding: 20px;
-    height: 50px;
+    min-height: 50px;
+    padding-top: 10px;
+    @media (max-width: 1100px) {
+        flex-direction: column; 
+    }
+    @media (max-width: 900px) {
+        padding-top: 30px;
+    }
 `;
 
 const CartHeader = ({ children }) => {

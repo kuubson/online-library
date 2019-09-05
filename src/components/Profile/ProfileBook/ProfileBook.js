@@ -12,6 +12,12 @@ const ProfileBookWrapper = styled.div`
     :hover{
         transform: scale(1.02)
     }
+    @media (max-width: 1000px) {
+        font-size: 0.8rem;
+    }
+    @media (max-width: 800px) {
+        font-size: 0.75rem;
+    }
 `;
 const ProfileBookContent = styled.img`
     width: 100%;

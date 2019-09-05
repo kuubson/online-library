@@ -9,6 +9,10 @@ const BookUploaderButtonWrapper = styled.div`
     :hover{
         transform: scale(1.08)
     }
+    @media (max-width: 450px) {
+        padding: 10px 25px;
+        font-size: 0.85rem;
+    }
 `;
 
 const BookUploaderButton = ({ onClick }) => {

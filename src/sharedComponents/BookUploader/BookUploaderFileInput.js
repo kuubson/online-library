@@ -23,6 +23,12 @@ const BookUploaderFileInputLabel = styled.label`
         color: white;
         background: black;
     }
+    @media (max-width: 450px) {
+        font-size: 0.7rem;
+    }
+    @media (max-width: 300px) {
+        font-size: 0.55rem;
+    }
 `;
 
 const BookUploaderFileInput = ({ onChange }) => {

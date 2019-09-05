@@ -12,6 +12,9 @@ const StoreModalButtonsWrapper = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    @media (max-width: 900px) {
+        padding: 30px 0px;
+    }
 `;
 const StoreModalButtonsContent = styled.div`
     display: flex;
@@ -24,11 +27,19 @@ const StoreModalButton = styled.div`
     font-size: 0.9rem;
     border-radius: 10px;
     cursor: pointer;
+    @media (max-width: 900px) {
+        font-size: 0.7rem;
+        padding: 6px 20px;
+    }
 `;
 const StoreModalButtonsAnnotation = styled.div`
     text-align: center;
     margin-bottom: 30px;
     font-size: 1.1rem;
+    @media (max-width: 900px) {
+        font-size: 0.9rem;
+        margin-bottom: 25px;
+    }
 `;
 
 const StoreModalButtons = () => {

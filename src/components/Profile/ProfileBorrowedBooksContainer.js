@@ -13,6 +13,18 @@ const ProfileBorrowedBooksContainerWrapper = styled.div`
     grid-gap: 20px;
     flex: 1;
     position: relative;
+    @media (max-width: 1150px) {
+        grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 850px) {
+        grid-template-columns: 1fr;
+    }
+    @media (max-width: 670px) {
+        grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 500px) {
+        grid-template-columns: 1fr;
+    }
 `;
 
 const ProfileBorrowedBooksContainer = ({ borrowedBooks, isLoading }) => {
@@ -20,8 +32,8 @@ const ProfileBorrowedBooksContainer = ({ borrowedBooks, isLoading }) => {
         <ProfileBorrowedBooksContainerWrapper>
             {borrowedBooks.map(book => {
                 return (
-                    <ProfileBook key={book._id} free author={book.author} title={book.title} cover={book.cover} />
-                    // <ProfileBook key={book._id} free author={book.author} title={book.title} price={book.price} cover="https://picsum.photos/200/300" />
+                    // <ProfileBook key={book._id} free author={book.author} title={book.title} cover={book.cover} />
+                    <ProfileBook key={book._id} free author={book.author} title={book.title} price={book.price} cover="https://picsum.photos/200/300" />
                 )
             })}
             {isLoading && <Loader noShadow />}

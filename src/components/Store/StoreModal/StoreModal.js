@@ -24,6 +24,8 @@ const StoreModalWrapper = styled.div`
     transform: translate(-50%, -50%);
     background: rgba(0,0,0,0.8);
     opacity: 0;
+    @media (max-width: 900px) {
+    }
     ${props => {
         if (props.shouldFadeIn) {
             return css`
@@ -43,12 +45,23 @@ const StoreModalContent = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    @media (max-width: 900px) {
+        flex-direction: column;
+        height: auto;
+        min-height: 70%;
+    }
+    @media (max-width: 650px) {
+        width: 75%;
+    }
 `;
 const StoreModalDetailsAndButtonsWrapper = styled.div`
     flex:1;
     display: flex;
     height: 100%;
     flex-direction: column;
+    @media (max-width: 900px) {
+        padding-bottom: 10px;
+    }
 `;
 
 const StoreModal = () => {

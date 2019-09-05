@@ -11,6 +11,16 @@ const NavbarBrandWrapper = styled.div`
     @media (max-width: 1150px) {
         font-size: 2.35rem;
     }
+    @media (max-width: 670px) {
+        font-size: 2.1rem;
+    }
+    @media (max-width: 500px) {
+        font-size: 1.9rem;
+    }
+    @media (max-width: 350px) {
+        font-size: 1.55rem;
+        margin-left: 5px;
+    }
 `;
 
 const NavbarBrand = () => {

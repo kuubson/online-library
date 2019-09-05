@@ -9,6 +9,12 @@ const StoreModalBookImageWrapper = styled.div`
 const StoreModalBookImageContent = styled.img`
     width: 100%;
     height: 100%;
+    @media (max-width: 900px) {
+        height: 300px;
+    }
+    @media (max-width: 450px) {
+        height: 230px;
+    }
 `;
 
 const StoreModalBookImage = ({ src }) => {

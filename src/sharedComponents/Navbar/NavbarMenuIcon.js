@@ -7,12 +7,16 @@ const NavbarMenuIconWrapper = styled.div`
     margin-top: 2px;
     display: none;
     cursor: pointer;
+    color: white;
     position:absolute;
     top: 50%;
     right: 15px;
     transform: translate(0px, -50%);
     @media (max-width: 900px) {
         display: block;  
+    }
+    @media (max-width: 350px) {
+        font-size: 1.2rem;
     }
 `;
 

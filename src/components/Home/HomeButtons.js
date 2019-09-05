@@ -26,6 +26,16 @@ const HomeButton = styled.div`
     :hover{
         transform: scale(1.08)
     }
+    @media (max-width: 900px) {
+        font-size: 0.8rem;
+    }
+    @media (max-width: 700px) {
+        width: 180px;
+    }
+    @media (max-width: 400px) {
+        width: 160px;
+        padding: 16px 0px;
+    }
 `;
 
 const HomeButtons = props => {
