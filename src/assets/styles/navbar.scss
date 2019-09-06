@@ -1,0 +1,42 @@
+.navbar {
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(90deg, rgb(79, 172, 254) 0px, rgb(0, 242, 254));
+    margin: 0px 20px;
+    position: relative;
+
+    .navbar__brand {
+        color: white;
+        font-size: 38px;
+        position: absolute;
+        top: 50%;
+        left: 25px;
+        transform: translate(0px, -50%);
+    }
+
+    .navbar__links {
+        display: flex;
+        position: absolute;
+        top: 50%;
+        right: 25px;
+        transform: translate(0px, -50%);
+        list-style: none;
+    }
+
+    .navbar__link {
+        color: white;
+        text-decoration: none;
+        margin-left: 35px;
+        font-size: 20px;
+    }
+
+    .navbar__button {
+        background: none;
+        border: none;
+        color: white;
+        margin-left: 35px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+}
