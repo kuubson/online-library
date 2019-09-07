@@ -7,6 +7,8 @@
     .inputs__input-wrapper {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
         margin-bottom: 20px;
     }
 
@@ -23,6 +25,27 @@
     .inputs__input-label {
         color: white;
         font-size: 18px;
+        align-self: flex-start;
+    }
+
+    .inputs__input-label--black {
+        color: black;
+    }
+
+    .inputs__input-button {
+        width: 200px;
+        color: white;
+        background: none;
+        border: 2.5px solid white;
+        margin-top: 10px;
+        cursor: pointer;
+        transition: 0.5s;
+        padding: 10px 0px;
+        font-size: 14px;
+
+        &:hover {
+            transform: scale(1.05)
+        }
     }
 
     .inputs__input {
@@ -40,25 +63,19 @@
         }
     }
 
+    .inputs__input--black {
+        color: black;
+        border-bottom: 1.1px solid black;
+
+        &::placeholder {
+            color: black;
+        }
+    }
+
     .inputs__input-error {
         color: red;
         margin-top: 20px;
-    }
-
-    .inputs__input--submit {
-        width: 200px;
-        color: white;
-        background: none;
-        border: 2.5px solid white;
-        margin-top: 10px;
-        cursor: pointer;
-        transition: 0.5s;
-        padding: 10px 0px;
         font-size: 14px;
-
-        &:hover {
-            transform: scale(1.05)
-        }
     }
 
     .inputs__annotation {
@@ -74,10 +91,27 @@
         }
     }
 
-    .inputs__input-button {
-        background: white;
-        border: none;
-        padding: 0px 30px;
-        cursor: pointer;
+}
+
+.inputs__input-button--store {
+    background: white;
+    border: none;
+    padding: 0px 30px;
+    cursor: pointer;
+    align-self: stretch;
+}
+
+.inputs__input-button--black {
+    width: 140px;
+    border: 1px solid black;
+    color: black;
+    padding: 10px 0px;
+    transition: 0.5s;
+    margin-bottom: 35px;
+    background: white;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.05);
     }
 }

@@ -75,12 +75,12 @@ const Register = props => {
                 </div>
                 <div className="inputs__input-wrapper">
                     <label className="inputs__input-label" htmlFor="surname">Surname</label>
-                    <input id="surname" className="inputs__input" name="surname" type="surname" placeholder="Type your surname..." value={surname} onChange={e => setSurname(e.target.value)} />
+                    <input id="surname" className="inputs__input" name="surname" type="text" placeholder="Type your surname..." value={surname} onChange={e => setSurname(e.target.value)} />
                     {surnameError && <p className="inputs__input-error">{surnameError}</p>}
                 </div>
                 <div className="inputs__input-wrapper">
                     <label className="inputs__input-label" htmlFor="email">E-mail</label>
-                    <input id="email" className="inputs__input" name="email" type="email" placeholder="Type your e-mail..." value={email} onChange={e => setEmail(e.target.value)} />
+                    <input id="email" className="inputs__input" name="email" type="text" placeholder="Type your e-mail..." value={email} onChange={e => setEmail(e.target.value)} />
                     {emailError && <p className="inputs__input-error">{emailError}</p>}
                 </div>
                 <div className="inputs__input-wrapper">
@@ -90,10 +90,10 @@ const Register = props => {
                 </div>
                 <div className="inputs__input-wrapper">
                     <label className="inputs__input-label" htmlFor="repeatedPassword">Repeated Password</label>
-                    <input id="repeatedPassword" className="inputs__input" name="repeatedPassword" type="repeatedPassword" placeholder="Type your e-mail..." value={repeatedPassword} onChange={e => setRepeatedPassword(e.target.value)} />
+                    <input id="repeatedPassword" className="inputs__input" name="repeatedPassword" type="password" placeholder="Type your e-mail..." value={repeatedPassword} onChange={e => setRepeatedPassword(e.target.value)} />
                     {repeatedPasswordError && <p className="inputs__input-error">{repeatedPasswordError}</p>}
                 </div>
-                <button className="inputs__input--submit">Register</button>
+                <button className="inputs__input-button">Register</button>
                 <Link to="/login" className="inputs__annotation">Have already account? Log in now!</Link>
             </form>
         </section>

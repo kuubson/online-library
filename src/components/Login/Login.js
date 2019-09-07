@@ -77,7 +77,7 @@ const Login = props => {
                     <input id="password" className="inputs__input" name="password" type="password" placeholder="Type your e-mail..." value={password} onChange={e => setPassword(e.target.value)} />
                     {passwordError && <p className="inputs__input-error">{passwordError}</p>}
                 </div>
-                <button className="inputs__input--submit">Login</button>
+                <button className="inputs__input-button">Login</button>
                 <Link to="/register" className="inputs__annotation">Feel free to register now!</Link>
             </form>
         </section>

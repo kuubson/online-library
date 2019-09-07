@@ -12,6 +12,7 @@ import Profile from './Profile/Profile'
 import Cart from './Cart/Cart'
 import Loader from './Loader/Loader'
 import ApiResponses from './ApiResponses/ApiResponses'
+import BookUploader from './BookUploader/BookUploader'
 
 const AppWrapper = styled.div``;
 
@@ -20,6 +21,7 @@ const App = () => {
     const apiResponseSuccessMessage = useSelector(state => state.api.apiResponseSuccessMessage)
     const apiResponseErrorMessage = useSelector(state => state.api.apiResponseErrorMessage)
     const apiResponseWarningMessage = useSelector(state => state.api.apiResponseWarningMessage)
+    const shouldBookUploaderAppear = useSelector(state => state.global.shouldBookUploaderAppear)
     return (
         <CookiesProvider>
             <AppWrapper>
@@ -33,6 +35,7 @@ const App = () => {
                     </Switch>
                 </Router>
                 {isLoading && <Loader />}
+                {shouldBookUploaderAppear && <BookUploader />}
                 {(apiResponseSuccessMessage || apiResponseErrorMessage || apiResponseWarningMessage) && <ApiResponses />}
             </AppWrapper>
         </CookiesProvider>

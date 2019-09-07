@@ -1,12 +1,16 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import removeCookie from '../../resources/helpers/removeCookie'
+import { useDispatch } from 'react-redux'
 
 const Navbar = ({ history, store, profile, cart }) => {
+    const dispatch = useDispatch()
+    const setShouldBookUploaderAppear = payload => dispatch({ type: 'setShouldBookUploaderAppear', payload })
     const logout = () => {
         removeCookie('token')
         history.push('/login')
     }
+    const showBookUploader = () => setShouldBookUploaderAppear(true)
     return (
         <nav className="navbar">
             <header className="navbar__brand">Online Library</header>
@@ -21,7 +25,7 @@ const Navbar = ({ history, store, profile, cart }) => {
                     <Link to="/cart" className="navbar__link" >Cart</Link>
                 </li>}
                 <li className="navbar__link-wrapper">
-                    <button className="navbar__button">Upload own book</button>
+                    <button className="navbar__button" onClick={showBookUploader}>Upload own book</button>
                 </li>
                 <li className="navbar__link-wrapper">
                     <button className="navbar__button" onClick={logout}>Logout</button>

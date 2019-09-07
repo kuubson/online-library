@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import validator from 'validator'
 import axios from 'axios'
+import { Buffer } from 'buffer'
 
 import Navbar from '../Navbar/Navbar'
 import StoreModal from '../StoreModal/StoreModal'
@@ -100,18 +101,19 @@ const Store = props => {
                 <article className="books__column books__column--left">
                     <header className="books__header">
                         <h2 className="books__header-text">Find here awesome books!</h2>
-                        <form className="inputs" onSubmit={findBook}>
-                            <div className="inputs__input-wrapper inputs__input-wrapper--row">
-                                <input id="bookTitle" className="inputs__input" name="bookTitle" type="bookTitle" placeholder="Type book's title..." value={bookTitle} onChange={e => setBookTitle(e.target.value)} />
-                                <button className="inputs__input-button">Find</button>
-                            </div>
-                        </form>
+                        {!isLoading &&
+                            <form className="inputs" onSubmit={findBook}>
+                                <div className="inputs__input-wrapper inputs__input-wrapper--row">
+                                    <input id="bookTitle" className="inputs__input" name="bookTitle" type="text" placeholder="Type book's title..." value={bookTitle} onChange={e => setBookTitle(e.target.value)} />
+                                    <button className="inputs__input-button--store">Find</button>
+                                </div>
+                            </form>}
                     </header>
                     <div className="books__container">
                         {freeBooks.length && freeBooks.map(book => {
                             return (
                                 <figure className="books__book" key={book._id}>
-                                    <img className="book__image" src="https://picsum.photos/200/300" alt={book.title} />
+                                    <img className="book__image" src={`data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`} alt={book.title} />
                                     <div className="book__details">
                                         <h3 className="book__author">{book.author}</h3>
                                         <h3 className="book__title">{book.title}</h3>
@@ -131,7 +133,7 @@ const Store = props => {
                         {paidBooks.length && paidBooks.map(book => {
                             return (
                                 <figure className="books__book" key={book._id}>
-                                    <img className="book__image" src="https://picsum.photos/200/300" alt={book.title} />
+                                    <img className="book__image" src={`data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`} alt={book.title} />
                                     <div className="book__details">
                                         <h3 className="book__author">{book.author}</h3>
                                         <h3 className="book__title">{book.title}</h3>
