@@ -20,50 +20,52 @@ const Cart = () => {
     return (
         <div className="cart wrapper">
             <Navbar cart />
-            <section className="books">
-                <article className="books__column books__column--left">
-                    <header className="books__header">
-                        <h2 className="books__header-text">Chosen books are here, ready to buy!</h2>
-                    </header>
-                    <div className="books__container">
-                        {cart.length && cart.map(book => {
-                            return (
-                                <figure className="books__book" key={book.id}>
-                                    <img className="book__image" src="https://picsum.photos/200/300" alt="Xd" />
-                                    <div className="book__details">
-                                        <h3 className="book__author">{book.author}</h3>
-                                        <h3 className="book__title">{book.title}</h3>
+            {cart.length === 0 ? <h2 className="cart__warning">Your cart is empty!</h2> :
+                <section className="books">
+                    <article className="books__column books__column--left">
+                        <header className="books__header">
+                            <h2 className="books__header-text">Chosen books are here, ready to buy!</h2>
+                        </header>
+                        <div className="books__container">
+                            {cart.length && cart.map(book => {
+                                return (
+                                    <figure className="books__book" key={book.id}>
+                                        <img className="book__image" src="https://picsum.photos/200/300" alt="Xd" />
+                                        <div className="book__details">
+                                            <h3 className="book__author">{book.author}</h3>
+                                            <h3 className="book__title">{book.title}</h3>
+                                        </div>
+                                        <p className="book__price">${book.price}</p>
+                                        <button className="book__button" onClick={() => removeBook(book.id)}>Cancel</button>
+                                    </figure>
+                                )
+                            })}
+                        </div>
+                    </article>
+                    <article className="books__column books__column--right">
+                        <header className="books__header">
+                            <h2 className="books__header-text">Summary</h2>
+                        </header>
+                        <div className="cart__summary">
+                            {cart.length && cart.map(book => {
+                                price += book.price
+                                return (
+                                    <div className="cart__summary-item" key={book.id}>
+                                        <h3 className="cart__summary-title">Book "{book.title}"</h3>
+                                        <p className="cart__summary-price">1 x ${book.price}</p>
                                     </div>
-                                    <p className="book__price">${book.price}</p>
-                                    <button className="book__button" onClick={() => removeBook(book.id)}>Cancel</button>
-                                </figure>
-                            )
-                        })}
-                    </div>
-                </article>
-                <article className="books__column books__column--right">
-                    <header className="books__header">
-                        <h2 className="books__header-text">Summary</h2>
-                    </header>
-                    <div className="cart__summary">
-                        {cart.length && cart.map(book => {
-                            price += book.price
-                            return (
-                                <div className="cart__summary-item" key={book.id}>
-                                    <h3 className="cart__summary-title">Book "{book.title}"</h3>
-                                    <p className="cart__summary-price">1 x ${book.price}</p>
-                                </div>
-                            )
-                        })}
-                        {price > 0 &&
-                            <>
-                                <div className="cart__summary-total">Total ${price.toFixed(2)}</div>
-                                <PayPalButton price={+price.toFixed(2)} />
-                            </>
-                        }
-                    </div>
-                </article>
-            </section>
+                                )
+                            })}
+                            {price > 0 &&
+                                <>
+                                    <div className="cart__summary-total">Total ${price.toFixed(2)}</div>
+                                    <PayPalButton price={+price.toFixed(2)} />
+                                </>
+                            }
+                        </div>
+                    </article>
+                </section>
+            }
         </div>
     )
 }
