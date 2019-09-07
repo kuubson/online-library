@@ -1,12 +1,9 @@
-import React, { useState, useLayoutEffect } from 'react'
+import React from 'react'
 import Spinner from 'react-spinkit'
 
 const Loader = () => {
-    const [shouldFadeIn, setShouldFadeIn] = useState(false)
-    useLayoutEffect(() => setShouldFadeIn(true), [])
-    const className = shouldFadeIn ? 'loader fadeIn' : 'loader'
     return (
-        <div className={className}>
+        <div className="loader fadeIn">
             <Spinner name="ball-spin-fade-loader" fadeIn="none" color="white" />
         </div>
     )

@@ -10,6 +10,16 @@
         margin-bottom: 20px;
     }
 
+    .inputs__input-wrapper--row {
+        flex-direction: row;
+        margin-left: 40px;
+        margin-bottom: 0px;
+
+        .inputs__input {
+            padding: 12px 0px;
+        }
+    }
+
     .inputs__input-label {
         color: white;
         font-size: 18px;
@@ -62,5 +72,12 @@
         &:hover {
             transform: scale(1.03)
         }
+    }
+
+    .inputs__input-button {
+        background: white;
+        border: none;
+        padding: 0px 30px;
+        cursor: pointer;
     }
 }

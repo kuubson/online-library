@@ -56,6 +56,11 @@ const Login = props => {
                     })
                     setUserEmail(email)
                 }
+            }).catch(error => {
+                if (error) {
+                    setIsLoading(false)
+                    setApiResponseErrorMessage('Something went wrong, try again by refreshing page!')
+                }
             })
         }
     }

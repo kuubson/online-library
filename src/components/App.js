@@ -8,8 +8,8 @@ import { useSelector } from 'react-redux'
 import Login from './Login/Login'
 import Register from './Register/Register'
 import Store from './Store/Store'
-// import Profile from './Profile/Profile'
-// import Cart from './Cart/Cart'
+import Profile from './Profile/Profile'
+import Cart from './Cart/Cart'
 import Loader from './Loader/Loader'
 import ApiResponses from './ApiResponses/ApiResponses'
 
@@ -28,6 +28,8 @@ const App = () => {
                         <Route path='/login' component={Login} />
                         <Route path='/register' component={Register} />
                         <Route path='/store' component={Store} />
+                        <Route path='/profile' component={Profile} />
+                        <Route path='/cart' component={Cart} />
                     </Switch>
                 </Router>
                 {isLoading && <Loader />}

@@ -2,6 +2,8 @@
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.7);
+    font-weight: bold;
+    font-size: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,12 +12,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-weight: bold;
-    font-size: 18px;
+    z-index: 3;
 
     .apiResponses__button {
-        background: white;
-        border: none;
+        background: none;
+        color: white;
+        border: 1.5px solid white;
         cursor: pointer;
         font-size: 15px;
         padding: 12px 30px;

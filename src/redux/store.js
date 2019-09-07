@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage'
 
 import { global } from './reducers/global'
 import { api } from './reducers/api'
+import { storeModal } from './reducers/storeModal'
 
 const persistConfig = {
     key: 'root',
@@ -14,7 +15,8 @@ const persistConfig = {
 
 const reducers = combineReducers({
     global: persistReducer(persistConfig, global),
-    api
+    api,
+    storeModal
 })
 
 export const store = createStore(reducers, composeWithDevTools(

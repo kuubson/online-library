@@ -8,7 +8,7 @@ const ApiResponses = () => {
     const apiResponseWarningMessage = useSelector(state => state.api.apiResponseWarningMessage)
     const apiResponseCallbackFunction = useSelector(state => state.api.apiResponseCallbackFunction)
     const handleClick = () => {
-        if (apiResponseSuccessMessage) apiResponseCallbackFunction()
+        if (apiResponseSuccessMessage && apiResponseCallbackFunction) apiResponseCallbackFunction()
         dispatch({ type: 'resetApiResponses' })
     }
     return (

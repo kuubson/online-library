@@ -57,6 +57,11 @@ const Register = props => {
                     setApiResponseCallbackFunction(() => props.history.push('/store'))
                     setApiResponseSuccessMessage(res.data.successMessage)
                 }
+            }).catch(error => {
+                if (error) {
+                    setIsLoading(false)
+                    setApiResponseErrorMessage('Something went wrong, try again by refreshing page!')
+                }
             })
         }
     }

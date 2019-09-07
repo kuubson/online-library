@@ -1,0 +1,46 @@
+.books {
+    margin: 20px;
+    display: flex;
+    align-self: stretch;
+    flex: 1;
+
+    .books__column {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .books__column--left {
+        flex: 0.55;
+        padding-right: 20px;
+    }
+
+    .books__column--right {
+        flex: 0.45;
+    }
+
+    .books__header {
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .books__header-text {
+        color: white;
+        font-size: 22px;
+        text-align: center;
+    }
+
+    .books__container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        grid-auto-rows: 270px;
+        grid-gap: 20px;
+        flex: 1;
+        align-self: stretch;
+    }
+
+}
