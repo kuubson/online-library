@@ -2,16 +2,15 @@ import React, { useState, useLayoutEffect, useEffect } from 'react'
 import getCookie from '../../resources/helpers/getCookie'
 import { withRouter } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import validator from 'validator'
 import axios from 'axios'
 import { Buffer } from 'buffer'
 
 import Navbar from '../Navbar/Navbar'
 import StoreModal from '../StoreModal/StoreModal'
 import Loader from '../Loader/Loader'
+import StoreInput from './StoreInput'
 
 const Store = props => {
-    const [bookTitle, setBookTitle] = useState('')
     const [freeBooks, setFreeBooks] = useState([])
     const [paidBooks, setPaidBooks] = useState([])
     const [isLoading, setIsLoading] = useState()
@@ -24,9 +23,7 @@ const Store = props => {
     const shouldStoreModalAppear = useSelector(state => state.storeModal.shouldStoreModalAppear)
     const setShouldStoreModalAppear = payload => dispatch({ type: 'setShouldStoreModalAppear', payload })
     const setStoreModalData = payload => dispatch({ type: 'setStoreModalData', payload })
-    const setApiResponseSuccessMessage = payload => dispatch({ type: 'setApiResponseSuccessMessage', payload })
     const setApiResponseErrorMessage = payload => dispatch({ type: 'setApiResponseErrorMessage', payload })
-    const setApiResponseWarningMessage = payload => dispatch({ type: 'setApiResponseWarningMessage', payload })
 
     useEffect(() => {
         setIsLoading(true)
@@ -55,44 +52,6 @@ const Store = props => {
         })
         setShouldStoreModalAppear(true)
     }
-    const validate = () => {
-        validator.isEmpty(bookTitle) ? setApiResponseWarningMessage(`Give book's title!`) : setApiResponseWarningMessage('')
-        if (!validator.isEmpty(bookTitle)) {
-            return true
-        } else {
-            return false
-        }
-    }
-    const findBook = e => {
-        e.preventDefault()
-        if (validate()) {
-            setIsLoading(true)
-            axios.post('/findBook', {
-                bookTitle
-            }).then(res => {
-                setIsLoading(false)
-                if (res.data.error) setApiResponseErrorMessage(res.data.errorMessage)
-                if (res.data.warning) setApiResponseWarningMessage(res.data.warningMessage)
-                if (res.data.success) {
-                    setApiResponseSuccessMessage(res.data.successMessage)
-                    if (res.data.book.price) {
-                        let currentPaidBooks = [...paidBooks]
-                        currentPaidBooks.unshift(res.data.book)
-                        setFreeBooks(currentPaidBooks)
-                    } else {
-                        let currentFreeBooks = [...freeBooks]
-                        currentFreeBooks.unshift(res.data.book)
-                        setFreeBooks(currentFreeBooks)
-                    }
-                }
-            }).catch(error => {
-                if (error) {
-                    setIsLoading(false)
-                    setApiResponseErrorMessage('Something went wrong, try again by refreshing page!')
-                }
-            })
-        }
-    }
     return (
         <section className="store wrapper">
             <Navbar store />
@@ -101,13 +60,13 @@ const Store = props => {
                 <article className="books__column books__column--left">
                     <header className="books__header books__header--nomargintop">
                         <h2 className="books__header-text">Find here awesome books!</h2>
-                        {!isLoading &&
-                            <form className="inputs inputs--store" onSubmit={findBook}>
-                                <div className="inputs__input-wrapper inputs__input-wrapper--row">
-                                    <input id="bookTitle" className="inputs__input" name="bookTitle" type="text" placeholder="Type book's title..." value={bookTitle} onChange={e => setBookTitle(e.target.value)} />
-                                    <button className="inputs__input-button--store">Find</button>
-                                </div>
-                            </form>}
+                        <StoreInput
+                            isLoading={isLoading}
+                            freeBooks={freeBooks}
+                            paidBooks={paidBooks}
+                            setFreeBooks={setFreeBooks}
+                            setPaidBooks={setPaidBooks}
+                        />
                     </header>
                     <div className="books__container">
                         {freeBooks && freeBooks.map(book => {

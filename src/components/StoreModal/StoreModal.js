@@ -50,7 +50,6 @@ const StoreModal = () => {
             price,
             cover
         }
-        console.log(cover)
         currentCart.unshift(newBook)
         setCart(currentCart)
         setApiResponseCallbackFunction(hideModal)

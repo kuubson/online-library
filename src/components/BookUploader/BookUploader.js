@@ -21,7 +21,6 @@ const BookUploader = () => {
 
     const hideBookUploader = () => setShouldBookUploaderAppear(false)
     const handleFileChange = e => {
-        console.log(e.target.files[0])
         if (e.target.files[0]) {
             setBookCover(e.target.files[0])
             setFileName(e.target.files[0].name)

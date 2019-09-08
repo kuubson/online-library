@@ -76,6 +76,7 @@
         color: red;
         margin-top: 20px;
         font-size: 14px;
+        font-weight: bold;
     }
 
     .inputs__annotation {
@@ -107,7 +108,7 @@
     color: black;
     padding: 10px 0px;
     transition: 0.5s;
-    margin-bottom: 45px;
+    margin-top: 45px;
     background: white;
     cursor: pointer;
 
@@ -142,11 +143,13 @@
 
 @media (max-width: 600px) {
     .inputs__input-label {
-        font-size: 15.5px !important;
+        font-size: 14px !important;
     }
 
     .inputs__input {
         width: 180px !important;
+        padding: 12px 0px !important;
+        font-size: 10px !important;
     }
 
     .inputs__input-button--black {
@@ -155,11 +158,20 @@
     }
 
     .inputs__input-button {
-        width: 150px !important;
+        width: 110px !important;
         font-size: 12px !important;
     }
 
     .inputs__annotation {
         font-size: 14px;
+    }
+
+    .inputs__input-error {
+        font-size: 11px !important;
+        margin-top: 10px !important;
+    }
+
+    .inputs__input-wrapper {
+        margin-bottom: 10px !important;
     }
 }

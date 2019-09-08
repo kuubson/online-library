@@ -9,7 +9,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 2;
+    z-index: 1002;
 }
 
 .absoluteLoader {
@@ -20,7 +20,7 @@
 }
 
 @media (max-width: 600px) {
-    .loader__spinner{
+    .loader__spinner {
         transform: scale(0.7)
-    }   
+    }
 }

@@ -12,7 +12,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 3;
+    z-index: 1003;
 
     .apiResponses__button {
         background: none;
@@ -38,11 +38,12 @@
 }
 
 @media (max-width: 550px) {
-    .apiResponses{
+    .apiResponses {
         font-size: 15.5px;
     }
+
     .apiResponses__button {
-    font-size: 13px !important;
+        font-size: 13px !important;
         padding: 12px 25px !important;
     }
 }

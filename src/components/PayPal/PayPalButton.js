@@ -40,12 +40,12 @@ const PayPalButton = props => {
         }).catch(error => {
             if (error) {
                 setIsLoading(false)
-                setApiResponseErrorMessage('Something went wrong, try again by refreshing page!')
+                setApiResponseErrorMessage(`Something went wrong, if you haven't received bought books, contact us immediately!!`)
             }
         })
     }
     const onCancel = data => {
-        setApiResponseWarningMessage('You have stopped transaction!')
+        setApiResponseWarningMessage('You have stopped a transaction!')
     }
     const onError = error => {
         setApiResponseErrorMessage('Something went wrong when trying to pay for a books! Try later!')
