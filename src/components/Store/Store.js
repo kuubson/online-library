@@ -1,37 +1,113 @@
-import React, { useLayoutEffect } from 'react'
-import { useSelector } from 'react-redux'
-import styled from 'styled-components'
+import React, { useState, useLayoutEffect, useEffect } from 'react'
 import getCookie from '../../resources/helpers/getCookie'
+import { withRouter } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import axios from 'axios'
+import { Buffer } from 'buffer'
 
-import MainBackground from '../../assets/img/MainBackground.jpg'
-import Navbar from '../../sharedComponents/Navbar/Navbar'
-import StoreBooks from './StoreBooks'
-import StoreModal from './StoreModal/StoreModal'
-
-const StoreWrapper = styled.div`
-    width: 100%;
-    min-height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(${MainBackground}) center center no-repeat;
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-`;
+import Navbar from '../Navbar/Navbar'
+import StoreModal from '../StoreModal/StoreModal'
+import Loader from '../Loader/Loader'
+import StoreInput from './StoreInput'
 
 const Store = props => {
-    const shouldStoreModalAppear = useSelector(state => state.global.shouldStoreModalAppear)
+    const [freeBooks, setFreeBooks] = useState([])
+    const [paidBooks, setPaidBooks] = useState([])
+    const [isLoading, setIsLoading] = useState()
+
     useLayoutEffect(() => {
         if (!getCookie('token')) props.history.push('/login')
     }, [])
+
+    const dispatch = useDispatch()
+    const shouldStoreModalAppear = useSelector(state => state.storeModal.shouldStoreModalAppear)
+    const setShouldStoreModalAppear = payload => dispatch({ type: 'setShouldStoreModalAppear', payload })
+    const setStoreModalData = payload => dispatch({ type: 'setStoreModalData', payload })
+    const setApiResponseErrorMessage = payload => dispatch({ type: 'setApiResponseErrorMessage', payload })
+
+    useEffect(() => {
+        setIsLoading(true)
+        axios.get('/getBooksForStore').then(res => {
+            setIsLoading(false)
+            setFreeBooks(res.data.filter(book => {
+                return book.price === undefined
+            }))
+            setPaidBooks(res.data.filter(book => {
+                return book.price !== undefined
+            }))
+        }).catch(error => {
+            if (error) {
+                setIsLoading(false)
+                setApiResponseErrorMessage('Something went wrong, try again by refreshing page!')
+            }
+        })
+    }, [])
+
+    const handleClick = (author, title, cover, price) => {
+        setStoreModalData({
+            author,
+            title,
+            price,
+            cover
+        })
+        setShouldStoreModalAppear(true)
+    }
     return (
-        <StoreWrapper>
+        <section className="store wrapper">
             <Navbar store />
-            <StoreBooks />
             {shouldStoreModalAppear && <StoreModal />}
-        </StoreWrapper>
+            <section className="books">
+                <article className="books__column books__column--left">
+                    <header className="books__header books__header--nomargintop">
+                        <h2 className="books__header-text">Find here awesome books!</h2>
+                        <StoreInput
+                            isLoading={isLoading}
+                            freeBooks={freeBooks}
+                            paidBooks={paidBooks}
+                            setFreeBooks={setFreeBooks}
+                            setPaidBooks={setPaidBooks}
+                        />
+                    </header>
+                    <div className="books__container">
+                        {freeBooks && freeBooks.map(book => {
+                            return (
+                                <figure className="books__book" key={book._id}>
+                                    <img className="book__image" src={`data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`} alt={'Book' + book.title + ' written by ' + book.author} />
+                                    <div className="book__details">
+                                        <h3 className="book__author">{book.author}</h3>
+                                        <h3 className="book__title">{book.title}</h3>
+                                    </div>
+                                    <button className="book__button" onClick={() => handleClick(book.author, book.title, `data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`)}>Borrow</button>
+                                </figure>
+                            )
+                        })}
+                        {isLoading && <Loader absolute />}
+                    </div>
+                </article>
+                <article className="books__column books__column--right">
+                    <header className="books__header">
+                        <h2 className="books__header-text">Choose premium books!</h2>
+                    </header>
+                    <div className="books__container">
+                        {paidBooks && paidBooks.map(book => {
+                            return (
+                                <figure className="books__book" key={book._id}>
+                                    <img className="book__image" src={`data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`} alt={'Book' + book.title + ' written by ' + book.author} />
+                                    <div className="book__details">
+                                        <h3 className="book__author">{book.author}</h3>
+                                        <h3 className="book__title">{book.title}</h3>
+                                    </div>
+                                    <p className="book__price">${book.price}</p>
+                                    <button className="book__button" onClick={() => handleClick(book.author, book.title, `data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`, book.price)}>Buy</button>
+                                </figure>
+                            )
+                        })}
+                        {isLoading && <Loader absolute />}
+                    </div>
+                </article>
+            </section>
+        </section>
     )
 }
 
-export default Store
+export default withRouter(Store)

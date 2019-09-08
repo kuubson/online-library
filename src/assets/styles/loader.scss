@@ -1,0 +1,26 @@
+.loader {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1002;
+}
+
+.absoluteLoader {
+    position: absolute;
+    background: none;
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 600px) {
+    .loader__spinner {
+        transform: scale(0.7)
+    }
+}

@@ -1,7 +1,5 @@
 const initialState = {
     shouldBookUploaderAppear: false,
-    shouldStoreModalAppear: false,
-    storeModalData: {},
     isLoading: false,
     userEmail: '',
     cart: []
@@ -13,16 +11,6 @@ export const global = (state = initialState, { payload, type }) => {
             return {
                 ...state,
                 shouldBookUploaderAppear: payload
-            }
-        case "setShouldStoreModalAppear":
-            return {
-                ...state,
-                shouldStoreModalAppear: payload
-            }
-        case "setStoreModalData":
-            return {
-                ...state,
-                storeModalData: payload
             }
         case "setUserEmail":
             return {

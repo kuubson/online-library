@@ -1,39 +1,22 @@
-import React, { useLayoutEffect } from 'react'
-import styled from 'styled-components'
-import getCookie from '../../resources/helpers/getCookie'
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-import MainBackground from '../../assets/img/MainBackground.jpg'
-import HomeHeader from './HomeHeader'
-import HomeButtons from './HomeButtons'
-import HomeAdvantages from './HomeAdvantages'
-
-const HomeWrapper = styled.div`
-    width: 100%;
-    height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(${MainBackground}) center center no-repeat;
-    background-size: cover;
-    display: flex;
-`;
-const HomeHeaderAndButtonsWrapper = styled.div`
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: column;
-    flex: 1;
-`;
-
-const Home = ({ history }) => {
-    useLayoutEffect(() => {
-        if (getCookie('token')) history.push('/store')
-    }, [])
+const Home = () => {
     return (
-        <HomeWrapper>
-            <HomeHeaderAndButtonsWrapper>
-                <HomeHeader />
-                <HomeButtons />
-            </HomeHeaderAndButtonsWrapper>
-            <HomeAdvantages />
-        </HomeWrapper>
+        <section className="home wrapper">
+            <header className="home__header">
+                <h1 className="home__header-text">Online Library</h1>
+                <div className="home__links-wrapper">
+                    <Link to="/login" className="home__header-link">Login</Link>
+                    <Link to="/register" className="home__header-link">Register</Link>
+                </div>
+            </header>
+            <div className="home__advantages">
+                <p className="home__advantage">The largest resource of books in the internet!</p>
+                <p className="home__advantage">Top books from top authors for free!</p>
+                <p className="home__advantage">The lowest pricing for premium books!</p>
+            </div>
+        </section>
     )
 }
 

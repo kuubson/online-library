@@ -1,48 +1,33 @@
 import React, { useState, useLayoutEffect } from 'react'
-import styled from 'styled-components'
-import axios from 'axios'
 import validator from 'validator'
-import getCookie from '../../resources/helpers/getCookie'
 import { useDispatch } from 'react-redux'
+import axios from 'axios'
+import { withRouter, Link } from 'react-router-dom'
+import getCookie from '../../resources/helpers/getCookie'
 
-import MainBackground from '../../assets/img/MainBackground.jpg'
-import RegisterInput from './RegisterInput'
-import RegisterSubmit from './RegisterSubmit'
-import ApiResponseHandler from '../../sharedComponents/Errors/ApiResponseHandler'
-import ValidationError from '../../sharedComponents/Errors/ValidationError'
-import BackHome from '../../sharedComponents/BackHome/BackHome'
-
-const RegisterWrapper = styled.div`
-    width: 100%;
-    min-height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(${MainBackground}) center center no-repeat;
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position:relative;
-`;
-
-const Register = ({ history }) => {
-    const dispatch = useDispatch()
+const Register = props => {
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [repeatedPassword, setRepeatedPassword] = useState('')
-    const [nameError, setNameError] = useState()
-    const [surnameError, setSurnameError] = useState()
-    const [emailError, setEmailError] = useState()
-    const [passwordError, setPasswordError] = useState()
-    const [repeatedPasswordError, setRepeatedPasswordError] = useState()
-    const [responseMessageError, setResponseMessageError] = useState()
-    const [responseMessageWarning, setResponseMessageWarning] = useState()
-    const [responseMessageSuccess, setResponseMessageSuccess] = useState()
-    const setIsLoading = payload => dispatch({ type: 'setIsLoading', payload })
+    const [nameError, setNameError] = useState('')
+    const [surnameError, setSurnameError] = useState('')
+    const [emailError, setEmailError] = useState('')
+    const [passwordError, setPasswordError] = useState('')
+    const [repeatedPasswordError, setRepeatedPasswordError] = useState('')
+
     useLayoutEffect(() => {
-        if (getCookie('token')) history.push('/store')
+        if (getCookie('token')) props.history.push('/store')
     }, [])
+
+    const dispatch = useDispatch()
+    const setIsLoading = payload => dispatch({ type: 'setIsLoading', payload })
+    const setApiResponseSuccessMessage = payload => dispatch({ type: 'setApiResponseSuccessMessage', payload })
+    const setApiResponseErrorMessage = payload => dispatch({ type: 'setApiResponseErrorMessage', payload })
+    const setApiResponseWarningMessage = payload => dispatch({ type: 'setApiResponseWarningMessage', payload })
+    const setApiResponseCallbackFunction = payload => dispatch({ type: 'setApiResponseCallbackFunction', payload })
+
     const validate = () => {
         validator.isEmpty(name) ? setNameError('Your name field is empty!') : setNameError('')
         validator.isEmpty(surname) ? setSurnameError('Your surname field is empty!') : setSurnameError('')
@@ -55,7 +40,8 @@ const Register = ({ history }) => {
             return false
         }
     }
-    const handleRegister = () => {
+    const handleSubmit = e => {
+        e.preventDefault()
         if (validate()) {
             setIsLoading(true)
             axios.post('/register', {
@@ -65,45 +51,53 @@ const Register = ({ history }) => {
                 password
             }).then(res => {
                 setIsLoading(false)
-                if (res.data.error) {
-                    setResponseMessageError(res.data.errorMessage)
-                }
-                if (res.data.warning) {
-                    setResponseMessageWarning(res.data.warningMessage)
-                }
+                if (res.data.error) setApiResponseErrorMessage(res.data.errorMessage)
+                if (res.data.warning) setApiResponseWarningMessage(res.data.warningMessage)
                 if (res.data.success) {
-                    setResponseMessageSuccess(res.data.successMessage)
+                    setApiResponseCallbackFunction(() => props.history.push('/store'))
+                    setApiResponseSuccessMessage(res.data.successMessage)
+                }
+            }).catch(error => {
+                if (error) {
+                    setIsLoading(false)
+                    setApiResponseErrorMessage('Something went wrong, try again by refreshing page!')
                 }
             })
         }
     }
-    const hideApiResponseHandler = () => {
-        setResponseMessageError()
-        setResponseMessageWarning()
-        setResponseMessageSuccess()
-        if (responseMessageSuccess) {
-            history.push('/login')
-        }
-    }
     return (
-        <RegisterWrapper>
-            <RegisterInput placeholder='Type your name...' label='Name' onChange={setName} />
-            <ValidationError error={nameError} />
-            <RegisterInput placeholder='Type your surname...' label='Surname' onChange={setSurname} />
-            <ValidationError error={surnameError} />
-            <RegisterInput placeholder='Type your e-mail...' label='E-mail' onChange={setEmail} />
-            <ValidationError error={emailError} />
-            <RegisterInput secure placeholder='Type your password...' label='Password' onChange={setPassword} />
-            <ValidationError error={passwordError} />
-            <RegisterInput secure placeholder='Type your password again...' label='Repeat Password' onChange={setRepeatedPassword} />
-            <ValidationError error={repeatedPasswordError} />
-            <RegisterSubmit onClick={handleRegister} />
-            <BackHome />
-            {responseMessageError && <ApiResponseHandler error responseMessage={responseMessageError} onClick={hideApiResponseHandler} />}
-            {responseMessageWarning && <ApiResponseHandler warning responseMessage={responseMessageWarning} onClick={hideApiResponseHandler} />}
-            {responseMessageSuccess && <ApiResponseHandler success responseMessage={responseMessageSuccess} onClick={hideApiResponseHandler} />}
-        </RegisterWrapper>
+        <section className="register wrapper">
+            <form className="inputs" onSubmit={handleSubmit}>
+                <div className="inputs__input-wrapper">
+                    <label className="inputs__input-label" htmlFor="name">Name</label>
+                    <input id="name" className="inputs__input" name="name" type="text" placeholder="Type your name..." value={name} onChange={e => setName(e.target.value)} />
+                    {nameError && <p className="inputs__input-error">{nameError}</p>}
+                </div>
+                <div className="inputs__input-wrapper">
+                    <label className="inputs__input-label" htmlFor="surname">Surname</label>
+                    <input id="surname" className="inputs__input" name="surname" type="text" placeholder="Type your surname..." value={surname} onChange={e => setSurname(e.target.value)} />
+                    {surnameError && <p className="inputs__input-error">{surnameError}</p>}
+                </div>
+                <div className="inputs__input-wrapper">
+                    <label className="inputs__input-label" htmlFor="email">E-mail</label>
+                    <input id="email" className="inputs__input" name="email" type="text" placeholder="Type your e-mail..." value={email} onChange={e => setEmail(e.target.value)} />
+                    {emailError && <p className="inputs__input-error">{emailError}</p>}
+                </div>
+                <div className="inputs__input-wrapper">
+                    <label className="inputs__input-label" htmlFor="password">Password</label>
+                    <input id="password" className="inputs__input" name="password" type="password" placeholder="Type your e-mail..." value={password} onChange={e => setPassword(e.target.value)} />
+                    {passwordError && <p className="inputs__input-error">{passwordError}</p>}
+                </div>
+                <div className="inputs__input-wrapper">
+                    <label className="inputs__input-label" htmlFor="repeatedPassword">Repeated Password</label>
+                    <input id="repeatedPassword" className="inputs__input" name="repeatedPassword" type="password" placeholder="Type your e-mail..." value={repeatedPassword} onChange={e => setRepeatedPassword(e.target.value)} />
+                    {repeatedPasswordError && <p className="inputs__input-error">{repeatedPasswordError}</p>}
+                </div>
+                <button className="inputs__input-button">Register</button>
+                <Link to="/login" className="inputs__annotation">Have already account? Log in now!</Link>
+            </form>
+        </section>
     )
 }
 
-export default Register
+export default withRouter(Register)

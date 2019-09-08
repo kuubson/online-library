@@ -1,0 +1,49 @@
+.apiResponses {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1003;
+
+    .apiResponses__button {
+        background: none;
+        color: white;
+        border: 1.5px solid white;
+        cursor: pointer;
+        font-size: 15px;
+        padding: 12px 30px;
+        margin-top: 40px;
+    }
+
+    .apiResponses__successMessage {
+        color: green;
+    }
+
+    .apiResponses__errorMessage {
+        color: red;
+    }
+
+    .apiResponses__warningMessage {
+        color: orange;
+    }
+}
+
+@media (max-width: 550px) {
+    .apiResponses {
+        font-size: 15.5px;
+    }
+
+    .apiResponses__button {
+        font-size: 13px !important;
+        padding: 12px 25px !important;
+    }
+}

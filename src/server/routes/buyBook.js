@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const BoughtBooks = require('../database/schemas/boughtBooks')
 const User = require('../database/schemas/user')
+const uuid = require('uuid')
 
 router.post('/buyBook', (req, res) => {
     const { cart, email } = req.body
@@ -17,6 +18,7 @@ router.post('/buyBook', (req, res) => {
             const order = []
             cart.forEach(book => {
                 let newBook = {
+                    id: uuid(),
                     holder: email,
                     title: book.title,
                     author: book.author,
