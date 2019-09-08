@@ -13,6 +13,7 @@ import Cart from './Cart/Cart'
 import Loader from './Loader/Loader'
 import ApiResponses from './ApiResponses/ApiResponses'
 import BookUploader from './BookUploader/BookUploader'
+import RandomRoute from './RandomRoute/RandomRoute'
 
 const AppWrapper = styled.div``;
 
@@ -33,6 +34,7 @@ const App = () => {
                         <Route path='/store' component={Store} />
                         <Route path='/profile' component={Profile} />
                         <Route path='/cart' component={Cart} />
+                        <Route path='*' component={RandomRoute} />
                     </Switch>
                 </Router>
                 {isLoading && <Loader />}
