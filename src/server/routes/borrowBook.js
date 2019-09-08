@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const BorrowedBook = require('../database/schemas/borrowedBook')
 const User = require('../database/schemas/user')
+const uuid = require('uuid')
 
 router.post('/borrowBook', (req, res) => {
     const { email, title, author, cover } = req.body
@@ -26,6 +27,7 @@ router.post('/borrowBook', (req, res) => {
                 } else {
                     const usersBooks = result.books
                     const newBook = {
+                        id: uuid(),
                         holder: email,
                         title,
                         author,

@@ -28,9 +28,10 @@ const Cart = () => {
                         </header>
                         <div className="books__container">
                             {cart.length && cart.map(book => {
+                                price += +book.price
                                 return (
                                     <figure className="books__book" key={book.id}>
-                                        <img className="book__image" src="https://picsum.photos/200/300" alt="Xd" />
+                                        <img className="book__image" src={book.cover} alt={'Book' + book.title + ' written by ' + book.author} />
                                         <div className="book__details">
                                             <h3 className="book__author">{book.author}</h3>
                                             <h3 className="book__title">{book.title}</h3>
@@ -48,7 +49,6 @@ const Cart = () => {
                         </header>
                         <div className="cart__summary">
                             {cart.length && cart.map(book => {
-                                price += book.price
                                 return (
                                     <div className="cart__summary-item" key={book.id}>
                                         <h3 className="cart__summary-title">Book "{book.title}"</h3>

@@ -51,8 +51,8 @@ const Profile = props => {
                     <div className="books__container">
                         {boughtBooks.length && boughtBooks.map(book => {
                             return (
-                                <figure className="books__book" key={book._id}>
-                                    <img className="book__image" src="https://picsum.photos/200/300" alt={book.title} />
+                                <figure className="books__book" key={book.id}>
+                                    <img className="book__image" src={book.cover} alt={'Book' + book.title + ' written by ' + book.author} />
                                     <div className="book__details">
                                         <h3 className="book__author">{book.author}</h3>
                                         <h3 className="book__title">{book.title}</h3>
@@ -71,8 +71,8 @@ const Profile = props => {
                     <div className="books__container">
                         {borrowedBooks.length && borrowedBooks.map(book => {
                             return (
-                                <figure className="books__book" key={book._id}>
-                                    <img className="book__image" src="https://picsum.photos/200/300" alt={book.title} />
+                                <figure className="books__book" key={book.id}>
+                                    <img className="book__image" src={book.cover} alt={'Book' + book.title + ' written by ' + book.author} />
                                     <div className="book__details">
                                         <h3 className="book__author">{book.author}</h3>
                                         <h3 className="book__title">{book.title}</h3>

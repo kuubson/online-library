@@ -50,6 +50,7 @@ const StoreModal = () => {
             price,
             cover
         }
+        console.log(cover)
         currentCart.unshift(newBook)
         setCart(currentCart)
         setApiResponseCallbackFunction(hideModal)
@@ -59,7 +60,7 @@ const StoreModal = () => {
         <section className="storeModal fadeIn">
             <div className="storeModal__content">
                 <figure className="storeModal__book">
-                    <img className="storeModal__book-image" src={cover} alt="random photo" />
+                    <img className="storeModal__book-image" src={cover} alt={'Book' + title + ' written by ' + author} />
                 </figure>
                 <article className="storeModal__details">
                     <header className="storeModal__details-header">That's just a small step from getting this book:</header>
