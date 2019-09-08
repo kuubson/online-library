@@ -99,10 +99,10 @@ const Store = props => {
             {shouldStoreModalAppear && <StoreModal />}
             <section className="books">
                 <article className="books__column books__column--left">
-                    <header className="books__header">
+                    <header className="books__header books__header--nomargintop">
                         <h2 className="books__header-text">Find here awesome books!</h2>
                         {!isLoading &&
-                            <form className="inputs" onSubmit={findBook}>
+                            <form className="inputs inputs--store" onSubmit={findBook}>
                                 <div className="inputs__input-wrapper inputs__input-wrapper--row">
                                     <input id="bookTitle" className="inputs__input" name="bookTitle" type="text" placeholder="Type book's title..." value={bookTitle} onChange={e => setBookTitle(e.target.value)} />
                                     <button className="inputs__input-button--store">Find</button>
@@ -110,7 +110,7 @@ const Store = props => {
                             </form>}
                     </header>
                     <div className="books__container">
-                        {freeBooks.length && freeBooks.map(book => {
+                        {freeBooks && freeBooks.map(book => {
                             return (
                                 <figure className="books__book" key={book._id}>
                                     <img className="book__image" src={`data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`} alt={'Book' + book.title + ' written by ' + book.author} />
@@ -130,7 +130,7 @@ const Store = props => {
                         <h2 className="books__header-text">Choose premium books!</h2>
                     </header>
                     <div className="books__container">
-                        {paidBooks.length && paidBooks.map(book => {
+                        {paidBooks && paidBooks.map(book => {
                             return (
                                 <figure className="books__book" key={book._id}>
                                     <img className="book__image" src={`data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`} alt={'Book' + book.title + ' written by ' + book.author} />

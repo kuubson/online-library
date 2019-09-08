@@ -5,7 +5,7 @@ const Loader = ({ absolute }) => {
     const className = absolute ? 'loader fadeIn absoluteLoader' : 'loader fadeIn'
     return (
         <div className={className}>
-            <Spinner name="ball-spin-fade-loader" fadeIn="none" color="white" />
+            <Spinner className="loader__spinner" name="ball-spin-fade-loader" fadeIn="none" color="white" />
         </div>
     )
 }

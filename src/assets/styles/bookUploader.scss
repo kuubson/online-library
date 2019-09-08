@@ -2,6 +2,7 @@
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.7);
+    padding: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,7 +33,8 @@
     .bookUploader__header {
         font-size: 24px;
         text-align: center;
-        margin-top: 35px;
+        margin-top: 45px;
+        padding: 0px 15px;
     }
 
     .bookUploader__file-input {
@@ -56,4 +58,28 @@
         }
     }
 
+}
+
+@media (max-width: 700px) {
+    .bookUploader {
+
+        .bookUploader__header {
+            font-size: 20px;
+        }
+
+        .bookUploader__file-input {
+            opacity: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .bookUploader__file-label {
+            font-size: 10px;
+            min-width: 120px;
+
+            &:hover {
+                transform: scale(1.03)
+            }
+        }
+    }
 }

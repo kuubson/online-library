@@ -5,40 +5,119 @@
     margin: 20px;
     margin-bottom: 0px;
     position: relative;
+}
 
-    .navbar__brand {
-        color: white;
-        font-size: 38px;
-        font-weight: bold;
-        position: absolute;
-        top: 50%;
-        left: 30px;
-        transform: translate(0px, -50%);
+.navbar__menu-icon {
+    border: none;
+    background: none;
+    position: absolute;
+    top: calc(50% + 2px);
+    right: 25px;
+    transform: translate(0px, -50%);
+    font-size: 21px;
+    color: white;
+    display: none;
+}
+
+.navbar__brand {
+    color: white;
+    font-size: 38px;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    transform: translate(0px, -50%);
+}
+
+.navbar__links {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    right: 40px;
+    transform: translate(0px, -50%);
+    list-style: none;
+}
+
+.navbar__links--mobile {
+    display: none;
+}
+
+.navbar__button {
+    background: none;
+    border: none;
+    color: white;
+    margin-left: 35px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.navbar__link {
+    color: white;
+    text-decoration: none;
+    margin-left: 35px;
+    font-size: 20px;
+}
+
+@media (max-width: 850px) {
+    .navbar__menu-icon {
+        display: block;
     }
 
     .navbar__links {
-        display: flex;
-        position: absolute;
-        top: 50%;
-        right: 40px;
-        transform: translate(0px, -50%);
-        list-style: none;
+        display: none;
+    }
+
+    .navbar__link-wrapper {
+        margin: 25px 0px;
     }
 
     .navbar__link {
-        color: white;
-        text-decoration: none;
-        margin-left: 35px;
-        font-size: 20px;
+        margin: 0px;
     }
 
     .navbar__button {
-        background: none;
-        border: none;
-        color: white;
-        margin-left: 35px;
-        font-size: 20px;
-        cursor: pointer;
+        margin: 0px;
     }
 
+    .navbar__links--mobile {
+        display: block;
+        list-style: none;
+        text-align: center;
+        background: linear-gradient(90deg, rgb(79, 172, 254) 0px, rgb(0, 242, 254));
+        align-self: stretch;
+        margin: 0px 20px;
+        overflow: hidden;
+        transition: 1s ease-in-out;
+    }
+
+    .navbar__brand {
+        font-size: 30px;
+    }
+
+    .shrink {
+        max-height: 0px;
+    }
+
+    .expand {
+        max-height: 250px;
+    }
+}
+
+@media (max-width: 400px) {
+    .navbar__brand {
+        font-size: 24px;
+        left: 20px;
+    }
+
+    .navbar__menu-icon {
+        font-size: 19px;
+    }
+
+    .navbar__link {
+        font-size: 15px;
+    }
+
+    .navbar__button {
+        font-size: 15px;
+    }
 }

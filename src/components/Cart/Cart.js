@@ -23,11 +23,11 @@ const Cart = () => {
             {cart.length === 0 ? <h2 className="cart__warning">Your cart is empty!</h2> :
                 <section className="books">
                     <article className="books__column books__column--left">
-                        <header className="books__header">
+                        <header className="books__header books__header--nomargintop">
                             <h2 className="books__header-text">Chosen books are here, ready to buy!</h2>
                         </header>
                         <div className="books__container">
-                            {cart.length && cart.map(book => {
+                            {cart && cart.map(book => {
                                 price += +book.price
                                 return (
                                     <figure className="books__book" key={book.id}>
@@ -44,11 +44,11 @@ const Cart = () => {
                         </div>
                     </article>
                     <article className="books__column books__column--right">
-                        <header className="books__header">
+                        <header className="books__header books__header--nomarginbottom">
                             <h2 className="books__header-text">Summary</h2>
                         </header>
                         <div className="cart__summary">
-                            {cart.length && cart.map(book => {
+                            {cart && cart.map(book => {
                                 return (
                                     <div className="cart__summary-item" key={book.id}>
                                         <h3 className="cart__summary-title">Book "{book.title}"</h3>

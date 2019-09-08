@@ -36,3 +36,13 @@
         color: orange;
     }
 }
+
+@media (max-width: 550px) {
+    .apiResponses{
+        font-size: 15.5px;
+    }
+    .apiResponses__button {
+    font-size: 13px !important;
+        padding: 12px 25px !important;
+    }
+}

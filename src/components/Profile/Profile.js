@@ -45,11 +45,11 @@ const Profile = props => {
             <Navbar profile />
             <section className="books">
                 <article className="books__column books__column--left">
-                    <header className="books__header">
+                    <header className="books__header books__header--nomargintop">
                         <h2 className="books__header-text">Bought premium books are there here!</h2>
                     </header>
                     <div className="books__container">
-                        {boughtBooks.length && boughtBooks.map(book => {
+                        {boughtBooks && boughtBooks.map(book => {
                             return (
                                 <figure className="books__book" key={book.id}>
                                     <img className="book__image" src={book.cover} alt={'Book' + book.title + ' written by ' + book.author} />
@@ -69,7 +69,7 @@ const Profile = props => {
                         <h2 className="books__header-text">Enjoy reading your free books!</h2>
                     </header>
                     <div className="books__container">
-                        {borrowedBooks.length && borrowedBooks.map(book => {
+                        {borrowedBooks && borrowedBooks.map(book => {
                             return (
                                 <figure className="books__book" key={book.id}>
                                     <img className="book__image" src={book.cover} alt={'Book' + book.title + ' written by ' + book.author} />

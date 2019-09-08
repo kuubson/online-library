@@ -21,7 +21,7 @@
     }
 
     .books__header {
-        height: 70px;
+        min-height: 70px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -44,4 +44,41 @@
         position: relative;
     }
 
+}
+
+@media (max-width: 1150px) {
+    .books__header {
+        flex-direction: column;
+        align-self: stretch;
+    }
+
+    .books__header-text {
+        font-size: 19px;
+    }
+}
+
+@media (max-width: 750px) {
+    .books {
+        flex-direction: column;
+    }
+
+    .books__column--left {
+        padding-right: 0px !important;
+    }
+
+    .books__header {
+        margin-top: 20px;
+    }
+
+    .books__header-text {
+        font-size: 18px !important;
+    }
+
+    .books__header--nomargintop {
+        margin-top: 0px;
+    }
+
+    .books__header--nomarginbottom {
+        margin-bottom: 0px !important;
+    }
 }
