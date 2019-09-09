@@ -26,7 +26,7 @@ router.post('/login', (req, res) => {
                         warningMessage: 'You have provided a bad password!'
                     })
                 } else {
-                    const token = jwt.sign({ email }, process.env.JWT_KEY, { expiresIn: '3d' })
+                    const token = jwt.sign({ email }, process.env.JWT_KEY, { expiresIn: '7d' })
                     res.send({
                         success: true,
                         successMessage: 'You have successfully logged in!',

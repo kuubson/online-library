@@ -2,8 +2,9 @@ const router = require('express').Router()
 const BoughtBooks = require('../database/schemas/boughtBooks')
 const User = require('../database/schemas/user')
 const uuid = require('uuid')
+const passport = require('passport')
 
-router.post('/buyBook', (req, res) => {
+router.post('/buyBook', passport.authenticate('jwt', { session: false }), (req, res) => {
     const { cart, email } = req.body
     User.findOne({
         email
@@ -51,6 +52,13 @@ router.post('/buyBook', (req, res) => {
                         errorMessage: 'Something went wrong when trying to buy a books! Contact us immediately!'
                     })
                 }
+            })
+        }
+    }).catch(error => {
+        if (error) {
+            res.send({
+                error: true,
+                errorMessage: 'Something went wrong when uploading your book! Try again later!'
             })
         }
     })

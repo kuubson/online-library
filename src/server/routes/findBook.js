@@ -1,7 +1,8 @@
 const router = require('express').Router()
 const Book = require('../database/schemas/book')
+const passport = require('passport')
 
-router.post('/findBook', (req, res) => {
+router.post('/findBook', passport.authenticate('jwt', { session: false }), (req, res) => {
     const { bookTitle } = req.body
     Book.findOne({
         title: bookTitle

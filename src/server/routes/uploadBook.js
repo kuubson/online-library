@@ -1,11 +1,11 @@
 const router = require('express').Router()
 const Book = require('../database/schemas/book')
 const fs = require('fs')
-
 const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
+const passport = require('passport')
 
-router.post('/uploadBook', upload.single('bookCover'), (req, res) => {
+router.post('/uploadBook', upload.single('bookCover'), passport.authenticate('jwt', { session: false }), (req, res) => {
     const { bookTitle, bookAuthor } = req.body
     Book.findOne({
         title: bookTitle,
@@ -37,6 +37,13 @@ router.post('/uploadBook', upload.single('bookCover'), (req, res) => {
                         errorMessage: 'Something went wrong when uploading your book! Try again later!'
                     })
                 }
+            })
+        }
+    }).catch(error => {
+        if (error) {
+            res.send({
+                error: true,
+                errorMessage: 'Something went wrong when uploading your book! Try again later!'
             })
         }
     })

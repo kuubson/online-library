@@ -2,8 +2,9 @@ const router = require('express').Router()
 const BorrowedBook = require('../database/schemas/borrowedBook')
 const User = require('../database/schemas/user')
 const uuid = require('uuid')
+const passport = require('passport')
 
-router.post('/borrowBook', (req, res) => {
+router.post('/borrowBook', passport.authenticate('jwt', { session: false }), (req, res) => {
     const { email, title, author, cover } = req.body
     BorrowedBook.findOne({
         holder: email,
@@ -59,6 +60,20 @@ router.post('/borrowBook', (req, res) => {
                         }
                     })
                 }
+            }).catch(error => {
+                if (error) {
+                    res.send({
+                        error: true,
+                        errorMessage: 'Something went wrong when uploading your book! Try again later!'
+                    })
+                }
+            })
+        }
+    }).catch(error => {
+        if (error) {
+            res.send({
+                error: true,
+                errorMessage: 'Something went wrong when uploading your book! Try again later!'
             })
         }
     })

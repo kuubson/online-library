@@ -1,29 +1,18 @@
 const router = require('express').Router()
 const Book = require('../database/schemas/book')
+const passport = require('passport')
 
-router.get('/getBooksForStore', (req, res) => {
+router.get('/getBooksForStore', passport.authenticate('jwt', { session: false }), (req, res) => {
     Book.find({}).then(result => {
         res.send(result)
+    }).catch(error => {
+        if (error) {
+            res.send({
+                error: true,
+                errorMessage: 'Something went wrong when uploading your book! Try again later!'
+            })
+        }
     })
-    // res.send([
-    //     {
-    //         title: `testTitle${Math.random()}`,
-    //         author: 'testAuthor'
-    //     },
-    //     {
-    //         title: 'testTitle',
-    //         author: 'testAuthor'
-    //     },
-    //     {
-    //         title: 'testTitle',
-    //         author: 'testAuthor'
-    //     },
-    //     {
-    //         title: 'testTitle',
-    //         author: 'testAuthor',
-    //         price: 100
-    //     },
-    // ])
 })
 
 module.exports = router

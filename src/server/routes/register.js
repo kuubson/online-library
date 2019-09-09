@@ -41,6 +41,13 @@ router.post('/register', (req, res) => {
                 }
             })
         }
+    }).catch(error => {
+        if (error) {
+            res.send({
+                error: true,
+                errorMessage: 'Something went wrong when uploading your book! Try again later!'
+            })
+        }
     })
 })
 
