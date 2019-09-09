@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useLayoutEffect } from 'react'
 import { Link } from 'react-router-dom'
+import getCookie from '../../resources/helpers/getCookie'
+import { withRouter } from 'react-router-dom'
 
-const Home = () => {
+const Home = props => {
+    useLayoutEffect(() => {
+        if (getCookie('token')) props.history.push('/store')
+    }, [])
     return (
         <section className="home wrapper">
             <header className="home__header">
@@ -20,4 +25,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default withRouter(Home)
