@@ -12,7 +12,7 @@ router.post('/getBooksForProfile', passport.authenticate('jwt', { session: false
         if (error) {
             res.send({
                 error: true,
-                errorMessage: 'Something went wrong when uploading your book! Try again later!'
+                errorMessage: 'Something went wrong! Restart your application!'
             })
         }
     })

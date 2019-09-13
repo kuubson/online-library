@@ -12,7 +12,7 @@ router.post('/buyBook', passport.authenticate('jwt', { session: false }), (req, 
         if (!result) {
             res.send({
                 error: true,
-                errorMessage: 'Something went wrong when trying to buy a books! Contact us immediately!'
+                errorMessage: 'Something went wrong when trying to buy books! Contact us immediately!'
             })
         } else {
             const usersBooks = result.books
@@ -36,7 +36,7 @@ router.post('/buyBook', passport.authenticate('jwt', { session: false }), (req, 
                     if (error) {
                         res.send({
                             error: true,
-                            errorMessage: 'Something went wrong when trying to buy a books! Contact us immediately!'
+                            errorMessage: 'Something went wrong when trying to buy books! Contact us immediately!'
                         })
                     } else {
                         res.send({
@@ -49,7 +49,7 @@ router.post('/buyBook', passport.authenticate('jwt', { session: false }), (req, 
                 if (error) {
                     res.send({
                         error: true,
-                        errorMessage: 'Something went wrong when trying to buy a books! Contact us immediately!'
+                        errorMessage: 'Something went wrong when trying to buy books! Contact us immediately!'
                     })
                 }
             })
@@ -58,7 +58,7 @@ router.post('/buyBook', passport.authenticate('jwt', { session: false }), (req, 
         if (error) {
             res.send({
                 error: true,
-                errorMessage: 'Something went wrong when uploading your book! Try again later!'
+                errorMessage: 'Something went wrong when trying to buy books! Contact us immediately!'
             })
         }
     })

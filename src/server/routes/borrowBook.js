@@ -64,7 +64,7 @@ router.post('/borrowBook', passport.authenticate('jwt', { session: false }), (re
                 if (error) {
                     res.send({
                         error: true,
-                        errorMessage: 'Something went wrong when uploading your book! Try again later!'
+                        errorMessage: 'Something went wrong when trying to borrow a book! Try later!'
                     })
                 }
             })
@@ -73,7 +73,7 @@ router.post('/borrowBook', passport.authenticate('jwt', { session: false }), (re
         if (error) {
             res.send({
                 error: true,
-                errorMessage: 'Something went wrong when uploading your book! Try again later!'
+                errorMessage: 'Something went wrong when trying to borrow a book! Try later!'
             })
         }
     })

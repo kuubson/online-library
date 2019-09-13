@@ -74,7 +74,7 @@ const Login = props => {
                 </div>
                 <div className="inputs__input-wrapper">
                     <label className="inputs__input-label" htmlFor="password">Password</label>
-                    <input id="password" className="inputs__input" name="password" type="password" placeholder="Type your e-mail..." value={password} onChange={e => setPassword(e.target.value)} />
+                    <input id="password" className="inputs__input" name="password" type="password" placeholder="Type your password..." value={password} onChange={e => setPassword(e.target.value)} />
                     {passwordError && <p className="inputs__input-error">{passwordError}</p>}
                 </div>
                 <button className="inputs__input-button">Login</button>
