@@ -27,7 +27,7 @@ const Store = props => {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get('/getBooksForStore').then(res => {
+        axios.post('/getBooksForStore').then(res => {
             setIsLoading(false)
             setFreeBooks(res.data.filter(book => {
                 return book.price === undefined

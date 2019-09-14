@@ -8,9 +8,8 @@ const Cart = () => {
     const dispatch = useDispatch()
     const cart = useSelector(state => state.global.cart)
     const setCart = payload => dispatch({ type: 'setCart', payload })
-    const cartBooks = useSelector(state => state.global.cart)
     const removeBook = id => {
-        let currentCart = [...cartBooks]
+        let currentCart = [...cart]
         let updatedCart = currentCart.filter(book => {
             return book.id !== id
         })
