@@ -5,7 +5,7 @@ const app = express()
 const port = process.env.PORT || 3001
 const path = require('path')
 
-require('./server/database/database')(require('mongoose'))
+require('./server/database/database').database(require('mongoose'), app)
 require('./server/passport/passport')(require('passport'))
 
 app.use(require('helmet')())

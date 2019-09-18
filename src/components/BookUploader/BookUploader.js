@@ -18,6 +18,7 @@ const BookUploader = () => {
     const setApiResponseErrorMessage = payload => dispatch({ type: 'setApiResponseErrorMessage', payload })
     const setApiResponseWarningMessage = payload => dispatch({ type: 'setApiResponseWarningMessage', payload })
     const setShouldBookUploaderAppear = payload => dispatch({ type: 'setShouldBookUploaderAppear', payload })
+    const setApiResponseCallbackFunction = payload => dispatch({ type: 'setApiResponseCallbackFunction', payload })
 
     const hideBookUploader = () => setShouldBookUploaderAppear(false)
     const handleFileChange = e => {
@@ -48,7 +49,10 @@ const BookUploader = () => {
                 setIsLoading(false)
                 if (res.data.error) setApiResponseErrorMessage(res.data.errorMessage)
                 if (res.data.warning) setApiResponseWarningMessage(res.data.warningMessage)
-                if (res.data.success) setApiResponseSuccessMessage(res.data.successMessage)
+                if (res.data.success) {
+                    setApiResponseSuccessMessage(res.data.successMessage)
+                    setApiResponseCallbackFunction(hideBookUploader)
+                }
             })
         }
     }

@@ -1,11 +1,9 @@
 const router = require('express').Router()
 const Book = require('../database/schemas/book')
-const fs = require('fs')
-const multer = require('multer')
-const upload = multer({ dest: 'uploads/' })
 const passport = require('passport')
+const gridfsUpload = require('../database/database').gridfsUpload
 
-router.post('/uploadBook', upload.single('bookCover'), passport.authenticate('jwt', { session: false }), (req, res) => {
+router.post('/uploadBook', gridfsUpload.single('bookCover'), passport.authenticate('jwt', { session: false }), (req, res) => {
     const { bookTitle, bookAuthor } = req.body
     Book.findOne({
         title: bookTitle,
@@ -20,11 +18,8 @@ router.post('/uploadBook', upload.single('bookCover'), passport.authenticate('jw
             new Book({
                 title: bookTitle,
                 author: bookAuthor,
-                price: undefined,
-                cover: {
-                    data: fs.readFileSync(req.file.path),
-                    contentType: 'image/png'
-                }
+                price: '4.99',
+                cover: `books/${req.file.filename}`
             }).save().then(() => {
                 res.send({
                     success: true,

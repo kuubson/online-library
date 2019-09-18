@@ -3,7 +3,6 @@ import getCookie from '../../resources/helpers/getCookie'
 import { withRouter } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
-import { Buffer } from 'buffer'
 
 import Navbar from '../Navbar/Navbar'
 import StoreModal from '../StoreModal/StoreModal'
@@ -72,12 +71,12 @@ const Store = props => {
                         {freeBooks && freeBooks.map(book => {
                             return (
                                 <figure className="books__book" key={book._id}>
-                                    <img className="book__image" src={`data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`} alt={'Book' + book.title + ' written by ' + book.author} />
+                                    <img className="book__image" src={book.cover} alt={'Book' + book.title + ' written by ' + book.author} />
                                     <div className="book__details">
                                         <h3 className="book__author">{book.author}</h3>
                                         <h3 className="book__title">{book.title}</h3>
                                     </div>
-                                    <button className="book__button" onClick={() => handleClick(book.author, book.title, `data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`)}>Borrow</button>
+                                    <button className="book__button" onClick={() => handleClick(book.author, book.title, book.cover)}>Borrow</button>
                                 </figure>
                             )
                         })}
@@ -92,13 +91,13 @@ const Store = props => {
                         {paidBooks && paidBooks.map(book => {
                             return (
                                 <figure className="books__book" key={book._id}>
-                                    <img className="book__image" src={`data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`} alt={'Book' + book.title + ' written by ' + book.author} />
+                                    <img className="book__image" src={book.cover} alt={'Book' + book.title + ' written by ' + book.author} />
                                     <div className="book__details">
                                         <h3 className="book__author">{book.author}</h3>
                                         <h3 className="book__title">{book.title}</h3>
                                     </div>
                                     <p className="book__price">${book.price}</p>
-                                    <button className="book__button" onClick={() => handleClick(book.author, book.title, `data:image/png;base64,${Buffer.from(book.cover.data.data).toString('base64')}`, book.price)}>Buy</button>
+                                    <button className="book__button" onClick={() => handleClick(book.author, book.title, book.cover, book.price)}>Buy</button>
                                 </figure>
                             )
                         })}
