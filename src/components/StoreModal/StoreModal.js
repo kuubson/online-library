@@ -34,6 +34,7 @@ const StoreModal = () => {
             if (res.data.error) setApiResponseErrorMessage(res.data.errorMessage)
             if (res.data.warning) setApiResponseWarningMessage(res.data.warningMessage)
             if (res.data.success) setApiResponseSuccessMessage(res.data.successMessage)
+            setApiResponseCallbackFunction(hideModal)
         }).catch(error => {
             if (error) {
                 setIsLoading(false)

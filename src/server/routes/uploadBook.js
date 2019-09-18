@@ -18,7 +18,7 @@ router.post('/uploadBook', gridfsUpload.single('bookCover'), passport.authentica
             new Book({
                 title: bookTitle,
                 author: bookAuthor,
-                price: '4.99',
+                price: undefined,
                 cover: `books/${req.file.filename}`
             }).save().then(() => {
                 res.send({
