@@ -7,4 +7,5 @@ module.exports = app => {
     app.use('/', require('./borrowBook'))
     app.use('/', require('./findBook'))
     app.use('/', require('./buyBook'))
+    app.use('/', require('./suggestBook'))
 }
