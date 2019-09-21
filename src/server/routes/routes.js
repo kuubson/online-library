@@ -8,4 +8,5 @@ module.exports = app => {
     app.use('/', require('./findBook'))
     app.use('/', require('./buyBook'))
     app.use('/', require('./suggestBook'))
+    app.use('/', require('./paypal'))
 }

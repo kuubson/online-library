@@ -19,7 +19,7 @@ router.post('/uploadBook', gridfsUpload.single('bookCover'), passport.authentica
                 title: bookTitle,
                 author: bookAuthor,
                 price: undefined,
-                cover: `books/${req.file.filename}`
+                cover: `https://online-library-application.herokuapp.com/books/${req.file.filename}`
             }).save().then(() => {
                 res.send({
                     success: true,

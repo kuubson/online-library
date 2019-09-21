@@ -5,6 +5,7 @@ const app = express()
 const port = process.env.PORT || 3001
 const path = require('path')
 
+require('./server/paypal/paypal')(require('paypal-rest-sdk'))
 require('./server/database/database').database(require('mongoose'), app)
 require('./server/passport/passport')(require('passport'))
 
