@@ -1,3 +1,11 @@
 .profile {
     flex-direction: column;
+
+    .profile__warning {
+        color: white;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }

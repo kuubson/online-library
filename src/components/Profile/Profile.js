@@ -43,48 +43,50 @@ const Profile = props => {
     return (
         <section className="profile wrapper">
             <Navbar profile />
-            <section className="books">
-                <article className="books__column books__column--left">
-                    <header className="books__header books__header--nomargintop">
-                        <h2 className="books__header-text">Bought premium books are there here!</h2>
-                    </header>
-                    <div className="books__container">
-                        {boughtBooks && boughtBooks.map(book => {
-                            return (
-                                <figure className="books__book" key={book.id}>
-                                    <img className="book__image" src={book.cover} alt={'Book' + book.title + ' written by ' + book.author} />
-                                    <div className="book__details">
-                                        <h3 className="book__author">{book.author}</h3>
-                                        <h3 className="book__title">{book.title}</h3>
-                                    </div>
-                                    <button className="book__button">Open</button>
-                                </figure>
-                            )
-                        })}
-                        {isLoading && <Loader absolute />}
-                    </div>
-                </article>
-                <article className="books__column books__column--right">
-                    <header className="books__header">
-                        <h2 className="books__header-text">Enjoy reading your free books!</h2>
-                    </header>
-                    <div className="books__container">
-                        {borrowedBooks && borrowedBooks.map(book => {
-                            return (
-                                <figure className="books__book" key={book.id}>
-                                    <img className="book__image" src={book.cover} alt={'Book' + book.title + ' written by ' + book.author} />
-                                    <div className="book__details">
-                                        <h3 className="book__author">{book.author}</h3>
-                                        <h3 className="book__title">{book.title}</h3>
-                                    </div>
-                                    <button className="book__button">Open</button>
-                                </figure>
-                            )
-                        })}
-                        {isLoading && <Loader absolute />}
-                    </div>
-                </article>
-            </section>
+            {(boughtBooks.length <= 0 && borrowedBooks.length <= 0 && !isLoading) ? <h2 className="profile__warning">Your don't have any books yet!</h2> :
+                <section className="books">
+                    <article className="books__column books__column--left">
+                        <header className="books__header books__header--nomargintop">
+                            <h2 className="books__header-text">Bought premium books are there here!</h2>
+                        </header>
+                        <div className="books__container">
+                            {boughtBooks && boughtBooks.map(book => {
+                                return (
+                                    <figure className="books__book" key={book.id}>
+                                        <img className="book__image" src={book.cover} alt={'Book' + book.title + ' written by ' + book.author} />
+                                        <div className="book__details">
+                                            <h3 className="book__author">{book.author}</h3>
+                                            <h3 className="book__title">{book.title}</h3>
+                                        </div>
+                                        <button className="book__button">Open</button>
+                                    </figure>
+                                )
+                            })}
+                            {isLoading && <Loader absolute />}
+                        </div>
+                    </article>
+                    <article className="books__column books__column--right">
+                        <header className="books__header">
+                            <h2 className="books__header-text">Enjoy reading your free books!</h2>
+                        </header>
+                        <div className="books__container">
+                            {borrowedBooks && borrowedBooks.map(book => {
+                                return (
+                                    <figure className="books__book" key={book.id}>
+                                        <img className="book__image" src={book.cover} alt={'Book' + book.title + ' written by ' + book.author} />
+                                        <div className="book__details">
+                                            <h3 className="book__author">{book.author}</h3>
+                                            <h3 className="book__title">{book.title}</h3>
+                                        </div>
+                                        <button className="book__button">Open</button>
+                                    </figure>
+                                )
+                            })}
+                            {isLoading && <Loader absolute />}
+                        </div>
+                    </article>
+                </section>
+            }
         </section>
     )
 }
