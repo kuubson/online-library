@@ -4,7 +4,7 @@ const passport = require('passport')
 
 router.post('/suggestBook', passport.authenticate('jwt', { session: false }), (req, res) => {
     const { title } = req.body
-    const regex = new RegExp(title);
+    const regex = new RegExp(title, "i");
     Books.find({
         title: regex
     }).then(result => {
