@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker'
 
 import 'reset-css'
 import 'assets/styles/index.scss'
+import 'assets/styles/routerTransitions.scss'
 import theme from 'assets/styles/theme'
 
 import App from 'components/App'

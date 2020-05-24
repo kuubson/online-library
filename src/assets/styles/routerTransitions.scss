@@ -1,0 +1,41 @@
+.route {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transition: 0.5s;
+}
+
+.left .route__container-enter {
+    transform: translateX(100%);
+}
+
+.left .route__container-enter-active {
+    transform: translateX(0%);
+}
+
+.left .route__container-exit {
+    transform: translateX(-100%);
+}
+
+.left .route__container-exit-active {
+    transform: translateX(-100%);
+}
+
+.right .route__container-enter {
+    transform: translateX(-100%);
+}
+
+.right .route__container-enter-active {
+    transform: translateX(0%);
+}
+
+.right .route__container-exit {
+    transform: translateX(100%);
+}
+
+.right .route__container-exit-active {
+    transform: translateX(100%);
+}

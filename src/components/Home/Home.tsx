@@ -5,7 +5,9 @@ import HomeBackground from 'assets/images/HomeBackground.png'
 
 import Dashboard from './styled/Dashboard'
 
-const HomeContainer = styled.section`
+import utils from 'utils'
+
+export const HomeContainer = styled.section`
     height: 100%;
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
         url(${HomeBackground}) center center no-repeat;
@@ -21,8 +23,12 @@ const Home: React.FC = () => {
             <Dashboard.HeaderContainer>
                 <Dashboard.Header>Online Library</Dashboard.Header>
                 <Dashboard.Buttons>
-                    <Dashboard.Button>Login</Dashboard.Button>
-                    <Dashboard.Button>Register</Dashboard.Button>
+                    <Dashboard.Button onClick={() => utils.redirectTo('/logowanie')}>
+                        Login
+                    </Dashboard.Button>
+                    <Dashboard.Button onClick={() => utils.redirectTo('/rejestracja')}>
+                        Register
+                    </Dashboard.Button>
                 </Dashboard.Buttons>
             </Dashboard.HeaderContainer>
             <Dashboard.Advantages>
