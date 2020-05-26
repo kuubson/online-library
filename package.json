@@ -14,7 +14,9 @@
         "@types/react-router-dom": "^5.1.5",
         "@types/react-transition-group": "^4.4.0",
         "@types/redux": "^3.6.0",
+        "@types/sanitize-html": "^1.23.0",
         "@types/styled-components": "^5.1.0",
+        "@types/validator": "^13.0.0",
         "@types/webpack-env": "^1.15.2",
         "node-sass": "^4.14.1",
         "react": "^16.13.1",
@@ -28,8 +30,10 @@
         "react-transition-group": "^4.4.1",
         "redux": "^4.0.5",
         "reset-css": "^5.0.1",
+        "sanitize-html": "^1.24.0",
         "styled-components": "^5.1.0",
-        "typescript": "^3.7.5"
+        "typescript": "^3.7.5",
+        "validator": "^13.0.0"
     },
     "scripts": {
         "start": "react-app-rewired start",

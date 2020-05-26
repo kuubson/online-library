@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 
 export default styled.li`
     font-size: 20px;
-    font-weight: 600;
+    font-weight: bold;
     @media (max-width: 1200px) {
         font-size: 18px;
     }

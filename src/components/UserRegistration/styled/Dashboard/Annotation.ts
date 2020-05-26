@@ -1,3 +1,3 @@
 import styled from 'styled-components/macro'
 
-export default styled.input``
+export default styled.p``

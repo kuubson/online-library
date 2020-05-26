@@ -12,7 +12,8 @@ import hoc from 'hoc'
 import Roles from 'components/Roles'
 
 import Home from 'components/Home/Home'
-import Login from 'components/Login/Login'
+import UserLogin from 'components/UserLogin/UserLogin'
+import UserRegistration from 'components/UserRegistration/UserRegistration'
 
 import { IRoute } from 'hooks/useRouterTransitions'
 
@@ -40,7 +41,16 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
             pathname: '/logowanie',
             render: () => (
                 <Roles.Guest>
-                    <Login />
+                    <UserLogin />
+                </Roles.Guest>
+            )
+        },
+        {
+            order: 1,
+            pathname: '/rejestracja',
+            render: () => (
+                <Roles.Guest>
+                    <UserRegistration />
                 </Roles.Guest>
             )
         },
