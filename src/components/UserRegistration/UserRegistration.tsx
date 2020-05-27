@@ -38,8 +38,11 @@ const UserRegistration: React.FC = () => {
     })
     const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>
         setForm(form => ({ ...form, [target.name]: target.value }))
+    const handleError = (errorKey: string, error: string) =>
+        setForm(form => ({ ...form, [errorKey]: error }))
     const validate = (e: MouseEvent | TouchEvent) => {
         e.preventDefault()
+        let isValidated = true
         setForm(form => ({
             ...form,
             nameError: '',
@@ -48,39 +51,46 @@ const UserRegistration: React.FC = () => {
             repeatedPasswordError: ''
         }))
         const { name, email, password, repeatedPassword } = form
-        if (!name.trim()) {
-            setForm(form => ({ ...form, nameError: 'Type your name!' }))
+        switch (true) {
+            case !name.trim():
+                isValidated = false
+                handleError('nameError', 'Type your name!')
+                break
+            case utils.checkSanitization(name):
+                isValidated = false
+                handleError('nameError', 'Name includes invalid characters!')
+                break
         }
-        if (utils.checkSanitization(name)) {
-            setForm(form => ({ ...form, nameError: 'Name includes invalid characters!' }))
+        switch (true) {
+            case !email.trim():
+                isValidated = false
+                handleError('emailError', 'Type your e-mail address!')
+                break
+            case !validator.isEmail(email):
+                isValidated = false
+                handleError('emailError', 'Type proper e-mail address!')
+                break
         }
-        if (!email.trim()) {
-            setForm(form => ({ ...form, emailError: 'Type your e-mail address!' }))
+        switch (true) {
+            case !password:
+                isValidated = false
+                handleError('passwordError', 'Type your password!')
+                break
+            case password.length < 10:
+                isValidated = false
+                handleError('passwordError', 'Password must be at least 10 characters long!')
+                break
+            case password !== repeatedPassword:
+                isValidated = false
+                handleError('repeatedPasswordError', 'Passwords are different!')
         }
-        if (!validator.isEmail(email)) {
-            setForm(form => ({ ...form, emailError: 'Type proper e-mail address!' }))
+        switch (true) {
+            case !repeatedPassword:
+                isValidated = false
+                handleError('repeatedPasswordError', 'You have to type password twice!')
+                break
         }
-        if (!password) {
-            setForm(form => ({ ...form, passwordError: 'Type your password!' }))
-        }
-        if (password.length > 10) {
-            setForm(form => ({
-                ...form,
-                passwordError: 'Password must be at least 10 characters long!'
-            }))
-        }
-        if (!repeatedPassword) {
-            setForm(form => ({
-                ...form,
-                repeatedPasswordError: 'You have to type password twice!'
-            }))
-        }
-        if (password && password !== repeatedPassword) {
-            setForm(form => ({
-                ...form,
-                repeatedPasswordError: 'Passwords are different!'
-            }))
-        }
+        return isValidated
     }
     return (
         <UserRegistrationContainer>

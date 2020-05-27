@@ -25,23 +25,34 @@ const UserLogin: React.FC = () => {
     })
     const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>
         setForm(form => ({ ...form, [target.name]: target.value }))
+    const handleError = (errorKey: string, error: string) =>
+        setForm(form => ({ ...form, [errorKey]: error }))
     const validate = (e: MouseEvent | TouchEvent) => {
         e.preventDefault()
+        let isValidated = true
         setForm(form => ({
             ...form,
             emailError: '',
             passwordError: ''
         }))
         const { email, password } = form
-        if (!email.trim()) {
-            setForm(form => ({ ...form, emailError: 'Type your e-mail address!' }))
+        switch (true) {
+            case !email.trim():
+                isValidated = false
+                handleError('emailError', 'Type your e-mail address!')
+                break
+            case !validator.isEmail(email):
+                isValidated = false
+                handleError('emailError', 'Type proper e-mail address!')
+                break
         }
-        if (!validator.isEmail(email)) {
-            setForm(form => ({ ...form, emailError: 'Type proper e-mail address!' }))
+        switch (true) {
+            case !password:
+                isValidated = false
+                handleError('passwordError', 'Type your password!')
+                break
         }
-        if (!password) {
-            setForm(form => ({ ...form, passwordError: 'Type your password!' }))
-        }
+        return isValidated
     }
     return (
         <UserLoginContainer>
