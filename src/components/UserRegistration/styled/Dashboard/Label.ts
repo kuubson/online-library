@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 
 export default styled.label`
-    font-weight: 14px;
+    font-size: 14px;
     margin-bottom: 12px;
     font-weight: bold;
     @media (max-width: 1000px) {

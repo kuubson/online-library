@@ -3,12 +3,12 @@ import styled from 'styled-components/macro'
 import axios from 'axios'
 import validator from 'validator'
 
-import { HomeContainer } from 'components/Home/Home'
+import { UserRegistrationContainer } from 'components/UserRegistration/UserRegistration'
 import URDashboard from 'components/UserRegistration/styled/Dashboard'
 
 import URComposed from 'components/UserRegistration/composed'
 
-const UserLoginContainer = styled(HomeContainer)``
+const UserLoginContainer = styled(UserRegistrationContainer)``
 
 const UserLogin: React.FC = () => {
     const [form, setForm] = useState({
@@ -62,6 +62,7 @@ const UserLogin: React.FC = () => {
     }
     return (
         <UserLoginContainer>
+            <URComposed.ReturnButton />
             <URDashboard.Form onSubmit={submit}>
                 <URComposed.Input
                     id="email"

@@ -10,7 +10,8 @@ import Composed from './composed'
 
 import utils from 'utils'
 
-const UserRegistrationContainer = styled(HomeContainer)`
+export const UserRegistrationContainer = styled(HomeContainer)`
+    padding-top: 96px;
     justify-content: center;
     flex-direction: column;
 `
@@ -98,6 +99,7 @@ const UserRegistration: React.FC = () => {
     }
     return (
         <UserRegistrationContainer>
+            <Composed.ReturnButton />
             <Dashboard.Form onSubmit={submit}>
                 <Composed.Input
                     id="name"
