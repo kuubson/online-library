@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
+import axios from 'axios'
 import validator from 'validator'
 
 import { HomeContainer } from 'components/Home/Home'
@@ -9,15 +10,8 @@ import URComposed from 'components/UserRegistration/composed'
 
 const UserLoginContainer = styled(HomeContainer)``
 
-interface IForm {
-    email: string
-    password: string
-    emailError: string
-    passwordError: string
-}
-
 const UserLogin: React.FC = () => {
-    const [form, setForm] = useState<IForm>({
+    const [form, setForm] = useState({
         email: '',
         password: '',
         emailError: '',
@@ -27,8 +21,7 @@ const UserLogin: React.FC = () => {
         setForm(form => ({ ...form, [target.name]: target.value }))
     const handleError = (errorKey: string, error: string) =>
         setForm(form => ({ ...form, [errorKey]: error }))
-    const validate = (e: MouseEvent | TouchEvent) => {
-        e.preventDefault()
+    const validate = () => {
         let isValidated = true
         setForm(form => ({
             ...form,
@@ -54,9 +47,22 @@ const UserLogin: React.FC = () => {
         }
         return isValidated
     }
+    const submit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if (validate()) {
+            const url = '/api/user/register'
+            const { email, password } = form
+            const response = await axios.post(url, {
+                email,
+                password
+            })
+            if (response) {
+            }
+        }
+    }
     return (
         <UserLoginContainer>
-            <URDashboard.Form>
+            <URDashboard.Form onSubmit={submit}>
                 <URComposed.Input
                     id="email"
                     type="text"
@@ -73,7 +79,7 @@ const UserLogin: React.FC = () => {
                     error={form.passwordError}
                     onChange={onChange}
                 />
-                <URDashboard.Submit onClick={validate}>Login</URDashboard.Submit>
+                <URDashboard.Submit>Login</URDashboard.Submit>
             </URDashboard.Form>
         </UserLoginContainer>
     )

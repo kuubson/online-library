@@ -1,4 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
+
+interface IRouteTransitions {
+    routes: IRoute[]
+    location: string
+}
 
 export interface IRoute {
     order: number
@@ -6,17 +12,17 @@ export interface IRoute {
     render: () => React.ReactNode
 }
 
-export default (routes: IRoute[], curretPathname: string) => {
-    const [exactRoute] = routes.filter(({ pathname }) => pathname === curretPathname)
+const RouterTransitions: React.FC<IRouteTransitions> = ({ children, routes, location }) => {
+    const [exactRoute] = routes.filter(({ pathname }) => pathname === location)
     const [similarRoute] = routes.filter(({ pathname }) => {
-        const basicRoute = curretPathname
+        const basicRoute = location
             .split('/')
             .map(v => isNaN(parseInt(v)) && v)
             .filter(v => v)
             .join('/')
         return pathname.includes(basicRoute)
     })
-    const [pathname, setPathname] = useState(curretPathname)
+    const [pathname, setPathname] = useState(location)
     const [animationDirection, setAnimationDirection] = useState('')
     const [animationOrder, setAnimationOrder] = useState(
         exactRoute ? exactRoute.order : similarRoute ? similarRoute.order : 30
@@ -24,14 +30,20 @@ export default (routes: IRoute[], curretPathname: string) => {
     useEffect(() => {
         const newAnimationOrder =
             (exactRoute && exactRoute.order) || (similarRoute && similarRoute.order)
-        if (pathname !== curretPathname) {
+        if (pathname !== location) {
             const animationDirection = animationOrder < newAnimationOrder ? 'left' : 'right'
-            setPathname(curretPathname)
+            setPathname(location)
             setAnimationOrder(newAnimationOrder)
             setAnimationDirection(animationDirection)
         }
     })
-    return {
-        animationDirection
-    }
+    return (
+        <TransitionGroup className={animationDirection}>
+            <CSSTransition key={location} classNames="route__container" timeout={500}>
+                <div className="route">{children}</div>
+            </CSSTransition>
+        </TransitionGroup>
+    )
 }
+
+export default RouterTransitions

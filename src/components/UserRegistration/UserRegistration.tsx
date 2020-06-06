@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
+import axios from 'axios'
 import validator from 'validator'
 
 import { HomeContainer } from 'components/Home/Home'
@@ -14,19 +15,8 @@ const UserRegistrationContainer = styled(HomeContainer)`
     flex-direction: column;
 `
 
-interface IForm {
-    name: string
-    email: string
-    password: string
-    repeatedPassword: string
-    nameError: string
-    emailError: string
-    passwordError: string
-    repeatedPasswordError: string
-}
-
 const UserRegistration: React.FC = () => {
-    const [form, setForm] = useState<IForm>({
+    const [form, setForm] = useState({
         name: '',
         email: '',
         password: '',
@@ -40,8 +30,7 @@ const UserRegistration: React.FC = () => {
         setForm(form => ({ ...form, [target.name]: target.value }))
     const handleError = (errorKey: string, error: string) =>
         setForm(form => ({ ...form, [errorKey]: error }))
-    const validate = (e: MouseEvent | TouchEvent) => {
-        e.preventDefault()
+    const validate = () => {
         let isValidated = true
         setForm(form => ({
             ...form,
@@ -92,9 +81,24 @@ const UserRegistration: React.FC = () => {
         }
         return isValidated
     }
+    const submit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if (validate()) {
+            const url = '/api/user/register'
+            const { name, email, password, repeatedPassword } = form
+            const response = await axios.post(url, {
+                name,
+                email,
+                password,
+                repeatedPassword
+            })
+            if (response) {
+            }
+        }
+    }
     return (
         <UserRegistrationContainer>
-            <Dashboard.Form>
+            <Dashboard.Form onSubmit={submit}>
                 <Composed.Input
                     id="name"
                     type="text"
@@ -127,7 +131,7 @@ const UserRegistration: React.FC = () => {
                     error={form.repeatedPasswordError}
                     onChange={onChange}
                 />
-                <Dashboard.Submit onClick={validate}>Register</Dashboard.Submit>
+                <Dashboard.Submit>Register</Dashboard.Submit>
             </Dashboard.Form>
         </UserRegistrationContainer>
     )

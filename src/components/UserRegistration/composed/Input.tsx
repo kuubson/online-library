@@ -16,7 +16,7 @@ const InputContainer = styled.div`
 
 interface IInput {
     id: string
-    type: 'text' | 'password'
+    type: 'text' | 'number' | 'password'
     label: string
     placeholder: string
     error: string

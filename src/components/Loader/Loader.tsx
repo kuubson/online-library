@@ -1,0 +1,34 @@
+import React from 'react'
+import styled from 'styled-components/macro'
+
+import Dashboard from './styled/Dashboard'
+
+const LoaderContainer = styled.section`
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+`
+
+const Loader: React.FC = () => {
+    return (
+        <LoaderContainer>
+            <Dashboard.Circle>
+                <Dashboard.Dot />
+                <Dashboard.Dot />
+                <Dashboard.Dot />
+                <Dashboard.Dot />
+                <Dashboard.Dot />
+                <Dashboard.Dot />
+            </Dashboard.Circle>
+        </LoaderContainer>
+    )
+}
+
+export default Loader
