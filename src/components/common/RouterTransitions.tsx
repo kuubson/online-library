@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
-interface IRouteTransitions {
+interface IRouterTransitions {
     routes: IRoute[]
     location: string
 }
@@ -12,7 +12,7 @@ export interface IRoute {
     render: () => React.ReactNode
 }
 
-const RouterTransitions: React.FC<IRouteTransitions> = ({ children, routes, location }) => {
+const RouterTransitions: React.FC<IRouterTransitions> = ({ children, routes, location }) => {
     const [exactRoute] = routes.filter(({ pathname }) => pathname === location)
     const [similarRoute] = routes.filter(({ pathname }) => {
         const basicRoute = location

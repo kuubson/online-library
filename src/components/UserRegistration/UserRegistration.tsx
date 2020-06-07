@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
-import axios from 'axios'
 import validator from 'validator'
+
+import hooks from 'hooks'
 
 import { HomeContainer } from 'components/Home/Home'
 import Dashboard from './styled/Dashboard'
@@ -11,9 +12,9 @@ import Composed from './composed'
 import utils from 'utils'
 
 export const UserRegistrationContainer = styled(HomeContainer)`
-    padding-top: 96px;
-    justify-content: center;
-    flex-direction: column;
+    height: initial;
+    min-height: ${() => hooks.useHeight()};
+    padding: 96px 0px 45px 0px;
 `
 
 const UserRegistration: React.FC = () => {
@@ -87,7 +88,7 @@ const UserRegistration: React.FC = () => {
         if (validate()) {
             const url = '/api/user/register'
             const { name, email, password, repeatedPassword } = form
-            const response = await axios.post(url, {
+            const response = await utils.apiAxios.post(url, {
                 name,
                 email,
                 password,

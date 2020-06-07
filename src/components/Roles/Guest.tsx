@@ -1,12 +1,19 @@
 import React from 'react'
-import styled from 'styled-components/macro'
+import styled, { css } from 'styled-components/macro'
 
-const GuestContainer = styled.section`
-    height: 100%;
+import hooks from 'hooks'
+
+export const GuestContainer = styled.section`
+    height: ${() => hooks.useHeight()};
+    ${({ blurred }: { blurred: boolean }) =>
+        blurred &&
+        css`
+            filter: blur(3px);
+        `}
 `
 
 const Guest: React.FC = ({ children }) => {
-    return <GuestContainer>{children}</GuestContainer>
+    return <GuestContainer blurred={hooks.useBlur()}>{children}</GuestContainer>
 }
 
 export default Guest

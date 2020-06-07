@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 
+import hooks from 'hooks'
+
 import HomeBackground from 'assets/images/HomeBackground.png'
 
 import Dashboard from './styled/Dashboard'
@@ -8,7 +10,7 @@ import Dashboard from './styled/Dashboard'
 import utils from 'utils'
 
 export const HomeContainer = styled.section`
-    height: 100%;
+    height: ${() => hooks.useHeight()};
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
         url(${HomeBackground}) center center no-repeat;
     background-size: cover;

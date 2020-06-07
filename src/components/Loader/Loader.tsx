@@ -1,11 +1,13 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 
+import hooks from 'hooks'
+
 import Dashboard from './styled/Dashboard'
 
-const LoaderContainer = styled.section`
+export const LoaderContainer = styled.section`
     width: 100%;
-    height: 100%;
+    height: ${() => hooks.useHeight()};
     background: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;

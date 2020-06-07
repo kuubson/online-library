@@ -3,6 +3,7 @@ import { combineReducers } from 'redux'
 // import storage from 'redux-persist/lib/storage'
 
 import loader from './loader'
+import feedbackHandler from './feedbackHandler'
 
 // const config = {
 //     key: 'config',
@@ -10,7 +11,8 @@ import loader from './loader'
 // }
 
 const rootReducer = combineReducers({
-    loader
+    loader,
+    feedbackHandler
 })
 
 export type RootState = ReturnType<typeof rootReducer>

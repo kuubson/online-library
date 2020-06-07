@@ -28,10 +28,15 @@ input {
     font-size: 16px;
     background: none;
     border: none;
+    filter: none;
 }
 
 button {
     cursor: pointer;
+}
+
+button::-moz-focus-inner {
+    border: 0px;
 }
 
 h1,

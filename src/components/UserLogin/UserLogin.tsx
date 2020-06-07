@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
-import axios from 'axios'
 import validator from 'validator'
 
 import { UserRegistrationContainer } from 'components/UserRegistration/UserRegistration'
 import URDashboard from 'components/UserRegistration/styled/Dashboard'
 
 import URComposed from 'components/UserRegistration/composed'
+
+import utils from 'utils'
 
 const UserLoginContainer = styled(UserRegistrationContainer)``
 
@@ -52,7 +53,7 @@ const UserLogin: React.FC = () => {
         if (validate()) {
             const url = '/api/user/login'
             const { email, password } = form
-            const response = await axios.post(url, {
+            const response = await utils.apiAxios.post(url, {
                 email,
                 password
             })

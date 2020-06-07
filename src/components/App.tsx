@@ -13,6 +13,7 @@ import RouterTransition from 'components/common/RouterTransitions'
 import Roles from 'components/Roles'
 
 import Loader from 'components/Loader/Loader'
+import FeedbackHandler from 'components/FeedbackHandler/FeedbackHandler'
 
 import Home from 'components/Home/Home'
 import UserLogin from 'components/UserLogin/UserLogin'
@@ -25,7 +26,7 @@ setConfig({
 })
 
 const AppContainer = styled.main`
-    height: 100%;
+    height: ${() => hooks.useHeight()};
 `
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
@@ -64,9 +65,11 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
         }
     ]
     const { isLoading } = hooks.useLoader()
+    const { shouldFeedbackHandlerAppear } = hooks.useFeedbackHandler()
     return (
         <AppContainer>
             {isLoading && <Loader />}
+            {shouldFeedbackHandlerAppear && <FeedbackHandler />}
             <RouterTransition routes={routes} location={location.pathname}>
                 <Switch location={location}>
                     {routes.map(({ pathname, render }) => (
