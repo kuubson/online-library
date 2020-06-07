@@ -50,7 +50,7 @@ const UserLogin: React.FC = () => {
     const submit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (validate()) {
-            const url = '/api/user/register'
+            const url = '/api/user/login'
             const { email, password } = form
             const response = await axios.post(url, {
                 email,

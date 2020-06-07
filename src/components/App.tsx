@@ -41,7 +41,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
         },
         {
             order: 1,
-            pathname: '/logowanie',
+            pathname: '/login',
             render: () => (
                 <Roles.Guest>
                     <UserLogin />
@@ -50,7 +50,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
         },
         {
             order: 1,
-            pathname: '/rejestracja',
+            pathname: '/registration',
             render: () => (
                 <Roles.Guest>
                     <UserRegistration />
