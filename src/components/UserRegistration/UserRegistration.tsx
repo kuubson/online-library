@@ -14,7 +14,7 @@ import utils from 'utils'
 export const UserRegistrationContainer = styled(HomeContainer)`
     height: initial;
     min-height: ${() => hooks.useHeight()};
-    padding: 96px 0px 45px 0px;
+    padding: 96px 0px 35px 0px;
 `
 
 const UserRegistration: React.FC = () => {

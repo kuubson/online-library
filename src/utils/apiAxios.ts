@@ -2,15 +2,15 @@ import axios from 'axios'
 
 import utils from 'utils'
 
-const delayedApiAxios = axios.create({
+const apiAxios = axios.create({
     baseURL: process.env.API_ROOT
 })
 
 let timeoutId: number | undefined
 
-delayedApiAxios.interceptors.request.use(
+apiAxios.interceptors.request.use(
     request => {
-        !timeoutId && (timeoutId = setTimeout(() => utils.setIsLoading(true), 1500))
+        !timeoutId && (timeoutId = setTimeout(() => utils.setIsLoading(true), 1000))
         return request
     },
     error => {
@@ -22,7 +22,7 @@ delayedApiAxios.interceptors.request.use(
     }
 )
 
-delayedApiAxios.interceptors.response.use(
+apiAxios.interceptors.response.use(
     response => {
         utils.setIsLoading(false)
         clearTimeout(timeoutId)
@@ -38,4 +38,4 @@ delayedApiAxios.interceptors.response.use(
     }
 )
 
-export default delayedApiAxios
+export default apiAxios

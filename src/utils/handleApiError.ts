@@ -3,6 +3,7 @@ import { AxiosError } from 'axios'
 import utils from 'utils'
 
 export default (error: AxiosError) => {
+    console.log(error)
     if (error.response) {
         const { errorHeader, errorMessage } = error.response.data
         const status = error.response.status
