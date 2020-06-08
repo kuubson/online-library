@@ -9,14 +9,14 @@ import middlewares from './middlewares'
 
 import routes from './routes/routes'
 
-console.log(routes)
-
 const app = express()
 const server = http.createServer(app)
 
 middlewares.init(app)
 
 middlewares.errorHandler(app)
+
+routes(app)
 
 const development = process.env.NODE_ENV === 'development'
 
