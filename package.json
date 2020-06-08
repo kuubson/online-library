@@ -12,6 +12,7 @@
         "@testing-library/react": "^9.5.0",
         "@testing-library/user-event": "^7.2.1",
         "@types/axios": "^0.14.0",
+        "@types/bcrypt": "^3.0.0",
         "@types/cookie-parser": "^1.4.2",
         "@types/csurf": "^1.9.36",
         "@types/express": "^4.17.6",
@@ -30,13 +31,14 @@
         "@types/validator": "^13.0.0",
         "@types/webpack-env": "^1.15.2",
         "axios": "^0.19.2",
+        "bcrypt": "^5.0.0",
         "concurrently": "^5.2.0",
         "cookie-parser": "^1.4.5",
         "csurf": "^1.11.0",
         "dotenv": "^8.2.0",
         "express": "^4.17.1",
         "helmet": "^3.22.0",
-        "module-alias": "^2.2.2",
+        "mysql2": "^2.1.0",
         "node-sass": "^4.14.1",
         "react": "^16.13.1",
         "react-app-rewire-hot-loader": "^2.0.1",
@@ -52,6 +54,7 @@
         "redux-persist": "^6.0.0",
         "reset-css": "^5.0.1",
         "sanitize-html": "^1.24.0",
+        "sequelize": "^5.21.12",
         "styled-components": "^5.1.0",
         "typescript": "^3.7.5",
         "validator": "^13.0.0"
@@ -59,7 +62,7 @@
     "scripts": {
         "start": "react-app-rewired start",
         "build": "react-app-rewired build",
-        "dev": "concurrently \"tsc -w --project server\" \"babel --watch server --out-dir dist --extensions .ts,.tsx\" \"nodemon dist/server.js\" \"npm start\""
+        "dev": "concurrently \"tsc -w --project server\" \"babel --watch server --out-dir dist --extensions .js,.ts,.tsx\" \"nodemon dist/server.js\" \"npm start\""
     },
     "eslintConfig": {
         "extends": "react-app"

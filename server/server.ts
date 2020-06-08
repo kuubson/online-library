@@ -1,9 +1,10 @@
 import 'dotenv/config'
-import './aliases'
 
 import express from 'express'
 import http from 'http'
 import path from 'path'
+
+import './database/database'
 
 import middlewares from './middlewares'
 
