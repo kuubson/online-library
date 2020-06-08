@@ -1,7 +1,14 @@
-import { Express } from 'express'
+import { Express, Request, Response, NextFunction } from 'express'
+
+interface IError {
+    code: string
+    errorHeader: string
+    errorMessage: string
+    status: number
+}
 
 export default (app: Express) =>
-    app.use((error, _, res, __) => {
+    app.use((error: IError, _: Request, res: Response, __: NextFunction) => {
         console.log(error)
         if (error.code === 'EBADCSRFTOKEN') {
             const status = 403

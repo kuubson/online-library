@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noEmit": true,
+        "declaration": true,
+        "outDir": "./dist",
+        "rootDir": "./"
+    },
+    "exclude": ["src"]
+}
