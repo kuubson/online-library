@@ -1,10 +1,15 @@
-const exports: any = {}
+import HeaderContainer from './HeaderContainer'
+import Header from './Header'
+import Buttons from './Buttons'
+import Button from './Button'
+import Advantages from './Advantages'
+import Advantage from './Advantage'
 
-const req = require.context('./', false, /^\.\/(?!index).*\.ts$/)
-
-req.keys().forEach(fileName => {
-    const exportName = fileName.replace('./', '').replace('.ts', '')
-    exports[exportName] = req(fileName).default
-})
-
-export default exports
+export default {
+    HeaderContainer,
+    Header,
+    Buttons,
+    Button,
+    Advantages,
+    Advantage
+}

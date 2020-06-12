@@ -35,7 +35,7 @@
         "prefix": "sss",
         "body": [
             "import React from 'react'",
-            "import styled from 'styled-components/macro'",
+            "import styled from 'styled-components'",
             "",
             "import Dashboard from './styled/Dashboard'",
             "",
@@ -55,7 +55,7 @@
     "Styled Component": {
         "prefix": "s",
         "body": [
-            "import styled from 'styled-components/macro'",
+            "import styled from 'styled-components'",
             "",
             "export default styled.${2}`",
             "${3}",

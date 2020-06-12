@@ -1,20 +1,23 @@
 {
     "compilerOptions": {
-        "baseUrl": "src",
         "target": "es5",
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "allowJs": true,
-        "skipLibCheck": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
+        "module": "CommonJS",
+        "jsx": "react",
         "strict": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "noEmit": true,
-        "jsx": "react"
-    },
-    "include": ["src"]
+        "baseUrl": ".",
+        "paths": {
+            "~*": ["./src/*"],
+            "@database": ["./server/database/database"],
+            "@middlewares": ["./server/middlewares"],
+            "@routes": ["./server/routes/routes"],
+            "@utils": ["./server/utils"]
+        }
+    }
 }

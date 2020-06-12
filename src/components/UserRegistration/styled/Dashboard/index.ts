@@ -1,10 +1,15 @@
-const exports: any = {}
+import Form from './Form'
+import Label from './Label'
+import Input from './Input'
+import Error from './Error'
+import Submit from './Submit'
+import Annotation from './Annotation'
 
-const req = require.context('./', false, /^\.\/(?!index).*\.ts$/)
-
-req.keys().forEach(fileName => {
-    const exportName = fileName.replace('./', '').replace('.ts', '')
-    exports[exportName] = req(fileName).default
-})
-
-export default exports
+export default {
+    Form,
+    Label,
+    Input,
+    Error,
+    Submit,
+    Annotation
+}

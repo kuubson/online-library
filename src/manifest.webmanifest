@@ -3,7 +3,7 @@
     "name": "Online Library",
     "icons": [
         {
-            "src": "/manifest-icon.png",
+            "src": "public/manifest-icon.png",
             "type": "image/png",
             "sizes": "512x512"
         }

@@ -1,11 +1,11 @@
 import React from 'react'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 
-import hooks from 'hooks'
+import hooks from '~hooks'
 
-import animations from 'assets/animations'
+import animations from '~assets/animations'
 
-import { LoaderContainer } from 'components/Loader/Loader'
+import { LoaderContainer } from '~components/Loader/Loader'
 import Dashboard from './styled/Dashboard'
 
 const FeedbackHandlerContainer = styled(LoaderContainer)`

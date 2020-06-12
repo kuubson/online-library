@@ -1,9 +1,14 @@
-import { Sequelize } from 'sequelize'
+import { Sequelize } from 'sequelize-typescript'
 
-const { DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOST } = process.env
+import User from './models/User'
 
-const connection = new Sequelize(DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD, {
+const { DATABASE_HOST, DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD } = process.env
+
+const connection = new Sequelize({
     host: DATABASE_HOST,
+    database: DATABASE_NAME,
+    username: DATABASE_USERNAME,
+    password: DATABASE_PASSWORD,
     dialect: 'mysql',
     define: {
         charset: 'utf8mb4',
@@ -11,9 +16,9 @@ const connection = new Sequelize(DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASS
     }
 })
 
-const User = connection.import('./models/User')
+connection.addModels([User])
 
-const initializeDatabaseConnection = async () => {
+const init = async () => {
     try {
         // await connection.sync({ force: true })
         // await connection.sync({ alter: true })
@@ -26,6 +31,6 @@ const initializeDatabaseConnection = async () => {
         })
     }
 }
-initializeDatabaseConnection()
+init()
 
 export { connection as Connection, User }

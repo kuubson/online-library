@@ -1,7 +1,7 @@
 import React from 'react'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 
-import hooks from 'hooks'
+import hooks from '~hooks'
 
 import Dashboard from './styled/Dashboard'
 

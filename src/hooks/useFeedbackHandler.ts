@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 
-import { RootState } from 'redux/reducers'
+import { RootState } from '~redux/reducers'
 
 export default () => {
     const dispatch = useDispatch()

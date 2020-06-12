@@ -5,6 +5,7 @@ import helmet from 'helmet'
 import csurf from 'csurf'
 
 import errorHandler from './errorHandler'
+import checkValidation from './checkValidation'
 
 const init = (app: Express, server?: http.Server) => {
     app.use(helmet())
@@ -34,5 +35,6 @@ const init = (app: Express, server?: http.Server) => {
 
 export default {
     init,
-    errorHandler
+    errorHandler,
+    checkValidation
 }

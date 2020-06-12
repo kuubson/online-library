@@ -1,14 +1,15 @@
 import 'dotenv/config'
+import './aliases'
 
 import express from 'express'
 import http from 'http'
 import path from 'path'
 
-import './database/database'
+import '@database'
 
-import middlewares from './middlewares'
+import middlewares from '@middlewares'
 
-import routes from './routes/routes'
+import routes from '@routes'
 
 const app = express()
 const server = http.createServer(app)
@@ -25,9 +26,7 @@ const buildPath = developmentMode ? '../../build' : '../build'
 
 app.use(express.static(path.resolve(__dirname, buildPath)))
 
-app.get('*', (_, res) => {
-    res.sendFile(path.resolve(__dirname, buildPath, 'index.html'))
-})
+app.get('*', (_, res) => res.sendFile(path.resolve(__dirname, buildPath, 'index.html')))
 
 const port = process.env.PORT || 3001
 

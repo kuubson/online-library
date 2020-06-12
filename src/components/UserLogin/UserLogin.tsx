@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import validator from 'validator'
 
-import { UserRegistrationContainer } from 'components/UserRegistration/UserRegistration'
-import URDashboard from 'components/UserRegistration/styled/Dashboard'
+import { UserRegistrationContainer } from '~components/UserRegistration/UserRegistration'
+import URDashboard from '~components/UserRegistration/styled/Dashboard'
 
-import URComposed from 'components/UserRegistration/composed'
+import URComposed from '~components/UserRegistration/composed'
 
-import utils from 'utils'
+import utils from '~utils'
 
 const UserLoginContainer = styled(UserRegistrationContainer)``
 
@@ -33,17 +33,17 @@ const UserLogin: React.FC = () => {
         switch (true) {
             case !email.trim():
                 isValidated = false
-                handleError('emailError', 'Type your e-mail address!')
+                handleError('emailError', 'Type your e-mail address')
                 break
             case !validator.isEmail(email):
                 isValidated = false
-                handleError('emailError', 'Type proper e-mail address!')
+                handleError('emailError', 'Type proper e-mail address')
                 break
         }
         switch (true) {
             case !password:
                 isValidated = false
-                handleError('passwordError', 'Type your password!')
+                handleError('passwordError', 'Type your password')
                 break
         }
         return isValidated

@@ -1,29 +1,23 @@
 import React from 'react'
-import styled from 'styled-components/macro'
-import { setConfig } from 'react-hot-loader'
-import { hot } from 'react-hot-loader/root'
+import styled from 'styled-components'
 import { Switch, Route, Redirect, RouteComponentProps } from 'react-router-dom'
 
 import { compose } from 'redux'
-import hooks from 'hooks'
-import hoc from 'hoc'
+import hooks from '~hooks'
+import hoc from '~hoc'
 
-import RouterTransition from 'components/common/RouterTransitions'
+import RouterTransition from '~components/common/RouterTransitions'
 
-import Roles from 'components/Roles'
+import Roles from '~components/Roles'
 
-import Loader from 'components/Loader/Loader'
-import FeedbackHandler from 'components/FeedbackHandler/FeedbackHandler'
+import Loader from '~components/Loader/Loader'
+import FeedbackHandler from '~components/FeedbackHandler/FeedbackHandler'
 
-import Home from 'components/Home/Home'
-import UserLogin from 'components/UserLogin/UserLogin'
-import UserRegistration from 'components/UserRegistration/UserRegistration'
+import Home from '~components/Home/Home'
+import UserLogin from '~components/UserLogin/UserLogin'
+import UserRegistration from '~components/UserRegistration/UserRegistration'
 
-import { IRoute } from 'components/common/RouterTransitions'
-
-setConfig({
-    reloadHooks: false
-})
+import { IRoute } from '~components/common/RouterTransitions'
 
 const AppContainer = styled.main`
     height: ${() => hooks.useHeight()};
@@ -81,6 +75,4 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
     )
 }
 
-export default process.env.NODE_ENV === 'development'
-    ? compose(hoc.withRouter)(hot(App))
-    : compose(hoc.withRouter)(App)
+export default compose(hoc.withRouter)(App)

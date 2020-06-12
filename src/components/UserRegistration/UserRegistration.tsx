@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import validator from 'validator'
 
-import hooks from 'hooks'
+import hooks from '~hooks'
 
-import { HomeContainer } from 'components/Home/Home'
+import { HomeContainer } from '~components/Home/Home'
 import Dashboard from './styled/Dashboard'
 
 import Composed from './composed'
 
-import utils from 'utils'
+import utils from '~utils'
 
 export const UserRegistrationContainer = styled(HomeContainer)`
     height: initial;
@@ -45,40 +45,40 @@ const UserRegistration: React.FC = () => {
         switch (true) {
             case !name.trim():
                 isValidated = false
-                handleError('nameError', 'Type your name!')
+                handleError('nameError', 'Type your name')
                 break
             case utils.checkSanitization(name):
                 isValidated = false
-                handleError('nameError', 'Name includes invalid characters!')
+                handleError('nameError', 'Name includes invalid characters')
                 break
         }
         switch (true) {
             case !email.trim():
                 isValidated = false
-                handleError('emailError', 'Type your e-mail address!')
+                handleError('emailError', 'Type your e-mail address')
                 break
             case !validator.isEmail(email):
                 isValidated = false
-                handleError('emailError', 'Type proper e-mail address!')
+                handleError('emailError', 'Type proper e-mail address')
                 break
         }
         switch (true) {
             case !password:
                 isValidated = false
-                handleError('passwordError', 'Type your password!')
+                handleError('passwordError', 'Type your password')
                 break
             case password.length < 10:
                 isValidated = false
-                handleError('passwordError', 'Password must be at least 10 characters long!')
+                handleError('passwordError', 'Password must be at least 10 characters long')
                 break
             case password !== repeatedPassword:
                 isValidated = false
-                handleError('repeatedPasswordError', 'Passwords are different!')
+                handleError('repeatedPasswordError', 'Passwords are different')
         }
         switch (true) {
             case !repeatedPassword:
                 isValidated = false
-                handleError('repeatedPasswordError', 'You have to type password twice!')
+                handleError('repeatedPasswordError', 'You have to type password twice')
                 break
         }
         return isValidated

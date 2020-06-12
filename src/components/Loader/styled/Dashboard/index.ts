@@ -1,10 +1,7 @@
-const exports: any = {}
+import Circle from './Circle'
+import Dot from './Dot'
 
-const req = require.context('./', false, /^\.\/(?!index).*\.ts$/)
-
-req.keys().forEach(fileName => {
-    const exportName = fileName.replace('./', '').replace('.ts', '')
-    exports[exportName] = req(fileName).default
-})
-
-export default exports
+export default {
+    Circle,
+    Dot
+}

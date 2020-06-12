@@ -1,12 +1,12 @@
 import { AxiosError } from 'axios'
 
-import utils from 'utils'
+import utils from '~utils'
 
 export default (error: AxiosError) => {
     console.log(error)
     if (error.response) {
-        const { errorHeader, errorMessage } = error.response.data
         const status = error.response.status
+        const { errorHeader, errorMessage } = error.response.data
         if (status === 401) {
             return utils.setFeedbackData(errorHeader, errorMessage)
         }
