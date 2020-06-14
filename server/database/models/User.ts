@@ -1,4 +1,4 @@
-import { Model, Table, Column, BeforeCreate, DataType } from 'sequelize-typescript'
+import { Model, DataType, Table, Column, BeforeCreate } from 'sequelize-typescript'
 import bcrypt from 'bcrypt'
 
 @Table({

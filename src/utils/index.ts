@@ -6,6 +6,7 @@ import setIsLoading from './setIsLoading'
 import setFeedbackData from './setFeedbackData'
 import handleApiError from './handleApiError'
 import checkSanitization from './checkSanitization'
+import useApiValidation from './useApiValidation'
 
 export default {
     history,
@@ -15,5 +16,6 @@ export default {
     setIsLoading,
     setFeedbackData,
     handleApiError,
-    checkSanitization
+    checkSanitization,
+    useApiValidation
 }

@@ -1,7 +1,7 @@
 import express, { Express } from 'express'
 import http from 'http'
-import cookieParser from 'cookie-parser'
 import helmet from 'helmet'
+import cookieParser from 'cookie-parser'
 import csurf from 'csurf'
 
 import errorHandler from './errorHandler'

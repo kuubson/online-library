@@ -5,8 +5,12 @@ export default (req: Request, res: Response, next: NextFunction) => {
     const results = validationResult(req)
     if (!results.isEmpty()) {
         res.status(422).send({
-            status,
-            results: results.mapped()
+            results: results.array().map(({ param, msg }) => {
+                return {
+                    parameter: param,
+                    error: msg
+                }
+            })
         })
     } else {
         next()

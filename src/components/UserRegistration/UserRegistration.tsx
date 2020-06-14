@@ -28,10 +28,43 @@ const UserRegistration: React.FC = () => {
         passwordError: '',
         repeatedPasswordError: ''
     })
+    const {
+        name,
+        nameError,
+        email,
+        emailError,
+        password,
+        passwordError,
+        repeatedPassword,
+        repeatedPasswordError
+    } = form
     const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>
         setForm(form => ({ ...form, [target.name]: target.value }))
     const handleError = (errorKey: string, error: string) =>
         setForm(form => ({ ...form, [errorKey]: error }))
+    const submit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if (validate()) {
+            try {
+                const url = '/api/user/register'
+                const response = await utils.apiAxios.post(url, {
+                    name,
+                    email,
+                    password,
+                    repeatedPassword
+                })
+                if (response) {
+                }
+            } catch (error) {
+                utils.useApiValidation(error, errors =>
+                    setForm({
+                        ...form,
+                        ...errors
+                    })
+                )
+            }
+        }
+    }
     const validate = () => {
         let isValidated = true
         setForm(form => ({
@@ -41,7 +74,6 @@ const UserRegistration: React.FC = () => {
             passwordError: '',
             repeatedPasswordError: ''
         }))
-        const { name, email, password, repeatedPassword } = form
         switch (true) {
             case !name.trim():
                 isValidated = false
@@ -49,7 +81,7 @@ const UserRegistration: React.FC = () => {
                 break
             case utils.checkSanitization(name):
                 isValidated = false
-                handleError('nameError', 'Name includes invalid characters')
+                handleError('nameError', 'Name contains invalid characters')
                 break
         }
         switch (true) {
@@ -67,13 +99,26 @@ const UserRegistration: React.FC = () => {
                 isValidated = false
                 handleError('passwordError', 'Type your password')
                 break
-            case password.length < 10:
+            case !/(?=.{10,})/.test(password):
                 isValidated = false
                 handleError('passwordError', 'Password must be at least 10 characters long')
+                break
+            case !/(?=.*[a-z])/.test(password):
+                isValidated = false
+                handleError('passwordError', 'Password must contain at least one small letter')
+                break
+            case !/(?=.*[A-Z])/.test(password):
+                isValidated = false
+                handleError('passwordError', 'Password must contain at least one big letter')
+                break
+            case !/(?=.*[0-9])/.test(password):
+                isValidated = false
+                handleError('passwordError', 'Password must contain at least one digit')
                 break
             case password !== repeatedPassword:
                 isValidated = false
                 handleError('repeatedPasswordError', 'Passwords are different')
+                break
         }
         switch (true) {
             case !repeatedPassword:
@@ -83,55 +128,44 @@ const UserRegistration: React.FC = () => {
         }
         return isValidated
     }
-    const submit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        if (validate()) {
-            const url = '/api/user/register'
-            const { name, email, password, repeatedPassword } = form
-            const response = await utils.apiAxios.post(url, {
-                name,
-                email,
-                password,
-                repeatedPassword
-            })
-            if (response) {
-            }
-        }
-    }
     return (
         <UserRegistrationContainer>
             <Composed.ReturnButton />
             <Dashboard.Form onSubmit={submit}>
                 <Composed.Input
                     id="name"
-                    type="text"
                     label="Name"
+                    type="text"
+                    value={name}
                     placeholder="Type your name..."
-                    error={form.nameError}
+                    error={nameError}
                     onChange={onChange}
                 />
                 <Composed.Input
                     id="email"
-                    type="text"
                     label="E-mail"
+                    type="text"
+                    value={email}
                     placeholder="Type your email address..."
-                    error={form.emailError}
+                    error={emailError}
                     onChange={onChange}
                 />
                 <Composed.Input
                     id="password"
-                    type="password"
                     label="Password"
+                    type="password"
+                    value={password}
                     placeholder="Type your password..."
-                    error={form.passwordError}
+                    error={passwordError}
                     onChange={onChange}
                 />
                 <Composed.Input
                     id="repeatedPassword"
-                    type="password"
                     label="Repeat Password"
+                    type="password"
+                    value={repeatedPassword}
                     placeholder="Type your password again..."
-                    error={form.repeatedPasswordError}
+                    error={repeatedPasswordError}
                     onChange={onChange}
                 />
                 <Dashboard.Submit>Register</Dashboard.Submit>

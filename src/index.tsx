@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'react-dom'
 import { Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -20,7 +20,7 @@ import App from '~components/App'
 
 import utils from '~utils'
 
-ReactDOM.render(
+render(
     <React.StrictMode>
         <Router history={utils.history}>
             <Provider store={store}>

@@ -18,10 +18,32 @@ const UserLogin: React.FC = () => {
         emailError: '',
         passwordError: ''
     })
+    const { email, password, emailError, passwordError } = form
     const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>
         setForm(form => ({ ...form, [target.name]: target.value }))
     const handleError = (errorKey: string, error: string) =>
         setForm(form => ({ ...form, [errorKey]: error }))
+    const submit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if (validate()) {
+            try {
+                const url = '/api/user/login'
+                const response = await utils.apiAxios.post(url, {
+                    email,
+                    password
+                })
+                if (response) {
+                }
+            } catch (error) {
+                utils.useApiValidation(error, errors =>
+                    setForm({
+                        ...form,
+                        ...errors
+                    })
+                )
+            }
+        }
+    }
     const validate = () => {
         let isValidated = true
         setForm(form => ({
@@ -29,7 +51,6 @@ const UserLogin: React.FC = () => {
             emailError: '',
             passwordError: ''
         }))
-        const { email, password } = form
         switch (true) {
             case !email.trim():
                 isValidated = false
@@ -48,37 +69,26 @@ const UserLogin: React.FC = () => {
         }
         return isValidated
     }
-    const submit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        if (validate()) {
-            const url = '/api/user/login'
-            const { email, password } = form
-            const response = await utils.apiAxios.post(url, {
-                email,
-                password
-            })
-            if (response) {
-            }
-        }
-    }
     return (
         <UserLoginContainer>
             <URComposed.ReturnButton />
             <URDashboard.Form onSubmit={submit}>
                 <URComposed.Input
                     id="email"
-                    type="text"
                     label="E-mail"
+                    type="text"
+                    value={email}
                     placeholder="Type your email address..."
-                    error={form.emailError}
+                    error={emailError}
                     onChange={onChange}
                 />
                 <URComposed.Input
                     id="password"
-                    type="password"
                     label="Password"
+                    type="password"
+                    value={password}
                     placeholder="Type your password..."
-                    error={form.passwordError}
+                    error={passwordError}
                     onChange={onChange}
                 />
                 <URDashboard.Submit>Login</URDashboard.Submit>

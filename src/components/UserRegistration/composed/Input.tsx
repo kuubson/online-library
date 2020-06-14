@@ -16,14 +16,15 @@ const InputContainer = styled.div`
 
 interface IInput {
     id: string
-    type: 'text' | 'number' | 'password'
     label: string
+    type: 'text' | 'number' | 'password'
+    value: string | number
     placeholder: string
     error: string
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const Input: React.FC<IInput> = ({ id, type, label, placeholder, error, onChange }) => {
+const Input: React.FC<IInput> = ({ id, label, type, value, placeholder, error, onChange }) => {
     return (
         <InputContainer>
             <Dashboard.Label htmlFor={id}>{label}</Dashboard.Label>
@@ -31,6 +32,7 @@ const Input: React.FC<IInput> = ({ id, type, label, placeholder, error, onChange
                 id={id}
                 name={id}
                 type={type}
+                value={value}
                 placeholder={placeholder}
                 onChange={onChange}
             />

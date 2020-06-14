@@ -4,6 +4,7 @@ import './aliases'
 import express from 'express'
 import http from 'http'
 import path from 'path'
+import Bundler from 'parcel-bundler'
 
 import '@database'
 
@@ -14,15 +15,17 @@ import routes from '@routes'
 const app = express()
 const server = http.createServer(app)
 
+const bundler = new Bundler('src/index.html')
+
 middlewares.init(app)
 
 middlewares.errorHandler(app)
 
 routes(app)
 
-const developmentMode = process.env.NODE_ENV === 'development'
+app.use(bundler.middleware())
 
-const buildPath = developmentMode ? '../../build' : '../build'
+const buildPath = '../dist'
 
 app.use(express.static(path.resolve(__dirname, buildPath)))
 
