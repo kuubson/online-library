@@ -35,7 +35,7 @@ const UserLogin: React.FC = () => {
                 if (response) {
                 }
             } catch (error) {
-                utils.useApiValidation(error, errors =>
+                utils.apiValidation(error, errors =>
                     setForm({
                         ...form,
                         ...errors

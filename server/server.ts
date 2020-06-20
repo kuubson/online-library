@@ -23,13 +23,13 @@ middlewares.errorHandler(app)
 
 routes(app)
 
-app.use(bundler.middleware())
-
-const buildPath = '../dist'
-
-app.use(express.static(path.resolve(__dirname, buildPath)))
-
-app.get('*', (_, res) => res.sendFile(path.resolve(__dirname, buildPath, 'index.html')))
+if (process.env.NODE_ENV === 'development') {
+    app.use(bundler.middleware())
+} else {
+    const buildPath = '../dist'
+    app.use(express.static(path.resolve(__dirname, buildPath)))
+    app.get('*', (_, res) => res.sendFile(path.resolve(__dirname, buildPath, 'index.html')))
+}
 
 const port = process.env.PORT || 3001
 
