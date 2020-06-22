@@ -1,4 +1,4 @@
-import { store } from '~redux/store'
+import { store } from 'redux/store'
 
 export default (header: string, message: string, buttonText = 'Ok', callback = () => {}) =>
     store.dispatch({

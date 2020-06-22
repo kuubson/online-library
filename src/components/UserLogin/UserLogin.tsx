@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import validator from 'validator'
 
-import { UserRegistrationContainer } from '~components/UserRegistration/UserRegistration'
-import URDashboard from '~components/UserRegistration/styled/Dashboard'
+import { UserRegistrationContainer } from 'components/UserRegistration/UserRegistration'
+import URDashboard from 'components/UserRegistration/styled/Dashboard'
 
-import URComposed from '~components/UserRegistration/composed'
+import URComposed from 'components/UserRegistration/composed'
 
-import utils from '~utils'
+import utils from 'utils'
 
 const UserLoginContainer = styled(UserRegistrationContainer)``
 

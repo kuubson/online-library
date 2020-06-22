@@ -1,12 +1,13 @@
 import { Request, Response, NextFunction } from 'express'
 import { check } from 'express-validator'
 
-import utils from '@utils'
+import utils from '../../../utils'
 
 export default {
     default: async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { name, email, password } = req.body
+            console.log({ name, email, password })
             res.send({
                 success: true
             })

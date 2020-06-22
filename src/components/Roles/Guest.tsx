@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 
-import hooks from '~hooks'
+import hooks from 'hooks'
 
 export const GuestContainer = styled.section`
     height: ${() => hooks.useHeight()};

@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import validator from 'validator'
 
-import hooks from '~hooks'
+import hooks from 'hooks'
 
-import { HomeContainer } from '~components/Home/Home'
+import { HomeContainer } from 'components/Home/Home'
 import Dashboard from './styled/Dashboard'
 
 import Composed from './composed'
 
-import utils from '~utils'
+import utils from 'utils'
 
 export const UserRegistrationContainer = styled(HomeContainer)`
     height: initial;

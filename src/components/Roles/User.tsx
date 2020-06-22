@@ -1,9 +1,9 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
-import hooks from '~hooks'
+import hooks from 'hooks'
 
-import { GuestContainer } from '~components/Roles/Guest'
+import { GuestContainer } from 'components/Roles/Guest'
 
 const UserContainer = styled(GuestContainer)``
 

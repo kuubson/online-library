@@ -1,3 +1,3 @@
-import utils from '~utils'
+import utils from 'utils'
 
 export default (pathname: string) => utils.history.push(pathname)

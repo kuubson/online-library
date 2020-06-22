@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import utils from '~utils'
+import utils from 'utils'
 
 const apiAxios = axios.create({
     baseURL: process.env.API_ROOT

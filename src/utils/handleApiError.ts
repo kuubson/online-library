@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios'
 
-import utils from '~utils'
+import utils from 'utils'
 
 export default (error: AxiosError) => {
     console.log(error)

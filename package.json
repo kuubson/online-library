@@ -1,48 +1,52 @@
 {
     "name": "online-library",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@testing-library/jest-dom": "^4.2.4",
+        "@testing-library/react": "^9.5.0",
+        "@testing-library/user-event": "^7.2.1",
         "@types/axios": "^0.14.0",
         "@types/bcrypt": "^3.0.0",
         "@types/cookie-parser": "^1.4.2",
         "@types/csurf": "^1.9.36",
         "@types/dotenv": "^8.2.0",
         "@types/express": "^4.17.6",
+        "@types/express-validator": "^3.0.0",
         "@types/helmet": "0.0.47",
         "@types/jest": "^24.9.1",
-        "@types/module-alias": "^2.0.0",
-        "@types/node": "^12.12.37",
-        "@types/parcel-bundler": "^1.12.1",
-        "@types/react": "^16.9.34",
-        "@types/react-dom": "^16.9.7",
+        "@types/node": "^12.12.47",
+        "@types/node-sass": "^4.11.1",
+        "@types/react": "^16.9.38",
+        "@types/react-dom": "^16.9.8",
         "@types/react-redux": "^7.1.9",
         "@types/react-router-dom": "^5.1.5",
         "@types/react-transition-group": "^4.4.0",
         "@types/redux": "^3.6.0",
-        "@types/sanitize-html": "^1.23.0",
+        "@types/redux-devtools-extension": "^2.13.2",
+        "@types/redux-persist": "^4.3.1",
+        "@types/reflect-metadata": "^0.1.0",
+        "@types/sanitize-html": "^1.23.2",
+        "@types/sequelize": "^4.28.9",
         "@types/styled-components": "^5.1.0",
         "@types/validator": "^13.0.0",
-        "@types/webpack-env": "^1.15.2",
-        "apollo-server": "^2.14.4",
-        "apollo-server-express": "^2.14.4",
         "axios": "^0.19.2",
         "bcrypt": "^5.0.0",
-        "concurrently": "^5.2.0",
         "cookie-parser": "^1.4.5",
         "csurf": "^1.11.0",
         "dotenv": "^8.2.0",
         "express": "^4.17.1",
-        "express-validator": "^6.5.0",
-        "helmet": "^3.22.0",
-        "module-alias": "^2.2.2",
+        "express-validator": "^6.6.0",
+        "helmet": "^3.23.1",
         "mysql2": "^2.1.0",
         "node-sass": "^4.14.1",
-        "parcel-bundler": "^1.12.4",
         "react": "^16.13.1",
+        "react-app-rewire-hot-loader": "^2.0.1",
+        "react-app-rewired": "^2.1.6",
         "react-dom": "^16.13.1",
+        "react-hot-loader": "^4.12.21",
         "react-redux": "^7.2.0",
-        "react-router-dom": "^5.1.2",
+        "react-router-dom": "^5.2.0",
         "react-scripts": "3.4.1",
         "react-transition-group": "^4.4.1",
         "redux": "^4.0.5",
@@ -50,19 +54,32 @@
         "redux-persist": "^6.0.0",
         "reflect-metadata": "^0.1.13",
         "reset-css": "^5.0.1",
-        "sanitize-html": "^1.24.0",
-        "sequelize": "^5.21.12",
+        "sanitize-html": "^1.27.0",
+        "sequelize": "^5.21.13",
         "sequelize-typescript": "^1.1.0",
-        "styled-components": "^5.1.0",
-        "ts-node-dev": "^1.0.0-pre.44",
+        "styled-components": "^5.1.1",
         "typescript": "^3.7.5",
-        "validator": "^13.0.0"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.10.2"
+        "validator": "^13.1.1"
     },
     "scripts": {
-        "dev": "concurrently \"ts-node-dev --respawn server/server.ts\" \"parcel --port 3000 src/index.html\"",
-        "build": "parcel build src/index.html"
-    }
+        "start": "react-app-rewired start",
+        "build": "react-app-rewired build",
+        "dev": "concurrently \"tsc server/server.ts --allowSyntheticDefaultImports --skipLibCheck --experimentalDecorators --esModuleInterop --outDir dist -w\" \"npm start\" \"nodemon dist/server.js\""
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "proxy": "http://localhost:3001"
 }

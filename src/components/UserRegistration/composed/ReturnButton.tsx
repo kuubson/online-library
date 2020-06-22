@@ -1,7 +1,7 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
-import utils from '~utils'
+import utils from 'utils'
 
 const ReturnButtonContainer = styled.button`
     height: 38px;

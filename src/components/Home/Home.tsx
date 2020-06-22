@@ -1,13 +1,13 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
-import hooks from '~hooks'
+import hooks from 'hooks'
 
-import HomeBackground from '~assets/images/HomeBackground.png'
+import HomeBackground from 'assets/images/HomeBackground.png'
 
 import Dashboard from './styled/Dashboard'
 
-import utils from '~utils'
+import utils from 'utils'
 
 export const HomeContainer = styled.section`
     height: ${() => hooks.useHeight()};
