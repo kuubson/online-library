@@ -22,7 +22,7 @@ const UserLogin: React.FC = () => {
     const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>
         setForm(form => ({ ...form, [target.name]: target.value }))
     const handleError = (errorKey: string, error: string) =>
-        setForm(form => ({ ...form, [errorKey]: error }))
+        setForm(form => ({ ...form, [`${errorKey}Error`]: error }))
     const submit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (validate()) {
@@ -36,10 +36,10 @@ const UserLogin: React.FC = () => {
                 }
             } catch (error) {
                 utils.apiValidation(error, errors =>
-                    setForm({
+                    setForm(form => ({
                         ...form,
                         ...errors
-                    })
+                    }))
                 )
             }
         }
@@ -54,17 +54,17 @@ const UserLogin: React.FC = () => {
         switch (true) {
             case !email.trim():
                 isValidated = false
-                handleError('emailError', 'Type your e-mail address')
+                handleError('email', 'Type your e-mail address')
                 break
             case !validator.isEmail(email):
                 isValidated = false
-                handleError('emailError', 'Type proper e-mail address')
+                handleError('email', 'Type proper e-mail address')
                 break
         }
         switch (true) {
             case !password:
                 isValidated = false
-                handleError('passwordError', 'Type your password')
+                handleError('password', 'Type your password')
                 break
         }
         return isValidated
@@ -78,7 +78,7 @@ const UserLogin: React.FC = () => {
                     label="E-mail"
                     type="text"
                     value={email}
-                    placeholder="Type your email address..."
+                    placeholder="Type your e-mail address..."
                     error={emailError}
                     onChange={onChange}
                 />

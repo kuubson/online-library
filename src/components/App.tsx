@@ -4,8 +4,9 @@ import { Switch, Route, Redirect, RouteComponentProps } from 'react-router-dom'
 import { hot } from 'react-hot-loader/root'
 
 import { compose } from 'redux'
-import hooks from 'hooks'
 import hoc from 'hoc'
+
+import hooks from 'hooks'
 
 import RouterTransition from 'components/common/RouterTransitions'
 

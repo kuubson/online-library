@@ -41,7 +41,7 @@ const UserRegistration: React.FC = () => {
     const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>
         setForm(form => ({ ...form, [target.name]: target.value }))
     const handleError = (errorKey: string, error: string) =>
-        setForm(form => ({ ...form, [errorKey]: error }))
+        setForm(form => ({ ...form, [`${errorKey}Error`]: error }))
     const submit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (validate()) {
@@ -54,13 +54,19 @@ const UserRegistration: React.FC = () => {
                     repeatedPassword
                 })
                 if (response) {
+                    utils.setFeedbackData(
+                        'Registration',
+                        'An email with an activation link has been sent to the e-mail address provided. Open it and activate your account',
+                        'Okey',
+                        () => utils.redirectTo('/login')
+                    )
                 }
             } catch (error) {
                 utils.apiValidation(error, errors =>
-                    setForm({
+                    setForm(form => ({
                         ...form,
                         ...errors
-                    })
+                    }))
                 )
             }
         }
@@ -77,53 +83,53 @@ const UserRegistration: React.FC = () => {
         switch (true) {
             case !name.trim():
                 isValidated = false
-                handleError('nameError', 'Type your name')
+                handleError('name', 'Type your name')
                 break
             case utils.checkSanitization(name):
                 isValidated = false
-                handleError('nameError', 'Name contains invalid characters')
+                handleError('name', 'Name contains invalid characters')
                 break
         }
         switch (true) {
             case !email.trim():
                 isValidated = false
-                handleError('emailError', 'Type your e-mail address')
+                handleError('email', 'Type your e-mail address')
                 break
             case !validator.isEmail(email):
                 isValidated = false
-                handleError('emailError', 'Type proper e-mail address')
+                handleError('email', 'Type proper e-mail address')
                 break
         }
         switch (true) {
             case !password:
                 isValidated = false
-                handleError('passwordError', 'Type your password')
+                handleError('password', 'Type your password')
                 break
             case !/(?=.{10,})/.test(password):
                 isValidated = false
-                handleError('passwordError', 'Password must be at least 10 characters long')
+                handleError('password', 'Password must be at least 10 characters long')
                 break
             case !/(?=.*[a-z])/.test(password):
                 isValidated = false
-                handleError('passwordError', 'Password must contain at least one small letter')
+                handleError('password', 'Password must contain at least one small letter')
                 break
             case !/(?=.*[A-Z])/.test(password):
                 isValidated = false
-                handleError('passwordError', 'Password must contain at least one big letter')
+                handleError('password', 'Password must contain at least one big letter')
                 break
             case !/(?=.*[0-9])/.test(password):
                 isValidated = false
-                handleError('passwordError', 'Password must contain at least one digit')
+                handleError('password', 'Password must contain at least one digit')
                 break
             case password !== repeatedPassword:
                 isValidated = false
-                handleError('repeatedPasswordError', 'Passwords are different')
+                handleError('repeatedPassword', 'Passwords are different')
                 break
         }
         switch (true) {
             case !repeatedPassword:
                 isValidated = false
-                handleError('repeatedPasswordError', 'You have to type password twice')
+                handleError('repeatedPassword', 'You have to type password twice')
                 break
         }
         return isValidated
@@ -146,7 +152,7 @@ const UserRegistration: React.FC = () => {
                     label="E-mail"
                     type="text"
                     value={email}
-                    placeholder="Type your email address..."
+                    placeholder="Type your e-mail address..."
                     error={emailError}
                     onChange={onChange}
                 />

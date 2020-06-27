@@ -9,6 +9,11 @@ export default class User extends Model<User> {
         allowNull: false,
         type: DataType.STRING
     })
+    name!: string
+    @Column({
+        allowNull: false,
+        type: DataType.STRING
+    })
     email!: string
     @Column({
         allowNull: false,

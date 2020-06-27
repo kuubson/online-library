@@ -15,11 +15,11 @@ const server = http.createServer(app)
 
 middlewares.init(app)
 
-middlewares.errorHandler(app)
-
 routes(app)
 
-const buildPath = '../dist'
+middlewares.errorHandler(app)
+
+const buildPath = '../build'
 
 app.use(express.static(path.resolve(__dirname, buildPath)))
 

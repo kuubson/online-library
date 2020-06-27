@@ -11,7 +11,7 @@ export default () => {
     const setFeedbackData = (
         header: string,
         message: string,
-        buttonText = 'Ok',
+        buttonText = 'Okey',
         callback = () => {}
     ) =>
         dispatch({

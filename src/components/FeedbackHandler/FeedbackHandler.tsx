@@ -10,8 +10,8 @@ import Dashboard from './styled/Dashboard'
 
 const FeedbackHandlerContainer = styled(LoaderContainer)`
     flex-direction: column;
-    z-index: 2;
     animation: ${animations.fadeIn} 0.5s ease-in-out;
+    z-index: 2;
 `
 
 const FeedbackHandler: React.FC = () => {
