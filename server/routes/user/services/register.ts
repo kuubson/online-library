@@ -51,7 +51,7 @@ export default {
                             throw new utils.ApiError(
                                 'Registration',
                                 'There was an unexpected problem sending an e-mail with the activation link for your account',
-                                500
+                                502
                             )
                         }
                         res.send({
