@@ -1,16 +1,24 @@
 import { Request, Response, NextFunction } from 'express'
 import { check } from 'express-validator'
-import crypto from 'crypto'
+import jwt from 'jsonwebtoken'
 
 import { Connection, User } from '../../../database/database'
 
 import utils from '../../../utils'
 
+const { JWT_KEY, NODEMAILER_USERNAME } = process.env
+
+interface IBody {
+    name: string
+    email: string
+    password: string
+}
+
 export default {
     default: async (req: Request, res: Response, next: NextFunction) => {
         try {
             await Connection.transaction(async transaction => {
-                const { name, email, password } = req.body
+                const { name, email, password }: IBody = req.body
                 const user = await User.findOne({
                     where: {
                         email
@@ -18,13 +26,13 @@ export default {
                 })
                 if (user) {
                     throw new utils.ApiError(
-                        'Registration',
+                        'Account registration',
                         'User with given e-mail address already exists',
                         409
                     )
                 }
-                const authenticationToken = crypto.randomBytes(16).toString('hex')
-                await User.create(
+                const token = jwt.sign({ email }, JWT_KEY, { expiresIn: '24h' })
+                const newUser = await User.create(
                     {
                         name,
                         email,
@@ -34,22 +42,30 @@ export default {
                         transaction
                     }
                 )
+                await newUser.createAuthentication(
+                    {
+                        token
+                    },
+                    {
+                        transaction
+                    }
+                )
                 const mailOptions = {
-                    from: `"Online Library" <${process.env.NODEMAILER_USERNAME}>`,
+                    from: `"Online Library" <${NODEMAILER_USERNAME}>`,
                     to: email,
                     subject: 'Account activation in the Online Library application',
                     html: utils.emailTemplate(
                         'Account activation in the Online Library application',
                         `To activate your account click`,
                         'Activate account',
-                        `${utils.baseUrl(req)}/uwierzytelnianie/${authenticationToken}`
+                        `${utils.baseUrl(req)}/authentication/${token}`
                     )
                 }
                 utils.transporter.sendMail(mailOptions, (error, info) => {
                     try {
                         if (error || !info) {
                             throw new utils.ApiError(
-                                'Registration',
+                                'Account registration',
                                 'There was an unexpected problem sending an e-mail with the activation link for your account',
                                 502
                             )

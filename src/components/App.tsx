@@ -16,8 +16,9 @@ import Loader from 'components/Loader/Loader'
 import FeedbackHandler from 'components/FeedbackHandler/FeedbackHandler'
 
 import Home from 'components/Home/Home'
-import UserLogin from 'components/UserLogin/UserLogin'
 import UserRegistration from 'components/UserRegistration/UserRegistration'
+import UserAuthenticator from 'components/UserAuthenticator/UserAuthenticator'
+import UserLogin from 'components/UserLogin/UserLogin'
 
 import { IRoute } from 'components/common/RouterTransitions'
 
@@ -38,19 +39,28 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
         },
         {
             order: 1,
-            pathname: '/login',
+            pathname: '/registration',
             render: () => (
                 <Roles.Guest>
-                    <UserLogin />
+                    <UserRegistration />
                 </Roles.Guest>
             )
         },
         {
             order: 1,
-            pathname: '/registration',
+            pathname: '/authentication/:token',
             render: () => (
                 <Roles.Guest>
-                    <UserRegistration />
+                    <UserAuthenticator />
+                </Roles.Guest>
+            )
+        },
+        {
+            order: 2,
+            pathname: '/login',
+            render: () => (
+                <Roles.Guest>
+                    <UserLogin />
                 </Roles.Guest>
             )
         },

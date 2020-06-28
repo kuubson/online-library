@@ -92,6 +92,12 @@ const UserLogin: React.FC = () => {
                     onChange={onChange}
                 />
                 <URDashboard.Submit>Login</URDashboard.Submit>
+                <URDashboard.AnnotationsContainer>
+                    <URDashboard.Annotation onClick={() => utils.redirectTo('/registration')}>
+                        I don't have an account yet, go to registration page
+                    </URDashboard.Annotation>
+                    <URDashboard.Annotation>I lost password</URDashboard.Annotation>
+                </URDashboard.AnnotationsContainer>
             </URDashboard.Form>
         </UserLoginContainer>
     )

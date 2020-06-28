@@ -26,7 +26,11 @@ const ReturnButtonContainer = styled.button`
 `
 
 const ReturnButton: React.FC = () => {
-    return <ReturnButtonContainer onClick={utils.goBack}>Powrót</ReturnButtonContainer>
+    return (
+        <ReturnButtonContainer onClick={() => utils.redirectTo('/')}>
+            Home page
+        </ReturnButtonContainer>
+    )
 }
 
 export default ReturnButton

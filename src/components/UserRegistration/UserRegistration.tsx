@@ -56,7 +56,7 @@ const UserRegistration: React.FC = () => {
                 if (response) {
                     utils.setFeedbackData(
                         'Registration',
-                        'An email with an activation link has been sent to the e-mail address provided. Open it and activate your account',
+                        'An e-mail with an activation link has been sent to the e-mail address provided. Open it and activate your account',
                         'Okey',
                         () => utils.redirectTo('/login')
                     )
@@ -175,6 +175,14 @@ const UserRegistration: React.FC = () => {
                     onChange={onChange}
                 />
                 <Dashboard.Submit>Register</Dashboard.Submit>
+                <Dashboard.AnnotationsContainer>
+                    <Dashboard.Annotation>
+                        I haven't received the e-mail / activation link has expired
+                    </Dashboard.Annotation>
+                    <Dashboard.Annotation onClick={() => utils.redirectTo('/login')}>
+                        I already have an account, go to login page
+                    </Dashboard.Annotation>
+                </Dashboard.AnnotationsContainer>
             </Dashboard.Form>
         </UserRegistrationContainer>
     )

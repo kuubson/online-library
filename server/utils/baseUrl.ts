@@ -1,4 +1,8 @@
 import { Request } from 'express'
 
-export default (req: Request) =>
-    `${process.env.NODE_ENV === 'production' ? 'https' : 'http'}://${req.headers.host}`
+export default (req: Request) => {
+    const production = process.env.NODE_ENV === 'production'
+    return `${production ? 'https' : 'http'}://${
+        production ? req.hostname : `${req.hostname}:3000`
+    }`
+}

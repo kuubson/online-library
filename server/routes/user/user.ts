@@ -13,4 +13,11 @@ router.post(
     Services.register.default
 )
 
+router.post(
+    '/authenticateEmail',
+    Services.authenticateEmail.validation(),
+    middlewares.checkValidation,
+    Services.authenticateEmail.default
+)
+
 export default router
