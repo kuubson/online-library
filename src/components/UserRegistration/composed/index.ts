@@ -1,7 +1,7 @@
+import HomeButton from './HomeButton'
 import Input from './Input'
-import ReturnButton from './ReturnButton'
 
 export default {
-    Input,
-    ReturnButton
+    HomeButton,
+    Input
 }

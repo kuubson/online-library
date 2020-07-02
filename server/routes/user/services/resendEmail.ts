@@ -9,42 +9,41 @@ import utils from '../../../utils'
 const { JWT_KEY, NODEMAILER_USERNAME } = process.env
 
 interface IBody {
-    name: string
     email: string
-    password: string
-    repeatedPassword: string
 }
 
 export default {
     default: async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            await Connection.transaction(async transaction => {
-                const { name, email, password }: IBody = req.body
+        await Connection.transaction(async transaction => {
+            const { email }: IBody = req.body
+            try {
                 const user = await User.findOne({
                     where: {
                         email
                     },
+                    include: ['authentication'],
                     transaction
                 })
-                if (user) {
+                if (!user || !user.authentication) {
                     throw new utils.ApiError(
-                        'Account registration',
-                        'User with given email address already exists',
+                        'E-mail resending',
+                        'The email provided is invalid',
+                        404
+                    )
+                }
+                if (user.authentication.isAuthenticated) {
+                    throw new utils.ApiError(
+                        'E-mail resending',
+                        'An account assigned to email provided is already authenticated',
                         409
                     )
                 }
                 const token = jwt.sign({ email }, JWT_KEY, { expiresIn: '24h' })
-                await User.create(
+                await user.authentication.update(
                     {
-                        name,
-                        email,
-                        password,
-                        authentication: {
-                            token
-                        }
+                        token
                     },
                     {
-                        include: ['authentication'],
                         transaction
                     }
                 )
@@ -63,7 +62,7 @@ export default {
                     try {
                         if (error || !info) {
                             throw new utils.ApiError(
-                                'Account registration',
+                                'E-mail resending',
                                 'There was an unexpected problem sending an e-mail with an activation link for your account',
                                 502
                             )
@@ -75,19 +74,12 @@ export default {
                         next(error)
                     }
                 })
-            })
-        } catch (error) {
-            next(error)
-        }
+            } catch (error) {
+                next(error)
+            }
+        })
     },
     validation: () => [
-        check('name')
-            .trim()
-            .notEmpty()
-            .withMessage('Type your name')
-            .bail()
-            .custom(utils.checkSanitization)
-            .withMessage('Name contains invalid characters'),
         check('email')
             .trim()
             .notEmpty()
@@ -95,26 +87,6 @@ export default {
             .bail()
             .isEmail()
             .withMessage('Type proper email')
-            .normalizeEmail(),
-        check('password')
-            .notEmpty()
-            .withMessage('Type your password')
-            .bail()
-            .custom(password => {
-                if (!/(?=.{10,})/.test(password)) {
-                    throw new Error('Password must be at least 10 characters long')
-                }
-                if (!/(?=.*[a-z])/.test(password)) {
-                    throw new Error('Password must contain at least one small letter')
-                }
-                if (!/(?=.*[A-Z])/.test(password)) {
-                    throw new Error('Password must contain at least one big letter')
-                }
-                if (!/(?=.*[0-9])/.test(password)) {
-                    throw new Error('Password must contain at least one digit')
-                }
-                return password
-            }),
-        check('repeatedPassword').trim().notEmpty().withMessage('You have to type password twice')
+            .normalizeEmail()
     ]
 }

@@ -17,7 +17,7 @@ const FeedbackHandlerContainer = styled(LoaderContainer)`
 const FeedbackHandler: React.FC = () => {
     const { header, message, buttonText, callback, setFeedbackData } = hooks.useFeedbackHandler()
     const handleClick = () => {
-        callback && callback()
+        callback()
         setFeedbackData('', '')
     }
     return (

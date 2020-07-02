@@ -3,7 +3,11 @@ import styled from 'styled-components/macro'
 
 import utils from 'utils'
 
-const ReturnButtonContainer = styled.button`
+interface IHomeButton {
+    withGoBackButton?: boolean
+}
+
+const HomeButtonContainer = styled.button`
     height: 38px;
     font-size: 13px;
     font-weight: bold;
@@ -25,12 +29,14 @@ const ReturnButtonContainer = styled.button`
     }
 `
 
-const ReturnButton: React.FC = () => {
+const HomeButton: React.FC<IHomeButton> = ({ withGoBackButton }) => {
     return (
-        <ReturnButtonContainer onClick={() => utils.redirectTo('/')}>
-            Home page
-        </ReturnButtonContainer>
+        <HomeButtonContainer
+            onClick={() => (withGoBackButton ? utils.goBack() : utils.redirectTo('/'))}
+        >
+            {withGoBackButton ? 'Return' : 'Home page'}
+        </HomeButtonContainer>
     )
 }
 
-export default ReturnButton
+export default HomeButton

@@ -18,7 +18,9 @@ import FeedbackHandler from 'components/FeedbackHandler/FeedbackHandler'
 import Home from 'components/Home/Home'
 import UserRegistration from 'components/UserRegistration/UserRegistration'
 import UserAuthenticator from 'components/UserAuthenticator/UserAuthenticator'
+import UserSupport from 'components/UserSupport/UserSupport'
 import UserLogin from 'components/UserLogin/UserLogin'
+import UserPasswordRecovery from 'components/UserPasswordRecovery/UserPasswordRecovery'
 
 import { IRoute } from 'components/common/RouterTransitions'
 
@@ -57,10 +59,37 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
         },
         {
             order: 2,
+            pathname: '/email-support',
+            render: () => (
+                <Roles.Guest>
+                    <UserSupport />
+                </Roles.Guest>
+            )
+        },
+        {
+            order: 2,
             pathname: '/login',
             render: () => (
                 <Roles.Guest>
                     <UserLogin />
+                </Roles.Guest>
+            )
+        },
+        {
+            order: 3,
+            pathname: '/password-support',
+            render: () => (
+                <Roles.Guest>
+                    <UserSupport withPasswordSupport />
+                </Roles.Guest>
+            )
+        },
+        {
+            order: 3,
+            pathname: '/password-recovery/:passwordToken',
+            render: () => (
+                <Roles.Guest>
+                    <UserPasswordRecovery />
                 </Roles.Guest>
             )
         },

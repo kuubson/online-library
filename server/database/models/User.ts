@@ -24,6 +24,10 @@ export default class User extends Model<User> {
         type: DataType.TEXT
     })
     password: string
+    @Column({
+        type: DataType.TEXT
+    })
+    passwordToken: string
     @HasOne(() => Authentication)
     authentication: Authentication
     @BeforeCreate

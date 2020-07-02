@@ -1,43 +1,43 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
-import validator from 'validator'
 
 import hooks from 'hooks'
 
 import { HomeContainer } from 'components/Home/Home'
-import Dashboard from './styled/Dashboard'
+import URDashboard from 'components/UserRegistration/styled/Dashboard'
 
-import Composed from './composed'
+import URComposed from 'components/UserRegistration/composed'
 
 import utils from 'utils'
 
-export const UserRegistrationContainer = styled(HomeContainer)`
+export const UserPasswordRecoveryContainer = styled(HomeContainer)`
     height: initial;
     min-height: ${() => hooks.useHeight()};
     padding: 96px 0px 35px 0px;
 `
 
-const UserRegistration: React.FC = () => {
+const UserPasswordRecovery: React.FC = () => {
+    const { passwordToken } = hooks.useParams()
     const [form, setForm] = useState({
-        name: '',
-        email: '',
         password: '',
         repeatedPassword: '',
-        nameError: '',
-        emailError: '',
         passwordError: '',
         repeatedPasswordError: ''
     })
-    const {
-        name,
-        email,
-        password,
-        repeatedPassword,
-        nameError,
-        emailError,
-        passwordError,
-        repeatedPasswordError
-    } = form
+    const { password, passwordError, repeatedPassword, repeatedPasswordError } = form
+    useEffect(() => {
+        const checkPasswordToken = async () => {
+            try {
+                const url = '/api/user/checkPasswordToken'
+                await utils.apiAxios.post(url, {
+                    passwordToken
+                })
+            } catch (error) {
+                utils.redirectTo('/login')
+            }
+        }
+        checkPasswordToken()
+    }, [])
     const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>
         setForm(form => ({ ...form, [target.name]: target.value }))
     const handleError = (errorKey: string, error: string) =>
@@ -46,17 +46,16 @@ const UserRegistration: React.FC = () => {
         e.preventDefault()
         if (validate()) {
             try {
-                const url = '/api/user/register'
+                const url = '/api/user/changePassword'
                 const response = await utils.apiAxios.post(url, {
-                    name,
-                    email,
                     password,
-                    repeatedPassword
+                    repeatedPassword,
+                    passwordToken
                 })
                 if (response) {
                     utils.setFeedbackData(
-                        'Registration',
-                        'An e-mail with an activation link has been sent to the email address provided. Open it and activate your account',
+                        'Password Recovery',
+                        'Your password has been successfully changed, you can login now',
                         'Okey',
                         () => utils.redirectTo('/login')
                     )
@@ -75,31 +74,9 @@ const UserRegistration: React.FC = () => {
         let isValidated = true
         setForm(form => ({
             ...form,
-            nameError: '',
-            emailError: '',
             passwordError: '',
             repeatedPasswordError: ''
         }))
-        switch (true) {
-            case !name.trim():
-                isValidated = false
-                handleError('name', 'Type your name')
-                break
-            case utils.checkSanitization(name):
-                isValidated = false
-                handleError('name', 'Name contains invalid characters')
-                break
-        }
-        switch (true) {
-            case !email.trim():
-                isValidated = false
-                handleError('email', 'Type your email address')
-                break
-            case !validator.isEmail(email):
-                isValidated = false
-                handleError('email', 'Type proper email address')
-                break
-        }
         switch (true) {
             case !password:
                 isValidated = false
@@ -135,28 +112,10 @@ const UserRegistration: React.FC = () => {
         return isValidated
     }
     return (
-        <UserRegistrationContainer>
-            <Composed.HomeButton />
-            <Dashboard.Form onSubmit={submit}>
-                <Composed.Input
-                    id="name"
-                    label="Name"
-                    type="text"
-                    value={name}
-                    placeholder="Type your name..."
-                    error={nameError}
-                    onChange={onChange}
-                />
-                <Composed.Input
-                    id="email"
-                    label="Email"
-                    type="text"
-                    value={email}
-                    placeholder="Type your email address..."
-                    error={emailError}
-                    onChange={onChange}
-                />
-                <Composed.Input
+        <UserPasswordRecoveryContainer>
+            <URComposed.HomeButton />
+            <URDashboard.Form onSubmit={submit}>
+                <URComposed.Input
                     id="password"
                     label="Password"
                     type="password"
@@ -165,7 +124,7 @@ const UserRegistration: React.FC = () => {
                     error={passwordError}
                     onChange={onChange}
                 />
-                <Composed.Input
+                <URComposed.Input
                     id="repeatedPassword"
                     label="Repeat Password"
                     type="password"
@@ -174,18 +133,10 @@ const UserRegistration: React.FC = () => {
                     error={repeatedPasswordError}
                     onChange={onChange}
                 />
-                <Dashboard.Submit>Register</Dashboard.Submit>
-                <Dashboard.AnnotationsContainer>
-                    <Dashboard.Annotation onClick={() => utils.redirectTo('/email-support')}>
-                        I haven't received the e-mail / activation link has expired
-                    </Dashboard.Annotation>
-                    <Dashboard.Annotation onClick={() => utils.redirectTo('/login')}>
-                        I already have an account, go to login page
-                    </Dashboard.Annotation>
-                </Dashboard.AnnotationsContainer>
-            </Dashboard.Form>
-        </UserRegistrationContainer>
+                <URDashboard.Submit>Change password</URDashboard.Submit>
+            </URDashboard.Form>
+        </UserPasswordRecoveryContainer>
     )
 }
 
-export default UserRegistration
+export default UserPasswordRecovery

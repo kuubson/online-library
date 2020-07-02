@@ -9,16 +9,18 @@ import URComposed from 'components/UserRegistration/composed'
 
 import utils from 'utils'
 
+interface IProps {
+    withPasswordSupport?: boolean
+}
+
 const UserLoginContainer = styled(UserRegistrationContainer)``
 
-const UserLogin: React.FC = () => {
+const UserLogin: React.FC<IProps> = ({ withPasswordSupport }) => {
     const [form, setForm] = useState({
         email: '',
-        password: '',
-        emailError: '',
-        passwordError: ''
+        emailError: ''
     })
-    const { email, password, emailError, passwordError } = form
+    const { email, emailError } = form
     const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>
         setForm(form => ({ ...form, [target.name]: target.value }))
     const handleError = (errorKey: string, error: string) =>
@@ -27,12 +29,25 @@ const UserLogin: React.FC = () => {
         e.preventDefault()
         if (validate()) {
             try {
-                const url = '/api/user/login'
+                const url = `/api/user/${withPasswordSupport ? 'recoverPassword' : 'resendEmail'}`
                 const response = await utils.apiAxios.post(url, {
-                    email,
-                    password
+                    email
                 })
                 if (response) {
+                    if (withPasswordSupport) {
+                        return utils.setFeedbackData(
+                            'Password recovery',
+                            'An e-mail with an password recovery link for your account has been sent',
+                            'Okey',
+                            () => utils.redirectTo('/login')
+                        )
+                    }
+                    utils.setFeedbackData(
+                        'E-mail resending',
+                        'An e-mail with an activation link for your account has been resent',
+                        'Okey',
+                        () => utils.redirectTo('/login')
+                    )
                 }
             } catch (error) {
                 utils.apiValidation(error, errors =>
@@ -48,8 +63,7 @@ const UserLogin: React.FC = () => {
         let isValidated = true
         setForm(form => ({
             ...form,
-            emailError: '',
-            passwordError: ''
+            emailError: ''
         }))
         switch (true) {
             case !email.trim():
@@ -61,17 +75,11 @@ const UserLogin: React.FC = () => {
                 handleError('email', 'Type proper email address')
                 break
         }
-        switch (true) {
-            case !password:
-                isValidated = false
-                handleError('password', 'Type your password')
-                break
-        }
         return isValidated
     }
     return (
         <UserLoginContainer>
-            <URComposed.HomeButton />
+            <URComposed.HomeButton withGoBackButton />
             <URDashboard.Form onSubmit={submit}>
                 <URComposed.Input
                     id="email"
@@ -82,24 +90,9 @@ const UserLogin: React.FC = () => {
                     error={emailError}
                     onChange={onChange}
                 />
-                <URComposed.Input
-                    id="password"
-                    label="Password"
-                    type="password"
-                    value={password}
-                    placeholder="Type your password..."
-                    error={passwordError}
-                    onChange={onChange}
-                />
-                <URDashboard.Submit>Login</URDashboard.Submit>
-                <URDashboard.AnnotationsContainer>
-                    <URDashboard.Annotation onClick={() => utils.redirectTo('/registration')}>
-                        I don't have an account yet, go to registration page
-                    </URDashboard.Annotation>
-                    <URDashboard.Annotation onClick={() => utils.redirectTo('/password-support')}>
-                        I forgot password
-                    </URDashboard.Annotation>
-                </URDashboard.AnnotationsContainer>
+                <URDashboard.Submit>
+                    {withPasswordSupport ? 'Recover password' : 'Resend e-mail'}
+                </URDashboard.Submit>
             </URDashboard.Form>
         </UserLoginContainer>
     )

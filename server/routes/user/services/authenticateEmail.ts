@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import { check } from 'express-validator'
 import jwt from 'jsonwebtoken'
 
-import { Connection, User, Authentication } from '../../../database/database'
+import { Connection, Authentication } from '../../../database/database'
 
 import utils from '../../../utils'
 
@@ -10,52 +10,43 @@ interface IBody {
     token: string
 }
 
-interface IJWTData {
-    email: string
-    exp: number
-}
-
 export default {
     default: async (req: Request, res: Response, next: NextFunction) => {
         await Connection.transaction(async transaction => {
             const { token }: IBody = req.body
-            jwt.verify(token, process.env.JWT_KEY, async (error, data: IJWTData) => {
+            return jwt.verify(token, process.env.JWT_KEY, async error => {
                 try {
                     const authentication = await Authentication.findOne({
                         where: {
                             token
-                        }
+                        },
+                        transaction
                     })
                     if (error) {
                         if (authentication && error.message.includes('expired')) {
                             throw new utils.ApiError(
-                                'E-mail address authentication',
-                                'The token has expired',
-                                401
+                                'Email address authentication',
+                                'The activation link has expired',
+                                400
                             )
                         }
                         throw new utils.ApiError(
-                            'E-mail address authentication',
-                            'The token provided is invalid',
+                            'Email address authentication',
+                            'The activation link is invalid',
                             400
                         )
                     }
-                    const user = await User.findOne({
-                        where: {
-                            email: data.email
-                        }
-                    })
-                    if (!user || !authentication) {
+                    if (!authentication) {
                         throw new utils.ApiError(
-                            'E-mail address authentication',
-                            'The token provided is invalid',
-                            400
+                            'Email address authentication',
+                            'The activation link is invalid',
+                            404
                         )
                     }
                     if (authentication.isAuthenticated) {
                         throw new utils.ApiError(
-                            'E-mail address authentication',
-                            'The token provided is already authenticated',
+                            'Email address authentication',
+                            'An account assigned to email provided is already authenticated',
                             400
                         )
                     }
@@ -76,5 +67,5 @@ export default {
             })
         })
     },
-    validation: () => [check('token').trim().notEmpty()]
+    validation: () => [check('token').trim().notEmpty().isJWT()]
 }
