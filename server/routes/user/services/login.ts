@@ -28,7 +28,7 @@ export default {
                 if (!user || !bcrypt.compareSync(password, user.password)) {
                     throw new utils.ApiError(
                         'Logging to app',
-                        'The email or password provided are invalid',
+                        'The email address or password provided are invalid',
                         404
                     )
                 }

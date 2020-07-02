@@ -27,14 +27,14 @@ export default {
                 if (!user || !user.authentication) {
                     throw new utils.ApiError(
                         'Password recovery',
-                        'The email provided is invalid',
+                        'The email address provided is invalid',
                         404
                     )
                 }
                 if (!user.authentication.isAuthenticated) {
                     throw new utils.ApiError(
                         'Password recovery',
-                        'An account assigned to email provided must be firstly authenticated',
+                        'An account assigned to email address provided must be firstly authenticated',
                         409
                     )
                 }

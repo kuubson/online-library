@@ -46,7 +46,7 @@ export default {
                     if (authentication.isAuthenticated) {
                         throw new utils.ApiError(
                             'Email address authentication',
-                            'An account assigned to email provided is already authenticated',
+                            'An account assigned to email address provided is already authenticated',
                             400
                         )
                     }

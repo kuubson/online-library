@@ -29,7 +29,7 @@ export default {
                 if (user) {
                     throw new utils.ApiError(
                         'Account registration',
-                        'User with given email address already exists',
+                        'User with email address provided already exists',
                         409
                     )
                 }

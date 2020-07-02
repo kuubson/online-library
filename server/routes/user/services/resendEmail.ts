@@ -27,14 +27,14 @@ export default {
                 if (!user || !user.authentication) {
                     throw new utils.ApiError(
                         'E-mail resending',
-                        'The email provided is invalid',
+                        'The email address provided is invalid',
                         404
                     )
                 }
                 if (user.authentication.isAuthenticated) {
                     throw new utils.ApiError(
                         'E-mail resending',
-                        'An account assigned to email provided is already authenticated',
+                        'An account assigned to email address provided is already authenticated',
                         409
                     )
                 }

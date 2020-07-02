@@ -23,7 +23,7 @@ const UserAuthenticator = () => {
                 })
                 if (response) {
                     utils.setFeedbackData(
-                        'Account registration',
+                        'Email address authentication',
                         'Your email address has been successfully authenticated, you can login now',
                         'Okey',
                         () => utils.redirectTo('/login')
