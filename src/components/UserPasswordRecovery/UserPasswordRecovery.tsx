@@ -3,18 +3,14 @@ import styled from 'styled-components/macro'
 
 import hooks from 'hooks'
 
-import { HomeContainer } from 'components/Home/Home'
+import { UserRegistrationContainer } from 'components/UserRegistration/UserRegistration'
 import URDashboard from 'components/UserRegistration/styled/Dashboard'
 
 import URComposed from 'components/UserRegistration/composed'
 
 import utils from 'utils'
 
-export const UserPasswordRecoveryContainer = styled(HomeContainer)`
-    height: initial;
-    min-height: ${() => hooks.useHeight()};
-    padding: 96px 0px 35px 0px;
-`
+export const UserPasswordRecoveryContainer = styled(UserRegistrationContainer)``
 
 const UserPasswordRecovery: React.FC = () => {
     const { passwordToken } = hooks.useParams()
@@ -33,7 +29,7 @@ const UserPasswordRecovery: React.FC = () => {
                     passwordToken
                 })
             } catch (error) {
-                utils.redirectTo('/login')
+                utils.redirectTo('/user/login')
             }
         }
         checkPasswordToken()
@@ -57,7 +53,7 @@ const UserPasswordRecovery: React.FC = () => {
                         'Password Recovery',
                         'Your password has been successfully changed, you can login now',
                         'Okey',
-                        () => utils.redirectTo('/login')
+                        () => utils.redirectTo('/user/login')
                     )
                 }
             } catch (error) {

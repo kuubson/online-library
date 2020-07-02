@@ -3,6 +3,16 @@ import styled from 'styled-components/macro'
 
 import Dashboard from '../styled/Dashboard'
 
+interface IInput {
+    id: string
+    label: string
+    type: 'text' | 'number' | 'password'
+    value: string | number
+    placeholder: string
+    error: string
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+}
+
 const InputContainer = styled.div`
     width: 550px;
     margin: 0px auto 30px auto;
@@ -13,16 +23,6 @@ const InputContainer = styled.div`
         width: 70%;
     }
 `
-
-interface IInput {
-    id: string
-    label: string
-    type: 'text' | 'number' | 'password'
-    value: string | number
-    placeholder: string
-    error: string
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-}
 
 const Input: React.FC<IInput> = ({ id, label, type, value, placeholder, error, onChange }) => {
     return (

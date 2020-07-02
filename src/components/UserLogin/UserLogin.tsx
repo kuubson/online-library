@@ -33,6 +33,7 @@ const UserLogin: React.FC = () => {
                     password
                 })
                 if (response) {
+                    utils.redirectTo('/user/store')
                 }
             } catch (error) {
                 utils.apiValidation(error, errors =>
@@ -93,10 +94,12 @@ const UserLogin: React.FC = () => {
                 />
                 <URDashboard.Submit>Login</URDashboard.Submit>
                 <URDashboard.AnnotationsContainer>
-                    <URDashboard.Annotation onClick={() => utils.redirectTo('/registration')}>
+                    <URDashboard.Annotation onClick={() => utils.redirectTo('/user/registration')}>
                         I don't have an account yet, go to registration page
                     </URDashboard.Annotation>
-                    <URDashboard.Annotation onClick={() => utils.redirectTo('/password-support')}>
+                    <URDashboard.Annotation
+                        onClick={() => utils.redirectTo('/user/password-support')}
+                    >
                         I forgot password
                     </URDashboard.Annotation>
                 </URDashboard.AnnotationsContainer>

@@ -25,10 +25,10 @@ const Home: React.FC = () => {
             <Dashboard.HeaderContainer>
                 <Dashboard.Header>Online Library</Dashboard.Header>
                 <Dashboard.Buttons>
-                    <Dashboard.Button onClick={() => utils.redirectTo('/login')}>
+                    <Dashboard.Button onClick={() => utils.redirectTo('/user/login')}>
                         Login
                     </Dashboard.Button>
-                    <Dashboard.Button onClick={() => utils.redirectTo('/registration')}>
+                    <Dashboard.Button onClick={() => utils.redirectTo('/user/registration')}>
                         Register
                     </Dashboard.Button>
                 </Dashboard.Buttons>

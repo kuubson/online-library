@@ -2,23 +2,33 @@ import { Express, Request, Response, NextFunction } from 'express'
 
 interface IError {
     code: string
+    status: number
     errorHeader: string
     errorMessage: string
-    status: number
 }
 
 export default (app: Express) =>
     app.use((error: IError, _: Request, res: Response, __: NextFunction) => {
         console.log(error)
-        if (error.code === 'EBADCSRFTOKEN') {
-            const status = 403
+        if (error.status === 401) {
             return res
                 .clearCookie('token', {
                     secure: process.env.NODE_ENV === 'production',
                     httpOnly: true,
                     sameSite: true
                 })
-                .status(status)
+                .send({
+                    role: 'guest'
+                })
+        }
+        if (error.code === 'EBADCSRFTOKEN') {
+            return res
+                .clearCookie('token', {
+                    secure: process.env.NODE_ENV === 'production',
+                    httpOnly: true,
+                    sameSite: true
+                })
+                .status(403)
                 .send(false)
         }
         const status = error.status || 500

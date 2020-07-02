@@ -39,14 +39,14 @@ const UserLogin: React.FC<IProps> = ({ withPasswordSupport }) => {
                             'Password recovery',
                             'An e-mail with an password recovery link for your account has been sent',
                             'Okey',
-                            () => utils.redirectTo('/login')
+                            () => utils.redirectTo('/user/login')
                         )
                     }
                     utils.setFeedbackData(
                         'E-mail resending',
                         'An e-mail with an activation link for your account has been resent',
                         'Okey',
-                        () => utils.redirectTo('/login')
+                        () => utils.redirectTo('/user/login')
                     )
                 }
             } catch (error) {

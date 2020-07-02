@@ -58,7 +58,7 @@ const UserRegistration: React.FC = () => {
                         'Registration',
                         'An e-mail with an activation link has been sent to the email address provided. Open it and activate your account',
                         'Okey',
-                        () => utils.redirectTo('/login')
+                        () => utils.redirectTo('/user/login')
                     )
                 }
             } catch (error) {
@@ -176,10 +176,10 @@ const UserRegistration: React.FC = () => {
                 />
                 <Dashboard.Submit>Register</Dashboard.Submit>
                 <Dashboard.AnnotationsContainer>
-                    <Dashboard.Annotation onClick={() => utils.redirectTo('/email-support')}>
+                    <Dashboard.Annotation onClick={() => utils.redirectTo('/user/email-support')}>
                         I haven't received the e-mail / activation link has expired
                     </Dashboard.Annotation>
-                    <Dashboard.Annotation onClick={() => utils.redirectTo('/login')}>
+                    <Dashboard.Annotation onClick={() => utils.redirectTo('/user/login')}>
                         I already have an account, go to login page
                     </Dashboard.Annotation>
                 </Dashboard.AnnotationsContainer>

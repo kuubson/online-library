@@ -21,6 +21,7 @@ import UserAuthenticator from 'components/UserAuthenticator/UserAuthenticator'
 import UserSupport from 'components/UserSupport/UserSupport'
 import UserLogin from 'components/UserLogin/UserLogin'
 import UserPasswordRecovery from 'components/UserPasswordRecovery/UserPasswordRecovery'
+import UserStore from 'components/UserStore/UserStore'
 
 import { IRoute } from 'components/common/RouterTransitions'
 
@@ -41,7 +42,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
         },
         {
             order: 1,
-            pathname: '/registration',
+            pathname: '/user/registration',
             render: () => (
                 <Roles.Guest>
                     <UserRegistration />
@@ -50,7 +51,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
         },
         {
             order: 1,
-            pathname: '/authentication/:token',
+            pathname: '/user/authentication/:token',
             render: () => (
                 <Roles.Guest>
                     <UserAuthenticator />
@@ -59,7 +60,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
         },
         {
             order: 2,
-            pathname: '/email-support',
+            pathname: '/user/email-support',
             render: () => (
                 <Roles.Guest>
                     <UserSupport />
@@ -68,7 +69,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
         },
         {
             order: 2,
-            pathname: '/login',
+            pathname: '/user/login',
             render: () => (
                 <Roles.Guest>
                     <UserLogin />
@@ -77,7 +78,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
         },
         {
             order: 3,
-            pathname: '/password-support',
+            pathname: '/user/password-support',
             render: () => (
                 <Roles.Guest>
                     <UserSupport withPasswordSupport />
@@ -86,11 +87,20 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
         },
         {
             order: 3,
-            pathname: '/password-recovery/:passwordToken',
+            pathname: '/user/password-recovery/:passwordToken',
             render: () => (
                 <Roles.Guest>
                     <UserPasswordRecovery />
                 </Roles.Guest>
+            )
+        },
+        {
+            order: 3,
+            pathname: '/user/store',
+            render: () => (
+                <Roles.User>
+                    <UserStore />
+                </Roles.User>
             )
         },
         {
