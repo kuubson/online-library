@@ -100,7 +100,7 @@ export default {
             .notEmpty()
             .withMessage('Type your password')
             .bail()
-            .custom(password => {
+            .custom((password, { req }) => {
                 if (!/(?=.{10,})/.test(password)) {
                     throw new Error('Password must be at least 10 characters long')
                 }
@@ -112,6 +112,9 @@ export default {
                 }
                 if (!/(?=.*[0-9])/.test(password)) {
                     throw new Error('Password must contain at least one digit')
+                }
+                if (password !== req.body.password) {
+                    throw new Error('Passwords are different')
                 }
                 return password
             }),
