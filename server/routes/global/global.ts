@@ -13,4 +13,11 @@ router.get(
     Services.checkToken.default
 )
 
+router.get(
+    '/logout',
+    Services.logout.validation(),
+    middlewares.checkValidation,
+    Services.logout.default
+)
+
 export default router
