@@ -14,6 +14,7 @@ const UserStoreContainer = styled(HomeContainer)`
     min-height: ${() => hooks.useHeight()};
     padding: ${({ shouldExpandMenu }: IProps) =>
         shouldExpandMenu ? '344px 0px 20px 0px' : '130px 0px 20px 0px'};
+    transition: padding 0.5s ease-in-out;
     @media (min-width: 800px) {
         padding: 130px 0px 20px 0px;
     }
