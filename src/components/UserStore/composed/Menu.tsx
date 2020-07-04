@@ -57,10 +57,11 @@ const Menu: React.FC<RouteComponentProps & IProps> = ({
             <Dashboard.Logo>Online Library</Dashboard.Logo>
             <Dashboard.LinesContainer
                 onClick={() => setShouldExpandMenu(shouldExpandMenu => !shouldExpandMenu)}
+                shouldExpandMenu={shouldExpandMenu}
             >
-                <Dashboard.Line />
-                <Dashboard.Line />
-                <Dashboard.Line />
+                <Dashboard.Line shouldExpandMenu={shouldExpandMenu} />
+                <Dashboard.Line shouldExpandMenu={shouldExpandMenu} />
+                <Dashboard.Line shouldExpandMenu={shouldExpandMenu} />
             </Dashboard.LinesContainer>
             <Dashboard.OptionsContainer shouldExpandMenu={shouldExpandMenu}>
                 {options.map(
