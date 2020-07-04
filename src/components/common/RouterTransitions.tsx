@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
-interface IRouterTransitions {
-    routes: IRoute[]
-    location: string
-}
-
 export interface IRoute {
     order: number
     pathname: string
     render: () => React.ReactNode
+}
+
+interface IRouterTransitions {
+    routes: IRoute[]
+    location: string
 }
 
 const RouterTransitions: React.FC<IRouterTransitions> = ({ children, routes, location }) => {

@@ -2,6 +2,8 @@ import { Sequelize } from 'sequelize-typescript'
 
 import User from './models/User'
 import Authentication from './models/Authentication'
+import Register from './models/Register'
+import Book from './models/Book'
 
 const { DATABASE_HOST, DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD } = process.env
 
@@ -17,7 +19,7 @@ const connection = new Sequelize({
     }
 })
 
-connection.addModels([User, Authentication])
+connection.addModels([User, Authentication, Register, Book])
 
 const init = async () => {
     try {
@@ -34,4 +36,4 @@ const init = async () => {
 }
 init()
 
-export { connection as Connection, User, Authentication }
+export { connection as Connection, User, Authentication, Register, Book }

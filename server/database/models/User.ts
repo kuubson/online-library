@@ -1,14 +1,22 @@
-import { Model, DataType, Table, Column, HasOne, BeforeCreate } from 'sequelize-typescript'
+import {
+    Model,
+    DataType,
+    Table,
+    Column,
+    HasOne,
+    BelongsToMany,
+    BeforeCreate
+} from 'sequelize-typescript'
 import { HasOneCreateAssociationMixin } from 'sequelize'
 import bcrypt from 'bcrypt'
 
 import Authentication from './Authentication'
+import Register from './Register'
+import Book from './Book'
 
-@Table({
-    tableName: 'users'
-})
+@Table({})
 export default class User extends Model<User> {
-    public createAuthentication!: HasOneCreateAssociationMixin<Authentication>
+    public createAuthentication: HasOneCreateAssociationMixin<Authentication>
     @Column({
         allowNull: false,
         type: DataType.STRING
@@ -30,6 +38,8 @@ export default class User extends Model<User> {
     passwordToken: string
     @HasOne(() => Authentication)
     authentication: Authentication
+    @BelongsToMany(() => Book, () => Register)
+    books: Book[]
     @BeforeCreate
     static hashPassword(user: User) {
         user.password = bcrypt.hashSync(user.password, 11)

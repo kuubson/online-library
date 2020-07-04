@@ -9,14 +9,14 @@ import Dashboard from '../styled/Dashboard'
 
 import utils from 'utils'
 
-interface IProps {
-    options: Option[]
-    _setShouldExpandMenu: React.Dispatch<React.SetStateAction<boolean>>
-}
-
 interface Option {
     option: string
     pathname?: string
+}
+
+interface IProps {
+    options: Option[]
+    _setShouldExpandMenu: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const MenuContainer = styled.nav`
@@ -32,6 +32,7 @@ const MenuContainer = styled.nav`
     left: 20px;
     right: 20px;
     @media (max-width: 800px) {
+        height: 80px;
         padding: 0px 25px 0px 20px;
     }
 `

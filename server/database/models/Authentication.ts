@@ -2,9 +2,7 @@ import { Model, DataType, Table, Column, ForeignKey, BelongsTo } from 'sequelize
 
 import User from './User'
 
-@Table({
-    tableName: 'authentications'
-})
+@Table({})
 export default class Authentication extends Model<Authentication> {
     @Column({
         allowNull: false,
@@ -16,11 +14,11 @@ export default class Authentication extends Model<Authentication> {
         defaultValue: false
     })
     isAuthenticated: boolean
-    @BelongsTo(() => User)
-    user: User
     @ForeignKey(() => User)
     @Column({
         type: DataType.INTEGER
     })
     userId: number
+    @BelongsTo(() => User)
+    user: User
 }

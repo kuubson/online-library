@@ -55,7 +55,7 @@ export default {
                         'Password recovery in the Online Library application',
                         `To change your password click the button`,
                         'Change password',
-                        `${utils.baseUrl(req)}/password-recovery/${passwordToken}`
+                        `${utils.baseUrl(req)}/user/password-recovery/${passwordToken}`
                     )
                 }
                 utils.transporter.sendMail(mailOptions, (error, info) => {

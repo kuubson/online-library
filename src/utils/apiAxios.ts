@@ -10,7 +10,7 @@ let timeoutId: number | undefined
 
 apiAxios.interceptors.request.use(
     request => {
-        !timeoutId && (timeoutId = setTimeout(() => utils.setIsLoading(true), 1000))
+        !timeoutId && (timeoutId = setTimeout(() => utils.setIsLoading(true), 500))
         return request
     },
     error => {

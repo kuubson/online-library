@@ -56,7 +56,7 @@ export default {
                         'Account activation in the Online Library application',
                         `To activate your account click the button`,
                         'Activate account',
-                        `${utils.baseUrl(req)}/authentication/${token}`
+                        `${utils.baseUrl(req)}/user/authentication/${token}`
                     )
                 }
                 utils.transporter.sendMail(mailOptions, (error, info) => {

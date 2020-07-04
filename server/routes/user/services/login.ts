@@ -23,6 +23,7 @@ export default {
                     where: {
                         email
                     },
+                    include: ['authentication'],
                     transaction
                 })
                 if (!user || !bcrypt.compareSync(password, user.password)) {
@@ -30,6 +31,13 @@ export default {
                         'Logging to app',
                         'The email address or password provided are invalid',
                         404
+                    )
+                }
+                if (!user.authentication.isAuthenticated) {
+                    throw new utils.ApiError(
+                        'Logging to app',
+                        'An account assigned to email address provided must be firstly authenticated',
+                        409
                     )
                 }
                 const token = jwt.sign({ email, role: 'user' }, JWT_KEY)

@@ -32,6 +32,8 @@
         "@types/sequelize": "^4.28.9",
         "@types/styled-components": "^5.1.0",
         "@types/validator": "^13.0.0",
+        "apollo-server": "^2.15.1",
+        "apollo-server-express": "^2.15.1",
         "axios": "^0.19.2",
         "bcrypt": "^5.0.0",
         "cookie-parser": "^1.4.5",

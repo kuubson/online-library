@@ -8,7 +8,7 @@ import hoc from 'hoc'
 
 import hooks from 'hooks'
 
-import RouterTransition from 'components/common/RouterTransitions'
+import RouterTransition, { IRoute } from 'components/common/RouterTransitions'
 
 import Roles from 'components/Roles'
 
@@ -22,8 +22,6 @@ import UserSupport from 'components/UserSupport/UserSupport'
 import UserLogin from 'components/UserLogin/UserLogin'
 import UserPasswordRecovery from 'components/UserPasswordRecovery/UserPasswordRecovery'
 import UserStore from 'components/UserStore/UserStore'
-
-import { IRoute } from 'components/common/RouterTransitions'
 
 const AppContainer = styled.main`
     height: ${() => hooks.useHeight()};
