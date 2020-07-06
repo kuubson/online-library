@@ -33,13 +33,13 @@ const Home: React.FC = () => {
                     </Dashboard.Button>
                 </Dashboard.Buttons>
             </Dashboard.HeaderContainer>
-            <Dashboard.Advantages>
+            <Dashboard.AdvantagesContainer>
                 <Dashboard.Advantage>
                     The largest resource of books in the internet!
                 </Dashboard.Advantage>
                 <Dashboard.Advantage>Top books from top authors for free!</Dashboard.Advantage>
                 <Dashboard.Advantage>The lowest pricing for premium books!</Dashboard.Advantage>
-            </Dashboard.Advantages>
+            </Dashboard.AdvantagesContainer>
         </HomeContainer>
     )
 }

@@ -7,12 +7,12 @@ export interface IRoute {
     render: () => React.ReactNode
 }
 
-interface IRouterTransitions {
+interface IProps {
     routes: IRoute[]
     location: string
 }
 
-const RouterTransitions: React.FC<IRouterTransitions> = ({ children, routes, location }) => {
+const RouterTransitions: React.FC<IProps> = ({ children, routes, location }) => {
     const [exactRoute] = routes.filter(({ pathname }) => pathname === location)
     const [similarRoute] = routes.filter(({ pathname }) => {
         const basicRoute = location

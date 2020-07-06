@@ -25,11 +25,11 @@ routes(app)
 
 middlewares.errorHandler(app)
 
-const buildPath = '../build'
+app.use('/uploads', express.static(path.resolve(__dirname, '../uploads')))
 
-app.use(express.static(path.resolve(__dirname, buildPath)))
+app.use(express.static(path.resolve(__dirname, '../build')))
 
-app.get('*', (_, res) => res.sendFile(path.resolve(__dirname, buildPath, 'index.html')))
+app.get('*', (_, res) => res.sendFile(path.resolve(__dirname, '../build', 'index.html')))
 
 const port = process.env.PORT || 3001
 

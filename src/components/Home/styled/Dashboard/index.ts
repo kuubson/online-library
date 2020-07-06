@@ -2,7 +2,7 @@ import HeaderContainer from './HeaderContainer'
 import Header from './Header'
 import Buttons from './Buttons'
 import Button from './Button'
-import Advantages from './Advantages'
+import AdvantagesContainer from './AdvantagesContainer'
 import Advantage from './Advantage'
 
 export default {
@@ -10,6 +10,6 @@ export default {
     Header,
     Buttons,
     Button,
-    Advantages,
+    AdvantagesContainer,
     Advantage
 }

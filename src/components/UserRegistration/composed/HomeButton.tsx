@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 
 import utils from 'utils'
 
-interface IHomeButton {
+interface IProps {
     withGoBackButton?: boolean
 }
 
@@ -29,7 +29,7 @@ const HomeButtonContainer = styled.button`
     }
 `
 
-const HomeButton: React.FC<IHomeButton> = ({ withGoBackButton }) => {
+const HomeButton: React.FC<IProps> = ({ withGoBackButton }) => {
     return (
         <HomeButtonContainer
             onClick={() => (withGoBackButton ? utils.goBack() : utils.redirectTo('/'))}

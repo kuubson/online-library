@@ -27,7 +27,7 @@ const MenuContainer = styled.nav`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;
+    position: absolute;
     top: 20px;
     left: 20px;
     right: 20px;

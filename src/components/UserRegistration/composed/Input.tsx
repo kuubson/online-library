@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 
 import Dashboard from '../styled/Dashboard'
 
-interface IInput {
+interface IProps {
     id: string
     label: string
     type: 'text' | 'number' | 'password'
@@ -24,7 +24,7 @@ const InputContainer = styled.div`
     }
 `
 
-const Input: React.FC<IInput> = ({ id, label, type, value, placeholder, error, onChange }) => {
+const Input: React.FC<IProps> = ({ id, label, type, value, placeholder, error, onChange }) => {
     return (
         <InputContainer>
             <Dashboard.Label htmlFor={id}>{label}</Dashboard.Label>

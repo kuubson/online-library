@@ -23,7 +23,7 @@ export default class Book extends Model<User> {
     })
     cover: string
     @Column({
-        type: DataType.INTEGER
+        type: DataType.FLOAT
     })
     price: number
     @BelongsToMany(() => User, () => Register)

@@ -1,18 +1,18 @@
 import styled, { css } from 'styled-components/macro'
 
 export default styled.li`
-    font-size: 18px;
+    font-size: 17px;
     margin-right: 40px;
     cursor: pointer;
     :last-of-type {
         margin-right: 0px;
     }
     @media (max-width: 1200px) {
-        font-size: 17px;
+        font-size: 16px;
         margin-right: 35px;
     }
     @media (max-width: 1000px) {
-        font-size: 16px;
+        font-size: 15px;
         margin-right: 30px;
     }
     @media (max-width: 800px) {
@@ -26,7 +26,7 @@ export default styled.li`
         opacity: 1;
     }
     @media (max-width: 500px) {
-        font-size: 15px;
+        font-size: 14px;
     }
     ${({ shouldExpandMenu }: { shouldExpandMenu: boolean }) =>
         shouldExpandMenu

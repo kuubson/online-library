@@ -6,6 +6,7 @@ export default gql`
         title: String!
         author: String!
         cover: String!
+        price: Float
     }
     type Query {
         books: [Book!]!
