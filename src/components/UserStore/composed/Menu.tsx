@@ -43,14 +43,13 @@ const Menu: React.FC<RouteComponentProps & IProps> = ({
     _setShouldExpandMenu
 }) => {
     const [shouldExpandMenu, setShouldExpandMenu] = useState(false)
-    useEffect(() => {
-        _setShouldExpandMenu(shouldExpandMenu)
-    }, [shouldExpandMenu])
+    useEffect(() => _setShouldExpandMenu(shouldExpandMenu), [shouldExpandMenu])
     const logout = async () => {
         const url = '/api/global/logout'
         const response = await utils.apiAxios.get(url)
         if (response) {
             utils.redirectTo('/user/login')
+            window.FB.logout()
         }
     }
     return (
@@ -69,6 +68,7 @@ const Menu: React.FC<RouteComponentProps & IProps> = ({
                     ({ option, pathname }) =>
                         location.pathname !== pathname && (
                             <Dashboard.Option
+                                key={option}
                                 onClick={() =>
                                     option === 'Logout' ? logout() : utils.redirectTo(`${pathname}`)
                                 }
