@@ -7,14 +7,12 @@ import { Connection, User } from '../../../database/database'
 
 import utils from '../../../utils'
 
+import { IJWTData } from './checkPasswordToken'
+
 interface IBody {
     password: string
     repeatedPassword: string
     passwordToken: string
-}
-
-interface IJWTData {
-    email: string
 }
 
 export default {

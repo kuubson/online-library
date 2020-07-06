@@ -6,7 +6,7 @@ import hooks from 'hooks'
 import utils from 'utils'
 
 export interface ICheckToken {
-    role: 'guest' | 'user'
+    role: 'user'
 }
 
 export const GuestContainer = styled.section`

@@ -9,6 +9,12 @@ export default styled.button`
     :hover {
         transform: scale(1.03);
     }
+    :last-of-type {
+        margin: 30px auto 0px auto;
+    }
+    :first-of-type {
+        margin: 45px auto 0px auto;
+    }
     @media (max-width: 1000px) {
         font-size: 13px;
     }

@@ -1,5 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components/macro'
+
+import gql from 'graphql-tag'
+import { useQuery } from '@apollo/react-hooks'
 
 import hooks from 'hooks'
 
@@ -15,6 +18,10 @@ interface Book {
     price?: number
 }
 
+interface QueryData {
+    books: Book[]
+}
+
 const UserStoreContainer = styled(HomeContainer)`
     height: initial;
     min-height: ${() => hooks.useHeight()};
@@ -24,18 +31,27 @@ const UserStoreContainer = styled(HomeContainer)`
     @media (min-width: 800px) {
         padding: 120px 0px 20px 0px;
     }
+    @media (max-width: 800px) {
+        padding: ${({ shouldExpandMenu }: IProps) =>
+            shouldExpandMenu ? '334px 0px 20px 0px' : '120px 0px 20px 0px'};
+    }
+`
+
+const query = gql`
+    {
+        books {
+            id
+        }
+    }
 `
 
 const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
-    const [data, setData] = useState<{
-        freeBooks: Book[]
-        premiumBooks: Book[]
-    }>({
-        freeBooks: [],
-        premiumBooks: []
-    })
-    const { freeBooks, premiumBooks } = data
-    return <UserStoreContainer shouldExpandMenu={shouldExpandMenu}></UserStoreContainer>
+    const { data } = useQuery<QueryData>(query)
+    return (
+        <UserStoreContainer shouldExpandMenu={shouldExpandMenu}>
+            The library is empty right now!
+        </UserStoreContainer>
+    )
 }
 
 export default UserStore

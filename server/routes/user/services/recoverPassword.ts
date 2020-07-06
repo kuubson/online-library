@@ -6,8 +6,6 @@ import { Connection, User } from '../../../database/database'
 
 import utils from '../../../utils'
 
-const { JWT_KEY, NODEMAILER_USERNAME } = process.env
-
 interface IBody {
     email: string
 }
@@ -38,7 +36,7 @@ export default {
                         409
                     )
                 }
-                const passwordToken = jwt.sign({ email }, JWT_KEY, { expiresIn: '1h' })
+                const passwordToken = jwt.sign({ email }, process.env.JWT_KEY, { expiresIn: '1h' })
                 await user.update(
                     {
                         passwordToken
@@ -48,7 +46,7 @@ export default {
                     }
                 )
                 const mailOptions = {
-                    from: `"Online Library" <${NODEMAILER_USERNAME}>`,
+                    from: `"Online Library" <${process.env.NODEMAILER_USERNAME}>`,
                     to: email,
                     subject: 'Password recovery in the Online Library application',
                     html: utils.emailTemplate(

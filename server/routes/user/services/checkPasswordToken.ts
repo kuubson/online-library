@@ -10,7 +10,7 @@ interface IBody {
     passwordToken: string
 }
 
-interface IJWTData {
+export interface IJWTData {
     email: string
 }
 

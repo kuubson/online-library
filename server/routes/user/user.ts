@@ -35,6 +35,14 @@ router.post(
 )
 
 router.post(
+    '/loginWithFacebook',
+    middlewares.facebookAuthorization,
+    Services.loginWithFacebook.validation(),
+    middlewares.checkValidation,
+    Services.loginWithFacebook.default
+)
+
+router.post(
     '/recoverPassword',
     Services.recoverPassword.validation(),
     middlewares.checkValidation,

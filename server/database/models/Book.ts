@@ -23,9 +23,9 @@ export default class Book extends Model<User> {
     })
     cover: string
     @Column({
-        type: DataType.TEXT
+        type: DataType.INTEGER
     })
-    price: string
+    price: number
     @BelongsToMany(() => User, () => Register)
     users: User[]
 }

@@ -6,8 +6,6 @@ import { Connection, User } from '../../../database/database'
 
 import utils from '../../../utils'
 
-const { JWT_KEY, NODEMAILER_USERNAME } = process.env
-
 interface IBody {
     name: string
     email: string
@@ -33,7 +31,7 @@ export default {
                         409
                     )
                 }
-                const token = jwt.sign({ email }, JWT_KEY, { expiresIn: '24h' })
+                const token = jwt.sign({ email }, process.env.JWT_KEY, { expiresIn: '24h' })
                 await User.create(
                     {
                         name,
@@ -49,7 +47,7 @@ export default {
                     }
                 )
                 const mailOptions = {
-                    from: `"Online Library" <${NODEMAILER_USERNAME}>`,
+                    from: `"Online Library" <${process.env.NODEMAILER_USERNAME}>`,
                     to: email,
                     subject: 'Account activation in the Online Library application',
                     html: utils.emailTemplate(

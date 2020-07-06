@@ -19,7 +19,7 @@ export default (app: Express) =>
                 })
                 .status(403)
                 .send({
-                    success: true
+                    error: true
                 })
         }
         const status = error.status || 500
@@ -35,7 +35,6 @@ export default (app: Express) =>
                 })
                 .status(401)
                 .send({
-                    role: 'guest',
                     errorHeader,
                     errorMessage
                 })

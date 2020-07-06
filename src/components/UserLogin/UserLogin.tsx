@@ -9,6 +9,29 @@ import URComposed from 'components/UserRegistration/composed'
 
 import utils from 'utils'
 
+declare global {
+    interface Window {
+        FB: any
+    }
+}
+
+interface IFacebookResponse {
+    authResponse: {
+        accessToken: string
+        expiresIn: number
+        signedRequest: string
+        userID: string
+        grantedScopes?: string
+        reauthorize_required_in?: number
+    }
+    status: 'authorization_expired' | 'connected' | 'not_authorized' | 'unknown'
+}
+
+interface IFacebookData {
+    first_name: string
+    email: string
+}
+
 const UserLoginContainer = styled(UserRegistrationContainer)``
 
 const UserLogin: React.FC = () => {
@@ -70,6 +93,35 @@ const UserLogin: React.FC = () => {
         }
         return isValidated
     }
+    const loginWithFacebook = async (e: React.MouseEvent | React.TouchEvent) => {
+        e.preventDefault()
+        const url = '/api/user/loginWithFacebook'
+        window.FB.login(
+            ({ authResponse, status }: IFacebookResponse) => {
+                if (authResponse && status === 'connected') {
+                    window.FB.api(
+                        '/me?fields=id,first_name,email',
+                        async ({ first_name, email }: IFacebookData) => {
+                            const response = await utils.apiAxios.post(url, {
+                                name: first_name,
+                                email,
+                                access_token: authResponse.accessToken
+                            })
+                            if (response) {
+                                utils.redirectTo('/user/store')
+                            }
+                        }
+                    )
+                } else {
+                    utils.setFeedbackData(
+                        'Logowanie',
+                        'Wystąpił niespodziewany problem przy uwierzytelnianiu konta Facebook'
+                    )
+                }
+            },
+            { scope: 'email,public_profile' }
+        )
+    }
     return (
         <UserLoginContainer>
             <URComposed.HomeButton />
@@ -93,6 +145,9 @@ const UserLogin: React.FC = () => {
                     onChange={onChange}
                 />
                 <URDashboard.Submit>Login</URDashboard.Submit>
+                <URDashboard.Submit onClick={loginWithFacebook}>
+                    Login with Facebook
+                </URDashboard.Submit>
                 <URDashboard.AnnotationsContainer>
                     <URDashboard.Annotation onClick={() => utils.redirectTo('/user/registration')}>
                         I don't have an account yet, go to registration page

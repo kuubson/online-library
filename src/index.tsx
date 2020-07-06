@@ -4,6 +4,9 @@ import { Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { ThemeProvider } from 'styled-components'
+import { ApolloProvider } from 'react-apollo'
+
+import graphql from './graphql/graphql'
 
 import * as serviceWorker from './serviceWorker'
 
@@ -26,7 +29,9 @@ render(
             <Provider store={store}>
                 {/* <PersistGate loading={<Loader />} persistor={persistor}> */}
                 <ThemeProvider theme={theme}>
-                    <App />
+                    <ApolloProvider client={graphql}>
+                        <App />
+                    </ApolloProvider>
                 </ThemeProvider>
                 {/* </PersistGate> */}
             </Provider>

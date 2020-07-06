@@ -3,8 +3,12 @@ import 'dotenv/config'
 import express from 'express'
 import http from 'http'
 import path from 'path'
+import { ApolloServer } from 'apollo-server-express'
 
 import './database/database'
+
+import resolvers from './graphql/resolvers'
+import typeDefs from './graphql/typeDefs'
 
 import middlewares from './middlewares'
 
@@ -14,6 +18,8 @@ const app = express()
 const server = http.createServer(app)
 
 middlewares.init(app)
+
+new ApolloServer({ resolvers, typeDefs }).applyMiddleware({ app, path: '/graphql' })
 
 routes(app)
 

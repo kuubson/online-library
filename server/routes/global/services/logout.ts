@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express'
-import { check } from 'express-validator'
 
 export default {
     default: (_: Request, res: Response, next: NextFunction) => {
@@ -14,6 +13,5 @@ export default {
         } catch (error) {
             next(error)
         }
-    },
-    validation: () => [check('token').trim().notEmpty().isJWT()]
+    }
 }
