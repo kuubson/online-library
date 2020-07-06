@@ -18,11 +18,6 @@ declare global {
 interface IFacebookResponse {
     authResponse: {
         accessToken: string
-        expiresIn: number
-        signedRequest: string
-        userID: string
-        grantedScopes?: string
-        reauthorize_required_in?: number
     }
     status: 'authorization_expired' | 'connected' | 'not_authorized' | 'unknown'
 }
@@ -114,8 +109,8 @@ const UserLogin: React.FC = () => {
                     )
                 } else {
                     utils.setFeedbackData(
-                        'Logowanie',
-                        'Wystąpił niespodziewany problem przy uwierzytelnianiu konta Facebook'
+                        'Logging to app',
+                        'There was an unexpected problem logging in with Facebook'
                     )
                 }
             },
