@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
-import validator from 'validator'
+
+import hooks from 'hooks'
 
 import { UserRegistrationContainer } from 'components/UserRegistration/UserRegistration'
 import URDashboard from 'components/UserRegistration/styled/Dashboard'
@@ -70,22 +71,8 @@ const UserLogin: React.FC = () => {
             emailError: '',
             passwordError: ''
         }))
-        switch (true) {
-            case !email.trim():
-                isValidated = false
-                handleError('email', 'Type your email address')
-                break
-            case !validator.isEmail(email):
-                isValidated = false
-                handleError('email', 'Type proper email address')
-                break
-        }
-        switch (true) {
-            case !password:
-                isValidated = false
-                handleError('password', 'Type your password')
-                break
-        }
+        isValidated = hooks.useValidator(handleError).validateEmail(email)
+        isValidated = hooks.useValidator(handleError).validatePassword(password, null, true)
         return isValidated
     }
     const loginWithFacebook = async (e: React.MouseEvent | React.TouchEvent) => {
@@ -128,7 +115,10 @@ const UserLogin: React.FC = () => {
                     value={email}
                     placeholder="Type your email address..."
                     error={emailError}
-                    onChange={onChange}
+                    onChange={e => {
+                        onChange(e)
+                        hooks.useValidator(handleError).validateEmail(e.target.value)
+                    }}
                 />
                 <URComposed.Input
                     id="password"
@@ -137,7 +127,10 @@ const UserLogin: React.FC = () => {
                     value={password}
                     placeholder="Type your password..."
                     error={passwordError}
-                    onChange={onChange}
+                    onChange={e => {
+                        onChange(e)
+                        hooks.useValidator(handleError).validatePassword(e.target.value, null, true)
+                    }}
                 />
                 <URDashboard.Submit>Login</URDashboard.Submit>
                 <URDashboard.Submit onClick={loginWithFacebook}>

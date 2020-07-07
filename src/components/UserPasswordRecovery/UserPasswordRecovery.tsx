@@ -73,38 +73,10 @@ const UserPasswordRecovery: React.FC = () => {
             passwordError: '',
             repeatedPasswordError: ''
         }))
-        switch (true) {
-            case !password:
-                isValidated = false
-                handleError('password', 'Type your password')
-                break
-            case !/(?=.{10,})/.test(password):
-                isValidated = false
-                handleError('password', 'Password must be at least 10 characters long')
-                break
-            case !/(?=.*[a-z])/.test(password):
-                isValidated = false
-                handleError('password', 'Password must contain at least one small letter')
-                break
-            case !/(?=.*[A-Z])/.test(password):
-                isValidated = false
-                handleError('password', 'Password must contain at least one big letter')
-                break
-            case !/(?=.*[0-9])/.test(password):
-                isValidated = false
-                handleError('password', 'Password must contain at least one digit')
-                break
-            case password !== repeatedPassword:
-                isValidated = false
-                handleError('repeatedPassword', 'Passwords are different')
-                break
-        }
-        switch (true) {
-            case !repeatedPassword:
-                isValidated = false
-                handleError('repeatedPassword', 'You have to type password twice')
-                break
-        }
+        isValidated = hooks.useValidator(handleError).validatePassword(password, repeatedPassword)
+        isValidated = hooks
+            .useValidator(handleError)
+            .validateRepeatedPassword(repeatedPassword, password)
         return isValidated
     }
     return (
@@ -118,7 +90,12 @@ const UserPasswordRecovery: React.FC = () => {
                     value={password}
                     placeholder="Type your password..."
                     error={passwordError}
-                    onChange={onChange}
+                    onChange={e => {
+                        onChange(e)
+                        hooks
+                            .useValidator(handleError)
+                            .validatePassword(e.target.value, repeatedPassword)
+                    }}
                 />
                 <URComposed.Input
                     id="repeatedPassword"
@@ -127,7 +104,12 @@ const UserPasswordRecovery: React.FC = () => {
                     value={repeatedPassword}
                     placeholder="Type your password again..."
                     error={repeatedPasswordError}
-                    onChange={onChange}
+                    onChange={e => {
+                        onChange(e)
+                        hooks
+                            .useValidator(handleError)
+                            .validateRepeatedPassword(e.target.value, password)
+                    }}
                 />
                 <URDashboard.Submit>Change password</URDashboard.Submit>
             </URDashboard.Form>

@@ -4,7 +4,7 @@ export default styled.h2`
     font-size: 22px;
     font-weight: bold;
     margin-bottom: 40px;
-    height: 30px;
+    height: 20px;
     display: flex;
     justify-content: center;
     align-items: center;

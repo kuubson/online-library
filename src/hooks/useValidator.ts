@@ -1,0 +1,111 @@
+import validator from 'validator'
+
+import utils from 'utils'
+
+export default (handleError: (errorKey: string, error: string) => void) => {
+    const validateName = (name: string) => {
+        let isValidated = true
+        switch (true) {
+            case !name.trim():
+                isValidated = false
+                handleError('name', 'Type your name')
+                break
+            case utils.checkSanitization(name):
+                isValidated = false
+                handleError('name', 'Name contains invalid characters')
+                break
+            default:
+                handleError('name', '')
+        }
+        return isValidated
+    }
+    const validateEmail = (email: string) => {
+        let isValidated = true
+        switch (true) {
+            case !email.trim():
+                isValidated = false
+                handleError('email', 'Type your email address')
+                break
+            case !validator.isEmail(email):
+                isValidated = false
+                handleError('email', 'Type proper email address')
+                break
+            default:
+                handleError('email', '')
+        }
+        return isValidated
+    }
+    const validatePassword = (
+        password: string,
+        repeatedPassword: string | null,
+        withLogin = false
+    ) => {
+        let isValidated = true
+        if (!withLogin) {
+            switch (true) {
+                case !password:
+                    isValidated = false
+                    handleError('password', 'Type your password')
+                    break
+                case !/(?=.{10,})/.test(password):
+                    isValidated = false
+                    handleError('password', 'Password must be at least 10 characters long')
+                    break
+                case !/(?=.*[a-z])/.test(password):
+                    isValidated = false
+                    handleError('password', 'Password must contain at least one small letter')
+                    break
+                case !/(?=.*[A-Z])/.test(password):
+                    isValidated = false
+                    handleError('password', 'Password must contain at least one big letter')
+                    break
+                case !/(?=.*[0-9])/.test(password):
+                    isValidated = false
+                    handleError('password', 'Password must contain at least one digit')
+                    break
+                default:
+                    handleError('password', '')
+            }
+            switch (true) {
+                case password !== repeatedPassword:
+                    isValidated = false
+                    handleError('repeatedPassword', 'Passwords are different')
+                    break
+                default:
+                    handleError('repeatedPassword', '')
+            }
+        } else {
+            switch (true) {
+                case !password:
+                    isValidated = false
+                    handleError('password', 'Type your password')
+                    break
+                default:
+                    handleError('password', '')
+            }
+        }
+        return isValidated
+    }
+    const validateRepeatedPassword = (repeatedPassword: string, password: string) => {
+        let isValidated = true
+        switch (true) {
+            case !repeatedPassword:
+                isValidated = false
+                handleError('repeatedPassword', 'You have to type password twice')
+                break
+            case repeatedPassword !== password:
+                isValidated = false
+                handleError('repeatedPassword', 'Passwords are different')
+                break
+            default:
+                handleError('repeatedPassword', '')
+        }
+        return isValidated
+    }
+    return {
+        validateName,
+        validateEmail,
+        validatePassword,
+        validateRepeatedPassword
+    }
+}

@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import validator from 'validator'
 
+import hooks from 'hooks'
+
 import { UserRegistrationContainer } from 'components/UserRegistration/UserRegistration'
 import URDashboard from 'components/UserRegistration/styled/Dashboard'
 
@@ -65,16 +67,7 @@ const UserLogin: React.FC<IProps> = ({ withPasswordSupport }) => {
             ...form,
             emailError: ''
         }))
-        switch (true) {
-            case !email.trim():
-                isValidated = false
-                handleError('email', 'Type your email address')
-                break
-            case !validator.isEmail(email):
-                isValidated = false
-                handleError('email', 'Type proper email address')
-                break
-        }
+        isValidated = hooks.useValidator(handleError).validateEmail(email)
         return isValidated
     }
     return (
@@ -88,7 +81,10 @@ const UserLogin: React.FC<IProps> = ({ withPasswordSupport }) => {
                     value={email}
                     placeholder="Type your email address..."
                     error={emailError}
-                    onChange={onChange}
+                    onChange={e => {
+                        onChange(e)
+                        hooks.useValidator(handleError).validateEmail(e.target.value)
+                    }}
                 />
                 <URDashboard.Submit>
                     {withPasswordSupport ? 'Recover password' : 'Resend e-mail'}

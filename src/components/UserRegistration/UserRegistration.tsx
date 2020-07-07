@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
-import validator from 'validator'
 
 import hooks from 'hooks'
 
@@ -80,58 +79,12 @@ const UserRegistration: React.FC = () => {
             passwordError: '',
             repeatedPasswordError: ''
         }))
-        switch (true) {
-            case !name.trim():
-                isValidated = false
-                handleError('name', 'Type your name')
-                break
-            case utils.checkSanitization(name):
-                isValidated = false
-                handleError('name', 'Name contains invalid characters')
-                break
-        }
-        switch (true) {
-            case !email.trim():
-                isValidated = false
-                handleError('email', 'Type your email address')
-                break
-            case !validator.isEmail(email):
-                isValidated = false
-                handleError('email', 'Type proper email address')
-                break
-        }
-        switch (true) {
-            case !password:
-                isValidated = false
-                handleError('password', 'Type your password')
-                break
-            case !/(?=.{10,})/.test(password):
-                isValidated = false
-                handleError('password', 'Password must be at least 10 characters long')
-                break
-            case !/(?=.*[a-z])/.test(password):
-                isValidated = false
-                handleError('password', 'Password must contain at least one small letter')
-                break
-            case !/(?=.*[A-Z])/.test(password):
-                isValidated = false
-                handleError('password', 'Password must contain at least one big letter')
-                break
-            case !/(?=.*[0-9])/.test(password):
-                isValidated = false
-                handleError('password', 'Password must contain at least one digit')
-                break
-            case password !== repeatedPassword:
-                isValidated = false
-                handleError('repeatedPassword', 'Passwords are different')
-                break
-        }
-        switch (true) {
-            case !repeatedPassword:
-                isValidated = false
-                handleError('repeatedPassword', 'You have to type password twice')
-                break
-        }
+        isValidated = hooks.useValidator(handleError).validateName(name)
+        isValidated = hooks.useValidator(handleError).validateEmail(email)
+        isValidated = hooks.useValidator(handleError).validatePassword(password, repeatedPassword)
+        isValidated = hooks
+            .useValidator(handleError)
+            .validateRepeatedPassword(repeatedPassword, password)
         return isValidated
     }
     return (
@@ -145,7 +98,10 @@ const UserRegistration: React.FC = () => {
                     value={name}
                     placeholder="Type your name..."
                     error={nameError}
-                    onChange={onChange}
+                    onChange={e => {
+                        onChange(e)
+                        hooks.useValidator(handleError).validateName(e.target.value)
+                    }}
                 />
                 <Composed.Input
                     id="email"
@@ -154,7 +110,10 @@ const UserRegistration: React.FC = () => {
                     value={email}
                     placeholder="Type your email address..."
                     error={emailError}
-                    onChange={onChange}
+                    onChange={e => {
+                        onChange(e)
+                        hooks.useValidator(handleError).validateEmail(e.target.value)
+                    }}
                 />
                 <Composed.Input
                     id="password"
@@ -163,7 +122,12 @@ const UserRegistration: React.FC = () => {
                     value={password}
                     placeholder="Type your password..."
                     error={passwordError}
-                    onChange={onChange}
+                    onChange={e => {
+                        onChange(e)
+                        hooks
+                            .useValidator(handleError)
+                            .validatePassword(e.target.value, repeatedPassword)
+                    }}
                 />
                 <Composed.Input
                     id="repeatedPassword"
@@ -172,7 +136,12 @@ const UserRegistration: React.FC = () => {
                     value={repeatedPassword}
                     placeholder="Type your password again..."
                     error={repeatedPasswordError}
-                    onChange={onChange}
+                    onChange={e => {
+                        onChange(e)
+                        hooks
+                            .useValidator(handleError)
+                            .validateRepeatedPassword(e.target.value, password)
+                    }}
                 />
                 <Dashboard.Submit>Register</Dashboard.Submit>
                 <Dashboard.AnnotationsContainer>
