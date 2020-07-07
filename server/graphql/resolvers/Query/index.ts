@@ -1,3 +1,4 @@
-import books from './books'
+import freeBooks from './freeBooks'
+import paidBooks from './paidBooks'
 
-export { books }
+export { freeBooks, paidBooks }
