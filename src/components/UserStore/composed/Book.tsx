@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components/macro'
+import Loader from 'react-spinkit'
 
 import Dashboard from '../styled/Dashboard'
 
@@ -10,10 +11,18 @@ const BookContainer = styled.div`
 `
 
 const Book: React.FC<IBook> = ({ id, author, title, cover, price }) => {
+    const [isLoading, setIsLoading] = useState(true)
     return (
         <BookContainer>
+            <Dashboard.Loader
+                onAnimationEnd={e => (e.currentTarget.style.display = 'none')}
+                isLoading={isLoading}
+            >
+                <Loader name="circle" fadeIn="none" />
+            </Dashboard.Loader>
             <Dashboard.Cover
                 src={cover}
+                onLoad={() => setIsLoading(false)}
                 onError={e =>
                     (e.currentTarget.src = `https://picsum.photos/1920/108${Math.floor(
                         Math.random() * 10

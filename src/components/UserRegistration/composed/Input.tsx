@@ -1,16 +1,17 @@
 import React from 'react'
-import styled from 'styled-components/macro'
+import styled, { css } from 'styled-components/macro'
 
 import Dashboard from '../styled/Dashboard'
 
 interface IProps {
     id: string
-    label: string
+    label?: string
     type: 'text' | 'number' | 'password'
     value: string | number
     placeholder: string
     error: string
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    fullWidth?: boolean
 }
 
 const InputContainer = styled.div`
@@ -22,12 +23,28 @@ const InputContainer = styled.div`
     @media (max-width: 1000px) {
         width: 70%;
     }
+    ${({ fullWidth }: { fullWidth?: boolean }) =>
+        fullWidth &&
+        css`
+            @media (max-width: 1100px) {
+                width: 100%;
+            }
+        `}
 `
 
-const Input: React.FC<IProps> = ({ id, label, type, value, placeholder, error, onChange }) => {
+const Input: React.FC<IProps> = ({
+    id,
+    label,
+    type,
+    value,
+    placeholder,
+    error,
+    onChange,
+    fullWidth
+}) => {
     return (
-        <InputContainer>
-            <Dashboard.Label htmlFor={id}>{label}</Dashboard.Label>
+        <InputContainer fullWidth={fullWidth}>
+            {label && <Dashboard.Label htmlFor={id}>{label}</Dashboard.Label>}
             <Dashboard.Input
                 id={id}
                 name={id}

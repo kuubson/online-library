@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro'
+import styled, { css } from 'styled-components/macro'
 
 export default styled.button`
     font-size: 14px;
@@ -21,4 +21,13 @@ export default styled.button`
     @media (max-width: 500px) {
         font-size: 12px;
     }
+    ${({ white }: { white: boolean }) =>
+        white &&
+        css`
+            background: white;
+            color: black;
+            :first-of-type {
+                margin: 0px 0px 12px 0px;
+            }
+        `}
 `

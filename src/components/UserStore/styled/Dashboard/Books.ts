@@ -16,7 +16,7 @@ export default styled.div`
     ${({ empty, height }) =>
         empty &&
         css`
-            height: calc(${height} - 242px);
+            height: calc(${height} - 244px);
             display: flex;
             justify-content: center;
             align-items: center;
