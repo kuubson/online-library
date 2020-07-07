@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 
 import gql from 'graphql-tag'
@@ -73,14 +73,23 @@ const titleSuggestionsQuery = gql`
         titleSuggestions(title: $title, author: $author) {
             title
             author
+            price
         }
     }
 `
 
 const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
     const { loading: areBooksLoading, data: books } = useQuery<BooksQueryData>(booksQuery)
-    const areThereFreeBooks = books && books!.freeBooks.length > 0
-    const areTherePaidBooks = books && books!.paidBooks.length > 0
+    const [freeBooks, setFreeBooks] = useState<IBook[]>([])
+    const [paidBooks, setPaidBooks] = useState<IBook[]>([])
+    const areThereFreeBooks = freeBooks.length > 0
+    const areTherePaidBooks = paidBooks.length > 0
+    useEffect(() => {
+        if (books) {
+            setFreeBooks(books.freeBooks)
+            setPaidBooks(books.paidBooks)
+        }
+    }, [books])
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
     const [findByTitle, setFindByTitle] = useState(true)
@@ -133,8 +142,48 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
                                     <Dashboard.SuggestionsContainer>
                                         {titleSuggestions &&
                                             titleSuggestions!.titleSuggestions.map(
-                                                ({ title, author }) => (
-                                                    <Dashboard.Suggestion>
+                                                ({ title, author, price }) => (
+                                                    <Dashboard.Suggestion
+                                                        onClick={() => {
+                                                            if (findByTitle) {
+                                                                if (price) {
+                                                                    const books = paidBooks.filter(
+                                                                        book => book.title !== title
+                                                                    )
+                                                                    const book = paidBooks.find(
+                                                                        book => book.title === title
+                                                                    )!
+                                                                    setPaidBooks([book, ...books])
+                                                                } else {
+                                                                    const books = freeBooks.filter(
+                                                                        book => book.title !== title
+                                                                    )
+                                                                    const book = freeBooks.find(
+                                                                        book => book.title === title
+                                                                    )!
+                                                                    setFreeBooks([book, ...books])
+                                                                }
+                                                            } else {
+                                                                if (price) {
+                                                                    const books = paidBooks.filter(
+                                                                        book => book.title !== title
+                                                                    )
+                                                                    const book = paidBooks.find(
+                                                                        book => book.title === title
+                                                                    )!
+                                                                    setPaidBooks([book, ...books])
+                                                                } else {
+                                                                    const books = freeBooks.filter(
+                                                                        book => book.title !== title
+                                                                    )
+                                                                    const book = freeBooks.find(
+                                                                        book => book.title === title
+                                                                    )!
+                                                                    setFreeBooks([book, ...books])
+                                                                }
+                                                            }
+                                                        }}
+                                                    >
                                                         "{title}" written by {author}
                                                     </Dashboard.Suggestion>
                                                 )
@@ -147,7 +196,7 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
                                 height={() => hooks.useHeight()}
                             >
                                 {areThereFreeBooks ? (
-                                    books!.freeBooks.map(({ id, title, author, cover }) => (
+                                    freeBooks.map(({ id, title, author, cover }) => (
                                         <Composed.Book
                                             key={id}
                                             id={id}
@@ -173,7 +222,7 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
                                 height={() => hooks.useHeight()}
                             >
                                 {areTherePaidBooks ? (
-                                    books!.paidBooks.map(({ id, title, author, cover, price }) => (
+                                    paidBooks.map(({ id, title, author, cover, price }) => (
                                         <Composed.Book
                                             key={id}
                                             id={id}
