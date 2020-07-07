@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/macro'
 export default styled.h2`
     font-size: 22px;
     font-weight: bold;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     @media (max-width: 1200px) {
         font-size: 20px;
     }

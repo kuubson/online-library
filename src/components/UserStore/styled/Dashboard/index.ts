@@ -7,6 +7,7 @@ import Header from './Header'
 import BooksContainer from './BooksContainer'
 import Books from './Books'
 import Cover from './Cover'
+import AnnotationsContainer from './AnnotationsContainer'
 import Annotation from './Annotation'
 import Button from './Button'
 import Warning from './Warning'
@@ -21,6 +22,7 @@ export default {
     BooksContainer,
     Books,
     Cover,
+    AnnotationsContainer,
     Annotation,
     Button,
     Warning

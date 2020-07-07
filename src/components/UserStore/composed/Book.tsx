@@ -20,8 +20,10 @@ const Book: React.FC<IBook> = ({ id, author, title, cover, price }) => {
                     )}`)
                 }
             />
-            <Dashboard.Annotation>{author}</Dashboard.Annotation>
-            <Dashboard.Annotation withTitle>{title}</Dashboard.Annotation>
+            <Dashboard.AnnotationsContainer>
+                <Dashboard.Annotation>{author}</Dashboard.Annotation>
+                <Dashboard.Annotation withTitle>{title}</Dashboard.Annotation>
+            </Dashboard.AnnotationsContainer>
             <Dashboard.Button price={price}>{price ? 'Buy' : 'Borrow'}</Dashboard.Button>
         </BookContainer>
     )
