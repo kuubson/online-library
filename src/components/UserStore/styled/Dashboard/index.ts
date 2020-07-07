@@ -6,6 +6,9 @@ import Option from './Option'
 import HeaderContainer from './HeaderContainer'
 import Header from './Header'
 import InputContainer from './InputContainer'
+import Switcher from './Switcher'
+import SuggestionsContainer from './SuggestionsContainer'
+import Suggestion from './Suggestion'
 import BooksContainer from './BooksContainer'
 import Books from './Books'
 import Loader from './Loader'
@@ -24,6 +27,9 @@ export default {
     HeaderContainer,
     Header,
     InputContainer,
+    Switcher,
+    SuggestionsContainer,
+    Suggestion,
     BooksContainer,
     Books,
     Loader,

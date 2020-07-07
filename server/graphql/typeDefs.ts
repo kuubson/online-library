@@ -1,13 +1,7 @@
 import { gql } from 'apollo-server'
 
 export default gql`
-    type FreeBook {
-        id: ID!
-        title: String!
-        author: String!
-        cover: String!
-    }
-    type PaidBook {
+    type Book {
         id: ID!
         title: String!
         author: String!
@@ -15,7 +9,8 @@ export default gql`
         price: Float
     }
     type Query {
-        freeBooks: [FreeBook!]!
-        paidBooks: [PaidBook!]!
+        freeBooks: [Book!]!
+        paidBooks: [Book!]!
+        titleSuggestions(title: String!, author: String!): [Book!]!
     }
 `
