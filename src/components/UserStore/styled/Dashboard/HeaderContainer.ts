@@ -1,5 +1,9 @@
 import styled, { css } from 'styled-components/macro'
 
+interface ISCProps {
+    withMoreMarginTop?: boolean
+}
+
 export default styled.div`
     margin-bottom: 40px;
     height: 10px;
@@ -10,7 +14,7 @@ export default styled.div`
         flex-direction: column;
         height: 40px;
     }
-    ${({ withMoreMarginTop }: { withMoreMarginTop?: boolean }) =>
+    ${({ withMoreMarginTop }: ISCProps) =>
         withMoreMarginTop &&
         css`
             @media (max-width: 800px) {

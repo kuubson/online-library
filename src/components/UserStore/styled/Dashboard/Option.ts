@@ -1,5 +1,9 @@
 import styled, { css } from 'styled-components/macro'
 
+interface ISCProps {
+    shouldExpandMenu: boolean
+}
+
 export default styled.li`
     font-size: 17px;
     margin-right: 40px;
@@ -28,7 +32,7 @@ export default styled.li`
     @media (max-width: 500px) {
         font-size: 14px;
     }
-    ${({ shouldExpandMenu }: { shouldExpandMenu: boolean }) =>
+    ${({ shouldExpandMenu }: ISCProps) =>
         shouldExpandMenu
             ? css`
                   opacity: 1;

@@ -9,9 +9,13 @@ export interface ICheckToken {
     role: 'guest' | 'user'
 }
 
+interface ISCProps {
+    blurred: boolean
+}
+
 export const GuestContainer = styled.section`
     height: ${() => hooks.useHeight()};
-    ${({ blurred }: { blurred: boolean }) =>
+    ${({ blurred }: ISCProps) =>
         blurred &&
         css`
             filter: blur(3px);

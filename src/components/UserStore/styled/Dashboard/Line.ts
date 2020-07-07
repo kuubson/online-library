@@ -1,5 +1,9 @@
 import styled, { css } from 'styled-components/macro'
 
+interface ISCProps {
+    shouldExpandMenu: boolean
+}
+
 export default styled.div`
     width: 20px;
     border-bottom: 3px solid white;
@@ -8,7 +12,7 @@ export default styled.div`
     :last-of-type {
         margin-bottom: 0px;
     }
-    ${({ shouldExpandMenu }: { shouldExpandMenu: boolean }) =>
+    ${({ shouldExpandMenu }: ISCProps) =>
         shouldExpandMenu &&
         css`
             margin-bottom: 0px;

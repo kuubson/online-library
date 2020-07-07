@@ -14,6 +14,10 @@ interface IProps {
     fullWidth?: boolean
 }
 
+interface ISCProps {
+    fullWidth?: boolean
+}
+
 const InputContainer = styled.div`
     width: 550px;
     margin: 0px auto 30px auto;
@@ -23,7 +27,7 @@ const InputContainer = styled.div`
     @media (max-width: 1000px) {
         width: 70%;
     }
-    ${({ fullWidth }: { fullWidth?: boolean }) =>
+    ${({ fullWidth }: ISCProps) =>
         fullWidth &&
         css`
             @media (max-width: 1100px) {

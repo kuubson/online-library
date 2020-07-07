@@ -1,5 +1,9 @@
 import styled, { css } from 'styled-components/macro'
 
+interface ISCProps {
+    withMoreMarginBottom?: boolean
+}
+
 export default styled.h2`
     white-space: nowrap;
     font-size: 22px;
@@ -17,7 +21,7 @@ export default styled.h2`
     @media (max-width: 600px) {
         font-size: 16px;
     }
-    ${({ withMoreMarginBottom }: { withMoreMarginBottom?: boolean }) =>
+    ${({ withMoreMarginBottom }: ISCProps) =>
         withMoreMarginBottom &&
         css`
             @media (max-width: 1100px) {

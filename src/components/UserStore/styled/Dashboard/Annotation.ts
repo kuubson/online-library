@@ -1,5 +1,9 @@
 import styled, { css } from 'styled-components/macro'
 
+interface ISCProps {
+    withTitle?: boolean
+}
+
 export default styled.p`
     width: 150px;
     font-size: 15px;
@@ -14,7 +18,7 @@ export default styled.p`
     @media (max-width: 600px) {
         font-size: 13px;
     }
-    ${({ withTitle }: { withTitle?: boolean }) =>
+    ${({ withTitle }: ISCProps) =>
         withTitle &&
         css`
             top: 60px;

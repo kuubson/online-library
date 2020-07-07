@@ -1,5 +1,9 @@
 import styled, { css } from 'styled-components/macro'
 
+interface ISCProps {
+    white?: boolean
+}
+
 export default styled.button`
     font-size: 14px;
     padding: 10px 40px;
@@ -21,7 +25,7 @@ export default styled.button`
     @media (max-width: 500px) {
         font-size: 12px;
     }
-    ${({ white }: { white: boolean }) =>
+    ${({ white }: ISCProps) =>
         white &&
         css`
             background: white;

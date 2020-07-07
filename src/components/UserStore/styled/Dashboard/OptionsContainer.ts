@@ -1,5 +1,9 @@
 import styled, { css } from 'styled-components/macro'
 
+interface ISCProps {
+    shouldExpandMenu: boolean
+}
+
 export default styled.ul`
     display: flex;
     justify-content: center;
@@ -14,7 +18,7 @@ export default styled.ul`
         position: absolute;
         top: 100%;
         left: 0px;
-        ${({ shouldExpandMenu }: { shouldExpandMenu: boolean }) =>
+        ${({ shouldExpandMenu }: ISCProps) =>
             shouldExpandMenu &&
             css`
                 height: 214px;

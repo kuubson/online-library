@@ -1,5 +1,9 @@
 import styled, { css } from 'styled-components/macro'
 
+interface ISCProps {
+    price?: number
+}
+
 export default styled.button`
     font-size: 13px;
     padding: 8px 12px;
@@ -19,7 +23,7 @@ export default styled.button`
     @media (max-width: 600px) {
         font-size: 11px;
     }
-    ${({ price }: { price?: number }) =>
+    ${({ price }: ISCProps) =>
         price &&
         css`    
             padding: 8px 18px;

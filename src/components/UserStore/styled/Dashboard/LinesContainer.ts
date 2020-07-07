@@ -1,5 +1,9 @@
 import styled, { css } from 'styled-components/macro'
 
+interface ISCProps {
+    shouldExpandMenu: boolean
+}
+
 export default styled.div`
     display: none;
     cursor: pointer;
@@ -8,7 +12,7 @@ export default styled.div`
     @media (max-width: 800px) {
         display: block;
     }
-    ${({ shouldExpandMenu }: { shouldExpandMenu: boolean }) =>
+    ${({ shouldExpandMenu }: ISCProps) =>
         shouldExpandMenu &&
         css`
             transform: rotate(45deg);
