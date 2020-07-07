@@ -56,6 +56,7 @@ const Input: React.FC<IProps> = ({
                 value={value}
                 placeholder={placeholder}
                 onChange={onChange}
+                fullWidth={fullWidth}
             />
             {error && <Dashboard.Error>{error}</Dashboard.Error>}
         </InputContainer>

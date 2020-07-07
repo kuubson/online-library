@@ -1,4 +1,8 @@
-import styled from 'styled-components/macro'
+import styled, { css } from 'styled-components/macro'
+
+interface IProps {
+    fullWidth?: boolean
+}
 
 export default styled.input`
     width: 100%;
@@ -15,4 +19,9 @@ export default styled.input`
     @media (max-width: 500px) {
         font-size: 11px;
     }
+    ${({ fullWidth }: IProps) =>
+        fullWidth &&
+        css`
+            padding-right: 110px;
+        `}
 `

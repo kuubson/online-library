@@ -9,6 +9,7 @@ export default styled.div`
     margin-top: 30px;
     @media (max-width: 800px) {
         width: 100%;
+        margin-top: 20px;
     }
     ${({ withPaidBooks }: ISCProps) =>
         withPaidBooks &&

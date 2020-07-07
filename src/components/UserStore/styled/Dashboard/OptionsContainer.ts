@@ -8,7 +8,7 @@ export default styled.ul`
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: height 0.5s ease-in-out;
+    transition: height 0.4s ease-in-out;
     @media (max-width: 800px) {
         width: 100%;
         height: 0px;
@@ -22,6 +22,7 @@ export default styled.ul`
             shouldExpandMenu &&
             css`
                 height: 214px;
+                transition: height 0.5s ease-in-out;
             `}
     }
 `
