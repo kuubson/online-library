@@ -11,6 +11,6 @@ export default gql`
     type Query {
         freeBooks: [Book!]!
         paidBooks: [Book!]!
-        titleSuggestions(title: String!, author: String!): [Book!]!
+        booksSuggestions(title: String!, author: String!): [Book!]!
     }
 `

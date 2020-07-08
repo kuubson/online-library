@@ -29,8 +29,8 @@ interface BooksQueryData {
     paidBooks: IBook[]
 }
 
-interface TitleSuggestionsQueryData {
-    titleSuggestions: IBook[]
+interface BooksSuggestionsQueryData {
+    booksSuggestions: IBook[]
 }
 
 const UserStoreContainer = styled(HomeContainer)`
@@ -68,9 +68,9 @@ const booksQuery = gql`
     }
 `
 
-const titleSuggestionsQuery = gql`
-    query TitleSuggestions($title: String!, $author: String!) {
-        titleSuggestions(title: $title, author: $author) {
+const BooksSuggestionsQuery = gql`
+    query BooksSuggestions($title: String!, $author: String!) {
+        booksSuggestions(title: $title, author: $author) {
             title
             author
             price
@@ -93,12 +93,39 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
     const [findByTitle, setFindByTitle] = useState(true)
-    const { data: titleSuggestions } = useQuery<TitleSuggestionsQueryData>(titleSuggestionsQuery, {
+    const { data: booksSuggestions } = useQuery<BooksSuggestionsQueryData>(BooksSuggestionsQuery, {
         variables: {
             title,
             author
         }
     })
+    const switchFindBy = () => {
+        findByTitle ? setTitle('') : setAuthor('')
+        setFindByTitle(findByTitle => !findByTitle)
+    }
+    const sortBySuggestion = (title: string, author: string, price: number) => {
+        if (findByTitle) {
+            const freeBooksByTitle = freeBooks.filter(book => book.title !== title)
+            const freeBookByTitle = freeBooks.find(book => book.title === title)!
+            const paidBooksByTitle = paidBooks.filter(book => book.title !== title)
+            const paidBookByTitle = paidBooks.find(book => book.title === title)!
+            if (!price) {
+                setFreeBooks([freeBookByTitle, ...freeBooksByTitle])
+            } else {
+                setPaidBooks([paidBookByTitle, ...paidBooksByTitle])
+            }
+        } else {
+            const freeBooksByTitle = freeBooks.filter(book => book.author !== author)
+            const freeBookByTitle = freeBooks.find(book => book.author === author)!
+            const paidBooksByTitle = paidBooks.filter(book => book.author !== author)
+            const paidBookByTitle = paidBooks.find(book => book.author === author)!
+            if (!price) {
+                setFreeBooks([freeBookByTitle, ...freeBooksByTitle])
+            } else {
+                setPaidBooks([paidBookByTitle, ...paidBooksByTitle])
+            }
+        }
+    }
     return (
         <UserStoreContainer shouldExpandMenu={shouldExpandMenu}>
             {!areBooksLoading &&
@@ -131,58 +158,17 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
                                             fullWidth
                                         />
                                     )}
-                                    <Dashboard.Switcher
-                                        onClick={() => {
-                                            findByTitle ? setTitle('') : setAuthor('')
-                                            setFindByTitle(findByTitle => !findByTitle)
-                                        }}
-                                    >
+                                    <Dashboard.Switcher onClick={switchFindBy}>
                                         By {findByTitle ? 'author' : 'title'}
                                     </Dashboard.Switcher>
                                     <Dashboard.SuggestionsContainer>
-                                        {titleSuggestions &&
-                                            titleSuggestions!.titleSuggestions.map(
+                                        {booksSuggestions &&
+                                            booksSuggestions!.booksSuggestions.map(
                                                 ({ title, author, price }) => (
                                                     <Dashboard.Suggestion
-                                                        onClick={() => {
-                                                            if (findByTitle) {
-                                                                if (price) {
-                                                                    const books = paidBooks.filter(
-                                                                        book => book.title !== title
-                                                                    )
-                                                                    const book = paidBooks.find(
-                                                                        book => book.title === title
-                                                                    )!
-                                                                    setPaidBooks([book, ...books])
-                                                                } else {
-                                                                    const books = freeBooks.filter(
-                                                                        book => book.title !== title
-                                                                    )
-                                                                    const book = freeBooks.find(
-                                                                        book => book.title === title
-                                                                    )!
-                                                                    setFreeBooks([book, ...books])
-                                                                }
-                                                            } else {
-                                                                if (price) {
-                                                                    const books = paidBooks.filter(
-                                                                        book => book.title !== title
-                                                                    )
-                                                                    const book = paidBooks.find(
-                                                                        book => book.title === title
-                                                                    )!
-                                                                    setPaidBooks([book, ...books])
-                                                                } else {
-                                                                    const books = freeBooks.filter(
-                                                                        book => book.title !== title
-                                                                    )
-                                                                    const book = freeBooks.find(
-                                                                        book => book.title === title
-                                                                    )!
-                                                                    setFreeBooks([book, ...books])
-                                                                }
-                                                            }
-                                                        }}
+                                                        onClick={() =>
+                                                            sortBySuggestion(title, author, price!)
+                                                        }
                                                     >
                                                         "{title}" written by {author}
                                                     </Dashboard.Suggestion>

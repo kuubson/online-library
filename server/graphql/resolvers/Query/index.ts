@@ -1,5 +1,5 @@
 import freeBooks from './freeBooks'
 import paidBooks from './paidBooks'
-import titleSuggestions from './titleSuggestions'
+import booksSuggestions from './booksSuggestions'
 
-export { freeBooks, paidBooks, titleSuggestions }
+export { freeBooks, paidBooks, booksSuggestions }
