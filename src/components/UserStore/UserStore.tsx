@@ -104,25 +104,25 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
         setFindByTitle(findByTitle => !findByTitle)
     }
     const sortBySuggestion = (title: string, author: string, price: number) => {
-        if (findByTitle) {
-            const freeBooksByTitle = freeBooks.filter(book => book.title !== title)
-            const freeBookByTitle = freeBooks.find(book => book.title === title)!
-            const paidBooksByTitle = paidBooks.filter(book => book.title !== title)
-            const paidBookByTitle = paidBooks.find(book => book.title === title)!
-            if (!price) {
+        if (!price) {
+            if (findByTitle) {
+                const freeBooksByTitle = freeBooks.filter(book => book.title !== title)
+                const freeBookByTitle = freeBooks.find(book => book.title === title)!
                 setFreeBooks([freeBookByTitle, ...freeBooksByTitle])
             } else {
-                setPaidBooks([paidBookByTitle, ...paidBooksByTitle])
+                const freeBooksByAuthor = freeBooks.filter(book => book.author !== author)
+                const freeBookByAuthor = freeBooks.find(book => book.author === author)!
+                setFreeBooks([freeBookByAuthor, ...freeBooksByAuthor])
             }
         } else {
-            const freeBooksByTitle = freeBooks.filter(book => book.author !== author)
-            const freeBookByTitle = freeBooks.find(book => book.author === author)!
-            const paidBooksByTitle = paidBooks.filter(book => book.author !== author)
-            const paidBookByTitle = paidBooks.find(book => book.author === author)!
-            if (!price) {
-                setFreeBooks([freeBookByTitle, ...freeBooksByTitle])
-            } else {
+            if (findByTitle) {
+                const paidBooksByTitle = paidBooks.filter(book => book.title !== title)
+                const paidBookByTitle = paidBooks.find(book => book.title === title)!
                 setPaidBooks([paidBookByTitle, ...paidBooksByTitle])
+            } else {
+                const paidBooksByAuthor = paidBooks.filter(book => book.author !== author)
+                const paidBookByAuthor = paidBooks.find(book => book.author === author)!
+                setPaidBooks([paidBookByAuthor, ...paidBooksByAuthor])
             }
         }
     }
