@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components/macro'
 
 interface ISCProps {
     price?: number
+    notAbsolute?: boolean
+    withoutHover?: boolean
 }
 
 export default styled.button`
@@ -33,6 +35,27 @@ export default styled.button`
                 position: absolute;
                 top: -25px;
                 left: 50%;
+                transform: translate(-50%, 0px);
+            }
+        `}
+    ${({ notAbsolute }) =>
+        notAbsolute &&
+        css`
+            width: 70px;
+            position: static;
+            transform: translate(0px, 0px);
+            :hover {
+                transform: scale(1.03);
+            }
+            :first-child {
+                margin-right: 20px;
+            }
+        `}
+    ${({ withoutHover }) =>
+        withoutHover &&
+        css`
+            cursor: initial;
+            :hover {
                 transform: translate(-50%, 0px);
             }
         `}

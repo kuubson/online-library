@@ -9,12 +9,15 @@ import InputContainer from './InputContainer'
 import Switcher from './Switcher'
 import SuggestionsContainer from './SuggestionsContainer'
 import Suggestion from './Suggestion'
+import ContentContainer from './ContentContainer'
+import Content from './Content'
 import BooksContainer from './BooksContainer'
 import Books from './Books'
 import Loader from './Loader'
 import Cover from './Cover'
 import AnnotationsContainer from './AnnotationsContainer'
 import Annotation from './Annotation'
+import ButtonsContainer from './ButtonsContainer'
 import Button from './Button'
 import Warning from './Warning'
 
@@ -30,12 +33,15 @@ export default {
     Switcher,
     SuggestionsContainer,
     Suggestion,
+    ContentContainer,
+    Content,
     BooksContainer,
     Books,
     Loader,
     Cover,
     AnnotationsContainer,
     Annotation,
+    ButtonsContainer,
     Button,
     Warning
 }

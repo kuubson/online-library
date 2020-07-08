@@ -1,19 +1,41 @@
 import React, { useState } from 'react'
-import styled from 'styled-components/macro'
+import styled, { css } from 'styled-components/macro'
 import Loader from 'react-spinkit'
 
 import Dashboard from '../styled/Dashboard'
 
 import { IBook } from '../UserStore'
 
+interface IProps {
+    setBookPopupData?: React.Dispatch<React.SetStateAction<IBook | undefined>>
+    fullWidth?: boolean
+}
+
 const BookContainer = styled.div`
+    height: 100%;
     position: relative;
+    ${({ fullWidth }: { fullWidth?: boolean }) =>
+        fullWidth &&
+        css`
+            width: 100%;
+            @media (max-width: 1150px) {
+                max-height: 50%;
+            }
+        `}
 `
 
-const Book: React.FC<IBook> = ({ id, author, title, cover, price }) => {
+const Book: React.FC<IBook & IProps> = ({
+    id,
+    author,
+    title,
+    cover,
+    price,
+    setBookPopupData,
+    fullWidth
+}) => {
     const [isLoading, setIsLoading] = useState(true)
     return (
-        <BookContainer>
+        <BookContainer fullWidth={fullWidth}>
             <Dashboard.Loader
                 onAnimationEnd={e => (e.currentTarget.style.display = 'none')}
                 isLoading={isLoading}
@@ -33,7 +55,29 @@ const Book: React.FC<IBook> = ({ id, author, title, cover, price }) => {
                 <Dashboard.Annotation>{author}</Dashboard.Annotation>
                 <Dashboard.Annotation withTitle>{title}</Dashboard.Annotation>
             </Dashboard.AnnotationsContainer>
-            <Dashboard.Button price={price}>{price ? 'Buy' : 'Borrow'}</Dashboard.Button>
+            {fullWidth && price ? (
+                <Dashboard.Button price={price} withoutHover>
+                    Price
+                </Dashboard.Button>
+            ) : (
+                !fullWidth && (
+                    <Dashboard.Button
+                        onClick={() =>
+                            setBookPopupData &&
+                            setBookPopupData({
+                                id,
+                                author,
+                                title,
+                                cover,
+                                price
+                            })
+                        }
+                        price={price}
+                    >
+                        {price ? 'Buy' : 'Borrow'}
+                    </Dashboard.Button>
+                )
+            )}
         </BookContainer>
     )
 }

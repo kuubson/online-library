@@ -12,6 +12,7 @@ export default styled.p`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-shadow: -1px 0px black;
     @media (max-width: 900px) {
         font-size: 14px;
     }

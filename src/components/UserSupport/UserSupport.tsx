@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
-import validator from 'validator'
 
 import hooks from 'hooks'
 

@@ -99,6 +99,7 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
             author
         }
     })
+    const [bookPopupData, setBookPopupData] = useState<IBook>()
     const switchFindBy = () => {
         findByTitle ? setTitle('') : setAuthor('')
         setFindByTitle(findByTitle => !findByTitle)
@@ -125,9 +126,17 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
                 setPaidBooks([paidBookByAuthor, ...paidBooksByAuthor])
             }
         }
+        if (findByTitle) {
+            setTitle('')
+        } else {
+            setAuthor('')
+        }
     }
     return (
         <UserStoreContainer shouldExpandMenu={shouldExpandMenu}>
+            {bookPopupData && (
+                <Composed.BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />
+            )}
             {!areBooksLoading &&
                 (areThereFreeBooks && areTherePaidBooks ? (
                     <>
@@ -189,6 +198,7 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
                                             title={title}
                                             author={author}
                                             cover={cover}
+                                            setBookPopupData={setBookPopupData}
                                         />
                                     ))
                                 ) : (
@@ -216,6 +226,7 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
                                             author={author}
                                             cover={cover}
                                             price={price}
+                                            setBookPopupData={setBookPopupData}
                                         />
                                     ))
                                 ) : (
