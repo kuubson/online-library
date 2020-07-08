@@ -85,10 +85,12 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
     const areThereFreeBooks = freeBooks.length > 0
     const areTherePaidBooks = paidBooks.length > 0
     useEffect(() => {
-        if (books) {
-            setFreeBooks(books.freeBooks)
-            setPaidBooks(books.paidBooks)
-        }
+        setTimeout(() => {
+            if (books) {
+                setFreeBooks(books.freeBooks)
+                setPaidBooks(books.paidBooks)
+            }
+        }, 0)
     }, [books])
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
