@@ -19,7 +19,7 @@ export default styled.div`
         css`
             @media (max-width: 800px) {
                 height: 10px;
-                margin-top: 15px;
+                margin-top: 20px;
             }
         `};
 `

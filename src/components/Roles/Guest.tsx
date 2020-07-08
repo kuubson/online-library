@@ -14,7 +14,7 @@ interface ISCProps {
 }
 
 export const GuestContainer = styled.section`
-    height: ${() => hooks.useHeight()};
+    min-height: ${() => hooks.useHeight()};
     ${({ blurred }: ISCProps) =>
         blurred &&
         css`

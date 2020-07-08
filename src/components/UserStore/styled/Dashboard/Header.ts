@@ -36,16 +36,16 @@ export default styled.h2`
             color: black;
             padding-right: 0px;
             white-space: pre-line;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: initial;
             @media (max-width: 1200px) {
-                font-size: 18px;
+                font-size: 17px;
             }
             @media (max-width: 900px) {
                 font-size: 16px;
             }
             @media (max-width: 600px) {
-                font-size: 14px;
+                font-size: 15px;
             }
         `};
 `

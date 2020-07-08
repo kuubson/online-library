@@ -43,10 +43,6 @@ const User: React.FC = ({ children }) => {
                         pathname: '/user/cart'
                     },
                     {
-                        option: 'Upload book',
-                        pathname: '/user/upload-book'
-                    },
-                    {
                         option: 'Logout'
                     }
                 ]}

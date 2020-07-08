@@ -1,9 +1,11 @@
 import styled, { css } from 'styled-components/macro'
 
+import hooks from 'hooks'
+
 interface ISCProps {
     withPaidBooks?: boolean
     empty?: boolean
-    height?: () => string
+    height?: string
 }
 
 export default styled.div`
@@ -19,12 +21,15 @@ export default styled.div`
                 margin-left: 0px;
             }
         `};
-    ${({ empty, height }) =>
+    ${({ empty }) =>
         empty &&
         css`
-            height: calc(${height} - 244px);
+            height: calc(100% - 60px);
             display: flex;
             justify-content: center;
             align-items: center;
+            @media (max-width: 800px) {
+                height: calc(${() => hooks.useHeight()} - 244px);
+            }
         `}
 `

@@ -33,7 +33,7 @@ interface BooksSuggestionsQueryData {
     booksSuggestions: IBook[]
 }
 
-const UserStoreContainer = styled(HomeContainer)`
+export const UserStoreContainer = styled(HomeContainer)`
     height: initial;
     min-height: ${() => hooks.useHeight()};
     padding: ${({ shouldExpandMenu }: IProps) =>
@@ -71,6 +71,7 @@ const booksQuery = gql`
 const BooksSuggestionsQuery = gql`
     query BooksSuggestions($title: String!, $author: String!) {
         booksSuggestions(title: $title, author: $author) {
+            id
             title
             author
             price
@@ -140,12 +141,20 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
                 <Composed.BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />
             )}
             {!areBooksLoading &&
-                (areThereFreeBooks && areTherePaidBooks ? (
+                (!areThereFreeBooks && !areTherePaidBooks ? (
+                    <Dashboard.BooksContainer>
+                        <Dashboard.Books empty>
+                            <Dashboard.Warning>
+                                The are no books in the library right now
+                            </Dashboard.Warning>
+                        </Dashboard.Books>
+                    </Dashboard.BooksContainer>
+                ) : (
                     <>
                         <Dashboard.BooksContainer>
                             <Dashboard.HeaderContainer>
                                 <Dashboard.Header withMoreMarginBottom>
-                                    Find here awesome books!
+                                    Find here awesome books
                                 </Dashboard.Header>
                                 <Dashboard.InputContainer>
                                     {findByTitle ? (
@@ -175,8 +184,9 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
                                     <Dashboard.SuggestionsContainer>
                                         {booksSuggestions &&
                                             booksSuggestions!.booksSuggestions.map(
-                                                ({ title, author, price }) => (
+                                                ({ id, title, author, price }) => (
                                                     <Dashboard.Suggestion
+                                                        key={id}
                                                         onClick={() =>
                                                             sortBySuggestion(title, author, price!)
                                                         }
@@ -188,10 +198,7 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
                                     </Dashboard.SuggestionsContainer>
                                 </Dashboard.InputContainer>
                             </Dashboard.HeaderContainer>
-                            <Dashboard.Books
-                                empty={!areThereFreeBooks}
-                                height={() => hooks.useHeight()}
-                            >
+                            <Dashboard.Books empty={!areThereFreeBooks}>
                                 {areThereFreeBooks ? (
                                     freeBooks.map(({ id, title, author, cover }) => (
                                         <Composed.Book
@@ -205,20 +212,16 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
                                     ))
                                 ) : (
                                     <Dashboard.Warning>
-                                        The are no free books in the library right now!
+                                        The are no free books in the library right now
                                     </Dashboard.Warning>
                                 )}
                             </Dashboard.Books>
                         </Dashboard.BooksContainer>
                         <Dashboard.BooksContainer withPaidBooks>
                             <Dashboard.HeaderContainer withMoreMarginTop>
-                                <Dashboard.Header>Choose some paid books!</Dashboard.Header>
+                                <Dashboard.Header>Choose some paid books</Dashboard.Header>
                             </Dashboard.HeaderContainer>
-                            <Dashboard.Books
-                                withPaidBooks
-                                empty={!areTherePaidBooks}
-                                height={() => hooks.useHeight()}
-                            >
+                            <Dashboard.Books withPaidBooks empty={!areTherePaidBooks}>
                                 {areTherePaidBooks ? (
                                     paidBooks.map(({ id, title, author, cover, price }) => (
                                         <Composed.Book
@@ -233,20 +236,12 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
                                     ))
                                 ) : (
                                     <Dashboard.Warning>
-                                        The are no paid books in the library right now!
+                                        The are no paid books in the library right now
                                     </Dashboard.Warning>
                                 )}
                             </Dashboard.Books>
                         </Dashboard.BooksContainer>
                     </>
-                ) : (
-                    <Dashboard.BooksContainer>
-                        <Dashboard.Books empty height={() => hooks.useHeight()}>
-                            <Dashboard.Warning>
-                                The are no books in the library right now!
-                            </Dashboard.Warning>
-                        </Dashboard.Books>
-                    </Dashboard.BooksContainer>
                 ))}
         </UserStoreContainer>
     )

@@ -12,5 +12,7 @@ export default gql`
         freeBooks: [Book!]!
         paidBooks: [Book!]!
         booksSuggestions(title: String!, author: String!): [Book!]!
+        borrowedBooks: [Book!]!
+        boughtBooks: [Book!]!
     }
 `

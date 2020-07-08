@@ -22,9 +22,10 @@ import UserSupport from 'components/UserSupport/UserSupport'
 import UserLogin from 'components/UserLogin/UserLogin'
 import UserPasswordRecovery from 'components/UserPasswordRecovery/UserPasswordRecovery'
 import UserStore from 'components/UserStore/UserStore'
+import UserProfile from 'components/UserProfile/UserProfile'
 
 const AppContainer = styled.main`
-    height: ${() => hooks.useHeight()};
+    min-height: ${() => hooks.useHeight()};
 `
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
@@ -98,6 +99,15 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
             render: () => (
                 <Roles.User>
                     <UserStore />
+                </Roles.User>
+            )
+        },
+        {
+            order: 4,
+            pathname: '/user/profile',
+            render: () => (
+                <Roles.User>
+                    <UserProfile />
                 </Roles.User>
             )
         },
