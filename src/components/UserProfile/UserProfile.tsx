@@ -4,8 +4,6 @@ import styled from 'styled-components/macro'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 
-import hooks from 'hooks'
-
 import { UserStoreContainer } from 'components/UserStore/UserStore'
 import USDashboard from 'components/UserStore/styled/Dashboard'
 

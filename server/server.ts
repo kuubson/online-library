@@ -17,9 +17,18 @@ import routes from './routes/routes'
 const app = express()
 const server = http.createServer(app)
 
-middlewares.init(app)
+new ApolloServer({
+    resolvers,
+    typeDefs,
+    context: ({ req }) => ({
+        user: req.user
+    })
+}).applyMiddleware({
+    app,
+    path: '/graphql'
+})
 
-new ApolloServer({ resolvers, typeDefs }).applyMiddleware({ app, path: '/graphql' })
+middlewares.init(app)
 
 routes(app)
 

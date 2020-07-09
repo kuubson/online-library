@@ -12,33 +12,47 @@ import errorHandler from './errorHandler'
 import checkValidation from './checkValidation'
 import facebookAuthorization from './facebookAuthorization'
 
+import utils from '../utils'
+
 const init = (app: Express, server?: http.Server) => {
-    const production = process.env.NODE_ENV === 'production'
     app.use(helmet())
     app.use(cookieParser())
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
     app.use(passport.initialize())
-    if (production) {
-        app.use(
-            csurf({
-                cookie: {
-                    secure: production,
-                    httpOnly: true,
-                    sameSite: true,
-                    maxAge: 7 * 24 * 60 * 60 * 1000
-                }
-            })
-        )
-        app.use((req, res, next) => {
-            res.cookie('XSRF-TOKEN', req.csrfToken(), {
-                secure: production,
+    app.use('/graphql', (req, res, next) => {
+        passport.authenticate('jwt', { session: false }, (_, { user }) => {
+            if (!user) {
+                return next(
+                    new utils.ApiError(
+                        'Authorization',
+                        'The authentication cookie is invalid, log in again',
+                        401
+                    )
+                )
+            }
+            req.user = user
+            next()
+        })(req, res, next)
+    })
+    app.use(
+        csurf({
+            cookie: {
+                secure: process.env.NODE_ENV === 'production',
+                httpOnly: true,
                 sameSite: true,
                 maxAge: 7 * 24 * 60 * 60 * 1000
-            })
-            next()
+            }
         })
-    }
+    )
+    app.use((req, res, next) => {
+        res.cookie('XSRF-TOKEN', req.csrfToken(), {
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: true,
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        })
+        next()
+    })
     app.set('trust proxy', true)
 }
 

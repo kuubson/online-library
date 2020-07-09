@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 import { RouteComponentProps } from 'react-router-dom'
+import { useApolloClient } from 'react-apollo'
 
 import { compose } from 'redux'
 import hoc from 'hoc'
@@ -42,14 +43,16 @@ const Menu: React.FC<RouteComponentProps & IProps> = ({
     options,
     _setShouldExpandMenu
 }) => {
+    const client = useApolloClient()
     const [shouldExpandMenu, setShouldExpandMenu] = useState(false)
     useEffect(() => _setShouldExpandMenu(shouldExpandMenu), [shouldExpandMenu])
     const logout = async () => {
+        client && client.clearStore()
         const url = '/api/global/logout'
         const response = await utils.apiAxios.get(url)
         if (response) {
-            utils.redirectTo('/user/login')
             window.FB.logout()
+            utils.redirectTo('/user/login')
         }
     }
     return (
