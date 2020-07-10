@@ -11,7 +11,7 @@ export default gql`
     type Query {
         freeBooks: [Book!]!
         paidBooks: [Book!]!
-        booksSuggestions(title: String!, author: String!): [Book!]!
+        booksSuggestions(title: String!, author: String!, withProfile: Boolean!): [Book!]!
         borrowedBooks: [Book!]!
         boughtBooks: [Book!]!
     }

@@ -33,8 +33,8 @@ const UserLoginContainer = styled(UserRegistrationContainer)``
 const UserLogin: React.FC = () => {
     const [form, setForm] = useState({
         email: '',
-        password: '',
         emailError: '',
+        password: '',
         passwordError: ''
     })
     const { email, password, emailError, passwordError } = form

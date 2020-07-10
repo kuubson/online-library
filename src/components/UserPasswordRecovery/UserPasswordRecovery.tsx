@@ -16,8 +16,8 @@ const UserPasswordRecovery: React.FC = () => {
     const { passwordToken } = hooks.useParams()
     const [form, setForm] = useState({
         password: '',
-        repeatedPassword: '',
         passwordError: '',
+        repeatedPassword: '',
         repeatedPasswordError: ''
     })
     const { password, passwordError, repeatedPassword, repeatedPasswordError } = form

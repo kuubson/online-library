@@ -19,22 +19,22 @@ export const UserRegistrationContainer = styled(HomeContainer)`
 const UserRegistration: React.FC = () => {
     const [form, setForm] = useState({
         name: '',
-        email: '',
-        password: '',
-        repeatedPassword: '',
         nameError: '',
+        email: '',
         emailError: '',
+        password: '',
         passwordError: '',
+        repeatedPassword: '',
         repeatedPasswordError: ''
     })
     const {
         name,
-        email,
-        password,
-        repeatedPassword,
         nameError,
+        email,
         emailError,
+        password,
         passwordError,
+        repeatedPassword,
         repeatedPasswordError
     } = form
     const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>

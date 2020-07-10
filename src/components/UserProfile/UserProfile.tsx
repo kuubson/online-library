@@ -4,6 +4,8 @@ import styled from 'styled-components/macro'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 
+import USHooks from 'components/UserStore/hooks'
+
 import { UserStoreContainer } from 'components/UserStore/UserStore'
 import USDashboard from 'components/UserStore/styled/Dashboard'
 
@@ -60,6 +62,13 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
             }
         }, 0)
     }, [books])
+    const { renderBooksSuggestionsInput } = USHooks.useBooksSuggestions({
+        freeBooks: borrowedBooks,
+        setFreeBooks: setBorrowedBooks,
+        paidBooks: boughtBooks,
+        setPaidBooks: setBoughtBooks,
+        withProfile: true
+    })
     return (
         <UserProfileContainer shouldExpandMenu={shouldExpandMenu}>
             {!areBooksLoading &&
@@ -73,9 +82,10 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
                     <>
                         <USDashboard.BooksContainer>
                             <USDashboard.HeaderContainer>
-                                <USDashboard.Header withoutPaddingRight>
+                                <USDashboard.Header withMoreMarginBottom>
                                     Your bought books
                                 </USDashboard.Header>
+                                {renderBooksSuggestionsInput()}
                             </USDashboard.HeaderContainer>
                             <USDashboard.Books empty={!areThereBoughtBooks}>
                                 {areThereBoughtBooks ? (

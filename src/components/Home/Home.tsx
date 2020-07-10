@@ -35,10 +35,10 @@ const Home: React.FC = () => {
             </Dashboard.HeaderContainer>
             <Dashboard.AdvantagesContainer>
                 <Dashboard.Advantage>
-                    The largest resource of books in the internet!
+                    The largest resource of books in the internet
                 </Dashboard.Advantage>
-                <Dashboard.Advantage>Top books from top authors for free!</Dashboard.Advantage>
-                <Dashboard.Advantage>The lowest pricing for premium books!</Dashboard.Advantage>
+                <Dashboard.Advantage>Top books from top authors for free</Dashboard.Advantage>
+                <Dashboard.Advantage>The lowest pricing for premium books</Dashboard.Advantage>
             </Dashboard.AdvantagesContainer>
         </HomeContainer>
     )
