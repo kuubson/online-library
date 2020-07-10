@@ -20,7 +20,7 @@ interface IFacebookResponse {
     authResponse: {
         accessToken: string
     }
-    status: 'authorization_expired' | 'connected' | 'not_authorized' | 'unknown'
+    status: string
 }
 
 interface IFacebookData {
@@ -37,7 +37,7 @@ const UserLogin: React.FC = () => {
         password: '',
         passwordError: ''
     })
-    const { email, password, emailError, passwordError } = form
+    const { email, emailError, password, passwordError } = form
     const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>
         setForm(form => ({ ...form, [target.name]: target.value }))
     const handleError = (errorKey: string, error: string) =>

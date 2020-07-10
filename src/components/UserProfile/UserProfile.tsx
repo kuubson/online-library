@@ -4,6 +4,7 @@ import styled from 'styled-components/macro'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 
+import hooks from 'hooks'
 import USHooks from 'components/UserStore/hooks'
 
 import { UserStoreContainer } from 'components/UserStore/UserStore'
@@ -69,6 +70,8 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
         setPaidBooks: setBoughtBooks,
         withProfile: true
     })
+    const width = parseInt(hooks.useWidth())
+    const shouldBoughtBooksBeAtTheBottom = width <= 800 && !areThereBoughtBooks
     return (
         <UserProfileContainer shouldExpandMenu={shouldExpandMenu}>
             {!areBooksLoading &&
@@ -80,12 +83,18 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
                     </USDashboard.BooksContainer>
                 ) : (
                     <>
-                        <USDashboard.BooksContainer>
-                            <USDashboard.HeaderContainer>
-                                <USDashboard.Header withMoreMarginBottom>
+                        <USDashboard.BooksContainer
+                            shouldBeAtTheBottom={shouldBoughtBooksBeAtTheBottom}
+                        >
+                            <USDashboard.HeaderContainer
+                                withMoreMarginTop={shouldBoughtBooksBeAtTheBottom}
+                            >
+                                <USDashboard.Header
+                                    withMoreMarginBottom={!shouldBoughtBooksBeAtTheBottom}
+                                >
                                     Your bought books
                                 </USDashboard.Header>
-                                {renderBooksSuggestionsInput()}
+                                {!shouldBoughtBooksBeAtTheBottom && renderBooksSuggestionsInput()}
                             </USDashboard.HeaderContainer>
                             <USDashboard.Books empty={!areThereBoughtBooks}>
                                 {areThereBoughtBooks ? (
@@ -106,8 +115,16 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
                             </USDashboard.Books>
                         </USDashboard.BooksContainer>
                         <USDashboard.BooksContainer withPaidBooks>
-                            <USDashboard.HeaderContainer withMoreMarginTop>
-                                <USDashboard.Header>Enjoy borrowed books!</USDashboard.Header>
+                            <USDashboard.HeaderContainer
+                                withMoreMarginTop={!shouldBoughtBooksBeAtTheBottom}
+                            >
+                                <USDashboard.Header
+                                    withMoreMarginBottom={shouldBoughtBooksBeAtTheBottom}
+                                    withoutPaddingRight
+                                >
+                                    Enjoy borrowed books!
+                                </USDashboard.Header>
+                                {shouldBoughtBooksBeAtTheBottom && renderBooksSuggestionsInput()}
                             </USDashboard.HeaderContainer>
                             <USDashboard.Books withPaidBooks empty={!areThereBorrowedBooks}>
                                 {areThereBorrowedBooks ? (

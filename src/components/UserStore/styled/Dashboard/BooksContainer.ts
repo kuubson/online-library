@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components/macro'
 
 interface ISCProps {
     withPaidBooks?: boolean
+    shouldBeAtTheBottom?: boolean
 }
 
 export default styled.div`
@@ -17,4 +18,11 @@ export default styled.div`
         css`
             width: 45%;
         `};
+    ${({ shouldBeAtTheBottom }) =>
+        shouldBeAtTheBottom &&
+        css`
+            @media (max-width: 800px) {
+                order: 2;
+            }
+        `}
 `

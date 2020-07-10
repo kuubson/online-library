@@ -41,7 +41,7 @@ export const UserStoreContainer = styled(HomeContainer)`
     }
     @media (max-width: 800px) {
         flex-direction: column;
-        padding: ${({ shouldExpandMenu }: IProps) =>
+        padding: ${({ shouldExpandMenu }) =>
             shouldExpandMenu ? '334px 20px 20px 20px' : '120px 20px 20px 20px'};
     }
 `
@@ -130,7 +130,9 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
                         </Dashboard.BooksContainer>
                         <Dashboard.BooksContainer withPaidBooks>
                             <Dashboard.HeaderContainer withMoreMarginTop>
-                                <Dashboard.Header>Choose some paid books</Dashboard.Header>
+                                <Dashboard.Header withoutPaddingRight>
+                                    Choose some paid books
+                                </Dashboard.Header>
                             </Dashboard.HeaderContainer>
                             <Dashboard.Books withPaidBooks empty={!areTherePaidBooks}>
                                 {areTherePaidBooks ? (
