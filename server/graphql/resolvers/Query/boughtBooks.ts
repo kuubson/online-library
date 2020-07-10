@@ -1,6 +1,8 @@
 import { Op } from 'sequelize'
 
-export default async (_, __, context) => {
+import { IContext } from '../types'
+
+export default async (_, __, context: IContext) =>
     await context.user.getBooks({
         where: {
             price: {
@@ -8,4 +10,3 @@ export default async (_, __, context) => {
             }
         }
     })
-}

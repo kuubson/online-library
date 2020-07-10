@@ -102,7 +102,6 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
             author
         }
     })
-    const [bookPopupData, setBookPopupData] = useState<IBook>()
     const switchFindBy = () => {
         findByTitle ? setTitle('') : setAuthor('')
         setFindByTitle(findByTitle => !findByTitle)
@@ -135,6 +134,7 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
             setAuthor('')
         }
     }
+    const [bookPopupData, setBookPopupData] = useState<IBook>()
     return (
         <UserStoreContainer shouldExpandMenu={shouldExpandMenu}>
             {bookPopupData && (

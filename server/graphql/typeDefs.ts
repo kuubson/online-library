@@ -15,4 +15,7 @@ export default gql`
         borrowedBooks: [Book!]!
         boughtBooks: [Book!]!
     }
+    type Mutation {
+        borrowBook(bookId: ID!): Book!
+    }
 `

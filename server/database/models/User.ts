@@ -7,7 +7,12 @@ import {
     BelongsToMany,
     BeforeCreate
 } from 'sequelize-typescript'
-import { HasOneCreateAssociationMixin } from 'sequelize'
+import {
+    HasOneCreateAssociationMixin,
+    BelongsToManyAddAssociationMixin,
+    BelongsToManyHasAssociationMixin,
+    BelongsToManyGetAssociationsMixin
+} from 'sequelize'
 import bcrypt from 'bcrypt'
 
 import Authentication from './Authentication'
@@ -17,6 +22,9 @@ import Book from './Book'
 @Table({})
 export default class User extends Model<User> {
     public createAuthentication: HasOneCreateAssociationMixin<Authentication>
+    public addBook: BelongsToManyAddAssociationMixin<Book, User>
+    public hasBook: BelongsToManyHasAssociationMixin<Book, User>
+    public getBooks: BelongsToManyGetAssociationsMixin<Book>
     @Column({
         allowNull: false,
         type: DataType.STRING

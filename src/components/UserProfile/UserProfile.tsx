@@ -45,7 +45,9 @@ const booksQuery = gql`
 `
 
 const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
-    const { loading: areBooksLoading, data: books } = useQuery<BooksQueryData>(booksQuery)
+    const { loading: areBooksLoading, data: books } = useQuery<BooksQueryData>(booksQuery, {
+        fetchPolicy: 'cache-and-network'
+    })
     const [boughtBooks, setBoughtBooks] = useState<IBook[]>([])
     const [borrowedBooks, setBorrowedBooks] = useState<IBook[]>([])
     const areThereBoughtBooks = boughtBooks.length > 0
@@ -71,7 +73,9 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
                     <>
                         <USDashboard.BooksContainer>
                             <USDashboard.HeaderContainer>
-                                <USDashboard.Header>Your bought books</USDashboard.Header>
+                                <USDashboard.Header withoutPaddingRight>
+                                    Your bought books
+                                </USDashboard.Header>
                             </USDashboard.HeaderContainer>
                             <USDashboard.Books empty={!areThereBoughtBooks}>
                                 {areThereBoughtBooks ? (

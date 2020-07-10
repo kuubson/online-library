@@ -30,7 +30,7 @@ export default (error: AxiosError) => {
     }
     utils.setFeedbackData(
         'Request Processing',
-        'An unexpected problem has occurred in your browser',
+        'An unexpected problem has occurred in the application',
         'Refresh the application',
         () => process.env.NODE_ENV === 'production' && window.location.reload()
     )

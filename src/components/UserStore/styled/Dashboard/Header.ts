@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components/macro'
 
 interface ISCProps {
     withMoreMarginBottom?: boolean
+    withoutPaddingRight?: boolean
     black?: boolean
 }
 
@@ -29,6 +30,11 @@ export default styled.h2`
             @media (max-width: 1100px) {
                 margin-bottom: 20px;
             }
+        `};
+    ${({ withoutPaddingRight }: ISCProps) =>
+        withoutPaddingRight &&
+        css`
+            padding-right: 0px;
         `};
     ${({ black }) =>
         black &&

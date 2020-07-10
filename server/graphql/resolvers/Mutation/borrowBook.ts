@@ -1,0 +1,18 @@
+import { Book } from '../../../database/database'
+
+import utils from '../../../utils'
+
+import { IContext } from '../types'
+
+interface IArgs {
+    bookId: number
+}
+
+export default async (_, { bookId }: IArgs, context: IContext) => {
+    const book = await Book.findByPk(bookId)
+    if (await context.user.hasBook(book)) {
+        throw new utils.ApiError('Borrowing a book', 'You have already borrowed this book!', 409)
+    }
+    await context.user.addBook(book)
+    return book
+}

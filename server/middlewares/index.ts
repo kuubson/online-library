@@ -1,8 +1,9 @@
 import express, { Express } from 'express'
-import http from 'http'
 import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
+import { ApolloServer } from 'apollo-server-express'
 import csurf from 'csurf'
+
 import passport from 'passport'
 
 import initPassport from './passport'
@@ -14,7 +15,10 @@ import facebookAuthorization from './facebookAuthorization'
 
 import utils from '../utils'
 
-const init = (app: Express, server?: http.Server) => {
+import resolvers from '../graphql/resolvers'
+import typeDefs from '../graphql/typeDefs'
+
+const init = (app: Express) => {
     app.use(helmet())
     app.use(cookieParser())
     app.use(express.json())
@@ -34,6 +38,17 @@ const init = (app: Express, server?: http.Server) => {
             req.user = user
             next()
         })(req, res, next)
+    })
+    new ApolloServer({
+        resolvers,
+        typeDefs,
+        context: ({ req, res }) => ({
+            res,
+            user: req.user
+        })
+    }).applyMiddleware({
+        app,
+        path: '/graphql'
     })
     app.use(
         csurf({
