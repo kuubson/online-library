@@ -8,7 +8,6 @@ import hooks from 'hooks'
 import USHooks from './hooks'
 
 import { HomeContainer } from 'components/Home/Home'
-import Dashboard from './styled/Dashboard'
 
 import Composed from './composed'
 
@@ -65,7 +64,6 @@ const booksQuery = gql`
 `
 
 const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
-    const [bookPopupData, setBookPopupData] = useState<IBook>()
     const { loading: areBooksLoading, data: books } = useQuery<BooksQueryData>(booksQuery)
     const [freeBooks, setFreeBooks] = useState<IBook[]>([])
     const [paidBooks, setPaidBooks] = useState<IBook[]>([])
@@ -79,6 +77,7 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
             }
         }, 0)
     }, [books])
+    const [bookPopupData, setBookPopupData] = useState<IBook>()
     const { renderBooksSuggestionsInput } = USHooks.useBooksSuggestions({
         freeBooks,
         setFreeBooks,
@@ -93,67 +92,23 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
             )}
             {!areBooksLoading &&
                 (!areThereFreeBooks && !areTherePaidBooks ? (
-                    <Dashboard.BooksContainer>
-                        <Dashboard.Books empty>
-                            <Dashboard.Warning>
-                                The are no books in the library right now
-                            </Dashboard.Warning>
-                        </Dashboard.Books>
-                    </Dashboard.BooksContainer>
+                    <Composed.Books books={[]} error="The are no books in the library right now" />
                 ) : (
                     <>
-                        <Dashboard.BooksContainer>
-                            <Dashboard.HeaderContainer>
-                                <Dashboard.Header withMoreMarginBottom>
-                                    Find here awesome books
-                                </Dashboard.Header>
-                                {renderBooksSuggestionsInput()}
-                            </Dashboard.HeaderContainer>
-                            <Dashboard.Books empty={!areThereFreeBooks}>
-                                {areThereFreeBooks ? (
-                                    freeBooks.map(({ id, title, author, cover }) => (
-                                        <Composed.Book
-                                            key={id}
-                                            id={id}
-                                            title={title}
-                                            author={author}
-                                            cover={cover}
-                                            setBookPopupData={setBookPopupData}
-                                        />
-                                    ))
-                                ) : (
-                                    <Dashboard.Warning>
-                                        The are no free books in the library right now
-                                    </Dashboard.Warning>
-                                )}
-                            </Dashboard.Books>
-                        </Dashboard.BooksContainer>
-                        <Dashboard.BooksContainer withPaidBooks>
-                            <Dashboard.HeaderContainer withMoreMarginTop>
-                                <Dashboard.Header withoutPaddingRight>
-                                    Choose some paid books
-                                </Dashboard.Header>
-                            </Dashboard.HeaderContainer>
-                            <Dashboard.Books empty={!areTherePaidBooks} withPaidBooks>
-                                {areTherePaidBooks ? (
-                                    paidBooks.map(({ id, title, author, cover, price }) => (
-                                        <Composed.Book
-                                            key={id}
-                                            id={id}
-                                            title={title}
-                                            author={author}
-                                            cover={cover}
-                                            price={price}
-                                            setBookPopupData={setBookPopupData}
-                                        />
-                                    ))
-                                ) : (
-                                    <Dashboard.Warning>
-                                        The are no paid books in the library right now
-                                    </Dashboard.Warning>
-                                )}
-                            </Dashboard.Books>
-                        </Dashboard.BooksContainer>
+                        <Composed.Books
+                            books={freeBooks}
+                            header="Find here awesome books"
+                            error="The are no free books in the library right now"
+                            setBookPopupData={setBookPopupData}
+                            renderBooksSuggestionsInput={renderBooksSuggestionsInput}
+                            withMarginRight
+                        />
+                        <Composed.Books
+                            books={paidBooks}
+                            header="Choose some paid books"
+                            error="The are no paid books in the library right now"
+                            setBookPopupData={setBookPopupData}
+                        />
                     </>
                 ))}
         </UserStoreContainer>

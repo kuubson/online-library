@@ -10,7 +10,7 @@ import animations from 'assets/animations'
 
 import Dashboard from '../styled/Dashboard'
 
-import Book from './Book'
+import Composed from '.'
 
 import utils from 'utils'
 
@@ -56,6 +56,7 @@ const BookPopup: React.FC<IBook & IProps> = ({
         borrowBook: IBook
     }>(borrowBookMutation)
     const { cart, addToCart } = hooks.useCart()
+    const resetBookPopup = () => setBookPopupData(undefined)
     const handleBorrow = async () => {
         try {
             const { data } = await borrowBook({
@@ -65,7 +66,7 @@ const BookPopup: React.FC<IBook & IProps> = ({
             })
             if (data) {
                 const { title, author } = data.borrowBook
-                setBookPopupData(undefined)
+                resetBookPopup()
                 utils.setFeedbackData(
                     'Borrowing a book',
                     `You have successfully borrowed a book "${title}" written by ${author}`,
@@ -74,23 +75,30 @@ const BookPopup: React.FC<IBook & IProps> = ({
                 )
             }
         } catch (error) {
-            setBookPopupData(undefined)
+            resetBookPopup()
         }
     }
     const handleAddToCart = async (id: number) => {
         if (cart.includes(id)) {
-            setBookPopupData(undefined)
+            resetBookPopup()
             return utils.setFeedbackData('Buying a book', `This book is already in the cart`)
         }
         addToCart(id)
         utils.setFeedbackData('Buying a book', `The book has been added to the cart`, 'Okey', () =>
-            setBookPopupData(undefined)
+            resetBookPopup()
         )
     }
     return (
         <BookPopupContainer>
             <Dashboard.ContentContainer>
-                <Book id={id} title={title} author={author} cover={cover} price={price} withPopup />
+                <Composed.Book
+                    id={id}
+                    title={title}
+                    author={author}
+                    cover={cover}
+                    price={price}
+                    withPopup
+                />
                 <Dashboard.Content>
                     <Dashboard.Header black>
                         That's just a small step from getting this book. Are you sure you want to
@@ -103,7 +111,7 @@ const BookPopup: React.FC<IBook & IProps> = ({
                         >
                             Yes
                         </Dashboard.Button>
-                        <Dashboard.Button onClick={() => setBookPopupData(undefined)} notAbsolute>
+                        <Dashboard.Button onClick={() => resetBookPopup()} notAbsolute>
                             No
                         </Dashboard.Button>
                     </Dashboard.ButtonsContainer>

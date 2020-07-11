@@ -4,11 +4,9 @@ import styled from 'styled-components/macro'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 
-import hooks from 'hooks'
 import USHooks from 'components/UserStore/hooks'
 
 import { UserStoreContainer, IBook } from 'components/UserStore/UserStore'
-import USDashboard from 'components/UserStore/styled/Dashboard'
 
 import USComposed from 'components/UserStore/composed'
 
@@ -63,82 +61,44 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
         setPaidBooks: setBoughtBooks,
         withProfile: true
     })
-    const width = parseInt(hooks.useWidth())
-    const shouldBoughtBooksBeAtTheBottom = width <= 800 && !areThereBoughtBooks
     return (
         <UserProfileContainer shouldExpandMenu={shouldExpandMenu}>
             {!areBooksLoading &&
                 (!areThereBoughtBooks && !areThereBorrowedBooks ? (
-                    <USDashboard.BooksContainer>
-                        <USDashboard.Books empty>
-                            <USDashboard.Warning>You don't have any books yet</USDashboard.Warning>
-                        </USDashboard.Books>
-                    </USDashboard.BooksContainer>
+                    <USComposed.Books books={[]} error="You don't have any books yet" />
+                ) : areThereBoughtBooks ? (
+                    <>
+                        <USComposed.Books
+                            books={boughtBooks}
+                            header="Your bought books"
+                            error="You haven't bought any books yet"
+                            renderBooksSuggestionsInput={renderBooksSuggestionsInput}
+                            withProfile
+                            withMarginRight
+                        />
+                        <USComposed.Books
+                            books={borrowedBooks}
+                            header="Enjoy borrowed books"
+                            error="You haven't borrowed any books yet"
+                            withProfile
+                        />
+                    </>
                 ) : (
                     <>
-                        <USDashboard.BooksContainer
-                            shouldBeAtTheBottom={shouldBoughtBooksBeAtTheBottom}
-                        >
-                            <USDashboard.HeaderContainer
-                                withMoreMarginTop={shouldBoughtBooksBeAtTheBottom}
-                            >
-                                <USDashboard.Header
-                                    withMoreMarginBottom={!shouldBoughtBooksBeAtTheBottom}
-                                >
-                                    Your bought books
-                                </USDashboard.Header>
-                                {!shouldBoughtBooksBeAtTheBottom && renderBooksSuggestionsInput()}
-                            </USDashboard.HeaderContainer>
-                            <USDashboard.Books empty={!areThereBoughtBooks}>
-                                {areThereBoughtBooks ? (
-                                    boughtBooks.map(({ id, title, author, cover }) => (
-                                        <USComposed.Book
-                                            key={id}
-                                            id={id}
-                                            title={title}
-                                            author={author}
-                                            cover={cover}
-                                            withProfile
-                                        />
-                                    ))
-                                ) : (
-                                    <USDashboard.Warning>
-                                        You haven't bought any books yet
-                                    </USDashboard.Warning>
-                                )}
-                            </USDashboard.Books>
-                        </USDashboard.BooksContainer>
-                        <USDashboard.BooksContainer withPaidBooks>
-                            <USDashboard.HeaderContainer
-                                withMoreMarginTop={!shouldBoughtBooksBeAtTheBottom}
-                            >
-                                <USDashboard.Header
-                                    withMoreMarginBottom={shouldBoughtBooksBeAtTheBottom}
-                                    withoutPaddingRight
-                                >
-                                    Enjoy borrowed books!
-                                </USDashboard.Header>
-                                {shouldBoughtBooksBeAtTheBottom && renderBooksSuggestionsInput()}
-                            </USDashboard.HeaderContainer>
-                            <USDashboard.Books empty={!areThereBorrowedBooks} withPaidBooks>
-                                {areThereBorrowedBooks ? (
-                                    borrowedBooks.map(({ id, title, author, cover }) => (
-                                        <USComposed.Book
-                                            key={id}
-                                            id={id}
-                                            title={title}
-                                            author={author}
-                                            cover={cover}
-                                            withProfile
-                                        />
-                                    ))
-                                ) : (
-                                    <USDashboard.Warning>
-                                        You haven't borrowed any books yet
-                                    </USDashboard.Warning>
-                                )}
-                            </USDashboard.Books>
-                        </USDashboard.BooksContainer>
+                        <USComposed.Books
+                            books={borrowedBooks}
+                            header="Enjoy borrowed books"
+                            error="You haven't borrowed any books yet"
+                            renderBooksSuggestionsInput={renderBooksSuggestionsInput}
+                            withProfile
+                            withMarginRight
+                        />
+                        <USComposed.Books
+                            books={boughtBooks}
+                            header="Your bought books"
+                            error="You haven't bought any books yet"
+                            withProfile
+                        />
                     </>
                 ))}
         </UserProfileContainer>

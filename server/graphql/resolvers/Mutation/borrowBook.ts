@@ -11,7 +11,7 @@ interface IArgs {
 export default async (_, { bookId }: IArgs, context: IContext) => {
     const book = await Book.findByPk(bookId)
     if (await context.user.hasBook(book)) {
-        throw new utils.ApiError('Borrowing a book', 'You have already borrowed this book!', 409)
+        throw new utils.ApiError('Borrowing a book', 'You have already borrowed this book', 409)
     }
     await context.user.addBook(book)
     return book

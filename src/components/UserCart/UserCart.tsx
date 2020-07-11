@@ -7,7 +7,6 @@ import { useQuery } from '@apollo/react-hooks'
 import hooks from 'hooks'
 
 import { UserStoreContainer, IBook } from 'components/UserStore/UserStore'
-import USDashboard from 'components/UserStore/styled/Dashboard'
 import Dashboard from './styled/Dashboard'
 
 import USComposed from 'components/UserStore/composed'
@@ -56,30 +55,13 @@ const UserCart: React.FC<IProps> = ({ shouldExpandMenu }) => {
     return (
         <UserCartContainer shouldExpandMenu={shouldExpandMenu}>
             <>
-                <USDashboard.BooksContainer>
-                    <USDashboard.HeaderContainer withoutInput>
-                        <USDashboard.Header withoutPaddingRight>
-                            Your chosen books
-                        </USDashboard.Header>
-                    </USDashboard.HeaderContainer>
-                    <USDashboard.Books empty={!areThereBooks}>
-                        {areThereBooks ? (
-                            books.map(({ id, title, author, cover, price }) => (
-                                <USComposed.Book
-                                    key={id}
-                                    id={id}
-                                    title={title}
-                                    author={author}
-                                    cover={cover}
-                                    price={price}
-                                    withCart
-                                />
-                            ))
-                        ) : (
-                            <USDashboard.Warning>The cart is empty</USDashboard.Warning>
-                        )}
-                    </USDashboard.Books>
-                </USDashboard.BooksContainer>
+                <USComposed.Books
+                    books={books}
+                    header="Your chosen books"
+                    error="The cart is empty"
+                    withCart
+                    withMarginRight
+                />
                 <Dashboard.SummaryContainer></Dashboard.SummaryContainer>
             </>
         </UserCartContainer>

@@ -11,7 +11,6 @@ import SuggestionsContainer from './SuggestionsContainer'
 import Suggestion from './Suggestion'
 import ContentContainer from './ContentContainer'
 import Content from './Content'
-import BooksContainer from './BooksContainer'
 import Books from './Books'
 import Loader from './Loader'
 import Cover from './Cover'
@@ -35,7 +34,6 @@ export default {
     Suggestion,
     ContentContainer,
     Content,
-    BooksContainer,
     Books,
     Loader,
     Cover,
