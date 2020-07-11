@@ -8,14 +8,15 @@ import { IBook } from '../UserStore'
 
 interface IProps {
     setBookPopupData?: React.Dispatch<React.SetStateAction<IBook | undefined>>
-    fullWidth?: boolean
+    withPopup?: boolean
+    withProfile?: boolean
 }
 
 const BookContainer = styled.div`
     height: 100%;
     position: relative;
-    ${({ fullWidth }: { fullWidth?: boolean }) =>
-        fullWidth &&
+    ${({ withPopup }: { withPopup?: boolean }) =>
+        withPopup &&
         css`
             width: 100%;
             @media (max-width: 1150px) {
@@ -31,11 +32,12 @@ const Book: React.FC<IBook & IProps> = ({
     cover,
     price,
     setBookPopupData,
-    fullWidth
+    withPopup,
+    withProfile
 }) => {
     const [isLoading, setIsLoading] = useState(true)
     return (
-        <BookContainer fullWidth={fullWidth}>
+        <BookContainer withPopup={withPopup}>
             <Dashboard.Loader
                 onAnimationEnd={e => (e.currentTarget.style.display = 'none')}
                 isLoading={isLoading}
@@ -55,26 +57,29 @@ const Book: React.FC<IBook & IProps> = ({
                 <Dashboard.Annotation>{author}</Dashboard.Annotation>
                 <Dashboard.Annotation withTitle>{title}</Dashboard.Annotation>
             </Dashboard.AnnotationsContainer>
-            {fullWidth && price ? (
-                <Dashboard.Button price={price} withoutHover>
-                    Price
+            {withProfile ? (
+                <Dashboard.Button>Open</Dashboard.Button>
+            ) : !withPopup ? (
+                <Dashboard.Button
+                    onClick={() =>
+                        setBookPopupData &&
+                        setBookPopupData({
+                            id,
+                            author,
+                            title,
+                            cover,
+                            price
+                        })
+                    }
+                    price={price}
+                >
+                    {price ? 'Buy' : 'Borrow'}
                 </Dashboard.Button>
             ) : (
-                !fullWidth && (
-                    <Dashboard.Button
-                        onClick={() =>
-                            setBookPopupData &&
-                            setBookPopupData({
-                                id,
-                                author,
-                                title,
-                                cover,
-                                price
-                            })
-                        }
-                        price={price}
-                    >
-                        {price ? 'Buy' : 'Borrow'}
+                withPopup &&
+                price && (
+                    <Dashboard.Button price={price} withoutHover>
+                        Price
                     </Dashboard.Button>
                 )
             )}

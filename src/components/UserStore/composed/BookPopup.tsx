@@ -80,7 +80,7 @@ const BookPopup: React.FC<IBook & IProps> = ({
     return (
         <BookPopupContainer>
             <Dashboard.ContentContainer>
-                <Book id={id} title={title} author={author} cover={cover} price={price} fullWidth />
+                <Book id={id} title={title} author={author} cover={cover} price={price} withPopup />
                 <Dashboard.Content>
                     <Dashboard.Header black>
                         That's just a small step from getting this book. Are you sure you want to

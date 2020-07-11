@@ -105,6 +105,7 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
                                             title={title}
                                             author={author}
                                             cover={cover}
+                                            withProfile
                                         />
                                     ))
                                 ) : (
@@ -135,6 +136,7 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
                                             title={title}
                                             author={author}
                                             cover={cover}
+                                            withProfile
                                         />
                                     ))
                                 ) : (

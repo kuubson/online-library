@@ -24,12 +24,9 @@ export default styled.div`
     ${({ empty }) =>
         empty &&
         css`
-            height: calc(100% - 60px);
             display: flex;
             justify-content: center;
             align-items: center;
-            @media (max-width: 800px) {
-                height: calc(${() => hooks.useHeight()} - 244px);
-            }
+            height: calc(${() => hooks.useHeight()} - 190px);
         `}
 `
