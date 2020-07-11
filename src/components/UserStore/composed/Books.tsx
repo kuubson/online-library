@@ -22,6 +22,7 @@ interface IProps {
 
 interface ISCProps {
     withMarginRight?: boolean
+    empty?: boolean
 }
 
 const BooksContainer = styled.div`
@@ -30,6 +31,7 @@ const BooksContainer = styled.div`
     margin-top: 20px;
     @media (max-width: 800px) {
         width: 100%;
+        min-height: auto;
     }
     ${({ withMarginRight }: ISCProps) =>
         withMarginRight
@@ -44,6 +46,11 @@ const BooksContainer = styled.div`
                       margin-top: 35px;
                   }
               `}
+    ${({ empty }) =>
+        empty &&
+        css`
+            margin-top: 0px !important;
+        `}
 `
 
 const Books: React.FC<IProps> = ({
@@ -58,15 +65,17 @@ const Books: React.FC<IProps> = ({
 }) => {
     const areThereBooks = books.length > 0
     return (
-        <BooksContainer withMarginRight={withMarginRight}>
-            <Dashboard.HeaderContainer>
-                {header && (
-                    <Dashboard.Header withMoreMarginBottom={!!renderBooksSuggestionsInput}>
-                        {header}
-                    </Dashboard.Header>
-                )}
-                {renderBooksSuggestionsInput && renderBooksSuggestionsInput()}
-            </Dashboard.HeaderContainer>
+        <BooksContainer withMarginRight={withMarginRight} empty={!areThereBooks}>
+            {areThereBooks && (
+                <Dashboard.HeaderContainer>
+                    {header && (
+                        <Dashboard.Header withMoreMarginBottom={!!renderBooksSuggestionsInput}>
+                            {header}
+                        </Dashboard.Header>
+                    )}
+                    {renderBooksSuggestionsInput && renderBooksSuggestionsInput()}
+                </Dashboard.HeaderContainer>
+            )}
             <Dashboard.Books empty={!areThereBooks}>
                 {areThereBooks ? (
                     books.map(({ id, title, author, cover, price }) => (

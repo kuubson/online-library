@@ -15,7 +15,7 @@ export default styled.div`
     ${({ empty }: ISCProps) =>
         empty &&
         css`
-            height: calc(${() => hooks.useHeight()} - 89px);
+            height: calc(${() => hooks.useHeight()} - 39px);
             margin-top: 0px;
             display: flex;
             justify-content: center;

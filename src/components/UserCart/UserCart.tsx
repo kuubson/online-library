@@ -44,7 +44,6 @@ const UserCart: React.FC<IProps> = ({ shouldExpandMenu }) => {
         }
     })
     const [books, setBooks] = useState<IBook[]>([])
-    const areThereBooks = books.length > 0
     useEffect(() => {
         setTimeout(() => {
             if (data) {
