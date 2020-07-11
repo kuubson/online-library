@@ -81,7 +81,7 @@ const UserLogin: React.FC = () => {
         window.FB.login(
             ({ authResponse, status }: IFacebookResponse) => {
                 if (authResponse && status === 'connected') {
-                    window.FB.api(
+                    return window.FB.api(
                         '/me?fields=id,first_name,email',
                         async ({ first_name, email }: IFacebookData) => {
                             const response = await utils.apiAxios.post(url, {
@@ -94,12 +94,11 @@ const UserLogin: React.FC = () => {
                             }
                         }
                     )
-                } else {
-                    utils.setFeedbackData(
-                        'Logging to app',
-                        'There was an unexpected problem logging in with Facebook'
-                    )
                 }
+                utils.setFeedbackData(
+                    'Logging to app',
+                    'There was an unexpected problem logging in with Facebook'
+                )
             },
             { scope: 'email,public_profile' }
         )

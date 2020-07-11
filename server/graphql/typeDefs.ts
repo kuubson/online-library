@@ -14,6 +14,7 @@ export default gql`
         booksSuggestions(title: String!, author: String!, withProfile: Boolean!): [Book!]!
         borrowedBooks: [Book!]!
         boughtBooks: [Book!]!
+        cart(ids: [ID]): [Book!]!
     }
     type Mutation {
         borrowBook(bookId: ID!): Book!

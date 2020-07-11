@@ -134,7 +134,7 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
                                     Choose some paid books
                                 </Dashboard.Header>
                             </Dashboard.HeaderContainer>
-                            <Dashboard.Books withPaidBooks empty={!areTherePaidBooks}>
+                            <Dashboard.Books empty={!areTherePaidBooks} withPaidBooks>
                                 {areTherePaidBooks ? (
                                     paidBooks.map(({ id, title, author, cover, price }) => (
                                         <Composed.Book

@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components/macro'
 
 interface ISCProps {
     withMoreMarginTop?: boolean
+    withoutInput?: boolean
 }
 
 export default styled.div`
@@ -20,6 +21,13 @@ export default styled.div`
             @media (max-width: 800px) {
                 height: 10px;
                 margin-top: 20px;
+            }
+        `};
+    ${({ withoutInput }: ISCProps) =>
+        withoutInput &&
+        css`
+            @media (max-width: 1100px) {
+                height: 10px;
             }
         `};
 `

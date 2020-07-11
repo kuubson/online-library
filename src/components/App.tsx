@@ -23,6 +23,7 @@ import UserLogin from 'components/UserLogin/UserLogin'
 import UserPasswordRecovery from 'components/UserPasswordRecovery/UserPasswordRecovery'
 import UserStore from 'components/UserStore/UserStore'
 import UserProfile from 'components/UserProfile/UserProfile'
+import UserCart from 'components/UserCart/UserCart'
 
 const AppContainer = styled.main`
     min-height: ${() => hooks.useHeight()};
@@ -108,6 +109,15 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
             render: () => (
                 <Roles.User>
                     <UserProfile />
+                </Roles.User>
+            )
+        },
+        {
+            order: 5,
+            pathname: '/user/cart',
+            render: () => (
+                <Roles.User>
+                    <UserCart />
                 </Roles.User>
             )
         },

@@ -55,6 +55,7 @@ const BookPopup: React.FC<IBook & IProps> = ({
     const [borrowBook] = useMutation<{
         borrowBook: IBook
     }>(borrowBookMutation)
+    const { cart, addToCart } = hooks.useCart()
     const handleBorrow = async () => {
         try {
             const { data } = await borrowBook({
@@ -76,7 +77,16 @@ const BookPopup: React.FC<IBook & IProps> = ({
             setBookPopupData(undefined)
         }
     }
-    const handleAddToCart = async () => {}
+    const handleAddToCart = async (id: number) => {
+        if (cart.includes(id)) {
+            setBookPopupData(undefined)
+            return utils.setFeedbackData('Buying a book', `This book is already in the cart`)
+        }
+        addToCart(id)
+        utils.setFeedbackData('Buying a book', `The book has been added to the cart`, 'Okey', () =>
+            setBookPopupData(undefined)
+        )
+    }
     return (
         <BookPopupContainer>
             <Dashboard.ContentContainer>
@@ -88,7 +98,7 @@ const BookPopup: React.FC<IBook & IProps> = ({
                     </Dashboard.Header>
                     <Dashboard.ButtonsContainer>
                         <Dashboard.Button
-                            onClick={price ? handleAddToCart : handleBorrow}
+                            onClick={price ? () => handleAddToCart(id) : handleBorrow}
                             notAbsolute
                         >
                             Yes

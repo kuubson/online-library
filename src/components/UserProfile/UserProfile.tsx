@@ -7,20 +7,13 @@ import { useQuery } from '@apollo/react-hooks'
 import hooks from 'hooks'
 import USHooks from 'components/UserStore/hooks'
 
-import { UserStoreContainer } from 'components/UserStore/UserStore'
+import { UserStoreContainer, IBook } from 'components/UserStore/UserStore'
 import USDashboard from 'components/UserStore/styled/Dashboard'
 
 import USComposed from 'components/UserStore/composed'
 
 interface IProps {
     shouldExpandMenu?: boolean
-}
-
-interface IBook {
-    id: number
-    title: string
-    author: string
-    cover: string
 }
 
 interface BooksQueryData {
@@ -127,7 +120,7 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
                                 </USDashboard.Header>
                                 {shouldBoughtBooksBeAtTheBottom && renderBooksSuggestionsInput()}
                             </USDashboard.HeaderContainer>
-                            <USDashboard.Books withPaidBooks empty={!areThereBorrowedBooks}>
+                            <USDashboard.Books empty={!areThereBorrowedBooks} withPaidBooks>
                                 {areThereBorrowedBooks ? (
                                     borrowedBooks.map(({ id, title, author, cover }) => (
                                         <USComposed.Book

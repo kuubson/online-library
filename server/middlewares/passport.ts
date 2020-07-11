@@ -25,15 +25,14 @@ export default (passport: PassportStatic) => {
                             email
                         }
                     })
-                    user
+                    return user
                         ? done(false, {
                               user,
                               role
                           })
                         : done(false, {})
-                } else {
-                    done(false, {})
                 }
+                done(false, {})
             }
         )
     )

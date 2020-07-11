@@ -2,14 +2,17 @@ import React, { useState } from 'react'
 import styled, { css } from 'styled-components/macro'
 import Loader from 'react-spinkit'
 
+import hooks from 'hooks'
+
 import Dashboard from '../styled/Dashboard'
 
 import { IBook } from '../UserStore'
 
 interface IProps {
     setBookPopupData?: React.Dispatch<React.SetStateAction<IBook | undefined>>
-    withPopup?: boolean
+    withCart?: boolean
     withProfile?: boolean
+    withPopup?: boolean
 }
 
 const BookContainer = styled.div`
@@ -32,9 +35,11 @@ const Book: React.FC<IBook & IProps> = ({
     cover,
     price,
     setBookPopupData,
-    withPopup,
-    withProfile
+    withCart,
+    withProfile,
+    withPopup
 }) => {
+    const { removeFromCart } = hooks.useCart()
     const [isLoading, setIsLoading] = useState(true)
     return (
         <BookContainer withPopup={withPopup}>
@@ -57,7 +62,11 @@ const Book: React.FC<IBook & IProps> = ({
                 <Dashboard.Annotation>{author}</Dashboard.Annotation>
                 <Dashboard.Annotation withTitle>{title}</Dashboard.Annotation>
             </Dashboard.AnnotationsContainer>
-            {withProfile ? (
+            {withCart ? (
+                <Dashboard.Button onClick={() => removeFromCart(id)} price={price}>
+                    Remove
+                </Dashboard.Button>
+            ) : withProfile ? (
                 <Dashboard.Button>Open</Dashboard.Button>
             ) : !withPopup ? (
                 <Dashboard.Button
