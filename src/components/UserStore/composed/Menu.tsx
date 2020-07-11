@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components/macro'
+import styled, { css } from 'styled-components/macro'
 import { RouteComponentProps } from 'react-router-dom'
 import { useApolloClient } from 'react-apollo'
 
 import { compose } from 'redux'
 import hoc from 'hoc'
+
+import hooks from 'hooks'
 
 import Dashboard from '../styled/Dashboard'
 
@@ -20,6 +22,10 @@ interface IProps {
     _setShouldExpandMenu: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+interface ISCProps {
+    shouldStickMenu?: boolean
+}
+
 const MenuContainer = styled.nav`
     width: calc(100% - 40px);
     height: 90px;
@@ -28,6 +34,7 @@ const MenuContainer = styled.nav`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: width 0.3s ease-in-out, right 0.3s ease-in-out, left 0.3s ease-in-out;
     position: absolute;
     top: 20px;
     left: 20px;
@@ -36,6 +43,16 @@ const MenuContainer = styled.nav`
         height: 80px;
         padding: 0px 25px 0px 20px;
     }
+    ${({ shouldStickMenu }: ISCProps) =>
+        shouldStickMenu &&
+        css`
+            width: 100%;
+            position: fixed;
+            top: 0px;
+            right: 0px;
+            left: 0px;
+            z-index: 3;
+        `};
 `
 
 const Menu: React.FC<RouteComponentProps & IProps> = ({
@@ -43,6 +60,8 @@ const Menu: React.FC<RouteComponentProps & IProps> = ({
     options,
     _setShouldExpandMenu
 }) => {
+    const offset = hooks.useOffset()
+    const shouldStickMenu = parseInt(offset) > 20
     const client = useApolloClient()
     const [shouldExpandMenu, setShouldExpandMenu] = useState(false)
     useEffect(() => _setShouldExpandMenu(shouldExpandMenu), [shouldExpandMenu])
@@ -56,7 +75,7 @@ const Menu: React.FC<RouteComponentProps & IProps> = ({
         }
     }
     return (
-        <MenuContainer>
+        <MenuContainer shouldStickMenu={shouldStickMenu}>
             <Dashboard.Logo>Online Library</Dashboard.Logo>
             <Dashboard.LinesContainer
                 onClick={() => setShouldExpandMenu(shouldExpandMenu => !shouldExpandMenu)}

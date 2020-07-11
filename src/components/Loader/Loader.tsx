@@ -15,7 +15,7 @@ export const LoaderContainer = styled.section`
     position: fixed;
     top: 0px;
     left: 0px;
-    z-index: 1;
+    z-index: 5;
 `
 
 const Loader: React.FC = () => {

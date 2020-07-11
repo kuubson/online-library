@@ -32,7 +32,7 @@ export const UserStoreContainer = styled(HomeContainer)`
     height: initial;
     min-height: ${() => hooks.useHeight()};
     padding: ${({ shouldExpandMenu }: IProps) =>
-        shouldExpandMenu ? '344px 20px 20px 20px' : '130px 20px 20px 20px'};
+        shouldExpandMenu ? '290px 20px 20px 20px' : '130px 20px 20px 20px'};
     align-items: flex-start;
     transition: padding 0.4s ease-in-out;
     @media (min-width: 800px) {
@@ -41,7 +41,7 @@ export const UserStoreContainer = styled(HomeContainer)`
     @media (max-width: 800px) {
         flex-direction: column;
         padding: ${({ shouldExpandMenu }) =>
-            shouldExpandMenu ? '334px 20px 20px 20px' : '120px 20px 20px 20px'};
+            shouldExpandMenu ? '280px 20px 20px 20px' : '120px 20px 20px 20px'};
     }
 `
 

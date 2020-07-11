@@ -39,8 +39,8 @@ const Book: React.FC<IBook & IProps> = ({
     withProfile,
     withPopup
 }) => {
-    const { removeFromCart } = hooks.useCart()
     const [isLoading, setIsLoading] = useState(true)
+    const { removeFromCart } = hooks.useCart()
     return (
         <BookContainer withPopup={withPopup}>
             <Dashboard.Loader

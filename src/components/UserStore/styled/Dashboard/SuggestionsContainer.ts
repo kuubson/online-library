@@ -6,5 +6,5 @@ export default styled.ul`
     position: absolute;
     top: 100%;
     left: 0px;
-    z-index: 1;
+    z-index: 2;
 `

@@ -16,7 +16,7 @@ export default styled.div`
     position: absolute;
     top: 0px;
     left: 0px;
-    z-index: 3;
+    z-index: 1;
     ${({ isLoading }: ISCProps) =>
         !isLoading &&
         css`

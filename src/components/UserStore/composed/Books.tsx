@@ -1,8 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components/macro'
 
-import hooks from 'hooks'
-
 import Dashboard from '../styled/Dashboard'
 
 import Composed from '.'
@@ -27,11 +25,9 @@ interface ISCProps {
 
 const BooksContainer = styled.div`
     width: 55%;
-    min-height: calc(${() => hooks.useHeight()} - 59px);
     margin-top: 20px;
     @media (max-width: 800px) {
         width: 100%;
-        min-height: auto;
     }
     ${({ withMarginRight }: ISCProps) =>
         withMarginRight

@@ -21,7 +21,8 @@ export default styled.ul`
         ${({ shouldExpandMenu }: ISCProps) =>
             shouldExpandMenu &&
             css`
-                height: 214px;
+                height: 160px;
+                border-bottom: 2px solid white;
                 transition: height 0.5s ease-in-out;
             `}
     }

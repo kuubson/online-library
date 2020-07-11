@@ -4,6 +4,7 @@ import useFeedbackHandler from './useFeedbackHandler'
 import useCart from './useCart'
 import useWidth from './useWidth'
 import useHeight from './useHeight'
+import useOffset from './useOffset'
 import useBlur from './useBlur'
 import useValidator from './useValidator'
 
@@ -14,6 +15,7 @@ export default {
     useCart,
     useWidth,
     useHeight,
+    useOffset,
     useBlur,
     useValidator
 }
