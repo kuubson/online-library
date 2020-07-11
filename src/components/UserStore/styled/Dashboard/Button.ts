@@ -30,7 +30,8 @@ export default styled.button`
         css`    
             padding: 8px 18px;
             ::after {
-                font-weight:bold;
+                text-shadow: -1px 0px black;
+                font-weight: bold;
                 content: '$${price.toFixed(2)}';
                 position: absolute;
                 top: -25px;

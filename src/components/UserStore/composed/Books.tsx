@@ -16,11 +16,14 @@ interface IProps {
     withCart?: boolean
     withProfile?: boolean
     withMarginRight?: boolean
+    fullWidth?: boolean
+    withoutInput?: boolean
 }
 
 interface ISCProps {
     withMarginRight?: boolean
     empty?: boolean
+    fullWidth?: boolean
 }
 
 const BooksContainer = styled.div`
@@ -47,6 +50,11 @@ const BooksContainer = styled.div`
         css`
             margin-top: 0px !important;
         `}
+    ${({ fullWidth }) =>
+        fullWidth &&
+        css`
+            width: 100%;
+        `}
 `
 
 const Books: React.FC<IProps> = ({
@@ -57,15 +65,24 @@ const Books: React.FC<IProps> = ({
     renderBooksSuggestionsInput,
     withCart,
     withProfile,
-    withMarginRight
+    withMarginRight,
+    fullWidth,
+    withoutInput
 }) => {
     const areThereBooks = books.length > 0
     return (
-        <BooksContainer withMarginRight={withMarginRight} empty={!areThereBooks}>
+        <BooksContainer
+            withMarginRight={withMarginRight}
+            empty={!areThereBooks}
+            fullWidth={fullWidth}
+        >
             {areThereBooks && (
-                <Dashboard.HeaderContainer>
+                <Dashboard.HeaderContainer withoutInput={withoutInput}>
                     {header && (
-                        <Dashboard.Header withMoreMarginBottom={!!renderBooksSuggestionsInput}>
+                        <Dashboard.Header
+                            withMoreMarginBottom={!!renderBooksSuggestionsInput}
+                            withPaddingRight={!!renderBooksSuggestionsInput}
+                        >
                             {header}
                         </Dashboard.Header>
                     )}

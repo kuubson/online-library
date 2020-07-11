@@ -1,4 +1,8 @@
-import styled from 'styled-components/macro'
+import styled, { css } from 'styled-components/macro'
+
+interface ISCProps {
+    withoutInput?: boolean
+}
 
 export default styled.div`
     height: 30px;
@@ -9,4 +13,9 @@ export default styled.div`
         height: 40px;
         flex-direction: column;
     }
+    ${({ withoutInput }: ISCProps) =>
+        withoutInput &&
+        css`
+            height: 10px !important;
+        `};
 `
