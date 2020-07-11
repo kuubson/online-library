@@ -2,6 +2,8 @@ import { Op } from 'sequelize'
 
 import { Book } from '../../../database/database'
 
+import middlewares from '../../../middlewares'
+
 import { IContext } from '../types'
 
 interface IArgs {
@@ -11,6 +13,7 @@ interface IArgs {
 }
 
 export default async (_, { title, author, withProfile }: IArgs, context: IContext) => {
+    middlewares.roleAuthorization(context, 'user')
     if (!withProfile) {
         switch (true) {
             case !!title:

@@ -8,7 +8,7 @@ import utils from 'utils'
 
 export const cache = new InMemoryCache()
 
-const errorHandler = onError(({ graphQLErrors }) => {
+const errorHandler = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
         const [{ extensions }] = graphQLErrors
         if (extensions) {
@@ -16,17 +16,27 @@ const errorHandler = onError(({ graphQLErrors }) => {
             const errorMessage =
                 extensions.exception.errorMessage ||
                 'The server cannot temporarily process your request'
-            if (errorHeader === 'Request Processing') {
-                utils.setFeedbackData(
-                    'Request Processing',
-                    'The server cannot temporarily process your request',
-                    'Refresh the application',
-                    () => process.env.NODE_ENV === 'production' && window.location.reload()
-                )
-            } else {
-                utils.setFeedbackData(errorHeader, errorMessage)
+            switch (true) {
+                case errorHeader === 'Request Processing':
+                    utils.setFeedbackData(
+                        'Request Processing',
+                        'The server cannot temporarily process your request',
+                        'Refresh the application',
+                        () => process.env.NODE_ENV === 'production' && window.location.reload()
+                    )
+                    break
+                default:
+                    utils.setFeedbackData(errorHeader, errorMessage)
             }
         }
+    }
+    if (networkError && networkError.message.includes('401')) {
+        utils.setFeedbackData(
+            'Authorization',
+            'The authentication cookie is invalid, log in again',
+            'Okey',
+            () => utils.redirectTo('/user/login')
+        )
     }
 })
 

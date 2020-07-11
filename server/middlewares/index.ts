@@ -3,7 +3,6 @@ import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
 import { ApolloServer } from 'apollo-server-express'
 import csurf from 'csurf'
-
 import passport from 'passport'
 
 import initPassport from './passport'
@@ -11,7 +10,9 @@ initPassport(passport)
 
 import errorHandler from './errorHandler'
 import checkValidation from './checkValidation'
+import jwtAuthorization, { IPassportData } from './jwtAuthorization'
 import facebookAuthorization from './facebookAuthorization'
+import roleAuthorization from './roleAuthorization'
 
 import utils from '../utils'
 
@@ -25,7 +26,7 @@ const init = (app: Express) => {
     app.use(express.urlencoded({ extended: true }))
     app.use(passport.initialize())
     app.use('/graphql', (req, res, next) => {
-        passport.authenticate('jwt', { session: false }, (_, { user }) => {
+        passport.authenticate('jwt', { session: false }, (_, { user, role }: IPassportData) => {
             if (!user) {
                 return next(
                     new utils.ApiError(
@@ -35,7 +36,10 @@ const init = (app: Express) => {
                     )
                 )
             }
-            req.user = user
+            req.user = {
+                user,
+                role
+            }
             next()
         })(req, res, next)
     })
@@ -44,7 +48,8 @@ const init = (app: Express) => {
         typeDefs,
         context: ({ req, res }) => ({
             res,
-            user: req.user
+            user: (req.user as IPassportData).user,
+            role: (req.user as IPassportData).role
         })
     }).applyMiddleware({
         app,
@@ -75,5 +80,7 @@ export default {
     init,
     errorHandler,
     checkValidation,
-    facebookAuthorization
+    jwtAuthorization,
+    facebookAuthorization,
+    roleAuthorization
 }

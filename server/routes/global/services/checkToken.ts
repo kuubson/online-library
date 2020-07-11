@@ -12,7 +12,7 @@ interface IBody {
 
 export interface IJWTData {
     email: string
-    role: 'user'
+    role: 'user' | 'admin'
 }
 
 export default {
