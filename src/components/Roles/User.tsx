@@ -26,6 +26,7 @@ const User: React.FC = ({ children }) => {
         }
         checkToken()
     }, [])
+    const cartItemsAmount = hooks.useCart().cart.length
     return (
         <>
             <USComposed.Menu
@@ -40,7 +41,8 @@ const User: React.FC = ({ children }) => {
                     },
                     {
                         option: 'Cart',
-                        pathname: '/user/cart'
+                        pathname: '/user/cart',
+                        cartItemsAmount: cartItemsAmount <= 99 ? cartItemsAmount : 99
                     },
                     {
                         option: 'Logout'

@@ -20,7 +20,7 @@ export default styled.div`
                 opacity: 0;
             }
             :nth-child(3) {
-                transform: rotate(90deg) translateX(-2.5px);
+                transform: rotate(90deg) translateX(-2.8px);
             }
         `}
 `

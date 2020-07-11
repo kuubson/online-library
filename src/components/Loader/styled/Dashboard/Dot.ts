@@ -23,10 +23,10 @@ export default styled.span`
     left: 0px;
     top: 0px;
     ::before {
-        content: '';
-        display: block;
         width: 25%;
         height: 25%;
+        content: '';
+        display: block;
         background-color: white;
         border-radius: 100%;
         animation: ${dotBeforeAnimation} 2s infinite ease-in-out both;

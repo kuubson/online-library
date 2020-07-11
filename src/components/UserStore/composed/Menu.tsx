@@ -15,6 +15,7 @@ import utils from 'utils'
 interface Option {
     option: string
     pathname?: string
+    cartItemsAmount?: number
 }
 
 interface IProps {
@@ -60,11 +61,11 @@ const Menu: React.FC<RouteComponentProps & IProps> = ({
     options,
     _setShouldExpandMenu
 }) => {
-    const offset = hooks.useOffset()
-    const shouldStickMenu = parseInt(offset) > 20
     const client = useApolloClient()
     const [shouldExpandMenu, setShouldExpandMenu] = useState(false)
     useEffect(() => _setShouldExpandMenu(shouldExpandMenu), [shouldExpandMenu])
+    const offset = hooks.useOffset()
+    const shouldStickMenu = parseInt(offset) > 20
     const logout = async () => {
         client && client.clearStore()
         const url = '/api/global/logout'
@@ -87,7 +88,7 @@ const Menu: React.FC<RouteComponentProps & IProps> = ({
             </Dashboard.LinesContainer>
             <Dashboard.OptionsContainer shouldExpandMenu={shouldExpandMenu}>
                 {options.map(
-                    ({ option, pathname }) =>
+                    ({ option, pathname, cartItemsAmount }) =>
                         location.pathname !== pathname && (
                             <Dashboard.Option
                                 key={option}
@@ -95,6 +96,7 @@ const Menu: React.FC<RouteComponentProps & IProps> = ({
                                     option === 'Logout' ? logout() : utils.redirectTo(`${pathname}`)
                                 }
                                 shouldExpandMenu={shouldExpandMenu}
+                                cartItemsAmount={cartItemsAmount}
                             >
                                 {option}
                             </Dashboard.Option>

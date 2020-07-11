@@ -6,5 +6,6 @@ export default styled.div`
     @media (max-width: 800px) {
         width: 100%;
         margin-top: 35px;
+        margin-bottom: 35px;
     }
 `
