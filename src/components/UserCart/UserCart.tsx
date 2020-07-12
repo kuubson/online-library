@@ -38,7 +38,7 @@ const cartQuery = gql`
 
 const UserCart: React.FC<IProps> = ({ shouldExpandMenu }) => {
     const { cart: ids } = hooks.useCart()
-    const { data } = useQuery<CartQueryData>(cartQuery, {
+    const { loading: isCartLoading, data } = useQuery<CartQueryData>(cartQuery, {
         fetchPolicy: 'cache-and-network',
         variables: {
             ids
@@ -55,31 +55,33 @@ const UserCart: React.FC<IProps> = ({ shouldExpandMenu }) => {
     }, [data])
     return (
         <UserCartContainer shouldExpandMenu={shouldExpandMenu}>
-            <>
-                <USComposed.Books
-                    books={books}
-                    header="Your chosen books"
-                    error="The cart is empty"
-                    withCart
-                    withMarginRight={areThereBooks}
-                    fullWidth={!areThereBooks}
-                    withoutInput
-                />
-                {areThereBooks && (
-                    <Dashboard.SummaryContainer>
-                        <USDashboard.HeaderContainer withoutInput>
-                            <USDashboard.Header>Summary</USDashboard.Header>
-                        </USDashboard.HeaderContainer>
-                        <Dashboard.Summary>
-                            {books.map(({ id, title, price }) => (
-                                <Dashboard.Book key={id}>
-                                    Book "{title}" 1 x ${price}
-                                </Dashboard.Book>
-                            ))}
-                        </Dashboard.Summary>
-                    </Dashboard.SummaryContainer>
-                )}
-            </>
+            {!isCartLoading && (
+                <>
+                    <USComposed.Books
+                        books={books}
+                        header="Your chosen books"
+                        error="The cart is empty"
+                        withCart
+                        withMarginRight={areThereBooks}
+                        fullWidth={!areThereBooks}
+                        withoutInput
+                    />
+                    {areThereBooks && (
+                        <Dashboard.SummaryContainer>
+                            <USDashboard.HeaderContainer withoutInput>
+                                <USDashboard.Header>Summary</USDashboard.Header>
+                            </USDashboard.HeaderContainer>
+                            <Dashboard.Summary>
+                                {books.map(({ id, title, price }) => (
+                                    <Dashboard.Book key={id}>
+                                        Book "{title}" 1 x ${price}
+                                    </Dashboard.Book>
+                                ))}
+                            </Dashboard.Summary>
+                        </Dashboard.SummaryContainer>
+                    )}
+                </>
+            )}
         </UserCartContainer>
     )
 }
