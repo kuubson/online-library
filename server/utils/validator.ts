@@ -14,7 +14,6 @@ const validateProperty = (property: string, emptyError?: string, sanitizationErr
     }
     return check(`${property}`).trim()
 }
-
 const validateEmail = () =>
     check('email')
         .trim()
@@ -24,7 +23,6 @@ const validateEmail = () =>
         .isEmail()
         .withMessage('Type proper email')
         .normalizeEmail()
-
 const validatePassword = (withLogin = false) =>
     !withLogin
         ? check('password')
@@ -50,7 +48,6 @@ const validatePassword = (withLogin = false) =>
                   return password
               })
         : check('password').notEmpty().withMessage('Type your password')
-
 const validateRepeatedPassword = () =>
     check('repeatedPassword')
         .trim()

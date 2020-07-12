@@ -79,7 +79,9 @@ const UserRegistration: React.FC = () => {
             passwordError: '',
             repeatedPasswordError: ''
         }))
-        isValidated = hooks.useValidator(handleError).validateName(name)
+        isValidated = hooks
+            .useValidator(handleError)
+            .validateProperty(name, 'Type your name', 'Name contains invalid characters')
         isValidated = hooks.useValidator(handleError).validateEmail(email)
         isValidated = hooks.useValidator(handleError).validatePassword(password, repeatedPassword)
         isValidated = hooks
@@ -100,7 +102,13 @@ const UserRegistration: React.FC = () => {
                     error={nameError}
                     onChange={e => {
                         onChange(e)
-                        hooks.useValidator(handleError).validateName(e.target.value)
+                        hooks
+                            .useValidator(handleError)
+                            .validateProperty(
+                                e.target.value,
+                                'Type your name',
+                                'Name contains invalid characters'
+                            )
                     }}
                 />
                 <Composed.Input

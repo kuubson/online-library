@@ -10,7 +10,7 @@ export interface IPassportData {
 
 export default (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate('jwt', { session: false }, (error, { user, role }: IPassportData) => {
-        if (error || !user || role !== req.path.split('/')[1]) {
+        if (error || !user || role !== req.originalUrl.split('/')[2]) {
             return res
                 .clearCookie('token', {
                     secure: process.env.NODE_ENV === 'production',

@@ -3,19 +3,19 @@ import validator from 'validator'
 import utils from 'utils'
 
 export default (handleError: (errorKey: string, error: string) => void) => {
-    const validateName = (name: string) => {
+    const validateProperty = (property: string, emptyError: string, sanitizationError: string) => {
         let isValidated = true
         switch (true) {
-            case !name.trim():
+            case !property.trim():
                 isValidated = false
-                handleError('name', 'Type your name')
+                handleError(`${property}`, emptyError)
                 break
-            case utils.checkSanitization(name):
+            case utils.checkSanitization(property):
                 isValidated = false
-                handleError('name', 'Name contains invalid characters')
+                handleError(`${property}`, sanitizationError)
                 break
             default:
-                handleError('name', '')
+                handleError(`${property}`, '')
         }
         return isValidated
     }
@@ -103,7 +103,7 @@ export default (handleError: (errorKey: string, error: string) => void) => {
         return isValidated
     }
     return {
-        validateName,
+        validateProperty,
         validateEmail,
         validatePassword,
         validateRepeatedPassword
