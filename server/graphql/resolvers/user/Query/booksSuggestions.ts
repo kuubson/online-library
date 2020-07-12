@@ -1,10 +1,10 @@
 import { Op } from 'sequelize'
 
-import { Book } from '../../../database/database'
+import { Book } from '../../../../database/database'
 
-import middlewares from '../../../middlewares'
+import middlewares from '../../../../middlewares'
 
-import { IContext } from '../types'
+import { IContext } from '../../types'
 
 interface IArgs {
     title: string

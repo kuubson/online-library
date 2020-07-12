@@ -16,8 +16,7 @@ import roleAuthorization from './roleAuthorization'
 
 import utils from '../utils'
 
-import resolvers from '../graphql/resolvers'
-import typeDefs from '../graphql/typeDefs'
+import schema from '../graphql/schema'
 
 const init = (app: Express) => {
     app.use(helmet())
@@ -44,8 +43,7 @@ const init = (app: Express) => {
         })(req, res, next)
     })
     new ApolloServer({
-        resolvers,
-        typeDefs,
+        schema,
         context: ({ req, res }) => ({
             res,
             user: (req.user as IPassportData).user,

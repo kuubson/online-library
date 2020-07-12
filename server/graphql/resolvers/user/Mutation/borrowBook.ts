@@ -1,10 +1,10 @@
-import { Book } from '../../../database/database'
+import { Book } from '../../../../database/database'
 
-import middlewares from '../../../middlewares'
+import middlewares from '../../../../middlewares'
 
-import utils from '../../../utils'
+import utils from '../../../../utils'
 
-import { IContext } from '../types'
+import { IContext } from '../../types'
 
 interface IArgs {
     bookId: number

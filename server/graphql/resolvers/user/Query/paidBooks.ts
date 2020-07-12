@@ -1,12 +1,14 @@
 import { Op } from 'sequelize'
 
-import middlewares from '../../../middlewares'
+import { Book } from '../../../../database/database'
 
-import { IContext } from '../types'
+import middlewares from '../../../../middlewares'
+
+import { IContext } from '../../types'
 
 export default async (_, __, context: IContext) => {
     middlewares.roleAuthorization(context, 'user')
-    return await context.user.getBooks({
+    return await Book.findAll({
         where: {
             price: {
                 [Op.ne]: null

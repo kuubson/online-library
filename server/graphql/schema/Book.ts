@@ -8,7 +8,7 @@ export default gql`
         cover: String!
         price: Float
     }
-    type Query {
+    extend type Query {
         freeBooks: [Book!]!
         paidBooks: [Book!]!
         booksSuggestions(title: String!, author: String!, withProfile: Boolean!): [Book!]!
@@ -16,7 +16,7 @@ export default gql`
         boughtBooks: [Book!]!
         cart(ids: [ID]): [Book!]!
     }
-    type Mutation {
+    extend type Mutation {
         borrowBook(bookId: ID!): Book!
     }
 `
