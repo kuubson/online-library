@@ -66,7 +66,7 @@ const UserCart: React.FC<IProps> = ({ shouldExpandMenu }) => {
                 />
                 {areThereBooks && (
                     <Dashboard.SummaryContainer>
-                        <USDashboard.HeaderContainer>
+                        <USDashboard.HeaderContainer withoutInput>
                             <USDashboard.Header>Summary</USDashboard.Header>
                         </USDashboard.HeaderContainer>
                         <Dashboard.Summary>

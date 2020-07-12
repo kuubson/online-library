@@ -91,7 +91,7 @@ const useBooksSuggestions = ({
                     placeholder="Type book's title..."
                     error=""
                     onChange={({ target }) => setTitle(target.value)}
-                    fullWidth
+                    withBooksSuggestions
                 />
             ) : (
                 <URComposed.Input
@@ -101,7 +101,7 @@ const useBooksSuggestions = ({
                     placeholder="Type author's name..."
                     error=""
                     onChange={({ target }) => setAuthor(target.value)}
-                    fullWidth
+                    withBooksSuggestions
                 />
             )}
             <Dashboard.Switcher onClick={switchFindBy}>

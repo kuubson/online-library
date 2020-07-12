@@ -11,11 +11,11 @@ interface IProps {
     placeholder: string
     error: string
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-    fullWidth?: boolean
+    withBooksSuggestions?: boolean
 }
 
 interface ISCProps {
-    fullWidth?: boolean
+    withBooksSuggestions?: boolean
 }
 
 const InputContainer = styled.div`
@@ -27,8 +27,8 @@ const InputContainer = styled.div`
     @media (max-width: 1000px) {
         width: 70%;
     }
-    ${({ fullWidth }: ISCProps) =>
-        fullWidth &&
+    ${({ withBooksSuggestions }: ISCProps) =>
+        withBooksSuggestions &&
         css`
             @media (max-width: 1100px) {
                 width: 100%;
@@ -44,10 +44,10 @@ const Input: React.FC<IProps> = ({
     placeholder,
     error,
     onChange,
-    fullWidth
+    withBooksSuggestions
 }) => {
     return (
-        <InputContainer fullWidth={fullWidth}>
+        <InputContainer withBooksSuggestions={withBooksSuggestions}>
             {label && <Dashboard.Label htmlFor={id}>{label}</Dashboard.Label>}
             <Dashboard.Input
                 id={id}
@@ -56,7 +56,7 @@ const Input: React.FC<IProps> = ({
                 value={value}
                 placeholder={placeholder}
                 onChange={onChange}
-                fullWidth={fullWidth}
+                withBooksSuggestions={withBooksSuggestions}
             />
             {error && <Dashboard.Error>{error}</Dashboard.Error>}
         </InputContainer>

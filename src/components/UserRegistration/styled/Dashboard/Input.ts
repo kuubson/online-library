@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
 interface IProps {
-    fullWidth?: boolean
+    withBooksSuggestions?: boolean
 }
 
 export default styled.input`
@@ -19,8 +19,8 @@ export default styled.input`
     @media (max-width: 500px) {
         font-size: 11px;
     }
-    ${({ fullWidth }: IProps) =>
-        fullWidth &&
+    ${({ withBooksSuggestions }: IProps) =>
+        withBooksSuggestions &&
         css`
             padding-right: 110px;
         `}
