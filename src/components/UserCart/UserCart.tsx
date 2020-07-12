@@ -62,6 +62,7 @@ const UserCart: React.FC<IProps> = ({ shouldExpandMenu }) => {
                     error="The cart is empty"
                     withCart
                     withMarginRight={areThereBooks}
+                    fullWidth={!areThereBooks}
                     withoutInput
                 />
                 {areThereBooks && (
