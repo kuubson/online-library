@@ -40,12 +40,30 @@ const errorHandler = onError(({ graphQLErrors, networkError }) => {
     }
 })
 
+let timeoutId: number | undefined
+
+const customFetch = (uri: any, options: any) => {
+    !timeoutId && (timeoutId = setTimeout(() => utils.setIsLoading(true), 500))
+    return fetch(uri, options)
+}
+
+const handleLoader = new ApolloLink((operation, forward) => {
+    return forward(operation).map(response => {
+        utils.setIsLoading(false)
+        clearTimeout(timeoutId)
+        timeoutId = undefined
+        return response
+    })
+})
+
 export default new ApolloClient({
     cache,
     link: ApolloLink.from([
         errorHandler,
+        handleLoader,
         new HttpLink({
-            uri: `${document.location.protocol}//${document.location.host}/graphql`
+            uri: `${document.location.protocol}//${document.location.host}/graphql`,
+            fetch: customFetch
         })
     ])
 })

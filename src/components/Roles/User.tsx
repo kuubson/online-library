@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
+import axios from 'axios'
 
 import hooks from 'hooks'
 
@@ -15,13 +16,17 @@ const User: React.FC = ({ children }) => {
     const [shouldExpandMenu, _setShouldExpandMenu] = useState(false)
     useEffect(() => {
         const checkToken = async () => {
-            const url = '/api/global/checkToken'
-            const response = await utils.apiAxios.get(url)
-            if (response) {
-                const { role }: ICheckToken = response.data
-                if (role !== 'user') {
-                    utils.redirectTo('/user/login')
+            try {
+                const url = '/api/global/checkToken'
+                const response = await axios.get(url)
+                if (response) {
+                    const { role }: ICheckToken = response.data
+                    if (role !== 'user') {
+                        utils.redirectTo('/user/login')
+                    }
                 }
+            } catch (error) {
+                utils.handleApiError(error)
             }
         }
         checkToken()
