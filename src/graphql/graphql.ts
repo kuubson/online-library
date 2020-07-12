@@ -9,6 +9,9 @@ import utils from 'utils'
 export const cache = new InMemoryCache()
 
 const errorHandler = onError(({ graphQLErrors, networkError }) => {
+    utils.setIsLoading(false)
+    clearTimeout(timeoutId)
+    timeoutId = undefined
     if (graphQLErrors) {
         const [{ extensions }] = graphQLErrors
         if (extensions) {

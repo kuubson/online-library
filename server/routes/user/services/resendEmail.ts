@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express'
-import { check } from 'express-validator'
 import jwt from 'jsonwebtoken'
 
 import { Connection, User } from '../../../database/database'
@@ -77,14 +76,5 @@ export default {
             }
         })
     },
-    validation: () => [
-        check('email')
-            .trim()
-            .notEmpty()
-            .withMessage('Type your email')
-            .bail()
-            .isEmail()
-            .withMessage('Type proper email')
-            .normalizeEmail()
-    ]
+    validation: () => [utils.validator.validateEmail()]
 }

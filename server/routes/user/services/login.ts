@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express'
-import { check } from 'express-validator'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 
@@ -52,15 +51,5 @@ export default {
             next(error)
         }
     },
-    validation: () => [
-        check('email')
-            .trim()
-            .notEmpty()
-            .withMessage('Type your email')
-            .bail()
-            .isEmail()
-            .withMessage('Type proper email')
-            .normalizeEmail(),
-        check('password').notEmpty().withMessage('Type your password')
-    ]
+    validation: () => [utils.validator.validateEmail(), utils.validator.validatePassword(true)]
 }

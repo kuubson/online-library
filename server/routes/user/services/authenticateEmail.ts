@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express'
-import { check } from 'express-validator'
 import jwt from 'jsonwebtoken'
 
 import { Connection, Authentication } from '../../../database/database'
@@ -67,5 +66,5 @@ export default {
             })
         })
     },
-    validation: () => [check('token').trim().notEmpty().isJWT()]
+    validation: () => [utils.validator.validateProperty('token').isJWT()]
 }

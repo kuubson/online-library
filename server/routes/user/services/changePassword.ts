@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express'
-import { check } from 'express-validator'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 
@@ -63,29 +62,8 @@ export default {
         })
     },
     validation: () => [
-        check('password')
-            .notEmpty()
-            .withMessage('Type your password')
-            .bail()
-            .custom((password, { req }) => {
-                if (!/(?=.{10,})/.test(password)) {
-                    throw new Error('Password must be at least 10 characters long')
-                }
-                if (!/(?=.*[a-z])/.test(password)) {
-                    throw new Error('Password must contain at least one small letter')
-                }
-                if (!/(?=.*[A-Z])/.test(password)) {
-                    throw new Error('Password must contain at least one big letter')
-                }
-                if (!/(?=.*[0-9])/.test(password)) {
-                    throw new Error('Password must contain at least one digit')
-                }
-                if (password !== req.body.password) {
-                    throw new Error('Passwords are different')
-                }
-                return password
-            }),
-        check('repeatedPassword').trim().notEmpty().withMessage('You have to type password twice'),
-        check('passwordToken').trim().notEmpty().isJWT()
+        utils.validator.validatePassword(),
+        utils.validator.validateRepeatedPassword(),
+        utils.validator.validateProperty('passwordToken').isJWT()
     ]
 }

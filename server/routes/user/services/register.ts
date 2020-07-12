@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express'
-import { check } from 'express-validator'
 import jwt from 'jsonwebtoken'
 
 import { Connection, User } from '../../../database/database'
@@ -79,43 +78,13 @@ export default {
         }
     },
     validation: () => [
-        check('name')
-            .trim()
-            .notEmpty()
-            .withMessage('Type your name')
-            .bail()
-            .custom(utils.checkSanitization)
-            .withMessage('Name contains invalid characters'),
-        check('email')
-            .trim()
-            .notEmpty()
-            .withMessage('Type your email')
-            .bail()
-            .isEmail()
-            .withMessage('Type proper email')
-            .normalizeEmail(),
-        check('password')
-            .notEmpty()
-            .withMessage('Type your password')
-            .bail()
-            .custom((password, { req }) => {
-                if (!/(?=.{10,})/.test(password)) {
-                    throw new Error('Password must be at least 10 characters long')
-                }
-                if (!/(?=.*[a-z])/.test(password)) {
-                    throw new Error('Password must contain at least one small letter')
-                }
-                if (!/(?=.*[A-Z])/.test(password)) {
-                    throw new Error('Password must contain at least one big letter')
-                }
-                if (!/(?=.*[0-9])/.test(password)) {
-                    throw new Error('Password must contain at least one digit')
-                }
-                if (password !== req.body.password) {
-                    throw new Error('Passwords are different')
-                }
-                return password
-            }),
-        check('repeatedPassword').trim().notEmpty().withMessage('You have to type password twice')
+        utils.validator.validateProperty(
+            'name',
+            'Type your name',
+            'Name contains invalid characters'
+        ),
+        utils.validator.validateEmail(),
+        utils.validator.validatePassword(),
+        utils.validator.validateRepeatedPassword()
     ]
 }

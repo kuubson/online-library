@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express'
-import { check } from 'express-validator'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 
@@ -61,21 +60,12 @@ export default {
         }
     },
     validation: () => [
-        check('name')
-            .trim()
-            .notEmpty()
-            .withMessage('Type your name')
-            .bail()
-            .custom(utils.checkSanitization)
-            .withMessage('Name contains invalid characters'),
-        check('email')
-            .trim()
-            .notEmpty()
-            .withMessage('Type your email')
-            .bail()
-            .isEmail()
-            .withMessage('Type proper email')
-            .normalizeEmail(),
-        check('access_token').trim().notEmpty()
+        utils.validator.validateProperty(
+            'name',
+            'Type your name',
+            'Name contains invalid characters'
+        ),
+        utils.validator.validateEmail(),
+        utils.validator.validateProperty('access_token')
     ]
 }

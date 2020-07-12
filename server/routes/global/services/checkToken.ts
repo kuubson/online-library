@@ -76,5 +76,5 @@ export default {
             })
         })
     },
-    validation: () => [check('token').optional().trim().notEmpty()]
+    validation: () => [utils.validator.validateProperty('token').optional()]
 }
