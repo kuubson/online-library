@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components/macro'
 import Loader from 'react-spinkit'
 
@@ -39,7 +39,11 @@ const Book: React.FC<IBook & IProps> = ({
     withProfile,
     withPopup
 }) => {
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
+    const [timeoutId, setTimeoutId] = useState<number>()
+    useEffect(() => {
+        !timeoutId && setTimeoutId(setTimeout(() => setIsLoading(true), 500))
+    }, [])
     const { removeFromCart } = hooks.useCart()
     return (
         <BookContainer withPopup={withPopup}>
@@ -47,16 +51,21 @@ const Book: React.FC<IBook & IProps> = ({
                 onAnimationEnd={e => (e.currentTarget.style.display = 'none')}
                 isLoading={isLoading}
             >
-                <Loader name="circle" fadeIn="none" />
+                {isLoading && <Loader name="circle" fadeIn="none" />}
             </Dashboard.Loader>
             <Dashboard.Cover
                 src={cover}
-                onLoad={() => setIsLoading(false)}
-                onError={e =>
-                    (e.currentTarget.src = `https://picsum.photos/1920/108${Math.floor(
+                onLoad={() => {
+                    setIsLoading(false)
+                    clearTimeout(timeoutId)
+                    setTimeoutId(undefined)
+                }}
+                onError={e => {
+                    setIsLoading(true)
+                    e.currentTarget.src = `https://picsum.photos/1920/108${Math.floor(
                         Math.random() * 10
-                    )}`)
-                }
+                    )}`
+                }}
             />
             <Dashboard.AnnotationsContainer>
                 <Dashboard.Annotation>{author}</Dashboard.Annotation>

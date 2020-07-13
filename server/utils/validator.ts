@@ -2,7 +2,12 @@ import { check } from 'express-validator'
 
 import utils from '.'
 
-const validateProperty = (property: string, emptyError?: string, sanitizationError?: string) => {
+const validateProperty = (
+    property: string,
+    emptyError?: string,
+    sanitizationError?: string,
+    withArray?: boolean
+) => {
     if (emptyError && sanitizationError) {
         return check(`${property}`)
             .trim()
@@ -11,8 +16,12 @@ const validateProperty = (property: string, emptyError?: string, sanitizationErr
             .bail()
             .custom(utils.checkSanitization)
             .withMessage(`${sanitizationError}`)
+            .bail()
     }
-    return check(`${property}`).trim()
+    if (withArray) {
+        return check(`${property}`).notEmpty().bail()
+    }
+    return check(`${property}`).trim().notEmpty().bail()
 }
 const validateEmail = () =>
     check('email')

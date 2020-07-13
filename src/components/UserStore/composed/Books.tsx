@@ -31,7 +31,7 @@ interface ISCProps {
 const BooksContainer = styled.div`
     width: 55%;
     margin-top: 20px;
-     animation: ${animations.fadeIn} 0.4s ease-in-out;
+    animation: ${animations.fadeIn} 0.4s ease-in-out;
     @media (max-width: 800px) {
         width: 100%;
     }

@@ -1,4 +1,9 @@
-import styled from 'styled-components/macro'
+import styled, { css } from 'styled-components/macro'
+
+interface ISCProps {
+    withLessHeight?: boolean
+    isKeyboardOpened?: boolean
+}
 
 export default styled.div`
     width: 60%;
@@ -21,4 +26,20 @@ export default styled.div`
         width: 90%;
         height: 90%;
     }
+    ${({ withLessHeight }: ISCProps) =>
+        withLessHeight &&
+        css`
+            height: 50% !important;
+            @media (max-width: 600px) {
+                height: 60% !important;
+            }
+        `};
+    ${({ isKeyboardOpened }: ISCProps) =>
+        isKeyboardOpened &&
+        css`
+            height: 80% !important;
+            @media (max-width: 600px) {
+                height: 80% !important;
+            }
+        `};
 `

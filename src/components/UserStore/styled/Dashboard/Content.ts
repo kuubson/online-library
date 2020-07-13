@@ -1,4 +1,8 @@
-import styled from 'styled-components/macro'
+import styled, { css } from 'styled-components/macro'
+
+interface ISCProps {
+    withoutMargin?: boolean
+}
 
 export default styled.div`
     width: 100%;
@@ -12,4 +16,10 @@ export default styled.div`
         margin-top: 20px;
         margin-left: 0px;
     }
+    ${({ withoutMargin }: ISCProps) =>
+        withoutMargin &&
+        css`
+            margin-top: 0px !important;
+            margin-left: 0px;
+        `};
 `

@@ -63,4 +63,12 @@ router.post(
     Services.changePassword.default
 )
 
+router.post(
+    '/purchaseBooks',
+    middlewares.jwtAuthorization,
+    Services.purchaseBooks.validation(),
+    middlewares.checkValidation,
+    Services.purchaseBooks.default
+)
+
 export default router

@@ -5,12 +5,12 @@ import { RootState } from 'redux/reducers'
 export default () => {
     const dispatch = useDispatch()
     const { cart } = useSelector((state: RootState) => state.cart)
-    const addToCart = (id: number) =>
+    const addToCart = (id: string) =>
         dispatch({
             type: 'addToCart',
             payload: id
         })
-    const removeFromCart = (id: number) =>
+    const removeFromCart = (id: string) =>
         dispatch({
             type: 'removeFromCart',
             payload: id

@@ -60,7 +60,7 @@ export default {
                         if (error || !info) {
                             throw new utils.ApiError(
                                 'Password recovery',
-                                'There was an unexpected problem sending an e-mail with a password recovery link for your account',
+                                'There was an unexpected problem when sending an e-mail with a password recovery link for your account',
                                 502
                             )
                         }

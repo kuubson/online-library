@@ -97,7 +97,7 @@ const UserLogin: React.FC = () => {
                 }
                 utils.setFeedbackData(
                     'Logging to app',
-                    'There was an unexpected problem logging in with Facebook'
+                    'There was an unexpected problem when logging in with Facebook'
                 )
             },
             { scope: 'email,public_profile' }

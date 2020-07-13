@@ -1,4 +1,8 @@
-import styled from 'styled-components/macro'
+import styled, { css } from 'styled-components/macro'
+
+interface ISCProps {
+    withLessMarginTop?: boolean
+}
 
 export default styled.button`
     font-size: 14px;
@@ -21,4 +25,9 @@ export default styled.button`
     @media (max-width: 500px) {
         font-size: 12px;
     }
+    ${({ withLessMarginTop }: ISCProps) =>
+        withLessMarginTop &&
+        css`
+            margin: 35px auto 0px auto !important;
+        `};
 `

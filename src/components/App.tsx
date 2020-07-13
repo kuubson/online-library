@@ -105,19 +105,19 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
         },
         {
             order: 4,
-            pathname: '/user/profile',
+            pathname: '/user/cart',
             render: () => (
                 <Roles.User>
-                    <UserProfile />
+                    <UserCart />
                 </Roles.User>
             )
         },
         {
             order: 5,
-            pathname: '/user/cart',
+            pathname: '/user/profile',
             render: () => (
                 <Roles.User>
-                    <UserCart />
+                    <UserProfile />
                 </Roles.User>
             )
         },

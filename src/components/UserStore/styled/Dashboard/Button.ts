@@ -4,6 +4,7 @@ interface ISCProps {
     price?: number
     notAbsolute?: boolean
     withoutHover?: boolean
+    withoutFixedWidth?: boolean
 }
 
 export default styled.button`
@@ -52,12 +53,17 @@ export default styled.button`
                 margin-right: 20px;
             }
         `}
-    ${({ withoutHover }) =>
-        withoutHover &&
-        css`
-            cursor: initial;
-            :hover {
-                transform: translate(-50%, 0px);
-            }
-        `}
+        ${({ withoutHover }) =>
+            withoutHover &&
+            css`
+                cursor: initial;
+                :hover {
+                    transform: translate(-50%, 0px);
+                }
+            `}
+        ${({ withoutFixedWidth }) =>
+            withoutFixedWidth &&
+            css`
+                width: auto;
+            `}
 `

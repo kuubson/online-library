@@ -7,6 +7,12 @@ import Book from './models/Book'
 
 const { DATABASE_HOST, DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD } = process.env
 
+declare module 'express' {
+    interface Request {
+        user: User
+    }
+}
+
 const connection = new Sequelize({
     host: DATABASE_HOST,
     database: DATABASE_NAME,

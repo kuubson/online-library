@@ -70,8 +70,8 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
                     <>
                         <USComposed.Books
                             books={boughtBooks}
-                            header="Your bought books"
-                            error="You haven't bought any books yet"
+                            header="Your purchased books"
+                            error="You haven't purchased any books yet"
                             renderBooksSuggestionsInput={renderBooksSuggestionsInput}
                             withProfile
                             withMarginRight
@@ -95,8 +95,8 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
                         />
                         <USComposed.Books
                             books={boughtBooks}
-                            header="Your bought books"
-                            error="You haven't bought any books yet"
+                            header="Your purchased books"
+                            error="You haven't purchased any books yet"
                             withProfile
                         />
                     </>

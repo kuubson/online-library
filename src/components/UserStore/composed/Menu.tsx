@@ -64,10 +64,10 @@ const Menu: React.FC<RouteComponentProps & IProps> = ({
     const client = useApolloClient()
     const [shouldExpandMenu, setShouldExpandMenu] = useState(false)
     useEffect(() => _setShouldExpandMenu(shouldExpandMenu), [shouldExpandMenu])
-    const offset = hooks.useOffset()
-    const shouldStickMenu = parseInt(offset) > 20
+    const { cart, removeFromCart } = hooks.useCart()
     const logout = async () => {
         client && client.clearStore()
+        cart.map(id => removeFromCart(id))
         const url = '/api/global/logout'
         const response = await utils.apiAxios.get(url)
         if (response) {
@@ -75,6 +75,8 @@ const Menu: React.FC<RouteComponentProps & IProps> = ({
             utils.redirectTo('/user/login')
         }
     }
+    const offset = hooks.useOffset()
+    const shouldStickMenu = parseInt(offset) > 20
     return (
         <MenuContainer shouldStickMenu={shouldStickMenu}>
             <Dashboard.Logo>Online Library</Dashboard.Logo>

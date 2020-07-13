@@ -1,10 +1,10 @@
 interface IAction {
-    payload: number
+    payload: string
     type: 'addToCart' | 'removeFromCart'
 }
 
 interface IState {
-    cart: number[]
+    cart: string[]
 }
 
 const initialState: IState = {

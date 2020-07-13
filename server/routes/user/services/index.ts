@@ -6,6 +6,7 @@ import loginWithFacebook from './loginWithFacebook'
 import recoverPassword from './recoverPassword'
 import checkPasswordToken from './checkPasswordToken'
 import changePassword from './changePassword'
+import purchaseBooks from './purchaseBooks'
 
 export default {
     register,
@@ -15,5 +16,6 @@ export default {
     loginWithFacebook,
     recoverPassword,
     checkPasswordToken,
-    changePassword
+    changePassword,
+    purchaseBooks
 }

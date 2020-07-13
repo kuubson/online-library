@@ -60,7 +60,7 @@ export default {
                         if (error || !info) {
                             throw new utils.ApiError(
                                 'E-mail resending',
-                                'There was an unexpected problem sending an e-mail with an activation link for your account',
+                                'There was an unexpected problem when sending an e-mail with an activation link for your account',
                                 502
                             )
                         }

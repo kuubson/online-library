@@ -29,7 +29,7 @@ const borrowBookMutation = gql`
     }
 `
 
-const BookPopupContainer = styled.div`
+export const BookPopupContainer = styled.div`
     width: 100%;
     height: ${() => hooks.useHeight()};
     background: rgba(0, 0, 0, 0.6);
@@ -78,15 +78,14 @@ const BookPopup: React.FC<IBook & IProps> = ({
             resetBookPopup()
         }
     }
-    const handleAddToCart = async (id: number) => {
+    const handleAddToCart = async (id: string) => {
         if (cart.includes(id)) {
             resetBookPopup()
-            return utils.setFeedbackData('Buying a book', `This book is already in the cart`)
+            return utils.setFeedbackData('Buying a book', 'This book is already in the cart')
         }
         addToCart(id)
-        utils.setFeedbackData('Buying a book', `The book has been added to the cart`, 'Okey', () =>
-            resetBookPopup()
-        )
+        resetBookPopup()
+        utils.setFeedbackData('Buying a book', 'The book has been added to the cart')
     }
     return (
         <BookPopupContainer>

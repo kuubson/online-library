@@ -7,6 +7,7 @@ import setFeedbackData from './setFeedbackData'
 import handleApiError from './handleApiError'
 import checkSanitization from './checkSanitization'
 import apiValidation from './apiValidation'
+import isMobile from './isMobile'
 
 export default {
     history,
@@ -17,5 +18,6 @@ export default {
     setFeedbackData,
     handleApiError,
     checkSanitization,
-    apiValidation
+    apiValidation,
+    isMobile
 }

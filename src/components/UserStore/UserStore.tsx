@@ -16,7 +16,7 @@ interface IProps {
 }
 
 export interface IBook {
-    id: number
+    id: string
     title: string
     author: string
     cover: string
