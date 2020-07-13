@@ -50,14 +50,12 @@ export default {
                     )
                 }
                 await Promise.all(
-                    products.map(async product => {
-                        const book = await Book.findOne({
-                            where: {
-                                id: product
-                            }
-                        })
-                        await req.user.addBook(book)
-                    })
+                    books.map(
+                        async book =>
+                            await req.user.addBook(book, {
+                                transaction
+                            })
+                    )
                 )
                 res.send({
                     success: true
