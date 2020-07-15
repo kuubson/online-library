@@ -100,7 +100,7 @@ const BookPopup: React.FC<IBook & IProps> = ({
                 />
                 <Dashboard.Content>
                     <Dashboard.Header black>
-                        That's just a small step from getting this book. Are you sure you want to
+                        Are you sure you want to
                         {price ? ' add this book to the cart' : ' borrow this book'}?
                     </Dashboard.Header>
                     <Dashboard.ButtonsContainer>

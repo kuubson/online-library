@@ -43,7 +43,6 @@ const StripePopup: React.FC<IProps> = ({ price, setShouldStripePopupAppear }) =>
                     card
                 })
                 if (paymentMethod) {
-                    console.log(paymentMethod)
                     const url = '/api/user/purchaseBooksWithStripe'
                     const response = await utils.apiAxios.post(url, {
                         paymentId: paymentMethod.id,
