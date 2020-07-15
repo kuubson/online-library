@@ -1,6 +1,6 @@
 interface IAction {
     payload: string
-    type: 'addToCart' | 'removeFromCart'
+    type: 'resetCart' | 'addToCart' | 'removeFromCart'
 }
 
 interface IState {
@@ -13,6 +13,11 @@ const initialState: IState = {
 
 export default (state = initialState, { payload, type }: IAction) => {
     switch (type) {
+        case 'resetCart':
+            return {
+                ...state,
+                cart: []
+            }
         case 'addToCart':
             return {
                 ...state,

@@ -64,11 +64,27 @@ router.post(
 )
 
 router.post(
-    '/purchaseBooks',
+    '/purchaseBooksWithStripe',
     middlewares.jwtAuthorization,
-    Services.purchaseBooks.validation(),
+    Services.purchaseBooksWithStripe.validation(),
     middlewares.checkValidation,
-    Services.purchaseBooks.default
+    Services.purchaseBooksWithStripe.default
+)
+
+router.post(
+    '/createPayPalPayment',
+    middlewares.jwtAuthorization,
+    Services.createPayPalPayment.validation(),
+    middlewares.checkValidation,
+    Services.createPayPalPayment.default
+)
+
+router.post(
+    '/executePayPalPayment',
+    middlewares.jwtAuthorization,
+    Services.executePayPalPayment.validation(),
+    middlewares.checkValidation,
+    Services.executePayPalPayment.default
 )
 
 export default router

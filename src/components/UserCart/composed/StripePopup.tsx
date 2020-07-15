@@ -21,9 +21,9 @@ const StripePopupContainer = styled(BookPopupContainer)``
 const StripePopup: React.FC<IProps> = ({ price, setShouldStripePopupAppear }) => {
     const stripe = useStripe()
     const elements = useElements()
-    const { cart, removeFromCart } = hooks.useCart()
-    const [error, setError] = useState('')
+    const { cart, resetCart } = hooks.useCart()
     const [isKeyboardOpened, setIsKeyboardOpened] = useState(false)
+    const [error, setError] = useState('')
     useEffect(() => {
         const initialHeight = window.innerHeight
         const handlePopupHeight = () =>
@@ -44,7 +44,7 @@ const StripePopup: React.FC<IProps> = ({ price, setShouldStripePopupAppear }) =>
                 })
                 if (paymentMethod) {
                     console.log(paymentMethod)
-                    const url = '/api/user/purchaseBooks'
+                    const url = '/api/user/purchaseBooksWithStripe'
                     const response = await utils.apiAxios.post(url, {
                         paymentId: paymentMethod.id,
                         products: cart
@@ -56,8 +56,8 @@ const StripePopup: React.FC<IProps> = ({ price, setShouldStripePopupAppear }) =>
                             `You have successfully purchased new books`,
                             'Check them out in your profile',
                             () => {
+                                resetCart()
                                 utils.redirectTo('/user/profile')
-                                cart.map(id => removeFromCart(id))
                             }
                         )
                     }

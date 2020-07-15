@@ -41,10 +41,10 @@ const Book: React.FC<IBook & IProps> = ({
 }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [timeoutId, setTimeoutId] = useState<number>()
+    const { removeFromCart } = hooks.useCart()
     useEffect(() => {
         !timeoutId && setTimeoutId(setTimeout(() => setIsLoading(true), 500))
     }, [])
-    const { removeFromCart } = hooks.useCart()
     return (
         <BookContainer withPopup={withPopup}>
             <Dashboard.Loader

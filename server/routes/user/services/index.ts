@@ -6,7 +6,9 @@ import loginWithFacebook from './loginWithFacebook'
 import recoverPassword from './recoverPassword'
 import checkPasswordToken from './checkPasswordToken'
 import changePassword from './changePassword'
-import purchaseBooks from './purchaseBooks'
+import purchaseBooksWithStripe from './purchaseBooksWithStripe'
+import createPayPalPayment from './createPayPalPayment'
+import executePayPalPayment from './executePayPalPayment'
 
 export default {
     register,
@@ -17,5 +19,7 @@ export default {
     recoverPassword,
     checkPasswordToken,
     changePassword,
-    purchaseBooks
+    purchaseBooksWithStripe,
+    createPayPalPayment,
+    executePayPalPayment
 }

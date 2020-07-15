@@ -26,20 +26,22 @@ const init = (app: Express) => {
     app.use(passport.initialize())
     app.use('/graphql', (req, res, next) => {
         passport.authenticate('jwt', { session: false }, (_, { user, role }: IPassportData) => {
-            if (!user) {
-                return next(
-                    new utils.ApiError(
+            try {
+                if (!user) {
+                    throw new utils.ApiError(
                         'Authorization',
                         'The authentication cookie is invalid, log in again',
                         401
                     )
-                )
+                }
+                req.user = {
+                    user,
+                    role
+                }
+                next()
+            } catch (error) {
+                next(error)
             }
-            req.user = {
-                user,
-                role
-            }
-            next()
         })(req, res, next)
     })
     new ApolloServer({
@@ -48,7 +50,8 @@ const init = (app: Express) => {
             res,
             user: (req.user as IPassportData).user,
             role: (req.user as IPassportData).role
-        })
+        }),
+        introspection: process.env.NODE_ENV === 'development'
     }).applyMiddleware({
         app,
         path: '/graphql'

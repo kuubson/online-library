@@ -3,11 +3,14 @@ import {
     DataType,
     Table,
     Column,
-    HasOne,
+    HasMany,
     BelongsToMany,
+    HasOne,
     BeforeCreate
 } from 'sequelize-typescript'
 import {
+    HasManyCreateAssociationMixin,
+    HasManyGetAssociationsMixin,
     HasOneCreateAssociationMixin,
     BelongsToManyAddAssociationMixin,
     BelongsToManyHasAssociationMixin,
@@ -18,6 +21,7 @@ import bcrypt from 'bcrypt'
 import Authentication from './Authentication'
 import Register from './Register'
 import Book from './Book'
+import Payment from './Payment'
 
 @Table({})
 export default class User extends Model<User> {
@@ -25,6 +29,8 @@ export default class User extends Model<User> {
     public addBook: BelongsToManyAddAssociationMixin<Book, User>
     public hasBook: BelongsToManyHasAssociationMixin<Book, User>
     public getBooks: BelongsToManyGetAssociationsMixin<Book>
+    public createPayment: HasManyCreateAssociationMixin<Payment>
+    public getPayments: HasManyGetAssociationsMixin<Payment>
     @Column({
         allowNull: false,
         type: DataType.STRING
@@ -48,6 +54,8 @@ export default class User extends Model<User> {
     authentication: Authentication
     @BelongsToMany(() => Book, () => Register)
     books: Book[]
+    @HasMany(() => Payment)
+    payments: Payment[]
     @BeforeCreate
     static hashPassword(user: User) {
         user.password = bcrypt.hashSync(user.password, 11)

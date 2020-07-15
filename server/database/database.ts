@@ -4,6 +4,7 @@ import User from './models/User'
 import Authentication from './models/Authentication'
 import Register from './models/Register'
 import Book from './models/Book'
+import Payment from './models/Payment'
 
 const { DATABASE_HOST, DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD } = process.env
 
@@ -25,7 +26,7 @@ const connection = new Sequelize({
     }
 })
 
-connection.addModels([User, Authentication, Register, Book])
+connection.addModels([User, Authentication, Register, Book, Payment])
 
 const init = async () => {
     try {
