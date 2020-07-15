@@ -20,8 +20,8 @@ interface IProps {
     shouldExpandMenu?: boolean
 }
 
-interface CartQueryData {
-    cart: IBook[]
+interface BooksQueryData {
+    books: IBook[]
 }
 
 const UserCartContainer = styled(UserStoreContainer)`
@@ -30,9 +30,9 @@ const UserCartContainer = styled(UserStoreContainer)`
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY!)
 
-const cartQuery = gql`
-    query Cart($ids: [ID]) {
-        cart(ids: $ids) {
+const booksQuery = gql`
+    query Books($ids: [ID!]!) {
+        books(ids: $ids) {
             id
             title
             author
@@ -44,21 +44,14 @@ const cartQuery = gql`
 
 const UserCart: React.FC<IProps> = ({ shouldExpandMenu }) => {
     const { cart: ids } = hooks.useCart()
-    const { data } = useQuery<CartQueryData>(cartQuery, {
+    const { data } = useQuery<BooksQueryData>(booksQuery, {
         fetchPolicy: 'cache-and-network',
         variables: {
             ids
         }
     })
-    const [books, setBooks] = useState<IBook[]>([])
+    const books = data ? data.books : []
     const areThereBooks = books.length > 0
-    useEffect(() => {
-        setTimeout(() => {
-            if (data) {
-                setBooks(data.cart)
-            }
-        }, 0)
-    }, [data])
     const [shouldStripePopupAppear, setShouldStripePopupAppear] = useState(false)
     const price = books
         .map(({ price }) => price!)
