@@ -35,11 +35,7 @@ export default (handleError: (errorKey: string, error: string) => void) => {
         }
         return isValidated
     }
-    const validatePassword = (
-        password: string,
-        repeatedPassword: string | null,
-        withLogin = false
-    ) => {
+    const validatePassword = (password: string, repeatedPassword?: string, withLogin = false) => {
         let isValidated = true
         if (!withLogin) {
             switch (true) {

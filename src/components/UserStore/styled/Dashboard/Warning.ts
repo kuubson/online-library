@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 
 export default styled.p`
-    max-width: 400px;
+    max-width: 280px;
     font-size: 18px;
     line-height: 1.5;
     @media (max-width: 1200px) {

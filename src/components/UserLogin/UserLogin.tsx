@@ -72,7 +72,7 @@ const UserLogin: React.FC = () => {
             passwordError: ''
         }))
         isValidated = hooks.useValidator(handleError).validateEmail(email)
-        isValidated = hooks.useValidator(handleError).validatePassword(password, null, true)
+        isValidated = hooks.useValidator(handleError).validatePassword(password, undefined, true)
         return isValidated
     }
     const loginWithFacebook = async (e: React.MouseEvent | React.TouchEvent) => {
@@ -128,7 +128,9 @@ const UserLogin: React.FC = () => {
                     error={passwordError}
                     onChange={e => {
                         onChange(e)
-                        hooks.useValidator(handleError).validatePassword(e.target.value, null, true)
+                        hooks
+                            .useValidator(handleError)
+                            .validatePassword(e.target.value, undefined, true)
                     }}
                 />
                 <URDashboard.Submit>Login</URDashboard.Submit>

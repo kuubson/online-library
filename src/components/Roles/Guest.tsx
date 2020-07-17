@@ -4,6 +4,8 @@ import axios from 'axios'
 
 import hooks from 'hooks'
 
+import HomeBackground from 'assets/images/HomeBackground.png'
+
 import utils from 'utils'
 
 export interface ICheckToken {
@@ -16,6 +18,9 @@ interface ISCProps {
 
 export const GuestContainer = styled.section`
     min-height: ${() => hooks.useHeight()};
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url(${HomeBackground}) center center no-repeat;
+    background-size: cover;
     ${({ blurred }: ISCProps) =>
         blurred &&
         css`

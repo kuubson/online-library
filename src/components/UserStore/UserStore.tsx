@@ -28,11 +28,12 @@ interface BooksQueryData {
     paidBooks: IBook[]
 }
 
-export const UserStoreContainer = styled(HomeContainer)`
-    height: initial;
+export const UserStoreContainer = styled.section`
     min-height: ${() => hooks.useHeight()};
     padding: ${({ shouldExpandMenu }: IProps) =>
         shouldExpandMenu ? '290px 20px 20px 20px' : '130px 20px 20px 20px'};
+    display: flex;
+    justify-content: center;
     align-items: flex-start;
     transition: padding 0.4s ease-in-out;
     @media (min-width: 800px) {
@@ -93,7 +94,7 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
             {!areBooksLoading &&
                 (!areThereFreeBooks && !areTherePaidBooks ? (
                     <Composed.Books books={[]} error="The are no books in the library right now" />
-                ) : (
+                ) : areThereFreeBooks ? (
                     <>
                         <Composed.Books
                             books={freeBooks}
@@ -107,6 +108,23 @@ const UserStore: React.FC<IProps> = ({ shouldExpandMenu }) => {
                             books={paidBooks}
                             header="Choose some paid books"
                             error="The are no paid books in the library right now"
+                            setBookPopupData={setBookPopupData}
+                        />
+                    </>
+                ) : (
+                    <>
+                        <Composed.Books
+                            books={paidBooks}
+                            header="Choose some paid books"
+                            error="The are no paid books in the library right now"
+                            setBookPopupData={setBookPopupData}
+                            renderBooksSuggestionsInput={renderBooksSuggestionsInput}
+                            withMarginRight
+                        />
+                        <Composed.Books
+                            books={freeBooks}
+                            header="Find here awesome books"
+                            error="The are no free books in the library right now"
                             setBookPopupData={setBookPopupData}
                         />
                     </>
