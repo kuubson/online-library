@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 
@@ -22,17 +22,7 @@ const StripePopup: React.FC<IProps> = ({ price, setShouldStripePopupAppear }) =>
     const stripe = useStripe()
     const elements = useElements()
     const { cart, resetCart } = hooks.useCart()
-    const [isKeyboardOpened, setIsKeyboardOpened] = useState(false)
     const [error, setError] = useState('')
-    useEffect(() => {
-        const initialHeight = window.innerHeight
-        const handlePopupHeight = () =>
-            setIsKeyboardOpened(utils.isMobile && initialHeight > window.innerHeight)
-        window.addEventListener('resize', handlePopupHeight)
-        return () => {
-            window.removeEventListener('resize', handlePopupHeight)
-        }
-    }, [])
     const handlePurchase = async () => {
         try {
             const card = elements && elements.getElement(CardElement)
@@ -68,6 +58,7 @@ const StripePopup: React.FC<IProps> = ({ price, setShouldStripePopupAppear }) =>
             utils.setIsLoading(false)
         }
     }
+    const isKeyboardOpened = hooks.useIsKeyboardOpened()
     return (
         <StripePopupContainer>
             <USDashboard.ContentContainer withLessHeight isKeyboardOpened={isKeyboardOpened}>

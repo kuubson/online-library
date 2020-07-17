@@ -4,7 +4,7 @@ export default styled.button`
     background: #ffc439;
     border-radius: 15px;
     font-size: 14px;
-    margin: 20px auto 0px auto;
+    margin: 25px auto 0px auto;
     padding: 8px 15px;
     font-weight: bold;
     letter-spacing: 1px;

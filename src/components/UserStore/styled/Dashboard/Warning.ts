@@ -11,6 +11,7 @@ export default styled.p`
         font-size: 16px;
     }
     @media (max-width: 600px) {
+        max-width: 250px;
         font-size: 15px;
     }
 `
