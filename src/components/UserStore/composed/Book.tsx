@@ -41,10 +41,11 @@ const Book: React.FC<IBook & IProps> = ({
 }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [timeoutId, setTimeoutId] = useState<number>()
-    const { removeFromCart } = hooks.useCart()
+    const { cart, removeFromCart } = hooks.useCart()
     useEffect(() => {
         !timeoutId && setTimeoutId(setTimeout(() => setIsLoading(true), 500))
     }, [])
+    const isInCart = cart.includes(id)
     return (
         <BookContainer withPopup={withPopup}>
             <Dashboard.Loader
@@ -81,6 +82,7 @@ const Book: React.FC<IBook & IProps> = ({
                 <Dashboard.Button
                     onClick={() =>
                         setBookPopupData &&
+                        !isInCart &&
                         setBookPopupData({
                             id,
                             author,
@@ -90,8 +92,9 @@ const Book: React.FC<IBook & IProps> = ({
                         })
                     }
                     price={price}
+                    withoutHover={isInCart}
                 >
-                    {price ? 'Buy' : 'Borrow'}
+                    {price ? (isInCart ? 'In cart' : 'Buy') : 'Borrow'}
                 </Dashboard.Button>
             ) : (
                 withPopup &&

@@ -75,7 +75,7 @@ const Menu: React.FC<RouteComponentProps & IProps> = ({
             utils.redirectTo('/user/login')
         }
     }
-    const offset = hooks.useOffset()
+    const offset = hooks.useTopOffset()
     const shouldStickMenu = parseInt(offset) > 20
     return (
         <MenuContainer shouldStickMenu={shouldStickMenu}>
