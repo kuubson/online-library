@@ -9,6 +9,7 @@ import USHooks from 'components/UserStore/hooks'
 import { UserStoreContainer, IBook } from 'components/UserStore/UserStore'
 
 import USComposed from 'components/UserStore/composed'
+import Composed from './composed'
 
 interface IProps {
     shouldExpandMenu?: boolean
@@ -54,6 +55,7 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
             }
         }, 0)
     }, [books])
+    const [bookPopupData, setBookPopupData] = useState<IBook>()
     const { renderBooksSuggestionsInput } = USHooks.useBooksSuggestions({
         freeBooks: borrowedBooks,
         setFreeBooks: setBorrowedBooks,
@@ -63,6 +65,9 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
     })
     return (
         <UserProfileContainer shouldExpandMenu={shouldExpandMenu}>
+            {bookPopupData && (
+                <Composed.BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />
+            )}
             {!areBooksLoading &&
                 (!areThereBoughtBooks && !areThereBorrowedBooks ? (
                     <USComposed.Books books={[]} error="You don't have any books yet" />
@@ -72,6 +77,7 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
                             books={boughtBooks}
                             header="Your purchased books"
                             error="You haven't purchased any books yet"
+                            setBookPopupData={setBookPopupData}
                             renderBooksSuggestionsInput={renderBooksSuggestionsInput}
                             withProfile
                             withMarginRight
@@ -80,6 +86,7 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
                             books={borrowedBooks}
                             header="Enjoy borrowed books"
                             error="You haven't borrowed any books yet"
+                            setBookPopupData={setBookPopupData}
                             withProfile
                         />
                     </>
@@ -89,6 +96,7 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
                             books={borrowedBooks}
                             header="Enjoy borrowed books"
                             error="You haven't borrowed any books yet"
+                            setBookPopupData={setBookPopupData}
                             renderBooksSuggestionsInput={renderBooksSuggestionsInput}
                             withProfile
                             withMarginRight
@@ -97,6 +105,7 @@ const UserProfile: React.FC<IProps> = ({ shouldExpandMenu }) => {
                             books={boughtBooks}
                             header="Your purchased books"
                             error="You haven't purchased any books yet"
+                            setBookPopupData={setBookPopupData}
                             withProfile
                         />
                     </>

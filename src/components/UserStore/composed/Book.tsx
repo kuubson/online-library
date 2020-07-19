@@ -13,18 +13,30 @@ interface IProps {
     withCart?: boolean
     withProfile?: boolean
     withPopup?: boolean
+    withFlips?: boolean
+}
+
+interface ISCProps {
+    withPopup?: boolean
+    withFlips?: boolean
 }
 
 const BookContainer = styled.div`
     height: 100%;
     position: relative;
-    ${({ withPopup }: { withPopup?: boolean }) =>
+    ${({ withPopup }: ISCProps) =>
         withPopup &&
         css`
             width: 100%;
             @media (max-width: 1150px) {
                 max-height: 50%;
             }
+        `}
+    ${({ withFlips }: ISCProps) =>
+        withFlips &&
+        css`
+            width: 50% !important;
+            max-height: 80% !important;
         `}
 `
 
@@ -37,7 +49,8 @@ const Book: React.FC<IBook & IProps> = ({
     setBookPopupData,
     withCart,
     withProfile,
-    withPopup
+    withPopup,
+    withFlips
 }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [timeoutId, setTimeoutId] = useState<number>()
@@ -47,7 +60,7 @@ const Book: React.FC<IBook & IProps> = ({
     }, [])
     const isInCart = cart.includes(id)
     return (
-        <BookContainer withPopup={withPopup}>
+        <BookContainer withPopup={withPopup} withFlips={withFlips}>
             <Dashboard.Loader
                 onAnimationEnd={e => (e.currentTarget.style.display = 'none')}
                 isLoading={isLoading}
@@ -77,7 +90,20 @@ const Book: React.FC<IBook & IProps> = ({
                     Remove
                 </Dashboard.Button>
             ) : withProfile ? (
-                <Dashboard.Button>Open</Dashboard.Button>
+                <Dashboard.Button
+                    onClick={() =>
+                        setBookPopupData &&
+                        setBookPopupData({
+                            id,
+                            author,
+                            title,
+                            cover,
+                            price
+                        })
+                    }
+                >
+                    Open
+                </Dashboard.Button>
             ) : !withPopup ? (
                 <Dashboard.Button
                     onClick={() =>

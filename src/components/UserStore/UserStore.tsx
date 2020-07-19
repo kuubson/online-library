@@ -7,8 +7,6 @@ import { useQuery } from '@apollo/react-hooks'
 import hooks from 'hooks'
 import USHooks from './hooks'
 
-import { HomeContainer } from 'components/Home/Home'
-
 import Composed from './composed'
 
 interface IProps {

@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components/macro'
 interface ISCProps {
     withLessHeight?: boolean
     isKeyboardOpened?: boolean
+    withFlips?: boolean
 }
 
 export default styled.div`
@@ -41,5 +42,13 @@ export default styled.div`
             @media (max-width: 600px) {
                 height: 80% !important;
             }
+        `};
+    ${({ withFlips }: ISCProps) =>
+        withFlips &&
+        css`
+            width: 55% !important;
+            height: 70% !important;
+            justify-content: center;
+            perspective: 1000px;
         `};
 `
