@@ -5,7 +5,7 @@ import hooks from 'hooks'
 
 import animations from 'assets/animations'
 
-import { LoaderContainer } from 'components/Loader/Loader'
+import { LoaderContainer } from 'components/common/Loader/Loader'
 import Dashboard from './styled/Dashboard'
 
 const FeedbackHandlerContainer = styled(LoaderContainer)`

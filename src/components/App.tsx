@@ -8,12 +8,11 @@ import hoc from 'hoc'
 
 import hooks from 'hooks'
 
-import RouterTransition, { IRoute } from 'components/common/RouterTransitions'
+import Roles from 'components/common/Roles'
 
-import Roles from 'components/Roles'
-
-import Loader from 'components/Loader/Loader'
-import FeedbackHandler from 'components/FeedbackHandler/FeedbackHandler'
+import RouterTransition, { IRoute } from 'components/common/RouterTransitions/RouterTransitions'
+import Loader from 'components/common/Loader/Loader'
+import FeedbackHandler from 'components/common/FeedbackHandler/FeedbackHandler'
 
 import Home from 'components/Home/Home'
 import UserRegistration from 'components/UserRegistration/UserRegistration'

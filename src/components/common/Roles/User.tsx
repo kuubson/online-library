@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import hooks from 'hooks'
 
-import { GuestContainer, ICheckToken } from 'components/Roles/Guest'
+import { GuestContainer, ICheckToken } from 'components/common/Roles/Guest'
 
 import USComposed from 'components/UserStore/composed'
 

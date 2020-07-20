@@ -63,7 +63,7 @@ export default (handleError: (errorKey: string, error: string) => void) => {
                     handleError('password', '')
             }
             switch (true) {
-                case password !== repeatedPassword:
+                case repeatedPassword && password !== repeatedPassword:
                     isValidated = false
                     handleError('repeatedPassword', 'Passwords are different')
                     break
