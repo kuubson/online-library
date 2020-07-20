@@ -7,7 +7,7 @@ import utils from '../../../../utils'
 import { IContext } from '../../types'
 
 interface IArgs {
-    bookId: number
+    bookId: string
 }
 
 export default async (_, { bookId }: IArgs, context: IContext) => {

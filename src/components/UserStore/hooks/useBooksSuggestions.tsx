@@ -53,25 +53,27 @@ const useBooksSuggestions = ({
         findByTitle ? setTitle('') : setAuthor('')
         setFindByTitle(findByTitle => !findByTitle)
     }
-    const handleSort = (title: string, author: string, price: number) => {
+    const handleSort = (id: string, price: number) => {
+        const filterOut = (book: IBook) => book.id !== id
+        const filter = (book: IBook) => book.id === id
         if (!price) {
             if (findByTitle) {
-                const freeBooksByTitle = freeBooks.filter(book => book.title !== title)
-                const freeBookByTitle = freeBooks.find(book => book.title === title)!
+                const freeBooksByTitle = freeBooks.filter(filterOut)
+                const freeBookByTitle = freeBooks.find(filter)!
                 setFreeBooks([freeBookByTitle, ...freeBooksByTitle])
             } else {
-                const freeBooksByAuthor = freeBooks.filter(book => book.author !== author)
-                const freeBookByAuthor = freeBooks.find(book => book.author === author)!
+                const freeBooksByAuthor = freeBooks.filter(filterOut)
+                const freeBookByAuthor = freeBooks.find(filter)!
                 setFreeBooks([freeBookByAuthor, ...freeBooksByAuthor])
             }
         } else {
             if (findByTitle) {
-                const paidBooksByTitle = paidBooks.filter(book => book.title !== title)
-                const paidBookByTitle = paidBooks.find(book => book.title === title)!
+                const paidBooksByTitle = paidBooks.filter(filterOut)
+                const paidBookByTitle = paidBooks.find(filter)!
                 setPaidBooks([paidBookByTitle, ...paidBooksByTitle])
             } else {
-                const paidBooksByAuthor = paidBooks.filter(book => book.author !== author)
-                const paidBookByAuthor = paidBooks.find(book => book.author === author)!
+                const paidBooksByAuthor = paidBooks.filter(filterOut)
+                const paidBookByAuthor = paidBooks.find(filter)!
                 setPaidBooks([paidBookByAuthor, ...paidBooksByAuthor])
             }
         }
@@ -110,10 +112,7 @@ const useBooksSuggestions = ({
             <Dashboard.SuggestionsContainer>
                 {booksSuggestions &&
                     booksSuggestions.booksSuggestions.map(({ id, title, author, price }) => (
-                        <Dashboard.Suggestion
-                            key={id}
-                            onClick={() => handleSort(title, author, price!)}
-                        >
+                        <Dashboard.Suggestion key={id} onClick={() => handleSort(id, price!)}>
                             "{title}" written by {author}
                         </Dashboard.Suggestion>
                     ))}
