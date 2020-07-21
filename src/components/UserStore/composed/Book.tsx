@@ -13,12 +13,10 @@ interface IProps {
     withCart?: boolean
     withProfile?: boolean
     withPopup?: boolean
-    withFlips?: boolean
 }
 
 interface ISCProps {
     withPopup?: boolean
-    withFlips?: boolean
 }
 
 const BookContainer = styled.div`
@@ -32,12 +30,6 @@ const BookContainer = styled.div`
                 max-height: 50%;
             }
         `}
-    ${({ withFlips }: ISCProps) =>
-        withFlips &&
-        css`
-            width: 50% !important;
-            max-height: 80% !important;
-        `}
 `
 
 const Book: React.FC<IBook & IProps> = ({
@@ -49,8 +41,7 @@ const Book: React.FC<IBook & IProps> = ({
     setBookPopupData,
     withCart,
     withProfile,
-    withPopup,
-    withFlips
+    withPopup
 }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [timeoutId, setTimeoutId] = useState<number>()
@@ -60,7 +51,7 @@ const Book: React.FC<IBook & IProps> = ({
     }, [])
     const isInCart = cart.includes(id)
     return (
-        <BookContainer withPopup={withPopup} withFlips={withFlips}>
+        <BookContainer withPopup={withPopup}>
             <Dashboard.Loader
                 onAnimationEnd={e => (e.currentTarget.style.display = 'none')}
                 isLoading={isLoading}

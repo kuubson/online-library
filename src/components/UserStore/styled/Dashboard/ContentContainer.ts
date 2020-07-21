@@ -35,7 +35,7 @@ export default styled.div`
                 height: 60% !important;
             }
         `};
-    ${({ isKeyboardOpened }: ISCProps) =>
+    ${({ isKeyboardOpened }) =>
         isKeyboardOpened &&
         css`
             height: 80% !important;
@@ -43,12 +43,12 @@ export default styled.div`
                 height: 80% !important;
             }
         `};
-    ${({ withFlips }: ISCProps) =>
+    ${({ withFlips }) =>
         withFlips &&
         css`
-            width: 55% !important;
-            height: 70% !important;
+            background: none;
             justify-content: center;
-            perspective: 1000px;
+            align-items: center;
+            flex-direction: column;
         `};
 `

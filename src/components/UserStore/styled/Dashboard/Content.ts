@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components/macro'
 
 interface ISCProps {
     withoutMargin?: boolean
+    withFlips?: boolean
 }
 
 export default styled.div`
@@ -21,5 +22,11 @@ export default styled.div`
         css`
             margin-top: 0px !important;
             margin-left: 0px;
+        `};
+    ${({ withFlips }) =>
+        withFlips &&
+        css`
+            height: auto;
+            margin-top: 80px !important;
         `};
 `

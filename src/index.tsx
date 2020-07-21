@@ -17,7 +17,7 @@ import theme from 'assets/styles/theme'
 
 import { store, persistor } from 'redux/store'
 
-import Loader from 'components/Loader/Loader'
+import Loader from 'components/common/Loader/Loader'
 
 import App from 'components/App'
 

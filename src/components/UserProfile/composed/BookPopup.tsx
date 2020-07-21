@@ -1,36 +1,16 @@
-import React from 'react'
-import styled from 'styled-components/macro'
+import React, { useEffect, useState } from 'react'
 
-import hooks from 'hooks'
-
-import animations from 'assets/animations'
-
+import { BookPopupContainer } from 'components/UserStore/composed/BookPopup'
 import USDashboard from 'components/UserStore/styled/Dashboard'
+import Dashboard from '../styled/Dashboard'
 
 import USComposed from 'components/UserStore/composed'
-
-import utils from 'utils'
 
 import { IBook } from 'components/UserStore/UserStore'
 
 interface IProps {
     setBookPopupData: React.Dispatch<React.SetStateAction<IBook | undefined>>
 }
-
-export const BookPopupContainer = styled.div`
-    width: 100%;
-    height: ${() => hooks.useHeight()};
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    animation: ${animations.fadeIn} 0.5s ease-in-out;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 4;
-`
 
 const BookPopup: React.FC<IBook & IProps> = ({
     id,
@@ -40,19 +20,69 @@ const BookPopup: React.FC<IBook & IProps> = ({
     price,
     setBookPopupData
 }) => {
-    const resetBookPopup = () => setBookPopupData(undefined)
+    const [pages] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    const [currentPage, setCurrentPage] = useState(0)
+    const [isOpened, setIsOpened] = useState(false)
+    const [isRead, setIsRead] = useState(false)
+    useEffect(() => {
+        setIsOpened(currentPage > 0)
+        setIsRead(currentPage >= pages.length - 1)
+    }, [currentPage])
     return (
         <BookPopupContainer>
             <USDashboard.ContentContainer withFlips>
-                <USComposed.Book
-                    id={id}
-                    title={title}
-                    author={author}
-                    cover={cover}
-                    price={price}
-                    withPopup
-                    withFlips
-                />
+                <Dashboard.BookContainer withFlips={isOpened} isRead={isRead}>
+                    {pages.map((_, index) => (
+                        <Dashboard.Page
+                            flip={isOpened && (index === currentPage || index <= currentPage)}
+                            zIndex={index <= currentPage ? 1 : -index}
+                        >
+                            {index === 0 ? (
+                                <USComposed.Book
+                                    id={id}
+                                    title={title}
+                                    author={author}
+                                    cover={cover}
+                                    price={price}
+                                    withPopup
+                                />
+                            ) : (
+                                <Dashboard.PageContent>FRONT {index}</Dashboard.PageContent>
+                            )}
+                            <Dashboard.PageContent back>BACK {index}</Dashboard.PageContent>
+                        </Dashboard.Page>
+                    ))}
+                </Dashboard.BookContainer>
+                <USDashboard.Content withFlips>
+                    <USDashboard.ButtonsContainer>
+                        {isOpened ? (
+                            <>
+                                <USDashboard.Button
+                                    onClick={() => setCurrentPage(currentPage => currentPage - 1)}
+                                    notAbsolute
+                                    withoutFixedWidth
+                                >
+                                    Previous page
+                                </USDashboard.Button>
+                                <USDashboard.Button
+                                    onClick={() => setCurrentPage(currentPage => currentPage + 1)}
+                                    notAbsolute
+                                    withoutFixedWidth
+                                >
+                                    Next page
+                                </USDashboard.Button>
+                            </>
+                        ) : (
+                            <USDashboard.Button
+                                onClick={() => setCurrentPage(currentPage => currentPage + 1)}
+                                notAbsolute
+                                withoutFixedWidth
+                            >
+                                Read it
+                            </USDashboard.Button>
+                        )}
+                    </USDashboard.ButtonsContainer>
+                </USDashboard.Content>
             </USDashboard.ContentContainer>
         </BookPopupContainer>
     )

@@ -94,7 +94,7 @@
     "scripts": {
         "start": "react-app-rewired start",
         "build": "react-app-rewired build",
-        "dev": "concurrently \"tsc server/server.ts --target es6 --module commonjs --allowSyntheticDefaultImports --skipLibCheck --experimentalDecorators --esModuleInterop --outDir dist -w\" \"npm start\" \"nodemon dist/server.js\""
+        "dev": "concurrently \"tsc server/server.ts --target es6 --module commonjs --allowSyntheticDefaultImports --skipLibCheck --experimentalDecorators --esModuleInterop --outDir dist -w\" \"nodemon dist/server.js\""
     },
     "eslintConfig": {
         "extends": "react-app"
