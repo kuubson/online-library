@@ -34,6 +34,7 @@ const BookPopup: React.FC<IBook & IProps> = ({
                 <Dashboard.BookContainer withFlips={isOpened} isRead={isRead}>
                     {pages.map((_, index) => (
                         <Dashboard.Page
+                            key={index}
                             flip={isOpened && (index === currentPage || index <= currentPage)}
                             zIndex={index <= currentPage ? 1 : -index}
                         >
