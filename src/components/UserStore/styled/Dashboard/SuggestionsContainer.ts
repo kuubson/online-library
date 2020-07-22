@@ -2,6 +2,8 @@ import styled from 'styled-components/macro'
 
 export default styled.ul`
     width: 100%;
+    max-height: 242px;
+    overflow-y: scroll;
     background: white;
     position: absolute;
     top: 100%;

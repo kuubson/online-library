@@ -1,0 +1,13 @@
+import casual from 'casual'
+
+for (let x = 0; x < 200; x++) {
+    await Book.create({
+        title: casual.title,
+        author: casual.full_name,
+        cover: `https://picsum.photos/${Math.floor(
+        Math.random() * (1800 - 999 + 1) + 999
+        )}/${Math.floor(Math.random() * (1600 - 1001 + 1) + 1001)}`,
+        price: x % 2 === 0 ? Math.floor(Math.random() * (2 - 10 + 1) + 10) : null
+    })
+    console.log(casual.title)
+}
