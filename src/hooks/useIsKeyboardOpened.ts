@@ -16,7 +16,7 @@ export default () => {
     }, [])
     useEffect(() => {
         const handlePopupHeight = () =>
-            setIsKeyboardOpened(utils.isMobile && initialHeight > window.innerHeight)
+            setIsKeyboardOpened(utils.isMobile() && initialHeight > window.innerHeight)
         window.addEventListener('resize', handlePopupHeight)
         return () => window.removeEventListener('resize', handlePopupHeight)
     }, [initialHeight])

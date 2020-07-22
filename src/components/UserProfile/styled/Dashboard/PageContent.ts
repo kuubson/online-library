@@ -8,6 +8,7 @@ export default styled.div`
     width: 100%;
     height: 100%;
     background: #333;
+    font-size: 15px;
     backface-visibility: hidden;
     position: absolute;
     top: 50%;
@@ -17,6 +18,15 @@ export default styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    @media (max-width: 1200px) {
+        font-size: 14px;
+    }
+    @media (max-width: 900px) {
+        font-size: 13px;
+    }
+    @media (max-width: 600px) {
+        font-size: 12px;
+    }
     ${({ back }: ISCProps) =>
         back &&
         css`

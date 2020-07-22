@@ -45,6 +45,7 @@ const BookPopup: React.FC<IBook & IProps> = ({
                                     cover={cover}
                                     price={price}
                                     withPopup
+                                    withFlips
                                 />
                             ) : (
                                 <Dashboard.PageContent>FRONT {index}</Dashboard.PageContent>
@@ -58,6 +59,13 @@ const BookPopup: React.FC<IBook & IProps> = ({
                         {isOpened ? (
                             <>
                                 <USDashboard.Button
+                                    onClick={() => setCurrentPage(0)}
+                                    notAbsolute
+                                    withoutFixedWidth
+                                >
+                                    First page
+                                </USDashboard.Button>
+                                <USDashboard.Button
                                     onClick={() => setCurrentPage(currentPage => currentPage - 1)}
                                     notAbsolute
                                     withoutFixedWidth
@@ -65,21 +73,33 @@ const BookPopup: React.FC<IBook & IProps> = ({
                                     Previous page
                                 </USDashboard.Button>
                                 <USDashboard.Button
-                                    onClick={() => setCurrentPage(currentPage => currentPage + 1)}
+                                    onClick={() =>
+                                        !isRead && setCurrentPage(currentPage => currentPage + 1)
+                                    }
                                     notAbsolute
                                     withoutFixedWidth
+                                    withMarginLeft
                                 >
                                     Next page
                                 </USDashboard.Button>
                             </>
                         ) : (
-                            <USDashboard.Button
-                                onClick={() => setCurrentPage(currentPage => currentPage + 1)}
-                                notAbsolute
-                                withoutFixedWidth
-                            >
-                                Read it
-                            </USDashboard.Button>
+                            <>
+                                <USDashboard.Button
+                                    onClick={() => setCurrentPage(currentPage => currentPage + 1)}
+                                    notAbsolute
+                                    withoutFixedWidth
+                                >
+                                    Read it
+                                </USDashboard.Button>
+                                <USDashboard.Button
+                                    onClick={() => setBookPopupData(undefined)}
+                                    notAbsolute
+                                    withoutFixedWidth
+                                >
+                                    Close
+                                </USDashboard.Button>
+                            </>
                         )}
                     </USDashboard.ButtonsContainer>
                 </USDashboard.Content>

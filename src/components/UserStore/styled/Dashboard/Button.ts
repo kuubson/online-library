@@ -5,6 +5,7 @@ interface ISCProps {
     notAbsolute?: boolean
     withoutHover?: boolean
     withoutFixedWidth?: boolean
+    withMarginLeft?: boolean
 }
 
 export default styled.button`
@@ -49,8 +50,8 @@ export default styled.button`
             :hover {
                 transform: scale(1.03);
             }
-            :first-child {
-                margin-right: 20px;
+            :nth-child(2) {
+                margin-left: 20px;
             }
         `}
         ${({ withoutHover }) =>
@@ -65,5 +66,10 @@ export default styled.button`
             withoutFixedWidth &&
             css`
                 width: auto;
+            `}
+        ${({ withMarginLeft }) =>
+            withMarginLeft &&
+            css`
+                margin-left: 20px;
             `}
 `

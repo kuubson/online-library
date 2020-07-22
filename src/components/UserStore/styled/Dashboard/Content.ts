@@ -28,5 +28,8 @@ export default styled.div`
         css`
             height: auto;
             margin-top: 80px !important;
+            @media (max-width: 500px) {
+                margin-top: 50px !important;
+            }
         `};
 `

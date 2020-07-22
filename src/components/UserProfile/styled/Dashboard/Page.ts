@@ -12,7 +12,7 @@ export default styled.div`
     flex-direction: column;
     transform-origin: left;
     position: absolute;
-    transition: all 1s ease-in-out;
+    transition: transform 1s ease-out, z-index 0.5s ease-in-out;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
