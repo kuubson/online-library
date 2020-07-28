@@ -41,6 +41,7 @@ const UserRegistration: React.FC = () => {
         setForm(form => ({ ...form, [target.name]: target.value }))
     const handleError = (errorKey: string, error: string) =>
         setForm(form => ({ ...form, [`${errorKey}Error`]: error }))
+    const validator = hooks.useValidator(handleError)
     const submit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (validate()) {
@@ -79,14 +80,14 @@ const UserRegistration: React.FC = () => {
             passwordError: '',
             repeatedPasswordError: ''
         }))
-        isValidated = hooks
-            .useValidator(handleError)
-            .validateProperty(name, 'Type your name', 'Name contains invalid characters')
-        isValidated = hooks.useValidator(handleError).validateEmail(email)
-        isValidated = hooks.useValidator(handleError).validatePassword(password, repeatedPassword)
-        isValidated = hooks
-            .useValidator(handleError)
-            .validateRepeatedPassword(repeatedPassword, password)
+        isValidated = validator.validateProperty(
+            name,
+            'Type your name',
+            'Name contains invalid characters'
+        )
+        isValidated = validator.validateEmail(email)
+        isValidated = validator.validatePassword(password, repeatedPassword)
+        isValidated = validator.validateRepeatedPassword(repeatedPassword, password)
         return isValidated
     }
     return (
@@ -102,13 +103,11 @@ const UserRegistration: React.FC = () => {
                     error={nameError}
                     onChange={e => {
                         onChange(e)
-                        hooks
-                            .useValidator(handleError)
-                            .validateProperty(
-                                e.target.value,
-                                'Type your name',
-                                'Name contains invalid characters'
-                            )
+                        validator.validateProperty(
+                            e.target.value,
+                            'Type your name',
+                            'Name contains invalid characters'
+                        )
                     }}
                 />
                 <Composed.Input
@@ -120,7 +119,7 @@ const UserRegistration: React.FC = () => {
                     error={emailError}
                     onChange={e => {
                         onChange(e)
-                        hooks.useValidator(handleError).validateEmail(e.target.value)
+                        validator.validateEmail(e.target.value)
                     }}
                 />
                 <Composed.Input
@@ -132,9 +131,7 @@ const UserRegistration: React.FC = () => {
                     error={passwordError}
                     onChange={e => {
                         onChange(e)
-                        hooks
-                            .useValidator(handleError)
-                            .validatePassword(e.target.value, repeatedPassword)
+                        validator.validatePassword(e.target.value, repeatedPassword)
                     }}
                 />
                 <Composed.Input
@@ -146,9 +143,7 @@ const UserRegistration: React.FC = () => {
                     error={repeatedPasswordError}
                     onChange={e => {
                         onChange(e)
-                        hooks
-                            .useValidator(handleError)
-                            .validateRepeatedPassword(e.target.value, password)
+                        validator.validateRepeatedPassword(e.target.value, password)
                     }}
                 />
                 <Dashboard.Submit>Register</Dashboard.Submit>

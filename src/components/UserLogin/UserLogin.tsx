@@ -42,6 +42,7 @@ const UserLogin: React.FC = () => {
         setForm(form => ({ ...form, [target.name]: target.value }))
     const handleError = (errorKey: string, error: string) =>
         setForm(form => ({ ...form, [`${errorKey}Error`]: error }))
+    const validator = hooks.useValidator(handleError)
     const submit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (validate()) {
@@ -71,8 +72,8 @@ const UserLogin: React.FC = () => {
             emailError: '',
             passwordError: ''
         }))
-        isValidated = hooks.useValidator(handleError).validateEmail(email)
-        isValidated = hooks.useValidator(handleError).validatePassword(password, undefined, true)
+        isValidated = validator.validateEmail(email)
+        isValidated = validator.validatePassword(password, undefined, true)
         return isValidated
     }
     const loginWithFacebook = async (e: React.MouseEvent | React.TouchEvent) => {
@@ -116,7 +117,7 @@ const UserLogin: React.FC = () => {
                     error={emailError}
                     onChange={e => {
                         onChange(e)
-                        hooks.useValidator(handleError).validateEmail(e.target.value)
+                        validator.validateEmail(e.target.value)
                     }}
                 />
                 <URComposed.Input
@@ -128,9 +129,7 @@ const UserLogin: React.FC = () => {
                     error={passwordError}
                     onChange={e => {
                         onChange(e)
-                        hooks
-                            .useValidator(handleError)
-                            .validatePassword(e.target.value, undefined, true)
+                        validator.validatePassword(e.target.value, undefined, true)
                     }}
                 />
                 <URDashboard.Submit>Login</URDashboard.Submit>

@@ -53,12 +53,8 @@ const Book: React.FC<IBook & IProps> = ({
     withPopup,
     withFlips
 }) => {
-    const [isLoading, setIsLoading] = useState(false)
-    const [timeoutId, setTimeoutId] = useState<number>()
+    const [isLoading, setIsLoading] = useState(true)
     const { cart, removeFromCart } = hooks.useCart()
-    useEffect(() => {
-        !timeoutId && setTimeoutId(setTimeout(() => setIsLoading(true), 500))
-    }, [])
     const isInCart = cart.includes(id)
     return (
         <BookContainer withPopup={withPopup} withFlips={withFlips}>
@@ -70,11 +66,7 @@ const Book: React.FC<IBook & IProps> = ({
             </Dashboard.Loader>
             <Dashboard.Cover
                 src={cover}
-                onLoad={() => {
-                    setIsLoading(false)
-                    clearTimeout(timeoutId)
-                    setTimeoutId(undefined)
-                }}
+                onLoad={() => setIsLoading(false)}
                 onError={e => {
                     setIsLoading(true)
                     e.currentTarget.src = `https://picsum.photos/1920/108${Math.floor(
