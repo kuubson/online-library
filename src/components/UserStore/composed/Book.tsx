@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled, { css } from 'styled-components/macro'
 import Loader from 'react-spinkit'
 
@@ -43,8 +43,8 @@ const BookContainer = styled.div`
 
 const Book: React.FC<IBook & IProps> = ({
     id,
-    author,
     title,
+    author,
     cover,
     price,
     setBookPopupData,
@@ -88,8 +88,8 @@ const Book: React.FC<IBook & IProps> = ({
                         setBookPopupData &&
                         setBookPopupData({
                             id,
-                            author,
                             title,
+                            author,
                             cover,
                             price
                         })
@@ -104,8 +104,8 @@ const Book: React.FC<IBook & IProps> = ({
                         !isInCart &&
                         setBookPopupData({
                             id,
-                            author,
                             title,
+                            author,
                             cover,
                             price
                         })

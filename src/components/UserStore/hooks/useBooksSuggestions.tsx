@@ -27,6 +27,7 @@ const BooksSuggestionsQuery = gql`
             id
             title
             author
+            cover
             price
         }
     }
@@ -56,31 +57,19 @@ const useBooksSuggestions = ({
     const handleSort = (id: string, price: number) => {
         const filterOut = (book: IBook) => book.id !== id
         const filter = (book: IBook) => book.id === id
-        if (!price) {
-            if (findByTitle) {
-                const freeBooksByTitle = freeBooks.filter(filterOut)
-                const freeBookByTitle = freeBooks.find(filter)!
-                setFreeBooks([freeBookByTitle, ...freeBooksByTitle])
+        if (booksSuggestions) {
+            if (!price) {
+                const sortedFreeBooks = freeBooks.filter(filterOut)
+                const sortedFreeBook =
+                    freeBooks.find(filter)! || booksSuggestions.booksSuggestions.find(filter)!
+                setFreeBooks([sortedFreeBook, ...sortedFreeBooks])
             } else {
-                const freeBooksByAuthor = freeBooks.filter(filterOut)
-                const freeBookByAuthor = freeBooks.find(filter)!
-                setFreeBooks([freeBookByAuthor, ...freeBooksByAuthor])
+                const sortedPaidBooks = paidBooks.filter(filterOut)
+                const sortedPaidBook =
+                    paidBooks.find(filter)! || booksSuggestions.booksSuggestions.find(filter)!
+                setPaidBooks([sortedPaidBook, ...sortedPaidBooks])
             }
-        } else {
-            if (findByTitle) {
-                const paidBooksByTitle = paidBooks.filter(filterOut)
-                const paidBookByTitle = paidBooks.find(filter)!
-                setPaidBooks([paidBookByTitle, ...paidBooksByTitle])
-            } else {
-                const paidBooksByAuthor = paidBooks.filter(filterOut)
-                const paidBookByAuthor = paidBooks.find(filter)!
-                setPaidBooks([paidBookByAuthor, ...paidBooksByAuthor])
-            }
-        }
-        if (findByTitle) {
-            setTitle('')
-        } else {
-            setAuthor('')
+            findByTitle ? setTitle('') : setAuthor('')
         }
     }
     const renderBooksSuggestionsInput = () => (
