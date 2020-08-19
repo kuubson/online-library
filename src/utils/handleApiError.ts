@@ -7,9 +7,7 @@ export default (error: AxiosError) => {
     if (error.response) {
         const status = error.response.status
         const { errorHeader, errorMessage } = error.response.data
-        if (status === 401) {
-            utils.redirectTo('/user/login')
-        }
+        status === 401 && utils.redirectTo('/user/login')
         if (errorHeader && errorMessage) {
             return utils.setFeedbackData(errorHeader, errorMessage)
         }

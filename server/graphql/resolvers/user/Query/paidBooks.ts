@@ -13,6 +13,7 @@ export default async (_, __, context: IContext) => {
             price: {
                 [Op.ne]: null
             }
-        }
+        },
+        limit: 20
     })
 }

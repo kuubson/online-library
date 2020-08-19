@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express'
-import { check } from 'express-validator'
 import jwt from 'jsonwebtoken'
 
 import { Connection, User } from '../../../database/database'

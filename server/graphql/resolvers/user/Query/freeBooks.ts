@@ -9,6 +9,7 @@ export default async (_, __, context: IContext) => {
     return await Book.findAll({
         where: {
             price: null
-        }
+        },
+        limit: 20
     })
 }
