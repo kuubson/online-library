@@ -76,7 +76,7 @@
         "react-hot-loader": "^4.12.21",
         "react-redux": "^7.2.0",
         "react-router-dom": "^5.2.0",
-        "react-scripts": "3.4.1",
+        "react-scripts": "^3.4.3",
         "react-spinkit": "^3.0.0",
         "react-transition-group": "^4.4.1",
         "redux": "^4.0.5",
@@ -93,9 +93,11 @@
         "validator": "^13.1.1"
     },
     "scripts": {
-        "start": "react-app-rewired start",
+        "start": "node dist/server.js",
+        "frontend": "react-app-rewired start",
+        "dev": "concurrently \"tsc server/server.ts --target es6 --module commonjs --allowSyntheticDefaultImports --skipLibCheck --experimentalDecorators --esModuleInterop --outDir dist -w\" \"nodemon dist/server.js\"",
         "build": "react-app-rewired build",
-        "dev": "concurrently \"tsc server/server.ts --target es6 --module commonjs --allowSyntheticDefaultImports --skipLibCheck --experimentalDecorators --esModuleInterop --outDir dist -w\" \"nodemon dist/server.js\""
+        "heroku-postbuild": "npm run build"
     },
     "eslintConfig": {
         "extends": "react-app"
