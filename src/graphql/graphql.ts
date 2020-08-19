@@ -8,6 +8,8 @@ import utils from 'utils'
 
 export const cache = new InMemoryCache()
 
+let timeoutId: number | undefined
+
 const errorHandler = onError(({ graphQLErrors, networkError }) => {
     utils.setIsLoading(false)
     clearTimeout(timeoutId)
@@ -42,8 +44,6 @@ const errorHandler = onError(({ graphQLErrors, networkError }) => {
         )
     }
 })
-
-let timeoutId: number | undefined
 
 const customFetch = (uri: any, options: any) => {
     !timeoutId && (timeoutId = setTimeout(() => utils.setIsLoading(true), 500))
