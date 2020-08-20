@@ -30,7 +30,7 @@ export default {
                             secure: process.env.NODE_ENV === 'production',
                             httpOnly: true,
                             sameSite: true,
-                            maxAge: 168 * 60 * 60 * 1000
+                            maxAge: 7 * 24 * 60 * 60 * 1000
                         })
                         .send({
                             success: true
@@ -50,7 +50,7 @@ export default {
                     secure: process.env.NODE_ENV === 'production',
                     httpOnly: true,
                     sameSite: true,
-                    maxAge: 168 * 60 * 60 * 1000
+                    maxAge: 7 * 24 * 60 * 60 * 1000
                 }).send({
                     success: true
                 })

@@ -5,7 +5,7 @@ import { Connection, User } from '../../../database/database'
 
 import utils from '../../../utils'
 
-interface IBody {
+interface ICookies {
     token: string
 }
 
@@ -17,7 +17,7 @@ export interface IJWTData {
 export default {
     default: async (req: Request, res: Response, next: NextFunction) => {
         await Connection.transaction(async transaction => {
-            const { token }: IBody = req.cookies
+            const { token }: ICookies = req.cookies
             if (!token) {
                 return res
                     .clearCookie('token', {

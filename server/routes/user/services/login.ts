@@ -42,7 +42,7 @@ export default {
                     secure: process.env.NODE_ENV === 'production',
                     httpOnly: true,
                     sameSite: true,
-                    maxAge: 168 * 60 * 60 * 1000 // 168 hours (7 days)
+                    maxAge: 7 * 24 * 60 * 60 * 1000 // 168 hours (7 days)
                 }).send({
                     success: true
                 })

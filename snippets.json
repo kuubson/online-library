@@ -1,37 +1,73 @@
 {
-    "Auto Imports React": {
-        "prefix": "aa",
+    "Database model": {
+        "prefix": "d",
         "body": [
-            "const exports: any = {}",
+            "import { Model, DataType, Table, Column } from 'sequelize-typescript'",
             "",
-            "const req = require.context('./', false, /^\\.\\/(?!index).*\\.${1|ts,tsx|}$/)",
-            "",
-            "req.keys().forEach(fileName => {",
-            "    const exportName = fileName.replace('./', '').replace('.${1|ts,tsx|}', '')",
-            "    exports[exportName] = req(fileName).default",
-            "})",
-            "",
-            "export default exports",
+            "@Table({})",
+            "export default class ${TM_FILENAME_BASE} extends Model<${TM_FILENAME_BASE}> {",
+            "    @Column({",
+            "        allowNull: false,",
+            "        type: DataType.STRING",
+            "    })",
+            "    email: string",
+            "}",
             ""
         ],
-        "description": "Auto Imports React"
+        "description": "Database model"
     },
-    "Auto Imports Node.js": {
-        "prefix": "a",
+    "Mutation / Query": {
+        "prefix": "q",
         "body": [
-            "import fs from 'fs'",
-            "import path from 'path'",
+            "import { } from '../../../../database/database'",
             "",
-            "fs.readdirSync(__dirname)",
-            "    .filter(file => file !== 'index.js')",
-            "    .forEach(",
-            "        file => (module.exports[file.replace('.js', '')] = require(path.resolve(__dirname, file)))",
-            "    )",
+            "import middlewares from '../../../../middlewares'",
+            "",
+            "import utils from '../../../../utils'",
+            "",
+            "import { IContext } from '../../types'",
+            "",
+            "interface IArgs {",
+            "    ",
+            "}",
+            "",
+            "export default async (_, {}: IArgs, context: IContext) => {",
+            "    middlewares.roleAuthorization(context, '${1}')",
+            "}",
             ""
         ],
-        "description": "Auto Imports Node.js"
+        "description": "Mutation / Query"
     },
-    "Main Component": {
+    "Route": {
+        "prefix": "r",
+        "body": [
+            "import { Request, Response, NextFunction } from 'express'",
+            "",
+            "import { Connection } from '../../../database/database'",
+            "",
+            "import utils from '../../../utils'",
+            "",
+            "interface IBody {",
+            "   ",
+            "}",
+            "",
+            "export default {",
+            "    default: async (req: Request, res: Response, next: NextFunction) => {",
+            "        try {",
+            "            await Connection.transaction(async transaction => {",
+            "                const {  }: IBody = req.body",
+            "            })",
+            "        } catch (error) {",
+            "            next(error)",
+            "        }",
+            "    },",
+            "    validation: () => []",
+            "}",
+            ""
+        ],
+        "description": "Route"
+    },
+    "Functional Component": {
         "prefix": "sss",
         "body": [
             "import React from 'react'",
@@ -39,9 +75,7 @@
             "",
             "import Dashboard from './styled/Dashboard'",
             "",
-            "const ${TM_FILENAME_BASE}Container = styled.${1}`",
-            "  ${2}",
-            "`",
+            "const ${TM_FILENAME_BASE}Container = styled.div``",
             "",
             "const ${TM_FILENAME_BASE}: React.FC = () => {",
             "    return <${TM_FILENAME_BASE}Container></${TM_FILENAME_BASE}Container>",
@@ -50,119 +84,28 @@
             "export default ${TM_FILENAME_BASE}",
             ""
         ],
-        "description": "Main Component"
+        "description": "Functional Component"
     },
     "Styled Component": {
-        "prefix": "s",
+        "prefix": "ss",
         "body": [
             "import styled from 'styled-components/macro'",
             "",
-            "export default styled.${2}`",
-            "${3}",
-            "`"
+            "export default styled.${1}`",
+            "    ${2}",
+            "`",
+            ""
         ],
         "description": "Styled Component"
     },
-    "Styled View": {
-        "prefix": "se",
-        "body": ["", "const ${1} = styled.View`", "${3}", "`"],
-        "description": "Styled View"
+    "useState": {
+        "prefix": "ee",
+        "body": ["const [${1}, se${2}t${1}] = useState()"],
+        "description": "useState"
     },
-    "Styled Text": {
-        "prefix": "es",
-        "body": ["", "const ${1} = styled.Text`", "${3}", "`"],
-        "description": "Styled Text"
-    },
-    "Hook useState": {
-        "prefix": "dd",
-        "body": ["const [${1},${2}set${1}] = useState()"],
-        "description": "Hook useState"
-    },
-    "Hook useEffect": {
-        "prefix": "d",
-        "body": ["useEffect(() => {", "${1}", "}, [])"],
-        "description": "Hook useState"
-    },
-    "Higher Order Component": {
-        "prefix": "ccc",
-        "body": [
-            "import React from 'react'",
-            "import { useDispatch, useSelector } from 'react-redux'",
-            "",
-            "export default Component => {",
-            "    return props => {",
-            "        const dispatch = useDispatch()",
-            "        const { ${1} } = useSelector(state => state.${3})",
-            "        const ${2} = payload => dispatch({ type: '${2}', payload })",
-            "        const features = {",
-            "            ${1},",
-            "            ${2}",
-            "        }",
-            "        return <Component {...props} {...features} />",
-            "    }",
-            "}",
-            ""
-        ],
-        "description": "Higher Order Component"
-    },
-    "Import Higher Order Component": {
-        "prefix": "c",
-        "body": ["import { compose } from 'redux'", "import {${1}} from '@hoc'"],
-        "description": "Import Higher Order Component"
-    },
-    "Express Route": {
-        "prefix": "r",
-        "body": [
-            "import { check } from 'express-validator'",
-            "",
-            "import {} from '@database'",
-            "",
-            "import { ApiError } from '@utils'",
-            "",
-            "export default async (req, res, next) => {",
-            "    try {",
-            "        const {${1}} = req.body",
-            "    } catch (error) {",
-            "        next(error)",
-            "    }",
-            "}",
-            "",
-            "export const validation = () => []",
-            ""
-        ],
-        "description": "Express Route"
-    },
-    "Sequelize Model": {
-        "prefix": "ss",
-        "body": [
-            "import { Model, DataTypes } from 'sequelize'",
-            "import bcrypt from 'bcryptjs'",
-            "",
-            "const { STRING, TEXT, BOOLEAN } = DataTypes",
-            "",
-            "export default sequelize => {",
-            "    class ${TM_FILENAME_BASE} extends Model {}",
-            "    ${TM_FILENAME_BASE}.init(",
-            "        {",
-            "            value: {",
-            "                type: STRING,",
-            "                allowNull: false",
-            "            },",
-            "        },",
-            "        {",
-            "            sequelize,",
-            "            modelName: '${2}${TM_FILENAME_BASE}',",
-            "            hooks: {",
-            "                beforeCreate: ${2}${TM_FILENAME_BASE} => {",
-            "                    ${2}${TM_FILENAME_BASE}.password = bcrypt.hashSync(${2}${TM_FILENAME_BASE}.password, 11)",
-            "                }",
-            "            }",
-            "        }",
-            "    )",
-            "    return ${TM_FILENAME_BASE}",
-            "}",
-            ""
-        ],
-        "description": "Sequelize Model"
+    "useEffect": {
+        "prefix": "e",
+        "body": ["useEffect(() => {", "    ", "}, [])"],
+        "description": "useEffect"
     }
 }
