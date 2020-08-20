@@ -93,7 +93,7 @@
         "validator": "^13.1.1"
     },
     "scripts": {
-        "start": "node dist/server.js",
+        "start": "tsc server/server.ts --target es6 --module commonjs --allowSyntheticDefaultImports --skipLibCheck --experimentalDecorators --esModuleInterop --outDir dist && node dist/server.js",
         "frontend": "react-app-rewired start",
         "dev": "concurrently \"tsc server/server.ts --target es6 --module commonjs --allowSyntheticDefaultImports --skipLibCheck --experimentalDecorators --esModuleInterop --outDir dist -w\" \"nodemon dist/server.js\"",
         "build": "react-app-rewired build",
