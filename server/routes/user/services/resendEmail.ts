@@ -47,9 +47,9 @@ export default {
                 const mailOptions = {
                     from: `"Online Library" <${process.env.NODEMAILER_USERNAME}>`,
                     to: email,
-                    subject: 'Account activation in the Online Library application',
+                    subject: 'Account activation in the Online Library',
                     html: utils.emailTemplate(
-                        'Account activation in the Online Library application',
+                        'Account activation in the Online Library',
                         `To activate your account click the button`,
                         'Activate account',
                         `${utils.baseUrl(req)}/user/authentication/${token}`

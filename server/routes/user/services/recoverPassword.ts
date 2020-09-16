@@ -47,9 +47,9 @@ export default {
                 const mailOptions = {
                     from: `"Online Library" <${process.env.NODEMAILER_USERNAME}>`,
                     to: email,
-                    subject: 'Password recovery in the Online Library application',
+                    subject: 'Password recovery in the Online Library',
                     html: utils.emailTemplate(
-                        'Password recovery in the Online Library application',
+                        'Password recovery in the Online Library',
                         `To change your password click the button`,
                         'Change password',
                         `${utils.baseUrl(req)}/user/password-recovery/${passwordToken}`
