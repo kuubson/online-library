@@ -9,6 +9,7 @@ export const LoaderContainer = styled.section`
     width: 100%;
     height: ${() => hooks.useHeight()};
     background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
     display: flex;
     justify-content: center;
     align-items: center;

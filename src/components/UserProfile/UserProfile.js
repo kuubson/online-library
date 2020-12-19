@@ -31,13 +31,14 @@ const booksQuery = gql`
 `
 
 const UserProfile = ({ shouldExpandMenu }) => {
+    const [boughtBooks, setBoughtBooks] = useState([])
+    const [borrowedBooks, setBorrowedBooks] = useState([])
+    const [bookPopupData, setBookPopupData] = useState()
+    const areThereBoughtBooks = boughtBooks.length > 0
+    const areThereBorrowedBooks = borrowedBooks.length > 0
     const { loading: areBooksLoading, data: books } = useQuery(booksQuery, {
         fetchPolicy: 'cache-and-network'
     })
-    const [boughtBooks, setBoughtBooks] = useState([])
-    const [borrowedBooks, setBorrowedBooks] = useState([])
-    const areThereBoughtBooks = boughtBooks.length > 0
-    const areThereBorrowedBooks = borrowedBooks.length > 0
     useEffect(() => {
         setTimeout(() => {
             if (books) {
@@ -46,7 +47,6 @@ const UserProfile = ({ shouldExpandMenu }) => {
             }
         }, 0)
     }, [books])
-    const [bookPopupData, setBookPopupData] = useState()
     const { renderBooksSuggestionsInput } = USHooks.useBooksSuggestions({
         freeBooks: borrowedBooks,
         setFreeBooks: setBorrowedBooks,

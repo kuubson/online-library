@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
-import axios from 'axios'
 import { useLocation } from 'react-router-dom'
 import queryString from 'query-string'
 
@@ -20,6 +19,7 @@ import USComposed from 'components/UserStore/composed'
 import Composed from './composed'
 
 import utils from 'utils'
+import apiAxios from 'utils/apiAxios'
 
 const UserCartContainer = styled(UserStoreContainer)`
     justify-content: flex-start;
@@ -40,23 +40,30 @@ const booksQuery = gql`
 `
 
 const UserCart = ({ shouldExpandMenu }) => {
-    const [isPaid, setIsPaid] = useState(false)
+    const { paymentId, PayerID } = queryString.parse(useLocation().search)
     const { isLoading } = hooks.useLoader()
-    const [shouldStripePopupAppear, setShouldStripePopupAppear] = useState(false)
     const { cart, resetCart } = hooks.useCart()
+    const [books, setBooks] = useState([])
+    const [shouldStripePopupAppear, setShouldStripePopupAppear] = useState(false)
+    const [isPaid, setIsPaid] = useState(false)
+    const areThereBooks = books.length > 0
+    const price = books
+        .map(({ price }) => price)
+        .reduce((total, price) => total + price, 0)
+        .toFixed(2)
     const { data } = useQuery(booksQuery, {
         fetchPolicy: 'cache-and-network',
         variables: {
             ids: cart
         }
     })
-    const books = data ? data.books : []
-    const areThereBooks = books.length > 0
-    const price = books
-        .map(({ price }) => price)
-        .reduce((total, price) => total + price, 0)
-        .toFixed(2)
-    const { paymentId, PayerID } = queryString.parse(useLocation().search)
+    useEffect(() => {
+        setTimeout(() => {
+            if (data) {
+                setBooks(data.books)
+            }
+        }, 0)
+    }, [data])
     useEffect(() => {
         const executePayPalPayment = async () => {
             if (paymentId && PayerID) {
@@ -88,18 +95,12 @@ const UserCart = ({ shouldExpandMenu }) => {
         }
     }, [isLoading, isPaid])
     const createPayPalPayment = async () => {
-        try {
-            utils.setIsLoading(true)
-            const url = '/api/user/createPayPalPayment'
-            const response = await axios.post(url, {
-                products: cart
-            })
-            if (response) {
-                window.location = response.data.link
-            }
-        } catch (error) {
-            utils.setIsLoading(false)
-            utils.handleApiError(error)
+        const url = '/api/user/createPayPalPayment'
+        const response = await apiAxios.post(url, {
+            products: cart
+        })
+        if (response) {
+            window.location = response.data.link
         }
     }
     return (

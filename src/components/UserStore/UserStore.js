@@ -46,11 +46,12 @@ const booksQuery = gql`
 `
 
 const UserStore = ({ shouldExpandMenu }) => {
-    const { loading: areBooksLoading, data: books } = useQuery(booksQuery)
     const [freeBooks, setFreeBooks] = useState([])
     const [paidBooks, setPaidBooks] = useState([])
+    const [bookPopupData, setBookPopupData] = useState()
     const areThereFreeBooks = freeBooks.length > 0
     const areTherePaidBooks = paidBooks.length > 0
+    const { loading: areBooksLoading, data: books } = useQuery(booksQuery)
     useEffect(() => {
         setTimeout(() => {
             if (books) {
@@ -59,7 +60,6 @@ const UserStore = ({ shouldExpandMenu }) => {
             }
         }, 0)
     }, [books])
-    const [bookPopupData, setBookPopupData] = useState()
     const { renderBooksSuggestionsInput } = USHooks.useBooksSuggestions({
         freeBooks,
         setFreeBooks,
