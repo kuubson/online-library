@@ -11,7 +11,7 @@ import { useQuery } from '@apollo/react-hooks'
 
 import hooks from 'hooks'
 
-import { UserStoreContainer, IBook } from 'components/UserStore/UserStore'
+import { UserStoreContainer } from 'components/UserStore/UserStore'
 import USDashboard from 'components/UserStore/styled/Dashboard'
 import URDashboard from 'components/UserRegistration/styled/Dashboard'
 import Dashboard from './styled/Dashboard'
@@ -40,6 +40,8 @@ const booksQuery = gql`
 `
 
 const UserCart = ({ shouldExpandMenu }) => {
+    const [isPaid, setIsPaid] = useState(false)
+    const { isLoading } = hooks.useLoader()
     const [shouldStripePopupAppear, setShouldStripePopupAppear] = useState(false)
     const { cart, resetCart } = hooks.useCart()
     const { data } = useQuery(booksQuery, {
@@ -64,6 +66,8 @@ const UserCart = ({ shouldExpandMenu }) => {
                     PayerID
                 })
                 if (response) {
+                    setIsPaid(true)
+                    utils.setIsLoading(false)
                     utils.setFeedbackData(
                         'Submitting the order',
                         `You have successfully purchased new books`,
@@ -78,6 +82,11 @@ const UserCart = ({ shouldExpandMenu }) => {
         }
         executePayPalPayment()
     }, [paymentId, PayerID])
+    useEffect(() => {
+        if (paymentId && PayerID && !isPaid) {
+            utils.setIsLoading(true)
+        }
+    }, [isLoading, isPaid])
     const createPayPalPayment = async () => {
         try {
             utils.setIsLoading(true)

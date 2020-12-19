@@ -55,7 +55,7 @@ const User = ({ children }) => {
                 ]}
                 _setShouldExpandMenu={_setShouldExpandMenu}
             />
-            <UserContainer blurred={hooks.useBlur()}>
+            <UserContainer>
                 {React.cloneElement(children, {
                     shouldExpandMenu
                 })}

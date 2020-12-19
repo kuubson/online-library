@@ -6,7 +6,6 @@ import useWidth from './useWidth'
 import useHeight from './useHeight'
 import useIsKeyboardOpened from './useIsKeyboardOpened'
 import useTopOffset from './useTopOffset'
-import useBlur from './useBlur'
 import useValidator from './useValidator'
 
 export default {
@@ -18,6 +17,5 @@ export default {
     useHeight,
     useIsKeyboardOpened,
     useTopOffset,
-    useBlur,
     useValidator
 }
