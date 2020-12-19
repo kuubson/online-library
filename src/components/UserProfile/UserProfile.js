@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 
 import gql from 'graphql-tag'
@@ -36,17 +36,13 @@ const UserProfile = ({ shouldExpandMenu }) => {
     const [bookPopupData, setBookPopupData] = useState()
     const areThereBoughtBooks = boughtBooks.length > 0
     const areThereBorrowedBooks = borrowedBooks.length > 0
-    const { loading: areBooksLoading, data: books } = useQuery(booksQuery, {
-        fetchPolicy: 'cache-and-network'
+    const { loading: areBooksLoading } = useQuery(booksQuery, {
+        fetchPolicy: 'cache-and-network',
+        onCompleted: ({ boughtBooks, borrowedBooks }) => {
+            setBoughtBooks(boughtBooks)
+            setBorrowedBooks(borrowedBooks)
+        }
     })
-    useEffect(() => {
-        setTimeout(() => {
-            if (books) {
-                setBoughtBooks(books.boughtBooks)
-                setBorrowedBooks(books.borrowedBooks)
-            }
-        }, 0)
-    }, [books])
     const { renderBooksSuggestionsInput } = USHooks.useBooksSuggestions({
         freeBooks: borrowedBooks,
         setFreeBooks: setBorrowedBooks,

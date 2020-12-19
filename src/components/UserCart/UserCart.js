@@ -51,19 +51,13 @@ const UserCart = ({ shouldExpandMenu }) => {
         .map(({ price }) => price)
         .reduce((total, price) => total + price, 0)
         .toFixed(2)
-    const { data } = useQuery(booksQuery, {
+    useQuery(booksQuery, {
         fetchPolicy: 'cache-and-network',
         variables: {
             ids: cart
-        }
+        },
+        onCompleted: ({ books }) => setBooks(books)
     })
-    useEffect(() => {
-        setTimeout(() => {
-            if (data) {
-                setBooks(data.books)
-            }
-        }, 0)
-    }, [data])
     useEffect(() => {
         const executePayPalPayment = async () => {
             if (paymentId && PayerID) {
