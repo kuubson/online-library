@@ -22,11 +22,11 @@ middlewares.errorHandler(app)
 
 app.use('/uploads', express.static(path.resolve(__dirname, '../uploads')))
 
-if (process.env.NODE_ENV === 'production') {
-    const buildPath = '../build'
-    app.use(express.static(path.resolve(__dirname, buildPath)))
-    app.get('*', (_, res) => res.sendFile(path.resolve(__dirname, buildPath, 'index.html')))
-}
+const buildPath = '../build'
+
+app.use(express.static(path.resolve(__dirname, buildPath)))
+
+app.get('*', (_, res) => res.sendFile(path.resolve(__dirname, buildPath, 'index.html')))
 
 const port = process.env.PORT || 3001
 

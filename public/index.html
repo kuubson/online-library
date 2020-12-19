@@ -31,26 +31,20 @@
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root"></div>
         <script>
-            window.fbAsyncInit = () => {
+            window.fbAsyncInit = function () {
                 FB.init({
                     appId: '598843131030686',
-                    cookie: true,
+                    autoLogAppEvents: true,
                     xfbml: true,
-                    version: 'v7.0'
+                    version: 'v9.0'
                 })
-                FB.AppEvents.logPageView()
             }
-            ;((d, s, id) => {
-                var js,
-                    fjs = d.getElementsByTagName(s)[0]
-                if (d.getElementById(id)) {
-                    return
-                }
-                js = d.createElement(s)
-                js.id = id
-                js.src = 'https://connect.facebook.net/en_US/sdk.js'
-                fjs.parentNode.insertBefore(js, fjs)
-            })(document, 'script', 'facebook-jssdk')
         </script>
+        <script
+            async
+            defer
+            crossorigin="anonymous"
+            src="https://connect.facebook.net/en_US/sdk.js"
+        ></script>
     </body>
 </html>

@@ -10,16 +10,20 @@ initPassport(passport)
 
 import errorHandler from './errorHandler'
 import checkValidation from './checkValidation'
-import jwtAuthorization, { IPassportData } from './jwtAuthorization'
+import jwtAuthorization from './jwtAuthorization'
 import facebookAuthorization from './facebookAuthorization'
 import roleAuthorization from './roleAuthorization'
 
-import utils from '../utils'
+import utils from '@utils'
 
 import schema from '../graphql/schema'
 
 const init = app => {
-    app.use(helmet())
+    app.use(
+        helmet({
+            contentSecurityPolicy: false
+        })
+    )
     app.use(cookieParser())
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
