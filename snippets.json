@@ -19,11 +19,11 @@
     "Mutation / Query": {
         "prefix": "q",
         "body": [
-            "import { } from '../../../../database/database'",
+            "import { } from '@database'",
             "",
-            "import middlewares from '../../../../middlewares'",
+            "import middlewares from '@middlewares'",
             "",
-            "import utils from '../../../../utils'",
+            "import utils from '@utils'",
             "",
             "import { IContext } from '../../types'",
             "",
@@ -43,9 +43,9 @@
         "body": [
             "import { Request, Response, NextFunction } from 'express'",
             "",
-            "import { Connection } from '../../../database/database'",
+            "import { Connection } from '@database'",
             "",
-            "import utils from '../../../utils'",
+            "import utils from '@utils'",
             "",
             "interface IBody {",
             "   ",
