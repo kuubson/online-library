@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/react-hooks'
 
 import USHooks from 'components/UserStore/hooks'
 
-import { UserStoreContainer, IBook } from 'components/UserStore/UserStore'
+import { UserStoreContainer } from 'components/UserStore/UserStore'
 
 import USComposed from 'components/UserStore/composed'
 import Composed from './composed'

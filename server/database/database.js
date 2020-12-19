@@ -8,8 +8,8 @@ const connection = new sequelize(DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASS
     define: {
         charset: 'utf8mb4',
         collate: 'utf8mb4_unicode_ci'
-    },
-    logging: true
+    }
+    // logging: false
 })
 
 import UserModel from './models/User'
