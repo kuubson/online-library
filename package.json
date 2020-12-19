@@ -68,7 +68,7 @@
         "workbox-streams": "^5.1.4"
     },
     "scripts": {
-        "start": "babel src/server -d dist && node dist/server.js",
+        "start": "babel server -d dist && node dist/server.js",
         "frontend": "react-scripts start",
         "backend": "babel-watch server/server.js",
         "build": "react-scripts build",
