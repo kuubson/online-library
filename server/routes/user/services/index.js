@@ -6,7 +6,7 @@ import loginWithFacebook from './loginWithFacebook'
 import recoverPassword from './recoverPassword'
 import checkPasswordToken from './checkPasswordToken'
 import changePassword from './changePassword'
-import getAllBooks from './getAllBooks'
+import getBooks from './getBooks'
 import getSuggestions from './getSuggestions'
 import borrowBook from './borrowBook'
 import getCart from './getCart'
@@ -24,7 +24,7 @@ export default {
     recoverPassword,
     checkPasswordToken,
     changePassword,
-    getAllBooks,
+    getBooks,
     getSuggestions,
     borrowBook,
     getCart,

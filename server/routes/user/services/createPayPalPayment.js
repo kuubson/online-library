@@ -15,17 +15,31 @@ export default {
         try {
             await Connection.transaction(async transaction => {
                 const { products } = req.body
+                const userBooks = await req.user
+                    .getBooks({
+                        where: {
+                            id: products
+                        }
+                    })
+                    .then(books => books.map(({ id }) => id))
                 const books = await Book.findAll({
                     where: {
                         id: products
                     },
                     transaction
-                })
+                }).then(books => books.filter(({ id }) => !userBooks.includes(id)))
+                if (books.length === 0) {
+                    throw new utils.ApiError(
+                        'Submitting the order',
+                        'You have already purchased selected books before',
+                        409
+                    )
+                }
+                const description = books.map(({ title }) => title).join(', ')
                 const price = books
                     .map(({ price }) => price)
                     .reduce((total, price) => total + price, 0)
                     .toFixed(2)
-                const description = books.map(({ title }) => title).join(', ')
                 const payment = {
                     intent: 'sale',
                     payer: {
@@ -48,11 +62,11 @@ export default {
                                     }
                                 })
                             },
+                            description,
                             amount: {
                                 currency: 'USD',
                                 total: price
-                            },
-                            description
+                            }
                         }
                     ]
                 }

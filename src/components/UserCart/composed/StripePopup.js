@@ -51,6 +51,7 @@ const StripePopup = ({ price, setShouldStripePopupAppear }) => {
             }
         } catch (error) {
             utils.setIsLoading(false)
+            setShouldStripePopupAppear(false)
         }
     }
     const isKeyboardOpened = hooks.useIsKeyboardOpened()

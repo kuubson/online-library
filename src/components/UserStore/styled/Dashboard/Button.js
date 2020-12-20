@@ -64,4 +64,12 @@ export default styled.button`
         css`
             margin-left: 20px;
         `}
+        ${({ withLoadMore }) =>
+        withLoadMore &&
+        css`
+            width: 50%;
+            height: 25%;
+            background: none;
+            border: 2px solid white;
+        `}
 `

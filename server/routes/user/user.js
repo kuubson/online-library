@@ -63,7 +63,13 @@ router.post(
     Services.changePassword.default
 )
 
-router.get('/getAllBooks', middlewares.jwtAuthorization, Services.getAllBooks.default)
+router.post(
+    '/getBooks',
+    middlewares.jwtAuthorization,
+    Services.getBooks.validation(),
+    middlewares.checkValidation,
+    Services.getBooks.default
+)
 
 router.post(
     '/getSuggestions',

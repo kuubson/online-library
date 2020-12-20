@@ -45,6 +45,8 @@ const Books = ({
     header,
     setBookPopupData,
     renderBooksSuggestionsInput,
+    loadMore,
+    hasMore,
     withCart,
     withProfile,
     withMarginRight,
@@ -88,6 +90,11 @@ const Books = ({
                     ))
                 ) : (
                     <Dashboard.Warning>{error}</Dashboard.Warning>
+                )}
+                {books.length >= 10 && hasMore && !withCart && (
+                    <Dashboard.Button notAbsolute withLoadMore onClick={loadMore}>
+                        Load more
+                    </Dashboard.Button>
                 )}
             </Dashboard.Books>
         </BooksContainer>

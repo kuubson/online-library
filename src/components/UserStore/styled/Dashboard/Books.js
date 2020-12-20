@@ -6,6 +6,8 @@ export default styled.div`
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     grid-auto-rows: 249px;
     grid-gap: 20px;
+    justify-items: center;
+    align-items: center;
     ${({ empty }) =>
         empty &&
         css`
