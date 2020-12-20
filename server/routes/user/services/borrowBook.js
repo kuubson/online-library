@@ -10,7 +10,11 @@ export default {
                 const book = await Book.findByPk(id, {
                     transaction
                 })
-                if (await req.user.hasBook(book)) {
+                if (
+                    await req.user.hasBook(book, {
+                        transaction
+                    })
+                ) {
                     throw new utils.ApiError(
                         'Borrowing a book',
                         'You have already borrowed this book',

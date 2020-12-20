@@ -1,4 +1,5 @@
 import { Op } from 'sequelize'
+import { check } from 'express-validator'
 
 import { Connection, Book } from '@database'
 
@@ -37,5 +38,9 @@ export default {
             })
         })
     },
-    validation: () => [utils.validator.validateBoolean('withProfile')]
+    validation: () => [
+        check('title').isString().bail().trim().escape(),
+        check('author').isString().bail().trim().escape(),
+        utils.validator.validateBoolean('withProfile')
+    ]
 }

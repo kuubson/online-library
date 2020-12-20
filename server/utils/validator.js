@@ -9,21 +9,23 @@ const validateProperty = (property, emptyError, sanitizationError) => {
             .notEmpty()
             .withMessage(`${emptyError}`)
             .bail()
+            .isString()
+            .bail()
             .custom(utils.checkSanitization)
             .withMessage(`${sanitizationError}`)
             .bail()
     }
-    return check(`${property}`).trim().notEmpty().bail()
+    return check(`${property}`).trim().notEmpty().bail().isString().bail()
 }
 const validateInteger = property => {
-    return check(`${property}`).trim().notEmpty().bail().isInt().escape()
+    return check(`${property}`).notEmpty().bail().isInt().bail()
 }
 const validateBoolean = property => {
-    return check(`${property}`).notEmpty().isBoolean().bail()
+    return check(`${property}`).notEmpty().bail().isBoolean().bail()
 }
 const validateArray = (property, canBeEmpty) => {
     if (!canBeEmpty) {
-        return check(`${property}`).isArray().bail().notEmpty().bail()
+        return check(`${property}`).notEmpty().bail().isArray().bail()
     }
     return check(`${property}`).isArray().bail()
 }
@@ -31,11 +33,12 @@ const validateEmail = () =>
     check('email')
         .trim()
         .notEmpty()
-        .withMessage('Type your email')
+        .withMessage('Type your email address')
         .bail()
         .isEmail()
-        .withMessage('Type proper email')
+        .withMessage('Type proper email address')
         .normalizeEmail()
+
 const validatePassword = (withLogin = false) =>
     !withLogin
         ? check('password')
@@ -63,9 +66,9 @@ const validatePassword = (withLogin = false) =>
         : check('password').notEmpty().withMessage('Type your password')
 const validateRepeatedPassword = () =>
     check('repeatedPassword')
-        .trim()
         .notEmpty()
         .withMessage('You have to type password twice')
+        .bail()
         .custom((repeatedPassword, { req }) => {
             if (repeatedPassword !== req.body.password) {
                 throw new Error('Passwords are different')

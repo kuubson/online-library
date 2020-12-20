@@ -4,8 +4,8 @@ export default {
     default: async (_, res, __) => {
         await Connection.transaction(async transaction => {
             const books = await Book.findAll({
-                transaction,
-                limit: 30
+                limit: 30,
+                transaction
             }).then(books => {
                 const freeBooks = []
                 const paidBooks = []

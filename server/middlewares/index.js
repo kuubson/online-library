@@ -13,6 +13,8 @@ import jwtAuthorization from './jwtAuthorization'
 import facebookAuthorization from './facebookAuthorization'
 import roleAuthorization from './roleAuthorization'
 
+import utils from '@utils'
+
 const init = app => {
     app.use(
         helmet({
@@ -29,7 +31,7 @@ const init = app => {
                 secure: process.env.NODE_ENV === 'production',
                 httpOnly: true,
                 sameSite: true,
-                maxAge: 7 * 24 * 60 * 60 * 1000
+                maxAge: utils.cookieMaxAge()
             }
         })
     )
@@ -37,7 +39,7 @@ const init = app => {
         res.cookie('XSRF-TOKEN', req.csrfToken(), {
             secure: process.env.NODE_ENV === 'production',
             sameSite: true,
-            maxAge: 7 * 24 * 60 * 60 * 1000
+            maxAge: utils.cookieMaxAge()
         })
         next()
     })

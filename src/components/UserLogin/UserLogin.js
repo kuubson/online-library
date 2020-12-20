@@ -54,7 +54,7 @@ const UserLogin = () => {
             passwordError: ''
         }))
         isValidated = validator.validateEmail(email)
-        isValidated = validator.validatePassword(password, undefined, true)
+        isValidated = validator.validatePassword(password, null, true)
         return isValidated
     }
     const loginWithFacebook = async e => {

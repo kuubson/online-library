@@ -52,22 +52,29 @@ const UserCart = ({ shouldExpandMenu }) => {
     }, [cart])
     useEffect(() => {
         const executePayPalPayment = async () => {
-            if (paymentId && PayerID) {
-                const url = '/api/user/executePayPalPayment'
-                const response = await utils.apiAxios.post(url, {
-                    paymentId,
-                    PayerID
-                })
-                if (response) {
-                    utils.setFeedbackData(
-                        'Submitting the order',
-                        `You have successfully purchased new books`,
-                        'Check them out in your profile',
-                        () => {
-                            resetCart()
-                            utils.redirectTo('/user/profile')
-                        }
-                    )
+            try {
+                if (paymentId && PayerID) {
+                    const url = '/api/user/executePayPalPayment'
+                    const response = await utils.apiAxios.post(url, {
+                        paymentId,
+                        PayerID
+                    })
+                    if (response) {
+                        utils.setFeedbackData(
+                            'Submitting the order',
+                            `You have successfully purchased new books`,
+                            'Check them out in your profile',
+                            () => {
+                                resetCart()
+                                utils.redirectTo('/user/profile')
+                            }
+                        )
+                    }
+                }
+            } catch (error) {
+                if (error.response.status === 409) {
+                    resetCart()
+                    utils.redirectTo('/user/profile')
                 }
             }
         }

@@ -104,6 +104,7 @@ const UserRegistration = () => {
                     onChange={e => {
                         onChange(e)
                         validator.validateProperty(
+                            'name',
                             e.target.value,
                             'Type your name',
                             'Name contains invalid characters'

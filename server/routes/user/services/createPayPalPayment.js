@@ -73,15 +73,10 @@ export default {
                                 402
                             )
                         }
-                        await req.user.createPayment(
-                            {
-                                paymentId: payment.id,
-                                products: products.join()
-                            },
-                            {
-                                transaction
-                            }
-                        )
+                        await req.user.createPayment({
+                            paymentId: payment.id,
+                            products: products.join()
+                        })
                         res.send({
                             link: approvalLink.href
                         })
