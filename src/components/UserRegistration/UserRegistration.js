@@ -80,6 +80,7 @@ const UserRegistration = () => {
             repeatedPasswordError: ''
         }))
         isValidated = validator.validateProperty(
+            'name',
             name,
             'Type your name',
             'Name contains invalid characters'

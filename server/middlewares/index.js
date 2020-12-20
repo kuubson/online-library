@@ -1,7 +1,6 @@
 import express from 'express'
 import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
-import { ApolloServer } from 'apollo-server-express'
 import csurf from 'csurf'
 import passport from 'passport'
 
@@ -14,10 +13,6 @@ import jwtAuthorization from './jwtAuthorization'
 import facebookAuthorization from './facebookAuthorization'
 import roleAuthorization from './roleAuthorization'
 
-import utils from '@utils'
-
-import schema from '../graphql/schema'
-
 const init = app => {
     app.use(
         helmet({
@@ -28,38 +23,6 @@ const init = app => {
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
     app.use(passport.initialize())
-    app.use('/graphql', (req, res, next) => {
-        passport.authenticate('jwt', { session: false }, (_, { user, role }) => {
-            try {
-                if (!user) {
-                    throw new utils.ApiError(
-                        'Authorization',
-                        'The authentication cookie is invalid, log in again',
-                        401
-                    )
-                }
-                req.user = {
-                    user,
-                    role
-                }
-                next()
-            } catch (error) {
-                next(error)
-            }
-        })(req, res, next)
-    })
-    new ApolloServer({
-        schema,
-        context: ({ req, res }) => ({
-            res,
-            user: req.user.user,
-            role: req.user.role
-        }),
-        introspection: process.env.NODE_ENV === 'development'
-    }).applyMiddleware({
-        app,
-        path: '/graphql'
-    })
     app.use(
         csurf({
             cookie: {

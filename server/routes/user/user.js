@@ -63,6 +63,32 @@ router.post(
     Services.changePassword.default
 )
 
+router.get('/getAllBooks', middlewares.jwtAuthorization, Services.getAllBooks.default)
+
+router.post(
+    '/getSuggestions',
+    middlewares.jwtAuthorization,
+    Services.getSuggestions.validation(),
+    middlewares.checkValidation,
+    Services.getSuggestions.default
+)
+
+router.post(
+    '/borrowBook',
+    middlewares.jwtAuthorization,
+    Services.borrowBook.validation(),
+    middlewares.checkValidation,
+    Services.borrowBook.default
+)
+
+router.post(
+    '/getCart',
+    middlewares.jwtAuthorization,
+    Services.getCart.validation(),
+    middlewares.checkValidation,
+    Services.getCart.default
+)
+
 router.post(
     '/purchaseBooksWithStripe',
     middlewares.jwtAuthorization,
@@ -86,5 +112,7 @@ router.post(
     middlewares.checkValidation,
     Services.executePayPalPayment.default
 )
+
+router.get('/getUserBooks', middlewares.jwtAuthorization, Services.getUserBooks.default)
 
 export default router

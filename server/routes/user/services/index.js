@@ -6,9 +6,14 @@ import loginWithFacebook from './loginWithFacebook'
 import recoverPassword from './recoverPassword'
 import checkPasswordToken from './checkPasswordToken'
 import changePassword from './changePassword'
+import getAllBooks from './getAllBooks'
+import getSuggestions from './getSuggestions'
+import borrowBook from './borrowBook'
+import getCart from './getCart'
 import purchaseBooksWithStripe from './purchaseBooksWithStripe'
 import createPayPalPayment from './createPayPalPayment'
 import executePayPalPayment from './executePayPalPayment'
+import getUserBooks from './getUserBooks'
 
 export default {
     register,
@@ -19,7 +24,12 @@ export default {
     recoverPassword,
     checkPasswordToken,
     changePassword,
+    getAllBooks,
+    getSuggestions,
+    borrowBook,
+    getCart,
     purchaseBooksWithStripe,
     createPayPalPayment,
-    executePayPalPayment
+    executePayPalPayment,
+    getUserBooks
 }

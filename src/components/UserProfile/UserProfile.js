@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 
-import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
-
+import hooks from 'hooks'
 import USHooks from 'components/UserStore/hooks'
 
 import { UserStoreContainer } from 'components/UserStore/UserStore'
@@ -11,38 +9,30 @@ import { UserStoreContainer } from 'components/UserStore/UserStore'
 import USComposed from 'components/UserStore/composed'
 import Composed from './composed'
 
+import utils from 'utils'
+
 const UserProfileContainer = styled(UserStoreContainer)``
 
-const booksQuery = gql`
-    {
-        boughtBooks {
-            id
-            title
-            author
-            cover
-        }
-        borrowedBooks {
-            id
-            title
-            author
-            cover
-        }
-    }
-`
-
 const UserProfile = ({ shouldExpandMenu }) => {
+    const [isLoading, setIsLoading] = useState(true)
     const [boughtBooks, setBoughtBooks] = useState([])
     const [borrowedBooks, setBorrowedBooks] = useState([])
-    const [bookPopupData, setBookPopupData] = useState()
     const areThereBoughtBooks = boughtBooks.length > 0
     const areThereBorrowedBooks = borrowedBooks.length > 0
-    const { loading: areBooksLoading } = useQuery(booksQuery, {
-        fetchPolicy: 'cache-and-network',
-        onCompleted: ({ boughtBooks, borrowedBooks }) => {
-            setBoughtBooks(boughtBooks)
-            setBorrowedBooks(borrowedBooks)
+    const [bookPopupData, setBookPopupData] = useState()
+    useEffect(() => {
+        const getUserBooks = async () => {
+            const url = '/api/user/getUserBooks'
+            const response = await utils.apiAxios.get(url)
+            if (response) {
+                setIsLoading(false)
+                const { boughtBooks, borrowedBooks } = response.data
+                setBoughtBooks(boughtBooks)
+                setBorrowedBooks(borrowedBooks)
+            }
         }
-    })
+        getUserBooks()
+    }, [])
     const { renderBooksSuggestionsInput } = USHooks.useBooksSuggestions({
         freeBooks: borrowedBooks,
         setFreeBooks: setBorrowedBooks,
@@ -55,7 +45,7 @@ const UserProfile = ({ shouldExpandMenu }) => {
             {bookPopupData && (
                 <Composed.BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />
             )}
-            {!areBooksLoading &&
+            {!isLoading &&
                 (!areThereBoughtBooks && !areThereBorrowedBooks ? (
                     <USComposed.Books books={[]} error="You don't have any books yet" />
                 ) : areThereBoughtBooks ? (

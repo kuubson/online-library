@@ -61,6 +61,6 @@ export default {
     },
     validation: () => [
         utils.validator.validateProperty('paymentId'),
-        utils.validator.validateProperty('products', null, null, true)
+        utils.validator.validateArray('products', false)
     ]
 }

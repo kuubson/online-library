@@ -73,10 +73,15 @@ export default {
                                 402
                             )
                         }
-                        await req.user.createPayment({
-                            paymentId: payment.id,
-                            products: products.join()
-                        })
+                        await req.user.createPayment(
+                            {
+                                paymentId: payment.id,
+                                products: products.join()
+                            },
+                            {
+                                transaction
+                            }
+                        )
                         res.send({
                             link: approvalLink.href
                         })
@@ -89,5 +94,5 @@ export default {
             next(error)
         }
     },
-    validation: () => [utils.validator.validateProperty('products', null, null, true)]
+    validation: () => [utils.validator.validateArray('products', false)]
 }

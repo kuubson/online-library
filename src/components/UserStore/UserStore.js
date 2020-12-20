@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
-
-import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
 
 import hooks from 'hooks'
 import USHooks from './hooks'
 
 import Composed from './composed'
+
+import utils from 'utils'
 
 export const UserStoreContainer = styled.section`
     min-height: ${() => hooks.useHeight()};
@@ -27,36 +26,26 @@ export const UserStoreContainer = styled.section`
     }
 `
 
-const booksQuery = gql`
-    {
-        freeBooks {
-            id
-            title
-            author
-            cover
-        }
-        paidBooks {
-            id
-            title
-            author
-            cover
-            price
-        }
-    }
-`
-
 const UserStore = ({ shouldExpandMenu }) => {
+    const [isLoading, setIsLoading] = useState(true)
     const [freeBooks, setFreeBooks] = useState([])
     const [paidBooks, setPaidBooks] = useState([])
-    const [bookPopupData, setBookPopupData] = useState()
     const areThereFreeBooks = freeBooks.length > 0
     const areTherePaidBooks = paidBooks.length > 0
-    const { loading: areBooksLoading } = useQuery(booksQuery, {
-        onCompleted: ({ freeBooks, paidBooks }) => {
-            setFreeBooks(freeBooks)
-            setPaidBooks(paidBooks)
+    const [bookPopupData, setBookPopupData] = useState()
+    useEffect(() => {
+        const getAllBooks = async () => {
+            const url = '/api/user/getAllBooks'
+            const response = await utils.apiAxios.get(url)
+            if (response) {
+                setIsLoading(false)
+                const { freeBooks, paidBooks } = response.data
+                setFreeBooks(freeBooks)
+                setPaidBooks(paidBooks)
+            }
         }
-    })
+        getAllBooks()
+    }, [])
     const { renderBooksSuggestionsInput } = USHooks.useBooksSuggestions({
         freeBooks,
         setFreeBooks,
@@ -69,7 +58,7 @@ const UserStore = ({ shouldExpandMenu }) => {
             {bookPopupData && (
                 <Composed.BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />
             )}
-            {!areBooksLoading &&
+            {!isLoading &&
                 (!areThereFreeBooks && !areTherePaidBooks ? (
                     <Composed.Books books={[]} error="The are no books in the library right now" />
                 ) : areThereFreeBooks ? (

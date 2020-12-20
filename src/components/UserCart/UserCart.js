@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
+import queryString from 'query-string'
+import { useLocation } from 'react-router-dom'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
-import { useLocation } from 'react-router-dom'
-import queryString from 'query-string'
-
-import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
 
 import hooks from 'hooks'
 
@@ -27,37 +24,32 @@ const UserCartContainer = styled(UserStoreContainer)`
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY)
 
-const booksQuery = gql`
-    query Books($ids: [ID!]!) {
-        books(ids: $ids) {
-            id
-            title
-            author
-            cover
-            price
-        }
-    }
-`
-
 const UserCart = ({ shouldExpandMenu }) => {
     const { paymentId, PayerID } = queryString.parse(useLocation().search)
-    const { isLoading } = hooks.useLoader()
     const { cart, resetCart } = hooks.useCart()
-    const [books, setBooks] = useState([])
     const [shouldStripePopupAppear, setShouldStripePopupAppear] = useState(false)
-    const [isPaid, setIsPaid] = useState(false)
+    const [books, setBooks] = useState([])
+    const [price, setPrice] = useState()
     const areThereBooks = books.length > 0
-    const price = books
-        .map(({ price }) => price)
-        .reduce((total, price) => total + price, 0)
-        .toFixed(2)
-    useQuery(booksQuery, {
-        fetchPolicy: 'cache-and-network',
-        variables: {
-            ids: cart
-        },
-        onCompleted: ({ books }) => setBooks(books)
-    })
+    useEffect(() => {
+        const getCart = async () => {
+            const url = '/api/user/getCart'
+            const response = await utils.apiAxios.post(url, {
+                cart
+            })
+            if (response) {
+                const { books } = response.data
+                setBooks(books)
+                setPrice(
+                    books
+                        .map(({ price }) => price)
+                        .reduce((total, price) => total + price, 0)
+                        .toFixed(2)
+                )
+            }
+        }
+        getCart()
+    }, [cart])
     useEffect(() => {
         const executePayPalPayment = async () => {
             if (paymentId && PayerID) {
@@ -67,8 +59,6 @@ const UserCart = ({ shouldExpandMenu }) => {
                     PayerID
                 })
                 if (response) {
-                    setIsPaid(true)
-                    utils.setIsLoading(false)
                     utils.setFeedbackData(
                         'Submitting the order',
                         `You have successfully purchased new books`,
@@ -83,11 +73,6 @@ const UserCart = ({ shouldExpandMenu }) => {
         }
         executePayPalPayment()
     }, [paymentId, PayerID])
-    useEffect(() => {
-        if (paymentId && PayerID && !isPaid) {
-            utils.setIsLoading(true)
-        }
-    }, [isLoading, isPaid])
     const createPayPalPayment = async () => {
         const url = '/api/user/createPayPalPayment'
         const response = await apiAxios.post(url, {

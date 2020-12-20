@@ -3,14 +3,14 @@ import validator from 'validator'
 import utils from 'utils'
 
 export default handleError => {
-    const validateProperty = (property, emptyError, sanitizationError) => {
+    const validateProperty = (property, value, emptyError, sanitizationError) => {
         let isValidated = true
         switch (true) {
-            case !property.trim():
+            case !value.trim():
                 isValidated = false
                 handleError(`${property}`, emptyError)
                 break
-            case utils.checkSanitization(property):
+            case utils.checkSanitization(value):
                 isValidated = false
                 handleError(`${property}`, sanitizationError)
                 break

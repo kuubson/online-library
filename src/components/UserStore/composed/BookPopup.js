@@ -1,9 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 
-import gql from 'graphql-tag'
-import { useMutation } from '@apollo/react-hooks'
-
 import hooks from 'hooks'
 
 import animations from 'assets/animations'
@@ -13,15 +10,6 @@ import Dashboard from '../styled/Dashboard'
 import Composed from '.'
 
 import utils from 'utils'
-
-const borrowBookMutation = gql`
-    mutation($bookId: ID!) {
-        borrowBook(bookId: $bookId) {
-            title
-            author
-        }
-    }
-`
 
 export const BookPopupContainer = styled.div`
     width: 100%;
@@ -39,18 +27,15 @@ export const BookPopupContainer = styled.div`
 `
 
 const BookPopup = ({ id, title, author, cover, price, setBookPopupData }) => {
-    const [borrowBook] = useMutation(borrowBookMutation)
     const { cart, addToCart } = hooks.useCart()
     const resetBookPopup = () => setBookPopupData(undefined)
-    const handleBorrow = async () => {
+    const borrowBook = async () => {
         try {
-            const { data } = await borrowBook({
-                variables: {
-                    bookId: id
-                }
+            const url = '/api/user/borrowBook'
+            const response = await utils.apiAxios.post(url, {
+                id
             })
-            if (data) {
-                const { title, author } = data.borrowBook
+            if (response) {
                 resetBookPopup()
                 utils.setFeedbackData(
                     'Borrowing a book',
@@ -63,7 +48,7 @@ const BookPopup = ({ id, title, author, cover, price, setBookPopupData }) => {
             resetBookPopup()
         }
     }
-    const handleAddToCart = async id => {
+    const handleAdddingToCart = async id => {
         if (cart.includes(id)) {
             resetBookPopup()
             return utils.setFeedbackData('Buying a book', 'This book is already in the cart')
@@ -90,7 +75,7 @@ const BookPopup = ({ id, title, author, cover, price, setBookPopupData }) => {
                     </Dashboard.Header>
                     <Dashboard.ButtonsContainer>
                         <Dashboard.Button
-                            onClick={price ? () => handleAddToCart(id) : handleBorrow}
+                            onClick={price ? () => handleAdddingToCart(id) : borrowBook}
                             notAbsolute
                         >
                             Yes

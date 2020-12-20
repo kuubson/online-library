@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components/macro'
-import { useApolloClient } from 'react-apollo'
 
 import { compose } from 'redux'
 import hoc from 'hoc'
@@ -41,12 +40,10 @@ const MenuContainer = styled.nav`
 `
 
 const Menu = ({ location, options, _setShouldExpandMenu }) => {
-    const client = useApolloClient()
     const [shouldExpandMenu, setShouldExpandMenu] = useState(false)
     useEffect(() => _setShouldExpandMenu(shouldExpandMenu), [shouldExpandMenu])
     const { cart, removeFromCart } = hooks.useCart()
     const logout = async () => {
-        client && client.clearStore()
         cart.map(id => removeFromCart(id))
         const url = '/api/global/logout'
         const response = await utils.apiAxios.get(url)

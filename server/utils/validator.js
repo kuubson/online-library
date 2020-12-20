@@ -1,8 +1,8 @@
 import { check } from 'express-validator'
 
-import utils from '.'
+import utils from '@utils'
 
-const validateProperty = (property, emptyError, sanitizationError, withArray) => {
+const validateProperty = (property, emptyError, sanitizationError) => {
     if (emptyError && sanitizationError) {
         return check(`${property}`)
             .trim()
@@ -13,10 +13,19 @@ const validateProperty = (property, emptyError, sanitizationError, withArray) =>
             .withMessage(`${sanitizationError}`)
             .bail()
     }
-    if (withArray) {
+    return check(`${property}`).trim().notEmpty().bail()
+}
+const validateInteger = property => {
+    return check(`${property}`).trim().notEmpty().bail().isInt().escape()
+}
+const validateBoolean = property => {
+    return check(`${property}`).notEmpty().isBoolean().bail()
+}
+const validateArray = (property, canBeEmpty) => {
+    if (!canBeEmpty) {
         return check(`${property}`).isArray().bail().notEmpty().bail()
     }
-    return check(`${property}`).trim().notEmpty().bail()
+    return check(`${property}`).isArray().bail()
 }
 const validateEmail = () =>
     check('email')
@@ -66,6 +75,9 @@ const validateRepeatedPassword = () =>
 
 export default {
     validateProperty,
+    validateInteger,
+    validateBoolean,
+    validateArray,
     validateEmail,
     validatePassword,
     validateRepeatedPassword

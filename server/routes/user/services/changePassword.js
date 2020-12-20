@@ -39,10 +39,15 @@ export default {
                             404
                         )
                     }
-                    await user.update({
-                        password: bcrypt.hashSync(password, 11),
-                        passwordToken: null
-                    })
+                    await user.update(
+                        {
+                            password: bcrypt.hashSync(password, 11),
+                            passwordToken: null
+                        },
+                        {
+                            transaction
+                        }
+                    )
                     res.send({
                         success: true
                     })
