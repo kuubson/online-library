@@ -11,7 +11,6 @@ import errorHandler from './errorHandler'
 import checkValidation from './checkValidation'
 import jwtAuthorization from './jwtAuthorization'
 import facebookAuthorization from './facebookAuthorization'
-import roleAuthorization from './roleAuthorization'
 
 import utils from '@utils'
 
@@ -51,6 +50,5 @@ export default {
     errorHandler,
     checkValidation,
     jwtAuthorization,
-    facebookAuthorization,
-    roleAuthorization
+    facebookAuthorization
 }

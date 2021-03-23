@@ -4,7 +4,7 @@ export default keyframes`
     from {
         opacity: 0;
     }
-    to{
+    to {
         opacity: 1;
     }
 `
