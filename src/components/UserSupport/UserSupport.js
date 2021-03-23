@@ -61,7 +61,7 @@ const UserLogin = ({ withPasswordSupport }) => {
             ...form,
             emailError: ''
         }))
-        isValidated = hooks.useValidator(handleError).validateEmail(email)
+        !hooks.useValidator(handleError).validateEmail(email) && (isValidated = false)
         return isValidated
     }
     return (

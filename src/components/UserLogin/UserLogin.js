@@ -53,8 +53,8 @@ const UserLogin = () => {
             emailError: '',
             passwordError: ''
         }))
-        isValidated = validator.validateEmail(email)
-        isValidated = validator.validatePassword(password, null, true)
+        !validator.validateEmail(email) && (isValidated = false)
+        !validator.validatePassword(password, null, true) && (isValidated = false)
         return isValidated
     }
     const loginWithFacebook = async e => {

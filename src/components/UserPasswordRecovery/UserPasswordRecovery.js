@@ -72,10 +72,10 @@ const UserPasswordRecovery = () => {
             passwordError: '',
             repeatedPasswordError: ''
         }))
-        isValidated = hooks.useValidator(handleError).validatePassword(password, repeatedPassword)
-        isValidated = hooks
-            .useValidator(handleError)
-            .validateRepeatedPassword(repeatedPassword, password)
+        !hooks.useValidator(handleError).validatePassword(password, repeatedPassword) &&
+            (isValidated = false)
+        !hooks.useValidator(handleError).validateRepeatedPassword(repeatedPassword, password) &&
+            (isValidated = false)
         return isValidated
     }
     return (

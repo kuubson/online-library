@@ -79,15 +79,15 @@ const UserRegistration = () => {
             passwordError: '',
             repeatedPasswordError: ''
         }))
-        isValidated = validator.validateProperty(
+        !validator.validateProperty(
             'name',
             name,
             'Type your name',
             'Name contains invalid characters'
-        )
-        isValidated = validator.validateEmail(email)
-        isValidated = validator.validatePassword(password, repeatedPassword)
-        isValidated = validator.validateRepeatedPassword(repeatedPassword, password)
+        ) && (isValidated = false)
+        !validator.validateEmail(email) && (isValidated = false)
+        !validator.validatePassword(password, repeatedPassword) && (isValidated = false)
+        !validator.validateRepeatedPassword(repeatedPassword, password) && (isValidated = false)
         return isValidated
     }
     return (
