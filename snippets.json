@@ -24,22 +24,6 @@
         ],
         "description": "Database model"
     },
-    "Mutation / Query": {
-        "prefix": "q",
-        "body": [
-            "import { } from '@database'",
-            "",
-            "import middlewares from '@middlewares'",
-            "",
-            "import utils from '@utils'",
-            "",
-            "export default async (_, { }, context) => {",
-            "    middlewares.roleAuthorization(context, '${1}')",
-            "}",
-            ""
-        ],
-        "description": "Mutation / Query"
-    },
     "Route": {
         "prefix": "r",
         "body": [
@@ -96,12 +80,18 @@
     },
     "useState": {
         "prefix": "ee",
-        "body": ["const [${1}, se${2}t${1}] = useState()"],
+        "body": [
+            "const [${1}, se${2}t${1}] = useState()"
+        ],
         "description": "useState"
     },
     "useEffect": {
         "prefix": "e",
-        "body": ["useEffect(() => {", "    ", "}, [])"],
+        "body": [
+            "useEffect(() => {",
+            "    ",
+            "}, [])"
+        ],
         "description": "useEffect"
     }
 }
