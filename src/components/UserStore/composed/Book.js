@@ -7,6 +7,7 @@ import hooks from 'hooks'
 import Dashboard from '../styled/Dashboard'
 
 const BookContainer = styled.div`
+    width: 100%;
     height: 100%;
     position: relative;
     ${({ withPopup }) =>
