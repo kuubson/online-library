@@ -20,7 +20,8 @@ const UserLogin = () => {
         passwordError: ''
     })
     const { email, emailError, password, passwordError } = form
-    const onChange = ({ target }) => setForm(form => ({ ...form, [target.name]: target.value }))
+    const handleOnChange = ({ target }) =>
+        setForm(form => ({ ...form, [target.name]: target.value }))
     const handleError = (errorKey, error) =>
         setForm(form => ({ ...form, [`${errorKey}Error`]: error }))
     const validator = hooks.useValidator(handleError)
@@ -53,8 +54,8 @@ const UserLogin = () => {
             emailError: '',
             passwordError: ''
         }))
-        !validator.validateEmail(email) && (isValidated = false)
-        !validator.validatePassword(password, null, true) && (isValidated = false)
+        if (!validator.validateEmail(email)) isValidated = false
+        if (!validator.validatePassword(password, null, true)) isValidated = false
         return isValidated
     }
     const loginWithFacebook = async e => {
@@ -97,7 +98,7 @@ const UserLogin = () => {
                     placeholder="Type your email address..."
                     error={emailError}
                     onChange={e => {
-                        onChange(e)
+                        handleOnChange(e)
                         validator.validateEmail(e.target.value)
                     }}
                 />
@@ -109,7 +110,7 @@ const UserLogin = () => {
                     placeholder="Type your password..."
                     error={passwordError}
                     onChange={e => {
-                        onChange(e)
+                        handleOnChange(e)
                         validator.validatePassword(e.target.value, undefined, true)
                     }}
                 />

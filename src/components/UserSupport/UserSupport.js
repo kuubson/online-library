@@ -18,9 +18,11 @@ const UserLogin = ({ withPasswordSupport }) => {
         emailError: ''
     })
     const { email, emailError } = form
-    const onChange = ({ target }) => setForm(form => ({ ...form, [target.name]: target.value }))
+    const handleOnChange = ({ target }) =>
+        setForm(form => ({ ...form, [target.name]: target.value }))
     const handleError = (errorKey, error) =>
         setForm(form => ({ ...form, [`${errorKey}Error`]: error }))
+    const validator = hooks.useValidator(handleError)
     const submit = async e => {
         e.preventDefault()
         if (validate()) {
@@ -61,7 +63,7 @@ const UserLogin = ({ withPasswordSupport }) => {
             ...form,
             emailError: ''
         }))
-        !hooks.useValidator(handleError).validateEmail(email) && (isValidated = false)
+        if (!validator.validateEmail(email)) isValidated = false
         return isValidated
     }
     return (
@@ -76,7 +78,7 @@ const UserLogin = ({ withPasswordSupport }) => {
                     placeholder="Type your email address..."
                     error={emailError}
                     onChange={e => {
-                        onChange(e)
+                        handleOnChange(e)
                         hooks.useValidator(handleError).validateEmail(e.target.value)
                     }}
                 />

@@ -34,7 +34,8 @@ const UserPasswordRecovery = () => {
         }
         checkPasswordToken()
     }, [])
-    const onChange = ({ target }) => setForm(form => ({ ...form, [target.name]: target.value }))
+    const handleOnChange = ({ target }) =>
+        setForm(form => ({ ...form, [target.name]: target.value }))
     const handleError = (errorKey, error) =>
         setForm(form => ({ ...form, [`${errorKey}Error`]: error }))
     const submit = async e => {
@@ -90,7 +91,7 @@ const UserPasswordRecovery = () => {
                     placeholder="Type your password..."
                     error={passwordError}
                     onChange={e => {
-                        onChange(e)
+                        handleOnChange(e)
                         hooks
                             .useValidator(handleError)
                             .validatePassword(e.target.value, repeatedPassword)
@@ -104,7 +105,7 @@ const UserPasswordRecovery = () => {
                     placeholder="Type your password again..."
                     error={repeatedPasswordError}
                     onChange={e => {
-                        onChange(e)
+                        handleOnChange(e)
                         hooks
                             .useValidator(handleError)
                             .validateRepeatedPassword(e.target.value, password)

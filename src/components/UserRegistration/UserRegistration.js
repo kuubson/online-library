@@ -37,7 +37,8 @@ const UserRegistration = () => {
         repeatedPassword,
         repeatedPasswordError
     } = form
-    const onChange = ({ target }) => setForm(form => ({ ...form, [target.name]: target.value }))
+    const handleOnChange = ({ target }) =>
+        setForm(form => ({ ...form, [target.name]: target.value }))
     const handleError = (errorKey, error) =>
         setForm(form => ({ ...form, [`${errorKey}Error`]: error }))
     const validator = hooks.useValidator(handleError)
@@ -79,15 +80,19 @@ const UserRegistration = () => {
             passwordError: '',
             repeatedPasswordError: ''
         }))
-        !validator.validateProperty(
-            'name',
-            name,
-            'Type your name',
-            'Name contains invalid characters'
-        ) && (isValidated = false)
-        !validator.validateEmail(email) && (isValidated = false)
-        !validator.validatePassword(password, repeatedPassword) && (isValidated = false)
-        !validator.validateRepeatedPassword(repeatedPassword, password) && (isValidated = false)
+        if (
+            !validator.validateProperty(
+                'name',
+                name,
+                'Type your name',
+                'Name contains invalid characters'
+            )
+        ) {
+            isValidated = false
+        }
+        if (!validator.validateEmail(email)) isValidated = false
+        if (!validator.validatePassword(password, repeatedPassword)) isValidated = false
+        if (!validator.validateRepeatedPassword(repeatedPassword, password)) isValidated = false
         return isValidated
     }
     return (
@@ -102,7 +107,7 @@ const UserRegistration = () => {
                     placeholder="Type your name..."
                     error={nameError}
                     onChange={e => {
-                        onChange(e)
+                        handleOnChange(e)
                         validator.validateProperty(
                             'name',
                             e.target.value,
@@ -119,7 +124,7 @@ const UserRegistration = () => {
                     placeholder="Type your email address..."
                     error={emailError}
                     onChange={e => {
-                        onChange(e)
+                        handleOnChange(e)
                         validator.validateEmail(e.target.value)
                     }}
                 />
@@ -131,7 +136,7 @@ const UserRegistration = () => {
                     placeholder="Type your password..."
                     error={passwordError}
                     onChange={e => {
-                        onChange(e)
+                        handleOnChange(e)
                         validator.validatePassword(e.target.value, repeatedPassword)
                     }}
                 />
@@ -143,7 +148,7 @@ const UserRegistration = () => {
                     placeholder="Type your password again..."
                     error={repeatedPasswordError}
                     onChange={e => {
-                        onChange(e)
+                        handleOnChange(e)
                         validator.validateRepeatedPassword(e.target.value, password)
                     }}
                 />
