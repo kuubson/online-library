@@ -42,7 +42,7 @@ const UserRegistration = () => {
     const handleError = (errorKey, error) =>
         setForm(form => ({ ...form, [`${errorKey}Error`]: error }))
     const validator = hooks.useValidator(handleError)
-    const submit = async e => {
+    const handleOnSubmit = async e => {
         e.preventDefault()
         if (validate()) {
             try {
@@ -55,7 +55,7 @@ const UserRegistration = () => {
                 })
                 if (response) {
                     utils.setFeedbackData(
-                        'Registration',
+                        'Account registration',
                         'An e-mail with an activation link has been sent to the email address provided. Open it and activate your account',
                         'Okey',
                         () => utils.redirectTo('/user/login')
@@ -98,7 +98,7 @@ const UserRegistration = () => {
     return (
         <UserRegistrationContainer>
             <Composed.HomeButton />
-            <Dashboard.Form onSubmit={submit}>
+            <Dashboard.Form onSubmit={handleOnSubmit}>
                 <Composed.Input
                     id="name"
                     label="Name"

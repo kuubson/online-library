@@ -4,13 +4,14 @@ import styled from 'styled-components/macro'
 import hooks from 'hooks'
 
 import { UserRegistrationContainer } from 'components/UserRegistration/UserRegistration'
+
 import URDashboard from 'components/UserRegistration/styled/Dashboard'
 
 import URComposed from 'components/UserRegistration/composed'
 
 import utils from 'utils'
 
-export const UserPasswordRecoveryContainer = styled(UserRegistrationContainer)``
+const UserPasswordRecoveryContainer = styled(UserRegistrationContainer)``
 
 const UserPasswordRecovery = () => {
     const { passwordToken } = hooks.useParams()
@@ -38,7 +39,7 @@ const UserPasswordRecovery = () => {
         setForm(form => ({ ...form, [target.name]: target.value }))
     const handleError = (errorKey, error) =>
         setForm(form => ({ ...form, [`${errorKey}Error`]: error }))
-    const submit = async e => {
+    const handleOnSubmit = async e => {
         e.preventDefault()
         if (validate()) {
             try {
@@ -82,7 +83,7 @@ const UserPasswordRecovery = () => {
     return (
         <UserPasswordRecoveryContainer>
             <URComposed.HomeButton />
-            <URDashboard.Form onSubmit={submit}>
+            <URDashboard.Form onSubmit={handleOnSubmit}>
                 <URComposed.Input
                     id="password"
                     label="Password"

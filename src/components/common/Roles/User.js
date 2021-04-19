@@ -13,7 +13,7 @@ import utils from 'utils'
 const UserContainer = styled(GuestContainer)``
 
 const User = ({ children }) => {
-    const [shouldExpandMenu, _setShouldExpandMenu] = useState(false)
+    const [shouldMenuExpand, _setShouldMenuExpand] = useState(false)
     useEffect(() => {
         const checkToken = async () => {
             try {
@@ -53,11 +53,11 @@ const User = ({ children }) => {
                         option: 'Logout'
                     }
                 ]}
-                _setShouldExpandMenu={_setShouldExpandMenu}
+                _setShouldMenuExpand={_setShouldMenuExpand}
             />
             <UserContainer>
                 {React.cloneElement(children, {
-                    shouldExpandMenu
+                    shouldMenuExpand
                 })}
             </UserContainer>
         </>

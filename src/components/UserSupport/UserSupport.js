@@ -4,15 +4,16 @@ import styled from 'styled-components/macro'
 import hooks from 'hooks'
 
 import { UserRegistrationContainer } from 'components/UserRegistration/UserRegistration'
+
 import URDashboard from 'components/UserRegistration/styled/Dashboard'
 
 import URComposed from 'components/UserRegistration/composed'
 
 import utils from 'utils'
 
-const UserLoginContainer = styled(UserRegistrationContainer)``
+const UserSupportContainer = styled(UserRegistrationContainer)``
 
-const UserLogin = ({ withPasswordSupport }) => {
+const UserSupport = ({ withPasswordSupport }) => {
     const [form, setForm] = useState({
         email: '',
         emailError: ''
@@ -23,7 +24,7 @@ const UserLogin = ({ withPasswordSupport }) => {
     const handleError = (errorKey, error) =>
         setForm(form => ({ ...form, [`${errorKey}Error`]: error }))
     const validator = hooks.useValidator(handleError)
-    const submit = async e => {
+    const handleOnSubmit = async e => {
         e.preventDefault()
         if (validate()) {
             try {
@@ -67,9 +68,9 @@ const UserLogin = ({ withPasswordSupport }) => {
         return isValidated
     }
     return (
-        <UserLoginContainer>
+        <UserSupportContainer>
             <URComposed.HomeButton withGoBackButton />
-            <URDashboard.Form onSubmit={submit}>
+            <URDashboard.Form onSubmit={handleOnSubmit}>
                 <URComposed.Input
                     id="email"
                     label="Email"
@@ -86,8 +87,8 @@ const UserLogin = ({ withPasswordSupport }) => {
                     {withPasswordSupport ? 'Recover password' : 'Resend e-mail'}
                 </URDashboard.Submit>
             </URDashboard.Form>
-        </UserLoginContainer>
+        </UserSupportContainer>
     )
 }
 
-export default UserLogin
+export default UserSupport

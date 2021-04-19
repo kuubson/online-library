@@ -8,6 +8,7 @@ import { Elements } from '@stripe/react-stripe-js'
 import hooks from 'hooks'
 
 import { UserStoreContainer } from 'components/UserStore/UserStore'
+
 import USDashboard from 'components/UserStore/styled/Dashboard'
 import URDashboard from 'components/UserRegistration/styled/Dashboard'
 import Dashboard from './styled/Dashboard'
@@ -16,7 +17,6 @@ import USComposed from 'components/UserStore/composed'
 import Composed from './composed'
 
 import utils from 'utils'
-import apiAxios from 'utils/apiAxios'
 
 const UserCartContainer = styled(UserStoreContainer)`
     justify-content: flex-start;
@@ -24,7 +24,7 @@ const UserCartContainer = styled(UserStoreContainer)`
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY)
 
-const UserCart = ({ shouldExpandMenu }) => {
+const UserCart = ({ shouldMenuExpand }) => {
     const { paymentId, PayerID } = queryString.parse(useLocation().search)
     const { cart, resetCart } = hooks.useCart()
     const [shouldStripePopupAppear, setShouldStripePopupAppear] = useState(false)
@@ -82,7 +82,7 @@ const UserCart = ({ shouldExpandMenu }) => {
     }, [paymentId, PayerID])
     const createPayPalPayment = async () => {
         const url = '/api/user/createPayPalPayment'
-        const response = await apiAxios.post(url, {
+        const response = await utils.apiAxios.post(url, {
             products: cart
         })
         if (response) {
@@ -96,7 +96,7 @@ const UserCart = ({ shouldExpandMenu }) => {
                 locale: 'en'
             }}
         >
-            <UserCartContainer shouldExpandMenu={shouldExpandMenu}>
+            <UserCartContainer shouldMenuExpand={shouldMenuExpand}>
                 {shouldStripePopupAppear && (
                     <Composed.StripePopup
                         price={price}

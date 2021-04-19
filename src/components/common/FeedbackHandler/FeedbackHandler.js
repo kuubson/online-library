@@ -17,7 +17,7 @@ const FeedbackHandlerContainer = styled(LoaderContainer)`
 
 const FeedbackHandler = () => {
     const { header, message, buttonText, callback, setFeedbackData } = hooks.useFeedbackHandler()
-    const handleClick = () => {
+    const handleOnClick = () => {
         callback()
         setFeedbackData()
     }
@@ -27,7 +27,7 @@ const FeedbackHandler = () => {
                 <Dashboard.Header>{header}</Dashboard.Header>
                 <Dashboard.Message>{message}</Dashboard.Message>
             </Dashboard.HeaderContainer>
-            <Dashboard.Button onClick={handleClick}>{buttonText}</Dashboard.Button>
+            <Dashboard.Button onClick={handleOnClick}>{buttonText}</Dashboard.Button>
         </FeedbackHandlerContainer>
     )
 }

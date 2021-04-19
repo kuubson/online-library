@@ -5,6 +5,7 @@ import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import hooks from 'hooks'
 
 import { BookPopupContainer } from 'components/UserStore/composed/BookPopup'
+
 import USDashboard from 'components/UserStore/styled/Dashboard'
 import URDashboard from 'components/UserRegistration/styled/Dashboard'
 import Dashboard from '../styled/Dashboard'

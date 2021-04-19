@@ -8,8 +8,8 @@ export default styled.div`
     @media (max-width: 800px) {
         display: block;
     }
-    ${({ shouldExpandMenu }) =>
-        shouldExpandMenu &&
+    ${({ shouldMenuExpand }) =>
+        shouldMenuExpand &&
         css`
             transform: rotate(45deg);
         `}

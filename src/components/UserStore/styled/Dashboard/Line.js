@@ -8,8 +8,8 @@ export default styled.div`
     :last-of-type {
         margin-bottom: 0px;
     }
-    ${({ shouldExpandMenu }) =>
-        shouldExpandMenu &&
+    ${({ shouldMenuExpand }) =>
+        shouldMenuExpand &&
         css`
             margin-bottom: 0px;
             :nth-child(1) {

@@ -10,8 +10,8 @@ import utils from 'utils'
 
 export const UserStoreContainer = styled.section`
     min-height: ${() => hooks.useHeight()};
-    padding: ${({ shouldExpandMenu }) =>
-        shouldExpandMenu ? '290px 20px 20px 20px' : '130px 20px 20px 20px'};
+    padding: ${({ shouldMenuExpand }) =>
+        shouldMenuExpand ? '290px 20px 20px 20px' : '130px 20px 20px 20px'};
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -21,12 +21,12 @@ export const UserStoreContainer = styled.section`
     }
     @media (max-width: 800px) {
         flex-direction: column;
-        padding: ${({ shouldExpandMenu }) =>
-            shouldExpandMenu ? '280px 20px 20px 20px' : '120px 20px 20px 20px'};
+        padding: ${({ shouldMenuExpand }) =>
+            shouldMenuExpand ? '280px 20px 20px 20px' : '120px 20px 20px 20px'};
     }
 `
 
-const UserStore = ({ shouldExpandMenu }) => {
+const UserStore = ({ shouldMenuExpand }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [freeBooks, setFreeBooks] = useState([])
     const [paidBooks, setPaidBooks] = useState([])
@@ -66,7 +66,7 @@ const UserStore = ({ shouldExpandMenu }) => {
         withProfile: false
     })
     return (
-        <UserStoreContainer shouldExpandMenu={shouldExpandMenu}>
+        <UserStoreContainer shouldMenuExpand={shouldMenuExpand}>
             {bookPopupData && (
                 <Composed.BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />
             )}

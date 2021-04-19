@@ -32,8 +32,8 @@ export default styled.li`
     @media (max-width: 500px) {
         font-size: 14px;
     }
-    ${({ shouldExpandMenu }) =>
-        shouldExpandMenu
+    ${({ shouldMenuExpand }) =>
+        shouldMenuExpand
             ? css`
                   opacity: 1;
                   transition: opacity 0.5s ease-in-out;

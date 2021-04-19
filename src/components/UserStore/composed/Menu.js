@@ -39,9 +39,9 @@ const MenuContainer = styled.nav`
         `};
 `
 
-const Menu = ({ location, options, _setShouldExpandMenu }) => {
-    const [shouldExpandMenu, setShouldExpandMenu] = useState(false)
-    useEffect(() => _setShouldExpandMenu(shouldExpandMenu), [shouldExpandMenu])
+const Menu = ({ location, options, _setShouldMenuExpand }) => {
+    const [shouldMenuExpand, setShouldMenuExpand] = useState(false)
+    useEffect(() => _setShouldMenuExpand(shouldMenuExpand), [shouldMenuExpand])
     const { cart, removeFromCart } = hooks.useCart()
     const logout = async () => {
         cart.map(id => removeFromCart(id))
@@ -58,14 +58,14 @@ const Menu = ({ location, options, _setShouldExpandMenu }) => {
         <MenuContainer shouldStickMenu={shouldStickMenu}>
             <Dashboard.Logo>Online Library</Dashboard.Logo>
             <Dashboard.LinesContainer
-                onClick={() => setShouldExpandMenu(shouldExpandMenu => !shouldExpandMenu)}
-                shouldExpandMenu={shouldExpandMenu}
+                onClick={() => setShouldMenuExpand(shouldMenuExpand => !shouldMenuExpand)}
+                shouldMenuExpand={shouldMenuExpand}
             >
-                <Dashboard.Line shouldExpandMenu={shouldExpandMenu} />
-                <Dashboard.Line shouldExpandMenu={shouldExpandMenu} />
-                <Dashboard.Line shouldExpandMenu={shouldExpandMenu} />
+                <Dashboard.Line shouldMenuExpand={shouldMenuExpand} />
+                <Dashboard.Line shouldMenuExpand={shouldMenuExpand} />
+                <Dashboard.Line shouldMenuExpand={shouldMenuExpand} />
             </Dashboard.LinesContainer>
-            <Dashboard.OptionsContainer shouldExpandMenu={shouldExpandMenu}>
+            <Dashboard.OptionsContainer shouldMenuExpand={shouldMenuExpand}>
                 {options.map(
                     ({ option, pathname, cartItemsAmount }) =>
                         location.pathname !== pathname && (
@@ -74,7 +74,7 @@ const Menu = ({ location, options, _setShouldExpandMenu }) => {
                                 onClick={() =>
                                     option === 'Logout' ? logout() : utils.redirectTo(`${pathname}`)
                                 }
-                                shouldExpandMenu={shouldExpandMenu}
+                                shouldMenuExpand={shouldMenuExpand}
                                 cartItemsAmount={cartItemsAmount}
                             >
                                 {option}

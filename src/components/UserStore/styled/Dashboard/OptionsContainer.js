@@ -14,8 +14,8 @@ export default styled.ul`
         position: absolute;
         top: 100%;
         left: 0px;
-        ${({ shouldExpandMenu }) =>
-            shouldExpandMenu &&
+        ${({ shouldMenuExpand }) =>
+            shouldMenuExpand &&
             css`
                 height: 160px;
                 border-bottom: 2px solid white;

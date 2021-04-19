@@ -4,6 +4,7 @@ import styled from 'styled-components/macro'
 import hooks from 'hooks'
 
 import { UserRegistrationContainer } from 'components/UserRegistration/UserRegistration'
+
 import URDashboard from 'components/UserRegistration/styled/Dashboard'
 
 import URComposed from 'components/UserRegistration/composed'
@@ -25,7 +26,7 @@ const UserLogin = () => {
     const handleError = (errorKey, error) =>
         setForm(form => ({ ...form, [`${errorKey}Error`]: error }))
     const validator = hooks.useValidator(handleError)
-    const submit = async e => {
+    const handleOnSubmit = async e => {
         e.preventDefault()
         if (validate()) {
             try {
@@ -55,7 +56,7 @@ const UserLogin = () => {
             passwordError: ''
         }))
         if (!validator.validateEmail(email)) isValidated = false
-        if (!validator.validatePassword(password, null, true)) isValidated = false
+        if (!validator.validatePassword(password, undefined, true)) isValidated = false
         return isValidated
     }
     const loginWithFacebook = async e => {
@@ -89,7 +90,7 @@ const UserLogin = () => {
     return (
         <UserLoginContainer>
             <URComposed.HomeButton />
-            <URDashboard.Form onSubmit={submit}>
+            <URDashboard.Form onSubmit={handleOnSubmit}>
                 <URComposed.Input
                     id="email"
                     label="Email"

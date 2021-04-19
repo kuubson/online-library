@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 
-import hooks from 'hooks'
 import USHooks from 'components/UserStore/hooks'
 
 import { UserStoreContainer } from 'components/UserStore/UserStore'
@@ -13,7 +12,7 @@ import utils from 'utils'
 
 const UserProfileContainer = styled(UserStoreContainer)``
 
-const UserProfile = ({ shouldExpandMenu }) => {
+const UserProfile = ({ shouldMenuExpand }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [boughtBooks, setBoughtBooks] = useState([])
     const [borrowedBooks, setBorrowedBooks] = useState([])
@@ -41,7 +40,7 @@ const UserProfile = ({ shouldExpandMenu }) => {
         withProfile: true
     })
     return (
-        <UserProfileContainer shouldExpandMenu={shouldExpandMenu}>
+        <UserProfileContainer shouldMenuExpand={shouldMenuExpand}>
             {bookPopupData && (
                 <Composed.BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />
             )}
