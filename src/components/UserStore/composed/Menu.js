@@ -48,7 +48,11 @@ const Menu = ({ location, options, _setShouldMenuExpand }) => {
         const url = '/api/global/logout'
         const response = await utils.apiAxios.get(url)
         if (response) {
-            window.FB.logout()
+            window.FB.getLoginStatus(response => {
+                if (response.status === 'connected') {
+                    window.FB.logout(() => null)
+                }
+            })
             utils.redirectTo('/user/login')
         }
     }

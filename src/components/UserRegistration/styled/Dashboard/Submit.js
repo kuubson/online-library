@@ -26,4 +26,11 @@ export default styled.button`
         css`
             margin: 35px auto 0px auto !important;
         `};
+    ${({ withFacebook }) =>
+        withFacebook &&
+        css`
+            background: #1877f2;
+            border: none;
+            border-radius: 5px;
+        `}
 `

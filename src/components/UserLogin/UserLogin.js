@@ -116,7 +116,7 @@ const UserLogin = () => {
                     }}
                 />
                 <URDashboard.Submit>Login</URDashboard.Submit>
-                <URDashboard.Submit onClick={loginWithFacebook}>
+                <URDashboard.Submit onClick={loginWithFacebook} withFacebook>
                     Login with Facebook
                 </URDashboard.Submit>
                 <URDashboard.AnnotationsContainer>
