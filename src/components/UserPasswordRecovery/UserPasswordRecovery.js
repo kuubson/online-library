@@ -39,6 +39,7 @@ const UserPasswordRecovery = () => {
         setForm(form => ({ ...form, [target.name]: target.value }))
     const handleError = (errorKey, error) =>
         setForm(form => ({ ...form, [`${errorKey}Error`]: error }))
+    const validator = hooks.useValidator(handleError)
     const handleOnSubmit = async e => {
         e.preventDefault()
         if (validate()) {
@@ -74,10 +75,8 @@ const UserPasswordRecovery = () => {
             passwordError: '',
             repeatedPasswordError: ''
         }))
-        !hooks.useValidator(handleError).validatePassword(password, repeatedPassword) &&
-            (isValidated = false)
-        !hooks.useValidator(handleError).validateRepeatedPassword(repeatedPassword, password) &&
-            (isValidated = false)
+        if (!validator.validatePassword(password, repeatedPassword)) isValidated = false
+        if (!validator.validateRepeatedPassword(repeatedPassword, password)) isValidated = false
         return isValidated
     }
     return (
@@ -93,9 +92,7 @@ const UserPasswordRecovery = () => {
                     error={passwordError}
                     onChange={e => {
                         handleOnChange(e)
-                        hooks
-                            .useValidator(handleError)
-                            .validatePassword(e.target.value, repeatedPassword)
+                        validator.validatePassword(e.target.value, repeatedPassword)
                     }}
                 />
                 <URComposed.Input
@@ -107,9 +104,7 @@ const UserPasswordRecovery = () => {
                     error={repeatedPasswordError}
                     onChange={e => {
                         handleOnChange(e)
-                        hooks
-                            .useValidator(handleError)
-                            .validateRepeatedPassword(e.target.value, password)
+                        validator.validateRepeatedPassword(e.target.value, password)
                     }}
                 />
                 <URDashboard.Submit>Change password</URDashboard.Submit>

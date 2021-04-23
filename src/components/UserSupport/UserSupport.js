@@ -80,7 +80,7 @@ const UserSupport = ({ withPasswordSupport }) => {
                     error={emailError}
                     onChange={e => {
                         handleOnChange(e)
-                        hooks.useValidator(handleError).validateEmail(e.target.value)
+                        validator.validateEmail(e.target.value)
                     }}
                 />
                 <URDashboard.Submit>
