@@ -44,7 +44,6 @@ const Menu = ({ location, options, _setShouldMenuExpand }) => {
     useEffect(() => _setShouldMenuExpand(shouldMenuExpand), [shouldMenuExpand])
     const { cart, removeFromCart } = hooks.useCart()
     const logout = async () => {
-        cart.map(id => removeFromCart(id))
         const url = '/api/global/logout'
         const response = await utils.apiAxios.get(url)
         if (response) {
@@ -53,6 +52,7 @@ const Menu = ({ location, options, _setShouldMenuExpand }) => {
                     window.FB.logout(() => null)
                 }
             })
+            cart.map(id => removeFromCart(id))
             utils.redirectTo('/user/login')
         }
     }

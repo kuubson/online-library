@@ -4,6 +4,7 @@ import styled from 'styled-components/macro'
 import hooks from 'hooks'
 
 import { HomeContainer } from 'components/Home/Home'
+
 import Dashboard from './styled/Dashboard'
 
 import Composed from './composed'

@@ -18,11 +18,11 @@ import Composed from './composed'
 
 import utils from 'utils'
 
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY)
+
 const UserCartContainer = styled(UserStoreContainer)`
     justify-content: flex-start;
 `
-
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY)
 
 const UserCart = ({ shouldMenuExpand }) => {
     const { paymentId, PayerID } = queryString.parse(useLocation().search)

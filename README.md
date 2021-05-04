@@ -6,7 +6,9 @@
 -   React.js + Redux (Hooks, Styled Components, PWA, PayPal, Stripe)
 -   React Native for mobile app
 -   Node.js + Express (passport.js, JWT)
+-   GraphQL + Apollo ("graphql" branch)
 -   MySQL (ORM Sequelize)
+
 
 ## Description
 
