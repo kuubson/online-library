@@ -7,6 +7,10 @@ export default styled.textarea`
     padding: 10px 15px;
     border: none;
     resize: none;
+    @media (max-width: 800px) {
+        font-size: 11px;
+        letter-spacing: 1px;
+    }
     ::placeholder {
         color: white;
     }

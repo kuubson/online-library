@@ -79,6 +79,10 @@ export default styled.button`
             transform: none;
             white-space: nowrap;
             margin-right: 10px;
+            letter-spacing: 1px;
+            @media (max-width: 800px) {
+                font-size: 10px;
+            }
             :hover {
                 transform: scale(1.03);
             }

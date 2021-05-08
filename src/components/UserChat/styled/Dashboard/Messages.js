@@ -5,7 +5,7 @@ import hooks from 'hooks'
 export default styled.div`
     width: 100%;
     height: ${() => `calc(${hooks.useHeight()} - 242px)`};
-    padding-top: 5px;
+    padding: 1px 0px;
     overflow: auto;
     display: flex;
     flex-direction: column;

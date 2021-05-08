@@ -2,10 +2,10 @@ import styled, { css } from 'styled-components/macro'
 
 export default styled.div`
     width: max-content;
-    max-width: 50vw;
+    max-width: 70vw;
     word-break: break-all;
     padding: 8px 10px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     white-space: pre-line;
     font-size: 15px;
     border-radius: 12px;
@@ -19,9 +19,18 @@ export default styled.div`
     @media (max-width: 700px) {
         font-size: 13px;
     }
-    ${({ withLastUserMessage }) =>
+    ${({ withCurrentUser, withLastUserMessage }) =>
         withLastUserMessage &&
+        (withCurrentUser
+            ? css`
+                  border-bottom-left-radius: 2px;
+              `
+            : css`
+                  border-bottom-right-radius: 2px;
+              `)}
+    ${({ withLastMessage }) =>
+        withLastMessage &&
         css`
-            border-top-left-radius: 2px;
+            margin-bottom: 0px;
         `}
 `

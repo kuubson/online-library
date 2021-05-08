@@ -13,11 +13,19 @@ export default styled.div`
     justify-content: center;
     align-items: center;
     position: absolute;
-    bottom: 0px;
+    bottom: -2px;
     right: -50px;
+    @media (max-width: 800px) {
+        width: 30px;
+        height: 30px;
+        right: -40px;
+    }
     ${({ withCurrentUser }) =>
         withCurrentUser &&
         css`
             left: -70px;
+            @media (max-width: 800px) {
+                left: -55px;
+            }
         `}
 `

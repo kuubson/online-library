@@ -8,12 +8,7 @@ import Dashboard from './styled/Dashboard'
 
 import utils from 'utils'
 
-const UserChatContainer = styled(UserStoreContainer)`
-    @media (max-width: 800px) {
-        padding: ${({ shouldMenuExpand }) =>
-            shouldMenuExpand ? '330px 20px 40px 20px' : '100px 20px 20px 20px'};
-    }
-`
+const UserChatContainer = styled(UserStoreContainer)``
 
 const UserChat = ({ shouldMenuExpand }) => {
     const [currentUserId, setCurrentUserId] = useState(1)
@@ -80,16 +75,19 @@ const UserChat = ({ shouldMenuExpand }) => {
         }
     ])
     const [message, setMessage] = useState('')
-    const endOfMessages = useRef()
     const messagesRef = useRef()
+    const textareaRef = useRef()
+    const endOfMessages = useRef()
     const scrollToLastMessage = () =>
         setTimeout(
             () =>
                 endOfMessages.current.scrollIntoView({
                     behavior: 'smooth'
                 }),
-            0
+            500
         )
+    const pushToLastMessage = () =>
+        setTimeout(() => (messagesRef.current.scrollTop = messagesRef.current.scrollHeight), 0)
     const sendMessage = () => {
         if (message.trim()) {
             setMessages(messages => [
@@ -99,19 +97,20 @@ const UserChat = ({ shouldMenuExpand }) => {
                     userId: currentUserId
                 }
             ])
-            scrollToLastMessage()
+            pushToLastMessage()
             setTimeout(() => {
-                setMessage({})
+                setMessage('')
             }, 0)
         }
     }
-    useEffect(() => {
-        setTimeout(() => (messagesRef.current.scrollTop = messagesRef.current.scrollHeight), 0)
-    }, [])
+    useEffect(pushToLastMessage, [])
     return (
         <UserChatContainer shouldMenuExpand={shouldMenuExpand}>
             <Dashboard.ChatContainer>
-                <Dashboard.Messages ref={messagesRef}>
+                <Dashboard.Messages
+                    ref={messagesRef}
+                    onTouchStart={() => textareaRef.current && textareaRef.current.blur()}
+                >
                     {messages.map(({ content, userId }, index) => {
                         const withCurrentUser = userId === currentUserId
                         const withLastUserMessage =
@@ -120,10 +119,15 @@ const UserChat = ({ shouldMenuExpand }) => {
                                 messages[index].userId !== messages[index + 1].userId) ||
                             !messages[index + 1]
                         return (
-                            <Dashboard.MessageContainer withCurrentUser={withCurrentUser}>
+                            <Dashboard.MessageContainer
+                                key={index}
+                                withCurrentUser={withCurrentUser}
+                                withLastUserMessage={withLastUserMessage && messages[index + 1]}
+                            >
                                 <Dashboard.Message
-                                    key={index}
+                                    withCurrentUser={withCurrentUser}
                                     withLastUserMessage={withLastUserMessage}
+                                    withLastMessage={index === messages.length - 1}
                                 >
                                     {content}
                                     {withLastUserMessage && (
@@ -139,9 +143,11 @@ const UserChat = ({ shouldMenuExpand }) => {
                 </Dashboard.Messages>
                 <Dashboard.MessageFieldContainer>
                     <Dashboard.MessageField
+                        ref={textareaRef}
                         value={message}
                         placeholder="Type your message..."
                         onChange={e => setMessage(e.target.value)}
+                        onFocus={scrollToLastMessage}
                         onKeyPress={e => {
                             if (e.key === 'Enter') {
                                 switch (true) {
@@ -158,7 +164,13 @@ const UserChat = ({ shouldMenuExpand }) => {
                         }}
                     />
                     <USDashboard.Button withChat>Upload file</USDashboard.Button>
-                    <USDashboard.Button onClick={sendMessage} withChat>
+                    <USDashboard.Button
+                        onClick={() => {
+                            sendMessage()
+                            textareaRef.current.focus()
+                        }}
+                        withChat
+                    >
                         Send
                     </USDashboard.Button>
                 </Dashboard.MessageFieldContainer>

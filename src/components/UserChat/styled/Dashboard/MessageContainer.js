@@ -11,4 +11,9 @@ export default styled.div`
         css`
             align-self: flex-end;
         `}
+    ${({ withLastUserMessage }) =>
+        withLastUserMessage &&
+        css`
+            margin-bottom: 25px;
+        `}
 `
