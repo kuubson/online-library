@@ -14,6 +14,8 @@ import * as purchaseBooksWithStripe from './purchaseBooksWithStripe'
 import * as createPayPalPayment from './createPayPalPayment'
 import * as executePayPalPayment from './executePayPalPayment'
 import * as getUserBooks from './getUserBooks'
+import * as getMessages from './getMessages'
+import * as sendMessage from './sendMessage'
 
 export default {
     register,
@@ -31,5 +33,7 @@ export default {
     purchaseBooksWithStripe,
     createPayPalPayment,
     executePayPalPayment,
-    getUserBooks
+    getUserBooks,
+    getMessages,
+    sendMessage
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components/macro'
+import axios from 'axios'
 
 import { UserStoreContainer } from 'components/UserStore/UserStore'
 
@@ -11,69 +12,9 @@ import utils from 'utils'
 const UserChatContainer = styled(UserStoreContainer)``
 
 const UserChat = ({ shouldMenuExpand }) => {
-    const [currentUserId, setCurrentUserId] = useState(1)
-    const [messages, setMessages] = useState([
-        {
-            content: 'Message 1',
-            userId: 1
-        },
-        {
-            content: 'Message 2',
-            userId: 2
-        },
-        {
-            content: 'Message 3',
-            userId: 1
-        },
-        {
-            content: 'Message 4',
-            userId: 2
-        },
-        {
-            content: 'Message 5',
-            userId: 1
-        },
-        {
-            content: 'Message 6',
-            userId: 2
-        },
-        {
-            content: 'Message 7',
-            userId: 2
-        },
-        {
-            content: 'Message 8',
-            userId: 2
-        },
-        {
-            content: 'Message 9',
-            userId: 1
-        },
-        {
-            content: 'Message 10',
-            userId: 1
-        },
-        {
-            content: 'Message 11',
-            userId: 2
-        },
-        {
-            content: 'Message 12',
-            userId: 2
-        },
-        {
-            content: 'Message 13',
-            userId: 1
-        },
-        {
-            content: 'Message 14',
-            userId: 2
-        },
-        {
-            content: 'Message 15',
-            userId: 2
-        }
-    ])
+    const [currentUserId, setCurrentUserId] = useState()
+    const [currentUserNameInitial, setCurrentUserNameInitial] = useState()
+    const [messages, setMessages] = useState([])
     const [message, setMessage] = useState('')
     const messagesRef = useRef()
     const textareaRef = useRef()
@@ -88,22 +29,52 @@ const UserChat = ({ shouldMenuExpand }) => {
         )
     const pushToLastMessage = () =>
         setTimeout(() => (messagesRef.current.scrollTop = messagesRef.current.scrollHeight), 0)
-    const sendMessage = () => {
+    const sendMessage = async () => {
         if (message.trim()) {
             setMessages(messages => [
                 ...messages,
                 {
                     content: message,
-                    userId: currentUserId
+                    userId: currentUserId,
+                    nameInitial: currentUserNameInitial
                 }
             ])
             pushToLastMessage()
             setTimeout(() => {
                 setMessage('')
             }, 0)
+            try {
+                const url = '/api/user/sendMessage'
+                const response = await axios.post(url, {
+                    content: message
+                })
+                if (response) {
+                    // socket.emit('sendMessage', {
+                    //     content: message,
+                    //     userId: currentUserId
+                    // })
+                }
+            } catch (error) {
+                const conversation = messages
+                setMessages(conversation)
+                utils.handleApiError(error)
+            }
         }
     }
-    useEffect(pushToLastMessage, [])
+    useEffect(() => {
+        const getMessages = async () => {
+            const url = '/api/user/getMessages'
+            const response = await utils.apiAxios(url)
+            if (response) {
+                const { messages, userId, nameInitial } = response.data
+                setMessages(messages)
+                setCurrentUserId(userId)
+                setCurrentUserNameInitial(nameInitial)
+                pushToLastMessage()
+            }
+        }
+        getMessages()
+    }, [])
     return (
         <UserChatContainer shouldMenuExpand={shouldMenuExpand}>
             <Dashboard.ChatContainer>
@@ -111,18 +82,18 @@ const UserChat = ({ shouldMenuExpand }) => {
                     ref={messagesRef}
                     onTouchStart={() => textareaRef.current && textareaRef.current.blur()}
                 >
-                    {messages.map(({ content, userId }, index) => {
+                    {messages.map(({ content, userId, nameInitial }, index) => {
                         const withCurrentUser = userId === currentUserId
+                        const message = messages[index]
+                        const nextMessage = messages[index + 1]
                         const withLastUserMessage =
-                            (messages[index] &&
-                                messages[index + 1] &&
-                                messages[index].userId !== messages[index + 1].userId) ||
-                            !messages[index + 1]
+                            (message && nextMessage && message.userId !== nextMessage.userId) ||
+                            !nextMessage
                         return (
                             <Dashboard.MessageContainer
                                 key={index}
                                 withCurrentUser={withCurrentUser}
-                                withLastUserMessage={withLastUserMessage && messages[index + 1]}
+                                withLastUserMessage={withLastUserMessage && nextMessage}
                             >
                                 <Dashboard.Message
                                     withCurrentUser={withCurrentUser}
@@ -132,7 +103,7 @@ const UserChat = ({ shouldMenuExpand }) => {
                                     {content}
                                     {withLastUserMessage && (
                                         <Dashboard.Avatar withCurrentUser={withCurrentUser}>
-                                            T
+                                            {nameInitial}
                                         </Dashboard.Avatar>
                                     )}
                                 </Dashboard.Message>

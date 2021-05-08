@@ -1,11 +1,11 @@
-import { Model, TEXT, INTEGER } from 'sequelize'
+import { Model, ENUM, TEXT } from 'sequelize'
 
 export default sequelize => {
     class Message extends Model {}
     Message.init(
         {
-            sender: {
-                type: INTEGER,
+            type: {
+                type: ENUM(['MESSAGE', 'IMAGE', 'VIDEO', 'FILE']),
                 allowNull: false
             },
             content: {

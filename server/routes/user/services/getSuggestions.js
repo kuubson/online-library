@@ -39,7 +39,7 @@ export default async (req, res, __) => {
 }
 
 export const validation = () => [
-    check('title').isString().bail().trim().escape(),
-    check('author').isString().bail().trim().escape(),
+    check('title').trim().isString().bail().escape(),
+    check('author').trim().isString().bail().escape(),
     utils.validator.validateBoolean('withProfile')
 ]

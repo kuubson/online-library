@@ -121,4 +121,14 @@ router.post(
 
 router.get('/getUserBooks', middlewares.jwtAuthorization, Services.getUserBooks.default)
 
+router.post(
+    '/sendMessage',
+    middlewares.jwtAuthorization,
+    Services.sendMessage.validation(),
+    middlewares.checkValidation,
+    Services.sendMessage.default
+)
+
+router.get('/getMessages', middlewares.jwtAuthorization, Services.getMessages.default)
+
 export default router
