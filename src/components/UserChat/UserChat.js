@@ -8,28 +8,80 @@ import Dashboard from './styled/Dashboard'
 
 import utils from 'utils'
 
-const UserChatContainer = styled(UserStoreContainer)``
+const UserChatContainer = styled(UserStoreContainer)`
+    @media (max-width: 800px) {
+        padding: ${({ shouldMenuExpand }) =>
+            shouldMenuExpand ? '330px 20px 40px 20px' : '100px 20px 20px 20px'};
+    }
+`
 
 const UserChat = ({ shouldMenuExpand }) => {
+    const [currentUserId, setCurrentUserId] = useState(1)
     const [messages, setMessages] = useState([
-        'Message 1',
-        'Message 2',
-        'Message 3',
-        'Message 4',
-        'Message 5',
-        'Message 6',
-        'Message 7',
-        'Message 8',
-        'Message 9',
-        'Message 10',
-        'Message 11',
-        'Message 12',
-        'Message 13',
-        'Message 14',
-        'Message 15'
+        {
+            content: 'Message 1',
+            userId: 1
+        },
+        {
+            content: 'Message 2',
+            userId: 2
+        },
+        {
+            content: 'Message 3',
+            userId: 1
+        },
+        {
+            content: 'Message 4',
+            userId: 2
+        },
+        {
+            content: 'Message 5',
+            userId: 1
+        },
+        {
+            content: 'Message 6',
+            userId: 2
+        },
+        {
+            content: 'Message 7',
+            userId: 2
+        },
+        {
+            content: 'Message 8',
+            userId: 2
+        },
+        {
+            content: 'Message 9',
+            userId: 1
+        },
+        {
+            content: 'Message 10',
+            userId: 1
+        },
+        {
+            content: 'Message 11',
+            userId: 2
+        },
+        {
+            content: 'Message 12',
+            userId: 2
+        },
+        {
+            content: 'Message 13',
+            userId: 1
+        },
+        {
+            content: 'Message 14',
+            userId: 2
+        },
+        {
+            content: 'Message 15',
+            userId: 2
+        }
     ])
     const [message, setMessage] = useState('')
     const endOfMessages = useRef()
+    const messagesRef = useRef()
     const scrollToLastMessage = () =>
         setTimeout(
             () =>
@@ -39,21 +91,52 @@ const UserChat = ({ shouldMenuExpand }) => {
             0
         )
     const sendMessage = () => {
-        setMessages(messages => [...messages, message])
-        setTimeout(() => {
-            setMessage('')
-        }, 0)
-        scrollToLastMessage()
+        if (message.trim()) {
+            setMessages(messages => [
+                ...messages,
+                {
+                    content: message,
+                    userId: currentUserId
+                }
+            ])
+            scrollToLastMessage()
+            setTimeout(() => {
+                setMessage({})
+            }, 0)
+        }
     }
     useEffect(() => {
-        scrollToLastMessage()
+        setTimeout(() => (messagesRef.current.scrollTop = messagesRef.current.scrollHeight), 0)
     }, [])
     return (
         <UserChatContainer shouldMenuExpand={shouldMenuExpand}>
             <Dashboard.ChatContainer>
-                {messages.map(message => (
-                    <Dashboard.Message>{message}</Dashboard.Message>
-                ))}
+                <Dashboard.Messages ref={messagesRef}>
+                    {messages.map(({ content, userId }, index) => {
+                        const withCurrentUser = userId === currentUserId
+                        const withLastUserMessage =
+                            (messages[index] &&
+                                messages[index + 1] &&
+                                messages[index].userId !== messages[index + 1].userId) ||
+                            !messages[index + 1]
+                        return (
+                            <Dashboard.MessageContainer withCurrentUser={withCurrentUser}>
+                                <Dashboard.Message
+                                    key={index}
+                                    withLastUserMessage={withLastUserMessage}
+                                >
+                                    {content}
+                                    {withLastUserMessage && (
+                                        <Dashboard.Avatar withCurrentUser={withCurrentUser}>
+                                            T
+                                        </Dashboard.Avatar>
+                                    )}
+                                </Dashboard.Message>
+                            </Dashboard.MessageContainer>
+                        )
+                    })}
+                    <div ref={endOfMessages}></div>
+                </Dashboard.Messages>
                 <Dashboard.MessageFieldContainer>
                     <Dashboard.MessageField
                         value={message}
@@ -75,9 +158,10 @@ const UserChat = ({ shouldMenuExpand }) => {
                         }}
                     />
                     <USDashboard.Button withChat>Upload file</USDashboard.Button>
-                    <USDashboard.Button withChat>Send</USDashboard.Button>
+                    <USDashboard.Button onClick={sendMessage} withChat>
+                        Send
+                    </USDashboard.Button>
                 </Dashboard.MessageFieldContainer>
-                <div ref={endOfMessages}></div>
             </Dashboard.ChatContainer>
         </UserChatContainer>
     )

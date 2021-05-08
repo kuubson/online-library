@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
+import hooks from 'hooks'
+
 export default styled.div`
     margin-top: 35px;
     display: grid;
@@ -11,7 +13,7 @@ export default styled.div`
     ${({ empty }) =>
         empty &&
         css`
-            height: calc(100vh - 150px);
+            height: ${() => `calc(${hooks.useHeight()} - 150px)`};
             margin-top: 0px;
             display: flex;
             justify-content: center;
