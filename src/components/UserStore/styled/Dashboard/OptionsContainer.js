@@ -9,15 +9,16 @@ export default styled.ul`
         width: 100%;
         height: 0px;
         overflow: hidden;
-        background: #0088ff;
+        background: ${({ theme }) => theme.mainColor};
         flex-direction: column;
         position: absolute;
         top: 100%;
         left: 0px;
+        z-index: 2;
         ${({ shouldMenuExpand }) =>
             shouldMenuExpand &&
             css`
-                height: 160px;
+                height: 210px;
                 border-bottom: 2px solid white;
                 transition: height 0.5s ease-in-out;
             `}

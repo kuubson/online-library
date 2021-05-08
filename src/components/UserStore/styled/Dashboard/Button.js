@@ -72,4 +72,15 @@ export default styled.button`
             background: none;
             border: 2px solid white;
         `}
+        ${({ withChat }) =>
+        withChat &&
+        css`
+            position: static;
+            transform: none;
+            white-space: nowrap;
+            margin-right: 10px;
+            :hover {
+                transform: scale(1.03);
+            }
+        `}
 `

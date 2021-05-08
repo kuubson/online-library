@@ -10,8 +10,6 @@ import utils from 'utils'
 
 export const UserStoreContainer = styled.section`
     min-height: ${() => hooks.useHeight()};
-    padding: ${({ shouldMenuExpand }) =>
-        shouldMenuExpand ? '290px 20px 20px 20px' : '130px 20px 20px 20px'};
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -22,7 +20,7 @@ export const UserStoreContainer = styled.section`
     @media (max-width: 800px) {
         flex-direction: column;
         padding: ${({ shouldMenuExpand }) =>
-            shouldMenuExpand ? '280px 20px 20px 20px' : '120px 20px 20px 20px'};
+            shouldMenuExpand ? '330px 20px 20px 20px' : '120px 20px 20px 20px'};
     }
 `
 

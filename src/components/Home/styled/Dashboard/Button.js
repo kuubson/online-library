@@ -4,7 +4,7 @@ export default styled.button`
     width: 200px;
     padding: 15px 0px;
     font-size: 14px;
-    background: #333333;
+    background: #333;
     border-right: 2px solid white;
     border-left: 2px solid white;
     transition: transform 0.3s ease-in-out;

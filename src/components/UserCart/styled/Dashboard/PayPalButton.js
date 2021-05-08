@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 
 export default styled.button`
-    background: #ffc439;
+    background: ${({ theme }) => theme.payPalColor};
     border-radius: 15px;
     font-size: 14px;
     margin: 25px auto 0px auto;

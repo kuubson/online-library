@@ -14,7 +14,7 @@ const MenuContainer = styled.nav`
     width: calc(100% - 40px);
     height: 90px;
     padding: 0px 30px;
-    background: #0088ff;
+    background: ${({ theme }) => theme.mainColor};
     display: flex;
     justify-content: space-between;
     align-items: center;

@@ -15,11 +15,13 @@ const connection = new sequelize(DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASS
 import UserModel from './models/User'
 import AuthenticationModel from './models/Authentication'
 import BookModel from './models/Book'
+import MessageModel from './models/Message'
 import PaymentModel from './models/Payment'
 
 const User = UserModel(connection)
 const Authentication = AuthenticationModel(connection)
 const Book = BookModel(connection)
+const Message = MessageModel(connection)
 const Payment = PaymentModel(connection)
 
 User.hasOne(Authentication)
@@ -27,6 +29,9 @@ Authentication.belongsTo(User)
 
 User.belongsToMany(Book, { through: 'register' })
 Book.belongsToMany(User, { through: 'register' })
+
+User.hasMany(Message)
+Message.belongsTo(User)
 
 User.hasMany(Payment)
 Payment.belongsTo(User)
@@ -46,4 +51,4 @@ const init = async () => {
 }
 init()
 
-export { connection as Connection, User, Authentication, Book }
+export { connection as Connection, User, Authentication, Book, Message, Payment }

@@ -50,6 +50,10 @@ const User = ({ children }) => {
                         cartItemsAmount: cartItemsAmount <= 99 ? cartItemsAmount : 99
                     },
                     {
+                        option: 'Chat',
+                        pathname: '/user/chat'
+                    },
+                    {
                         option: 'Logout'
                     }
                 ]}

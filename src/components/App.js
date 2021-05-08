@@ -22,6 +22,7 @@ import UserPasswordRecovery from 'components/UserPasswordRecovery/UserPasswordRe
 import UserStore from 'components/UserStore/UserStore'
 import UserProfile from 'components/UserProfile/UserProfile'
 import UserCart from 'components/UserCart/UserCart'
+import UserChat from 'components/UserChat/UserChat'
 
 const AppContainer = styled.main`
     min-height: ${() => hooks.useHeight()};
@@ -103,6 +104,15 @@ const App = ({ location }) => {
         },
         {
             order: 4,
+            pathname: '/user/profile',
+            render: () => (
+                <Roles.User>
+                    <UserProfile />
+                </Roles.User>
+            )
+        },
+        {
+            order: 5,
             pathname: '/user/cart',
             render: () => (
                 <Roles.User>
@@ -111,11 +121,11 @@ const App = ({ location }) => {
             )
         },
         {
-            order: 5,
-            pathname: '/user/profile',
+            order: 6,
+            pathname: '/user/chat',
             render: () => (
                 <Roles.User>
-                    <UserProfile />
+                    <UserChat />
                 </Roles.User>
             )
         },

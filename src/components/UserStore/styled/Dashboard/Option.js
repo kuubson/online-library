@@ -21,7 +21,7 @@ export default styled.li`
         justify-content: center;
         align-items: center;
         margin-right: 0px;
-        margin-bottom: 30px;
+        margin-bottom: 25px;
         :last-of-type {
             margin-bottom: 0px;
         }

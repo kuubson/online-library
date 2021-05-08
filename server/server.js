@@ -20,8 +20,6 @@ routes(app)
 
 middlewares.errorHandler(app)
 
-app.use('/uploads', express.static(path.resolve(__dirname, '../uploads')))
-
 const buildPath = '../build'
 
 app.use(express.static(path.resolve(__dirname, buildPath)))

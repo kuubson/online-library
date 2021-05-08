@@ -29,7 +29,7 @@ export default styled.button`
     ${({ withFacebook }) =>
         withFacebook &&
         css`
-            background: #1877f2;
+            background: ${({ theme }) => theme.facebookColor};
             border: none;
             border-radius: 5px;
         `}
