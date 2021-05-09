@@ -15,7 +15,6 @@
         "babel-watch": "^7.4.1",
         "bcrypt": "^5.0.0",
         "cookie-parser": "^1.4.5",
-        "cra-append-sw": "^2.7.0",
         "csurf": "^1.11.0",
         "express": "^4.17.1",
         "express-validator": "^6.8.0",
@@ -63,8 +62,7 @@
         "start": "babel server -d dist && node dist/server.js",
         "frontend": "react-scripts start",
         "backend": "babel-watch server/server.js",
-        "build": "react-scripts build && npm run updateServiceWorker",
-        "updateServiceWorker": "cra-append-sw ./public/pushNotificationsWorker.js",
+        "build": "react-scripts build",
         "heroku-postbuild": "npm run build"
     },
     "eslintConfig": {
