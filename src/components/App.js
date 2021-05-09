@@ -124,7 +124,7 @@ const App = ({ location }) => {
             order: 6,
             pathname: '/user/chat',
             render: () => (
-                <Roles.User>
+                <Roles.User withChat>
                     <UserChat />
                 </Roles.User>
             )

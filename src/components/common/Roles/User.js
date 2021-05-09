@@ -13,7 +13,7 @@ import utils from 'utils'
 
 const UserContainer = styled(GuestContainer)``
 
-const User = ({ children }) => {
+const User = ({ children, withChat }) => {
     const { socket, setSocket } = hooks.useSocket()
     const [shouldMenuExpand, _setShouldMenuExpand] = useState(false)
     const { unreadMessagesAmount, setUnreadMessagesAmount } = hooks.useMessages()
@@ -56,7 +56,8 @@ const User = ({ children }) => {
                 'Refresh the application',
                 () => process.env.NODE_ENV === 'production' && window.location.reload()
             )
-        const handleOnSendMessage = () => setUnreadMessagesAmount(unreadMessagesAmount + 1)
+        const handleOnSendMessage = () =>
+            !withChat && setUnreadMessagesAmount(unreadMessagesAmount + 1)
         if (socket) {
             socket.on('sendMessage', handleOnSendMessage)
             socket.on('connect_error', handleOnError)

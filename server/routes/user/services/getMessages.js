@@ -5,6 +5,7 @@ export default async (req, res, next) => {
         await Connection.transaction(async transaction => {
             const { id } = req.user
             const messages = await Message.findAll({
+                order: [['id', 'ASC']],
                 include: [
                     {
                         model: User,
