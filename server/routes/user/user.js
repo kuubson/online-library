@@ -129,7 +129,13 @@ router.post(
     Services.sendMessage.default
 )
 
-router.get('/getMessages', middlewares.jwtAuthorization, Services.getMessages.default)
+router.post(
+    '/getMessages',
+    middlewares.jwtAuthorization,
+    Services.getMessages.validation(),
+    middlewares.checkValidation,
+    Services.getMessages.default
+)
 
 router.post(
     '/subscribePushNotifications',

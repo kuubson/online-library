@@ -20,19 +20,63 @@ const UserChat = ({ shouldMenuExpand }) => {
     const [currentUserNameInitial, setCurrentUserNameInitial] = useState()
     const [messages, setMessages] = useState([])
     const [message, setMessage] = useState('')
+    const [hasMoreMessages, setHasMoreMessages] = useState(true)
     const messagesRef = useRef()
     const textareaRef = useRef()
     const endOfMessages = useRef()
-    const scrollToLastMessage = delay =>
-        setTimeout(
-            () =>
-                endOfMessages.current.scrollIntoView({
-                    behavior: 'smooth'
-                }),
-            delay
-        )
-    const pushToLastMessage = () =>
-        setTimeout(() => (messagesRef.current.scrollTop = messagesRef.current.scrollHeight), 0)
+    useEffect(() => {
+        getMessages(20, 0)
+        utils.subscribePushNotifications('/api/user/subscribePushNotifications')
+        setTimeout(() => {
+            setUnreadMessagesAmount(0)
+        }, 0)
+    }, [])
+    useEffect(() => {
+        const handleOnSendMessage = ({ id, content, userId, nameInitial }) => {
+            setMessages(messages => [
+                ...messages,
+                {
+                    id,
+                    content,
+                    userId,
+                    nameInitial
+                }
+            ])
+            scrollToLastMessage(0)
+            socket.emit('readMessages')
+        }
+        socket && socket.on('sendMessage', handleOnSendMessage)
+        return () => socket && socket.off('sendMessage', handleOnSendMessage)
+    }, [socket])
+    const getMessages = async (limit, offset, event) => {
+        const url = '/api/user/getMessages'
+        if (event && event.target.scrollTop <= 0 && hasMoreMessages) {
+            const response = await utils.apiAxios.post(url, {
+                limit,
+                offset
+            })
+            if (response) {
+                const { messages: loadedMessages } = response.data
+                setHasMoreMessages(loadedMessages.length !== 0)
+                const lastScroll = event.target.scrollHeight
+                setMessages(messages => [...loadedMessages, ...messages])
+                event.target.scrollTop = event.target.scrollHeight - lastScroll
+            }
+        }
+        if (!event) {
+            const response = await utils.apiAxios.post(url, {
+                limit,
+                offset
+            })
+            if (response) {
+                const { messages, userId, nameInitial } = response.data
+                setMessages(messages)
+                setCurrentUserId(userId)
+                setCurrentUserNameInitial(nameInitial)
+                pushToLastMessage()
+            }
+        }
+    }
     const sendMessage = async () => {
         if (message.trim()) {
             const lastMessage = messages[messages.length - 1]
@@ -70,47 +114,23 @@ const UserChat = ({ shouldMenuExpand }) => {
             }
         }
     }
-    useEffect(() => {
-        const getMessages = async () => {
-            const url = '/api/user/getMessages'
-            const response = await utils.apiAxios(url)
-            if (response) {
-                const { messages, userId, nameInitial } = response.data
-                setMessages(messages)
-                setCurrentUserId(userId)
-                setCurrentUserNameInitial(nameInitial)
-                pushToLastMessage()
-            }
-        }
-        getMessages()
-        utils.subscribePushNotifications('/api/user/subscribePushNotifications')
-        setTimeout(() => {
-            setUnreadMessagesAmount(0)
-        }, 0)
-    }, [])
-    useEffect(() => {
-        const handleOnSendMessage = ({ id, content, userId, nameInitial }) => {
-            setMessages(messages => [
-                ...messages,
-                {
-                    id,
-                    content,
-                    userId,
-                    nameInitial
-                }
-            ])
-            scrollToLastMessage(0)
-            socket.emit('readMessages')
-        }
-        socket && socket.on('sendMessage', handleOnSendMessage)
-        return () => socket && socket.off('sendMessage', handleOnSendMessage)
-    }, [socket])
+    const scrollToLastMessage = delay =>
+        setTimeout(
+            () =>
+                endOfMessages.current.scrollIntoView({
+                    behavior: 'smooth'
+                }),
+            delay
+        )
+    const pushToLastMessage = () =>
+        setTimeout(() => (messagesRef.current.scrollTop = messagesRef.current.scrollHeight), 0)
     return (
         <UserChatContainer shouldMenuExpand={shouldMenuExpand}>
             <Dashboard.ChatContainer>
                 <Dashboard.Messages
                     ref={messagesRef}
                     onTouchStart={() => textareaRef.current && textareaRef.current.blur()}
+                    onScroll={e => getMessages(20, messages.length, e)}
                 >
                     {messages.map(({ id, content, userId, nameInitial }, index) => {
                         const withCurrentUser = userId === currentUserId

@@ -17,6 +17,7 @@ const User = ({ children, withChat }) => {
     const { socket, setSocket } = hooks.useSocket()
     const [shouldMenuExpand, _setShouldMenuExpand] = useState(false)
     const { unreadMessagesAmount, setUnreadMessagesAmount } = hooks.useMessages()
+    const cartItemsAmount = hooks.useCart().cart.length
     useEffect(() => {
         if (!socket) {
             setTimeout(() => {
@@ -69,7 +70,6 @@ const User = ({ children, withChat }) => {
             }
         }
     }, [socket, unreadMessagesAmount])
-    const cartItemsAmount = hooks.useCart().cart.length
     return (
         <>
             <USComposed.Menu

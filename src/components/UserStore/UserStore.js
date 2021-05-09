@@ -33,6 +33,7 @@ const UserStore = ({ shouldMenuExpand }) => {
     const areThereFreeBooks = freeBooks.length > 0
     const areTherePaidBooks = paidBooks.length > 0
     const [bookPopupData, setBookPopupData] = useState()
+    useEffect(() => getBooks(0, 0, true), [])
     const getBooks = async (freeBooksOffset, paidBooksOffset, initialLoad) => {
         const url = '/api/user/getBooks'
         const response = await utils.apiAxios.post(url, {
@@ -53,9 +54,6 @@ const UserStore = ({ shouldMenuExpand }) => {
             }
         }
     }
-    useEffect(() => {
-        getBooks(0, 0, true)
-    }, [])
     const { renderBooksSuggestionsInput } = USHooks.useBooksSuggestions({
         freeBooks,
         setFreeBooks,
