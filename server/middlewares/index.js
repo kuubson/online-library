@@ -1,9 +1,11 @@
 import express from 'express'
+import io from 'socket.io'
 import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
 import csurf from 'csurf'
 import passport from 'passport'
 
+import initSocketIo from '../socketio/socketio'
 import initPassport from './passport'
 initPassport(passport)
 
@@ -14,7 +16,8 @@ import facebookAuthorization from './facebookAuthorization'
 
 import utils from '@utils'
 
-const init = app => {
+const init = (app, server) => {
+    initSocketIo(io(server))
     app.use(
         helmet({
             contentSecurityPolicy: false

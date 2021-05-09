@@ -7,6 +7,7 @@ import emailTemplate from './emailTemplate'
 import cookieMaxAge from './cookieMaxAge'
 import validator from './validator'
 import checkSanitization from './checkSanitization'
+import getCookie from './getCookie'
 
 export default {
     Op,
@@ -17,5 +18,6 @@ export default {
     emailTemplate,
     cookieMaxAge,
     validator,
-    checkSanitization
+    checkSanitization,
+    getCookie
 }

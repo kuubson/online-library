@@ -40,6 +40,8 @@
         "sanitize-html": "^2.3.3",
         "sass": "^1.30.0",
         "sequelize": "^6.3.5",
+        "socket.io": "^4.0.2",
+        "socket.io-client": "^4.0.2",
         "stripe": "^8.129.0",
         "styled-components": "^5.2.1",
         "validator": "^13.5.2",

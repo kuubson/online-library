@@ -94,7 +94,8 @@ self.addEventListener('notificationclick', event => {
     event.waitUntil(
         clients
             .matchAll({
-                type: 'window'
+                type: 'window',
+                includeUncontrolled: true
             })
             .then(clientsList => {
                 for (let i = 0; i < clientsList.length; i++) {

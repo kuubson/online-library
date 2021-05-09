@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 import axios from 'axios'
+import io from 'socket.io-client'
 
 import hooks from 'hooks'
 
@@ -13,8 +14,12 @@ import utils from 'utils'
 const UserContainer = styled(GuestContainer)``
 
 const User = ({ children }) => {
+    const { socket, setSocket } = hooks.useSocket()
     const [shouldMenuExpand, _setShouldMenuExpand] = useState(false)
     useEffect(() => {
+        if (!socket) {
+            setSocket(io('/user'))
+        }
         const checkToken = async () => {
             try {
                 const url = '/api/global/checkToken'
@@ -31,6 +36,17 @@ const User = ({ children }) => {
         }
         checkToken()
     }, [])
+    useEffect(() => {
+        const handleOnError = () =>
+            utils.setFeedbackData(
+                'Connecting to the server',
+                `A connection couldn't be established with the server or an unexpected problem occurred on its side`,
+                'Refresh the application',
+                () => process.env.NODE_ENV === 'production' && window.location.reload()
+            )
+        socket && socket.on('connect_error', handleOnError)
+        return () => socket && socket.off('connect_error', handleOnError)
+    }, [socket])
     const cartItemsAmount = hooks.useCart().cart.length
     return (
         <>
@@ -47,7 +63,7 @@ const User = ({ children }) => {
                     {
                         option: 'Cart',
                         pathname: '/user/cart',
-                        cartItemsAmount: cartItemsAmount <= 99 ? cartItemsAmount : 99
+                        counter: cartItemsAmount <= 99 ? cartItemsAmount : 99
                     },
                     {
                         option: 'Chat',

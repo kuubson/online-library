@@ -71,7 +71,7 @@ const Menu = ({ location, options, _setShouldMenuExpand }) => {
             </Dashboard.LinesContainer>
             <Dashboard.OptionsContainer shouldMenuExpand={shouldMenuExpand}>
                 {options.map(
-                    ({ option, pathname, cartItemsAmount }) =>
+                    ({ option, pathname, counter }) =>
                         location.pathname !== pathname && (
                             <Dashboard.Option
                                 key={option}
@@ -79,7 +79,7 @@ const Menu = ({ location, options, _setShouldMenuExpand }) => {
                                     option === 'Logout' ? logout() : utils.redirectTo(`${pathname}`)
                                 }
                                 shouldMenuExpand={shouldMenuExpand}
-                                cartItemsAmount={cartItemsAmount}
+                                counter={counter}
                             >
                                 {option}
                             </Dashboard.Option>

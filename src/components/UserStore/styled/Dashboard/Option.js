@@ -42,14 +42,14 @@ export default styled.li`
                   opacity: 0;
                   transition: opacity 0.25s ease-in-out;
               `}
-    ${({ cartItemsAmount }) =>
-        cartItemsAmount &&
+    ${({ counter }) =>
+        counter &&
         css`
             ::after {
                 width: 18px;
                 height: 18px;
                 cursor: initial;
-                content: '${cartItemsAmount}';
+                content: '${counter}';
                 padding-top: 2px;
                 padding-left: 1.5px;
                 font-size: 12px;

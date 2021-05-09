@@ -1,3 +1,4 @@
+import useSocket from './useSocket'
 import useParams from './useParams'
 import useLoader from './useLoader'
 import useFeedbackHandler from './useFeedbackHandler'
@@ -9,6 +10,7 @@ import useTopOffset from './useTopOffset'
 import useValidator from './useValidator'
 
 export default {
+    useSocket,
     useParams,
     useLoader,
     useFeedbackHandler,

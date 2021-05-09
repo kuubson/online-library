@@ -14,7 +14,7 @@ import routes from '@routes'
 const app = express()
 const server = http.createServer(app)
 
-middlewares.init(app)
+middlewares.init(app, server)
 
 routes(app)
 
