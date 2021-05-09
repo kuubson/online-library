@@ -17,12 +17,14 @@ import AuthenticationModel from './models/Authentication'
 import BookModel from './models/Book'
 import MessageModel from './models/Message'
 import PaymentModel from './models/Payment'
+import SubscriptionModel from './models/Subscription'
 
 const User = UserModel(connection)
 const Authentication = AuthenticationModel(connection)
 const Book = BookModel(connection)
 const Message = MessageModel(connection)
 const Payment = PaymentModel(connection)
+const Subscription = SubscriptionModel(connection)
 
 User.hasOne(Authentication)
 Authentication.belongsTo(User)
@@ -35,6 +37,9 @@ Message.belongsTo(User)
 
 User.hasMany(Payment)
 Payment.belongsTo(User)
+
+User.hasMany(Subscription)
+Subscription.belongsTo(User)
 
 const init = async () => {
     try {
@@ -51,4 +56,4 @@ const init = async () => {
 }
 init()
 
-export { connection as Connection, User, Authentication, Book, Message, Payment }
+export { connection as Connection, User, Authentication, Book, Message, Payment, Subscription }

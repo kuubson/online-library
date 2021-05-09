@@ -38,6 +38,6 @@ render(
 serviceWorkerRegistration.register({
     onUpdate: async registration => {
         await registration.unregister()
-        window.location.reload(true)
+        window.location.reload()
     }
 })

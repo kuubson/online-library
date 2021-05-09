@@ -1,3 +1,4 @@
+import { Op } from 'sequelize'
 import ApiError from './ApiError'
 import handleError from './handleError'
 import baseUrl from './baseUrl'
@@ -8,6 +9,7 @@ import validator from './validator'
 import checkSanitization from './checkSanitization'
 
 export default {
+    Op,
     ApiError,
     handleError,
     baseUrl,

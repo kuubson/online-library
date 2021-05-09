@@ -71,6 +71,7 @@ const UserChat = ({ shouldMenuExpand }) => {
                 setCurrentUserId(userId)
                 setCurrentUserNameInitial(nameInitial)
                 pushToLastMessage()
+                utils.subscribePushNotifications('/api/user/subscribePushNotifications')
             }
         }
         getMessages()

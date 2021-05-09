@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 
-import { Connection, User } from '@database'
+import { Connection, User, Authentication } from '@database'
 
 import utils from '@utils'
 
@@ -13,7 +13,7 @@ export default async (req, res, next) => {
                 where: {
                     email
                 },
-                include: ['authentication'],
+                include: [Authentication],
                 transaction
             })
             if (!user || !bcrypt.compareSync(password, user.password)) {

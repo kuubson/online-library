@@ -1,18 +1,18 @@
 import jwt from 'jsonwebtoken'
 
-import { Connection, User } from '@database'
+import { Connection, User, Authentication } from '@database'
 
 import utils from '@utils'
 
 export default async (req, res, next) => {
-    await Connection.transaction(async transaction => {
-        const { email } = req.body
-        try {
+    try {
+        await Connection.transaction(async transaction => {
+            const { email } = req.body
             const user = await User.findOne({
                 where: {
                     email
                 },
-                include: ['authentication'],
+                include: [Authentication],
                 transaction
             })
             if (!user || !user.authentication) {
@@ -65,10 +65,10 @@ export default async (req, res, next) => {
                     next(error)
                 }
             })
-        } catch (error) {
-            next(error)
-        }
-    })
+        })
+    } catch (error) {
+        next(error)
+    }
 }
 
 export const validation = () => [utils.validator.validateEmail()]

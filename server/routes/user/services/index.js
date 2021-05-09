@@ -16,6 +16,7 @@ import * as executePayPalPayment from './executePayPalPayment'
 import * as getUserBooks from './getUserBooks'
 import * as getMessages from './getMessages'
 import * as sendMessage from './sendMessage'
+import * as subscribePushNotifications from './subscribePushNotifications'
 
 export default {
     register,
@@ -35,5 +36,6 @@ export default {
     executePayPalPayment,
     getUserBooks,
     getMessages,
-    sendMessage
+    sendMessage,
+    subscribePushNotifications
 }

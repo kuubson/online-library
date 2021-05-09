@@ -7,6 +7,7 @@ import setFeedbackData from './setFeedbackData'
 import handleApiError from './handleApiError'
 import checkSanitization from './checkSanitization'
 import apiValidation from './apiValidation'
+import subscribePushNotifications from './subscribePushNotifications'
 import isMobile from './isMobile'
 
 export default {
@@ -19,5 +20,6 @@ export default {
     handleApiError,
     checkSanitization,
     apiValidation,
+    subscribePushNotifications,
     isMobile
 }

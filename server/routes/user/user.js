@@ -131,4 +131,12 @@ router.post(
 
 router.get('/getMessages', middlewares.jwtAuthorization, Services.getMessages.default)
 
+router.post(
+    '/subscribePushNotifications',
+    middlewares.jwtAuthorization,
+    Services.subscribePushNotifications.validation(),
+    middlewares.checkValidation,
+    Services.subscribePushNotifications.default
+)
+
 export default router

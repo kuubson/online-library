@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { Connection, User } from '@database'
+import { Connection, User, Authentication } from '@database'
 
 import utils from '@utils'
 
@@ -32,7 +32,7 @@ export default async (req, res, next) => {
                     }
                 },
                 {
-                    include: ['authentication'],
+                    include: [Authentication],
                     transaction
                 }
             )
