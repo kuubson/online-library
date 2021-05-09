@@ -14,7 +14,13 @@ export const GuestContainer = styled.section`
 `
 
 const Guest = ({ children }) => {
+    const { socket, setSocket } = hooks.useSocket()
     useEffect(() => {
+        if (socket) {
+            setTimeout(() => {
+                setSocket()
+            }, 0)
+        }
         const checkToken = async () => {
             try {
                 const url = '/api/global/checkToken'

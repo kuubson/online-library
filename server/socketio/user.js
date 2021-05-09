@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { User } from '@database'
+import { User, Message } from '@database'
 
 import utils from '@utils'
 
@@ -36,6 +36,23 @@ export default io => {
         }
     })
     userIo.on('connection', socket => {
+        const id = socket.user.id
         socket.on('sendMessage', data => socket.broadcast.emit('sendMessage', data))
+        socket.on('readMessages', async () => {
+            await Message.findAll().then(
+                async messages =>
+                    await Promise.all(
+                        messages.map(async message => {
+                            const readByIds = message.readBy.split(',').filter(v => v)
+                            if (!readByIds.includes(id.toString())) {
+                                readByIds.push(id)
+                            }
+                            await message.update({
+                                readBy: readByIds.join(',')
+                            })
+                        })
+                    )
+            )
+        })
     })
 }

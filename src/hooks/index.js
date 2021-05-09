@@ -8,6 +8,7 @@ import useHeight from './useHeight'
 import useIsKeyboardOpened from './useIsKeyboardOpened'
 import useTopOffset from './useTopOffset'
 import useValidator from './useValidator'
+import useMessages from './useMessages'
 
 export default {
     useSocket,
@@ -19,5 +20,6 @@ export default {
     useHeight,
     useIsKeyboardOpened,
     useTopOffset,
-    useValidator
+    useValidator,
+    useMessages
 }

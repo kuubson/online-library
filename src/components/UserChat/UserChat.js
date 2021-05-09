@@ -15,6 +15,7 @@ const UserChatContainer = styled(UserStoreContainer)``
 
 const UserChat = ({ shouldMenuExpand }) => {
     const { socket } = hooks.useSocket()
+    const { setUnreadMessagesAmount } = hooks.useMessages()
     const [currentUserId, setCurrentUserId] = useState()
     const [currentUserNameInitial, setCurrentUserNameInitial] = useState()
     const [messages, setMessages] = useState([])
@@ -79,10 +80,13 @@ const UserChat = ({ shouldMenuExpand }) => {
                 setCurrentUserId(userId)
                 setCurrentUserNameInitial(nameInitial)
                 pushToLastMessage()
-                utils.subscribePushNotifications('/api/user/subscribePushNotifications')
             }
         }
         getMessages()
+        utils.subscribePushNotifications('/api/user/subscribePushNotifications')
+        setTimeout(() => {
+            setUnreadMessagesAmount(0)
+        }, 0)
     }, [])
     useEffect(() => {
         const handleOnSendMessage = ({ id, content, userId, nameInitial }) => {
@@ -96,6 +100,7 @@ const UserChat = ({ shouldMenuExpand }) => {
                 }
             ])
             scrollToLastMessage(0)
+            socket.emit('readMessages')
         }
         socket && socket.on('sendMessage', handleOnSendMessage)
         return () => socket && socket.off('sendMessage', handleOnSendMessage)

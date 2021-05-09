@@ -17,6 +17,7 @@ import * as getUserBooks from './getUserBooks'
 import * as getMessages from './getMessages'
 import * as sendMessage from './sendMessage'
 import * as subscribePushNotifications from './subscribePushNotifications'
+import * as getUnreadMessagesAmount from './getUnreadMessagesAmount'
 
 export default {
     register,
@@ -37,5 +38,6 @@ export default {
     getUserBooks,
     getMessages,
     sendMessage,
-    subscribePushNotifications
+    subscribePushNotifications,
+    getUnreadMessagesAmount
 }

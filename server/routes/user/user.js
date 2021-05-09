@@ -139,4 +139,10 @@ router.post(
     Services.subscribePushNotifications.default
 )
 
+router.get(
+    '/getUnreadMessagesAmount',
+    middlewares.jwtAuthorization,
+    Services.getUnreadMessagesAmount.default
+)
+
 export default router

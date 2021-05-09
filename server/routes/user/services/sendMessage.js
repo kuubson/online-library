@@ -19,7 +19,8 @@ export default async (req, res, next) => {
             await req.user.createMessage(
                 {
                     type: 'MESSAGE',
-                    content
+                    content,
+                    readBy: id
                 },
                 {
                     transaction

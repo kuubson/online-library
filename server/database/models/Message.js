@@ -11,6 +11,10 @@ export default sequelize => {
             content: {
                 type: TEXT,
                 allowNull: false
+            },
+            readBy: {
+                type: TEXT,
+                defaultValue: ''
             }
         },
         {

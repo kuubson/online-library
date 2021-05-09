@@ -16,9 +16,12 @@ const UserContainer = styled(GuestContainer)``
 const User = ({ children }) => {
     const { socket, setSocket } = hooks.useSocket()
     const [shouldMenuExpand, _setShouldMenuExpand] = useState(false)
+    const { unreadMessagesAmount, setUnreadMessagesAmount } = hooks.useMessages()
     useEffect(() => {
         if (!socket) {
-            setSocket(io('/user'))
+            setTimeout(() => {
+                setSocket(io('/user'))
+            }, 0)
         }
         const checkToken = async () => {
             try {
@@ -34,7 +37,16 @@ const User = ({ children }) => {
                 utils.handleApiError(error)
             }
         }
+        const getUnreadMessagesAmount = async () => {
+            const url = '/api/user/getUnreadMessagesAmount'
+            const response = await utils.apiAxios.get(url)
+            if (response) {
+                const { unreadMessagesAmount } = response.data
+                setUnreadMessagesAmount(unreadMessagesAmount)
+            }
+        }
         checkToken()
+        getUnreadMessagesAmount()
     }, [])
     useEffect(() => {
         const handleOnError = () =>
@@ -44,9 +56,18 @@ const User = ({ children }) => {
                 'Refresh the application',
                 () => process.env.NODE_ENV === 'production' && window.location.reload()
             )
-        socket && socket.on('connect_error', handleOnError)
-        return () => socket && socket.off('connect_error', handleOnError)
-    }, [socket])
+        const handleOnSendMessage = () => setUnreadMessagesAmount(unreadMessagesAmount + 1)
+        if (socket) {
+            socket.on('sendMessage', handleOnSendMessage)
+            socket.on('connect_error', handleOnError)
+        }
+        return () => {
+            if (socket) {
+                socket.off('sendMessage', handleOnSendMessage)
+                socket.off('connect_error', handleOnError)
+            }
+        }
+    }, [socket, unreadMessagesAmount])
     const cartItemsAmount = hooks.useCart().cart.length
     return (
         <>
@@ -67,7 +88,8 @@ const User = ({ children }) => {
                     },
                     {
                         option: 'Chat',
-                        pathname: '/user/chat'
+                        pathname: '/user/chat',
+                        counter: unreadMessagesAmount <= 99 ? unreadMessagesAmount : 99
                     },
                     {
                         option: 'Logout'
