@@ -38,17 +38,70 @@ self.addEventListener('message', event => {
 
 self.addEventListener('push', event => {
     const { title, body, image, icon, data } = event.data.json()
+    const isFocused = () =>
+        clients
+            .matchAll({
+                type: 'window',
+                includeUncontrolled: true
+            })
+            .then(windows => {
+                let isFocused = false
+                for (let i = 0; i < windows.length; i++) {
+                    if (windows[i].focused) {
+                        isFocused = true
+                        break
+                    }
+                }
+                return isFocused
+            })
     event.waitUntil(
-        self.registration.showNotification(title, {
-            body,
-            image,
-            icon,
-            data
+        self.registration.getNotifications().then(notifications => {
+            let userNotificationExists, lastMessagesAmount
+            notifications.map(notification => {
+                const userNotification = notifications.some(
+                    notification => notification.data.userId === data.userId
+                )
+                if (userNotification) {
+                    userNotificationExists = true
+                    lastMessagesAmount = notification.data.messagesAmount
+                    notification.close()
+                } else {
+                    userNotificationExists = false
+                }
+            })
+            const messagesAmount = lastMessagesAmount + 1
+            return isFocused().then(isFocused =>
+                !isFocused
+                    ? self.registration.showNotification(title, {
+                          body: userNotificationExists
+                              ? `User ${data.userName} has sent ${messagesAmount} new messages`
+                              : body,
+                          image,
+                          icon,
+                          data: {
+                              ...data,
+                              messagesAmount: userNotificationExists ? messagesAmount : 1
+                          }
+                      })
+                    : null
+            )
         })
     )
 })
 
-self.addEventListener('notificationclick', ({ notification }) => {
-    notification.close()
-    clients.openWindow(notification.data.url)
+self.addEventListener('notificationclick', event => {
+    event.notification.close()
+    event.waitUntil(
+        clients
+            .matchAll({
+                type: 'window'
+            })
+            .then(clientsList => {
+                for (let i = 0; i < clientsList.length; i++) {
+                    const client = clientsList[i]
+                    if ('focus' in client) return client.focus()
+                }
+                return clients.openWindow(event.notification.data.url)
+            })
+    )
 })

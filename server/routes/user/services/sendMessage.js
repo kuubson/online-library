@@ -14,6 +14,7 @@ webpush.setVapidDetails(
 export default async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
+            const { id, name } = req.user
             const { content } = req.body
             await req.user.createMessage(
                 {
@@ -27,7 +28,7 @@ export default async (req, res, next) => {
             await User.findAll({
                 where: {
                     id: {
-                        [utils.Op.ne]: req.user.id
+                        [utils.Op.ne]: id
                     }
                 },
                 include: [Subscription]
@@ -45,9 +46,11 @@ export default async (req, res, next) => {
                                 },
                                 JSON.stringify({
                                     title: 'Online Library',
-                                    body: `User ${req.user.name} has sent a new message!`,
-                                    icon: `${utils.baseUrl(req)}/manifest-icon.png`,
+                                    body: `User ${name} has sent a new message!`,
+                                    icon: 'https://picsum.photos/1920/1080',
                                     data: {
+                                        userId: id,
+                                        userName: name,
                                         url: `${utils.baseUrl(req)}/user/chat`
                                     }
                                 })
