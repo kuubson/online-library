@@ -15,9 +15,10 @@ const UserContainer = styled(GuestContainer)``
 
 const User = ({ children, withChat }) => {
     const { socket, setSocket } = hooks.useSocket()
-    const [shouldMenuExpand, _setShouldMenuExpand] = useState(false)
     const { unreadMessagesAmount, setUnreadMessagesAmount } = hooks.useMessages()
-    const cartItemsAmount = hooks.useCart().cart.length
+    const { cart } = hooks.useCart()
+    const [shouldMenuExpand, _setShouldMenuExpand] = useState(false)
+    const [currentUserId, setCurrentUserId] = useState()
     useEffect(() => {
         if (!socket) {
             setTimeout(() => {
@@ -42,8 +43,9 @@ const User = ({ children, withChat }) => {
             const url = '/api/user/getUnreadMessagesAmount'
             const response = await utils.apiAxios.get(url)
             if (response) {
-                const { unreadMessagesAmount } = response.data
+                const { unreadMessagesAmount, userId } = response.data
                 setUnreadMessagesAmount(unreadMessagesAmount)
+                setCurrentUserId(userId)
             }
         }
         checkToken()
@@ -57,8 +59,10 @@ const User = ({ children, withChat }) => {
                 'Refresh the application',
                 () => process.env.NODE_ENV === 'production' && window.location.reload()
             )
-        const handleOnSendMessage = () =>
-            !withChat && setUnreadMessagesAmount(unreadMessagesAmount + 1)
+        const handleOnSendMessage = ({ userId }) =>
+            !withChat &&
+            userId !== currentUserId &&
+            setUnreadMessagesAmount(unreadMessagesAmount + 1)
         if (socket) {
             socket.on('sendMessage', handleOnSendMessage)
             socket.on('connect_error', handleOnError)
@@ -69,7 +73,7 @@ const User = ({ children, withChat }) => {
                 socket.off('connect_error', handleOnError)
             }
         }
-    }, [socket, unreadMessagesAmount])
+    }, [socket, unreadMessagesAmount, currentUserId])
     return (
         <>
             <USComposed.Menu
@@ -85,7 +89,7 @@ const User = ({ children, withChat }) => {
                     {
                         option: 'Cart',
                         pathname: '/user/cart',
-                        counter: cartItemsAmount <= 99 ? cartItemsAmount : 99
+                        counter: cart.length <= 99 ? cart.length : 99
                     },
                     {
                         option: 'Chat',

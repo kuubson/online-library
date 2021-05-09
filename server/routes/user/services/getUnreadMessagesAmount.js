@@ -17,7 +17,8 @@ export default async (req, res, next) => {
                 return unreadMessagesAmount
             })
             res.send({
-                unreadMessagesAmount
+                unreadMessagesAmount,
+                userId: id
             })
         })
     } catch (error) {

@@ -5,7 +5,7 @@ import utils from '@utils'
 export default async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
-            const { id } = req.user
+            const { id, name } = req.user
             const { limit, offset } = req.body
             const messages = await Message.findAll({
                 limit,
@@ -40,8 +40,8 @@ export default async (req, res, next) => {
             )
             res.send({
                 messages,
-                userId: req.user.id,
-                nameInitial: req.user.name.charAt(0)
+                userId: id,
+                nameInitial: name.charAt(0)
             })
         })
     } catch (error) {
