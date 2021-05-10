@@ -90,7 +90,11 @@ self.addEventListener('push', event => {
 })
 
 self.addEventListener('notificationclick', event => {
-    event.notification.close()
+    event.waitUntil(
+        self.registration
+            .getNotifications()
+            .then(notifications => notifications.map(notification => notification.close()))
+    )
     event.waitUntil(
         clients
             .matchAll({

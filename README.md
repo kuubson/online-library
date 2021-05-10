@@ -15,7 +15,7 @@ This app is based on **fake** book database and acts as an online library where 
 
 Users can create accounts classically by registering with an e-mail address or log in using a Facebook account. Each user has at their disposal a list of available books that can be sorted by title or author, and from which they can choose between free or paid books. He can add free books to his account and immediately start "reading" any of them and add paid books to the cart for which he must first pay using **test** stripe or paypal environments.
 
-Users have also chat for discussing about best books and authors or talking with possibility of sending images, videos or files.
+Users have also a chat for discussing about best books and authors or for talking to each other with possibility of sending images, videos or files.
 
 The app's code is an environment where I implement and test new technologies, improve my skills and gather all good habits in it.
 

@@ -52,7 +52,7 @@ export default styled.li`
                 content: '${counter}';
                 padding-top: 2px;
                 padding-left: 1.5px;
-                font-size: 12px;
+                font-size: 11px;
                 font-weight: bold;
                 color: black;
                 background: white;

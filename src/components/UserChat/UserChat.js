@@ -34,8 +34,8 @@ const UserChat = ({ shouldMenuExpand }) => {
     const isFileUploading = percentage > 0
     useEffect(() => {
         getMessages(20, 0)
-        utils.subscribePushNotifications('/api/user/subscribePushNotifications')
         setTimeout(() => {
+            utils.subscribePushNotifications('/api/user/subscribePushNotifications')
             setUnreadMessagesAmount(0)
         }, 0)
     }, [])
