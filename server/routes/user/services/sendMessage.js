@@ -46,11 +46,11 @@ export default async (req, res, next) => {
                                     }
                                 },
                                 JSON.stringify({
-                                    title: 'Online Library',
-                                    body: `User ${name} has sent a new message`,
+                                    tag: id,
+                                    title: `From ${name}`,
+                                    body: `${content}`,
                                     icon: 'https://picsum.photos/1920/1080',
                                     data: {
-                                        userId: id,
                                         userName: name,
                                         url: `${utils.baseUrl(req)}/user/chat`
                                     }

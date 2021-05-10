@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
 export default styled.div`
+    min-height: 40px;
     margin-bottom: 10px;
     border-radius: 12px;
     background: rgba(0, 136, 255, 0.2);

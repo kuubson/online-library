@@ -311,7 +311,7 @@ const UserChat = ({ shouldMenuExpand }) => {
                     <USDashboard.Button
                         onClick={() => {
                             sendMessage()
-                            textareaRef.current.focus()
+                            utils.isMobile() && textareaRef.current.focus()
                         }}
                         withChat
                     >

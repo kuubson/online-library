@@ -34,7 +34,9 @@ export default async (req, res, next) => {
                     500
                 )
         }
+        let message
         if (type === 'IMAGE') {
+            message = 'has sent a new image'
             const { public_id, secure_url } = await cloudinary.v2.uploader.upload(path, {
                 use_filename: true
             })
@@ -42,6 +44,7 @@ export default async (req, res, next) => {
             cloudinaryId = public_id
         }
         if (type === 'VIDEO') {
+            message = 'has sent a new video'
             const { public_id, secure_url } = await cloudinary.v2.uploader.upload(path, {
                 resource_type: 'video',
                 use_filename: true
@@ -50,6 +53,7 @@ export default async (req, res, next) => {
             cloudinaryId = public_id
         }
         if (type === 'FILE') {
+            message = 'has sent a new file'
             const { public_id, secure_url } = await cloudinary.v2.uploader.upload(path, {
                 resource_type: 'raw',
                 use_filename: true
@@ -85,11 +89,11 @@ export default async (req, res, next) => {
                                 }
                             },
                             JSON.stringify({
-                                title: 'Online Library',
-                                body: `User ${name} has sent a new message`,
+                                tag: id,
+                                title: `User ${name}`,
+                                body: message,
                                 icon: 'https://picsum.photos/1920/1080',
                                 data: {
-                                    userId: id,
                                     userName: name,
                                     url: `${utils.baseUrl(req)}/user/chat`
                                 }
