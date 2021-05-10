@@ -52,27 +52,12 @@ const User = ({ children, withChat }) => {
         getUnreadMessagesAmount()
     }, [])
     useEffect(() => {
-        const handleOnError = () =>
-            utils.setFeedbackData(
-                'Connecting to the server',
-                `A connection couldn't be established with the server or an unexpected problem occurred on its side`,
-                'Refresh the application',
-                () => process.env.NODE_ENV === 'production' && window.location.reload()
-            )
         const handleOnSendMessage = ({ userId }) =>
             !withChat &&
             userId !== currentUserId &&
             setUnreadMessagesAmount(unreadMessagesAmount + 1)
-        if (socket) {
-            socket.on('sendMessage', handleOnSendMessage)
-            socket.on('connect_error', handleOnError)
-        }
-        return () => {
-            if (socket) {
-                socket.off('sendMessage', handleOnSendMessage)
-                socket.off('connect_error', handleOnError)
-            }
-        }
+        socket && socket.on('sendMessage', handleOnSendMessage)
+        return () => socket && socket.off('sendMessage', handleOnSendMessage)
     }, [socket, unreadMessagesAmount, currentUserId])
     return (
         <>

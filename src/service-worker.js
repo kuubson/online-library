@@ -56,31 +56,31 @@ self.addEventListener('push', event => {
             })
     event.waitUntil(
         self.registration.getNotifications().then(notifications => {
-            let userNotificationExists, lastMessagesAmount
+            let doesUserNotificationExist, lastMessagesAmount
             notifications.map(notification => {
                 const userNotification = notifications.some(
                     notification => notification.data.userId === data.userId
                 )
                 if (userNotification) {
-                    userNotificationExists = true
+                    doesUserNotificationExist = true
                     lastMessagesAmount = notification.data.messagesAmount
                     notification.close()
                 } else {
-                    userNotificationExists = false
+                    doesUserNotificationExist = false
                 }
             })
             const messagesAmount = lastMessagesAmount + 1
             return isFocused().then(isFocused =>
                 !isFocused
                     ? self.registration.showNotification(title, {
-                          body: userNotificationExists
+                          body: doesUserNotificationExist
                               ? `User ${data.userName} has sent ${messagesAmount} new messages`
                               : body,
                           image,
                           icon,
                           data: {
                               ...data,
-                              messagesAmount: userNotificationExists ? messagesAmount : 1
+                              messagesAmount: doesUserNotificationExist ? messagesAmount : 1
                           }
                       })
                     : null

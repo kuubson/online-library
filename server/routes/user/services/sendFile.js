@@ -2,13 +2,9 @@ import fs from 'fs'
 import cloudinary from 'cloudinary'
 import webpush from 'web-push'
 
-import utils from '@utils'
+import { User, Subscription } from '@database'
 
-webpush.setVapidDetails(
-    `mailto:${process.env.NODEMAILER_USERNAME}`,
-    process.env.REACT_APP_PUBLIC_VAPID_KEY,
-    process.env.PRIVATE_VAPID_KEY
-)
+import utils from '@utils'
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,
@@ -19,6 +15,7 @@ cloudinary.config({
 export default async (req, res, next) => {
     const { filename, path } = req.file
     try {
+        const { id, name } = req.user
         let type, content, cloudinaryId
         switch (true) {
             case /jpg|jpeg|png|gif/i.test(filename):
@@ -68,6 +65,44 @@ export default async (req, res, next) => {
             content,
             cloudinaryId
         })
+        await User.findAll({
+            where: {
+                id: {
+                    [utils.Op.ne]: id
+                }
+            },
+            include: [Subscription]
+        }).then(users =>
+            users.map(user => {
+                user.subscriptions.map(subscription => {
+                    webpush
+                        .sendNotification(
+                            {
+                                endpoint: subscription.endpoint,
+                                keys: {
+                                    p256dh: subscription.p256dh,
+                                    auth: subscription.auth
+                                }
+                            },
+                            JSON.stringify({
+                                title: 'Online Library',
+                                body: `User ${name} has sent a new message`,
+                                icon: 'https://picsum.photos/1920/1080',
+                                data: {
+                                    userId: id,
+                                    userName: name,
+                                    url: `${utils.baseUrl(req)}/user/chat`
+                                }
+                            })
+                        )
+                        .catch(async ({ statusCode }) => {
+                            if (statusCode === 410) {
+                                await subscription.destroy()
+                            }
+                        })
+                })
+            })
+        )
         res.send({
             type,
             content
