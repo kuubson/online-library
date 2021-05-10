@@ -33,4 +33,10 @@ export default styled.div`
         css`
             margin-bottom: 0px;
         `}
+    ${({ withFile }) =>
+        withFile &&
+        css`
+            font-weight: bold;
+            cursor: pointer;
+        `}
 `

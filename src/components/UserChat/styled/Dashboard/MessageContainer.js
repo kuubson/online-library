@@ -14,6 +14,6 @@ export default styled.div`
     ${({ withLastUserMessage }) =>
         withLastUserMessage &&
         css`
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         `}
 `

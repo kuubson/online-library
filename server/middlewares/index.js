@@ -14,6 +14,8 @@ import checkValidation from './checkValidation'
 import rateLimiter from './rateLimiter'
 import jwtAuthorization from './jwtAuthorization'
 import facebookAuthorization from './facebookAuthorization'
+import multerFile from './multerFile'
+import handleMulterFile from './handleMulterFile'
 
 import utils from '@utils'
 
@@ -55,5 +57,7 @@ export default {
     checkValidation,
     rateLimiter,
     jwtAuthorization,
-    facebookAuthorization
+    facebookAuthorization,
+    multerFile,
+    handleMulterFile
 }

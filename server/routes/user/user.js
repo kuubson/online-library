@@ -8,7 +8,7 @@ const router = Router()
 
 router.post(
     '/register',
-    rateLimiter('registration'),
+    middlewares.rateLimiter('registration'),
     Services.register.validation(),
     middlewares.checkValidation,
     Services.register.default
@@ -16,7 +16,7 @@ router.post(
 
 router.post(
     '/authenticateEmail',
-    rateLimiter('email authentication'),
+    middlewares.rateLimiter('email authentication'),
     Services.authenticateEmail.validation(),
     middlewares.checkValidation,
     Services.authenticateEmail.default
@@ -24,7 +24,7 @@ router.post(
 
 router.post(
     '/resendEmail',
-    rateLimiter('resending email'),
+    middlewares.rateLimiter('resending email'),
     Services.resendEmail.validation(),
     middlewares.checkValidation,
     Services.resendEmail.default
@@ -32,7 +32,7 @@ router.post(
 
 router.post(
     '/login',
-    rateLimiter('login'),
+    middlewares.rateLimiter('login'),
     Services.login.validation(),
     middlewares.checkValidation,
     Services.login.default
@@ -40,7 +40,7 @@ router.post(
 
 router.post(
     '/loginWithFacebook',
-    rateLimiter('login'),
+    middlewares.rateLimiter('login'),
     middlewares.facebookAuthorization,
     Services.loginWithFacebook.validation(),
     middlewares.checkValidation,
@@ -49,7 +49,7 @@ router.post(
 
 router.post(
     '/recoverPassword',
-    rateLimiter('recovering password'),
+    middlewares.rateLimiter('recovering password'),
     Services.recoverPassword.validation(),
     middlewares.checkValidation,
     Services.recoverPassword.default
@@ -57,7 +57,7 @@ router.post(
 
 router.post(
     '/checkPasswordToken',
-    rateLimiter('recovering password'),
+    middlewares.rateLimiter('recovering password'),
     Services.checkPasswordToken.validation(),
     middlewares.checkValidation,
     Services.checkPasswordToken.default
@@ -65,7 +65,7 @@ router.post(
 
 router.post(
     '/changePassword',
-    rateLimiter('changing password'),
+    middlewares.rateLimiter('changing password'),
     Services.changePassword.validation(),
     middlewares.checkValidation,
     Services.changePassword.default
@@ -130,6 +130,14 @@ router.post(
 router.get('/getUserBooks', middlewares.jwtAuthorization, Services.getUserBooks.default)
 
 router.post(
+    '/getMessages',
+    middlewares.jwtAuthorization,
+    Services.getMessages.validation(),
+    middlewares.checkValidation,
+    Services.getMessages.default
+)
+
+router.post(
     '/sendMessage',
     middlewares.jwtAuthorization,
     Services.sendMessage.validation(),
@@ -138,11 +146,10 @@ router.post(
 )
 
 router.post(
-    '/getMessages',
+    '/sendFile',
     middlewares.jwtAuthorization,
-    Services.getMessages.validation(),
-    middlewares.checkValidation,
-    Services.getMessages.default
+    middlewares.handleMulterFile(),
+    Services.sendFile.default
 )
 
 router.post(

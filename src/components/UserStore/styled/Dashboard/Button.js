@@ -80,6 +80,7 @@ export default styled.button`
             white-space: nowrap;
             margin-right: 10px;
             letter-spacing: 1px;
+            cursor: pointer;
             @media (max-width: 800px) {
                 font-size: 10px;
             }

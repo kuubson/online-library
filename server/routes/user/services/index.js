@@ -16,6 +16,7 @@ import * as executePayPalPayment from './executePayPalPayment'
 import * as getUserBooks from './getUserBooks'
 import * as getMessages from './getMessages'
 import * as sendMessage from './sendMessage'
+import * as sendFile from './sendFile'
 import * as subscribePushNotifications from './subscribePushNotifications'
 import * as getUnreadMessagesAmount from './getUnreadMessagesAmount'
 
@@ -38,6 +39,7 @@ export default {
     getUserBooks,
     getMessages,
     sendMessage,
+    sendFile,
     subscribePushNotifications,
     getUnreadMessagesAmount
 }

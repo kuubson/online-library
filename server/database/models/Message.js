@@ -15,6 +15,9 @@ export default sequelize => {
             readBy: {
                 type: TEXT,
                 defaultValue: ''
+            },
+            cloudinaryId: {
+                type: TEXT
             }
         },
         {

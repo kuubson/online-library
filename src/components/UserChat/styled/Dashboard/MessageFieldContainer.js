@@ -10,7 +10,7 @@ export default styled.div`
     justify-content: center;
     align-items: center;
     position: fixed;
-    bottom: 25px;
+    bottom: 20px;
     left: 50%;
     transform: translate(-50%, 0px);
 `

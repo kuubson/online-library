@@ -8,7 +8,7 @@ export default request => {
             const status = 429
             res.status(status).send({
                 status,
-                errorMessage: `You have exceeded ${request} requests. Try again later.`
+                errorMessage: `You have exceeded ${request} requests. Try again later`
             })
         }
     })

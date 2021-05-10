@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components/macro'
 import axios from 'axios'
+import fileSaver from 'file-saver'
 
 import hooks from 'hooks'
 
@@ -9,9 +10,13 @@ import { UserStoreContainer } from 'components/UserStore/UserStore'
 import USDashboard from 'components/UserStore/styled/Dashboard'
 import Dashboard from './styled/Dashboard'
 
+import Composed from './composed'
+
 import utils from 'utils'
 
-const UserChatContainer = styled(UserStoreContainer)``
+const UserChatContainer = styled(UserStoreContainer)`
+    justify-content: flex-start;
+`
 
 const UserChat = ({ shouldMenuExpand }) => {
     const { socket } = hooks.useSocket()
@@ -21,6 +26,8 @@ const UserChat = ({ shouldMenuExpand }) => {
     const [messages, setMessages] = useState([])
     const [message, setMessage] = useState('')
     const [hasMoreMessages, setHasMoreMessages] = useState(true)
+    const [shouldFileInputExist, setShouldFileInputExist] = useState(true)
+    const [percentage, setPercentage] = useState(0)
     const messagesRef = useRef()
     const textareaRef = useRef()
     const endOfMessages = useRef()
@@ -32,25 +39,19 @@ const UserChat = ({ shouldMenuExpand }) => {
         }, 0)
     }, [])
     useEffect(() => {
-        const handleOnSendMessage = ({ id, content, userId, nameInitial }) => {
-            setMessages(messages => [
-                ...messages,
-                {
-                    id,
-                    content,
-                    userId,
-                    nameInitial
-                }
-            ])
-            scrollToLastMessage(0)
+        const handleOnSendMessage = message => {
+            setMessages(messages => [...messages, message])
+            if (message.type === 'MESSAGE' || message.type === 'FILE') {
+                scrollToLastMessage(0)
+            }
             socket.emit('readMessages')
         }
         socket && socket.on('sendMessage', handleOnSendMessage)
         return () => socket && socket.off('sendMessage', handleOnSendMessage)
     }, [socket])
-    const getMessages = async (limit, offset, event) => {
+    const getMessages = async (limit, offset, e) => {
         const url = '/api/user/getMessages'
-        if (event && event.target.scrollTop <= 0 && hasMoreMessages) {
+        if (e && e.target.scrollTop <= 0 && hasMoreMessages) {
             const response = await utils.apiAxios.post(url, {
                 limit,
                 offset
@@ -58,59 +59,22 @@ const UserChat = ({ shouldMenuExpand }) => {
             if (response) {
                 const { messages: loadedMessages } = response.data
                 setHasMoreMessages(loadedMessages.length !== 0)
-                const lastScroll = event.target.scrollHeight
+                const lastScroll = e.target.scrollHeight
                 setMessages(messages => [...loadedMessages, ...messages])
-                event.target.scrollTop = event.target.scrollHeight - lastScroll
+                e.target.scrollTop = e.target.scrollHeight - lastScroll
             }
         }
-        if (!event) {
+        if (!e) {
             const response = await utils.apiAxios.post(url, {
                 limit,
                 offset
             })
             if (response) {
                 const { messages, userId, nameInitial } = response.data
-                setMessages(messages)
                 setCurrentUserId(userId)
                 setCurrentUserNameInitial(nameInitial)
+                setMessages(messages)
                 pushToLastMessage()
-            }
-        }
-    }
-    const sendMessage = async () => {
-        if (message.trim()) {
-            const lastMessage = messages[messages.length - 1]
-            const id = lastMessage ? lastMessage.id + 1 : 0
-            setMessages(messages => [
-                ...messages,
-                {
-                    id,
-                    content: message,
-                    userId: currentUserId,
-                    nameInitial: currentUserNameInitial
-                }
-            ])
-            pushToLastMessage()
-            setTimeout(() => {
-                setMessage('')
-            }, 0)
-            try {
-                const url = '/api/user/sendMessage'
-                const response = await axios.post(url, {
-                    content: message
-                })
-                if (response) {
-                    socket.emit('sendMessage', {
-                        id,
-                        content: message,
-                        userId: currentUserId,
-                        nameInitial: currentUserNameInitial
-                    })
-                }
-            } catch (error) {
-                const conversation = messages
-                setMessages(conversation)
-                utils.handleApiError(error)
             }
         }
     }
@@ -124,39 +88,189 @@ const UserChat = ({ shouldMenuExpand }) => {
         )
     const pushToLastMessage = () =>
         setTimeout(() => (messagesRef.current.scrollTop = messagesRef.current.scrollHeight), 0)
+    const sendMessage = async () => {
+        if (message.trim()) {
+            const lastMessage = messages[messages.length - 1]
+            const id = lastMessage ? lastMessage.id + 1 : 0
+            const _message = {
+                id,
+                type: 'MESSAGE',
+                content: message,
+                userId: currentUserId,
+                nameInitial: currentUserNameInitial
+            }
+            setMessages(messages => [...messages, _message])
+            pushToLastMessage()
+            setTimeout(() => {
+                setMessage('')
+            }, 0)
+            try {
+                const url = '/api/user/sendMessage'
+                const response = await axios.post(url, {
+                    content: message
+                })
+                if (response) {
+                    socket.emit('sendMessage', _message)
+                }
+            } catch (error) {
+                const conversation = messages
+                setMessages(conversation)
+                utils.handleApiError(error)
+            }
+        }
+    }
+    const sendFile = async e => {
+        let intervalId
+        let percentage = 0
+        const file = e.target.files[0]
+        if (file) {
+            const path = e.target.value
+            const { name, size } = file
+            const imageExtensions = /\.(jpg|jpeg|png|gif)$/i
+            const videoExtensions = /\.(mp4)$/i
+            const fileExtensions = /\.(txt|rtf|doc|docx|xlsx|ppt|pptx|pdf)$/i
+            const isImage = imageExtensions.test(path) || imageExtensions.test(name)
+            const isVideo = videoExtensions.test(path) || videoExtensions.test(name)
+            const isFile = fileExtensions.test(path) || fileExtensions.test(name)
+            const resetFileInput = () => {
+                setShouldFileInputExist(false)
+                setShouldFileInputExist(true)
+            }
+            const largeSizeError = () => {
+                return utils.setFeedbackData(
+                    'Sending a file',
+                    'You cannot send file with such a large size'
+                )
+            }
+            if (!isImage && !isVideo && !isFile) {
+                resetFileInput()
+                return utils.setFeedbackData(
+                    'Sending a file',
+                    'You cannot send file with such an extension'
+                )
+            }
+            if (isImage) {
+                if (size > 31457280) {
+                    resetFileInput() // 30MB
+                    largeSizeError()
+                }
+            }
+            if (isVideo) {
+                if (size > 52428800) {
+                    resetFileInput() // 50MB
+                    largeSizeError()
+                }
+            }
+            if (isFile) {
+                if (size > 10485760) {
+                    resetFileInput() // 10MB
+                    largeSizeError()
+                }
+            }
+            const form = new FormData()
+            form.append('file', file)
+            try {
+                const url = '/api/user/sendFile'
+                intervalId = setInterval(() => {
+                    if (percentage < 100) {
+                        percentage++
+                        setPercentage(percentage => percentage + 1)
+                    }
+                }, 300)
+                const response = await axios.post(url, form)
+                if (response) {
+                    setPercentage(100)
+                    clearInterval(intervalId)
+                    setTimeout(() => {
+                        setPercentage(0)
+                    }, 800)
+                    const { type, content } = response.data
+                    const lastMessage = messages[messages.length - 1]
+                    const id = lastMessage ? lastMessage.id + 1 : 0
+                    const message = {
+                        id,
+                        type,
+                        content,
+                        userId: currentUserId,
+                        nameInitial: currentUserNameInitial
+                    }
+                    setMessages([...messages, message])
+                    scrollToLastMessage(0)
+                    resetFileInput()
+                    socket.emit('sendMessage', message)
+                }
+            } catch (error) {
+                resetFileInput()
+                clearInterval(intervalId)
+                setPercentage(0)
+            }
+        }
+    }
     return (
         <UserChatContainer shouldMenuExpand={shouldMenuExpand}>
             <Dashboard.ChatContainer>
                 <Dashboard.Messages
                     ref={messagesRef}
-                    onTouchStart={() => textareaRef.current && textareaRef.current.blur()}
+                    onTouchStart={() =>
+                        utils.isMobile() && textareaRef.current && textareaRef.current.blur()
+                    }
                     onScroll={e => getMessages(20, messages.length, e)}
                 >
-                    {messages.map(({ id, content, userId, nameInitial }, index) => {
+                    {messages.map(({ id, type, content, userId, nameInitial }, index) => {
                         const withCurrentUser = userId === currentUserId
                         const message = messages[index]
                         const nextMessage = messages[index + 1]
                         const withLastUserMessage =
                             (message && nextMessage && message.userId !== nextMessage.userId) ||
                             !nextMessage
+                        const withLastMessage = index === messages.length - 1
+                        const withFile = type === 'FILE'
+                        const showAvatar = () => (
+                            <Dashboard.Avatar withCurrentUser={withCurrentUser}>
+                                {nameInitial}
+                            </Dashboard.Avatar>
+                        )
                         return (
                             <Dashboard.MessageContainer
                                 key={id}
                                 withCurrentUser={withCurrentUser}
                                 withLastUserMessage={withLastUserMessage && nextMessage}
                             >
-                                <Dashboard.Message
-                                    withCurrentUser={withCurrentUser}
-                                    withLastUserMessage={withLastUserMessage}
-                                    withLastMessage={index === messages.length - 1}
-                                >
-                                    {content}
-                                    {withLastUserMessage && (
-                                        <Dashboard.Avatar withCurrentUser={withCurrentUser}>
-                                            {nameInitial}
-                                        </Dashboard.Avatar>
-                                    )}
-                                </Dashboard.Message>
+                                {type === 'IMAGE' ? (
+                                    <Dashboard.AssetContainer withLastMessage={withLastMessage}>
+                                        <Dashboard.Image
+                                            src={content}
+                                            onLoad={() => withLastMessage && scrollToLastMessage(0)}
+                                        />
+                                        {withLastUserMessage && showAvatar()}
+                                    </Dashboard.AssetContainer>
+                                ) : type === 'VIDEO' ? (
+                                    <Dashboard.AssetContainer>
+                                        <Dashboard.Video
+                                            src={content}
+                                            onLoadStart={() =>
+                                                withLastMessage && scrollToLastMessage(0)
+                                            }
+                                            controls
+                                            withLastMessage={withLastMessage}
+                                        />
+                                        {withLastUserMessage && showAvatar()}
+                                    </Dashboard.AssetContainer>
+                                ) : (
+                                    <Dashboard.Message
+                                        onClick={() =>
+                                            withFile &&
+                                            fileSaver.saveAs(content, content.split('_')[1])
+                                        }
+                                        withCurrentUser={withCurrentUser}
+                                        withLastUserMessage={withLastUserMessage}
+                                        withLastMessage={withLastMessage}
+                                        withFile={withFile}
+                                    >
+                                        {withFile ? content.split('_')[1] : content}
+                                        {withLastUserMessage && showAvatar()}
+                                    </Dashboard.Message>
+                                )}
                             </Dashboard.MessageContainer>
                         )
                     })}
@@ -184,7 +298,14 @@ const UserChat = ({ shouldMenuExpand }) => {
                             }
                         }}
                     />
-                    <USDashboard.Button withChat>Upload file</USDashboard.Button>
+                    {percentage > 0 ? (
+                        <Composed.ProgressLoader percentage={percentage} />
+                    ) : (
+                        <USDashboard.Button as="label" htmlFor="file" withChat>
+                            Upload file
+                        </USDashboard.Button>
+                    )}
+                    {shouldFileInputExist && <Dashboard.FileInput onChange={sendFile} />}
                     <USDashboard.Button
                         onClick={() => {
                             sendMessage()
