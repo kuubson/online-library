@@ -31,6 +31,7 @@ const UserChat = ({ shouldMenuExpand }) => {
     const messagesRef = useRef()
     const textareaRef = useRef()
     const endOfMessages = useRef()
+    const isFileUploading = percentage > 0
     useEffect(() => {
         getMessages(20, 0)
         utils.subscribePushNotifications('/api/user/subscribePushNotifications')
@@ -260,14 +261,14 @@ const UserChat = ({ shouldMenuExpand }) => {
                                     <Dashboard.Message
                                         onClick={() =>
                                             withFile &&
-                                            fileSaver.saveAs(content, content.split('_')[1])
+                                            fileSaver.saveAs(content, content.split('filename')[1])
                                         }
                                         withCurrentUser={withCurrentUser}
                                         withLastUserMessage={withLastUserMessage}
                                         withLastMessage={withLastMessage}
                                         withFile={withFile}
                                     >
-                                        {withFile ? content.split('_')[1] : content}
+                                        {withFile ? content.split('filename')[1] : content}
                                         {withLastUserMessage && showAvatar()}
                                     </Dashboard.Message>
                                 )}
@@ -281,6 +282,7 @@ const UserChat = ({ shouldMenuExpand }) => {
                         ref={textareaRef}
                         value={message}
                         placeholder="Type your message..."
+                        disabled={isFileUploading}
                         onChange={e => setMessage(e.target.value)}
                         onFocus={() => scrollToLastMessage(500)}
                         onKeyPress={e => {
@@ -298,7 +300,7 @@ const UserChat = ({ shouldMenuExpand }) => {
                             }
                         }}
                     />
-                    {percentage > 0 ? (
+                    {isFileUploading ? (
                         <Composed.ProgressLoader percentage={percentage} />
                     ) : (
                         <USDashboard.Button as="label" htmlFor="file" withChat>
