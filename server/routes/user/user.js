@@ -8,6 +8,7 @@ const router = Router()
 
 router.post(
     '/register',
+    rateLimiter('registration'),
     Services.register.validation(),
     middlewares.checkValidation,
     Services.register.default
@@ -15,6 +16,7 @@ router.post(
 
 router.post(
     '/authenticateEmail',
+    rateLimiter('email authentication'),
     Services.authenticateEmail.validation(),
     middlewares.checkValidation,
     Services.authenticateEmail.default
@@ -22,6 +24,7 @@ router.post(
 
 router.post(
     '/resendEmail',
+    rateLimiter('resending email'),
     Services.resendEmail.validation(),
     middlewares.checkValidation,
     Services.resendEmail.default
@@ -29,6 +32,7 @@ router.post(
 
 router.post(
     '/login',
+    rateLimiter('login'),
     Services.login.validation(),
     middlewares.checkValidation,
     Services.login.default
@@ -36,6 +40,7 @@ router.post(
 
 router.post(
     '/loginWithFacebook',
+    rateLimiter('login'),
     middlewares.facebookAuthorization,
     Services.loginWithFacebook.validation(),
     middlewares.checkValidation,
@@ -44,6 +49,7 @@ router.post(
 
 router.post(
     '/recoverPassword',
+    rateLimiter('recovering password'),
     Services.recoverPassword.validation(),
     middlewares.checkValidation,
     Services.recoverPassword.default
@@ -51,6 +57,7 @@ router.post(
 
 router.post(
     '/checkPasswordToken',
+    rateLimiter('recovering password'),
     Services.checkPasswordToken.validation(),
     middlewares.checkValidation,
     Services.checkPasswordToken.default
@@ -58,6 +65,7 @@ router.post(
 
 router.post(
     '/changePassword',
+    rateLimiter('changing password'),
     Services.changePassword.validation(),
     middlewares.checkValidation,
     Services.changePassword.default

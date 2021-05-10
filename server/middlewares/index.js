@@ -11,6 +11,7 @@ initPassport(passport)
 
 import errorHandler from './errorHandler'
 import checkValidation from './checkValidation'
+import rateLimiter from './rateLimiter'
 import jwtAuthorization from './jwtAuthorization'
 import facebookAuthorization from './facebookAuthorization'
 
@@ -52,6 +53,7 @@ export default {
     init,
     errorHandler,
     checkValidation,
+    rateLimiter,
     jwtAuthorization,
     facebookAuthorization
 }

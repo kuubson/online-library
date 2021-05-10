@@ -47,7 +47,7 @@ export default async (req, res, next) => {
                                 },
                                 JSON.stringify({
                                     title: 'Online Library',
-                                    body: `User ${name} has sent a new message!`,
+                                    body: `User ${name} has sent a new message`,
                                     icon: 'https://picsum.photos/1920/1080',
                                     data: {
                                         userId: id,

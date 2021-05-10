@@ -14,11 +14,11 @@ transporter.verify((error, success) => {
     if (error) {
         console.log({
             error,
-            message: 'There was a problem connecting to the Online Library email!'
+            message: 'There was a problem connecting to the Online Library email'
         })
     }
     if (success) {
-        console.log('The connection with Online Library email has been successfully established!')
+        console.log('The connection with Online Library email has been successfully established')
     }
 })
 
