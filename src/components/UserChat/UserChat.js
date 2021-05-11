@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components/macro'
 import axios from 'axios'
-import fileSaver from 'file-saver'
 
 import hooks from 'hooks'
 
@@ -210,73 +209,17 @@ const UserChat = ({ shouldMenuExpand }) => {
     return (
         <UserChatContainer shouldMenuExpand={shouldMenuExpand}>
             <Dashboard.ChatContainer>
-                <Dashboard.Messages
+                <Composed.Messages
                     ref={messagesRef}
+                    messages={messages}
+                    endOfMessages={endOfMessages}
+                    currentUserId={currentUserId}
                     onTouchStart={() =>
                         utils.isMobile() && textareaRef.current && textareaRef.current.blur()
                     }
                     onScroll={e => getMessages(20, messages.length, e)}
-                >
-                    {messages.map(({ id, type, content, userId, nameInitial }, index) => {
-                        const withCurrentUser = userId === currentUserId
-                        const message = messages[index]
-                        const nextMessage = messages[index + 1]
-                        const withLastUserMessage =
-                            (message && nextMessage && message.userId !== nextMessage.userId) ||
-                            !nextMessage
-                        const withLastMessage = index === messages.length - 1
-                        const withFile = type === 'FILE'
-                        const showAvatar = () => (
-                            <Dashboard.Avatar withCurrentUser={withCurrentUser}>
-                                {nameInitial}
-                            </Dashboard.Avatar>
-                        )
-                        return (
-                            <Dashboard.MessageContainer
-                                key={id}
-                                withCurrentUser={withCurrentUser}
-                                withLastUserMessage={withLastUserMessage && nextMessage}
-                            >
-                                {type === 'IMAGE' ? (
-                                    <Dashboard.AssetContainer withLastMessage={withLastMessage}>
-                                        <Dashboard.Image
-                                            src={content}
-                                            onLoad={() => withLastMessage && scrollToLastMessage(0)}
-                                        />
-                                        {withLastUserMessage && showAvatar()}
-                                    </Dashboard.AssetContainer>
-                                ) : type === 'VIDEO' ? (
-                                    <Dashboard.AssetContainer>
-                                        <Dashboard.Video
-                                            src={content}
-                                            onLoadStart={() =>
-                                                withLastMessage && scrollToLastMessage(0)
-                                            }
-                                            controls
-                                            withLastMessage={withLastMessage}
-                                        />
-                                        {withLastUserMessage && showAvatar()}
-                                    </Dashboard.AssetContainer>
-                                ) : (
-                                    <Dashboard.Message
-                                        onClick={() =>
-                                            withFile &&
-                                            fileSaver.saveAs(content, content.split('filename')[1])
-                                        }
-                                        withCurrentUser={withCurrentUser}
-                                        withLastUserMessage={withLastUserMessage}
-                                        withLastMessage={withLastMessage}
-                                        withFile={withFile}
-                                    >
-                                        {withFile ? content.split('filename')[1] : content}
-                                        {withLastUserMessage && showAvatar()}
-                                    </Dashboard.Message>
-                                )}
-                            </Dashboard.MessageContainer>
-                        )
-                    })}
-                    <div ref={endOfMessages}></div>
-                </Dashboard.Messages>
+                    scrollToLastMessage={scrollToLastMessage}
+                />
                 <Dashboard.MessageFieldContainer>
                     <Dashboard.MessageField
                         ref={textareaRef}

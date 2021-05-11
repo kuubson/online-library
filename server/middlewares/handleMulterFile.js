@@ -55,7 +55,7 @@ export default () => (req, res, next) =>
                                 next(
                                     new utils.ApiError(
                                         'Sending a file',
-                                        'Wystąpił niespodziewany problem przy wysyłaniu pliku',
+                                        'There was an unexpected problem when sending the file',
                                         500
                                     )
                                 )

@@ -1,8 +1,6 @@
 import ChatContainer from './ChatContainer'
 import MessageFieldContainer from './MessageFieldContainer'
 import MessageField from './MessageField'
-import Messages from './Messages'
-import MessageContainer from './MessageContainer'
 import Message from './Message'
 import AssetContainer from './AssetContainer'
 import Image from './Image'
@@ -14,8 +12,6 @@ export default {
     ChatContainer,
     MessageFieldContainer,
     MessageField,
-    Messages,
-    MessageContainer,
     AssetContainer,
     Image,
     Video,
