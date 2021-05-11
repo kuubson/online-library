@@ -3,11 +3,11 @@ import styled from 'styled-components/macro'
 
 import hooks from 'hooks'
 
-import animations from 'assets/animations'
-
 import { LoaderContainer } from 'components/common/Loader/Loader'
 
 import Dashboard from './styled/Dashboard'
+
+import animations from 'assets/animations'
 
 const FeedbackHandlerContainer = styled(LoaderContainer)`
     flex-direction: column;

@@ -1,21 +1,11 @@
-import ChatContainer from './ChatContainer'
-import MessageFieldContainer from './MessageFieldContainer'
-import MessageField from './MessageField'
-import Message from './Message'
-import AssetContainer from './AssetContainer'
-import Image from './Image'
-import Video from './Video'
-import Avatar from './Avatar'
+import Content from './Content'
+import TextareaContainer from './TextareaContainer'
+import Textarea from './Textarea'
 import FileInput from './FileInput'
 
 export default {
-    ChatContainer,
-    MessageFieldContainer,
-    MessageField,
-    AssetContainer,
-    Image,
-    Video,
-    Message,
-    Avatar,
+    Content,
+    TextareaContainer,
+    Textarea,
     FileInput
 }

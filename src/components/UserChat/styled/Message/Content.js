@@ -11,7 +11,6 @@ export default styled.div`
     border-radius: 12px;
     color: white;
     background: rgba(0, 136, 255, 0.4);
-    align-self: flex-end;
     position: relative;
     @media (max-width: 1000px) {
         font-size: 14px;
@@ -19,6 +18,11 @@ export default styled.div`
     @media (max-width: 700px) {
         font-size: 13px;
     }
+    ${({ withCurrentUser }) =>
+        withCurrentUser &&
+        css`
+            align-self: flex-end;
+        `}
     ${({ withCurrentUser, withLastUserMessage }) =>
         withLastUserMessage &&
         (withCurrentUser
@@ -28,11 +32,6 @@ export default styled.div`
             : css`
                   border-bottom-right-radius: 2px;
               `)}
-    ${({ withLastMessage }) =>
-        withLastMessage &&
-        css`
-            margin-bottom: 0px;
-        `}
     ${({ withFile }) =>
         withFile &&
         css`

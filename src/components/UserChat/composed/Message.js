@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components/macro'
 import fileSaver from 'file-saver'
 
-import Dashboard from '../styled/Dashboard'
+import StyledMessage from '../styled/Message'
 
 const MessageContainer = styled.div`
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
     align-self: flex-start;
+    cursor: pointer;
+    position: relative;
     ${({ withCurrentUser }) =>
         withCurrentUser &&
         css`
@@ -18,59 +20,81 @@ const MessageContainer = styled.div`
     ${({ withLastUserMessage }) =>
         withLastUserMessage &&
         css`
-            margin-bottom: 20px;
+            margin-bottom: 45px;
         `}
 `
 
 const Message = ({
     type,
     content,
+    userId,
+    nameInitial,
+    createdAt,
     nextMessage,
-    showAvatar,
+    currentUserId,
     scrollToLastMessage,
-    withCurrentUser,
-    withLastUserMessage,
-    withLastMessage,
-    withFile
+    withLastMessage
 }) => {
+    const [shouldDetailsAppear, setShouldDetailsAppear] = useState(false)
+    const withCurrentUser = userId === currentUserId
+    const withLastUserMessage = (nextMessage && userId !== nextMessage.userId) || !nextMessage
+    const withFile = type === 'FILE'
+    useEffect(() => scrollToTheBottom(), [])
+    useEffect(
+        () => shouldDetailsAppear && setTimeout(() => setShouldDetailsAppear(false), 3000),
+        [shouldDetailsAppear]
+    )
+    const scrollToTheBottom = () => withLastMessage && scrollToLastMessage(0)
+    const handleFileLoadingError = e => (e.target.parentNode.parentNode.style.display = 'none')
+    const showAvatar = () => (
+        <StyledMessage.Avatar withCurrentUser={withCurrentUser}>{nameInitial}</StyledMessage.Avatar>
+    )
     return (
         <MessageContainer
+            onClick={() => setShouldDetailsAppear(true)}
             withCurrentUser={withCurrentUser}
             withLastUserMessage={withLastUserMessage && nextMessage}
         >
             {type === 'IMAGE' ? (
-                <Dashboard.AssetContainer withLastMessage={withLastMessage}>
-                    <Dashboard.Image
+                <StyledMessage.Container>
+                    <StyledMessage.Image
                         src={content}
-                        onLoad={() => withLastMessage && scrollToLastMessage(0)}
-                        onError={e => (e.target.parentNode.parentNode.style.display = 'none')}
+                        onLoad={scrollToTheBottom}
+                        onError={handleFileLoadingError}
                     />
                     {withLastUserMessage && showAvatar()}
-                </Dashboard.AssetContainer>
+                </StyledMessage.Container>
             ) : type === 'VIDEO' ? (
-                <Dashboard.AssetContainer>
-                    <Dashboard.Video
+                <StyledMessage.Container>
+                    <StyledMessage.Video
                         src={content}
                         controls
-                        onLoadStart={() => withLastMessage && scrollToLastMessage(0)}
-                        onError={e => (e.target.parentNode.parentNode.style.display = 'none')}
+                        onLoadStart={scrollToTheBottom}
+                        onError={handleFileLoadingError}
                         withLastMessage={withLastMessage}
                     />
                     {withLastUserMessage && showAvatar()}
-                </Dashboard.AssetContainer>
+                </StyledMessage.Container>
             ) : (
-                <Dashboard.Message
+                <StyledMessage.Content
                     onClick={() =>
                         withFile && fileSaver.saveAs(content, content.split('filename')[1])
                     }
                     withCurrentUser={withCurrentUser}
                     withLastUserMessage={withLastUserMessage}
-                    withLastMessage={withLastMessage}
                     withFile={withFile}
                 >
                     {withFile ? content.split('filename')[1] : content}
                     {withLastUserMessage && showAvatar()}
-                </Dashboard.Message>
+                </StyledMessage.Content>
+            )}
+            {(withLastUserMessage || shouldDetailsAppear) && (
+                <StyledMessage.Date
+                    withCurrentUser={withCurrentUser}
+                    shouldDetailsAppear={shouldDetailsAppear}
+                >
+                    {new Date(createdAt).toLocaleString()}
+                </StyledMessage.Date>
             )}
         </MessageContainer>
     )

@@ -3,13 +3,13 @@ import styled from 'styled-components/macro'
 
 import hooks from 'hooks'
 
-import animations from 'assets/animations'
-
 import Dashboard from '../styled/Dashboard'
 
 import Composed from '.'
 
 import utils from 'utils'
+
+import animations from 'assets/animations'
 
 export const BookPopupContainer = styled.div`
     width: 100%;

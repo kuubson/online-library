@@ -1,11 +1,11 @@
 import React from 'react'
 import styled, { css } from 'styled-components/macro'
 
-import animations from 'assets/animations'
-
 import Dashboard from '../styled/Dashboard'
 
 import Composed from '.'
+
+import animations from 'assets/animations'
 
 const BooksContainer = styled.div`
     width: 55%;
@@ -43,10 +43,10 @@ const Books = ({
     books,
     error,
     header,
+    hasMore,
     setBookPopupData,
     renderBooksSuggestionsInput,
     loadMore,
-    hasMore,
     withCart,
     withProfile,
     withMarginRight,

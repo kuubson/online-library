@@ -16,9 +16,9 @@ const UserProfile = ({ shouldMenuExpand }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [boughtBooks, setBoughtBooks] = useState([])
     const [borrowedBooks, setBorrowedBooks] = useState([])
+    const [bookPopupData, setBookPopupData] = useState()
     const areThereBoughtBooks = boughtBooks.length > 0
     const areThereBorrowedBooks = borrowedBooks.length > 0
-    const [bookPopupData, setBookPopupData] = useState()
     useEffect(() => {
         const getUserBooks = async () => {
             const url = '/api/user/getUserBooks'

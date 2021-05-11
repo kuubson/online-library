@@ -11,6 +11,7 @@ export const GuestContainer = styled.section`
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
         url('https://picsum.photos/1920/1080') center center no-repeat;
     background-size: cover;
+    backface-visibility: hidden;
 `
 
 const Guest = ({ children }) => {

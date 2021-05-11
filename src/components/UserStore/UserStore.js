@@ -30,9 +30,9 @@ const UserStore = ({ shouldMenuExpand }) => {
     const [paidBooks, setPaidBooks] = useState([])
     const [hasMoreFreeBooks, setHasMoreFreeBooks] = useState(true)
     const [hasMorePaidBooks, setHasMorePaidBooks] = useState(true)
+    const [bookPopupData, setBookPopupData] = useState()
     const areThereFreeBooks = freeBooks.length > 0
     const areTherePaidBooks = paidBooks.length > 0
-    const [bookPopupData, setBookPopupData] = useState()
     useEffect(() => getBooks(0, 0, true), [])
     const getBooks = async (freeBooksOffset, paidBooksOffset, initialLoad) => {
         const url = '/api/user/getBooks'
@@ -68,26 +68,29 @@ const UserStore = ({ shouldMenuExpand }) => {
             )}
             {!isLoading &&
                 (!areThereFreeBooks && !areTherePaidBooks ? (
-                    <Composed.Books books={[]} error="The are no books in the library right now" />
+                    <Composed.Books
+                        books={[]}
+                        error="There are no books in the library right now"
+                    />
                 ) : areThereFreeBooks ? (
                     <>
                         <Composed.Books
                             books={freeBooks}
                             header="Find here awesome books"
-                            error="The are no free books in the library right now"
+                            error="There are no free books in the library right now"
+                            hasMore={hasMoreFreeBooks}
                             setBookPopupData={setBookPopupData}
                             renderBooksSuggestionsInput={renderBooksSuggestionsInput}
                             loadMore={() => getBooks(freeBooks.length, 0)}
-                            hasMore={hasMoreFreeBooks}
                             withMarginRight
                         />
                         <Composed.Books
                             books={paidBooks}
                             header="Choose some paid books"
-                            error="The are no paid books in the library right now"
+                            error="There are no paid books in the library right now"
+                            hasMore={hasMorePaidBooks}
                             setBookPopupData={setBookPopupData}
                             loadMore={() => getBooks(0, paidBooks.length)}
-                            hasMore={hasMorePaidBooks}
                         />
                     </>
                 ) : (
@@ -95,20 +98,20 @@ const UserStore = ({ shouldMenuExpand }) => {
                         <Composed.Books
                             books={paidBooks}
                             header="Choose some paid books"
-                            error="The are no paid books in the library right now"
+                            error="There are no paid books in the library right now"
+                            hasMore={hasMorePaidBooks}
                             setBookPopupData={setBookPopupData}
                             renderBooksSuggestionsInput={renderBooksSuggestionsInput}
                             loadMore={() => getBooks(0, paidBooks.length)}
-                            hasMore={hasMorePaidBooks}
                             withMarginRight
                         />
                         <Composed.Books
                             books={freeBooks}
                             header="Find here awesome books"
-                            error="The are no free books in the library right now"
+                            error="There are no free books in the library right now"
+                            hasMore={hasMoreFreeBooks}
                             setBookPopupData={setBookPopupData}
                             loadMore={() => getBooks(freeBooks.length, 0)}
-                            hasMore={hasMoreFreeBooks}
                         />
                     </>
                 ))}

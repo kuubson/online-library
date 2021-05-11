@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react'
-import styled from 'styled-components/macro'
+import React, { useRef, useEffect, useState } from 'react'
+import styled, { css } from 'styled-components/macro'
 import axios from 'axios'
 
 import hooks from 'hooks'
@@ -14,12 +14,24 @@ import Composed from './composed'
 import utils from 'utils'
 
 const UserChatContainer = styled(UserStoreContainer)`
-    justify-content: flex-start;
+    ${({ areThereMessages }) =>
+        areThereMessages
+            ? css`
+                  justify-content: flex-start;
+              `
+            : css`
+                  padding-bottom: 90px;
+                  align-items: center;
+              `}
 `
 
 const UserChat = ({ shouldMenuExpand }) => {
+    const messagesRef = useRef()
+    const textareaRef = useRef()
+    const endOfMessages = useRef()
     const { socket } = hooks.useSocket()
     const { setUnreadMessagesAmount } = hooks.useMessages()
+    const [isLoading, setIsLoading] = useState(true)
     const [currentUserId, setCurrentUserId] = useState()
     const [currentUserNameInitial, setCurrentUserNameInitial] = useState()
     const [messages, setMessages] = useState([])
@@ -27,16 +39,16 @@ const UserChat = ({ shouldMenuExpand }) => {
     const [hasMoreMessages, setHasMoreMessages] = useState(true)
     const [shouldFileInputExist, setShouldFileInputExist] = useState(true)
     const [percentage, setPercentage] = useState(0)
-    const messagesRef = useRef()
-    const textareaRef = useRef()
-    const endOfMessages = useRef()
+    const areThereMessages = messages.length > 0
     const isFileUploading = percentage > 0
     useEffect(() => {
         getMessages(20, 0)
         setTimeout(() => {
-            utils.subscribePushNotifications('/api/user/subscribePushNotifications')
             setUnreadMessagesAmount(0)
         }, 0)
+        setTimeout(() => {
+            utils.subscribePushNotifications('/api/user/subscribePushNotifications')
+        }, 2000)
     }, [])
     useEffect(() => {
         const handleOnSendMessage = message => {
@@ -70,6 +82,7 @@ const UserChat = ({ shouldMenuExpand }) => {
                 offset
             })
             if (response) {
+                setIsLoading(false)
                 const { messages, userId, nameInitial } = response.data
                 setCurrentUserId(userId)
                 setCurrentUserNameInitial(nameInitial)
@@ -81,13 +94,17 @@ const UserChat = ({ shouldMenuExpand }) => {
     const scrollToLastMessage = delay =>
         setTimeout(
             () =>
+                endOfMessages.current &&
                 endOfMessages.current.scrollIntoView({
                     behavior: 'smooth'
                 }),
             delay
         )
     const pushToLastMessage = () =>
-        setTimeout(() => (messagesRef.current.scrollTop = messagesRef.current.scrollHeight), 0)
+        setTimeout(() => {
+            const messages = messagesRef.current
+            messages && (messages.scrollTop = messages.scrollHeight)
+        }, 0)
     const sendMessage = async () => {
         if (message.trim()) {
             const lastMessage = messages[messages.length - 1]
@@ -97,7 +114,8 @@ const UserChat = ({ shouldMenuExpand }) => {
                 type: 'MESSAGE',
                 content: message,
                 userId: currentUserId,
-                nameInitial: currentUserNameInitial
+                nameInitial: currentUserNameInitial,
+                createdAt: new Date()
             }
             setMessages(messages => [...messages, _message])
             pushToLastMessage()
@@ -192,7 +210,8 @@ const UserChat = ({ shouldMenuExpand }) => {
                         type,
                         content,
                         userId: currentUserId,
-                        nameInitial: currentUserNameInitial
+                        nameInitial: currentUserNameInitial,
+                        createdAt: new Date()
                     }
                     setMessages([...messages, message])
                     scrollToLastMessage(0)
@@ -207,21 +226,28 @@ const UserChat = ({ shouldMenuExpand }) => {
         }
     }
     return (
-        <UserChatContainer shouldMenuExpand={shouldMenuExpand}>
-            <Dashboard.ChatContainer>
-                <Composed.Messages
-                    ref={messagesRef}
-                    messages={messages}
-                    endOfMessages={endOfMessages}
-                    currentUserId={currentUserId}
-                    onTouchStart={() =>
-                        utils.isMobile() && textareaRef.current && textareaRef.current.blur()
-                    }
-                    onScroll={e => getMessages(20, messages.length, e)}
-                    scrollToLastMessage={scrollToLastMessage}
-                />
-                <Dashboard.MessageFieldContainer>
-                    <Dashboard.MessageField
+        <UserChatContainer shouldMenuExpand={shouldMenuExpand} areThereMessages={areThereMessages}>
+            <Dashboard.Content>
+                {!isLoading &&
+                    (areThereMessages ? (
+                        <Composed.Messages
+                            ref={messagesRef}
+                            endOfMessages={endOfMessages}
+                            messages={messages}
+                            currentUserId={currentUserId}
+                            onTouchStart={() =>
+                                utils.isMobile() &&
+                                textareaRef.current &&
+                                textareaRef.current.blur()
+                            }
+                            onScroll={e => getMessages(20, messages.length, e)}
+                            scrollToLastMessage={scrollToLastMessage}
+                        />
+                    ) : (
+                        <USDashboard.Warning>There are no messages</USDashboard.Warning>
+                    ))}
+                <Dashboard.TextareaContainer>
+                    <Dashboard.Textarea
                         ref={textareaRef}
                         value={message}
                         placeholder="Type your message..."
@@ -260,8 +286,8 @@ const UserChat = ({ shouldMenuExpand }) => {
                     >
                         Send
                     </USDashboard.Button>
-                </Dashboard.MessageFieldContainer>
-            </Dashboard.ChatContainer>
+                </Dashboard.TextareaContainer>
+            </Dashboard.Content>
         </UserChatContainer>
     )
 }

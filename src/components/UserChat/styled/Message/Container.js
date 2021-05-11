@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components/macro'
+import styled from 'styled-components/macro'
 
 export default styled.div`
     min-height: 40px;
@@ -9,9 +9,4 @@ export default styled.div`
     justify-content: center;
     align-items: center;
     position: relative;
-    ${({ withLastMessage }) =>
-        withLastMessage &&
-        css`
-            margin-bottom: 0px;
-        `}
 `
