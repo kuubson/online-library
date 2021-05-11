@@ -1,5 +1,7 @@
 import styled from 'styled-components/macro'
 
+import animations from 'assets/animations'
+
 export default styled.div`
     padding: 10px;
     background: rgba(0, 136, 255, 0.4);
@@ -12,4 +14,5 @@ export default styled.div`
     left: 50%;
     transform: translate(-50%, 0px);
     z-index: 1;
+    animation: ${animations.fadeIn} 0.5s ease-in-out;
 `

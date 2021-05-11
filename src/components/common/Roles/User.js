@@ -15,8 +15,12 @@ const UserContainer = styled(GuestContainer)``
 
 const User = ({ children, withChat }) => {
     const { socket, setSocket } = hooks.useSocket()
-    const { unreadMessagesAmount, setUnreadMessagesAmount, setLastUnreadMessageIndex } =
-        hooks.useMessages()
+    const {
+        lastUnreadMessageIndex,
+        unreadMessagesAmount,
+        setLastUnreadMessageIndex,
+        setUnreadMessagesAmount
+    } = hooks.useMessages()
     const { cart } = hooks.useCart()
     const [shouldMenuExpand, _setShouldMenuExpand] = useState(false)
     const [currentUserId, setCurrentUserId] = useState()
@@ -54,10 +58,14 @@ const User = ({ children, withChat }) => {
         getUnreadMessagesInfo()
     }, [])
     useEffect(() => {
-        const handleOnSendMessage = ({ userId }) =>
-            !withChat &&
-            userId !== currentUserId &&
-            setUnreadMessagesAmount(unreadMessagesAmount + 1)
+        const handleOnSendMessage = ({ userId }) => {
+            if (!withChat && userId !== currentUserId) {
+                setUnreadMessagesAmount(unreadMessagesAmount + 1)
+                !lastUnreadMessageIndex
+                    ? setLastUnreadMessageIndex(1)
+                    : setLastUnreadMessageIndex(lastUnreadMessageIndex + 1)
+            }
+        }
         socket && socket.on('sendMessage', handleOnSendMessage)
         return () => socket && socket.off('sendMessage', handleOnSendMessage)
     }, [socket, unreadMessagesAmount, currentUserId])

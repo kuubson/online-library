@@ -67,6 +67,7 @@ export default async (req, res, next) => {
         await req.user.createMessage({
             type,
             content,
+            readBy: id,
             cloudinaryId
         })
         await User.findAll({

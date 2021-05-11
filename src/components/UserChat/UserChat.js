@@ -44,11 +44,6 @@ const UserChat = ({ shouldMenuExpand }) => {
     useEffect(() => {
         getMessages(20, 0)
         setTimeout(() => {
-            if (!lastUnreadMessageIndex) {
-                setUnreadMessagesAmount(0)
-            }
-        }, 0)
-        setTimeout(() => {
             utils.subscribePushNotifications('/api/user/subscribePushNotifications')
         }, 2000)
     }, [])
@@ -76,6 +71,9 @@ const UserChat = ({ shouldMenuExpand }) => {
                 const lastScroll = e.target.scrollHeight
                 setMessages(messages => [...loadedMessages, ...messages])
                 e.target.scrollTop = e.target.scrollHeight - lastScroll
+                if (loadedMessages.length + messages.length >= lastUnreadMessageIndex) {
+                    setUnreadMessagesAmount(0)
+                }
             }
         }
         if (!e) {
@@ -90,6 +88,9 @@ const UserChat = ({ shouldMenuExpand }) => {
                 setCurrentUserNameInitial(nameInitial)
                 setMessages(messages)
                 pushToLastMessage()
+                if (messages.length >= lastUnreadMessageIndex) {
+                    setUnreadMessagesAmount(0)
+                }
             }
         }
     }
@@ -103,6 +104,7 @@ const UserChat = ({ shouldMenuExpand }) => {
             const { messages } = response.data
             setMessages(messages)
             setTimeout(() => (messagesRef.current.scrollTop = 1), 0)
+            setUnreadMessagesAmount(0)
         }
     }
     const scrollToLastMessage = delay =>
@@ -241,7 +243,7 @@ const UserChat = ({ shouldMenuExpand }) => {
     }
     return (
         <UserChatContainer shouldMenuExpand={shouldMenuExpand} areThereMessages={areThereMessages}>
-            {lastUnreadMessageIndex && messages.length < lastUnreadMessageIndex && (
+            {!isLoading && lastUnreadMessageIndex && messages.length < lastUnreadMessageIndex && (
                 <Dashboard.MessagesInfo onClick={getUnreadMessages}>
                     Unread messages
                 </Dashboard.MessagesInfo>
