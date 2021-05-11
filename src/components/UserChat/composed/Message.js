@@ -20,7 +20,7 @@ const MessageContainer = styled.div`
     ${({ withLastUserMessage }) =>
         withLastUserMessage &&
         css`
-            margin-bottom: 45px;
+            margin-bottom: 20px;
         `}
 `
 
@@ -36,6 +36,7 @@ const Message = ({
     withLastMessage
 }) => {
     const [shouldDetailsAppear, setShouldDetailsAppear] = useState(false)
+    const date = new Date(createdAt)
     const withCurrentUser = userId === currentUserId
     const withLastUserMessage = (nextMessage && userId !== nextMessage.userId) || !nextMessage
     const withFile = type === 'FILE'
@@ -91,9 +92,12 @@ const Message = ({
             {(withLastUserMessage || shouldDetailsAppear) && (
                 <StyledMessage.Date
                     withCurrentUser={withCurrentUser}
+                    withLastUserMessage={withLastUserMessage}
                     shouldDetailsAppear={shouldDetailsAppear}
                 >
-                    {new Date(createdAt).toLocaleString()}
+                    {new Date().toDateString() === date.toDateString()
+                        ? date.toLocaleTimeString()
+                        : date.toLocaleString()}
                 </StyledMessage.Date>
             )}
         </MessageContainer>

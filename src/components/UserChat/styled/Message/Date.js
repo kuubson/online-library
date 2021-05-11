@@ -11,7 +11,8 @@ export default styled.div`
         css`
             text-align: right;
         `}
-    ${({ shouldDetailsAppear }) =>
+    ${({ withLastUserMessage, shouldDetailsAppear }) =>
+        !withLastUserMessage &&
         shouldDetailsAppear &&
         css`
             margin-bottom: 10px;

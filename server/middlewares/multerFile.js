@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
     },
     filename: (_, { originalname }, callback) => {
         const extension = path.extname(originalname)
-        const hash = crypto.randomBytes(50).toString('hex')
+        const hash = crypto.randomBytes(30).toString('hex')
         callback(null, `filefilename${originalname}filename${hash}${extension}`)
     }
 })

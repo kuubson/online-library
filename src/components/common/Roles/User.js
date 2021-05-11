@@ -15,7 +15,8 @@ const UserContainer = styled(GuestContainer)``
 
 const User = ({ children, withChat }) => {
     const { socket, setSocket } = hooks.useSocket()
-    const { unreadMessagesAmount, setUnreadMessagesAmount } = hooks.useMessages()
+    const { unreadMessagesAmount, setUnreadMessagesAmount, setLastUnreadMessageIndex } =
+        hooks.useMessages()
     const { cart } = hooks.useCart()
     const [shouldMenuExpand, _setShouldMenuExpand] = useState(false)
     const [currentUserId, setCurrentUserId] = useState()
@@ -39,17 +40,18 @@ const User = ({ children, withChat }) => {
                 utils.handleApiError(error)
             }
         }
-        const getUnreadMessagesAmount = async () => {
-            const url = '/api/user/getUnreadMessagesAmount'
+        const getUnreadMessagesInfo = async () => {
+            const url = '/api/user/getUnreadMessagesInfo'
             const response = await utils.apiAxios.get(url)
             if (response) {
-                const { unreadMessagesAmount, userId } = response.data
+                const { lastUnreadMessageIndex, unreadMessagesAmount, userId } = response.data
+                setLastUnreadMessageIndex(lastUnreadMessageIndex)
                 setUnreadMessagesAmount(unreadMessagesAmount)
                 setCurrentUserId(userId)
             }
         }
         checkToken()
-        getUnreadMessagesAmount()
+        getUnreadMessagesInfo()
     }, [])
     useEffect(() => {
         const handleOnSendMessage = ({ userId }) =>

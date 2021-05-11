@@ -161,9 +161,9 @@ router.post(
 )
 
 router.get(
-    '/getUnreadMessagesAmount',
+    '/getUnreadMessagesInfo',
     middlewares.jwtAuthorization,
-    Services.getUnreadMessagesAmount.default
+    Services.getUnreadMessagesInfo.default
 )
 
 export default router

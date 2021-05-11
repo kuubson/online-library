@@ -18,7 +18,7 @@ import * as getMessages from './getMessages'
 import * as sendMessage from './sendMessage'
 import * as sendFile from './sendFile'
 import * as subscribePushNotifications from './subscribePushNotifications'
-import * as getUnreadMessagesAmount from './getUnreadMessagesAmount'
+import * as getUnreadMessagesInfo from './getUnreadMessagesInfo'
 
 export default {
     register,
@@ -41,5 +41,5 @@ export default {
     sendMessage,
     sendFile,
     subscribePushNotifications,
-    getUnreadMessagesAmount
+    getUnreadMessagesInfo
 }

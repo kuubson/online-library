@@ -7,10 +7,9 @@ import utils from '@utils'
 
 export default () => (req, res, next) =>
     middlewares.multerFile.single('file')(req, res, () => {
-        const { filename, path } = req.file
         const deleteFile = () => {
             try {
-                fs.existsSync(path) && fs.unlinkSync(path)
+                fs.existsSync(req.file.path) && fs.unlinkSync(req.file.path)
             } catch (error) {}
         }
         switch (true) {
@@ -44,6 +43,7 @@ export default () => (req, res, next) =>
                 )
                 break
             default:
+                const { filename, path } = req.file
                 const handleSharp = async () =>
                     await sharp(path)
                         .rotate()

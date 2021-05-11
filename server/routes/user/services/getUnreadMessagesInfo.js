@@ -4,19 +4,27 @@ export default async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { id } = req.user
-            const unreadMessagesAmount = await Message.findAll({
+            const { lastUnreadMessageIndex, unreadMessagesAmount } = await Message.findAll({
                 transaction
             }).then(messages => {
+                let lastUnreadMessageIndex
                 let unreadMessagesAmount = 0
-                messages.map(({ readBy }) => {
+                messages.map(({ readBy }, index) => {
                     const readByIds = readBy.split(',').filter(v => v)
                     if (!readByIds.includes(id.toString())) {
                         unreadMessagesAmount++
+                        if (!lastUnreadMessageIndex) {
+                            lastUnreadMessageIndex = messages.length - index
+                        }
                     }
                 })
-                return unreadMessagesAmount
+                return {
+                    lastUnreadMessageIndex,
+                    unreadMessagesAmount
+                }
             })
             res.send({
+                lastUnreadMessageIndex,
                 unreadMessagesAmount,
                 userId: id
             })

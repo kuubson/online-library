@@ -30,7 +30,7 @@ const UserChat = ({ shouldMenuExpand }) => {
     const textareaRef = useRef()
     const endOfMessages = useRef()
     const { socket } = hooks.useSocket()
-    const { setUnreadMessagesAmount } = hooks.useMessages()
+    const { lastUnreadMessageIndex, setUnreadMessagesAmount } = hooks.useMessages()
     const [isLoading, setIsLoading] = useState(true)
     const [currentUserId, setCurrentUserId] = useState()
     const [currentUserNameInitial, setCurrentUserNameInitial] = useState()
@@ -44,7 +44,9 @@ const UserChat = ({ shouldMenuExpand }) => {
     useEffect(() => {
         getMessages(20, 0)
         setTimeout(() => {
-            setUnreadMessagesAmount(0)
+            if (!lastUnreadMessageIndex) {
+                setUnreadMessagesAmount(0)
+            }
         }, 0)
         setTimeout(() => {
             utils.subscribePushNotifications('/api/user/subscribePushNotifications')
@@ -89,6 +91,18 @@ const UserChat = ({ shouldMenuExpand }) => {
                 setMessages(messages)
                 pushToLastMessage()
             }
+        }
+    }
+    const getUnreadMessages = async () => {
+        const url = '/api/user/getMessages'
+        const response = await utils.apiAxios.post(url, {
+            limit: lastUnreadMessageIndex,
+            offset: 0
+        })
+        if (response) {
+            const { messages } = response.data
+            setMessages(messages)
+            setTimeout(() => (messagesRef.current.scrollTop = 1), 0)
         }
     }
     const scrollToLastMessage = delay =>
@@ -194,7 +208,7 @@ const UserChat = ({ shouldMenuExpand }) => {
                         percentage++
                         setPercentage(percentage => percentage + 1)
                     }
-                }, 300)
+                }, 500)
                 const response = await axios.post(url, form)
                 if (response) {
                     setPercentage(100)
@@ -227,6 +241,11 @@ const UserChat = ({ shouldMenuExpand }) => {
     }
     return (
         <UserChatContainer shouldMenuExpand={shouldMenuExpand} areThereMessages={areThereMessages}>
+            {lastUnreadMessageIndex && messages.length < lastUnreadMessageIndex && (
+                <Dashboard.MessagesInfo onClick={getUnreadMessages}>
+                    Unread messages
+                </Dashboard.MessagesInfo>
+            )}
             <Dashboard.Content>
                 {!isLoading &&
                     (areThereMessages ? (
