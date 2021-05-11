@@ -7,6 +7,8 @@ import { LoaderContainer } from 'components/common/Loader/Loader'
 
 import Dashboard from './styled/Dashboard'
 
+import utils from 'utils'
+
 import animations from 'assets/animations'
 
 const FeedbackHandlerContainer = styled(LoaderContainer)`
@@ -16,10 +18,10 @@ const FeedbackHandlerContainer = styled(LoaderContainer)`
 `
 
 const FeedbackHandler = () => {
-    const { header, message, buttonText, callback, setFeedbackData } = hooks.useFeedbackHandler()
+    const { header, message, buttonText, callback } = hooks.useFeedbackHandler()
     const handleOnClick = () => {
         callback()
-        setFeedbackData()
+        utils.setFeedbackData()
     }
     return (
         <FeedbackHandlerContainer>

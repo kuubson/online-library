@@ -235,6 +235,10 @@ const UserChat = ({ shouldMenuExpand }) => {
                     socket.emit('sendMessage', message)
                 }
             } catch (error) {
+                utils.setFeedbackData(
+                    'Sending a file',
+                    'There was an unexpected problem when sending the file'
+                )
                 resetFileInput()
                 clearInterval(intervalId)
                 setPercentage(0)
