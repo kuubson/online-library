@@ -252,67 +252,63 @@ const UserChat = ({ shouldMenuExpand }) => {
                     Unread messages
                 </Dashboard.MessagesInfo>
             )}
-            <Dashboard.Content>
-                {!isLoading &&
-                    (areThereMessages ? (
-                        <Composed.Messages
-                            ref={messagesRef}
-                            endOfMessages={endOfMessages}
-                            messages={messages}
-                            currentUserId={currentUserId}
-                            onTouchStart={() =>
-                                utils.isMobile() &&
-                                textareaRef.current &&
-                                textareaRef.current.blur()
-                            }
-                            onScroll={e => getMessages(20, messages.length, e)}
-                            scrollToLastMessage={scrollToLastMessage}
-                        />
-                    ) : (
-                        <USDashboard.Warning>There are no messages</USDashboard.Warning>
-                    ))}
-                <Dashboard.TextareaContainer>
-                    <Dashboard.Textarea
-                        ref={textareaRef}
-                        value={message}
-                        placeholder="Type your message..."
-                        disabled={isFileUploading}
-                        onChange={e => setMessage(e.target.value)}
-                        onFocus={() => scrollToLastMessage(500)}
-                        onKeyPress={e => {
-                            if (e.key === 'Enter') {
-                                switch (true) {
-                                    case utils.isMobile():
-                                        return
-                                    case !e.target.value.trim():
-                                        e.preventDefault()
-                                        break
-                                    case !e.shiftKey:
-                                        sendMessage()
-                                        break
-                                }
-                            }
-                        }}
+            {!isLoading &&
+                (areThereMessages ? (
+                    <Composed.Messages
+                        ref={messagesRef}
+                        endOfMessages={endOfMessages}
+                        messages={messages}
+                        currentUserId={currentUserId}
+                        onTouchStart={() =>
+                            utils.isMobile() && textareaRef.current && textareaRef.current.blur()
+                        }
+                        onScroll={e => getMessages(20, messages.length, e)}
+                        scrollToLastMessage={scrollToLastMessage}
                     />
-                    {isFileUploading ? (
-                        <Composed.ProgressLoader percentage={percentage} />
-                    ) : (
-                        <USDashboard.Button as="label" htmlFor="file" withChat>
-                            Upload file
-                        </USDashboard.Button>
-                    )}
-                    {shouldFileInputExist && <Dashboard.FileInput onChange={sendFile} />}
-                    <USDashboard.Button
-                        onClick={() => {
-                            sendMessage()
-                            utils.isMobile() && textareaRef.current.focus()
-                        }}
-                        withChat
-                    >
-                        Send
+                ) : (
+                    <USDashboard.Warning>There are no messages</USDashboard.Warning>
+                ))}
+            <Dashboard.TextareaContainer>
+                <Dashboard.Textarea
+                    ref={textareaRef}
+                    value={message}
+                    placeholder="Type your message..."
+                    disabled={isFileUploading}
+                    onChange={e => setMessage(e.target.value)}
+                    onFocus={() => scrollToLastMessage(500)}
+                    onKeyPress={e => {
+                        if (e.key === 'Enter') {
+                            switch (true) {
+                                case utils.isMobile():
+                                    return
+                                case !e.target.value.trim():
+                                    e.preventDefault()
+                                    break
+                                case !e.shiftKey:
+                                    sendMessage()
+                                    break
+                            }
+                        }
+                    }}
+                />
+                {isFileUploading ? (
+                    <Composed.ProgressLoader percentage={percentage} />
+                ) : (
+                    <USDashboard.Button as="label" htmlFor="file" withChat>
+                        Upload file
                     </USDashboard.Button>
-                </Dashboard.TextareaContainer>
-            </Dashboard.Content>
+                )}
+                {shouldFileInputExist && <Dashboard.FileInput onChange={sendFile} />}
+                <USDashboard.Button
+                    onClick={() => {
+                        sendMessage()
+                        utils.isMobile() && textareaRef.current.focus()
+                    }}
+                    withChat
+                >
+                    Send
+                </USDashboard.Button>
+            </Dashboard.TextareaContainer>
         </UserChatContainer>
     )
 }

@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/macro'
 export default styled.div`
     width: 40px;
     height: 40px;
-    border-radius: 50px;
+    border-radius: 50%;
     background: white;
     color: black;
     font-weight: bold;

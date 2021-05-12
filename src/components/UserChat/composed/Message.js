@@ -72,7 +72,6 @@ const Message = ({
                         controls
                         onLoadStart={scrollToTheBottom}
                         onError={handleFileLoadingError}
-                        withLastMessage={withLastMessage}
                     />
                     {withLastUserMessage && showAvatar()}
                 </StyledMessage.Container>
