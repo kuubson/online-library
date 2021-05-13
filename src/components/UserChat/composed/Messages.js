@@ -39,8 +39,8 @@ const Messages = forwardRef(
                         userId={userId}
                         nameInitial={nameInitial}
                         createdAt={createdAt}
-                        nextMessage={messages[index + 1]}
                         currentUserId={currentUserId}
+                        nextMessage={messages[index + 1]}
                         scrollToLastMessage={scrollToLastMessage}
                         withLastMessage={index === messages.length - 1}
                     />

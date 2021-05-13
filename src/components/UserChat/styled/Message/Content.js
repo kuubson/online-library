@@ -38,4 +38,9 @@ export default styled.div`
             font-weight: bold;
             cursor: pointer;
         `}
+    ${({ withError }) =>
+        withError &&
+        css`
+            font-weight: bold;
+        `}
 `

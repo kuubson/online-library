@@ -30,12 +30,14 @@ const Message = ({
     userId,
     nameInitial,
     createdAt,
-    nextMessage,
     currentUserId,
+    nextMessage,
     scrollToLastMessage,
     withLastMessage
 }) => {
     const [shouldDetailsAppear, setShouldDetailsAppear] = useState(false)
+    const [imageError, setImageError] = useState(false)
+    const [videoError, setVideoError] = useState(false)
     const date = new Date(createdAt)
     const withCurrentUser = userId === currentUserId
     const withLastUserMessage = (nextMessage && userId !== nextMessage.userId) || !nextMessage
@@ -46,7 +48,18 @@ const Message = ({
         [shouldDetailsAppear]
     )
     const scrollToTheBottom = () => withLastMessage && scrollToLastMessage(0)
-    const handleFileLoadingError = e => (e.target.parentNode.parentNode.style.display = 'none')
+    const handleFileLoadingError = () =>
+        type === 'IMAGE' ? setImageError(true) : setVideoError(true)
+    const showError = error => (
+        <StyledMessage.Content
+            withCurrentUser={withCurrentUser}
+            withLastUserMessage={withLastUserMessage}
+            withError
+        >
+            {error}
+            {withLastUserMessage && showAvatar()}
+        </StyledMessage.Content>
+    )
     const showAvatar = () => (
         <StyledMessage.Avatar withCurrentUser={withCurrentUser}>{nameInitial}</StyledMessage.Avatar>
     )
@@ -57,24 +70,32 @@ const Message = ({
             withLastUserMessage={withLastUserMessage && nextMessage}
         >
             {type === 'IMAGE' ? (
-                <StyledMessage.Container>
-                    <StyledMessage.Image
-                        src={content}
-                        onLoad={scrollToTheBottom}
-                        onError={handleFileLoadingError}
-                    />
-                    {withLastUserMessage && showAvatar()}
-                </StyledMessage.Container>
+                !imageError ? (
+                    <StyledMessage.Container>
+                        <StyledMessage.Image
+                            src={content}
+                            onLoad={scrollToTheBottom}
+                            onError={handleFileLoadingError}
+                        />
+                        {withLastUserMessage && showAvatar()}
+                    </StyledMessage.Container>
+                ) : (
+                    showError('Image failed to load')
+                )
             ) : type === 'VIDEO' ? (
-                <StyledMessage.Container>
-                    <StyledMessage.Video
-                        src={content}
-                        controls
-                        onLoadStart={scrollToTheBottom}
-                        onError={handleFileLoadingError}
-                    />
-                    {withLastUserMessage && showAvatar()}
-                </StyledMessage.Container>
+                !videoError ? (
+                    <StyledMessage.Container>
+                        <StyledMessage.Video
+                            src={content}
+                            controls
+                            onLoadStart={scrollToTheBottom}
+                            onError={handleFileLoadingError}
+                        />
+                        {withLastUserMessage && showAvatar()}
+                    </StyledMessage.Container>
+                ) : (
+                    showError('Video failed to load')
+                )
             ) : (
                 <StyledMessage.Content
                     onClick={() =>
