@@ -26,11 +26,11 @@ const UserChatContainer = styled(UserStoreContainer)`
 `
 
 const UserChat = ({ shouldMenuExpand }) => {
+    const { socket } = hooks.useSocket()
+    const { lastUnreadMessageIndex, setUnreadMessagesAmount } = hooks.useMessages()
     const messagesRef = useRef()
     const textareaRef = useRef()
     const endOfMessages = useRef()
-    const { socket } = hooks.useSocket()
-    const { lastUnreadMessageIndex, setUnreadMessagesAmount } = hooks.useMessages()
     const [isLoading, setIsLoading] = useState(true)
     const [currentUserId, setCurrentUserId] = useState()
     const [currentUserNameInitial, setCurrentUserNameInitial] = useState()
