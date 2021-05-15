@@ -33,7 +33,7 @@ export default async (req, res, next) => {
                                 })
                                 return {
                                     ...message.dataValues,
-                                    nameInitial: message.user.name.charAt(0)
+                                    userName: message.user.name
                                 }
                             })
                     )
@@ -41,7 +41,7 @@ export default async (req, res, next) => {
             res.send({
                 messages,
                 userId: id,
-                nameInitial: name.charAt(0)
+                userName: name
             })
         })
     } catch (error) {

@@ -40,7 +40,7 @@ const MenuContainer = styled.nav`
 `
 
 const Menu = ({ location, options, _setShouldMenuExpand }) => {
-    const { socket } = hooks.useSocket()
+    const { socket, setSocket } = hooks.useSocket()
     const [shouldMenuExpand, setShouldMenuExpand] = useState(false)
     useEffect(() => _setShouldMenuExpand(shouldMenuExpand), [shouldMenuExpand])
     const { cart, removeFromCart } = hooks.useCart()
@@ -54,6 +54,7 @@ const Menu = ({ location, options, _setShouldMenuExpand }) => {
                 }
             })
             socket.disconnect()
+            setSocket(undefined)
             cart.map(id => removeFromCart(id))
             utils.redirectTo('/user/login')
         }

@@ -18,8 +18,9 @@ const Guest = ({ children }) => {
     const { socket, setSocket } = hooks.useSocket()
     useEffect(() => {
         if (socket) {
+            socket.disconnect()
             setTimeout(() => {
-                setSocket()
+                setSocket(undefined)
             }, 0)
         }
         const checkToken = async () => {

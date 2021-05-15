@@ -33,7 +33,7 @@ const UserChat = ({ shouldMenuExpand }) => {
     const endOfMessages = useRef()
     const [isLoading, setIsLoading] = useState(true)
     const [currentUserId, setCurrentUserId] = useState()
-    const [currentUserNameInitial, setCurrentUserNameInitial] = useState()
+    const [currentUserName, setCurrentUserName] = useState()
     const [messages, setMessages] = useState([])
     const [message, setMessage] = useState('')
     const [hasMoreMessages, setHasMoreMessages] = useState(true)
@@ -83,9 +83,9 @@ const UserChat = ({ shouldMenuExpand }) => {
             })
             if (response) {
                 setIsLoading(false)
-                const { messages, userId, nameInitial } = response.data
+                const { messages, userId, userName } = response.data
                 setCurrentUserId(userId)
-                setCurrentUserNameInitial(nameInitial)
+                setCurrentUserName(userName)
                 setMessages(messages)
                 pushToLastMessage()
                 if (messages.length >= lastUnreadMessageIndex) {
@@ -130,7 +130,7 @@ const UserChat = ({ shouldMenuExpand }) => {
                 type: 'MESSAGE',
                 content: message,
                 userId: currentUserId,
-                nameInitial: currentUserNameInitial,
+                userName: currentUserName,
                 createdAt: new Date()
             }
             setMessages(messages => [...messages, _message])
@@ -226,7 +226,7 @@ const UserChat = ({ shouldMenuExpand }) => {
                         type,
                         content,
                         userId: currentUserId,
-                        nameInitial: currentUserNameInitial,
+                        userName: currentUserName,
                         createdAt: new Date()
                     }
                     setMessages([...messages, message])

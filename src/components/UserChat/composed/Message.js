@@ -28,7 +28,7 @@ const Message = ({
     type,
     content,
     userId,
-    nameInitial,
+    userName,
     createdAt,
     currentUserId,
     nextMessage,
@@ -61,7 +61,9 @@ const Message = ({
         </StyledMessage.Content>
     )
     const showAvatar = () => (
-        <StyledMessage.Avatar withCurrentUser={withCurrentUser}>{nameInitial}</StyledMessage.Avatar>
+        <StyledMessage.Avatar withCurrentUser={withCurrentUser}>
+            {userName.charAt(0)}
+        </StyledMessage.Avatar>
     )
     return (
         <MessageContainer

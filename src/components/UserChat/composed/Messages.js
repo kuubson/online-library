@@ -30,14 +30,14 @@ const Messages = forwardRef(
     ) => {
         return (
             <MessagesContainer ref={ref} onTouchStart={onTouchStart} onScroll={onScroll}>
-                {messages.map(({ id, type, content, userId, nameInitial, createdAt }, index) => (
+                {messages.map(({ id, type, content, userId, userName, createdAt }, index) => (
                     <Composed.Message
                         key={id}
                         id={id}
                         type={type}
                         content={content}
                         userId={userId}
-                        nameInitial={nameInitial}
+                        userName={userName}
                         createdAt={createdAt}
                         currentUserId={currentUserId}
                         nextMessage={messages[index + 1]}
