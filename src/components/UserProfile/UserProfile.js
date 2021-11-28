@@ -21,7 +21,7 @@ const UserProfile = ({ shouldMenuExpand }) => {
     const areThereBorrowedBooks = borrowedBooks.length > 0
     useEffect(() => {
         const getUserBooks = async () => {
-            const url = '/api/user/getUserBooks'
+            const url = '/api/user/books/getUserBooks'
             const response = await utils.apiAxios.get(url)
             if (response) {
                 setIsLoading(false)

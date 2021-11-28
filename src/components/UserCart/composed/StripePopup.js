@@ -29,7 +29,7 @@ const StripePopup = ({ price, setShouldStripePopupAppear }) => {
                     card
                 })
                 if (paymentMethod) {
-                    const url = '/api/user/purchaseBooksWithStripe'
+                    const url = '/api/user/cart/purchaseBooksWithStripe'
                     const response = await utils.apiAxios.post(url, {
                         paymentId: paymentMethod.id,
                         products: cart

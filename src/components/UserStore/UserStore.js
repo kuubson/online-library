@@ -35,7 +35,7 @@ const UserStore = ({ shouldMenuExpand }) => {
     const areTherePaidBooks = paidBooks.length > 0
     useEffect(() => getBooks(0, 0, true), [])
     const getBooks = async (freeBooksOffset, paidBooksOffset, initialLoad) => {
-        const url = '/api/user/getBooks'
+        const url = '/api/user/books/getBooks'
         const response = await utils.apiAxios.post(url, {
             freeBooksOffset,
             paidBooksOffset

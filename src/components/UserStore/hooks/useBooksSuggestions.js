@@ -13,7 +13,7 @@ const useBooksSuggestions = ({ freeBooks, setFreeBooks, paidBooks, setPaidBooks,
     const [books, setBooks] = useState([])
     useEffect(() => {
         const getSuggestions = async () => {
-            const url = '/api/user/getSuggestions'
+            const url = '/api/user/books/getSuggestions'
             const response = await utils.apiAxios.post(url, {
                 title,
                 author,

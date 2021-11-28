@@ -33,7 +33,7 @@ const UserCart = ({ shouldMenuExpand }) => {
     const areThereBooks = books.length > 0
     useEffect(() => {
         const getCart = async () => {
-            const url = '/api/user/getCart'
+            const url = '/api/user/cart/getCart'
             const response = await utils.apiAxios.post(url, {
                 cart
             })
@@ -54,7 +54,7 @@ const UserCart = ({ shouldMenuExpand }) => {
         const executePayPalPayment = async () => {
             try {
                 if (paymentId && PayerID) {
-                    const url = '/api/user/executePayPalPayment'
+                    const url = '/api/user/cart/executePayPalPayment'
                     const response = await utils.apiAxios.post(url, {
                         paymentId,
                         PayerID
@@ -81,7 +81,7 @@ const UserCart = ({ shouldMenuExpand }) => {
         executePayPalPayment()
     }, [paymentId, PayerID])
     const createPayPalPayment = async () => {
-        const url = '/api/user/createPayPalPayment'
+        const url = '/api/user/cart/createPayPalPayment'
         const response = await utils.apiAxios.post(url, {
             products: cart
         })

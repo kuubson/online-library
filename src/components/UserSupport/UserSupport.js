@@ -28,7 +28,9 @@ const UserSupport = ({ withPasswordSupport }) => {
         e.preventDefault()
         if (validate()) {
             try {
-                const url = `/api/user/${withPasswordSupport ? 'recoverPassword' : 'resendEmail'}`
+                const url = `/api/user/auth/${
+                    withPasswordSupport ? 'recoverPassword' : 'resendEmail'
+                }`
                 const response = await utils.apiAxios.post(url, {
                     email
                 })

@@ -25,7 +25,7 @@ const UserPasswordRecovery = () => {
     useEffect(() => {
         const checkPasswordToken = async () => {
             try {
-                const url = '/api/user/checkPasswordToken'
+                const url = '/api/user/auth/checkPasswordToken'
                 await utils.apiAxios.post(url, {
                     passwordToken
                 })
@@ -44,7 +44,7 @@ const UserPasswordRecovery = () => {
         e.preventDefault()
         if (validate()) {
             try {
-                const url = '/api/user/changePassword'
+                const url = '/api/user/auth/changePassword'
                 const response = await utils.apiAxios.post(url, {
                     password,
                     repeatedPassword,

@@ -17,7 +17,7 @@ const UserAuthenticator = () => {
                 if (!token) {
                     return utils.redirectTo('/user/login')
                 }
-                const url = `/api/user/authenticateEmail`
+                const url = `/api/user/auth/authenticateEmail`
                 const response = await utils.apiAxios.post(url, {
                     token
                 })

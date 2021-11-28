@@ -59,7 +59,7 @@ const UserChat = ({ shouldMenuExpand }) => {
         return () => socket && socket.off('sendMessage', handleOnSendMessage)
     }, [socket])
     const getMessages = async (limit, offset, e) => {
-        const url = '/api/user/getMessages'
+        const url = '/api/user/chat/getMessages'
         if (e && e.target.scrollTop <= 0 && hasMoreMessages) {
             const response = await utils.apiAxios.post(url, {
                 limit,
@@ -95,7 +95,7 @@ const UserChat = ({ shouldMenuExpand }) => {
         }
     }
     const getUnreadMessages = async () => {
-        const url = '/api/user/getMessages'
+        const url = '/api/user/chat/getMessages'
         const response = await utils.apiAxios.post(url, {
             limit: lastUnreadMessageIndex,
             offset: 0
@@ -139,7 +139,7 @@ const UserChat = ({ shouldMenuExpand }) => {
                 setMessage('')
             }, 0)
             try {
-                const url = '/api/user/sendMessage'
+                const url = '/api/user/chat/sendMessage'
                 const response = await axios.post(url, {
                     content: message
                 })
@@ -204,7 +204,7 @@ const UserChat = ({ shouldMenuExpand }) => {
             const form = new FormData()
             form.append('file', file)
             try {
-                const url = '/api/user/sendFile'
+                const url = '/api/user/chat/sendFile'
                 intervalId = setInterval(() => {
                     if (percentage < 100) {
                         percentage++

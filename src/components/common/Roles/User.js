@@ -32,7 +32,7 @@ const User = ({ children, withChat }) => {
         }
         const checkToken = async () => {
             try {
-                const url = '/api/global/checkToken'
+                const url = '/api/global/auth/checkToken'
                 const response = await axios.get(url)
                 if (response) {
                     const { role } = response.data
@@ -45,7 +45,7 @@ const User = ({ children, withChat }) => {
             }
         }
         const getUnreadMessagesInfo = async () => {
-            const url = '/api/user/getUnreadMessagesInfo'
+            const url = '/api/user/chat/getUnreadMessagesInfo'
             const response = await utils.apiAxios.get(url)
             if (response) {
                 const { lastUnreadMessageIndex, unreadMessagesAmount, userId } = response.data

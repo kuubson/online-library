@@ -45,7 +45,7 @@ const Menu = ({ location, options, _setShouldMenuExpand }) => {
     useEffect(() => _setShouldMenuExpand(shouldMenuExpand), [shouldMenuExpand])
     const { cart, removeFromCart } = hooks.useCart()
     const logout = async () => {
-        const url = '/api/global/logout'
+        const url = '/api/global/auth/logout'
         const response = await utils.apiAxios.get(url)
         if (response) {
             window.FB.getLoginStatus(response => {

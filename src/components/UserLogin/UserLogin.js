@@ -30,7 +30,7 @@ const UserLogin = () => {
         e.preventDefault()
         if (validate()) {
             try {
-                const url = '/api/user/login'
+                const url = '/api/user/auth/login'
                 const response = await utils.apiAxios.post(url, {
                     email,
                     password
@@ -61,7 +61,7 @@ const UserLogin = () => {
     }
     const loginWithFacebook = async e => {
         e.preventDefault()
-        const url = '/api/user/loginWithFacebook'
+        const url = '/api/user/auth/loginWithFacebook'
         window.FB.login(
             ({ authResponse, status }) => {
                 if (authResponse && status === 'connected') {

@@ -47,7 +47,7 @@ const UserRegistration = () => {
         e.preventDefault()
         if (validate()) {
             try {
-                const url = '/api/user/register'
+                const url = '/api/user/auth/register'
                 const response = await utils.apiAxios.post(url, {
                     name,
                     email,

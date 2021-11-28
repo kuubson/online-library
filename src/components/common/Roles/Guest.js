@@ -25,7 +25,7 @@ const Guest = ({ children }) => {
         }
         const checkToken = async () => {
             try {
-                const url = '/api/global/checkToken'
+                const url = '/api/global/auth/checkToken'
                 const response = await axios.get(url)
                 if (response) {
                     const { role } = response.data

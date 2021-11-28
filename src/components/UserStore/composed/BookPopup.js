@@ -31,7 +31,7 @@ const BookPopup = ({ id, title, author, cover, price, setBookPopupData }) => {
     const resetBookPopup = () => setBookPopupData(undefined)
     const borrowBook = async () => {
         try {
-            const url = '/api/user/borrowBook'
+            const url = '/api/user/books/borrowBook'
             const response = await utils.apiAxios.post(url, {
                 id
             })
