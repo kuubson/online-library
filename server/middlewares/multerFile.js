@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
     }
 })
 
-export default multer({
+const multerFile = multer({
     storage,
     fileFilter: (req, { mimetype, originalname, size }, callback) => {
         const imageExtensions = /jpg|jpeg|png|gif|/i
@@ -52,3 +52,5 @@ export default multer({
         return callback(null, true)
     }
 })
+
+export default multerFile

@@ -1,6 +1,6 @@
 import { Connection, Message } from '@database'
 
-export default async (req, res, next) => {
+const getUnreadMessagesInfo = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { id } = req.user
@@ -33,3 +33,5 @@ export default async (req, res, next) => {
         next(error)
     }
 }
+
+export default getUnreadMessagesInfo

@@ -3,9 +3,11 @@ import * as getSuggestions from './getSuggestions'
 import * as borrowBook from './borrowBook'
 import * as getUserBooks from './getUserBooks'
 
-export default {
+const books = {
     getBooks,
     getSuggestions,
     borrowBook,
     getUserBooks
 }
+
+export default books

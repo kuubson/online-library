@@ -11,7 +11,7 @@ webpush.setVapidDetails(
     process.env.PRIVATE_VAPID_KEY
 )
 
-export default async (req, res, next) => {
+const sendMessage = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { id, name } = req.user
@@ -74,3 +74,5 @@ export default async (req, res, next) => {
 }
 
 export const validation = () => [check('content').trim().isString().bail()]
+
+export default sendMessage

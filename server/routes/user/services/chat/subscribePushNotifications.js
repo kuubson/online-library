@@ -2,7 +2,7 @@ import { Connection } from '@database'
 
 import utils from '@utils'
 
-export default async (req, res, next) => {
+const subscribePushNotifications = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const {
@@ -37,3 +37,5 @@ export const validation = () => [
     utils.validator.validateProperty('keys.p256dh'),
     utils.validator.validateProperty('keys.auth')
 ]
+
+export default subscribePushNotifications

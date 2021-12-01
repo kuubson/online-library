@@ -4,7 +4,7 @@ import { Connection, User, Authentication } from '@database'
 
 import utils from '@utils'
 
-export default async (req, res, next) => {
+const resendEmail = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { email } = req.body
@@ -72,3 +72,5 @@ export default async (req, res, next) => {
 }
 
 export const validation = () => [utils.validator.validateEmail()]
+
+export default resendEmail

@@ -1,5 +1,7 @@
 import Auth from './Auth'
 
-export default {
+const Controllers = {
     Auth
 }
+
+export default Controllers

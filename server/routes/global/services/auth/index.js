@@ -1,7 +1,9 @@
 import * as checkToken from './checkToken'
 import * as logout from './logout'
 
-export default {
+const auth = {
     checkToken,
     logout
 }
+
+export default auth

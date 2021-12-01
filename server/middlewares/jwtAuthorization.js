@@ -1,6 +1,6 @@
 import passport from 'passport'
 
-export default (req, res, next) => {
+const jwtAuthorization = (req, res, next) => {
     passport.authenticate('jwt', { session: false }, (error, { user, role }) => {
         if (error || !user || role !== req.originalUrl.split('/')[2]) {
             return res
@@ -19,3 +19,5 @@ export default (req, res, next) => {
         next()
     })(req, res, next)
 }
+
+export default jwtAuthorization

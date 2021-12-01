@@ -4,7 +4,7 @@ import { Connection, Book } from '@database'
 
 import utils from '@utils'
 
-export default async (req, res, next) => {
+const executePayPalPayment = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { paymentId, PayerID } = req.body
@@ -65,3 +65,5 @@ export const validation = () => [
     utils.validator.validateProperty('paymentId'),
     utils.validator.validateProperty('PayerID')
 ]
+
+export default executePayPalPayment

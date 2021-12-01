@@ -4,7 +4,7 @@ import { Connection, Book } from '@database'
 
 import utils from '@utils'
 
-export default async (req, res, next) => {
+const getBooks = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { freeBooksOffset, paidBooksOffset } = req.body
@@ -40,3 +40,5 @@ export const validation = () => [
     utils.validator.validateInteger('freeBooksOffset'),
     utils.validator.validateInteger('paidBooksOffset')
 ]
+
+export default getBooks

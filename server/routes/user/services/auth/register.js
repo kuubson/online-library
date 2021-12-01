@@ -4,7 +4,7 @@ import { Connection, User, Authentication } from '@database'
 
 import utils from '@utils'
 
-export default async (req, res, next) => {
+const register = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { name, email, password } = req.body
@@ -75,3 +75,5 @@ export const validation = () => [
     utils.validator.validatePassword(),
     utils.validator.validateRepeatedPassword()
 ]
+
+export default register

@@ -3,9 +3,11 @@ import Books from './Books'
 import Cart from './Cart'
 import Chat from './Chat'
 
-export default {
+const Controllers = {
     Auth,
     Books,
     Cart,
     Chat
 }
+
+export default Controllers

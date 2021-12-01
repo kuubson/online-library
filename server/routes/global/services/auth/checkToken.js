@@ -4,7 +4,7 @@ import { Connection, User } from '@database'
 
 import utils from '@utils'
 
-export default async (req, res, next) => {
+const checkToken = async (req, res, next) => {
     await Connection.transaction(async transaction => {
         const { token } = req.cookies
         if (!token) {
@@ -66,3 +66,5 @@ export default async (req, res, next) => {
 }
 
 export const validation = () => [utils.validator.validateProperty('token').optional()]
+
+export default checkToken

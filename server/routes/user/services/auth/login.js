@@ -5,7 +5,7 @@ import { Connection, User, Authentication } from '@database'
 
 import utils from '@utils'
 
-export default async (req, res, next) => {
+const login = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { email, password } = req.body
@@ -49,3 +49,5 @@ export const validation = () => [
     utils.validator.validateEmail(),
     utils.validator.validatePassword(true)
 ]
+
+export default login

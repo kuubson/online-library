@@ -1,4 +1,6 @@
 import passport from 'passport'
 
-export default (req, res, next) =>
+const facebookAuthorization = (req, res, next) =>
     passport.authenticate('facebook-token', { session: false })(req, res, next)
+
+export default facebookAuthorization

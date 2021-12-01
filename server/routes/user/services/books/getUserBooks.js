@@ -1,6 +1,6 @@
 import { Connection } from '@database'
 
-export default async (req, res, next) => {
+const getUserBooks = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const books = await req.user
@@ -24,3 +24,5 @@ export default async (req, res, next) => {
         next(error)
     }
 }
+
+export default getUserBooks

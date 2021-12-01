@@ -7,7 +7,7 @@ import * as recoverPassword from './recoverPassword'
 import * as checkPasswordToken from './checkPasswordToken'
 import * as changePassword from './changePassword'
 
-export default {
+const auth = {
     register,
     authenticateEmail,
     resendEmail,
@@ -17,3 +17,5 @@ export default {
     checkPasswordToken,
     changePassword
 }
+
+export default auth

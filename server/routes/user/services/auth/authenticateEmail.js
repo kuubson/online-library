@@ -4,7 +4,7 @@ import { Connection, Authentication } from '@database'
 
 import utils from '@utils'
 
-export default async (req, res, next) => {
+const authenticateEmail = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { token } = req.body
@@ -66,3 +66,5 @@ export default async (req, res, next) => {
 }
 
 export const validation = () => [utils.validator.validateProperty('token').isJWT()]
+
+export default authenticateEmail

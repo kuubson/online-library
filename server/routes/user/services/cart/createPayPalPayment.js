@@ -10,7 +10,7 @@ paypal.configure({
     client_secret: process.env.PAYPAL_CLIENT_SECRET
 })
 
-export default async (req, res, next) => {
+const createPayPalPayment = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { products } = req.body
@@ -104,3 +104,5 @@ export default async (req, res, next) => {
 }
 
 export const validation = () => [utils.validator.validateArray('products', false)]
+
+export default createPayPalPayment

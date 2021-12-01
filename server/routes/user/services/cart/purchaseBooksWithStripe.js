@@ -8,7 +8,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     apiVersion: '2020-03-02'
 })
 
-export default async (req, res, next) => {
+const purchaseBooksWithStripe = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { paymentId, products } = req.body
@@ -77,3 +77,5 @@ export const validation = () => [
     utils.validator.validateProperty('paymentId'),
     utils.validator.validateArray('products', false)
 ]
+
+export default purchaseBooksWithStripe

@@ -2,7 +2,7 @@ import { Connection, Book } from '@database'
 
 import utils from '@utils'
 
-export default async (req, res, next) => {
+const getCart = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { cart } = req.body
@@ -22,3 +22,5 @@ export default async (req, res, next) => {
 }
 
 export const validation = () => [utils.validator.validateArray('cart', true)]
+
+export default getCart

@@ -2,7 +2,7 @@ import { Connection, Book } from '@database'
 
 import utils from '@utils'
 
-export default async (req, res, next) => {
+const borrowBook = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { id } = req.body
@@ -33,3 +33,5 @@ export default async (req, res, next) => {
 }
 
 export const validation = () => [utils.validator.validateInteger('id')]
+
+export default borrowBook

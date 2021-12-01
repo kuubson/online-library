@@ -5,7 +5,7 @@ import { Connection, User } from '@database'
 
 import utils from '@utils'
 
-export default async (req, res, next) => {
+const loginWithFacebook = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { name, email, access_token } = req.body
@@ -57,3 +57,5 @@ export const validation = () => [
     utils.validator.validateEmail(),
     utils.validator.validateProperty('access_token')
 ]
+
+export default loginWithFacebook

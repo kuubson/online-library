@@ -5,7 +5,7 @@ import middlewares from '@middlewares'
 
 import utils from '@utils'
 
-export default () => (req, res, next) =>
+const handleMulterFile = () => (req, res, next) =>
     middlewares.multerFile.single('file')(req, res, () => {
         const deleteFile = () => {
             try {
@@ -70,3 +70,5 @@ export default () => (req, res, next) =>
                 }
         }
     })
+
+export default handleMulterFile

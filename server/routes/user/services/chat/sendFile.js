@@ -12,7 +12,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
-export default async (req, res, next) => {
+const sendFile = async (req, res, next) => {
     const { filename, path } = req.file
     try {
         const { id, name } = req.user
@@ -119,3 +119,5 @@ export default async (req, res, next) => {
         next(error)
     }
 }
+
+export default sendFile

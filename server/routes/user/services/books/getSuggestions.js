@@ -5,7 +5,7 @@ import { Connection, Book } from '@database'
 
 import utils from '@utils'
 
-export default async (req, res, next) => {
+const getSuggestions = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { title, author, withProfile } = req.body
@@ -47,3 +47,5 @@ export const validation = () => [
     check('author').trim().isString().bail().escape(),
     utils.validator.validateBoolean('withProfile')
 ]
+
+export default getSuggestions

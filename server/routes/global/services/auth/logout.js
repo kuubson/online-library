@@ -1,4 +1,4 @@
-export default (_, res, next) => {
+const logout = (_, res, next) => {
     try {
         res.clearCookie('token', {
             secure: process.env.NODE_ENV === 'production',
@@ -11,3 +11,5 @@ export default (_, res, next) => {
         next(error)
     }
 }
+
+export default logout
