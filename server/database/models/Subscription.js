@@ -1,6 +1,4 @@
-import { Model, DataTypes } from 'sequelize'
-
-const { STRING } = DataTypes
+import { Model, STRING } from 'sequelize'
 
 export default sequelize => {
     class Subscription extends Model {}

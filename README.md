@@ -4,9 +4,9 @@
 
 -   HTML, CSS, JS
 -   React.js + Redux (Hooks, Styled Components, PWA, Web Push Notifications, PayPal, Stripe)
--   React Native for mobile app
+-   React Native ([online-library-native](https://github.com/toxxiczny/online-library-native))
 -   Node.js + Express (passport.js, JWT, socket.io, multer, cloudinary)
--   GraphQL + Apollo ("graphql" branch)
+-   Next.js + TypeScript + GraphQL + Apollo ([online-library-next-typescript-graphql](https://github.com/toxxiczny/online-library-next-typescript-graphql))
 -   MySQL (ORM Sequelize)
 
 ## Description
