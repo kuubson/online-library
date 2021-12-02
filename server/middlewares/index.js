@@ -51,7 +51,7 @@ const init = (app, server) => {
     app.set('trust proxy', true)
 }
 
-export default {
+const middlewares = {
     init,
     errorHandler,
     checkValidation,
@@ -61,3 +61,5 @@ export default {
     multerFile,
     handleMulterFile
 }
+
+export default middlewares
