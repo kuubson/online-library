@@ -2,11 +2,11 @@
 
 ## Technologies
 
--   HTML, CSS, JS
+-   HTML, CSS, JS, TS
 -   React.js + Redux (Hooks, Styled Components, PWA, Web Push Notifications, PayPal, Stripe)
+-   GraphQL + Apollo
 -   React Native ([online-library-native](https://github.com/toxxiczny/online-library-native))
 -   Node.js + Express (passport.js, JWT, socket.io, multer, cloudinary)
--   Next.js + TypeScript + GraphQL + Apollo ([online-library-next-typescript-graphql](https://github.com/toxxiczny/online-library-next-typescript-graphql))
 -   MySQL (ORM Sequelize)
 
 ## Description
@@ -27,37 +27,39 @@ Create **.env** file and fill it based on **.env-example** file, then:
 
 ### Development
 
+#### Front-end:
+
+Make sure to enter **/client** folder
+
+```bash
+cd ./client
+```
+
 ```bash
 npm install
 ```
 
-Start backend:
-
 ```bash
-npm run backend
+npm start
 ```
 
-Start frontend:
+#### Back-end:
+
+Make sure to enter **/server** folder
 
 ```bash
-npm run frontend
+cd ./server
+```
+
+```bash
+npm install
+```
+
+```bash
+npm start
 ```
 
 Make sure to create **MySQL** database with credentials the same as in **.env** with the usage of e.g, [xampp](https://www.apachefriends.org/pl/index.html)
-
-### Production
-
-Build frontend:
-
-```bash
-npm run build
-```
-
-Compile & start backend:
-
-```bash
-npm run start
-```
 
 ## Some screenshots
 
