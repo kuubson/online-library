@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import * as Styled from '../styled'
 
 import { useCart } from 'hooks'
 
-type BookContainerType = {
+type Props = {
     withPopup?: boolean
     withFlips?: boolean
 }
 
-const BookContainer = styled.div<BookContainerType>`
+const BookContainer = styled.div<Props>`
     width: 100%;
     height: 100%;
     position: relative;
@@ -33,7 +33,7 @@ const BookContainer = styled.div<BookContainerType>`
             : null}
 `
 
-const Book: React.FC<IBook> = ({
+const Book = ({
     id,
     title,
     author,
@@ -44,7 +44,7 @@ const Book: React.FC<IBook> = ({
     withProfile,
     withPopup,
     withFlips
-}) => {
+}: IBook) => {
     const [loading, setLoading] = useState(true)
     const { cart, removeFromCart } = useCart()
     const isInCart = cart.includes(id)

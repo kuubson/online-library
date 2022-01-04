@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 
 import { history } from 'utils'
@@ -29,7 +28,7 @@ interface IHomeButton {
     withReturnButton?: boolean
 }
 
-const HomeButton: React.FC<IHomeButton> = ({ withReturnButton }) => {
+const HomeButton = ({ withReturnButton }: IHomeButton) => {
     return (
         <HomeButtonContainer
             onClick={() => (withReturnButton ? history.back() : history.push('/'))}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import { gql, useQuery } from '@apollo/client'
 
@@ -30,11 +30,11 @@ const storeQuery = gql`
     }
 `
 
-type StoreContainerType = {
+type Props = {
     shouldMenuExpand?: boolean
 }
 
-export const StoreContainer = styled.section<StoreContainerType>`
+export const StoreContainer = styled.section<Props>`
     min-height: 100%;
     display: flex;
     justify-content: center;
@@ -54,7 +54,7 @@ interface IStore {
     shouldMenuExpand?: boolean
 }
 
-const Store: React.FC<IStore> = ({ shouldMenuExpand }) => {
+const Store = ({ shouldMenuExpand }: IStore) => {
     const [loading, setLoading] = useState(true)
     const [freeBooks, setFreeBooks] = useState<IBook[]>([])
     const [paidBooks, setPaidBooks] = useState<IBook[]>([])

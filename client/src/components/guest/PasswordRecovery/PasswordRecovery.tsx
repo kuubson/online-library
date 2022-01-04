@@ -1,6 +1,4 @@
-import { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
-import { useParams } from 'react-router-dom'
 
 import { RegistrationContainer } from 'components/guest/Registration/Registration'
 
@@ -9,75 +7,20 @@ import Input from 'components/guest/Registration/modules/Input'
 
 import * as StyledRegistration from 'components/guest/Registration/styled'
 
-import { useFormHandler } from 'hooks'
-
-import { setApiFeedback, handleApiValidation } from 'helpers'
-
-import { axios, history } from 'utils'
+import { usePasswordRecovery } from './hooks'
 
 const UserPasswordRecoveryContainer = styled(RegistrationContainer)``
 
 const UserPasswordRecovery = () => {
-    const { passwordToken } = useParams()
-    const [form, setForm] = useState({
-        password: '',
-        passwordError: '',
-        repeatedPassword: '',
-        repeatedPasswordError: ''
-    })
-    const { password, passwordError, repeatedPassword, repeatedPasswordError } = form
-    const formHandler = useFormHandler(setForm)
-    useEffect(() => {
-        const checkPasswordToken = async () => {
-            try {
-                const url = '/api/user/auth/checkPasswordToken'
-                await axios.post(url, {
-                    passwordToken
-                })
-            } catch (error) {
-                history.push('/login')
-            }
-        }
-        checkPasswordToken()
-    }, [])
-    const handleOnSubmit = async (event: React.FormEvent) => {
-        event.preventDefault()
-        if (validate()) {
-            try {
-                const url = '/api/user/auth/changePassword'
-                const response = await axios.post(url, {
-                    password,
-                    repeatedPassword,
-                    passwordToken
-                })
-                if (response) {
-                    setApiFeedback(
-                        'Password Recovery',
-                        'Your password has been successfully changed, you can login now',
-                        'Okey',
-                        () => history.push('/login')
-                    )
-                }
-            } catch (error) {
-                handleApiValidation(error, setForm)
-            }
-        }
-    }
-    const validate = () => {
-        let isValidated = true
-        setForm(form => ({
-            ...form,
-            passwordError: '',
-            repeatedPasswordError: ''
-        }))
-        if (!formHandler.validatePassword(password, repeatedPassword, false)) isValidated = false
-        if (!formHandler.validateRepeatedPassword(repeatedPassword, password)) isValidated = false
-        return isValidated
-    }
+    const {
+        form: { password, passwordError, repeatedPassword, repeatedPasswordError },
+        formHandler: { handleInputValue, validatePassword, validateRepeatedPassword },
+        changePassword
+    } = usePasswordRecovery()
     return (
         <UserPasswordRecoveryContainer>
             <HomeButton />
-            <StyledRegistration.Form onSubmit={handleOnSubmit}>
+            <StyledRegistration.Form onSubmit={changePassword}>
                 <Input
                     id="password"
                     label="Password"
@@ -86,8 +29,8 @@ const UserPasswordRecovery = () => {
                     placeholder="Type your password..."
                     error={passwordError}
                     onChange={event => {
-                        formHandler.handleInputValue(event)
-                        formHandler.validatePassword(event.target.value, repeatedPassword, false)
+                        handleInputValue(event)
+                        validatePassword(event.target.value, repeatedPassword, false)
                     }}
                 />
                 <Input
@@ -98,8 +41,8 @@ const UserPasswordRecovery = () => {
                     placeholder="Type your password again..."
                     error={repeatedPasswordError}
                     onChange={event => {
-                        formHandler.handleInputValue(event)
-                        formHandler.validateRepeatedPassword(event.target.value, password)
+                        handleInputValue(event)
+                        validateRepeatedPassword(event.target.value, password)
                     }}
                 />
                 <StyledRegistration.Submit>Change password</StyledRegistration.Submit>

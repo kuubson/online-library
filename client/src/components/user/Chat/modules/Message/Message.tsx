@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 import fileSaver from 'file-saver'
 
 import * as Styled from './styled'
 
-type MessageContainer = {
+type Props = {
     withCurrentUser?: boolean
     withLastUserMessage?: boolean
 }
 
-const MessageContainer = styled.div<MessageContainer>`
+const MessageContainer = styled.div<Props>`
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -38,7 +38,7 @@ type MessageProps = {
     withLastMessage: boolean
 }
 
-const Message: React.FC<IMessage & MessageProps> = ({
+const Message = ({
     type,
     content,
     userId,
@@ -48,7 +48,7 @@ const Message: React.FC<IMessage & MessageProps> = ({
     nextMessage,
     scrollToLastMessage,
     withLastMessage
-}) => {
+}: IMessage & MessageProps) => {
     const [shouldDetailsAppear, setShouldDetailsAppear] = useState(false)
     const [imageError, setImageError] = useState(false)
     const [videoError, setVideoError] = useState(false)

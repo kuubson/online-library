@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import { gql, useMutation } from '@apollo/client'
 
@@ -49,7 +48,7 @@ interface IBookPopup extends IBook {
     setBookPopupData: ReactDispatch<IBook | undefined>
 }
 
-const BookPopup: React.FC<IBookPopup> = ({ id, title, author, cover, price, setBookPopupData }) => {
+const BookPopup = ({ id, title, author, cover, price, setBookPopupData }: IBookPopup) => {
     const { cart, addToCart } = useCart()
     const resetBookPopup = () => setBookPopupData(undefined)
     const [borrowBook] = useMutation<BorrowBookMutation>(borrowBookMutation)

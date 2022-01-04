@@ -1,2 +1,2 @@
-export { Guest } from './Guest'
-export { User } from './User'
+export { Guest } from './Guest/Guest'
+export { User } from './User/User'

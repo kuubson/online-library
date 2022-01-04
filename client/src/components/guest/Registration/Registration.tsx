@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import { HomeContainer } from 'components/guest/Home/Home'
@@ -8,11 +7,9 @@ import Input from './modules/Input'
 
 import * as Styled from './styled'
 
-import { useFormHandler } from 'hooks'
+import { useRegistration } from './hooks'
 
-import { setApiFeedback, handleApiValidation } from 'helpers'
-
-import { axios, history } from 'utils'
+import { history } from 'utils'
 
 export const RegistrationContainer = styled(HomeContainer)`
     height: initial;
@@ -21,66 +18,26 @@ export const RegistrationContainer = styled(HomeContainer)`
 `
 
 const Registration = () => {
-    const [form, setForm] = useState({
-        name: '',
-        nameError: '',
-        email: '',
-        emailError: '',
-        password: '',
-        passwordError: '',
-        repeatedPassword: '',
-        repeatedPasswordError: ''
-    })
     const {
-        name,
-        nameError,
-        email,
-        emailError,
-        password,
-        passwordError,
-        repeatedPassword,
-        repeatedPasswordError
-    } = form
-    const formHandler = useFormHandler(setForm)
-    const validate = () => {
-        let isValidated = true
-        setForm(form => ({
-            ...form,
-            nameError: '',
-            emailError: '',
-            passwordError: '',
-            repeatedPasswordError: ''
-        }))
-        if (!formHandler.validateProperty('name', name)) isValidated = false
-        if (!formHandler.validateEmail(email)) isValidated = false
-        if (!formHandler.validatePassword(password, repeatedPassword, false)) isValidated = false
-        if (!formHandler.validateRepeatedPassword(repeatedPassword, password)) isValidated = false
-        return isValidated
-    }
-    const register = async (event: React.FormEvent) => {
-        event.preventDefault()
-        if (validate()) {
-            try {
-                const url = '/api/user/auth/register'
-                const response = await axios.post(url, {
-                    name,
-                    email,
-                    password,
-                    repeatedPassword
-                })
-                if (response) {
-                    setApiFeedback(
-                        'Account registration',
-                        'An e-mail with an activation link has been sent to the email address provided. Open it and activate your account',
-                        'Okey',
-                        () => history.push('/login')
-                    )
-                }
-            } catch (error) {
-                handleApiValidation(error, setForm)
-            }
-        }
-    }
+        form: {
+            name,
+            nameError,
+            email,
+            emailError,
+            password,
+            passwordError,
+            repeatedPassword,
+            repeatedPasswordError
+        },
+        formHandler: {
+            handleInputValue,
+            validateProperty,
+            validateEmail,
+            validatePassword,
+            validateRepeatedPassword
+        },
+        register
+    } = useRegistration()
     return (
         <RegistrationContainer>
             <HomeButton />
@@ -93,8 +50,8 @@ const Registration = () => {
                     placeholder="Type your name..."
                     error={nameError}
                     onChange={event => {
-                        formHandler.handleInputValue(event)
-                        formHandler.validateProperty('name', event.target.value)
+                        handleInputValue(event)
+                        validateProperty('name', event.target.value)
                     }}
                 />
                 <Input
@@ -105,8 +62,8 @@ const Registration = () => {
                     placeholder="Type your email address..."
                     error={emailError}
                     onChange={event => {
-                        formHandler.handleInputValue(event)
-                        formHandler.validateEmail(event.target.value)
+                        handleInputValue(event)
+                        validateEmail(event.target.value)
                     }}
                 />
                 <Input
@@ -117,8 +74,8 @@ const Registration = () => {
                     placeholder="Type your password..."
                     error={passwordError}
                     onChange={event => {
-                        formHandler.handleInputValue(event)
-                        formHandler.validatePassword(event.target.value, repeatedPassword, false)
+                        handleInputValue(event)
+                        validatePassword(event.target.value, repeatedPassword, false)
                     }}
                 />
                 <Input
@@ -129,8 +86,8 @@ const Registration = () => {
                     placeholder="Type your password again..."
                     error={repeatedPasswordError}
                     onChange={event => {
-                        formHandler.handleInputValue(event)
-                        formHandler.validateRepeatedPassword(event.target.value, password)
+                        handleInputValue(event)
+                        validateRepeatedPassword(event.target.value, password)
                     }}
                 />
                 <Styled.Submit>Register</Styled.Submit>

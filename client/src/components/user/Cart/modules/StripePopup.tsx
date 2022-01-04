@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 
@@ -21,7 +21,7 @@ interface IStripePopup {
     setShouldStripePopupAppear: ReactDispatch<boolean>
 }
 
-const StripePopup: React.FC<IStripePopup> = ({ price, setShouldStripePopupAppear }) => {
+const StripePopup = ({ price, setShouldStripePopupAppear }: IStripePopup) => {
     const stripe = useStripe()
     const elements = useElements()
     const { cart, resetCart } = useCart()

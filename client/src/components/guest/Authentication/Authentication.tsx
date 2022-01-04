@@ -16,7 +16,6 @@ const Authentication = () => {
         const verifyEmail = async () => {
             try {
                 if (!token) {
-                    console.log(token)
                     return history.push('/login')
                 }
                 const url = `/api/user/auth/authenticateEmail`
@@ -32,7 +31,6 @@ const Authentication = () => {
                     )
                 }
             } catch (error) {
-                console.log(error)
                 history.push('/login')
             }
         }

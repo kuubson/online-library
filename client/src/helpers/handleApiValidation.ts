@@ -1,15 +1,15 @@
 type ApiValidationHandler = <T>(error: any, setForm: ReactDispatch<T>) => void
 
-type Result = {
-    parameter: string
-    error: string
-}
-
 type Response = {
     status: number
     data: {
         results: Result[]
     }
+}
+
+type Result = {
+    parameter: string
+    error: string
 }
 
 export const handleApiValidation: ApiValidationHandler = (error, setForm) => {

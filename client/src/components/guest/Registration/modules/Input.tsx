@@ -3,11 +3,11 @@ import styled, { css } from 'styled-components'
 
 import * as Styled from '../styled'
 
-interface IInputContainer {
+type Props = {
     withBooksSuggestions?: boolean
 }
 
-const InputContainer = styled.div<IInputContainer>`
+const InputContainer = styled.div<Props>`
     width: 550px;
     margin: 0px auto 30px auto;
     :last-of-type {
@@ -37,7 +37,7 @@ interface IInput {
     withBooksSuggestions?: boolean
 }
 
-const Input: React.FC<IInput> = ({
+const Input = ({
     id,
     label,
     type,
@@ -46,7 +46,7 @@ const Input: React.FC<IInput> = ({
     error,
     onChange,
     withBooksSuggestions
-}) => {
+}: IInput) => {
     return (
         <InputContainer withBooksSuggestions={withBooksSuggestions}>
             {label && <Styled.Label htmlFor={id}>{label}</Styled.Label>}

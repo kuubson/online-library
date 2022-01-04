@@ -21,11 +21,11 @@ import {
 
 import { axios as apiAxios } from 'utils'
 
-type ChatContainerType = {
+type Props = {
     areThereMessages?: boolean
 }
 
-const ChatContainer = styled(StoreContainer)<ChatContainerType>`
+const ChatContainer = styled(StoreContainer)<Props>`
     ${({ areThereMessages }) =>
         areThereMessages
             ? css`
@@ -42,7 +42,7 @@ interface IChat {
     shouldMenuExpand?: boolean
 }
 
-const Chat: React.FC<IChat> = ({ shouldMenuExpand }) => {
+const Chat = ({ shouldMenuExpand }: IChat) => {
     const { socket } = useSocket()
     const { lastUnreadMessageIndex, setUnreadMessagesAmount } = useMessagesInfo()
     const messagesRef = useRef<HTMLDivElement>(null)
@@ -309,11 +309,9 @@ const Chat: React.FC<IChat> = ({ shouldMenuExpand }) => {
                     value={message}
                     placeholder="Type your message..."
                     disabled={isFileUploading}
-                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
-                        setMessage(event.target.value)
-                    }
+                    onChange={event => setMessage(event.target.value)}
                     onFocus={() => scrollToLastMessage(500)}
-                    onKeyPress={(event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+                    onKeyPress={event => {
                         if (event.key === 'Enter') {
                             switch (true) {
                                 case detectMobileDevice() as boolean:

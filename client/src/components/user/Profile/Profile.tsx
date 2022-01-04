@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { gql, useQuery } from '@apollo/client'
 
@@ -37,7 +37,7 @@ interface IProfile {
     shouldMenuExpand?: boolean
 }
 
-const Profile: React.FC<IProfile> = ({ shouldMenuExpand }) => {
+const Profile = ({ shouldMenuExpand }: IProfile) => {
     const { loading: isLoading, data: profile } = useQuery<ProfileQuery>(profileQuery)
     const [boughtBooks, setBoughtBooks] = useState<IBook[]>([])
     const [borrowedBooks, setBorrowedBooks] = useState<IBook[]>([])

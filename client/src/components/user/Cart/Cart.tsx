@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
@@ -37,17 +37,17 @@ const cartQuery = gql`
     }
 `
 
-type CartContainerType = {
+type Props = {
     empty?: boolean
 }
 
-const CartContainer = styled(StoreContainer)<CartContainerType>``
+const CartContainer = styled(StoreContainer)<Props>``
 
 interface ICart {
     shouldMenuExpand?: boolean
 }
 
-const Cart: React.FC<ICart> = ({ shouldMenuExpand }) => {
+const Cart = ({ shouldMenuExpand }: ICart) => {
     const { paymentId, PayerID } = useQueryParams()
     const { cart, resetCart } = useCart()
     const [shouldStripePopupAppear, setShouldStripePopupAppear] = useState(false)

@@ -19,7 +19,6 @@ export const GuestContainer = styled.section`
 export const Guest: React.FC = ({ children }) => {
     const { closeSocketConnection } = useSocket()
     useEffect(() => {
-        closeSocketConnection()
         const checkToken = async () => {
             try {
                 const url = '/api/global/auth/checkToken'
@@ -28,6 +27,8 @@ export const Guest: React.FC = ({ children }) => {
                     const { role } = response.data
                     if (role === 'user') {
                         history.push('/store')
+                    } else {
+                        closeSocketConnection()
                     }
                 }
             } catch (error) {

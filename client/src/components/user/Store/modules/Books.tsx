@@ -1,4 +1,3 @@
-import React from 'react'
 import styled, { css } from 'styled-components'
 
 import Book from './Book'
@@ -7,13 +6,13 @@ import * as Styled from '../styled'
 
 import { fadeIn } from 'assets/animations'
 
-type BooksContainerType = {
+type Props = {
     withMarginRight?: boolean
     empty?: boolean
     fullWidth?: boolean
 }
 
-const BooksContainer = styled.div<BooksContainerType>`
+const BooksContainer = styled.div<Props>`
     width: 55%;
     margin-top: 20px;
     animation: ${fadeIn} 0.4s ease-in-out;
@@ -63,7 +62,7 @@ interface IBooks {
     withoutInput?: boolean
 }
 
-const Books: React.FC<IBooks> = ({
+const Books = ({
     books,
     error,
     header,
@@ -76,7 +75,7 @@ const Books: React.FC<IBooks> = ({
     withMarginRight,
     fullWidth,
     withoutInput
-}) => {
+}: IBooks) => {
     const areThereBooks = !!books.length
     return (
         <BooksContainer

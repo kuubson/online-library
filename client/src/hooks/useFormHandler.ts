@@ -2,6 +2,15 @@ import React from 'react'
 import validator from 'validator'
 import sanitize from 'sanitize-html'
 
+type FormHandler = <T>(setForm: ReactDispatch<T>) => {
+    handleInputValue: InputValueHandler
+    handleInputError: InputErrorHandler
+    validateProperty: PropertyValidator
+    validateEmail: EmailValidator
+    validatePassword: PasswordValidator
+    validateRepeatedPassword: RepeatedPasswordValidator
+}
+
 type InputValueHandler = (event: React.ChangeEvent<HTMLInputElement>) => void
 
 type InputErrorHandler = (errorKey: string, error: string) => void
@@ -13,15 +22,6 @@ type EmailValidator = (email: string) => boolean
 type PasswordValidator = (password: string, repeatedPassword: string, withLogin: boolean) => boolean
 
 type RepeatedPasswordValidator = (repeatedPassword: string, password: string) => boolean
-
-type FormHandler = <T>(setForm: ReactDispatch<T>) => {
-    handleInputValue: InputValueHandler
-    handleInputError: InputErrorHandler
-    validateProperty: PropertyValidator
-    validateEmail: EmailValidator
-    validatePassword: PasswordValidator
-    validateRepeatedPassword: RepeatedPasswordValidator
-}
 
 export const useFormHandler: FormHandler = setForm => {
     const handleInputValue: InputValueHandler = ({ target: { name, value } }) =>

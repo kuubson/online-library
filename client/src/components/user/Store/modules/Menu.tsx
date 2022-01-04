@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 import { useLocation } from 'react-router'
 
@@ -8,11 +8,11 @@ import { useSocket, useCart, useTopOffset } from 'hooks'
 
 import { axios, history } from 'utils'
 
-type MenuContainerType = {
+type Props = {
     shouldStickMenu?: boolean
 }
 
-const MenuContainer = styled.nav<MenuContainerType>`
+const MenuContainer = styled.nav<Props>`
     width: calc(100% - 40px);
     height: 90px;
     padding: 0px 30px;
@@ -42,18 +42,18 @@ const MenuContainer = styled.nav<MenuContainerType>`
             : null};
 `
 
+interface IMenu {
+    options: Option[]
+    _setShouldMenuExpand: ReactDispatch<boolean>
+}
+
 type Option = {
     option: string
     pathname?: string
     counter?: number
 }
 
-interface IMenu {
-    options: Option[]
-    _setShouldMenuExpand: ReactDispatch<boolean>
-}
-
-const Menu: React.FC<IMenu> = ({ options, _setShouldMenuExpand }) => {
+const Menu = ({ options, _setShouldMenuExpand }: IMenu) => {
     const location = useLocation()
     const { closeSocketConnection } = useSocket()
     const [shouldMenuExpand, setShouldMenuExpand] = useState(false)

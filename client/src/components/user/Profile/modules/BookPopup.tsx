@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 import { BookPopupContainer } from 'components/user/Store/modules/BookPopup'
 
@@ -11,7 +11,7 @@ interface IBookPopup extends IBook {
     setBookPopupData: ReactDispatch<IBook | undefined>
 }
 
-const BookPopup: React.FC<IBookPopup> = ({ id, title, author, cover, price, setBookPopupData }) => {
+const BookPopup = ({ id, title, author, cover, price, setBookPopupData }: IBookPopup) => {
     const [pages] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     const [currentPage, setCurrentPage] = useState(0)
     const [isOpened, setIsOpened] = useState(false)
