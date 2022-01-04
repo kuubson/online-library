@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import { fadeOut } from 'assets/animations'
 
 type Props = {
-    loading?: boolean
+    $loading?: boolean
 }
 
 export const Loader = styled.div<Props>`
@@ -17,8 +17,8 @@ export const Loader = styled.div<Props>`
     top: 0px;
     left: 0px;
     z-index: 1;
-    ${({ loading }) =>
-        !loading
+    ${({ $loading }) =>
+        !$loading
             ? css`
                   animation: ${fadeOut} 0.5s ease-in-out both;
                   cursor: pointer;

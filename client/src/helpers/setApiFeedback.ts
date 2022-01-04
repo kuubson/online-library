@@ -3,19 +3,19 @@ import { store } from 'redux/store'
 
 import { setApiFeedback as setApiFeedbackAction } from 'redux/reducers/apiFeedback'
 
-type ApiFeedbackSetter = {
-    header: string
-    message: string
-    buttonText: string
+type ApiFeedbackSetter = (
+    header: string,
+    message: string,
+    buttonText: string,
     callback?: () => void
-}
+) => void
 
-export const setApiFeedback = ({
+export const setApiFeedback: ApiFeedbackSetter = (
     header,
     message,
     buttonText = 'Okey',
     callback = () => {}
-}: ApiFeedbackSetter) =>
+) =>
     store.dispatch(
         setApiFeedbackAction({
             header,

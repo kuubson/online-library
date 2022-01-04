@@ -52,7 +52,7 @@ const Book: React.FC<IBook> = ({
         <BookContainer withPopup={withPopup} withFlips={withFlips}>
             <Styled.Loader
                 onAnimationEnd={event => (event.currentTarget.style.display = 'none')}
-                loading={loading}
+                $loading={loading}
             />
             <Styled.Cover
                 src={cover}

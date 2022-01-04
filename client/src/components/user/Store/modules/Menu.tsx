@@ -55,7 +55,7 @@ interface IMenu {
 
 const Menu: React.FC<IMenu> = ({ options, _setShouldMenuExpand }) => {
     const location = useLocation()
-    const { socket, setSocket } = useSocket()
+    const { closeSocketConnection } = useSocket()
     const [shouldMenuExpand, setShouldMenuExpand] = useState(false)
     useEffect(() => _setShouldMenuExpand(shouldMenuExpand), [shouldMenuExpand])
     const { cart, removeFromCart } = useCart()
@@ -68,8 +68,7 @@ const Menu: React.FC<IMenu> = ({ options, _setShouldMenuExpand }) => {
                     window.FB.logout(() => null)
                 }
             })
-            socket!.disconnect()
-            setSocket(undefined)
+            closeSocketConnection()
             cart.map(id => removeFromCart(id))
             history.push('/login')
         }

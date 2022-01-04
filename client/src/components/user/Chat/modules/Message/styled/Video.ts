@@ -1,14 +1,12 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 export const Video = styled.video`
+    max-width: 100%;
     height: 400px;
-    max-width: 700px;
-    border-radius: 12px;
-    @media (max-width: 800px) {
-        height: 300px;
-        max-width: 70vw;
-    }
-    @media (max-width: 600px) {
-        height: 280px;
+    border: 1px solid black;
+    border-radius: 10px;
+    @media (max-width: ${({ theme }) => theme.additionalBreakpoint}) {
+        max-width: 75vw;
+        height: 50vh;
     }
 `

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
+import { useParams } from 'react-router-dom'
 
 import { RegistrationContainer } from 'components/guest/Registration/Registration'
 
@@ -8,7 +9,7 @@ import Input from 'components/guest/Registration/modules/Input'
 
 import * as StyledRegistration from 'components/guest/Registration/styled'
 
-import { useQueryParams, useFormHandler } from 'hooks'
+import { useFormHandler } from 'hooks'
 
 import { setApiFeedback, handleApiValidation } from 'helpers'
 
@@ -17,7 +18,7 @@ import { axios, history } from 'utils'
 const UserPasswordRecoveryContainer = styled(RegistrationContainer)``
 
 const UserPasswordRecovery = () => {
-    const { passwordToken } = useQueryParams()
+    const { passwordToken } = useParams()
     const [form, setForm] = useState({
         password: '',
         passwordError: '',
@@ -34,7 +35,7 @@ const UserPasswordRecovery = () => {
                     passwordToken
                 })
             } catch (error) {
-                history.push('/user/login')
+                history.push('/login')
             }
         }
         checkPasswordToken()
@@ -54,7 +55,7 @@ const UserPasswordRecovery = () => {
                         'Password Recovery',
                         'Your password has been successfully changed, you can login now',
                         'Okey',
-                        () => history.push('/user/login')
+                        () => history.push('/login')
                     )
                 }
             } catch (error) {

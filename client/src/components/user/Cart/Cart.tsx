@@ -19,7 +19,7 @@ import { setApiFeedback } from 'helpers'
 
 import { axios, history } from 'utils'
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY!)
 
 type CartQuery = {
     books: IBook[]

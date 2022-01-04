@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { unstable_HistoryRouter as HistoryRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 import Loader from 'components/shared/Loader/Loader'
 import ApiFeedback from 'components/shared/ApiFeedback/ApiFeedback'
@@ -20,8 +20,10 @@ import {
 
 import { useLoader, useApiFeedback } from 'hooks'
 
+import { history } from 'utils'
+
 const AppContainer = styled.main`
-    min-height: 100%;
+    height: 100%;
 `
 
 const App = () => {
@@ -31,23 +33,25 @@ const App = () => {
         <AppContainer>
             {loading && <Loader />}
             {showApiFeedback && <ApiFeedback />}
-            <Routes>
-                <Route path="/" element={<HomeRoute />} />
-                <Route path="/user/registration" element={<RegistrationRoute />} />
-                <Route path="/user/email-support" element={<EmailSupportRoute />} />
-                <Route path="/user/authentication/:token" element={<AuthenticationRoute />} />
-                <Route path="/user/login" element={<LoginRoute />} />
-                <Route path="/user/password-support" element={<PasswordSupportRoute />} />
-                <Route
-                    path="/user/password-recovery/:passwordToken"
-                    element={<PasswordRecoveryRoute />}
-                />
-                <Route path="/user/store" element={<StoreRoute />} />
-                <Route path="/user/profile" element={<ProfileRoute />} />
-                <Route path="/user/cart" element={<CartRoute />} />
-                <Route path="/user/chat" element={<ChatRoute />} />
-                <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
+            <HistoryRouter history={history}>
+                <Routes>
+                    <Route path="/" element={<HomeRoute />} />
+                    <Route path="/registration" element={<RegistrationRoute />} />
+                    <Route path="/email-support" element={<EmailSupportRoute />} />
+                    <Route path="/authentication/:token" element={<AuthenticationRoute />} />
+                    <Route path="/login" element={<LoginRoute />} />
+                    <Route path="/password-support" element={<PasswordSupportRoute />} />
+                    <Route
+                        path="/password-recovery/:passwordToken"
+                        element={<PasswordRecoveryRoute />}
+                    />
+                    <Route path="/store" element={<StoreRoute />} />
+                    <Route path="/profile" element={<ProfileRoute />} />
+                    <Route path="/cart" element={<CartRoute />} />
+                    <Route path="/chat" element={<ChatRoute />} />
+                    <Route path="*" element={<Navigate to="/" />} />
+                </Routes>
+            </HistoryRouter>
         </AppContainer>
     )
 }

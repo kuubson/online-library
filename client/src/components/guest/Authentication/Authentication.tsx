@@ -1,9 +1,8 @@
 import { useEffect } from 'react'
 import styled from 'styled-components'
+import { useParams } from 'react-router-dom'
 
 import { HomeContainer } from 'components/guest/Home/Home'
-
-import { useQueryParams } from 'hooks'
 
 import { setApiFeedback } from 'helpers'
 
@@ -12,11 +11,12 @@ import { axios, history } from 'utils'
 const AuthenticationContainer = styled(HomeContainer)``
 
 const Authentication = () => {
-    const { token } = useQueryParams()
+    const { token } = useParams()
     useEffect(() => {
         const verifyEmail = async () => {
             try {
                 if (!token) {
+                    console.log(token)
                     return history.push('/login')
                 }
                 const url = `/api/user/auth/authenticateEmail`
@@ -32,6 +32,7 @@ const Authentication = () => {
                     )
                 }
             } catch (error) {
+                console.log(error)
                 history.push('/login')
             }
         }

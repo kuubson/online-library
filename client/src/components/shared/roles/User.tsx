@@ -106,7 +106,9 @@ export const User: React.FC<IUser> = ({ children, withChat }) => {
                     {
                         option: 'Chat',
                         pathname: '/chat',
-                        counter: unreadMessagesAmount <= 99 ? unreadMessagesAmount : 99
+                        counter:
+                            unreadMessagesAmount &&
+                            (unreadMessagesAmount <= 99 ? unreadMessagesAmount : 99)
                     },
                     {
                         option: 'Logout'
