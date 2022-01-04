@@ -15,6 +15,12 @@ import Loader from 'components/shared/Loader/Loader'
 
 import App from 'components/App'
 
+declare global {
+    interface Window {
+        FB: any
+    }
+}
+
 render(
     <StrictMode>
         <Provider store={store}>

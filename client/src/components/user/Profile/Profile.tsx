@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { gql, useQuery } from '@apollo/client'
 
-import userStoreHooks from 'components/user/Store/hooks'
-
 import { StoreContainer } from 'components/user/Store/Store'
 
-import UserStoreComposed from 'components/user/Store/composed'
-import Composed from './composed'
+import Books from 'components/user/Store/modules/Books'
+import BookPopup from './modules/BookPopup'
+
+import { useBooksSuggestions } from 'components/user/Store/hooks'
 
 type ProfileQuery = {
     borrowedBooks: IBook[]
@@ -52,7 +52,7 @@ const Profile: React.FC<IProfile> = ({ shouldMenuExpand }) => {
             }
         }, 0)
     }, [profile])
-    const { renderBooksSuggestionsInput } = userStoreHooks.useBooksSuggestions({
+    const { renderBooksSuggestionsInput } = useBooksSuggestions({
         freeBooks: borrowedBooks,
         setFreeBooks: setBorrowedBooks,
         paidBooks: boughtBooks,
@@ -61,15 +61,13 @@ const Profile: React.FC<IProfile> = ({ shouldMenuExpand }) => {
     })
     return (
         <ProfileContainer shouldMenuExpand={shouldMenuExpand}>
-            {bookPopupData && (
-                <Composed.BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />
-            )}
+            {bookPopupData && <BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />}
             {!isLoading &&
                 (!areThereBoughtBooks && !areThereBorrowedBooks ? (
-                    <UserStoreComposed.Books books={[]} error="You don't have any books yet" />
+                    <Books books={[]} error="You don't have any books yet" />
                 ) : areThereBoughtBooks ? (
                     <>
-                        <UserStoreComposed.Books
+                        <Books
                             books={boughtBooks}
                             header="Your purchased books"
                             error="You haven't purchased any books yet"
@@ -78,7 +76,7 @@ const Profile: React.FC<IProfile> = ({ shouldMenuExpand }) => {
                             withProfile
                             withMarginRight
                         />
-                        <UserStoreComposed.Books
+                        <Books
                             books={borrowedBooks}
                             header="Enjoy borrowed books"
                             error="You haven't borrowed any books yet"
@@ -88,7 +86,7 @@ const Profile: React.FC<IProfile> = ({ shouldMenuExpand }) => {
                     </>
                 ) : (
                     <>
-                        <UserStoreComposed.Books
+                        <Books
                             books={borrowedBooks}
                             header="Enjoy borrowed books"
                             error="You haven't borrowed any books yet"
@@ -97,7 +95,7 @@ const Profile: React.FC<IProfile> = ({ shouldMenuExpand }) => {
                             withProfile
                             withMarginRight
                         />
-                        <UserStoreComposed.Books
+                        <Books
                             books={boughtBooks}
                             header="Your purchased books"
                             error="You haven't purchased any books yet"

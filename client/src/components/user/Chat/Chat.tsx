@@ -4,14 +4,22 @@ import axios from 'axios'
 
 import { StoreContainer } from 'components/user/Store/Store'
 
+import Messages from './modules/Messages/Messages'
+import ProgressLoader from './modules/ProgressLoader/ProgressLoader'
+
 import * as StyledStore from 'components/user/Store/styled'
 import * as Styled from './styled'
 
-import Composed from './composed'
+import { useSocket, useMessages } from 'hooks'
 
-import hooks from 'hooks'
+import {
+    setApiFeedback,
+    subscribePushNotifications,
+    handleApiError,
+    detectMobileDevice
+} from 'helpers'
 
-import utils from 'utils'
+import { axios as apiAxios } from 'utils'
 
 type ChatContainerType = {
     areThereMessages?: boolean
@@ -53,7 +61,7 @@ const Chat: React.FC<IChat> = ({ shouldMenuExpand }) => {
     useEffect(() => {
         getMessages(20, 0, undefined)
         setTimeout(() => {
-            utils.subscribePushNotifications('/api/user/chat/subscribePushNotifications')
+            subscribePushNotifications('/api/user/chat/subscribePushNotifications')
         }, 2000)
     }, [])
     useEffect(() => {
@@ -82,7 +90,7 @@ const Chat: React.FC<IChat> = ({ shouldMenuExpand }) => {
         if (event) {
             const target = event.target as any
             if (target.scrollTop <= 0 && hasMoreMessages) {
-                const response = await axios.post(url, {
+                const response = await apiAxios.post(url, {
                     limit,
                     offset
                 })
@@ -98,8 +106,8 @@ const Chat: React.FC<IChat> = ({ shouldMenuExpand }) => {
                 }
             }
         }
-        if (!e) {
-            const response = await axios.post(url, {
+        if (!event) {
+            const response = await apiAxios.post(url, {
                 limit,
                 offset
             })
@@ -118,7 +126,7 @@ const Chat: React.FC<IChat> = ({ shouldMenuExpand }) => {
     }
     const getUnreadMessages = async () => {
         const url = '/api/user/chat/getMessages'
-        const response = await axios.post(url, {
+        const response = await apiAxios.post(url, {
             limit: lastUnreadMessageIndex,
             offset: 0
         })
@@ -279,19 +287,17 @@ const Chat: React.FC<IChat> = ({ shouldMenuExpand }) => {
             )}
             {!isLoading &&
                 (areThereMessages ? (
-                    <Composed.Messages
+                    <Messages
                         ref={messagesRef}
                         endOfMessages={endOfMessages}
                         messages={messages}
                         currentUserId={currentUserId}
                         onTouchStart={() =>
-                            utils.detectMobileDevice() &&
+                            detectMobileDevice() &&
                             textareaRef.current &&
                             textareaRef.current.blur()
                         }
-                        onScroll={(event: React.UIEvent<HTMLDivElement>) =>
-                            getMessages(20, messages.length, e)
-                        }
+                        onScroll={event => getMessages(20, messages.length, event)}
                         scrollToLastMessage={scrollToLastMessage}
                     />
                 ) : (
@@ -303,12 +309,14 @@ const Chat: React.FC<IChat> = ({ shouldMenuExpand }) => {
                     value={message}
                     placeholder="Type your message..."
                     disabled={isFileUploading}
-                    onChange={event => setMessage(event.target.value)}
+                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
+                        setMessage(event.target.value)
+                    }
                     onFocus={() => scrollToLastMessage(500)}
-                    onKeyPress={event => {
+                    onKeyPress={(event: React.KeyboardEvent<HTMLTextAreaElement>) => {
                         if (event.key === 'Enter') {
                             switch (true) {
-                                case utils.detectMobileDevice() as boolean:
+                                case detectMobileDevice() as boolean:
                                     return
                                 case !event.currentTarget.value.trim():
                                     event.preventDefault()
@@ -321,7 +329,7 @@ const Chat: React.FC<IChat> = ({ shouldMenuExpand }) => {
                     }}
                 />
                 {isFileUploading ? (
-                    <Composed.ProgressLoader percentage={percentage} />
+                    <ProgressLoader percentage={percentage} />
                 ) : (
                     <StyledStore.Button as="label" htmlFor="file" withChat>
                         Upload file
@@ -331,7 +339,9 @@ const Chat: React.FC<IChat> = ({ shouldMenuExpand }) => {
                 <StyledStore.Button
                     onClick={() => {
                         sendMessage()
-                        utils.detectMobileDevice() && textareaRef.current!.focus()
+                        if (detectMobileDevice()) {
+                            textareaRef.current!.focus()
+                        }
                     }}
                     withChat
                 >

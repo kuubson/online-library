@@ -1,11 +1,11 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 
+import Book from './Book'
+
 import * as Styled from '../styled'
 
-import Composed from '.'
-
-import animations from 'assets/animations'
+import { fadeIn } from 'assets/animations'
 
 type BooksContainerType = {
     withMarginRight?: boolean
@@ -16,7 +16,7 @@ type BooksContainerType = {
 const BooksContainer = styled.div<BooksContainerType>`
     width: 55%;
     margin-top: 20px;
-    animation: ${animations.fadeIn} 0.4s ease-in-out;
+    animation: ${fadeIn} 0.4s ease-in-out;
     @media (max-width: 800px) {
         width: 100%;
     }
@@ -100,7 +100,7 @@ const Books: React.FC<IBooks> = ({
             <Styled.Books empty={!areThereBooks}>
                 {areThereBooks ? (
                     books.map(({ id, title, author, cover, price }) => (
-                        <Composed.Book
+                        <Book
                             key={id}
                             id={id}
                             title={title}

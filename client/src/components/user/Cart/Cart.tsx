@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { useRouter } from 'next/router'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import { gql, useQuery } from '@apollo/client'
 
-import hooks from 'hooks'
-
 import { StoreContainer } from 'components/user/Store/Store'
 
-import UserStoreDashboard from 'components/user/Store/styled'
-import GuestRegistrationDashboard from 'components/guest/Registration/styled'
+import Books from 'components/user/Store/modules/Books'
+import StripePopup from './modules/StripePopup'
+
+import * as StyledRegistration from 'components/guest/Registration/styled'
+import * as StyledStore from 'components/user/Store/styled'
 import * as Styled from './styled'
 
-import UserStoreComposed from 'components/user/Store/composed'
-import Composed from './composed'
+import { useQueryParams, useCart } from 'hooks'
 
-import utils from 'utils'
+import { setApiFeedback } from 'helpers'
+
+import { axios, history } from 'utils'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
@@ -47,7 +48,7 @@ interface ICart {
 }
 
 const Cart: React.FC<ICart> = ({ shouldMenuExpand }) => {
-    const { paymentId, PayerID } = useRouter().query
+    const { paymentId, PayerID } = useQueryParams()
     const { cart, resetCart } = useCart()
     const [shouldStripePopupAppear, setShouldStripePopupAppear] = useState(false)
     const { data } = useQuery<CartQuery>(cartQuery, {
@@ -109,12 +110,12 @@ const Cart: React.FC<ICart> = ({ shouldMenuExpand }) => {
         >
             <CartContainer shouldMenuExpand={shouldMenuExpand} empty={!areThereBooks}>
                 {shouldStripePopupAppear && (
-                    <Composed.StripePopup
+                    <StripePopup
                         price={price}
                         setShouldStripePopupAppear={setShouldStripePopupAppear}
                     />
                 )}
-                <UserStoreComposed.Books
+                <Books
                     books={books}
                     header="Your chosen books"
                     error="The cart is empty"
@@ -125,9 +126,9 @@ const Cart: React.FC<ICart> = ({ shouldMenuExpand }) => {
                 />
                 {areThereBooks && (
                     <Styled.SummaryContainer>
-                        <UserStoreDashboard.HeaderContainer withoutInput>
-                            <UserStoreDashboard.Header>Summary</UserStoreDashboard.Header>
-                        </UserStoreDashboard.HeaderContainer>
+                        <StyledStore.HeaderContainer withoutInput>
+                            <StyledStore.Header>Summary</StyledStore.Header>
+                        </StyledStore.HeaderContainer>
                         <Styled.Summary>
                             {books.map(({ id, title, price }) => (
                                 <Styled.Book key={id}>
@@ -135,12 +136,12 @@ const Cart: React.FC<ICart> = ({ shouldMenuExpand }) => {
                                 </Styled.Book>
                             ))}
                         </Styled.Summary>
-                        <GuestRegistrationDashboard.Submit
+                        <StyledRegistration.Submit
                             onClick={() => setShouldStripePopupAppear(true)}
                             withLessMarginTop
                         >
                             Pay ${price}
-                        </GuestRegistrationDashboard.Submit>
+                        </StyledRegistration.Submit>
                         <Styled.PayPalButton onClick={createPayPalPayment}>
                             Pay with PayPal
                         </Styled.PayPalButton>

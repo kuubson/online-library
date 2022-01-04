@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { gql, useQuery } from '@apollo/client'
 
-import hooks from './hooks'
+import Books from './modules/Books'
+import BookPopup from './modules/BookPopup'
 
-import Composed from './composed'
+import { useBooksSuggestions } from './hooks'
 
 type StoreQuery = {
     freeBooks: IBook[]
@@ -89,7 +90,7 @@ const Store: React.FC<IStore> = ({ shouldMenuExpand }) => {
                 }
             }
         })
-    const { renderBooksSuggestionsInput } = hooks.useBooksSuggestions({
+    const { renderBooksSuggestionsInput } = useBooksSuggestions({
         freeBooks,
         setFreeBooks,
         paidBooks,
@@ -98,18 +99,13 @@ const Store: React.FC<IStore> = ({ shouldMenuExpand }) => {
     })
     return (
         <StoreContainer shouldMenuExpand={shouldMenuExpand}>
-            {bookPopupData && (
-                <Composed.BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />
-            )}
+            {bookPopupData && <BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />}
             {!loading &&
                 (!areThereFreeBooks && !areTherePaidBooks ? (
-                    <Composed.Books
-                        books={[]}
-                        error="There are no books in the library right now"
-                    />
+                    <Books books={[]} error="There are no books in the library right now" />
                 ) : areThereFreeBooks ? (
                     <>
-                        <Composed.Books
+                        <Books
                             books={freeBooks}
                             header="Find here awesome books"
                             error="There are no free books in the library right now"
@@ -119,7 +115,7 @@ const Store: React.FC<IStore> = ({ shouldMenuExpand }) => {
                             loadMore={() => getMoreBooks(freeBooks.length, 0)}
                             withMarginRight
                         />
-                        <Composed.Books
+                        <Books
                             books={paidBooks}
                             header="Choose some paid books"
                             error="There are no paid books in the library right now"
@@ -130,7 +126,7 @@ const Store: React.FC<IStore> = ({ shouldMenuExpand }) => {
                     </>
                 ) : (
                     <>
-                        <Composed.Books
+                        <Books
                             books={paidBooks}
                             header="Choose some paid books"
                             error="There are no paid books in the library right now"
@@ -140,7 +136,7 @@ const Store: React.FC<IStore> = ({ shouldMenuExpand }) => {
                             loadMore={() => getMoreBooks(0, paidBooks.length)}
                             withMarginRight
                         />
-                        <Composed.Books
+                        <Books
                             books={freeBooks}
                             header="Find here awesome books"
                             error="There are no free books in the library right now"

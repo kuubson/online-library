@@ -56,7 +56,7 @@ const handleLoader = new ApolloLink((operation, forward) => {
     })
 })
 
-const graphql = new ApolloClient({
+export const client = new ApolloClient({
     cache: new InMemoryCache(),
     link: ApolloLink.from([
         errorHandler,
@@ -66,5 +66,3 @@ const graphql = new ApolloClient({
         })
     ])
 })
-
-export default graphql

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
+
+import Input from 'components/guest/Registration/modules/Input'
 
 import * as Styled from '../styled'
 
-import GuestRegistrationComposed from 'components/guest/Registration/composed'
-
-import utils from 'utils'
+import { axios } from 'utils'
 
 type BooksSuggestions = {
     freeBooks: IBook[]
@@ -14,7 +14,7 @@ type BooksSuggestions = {
     withProfile?: boolean
 }
 
-const useBooksSuggestions = ({
+export const useBooksSuggestions = ({
     freeBooks,
     setFreeBooks,
     paidBooks,
@@ -61,23 +61,23 @@ const useBooksSuggestions = ({
     const renderBooksSuggestionsInput = () => (
         <Styled.InputContainer>
             {findByTitle ? (
-                <GuestRegistrationComposed.Input
+                <Input
                     id="title"
                     type="text"
                     value={title}
                     placeholder="Type book's title..."
                     error=""
-                    onChange={({ target }) => setTitle(target.value)}
+                    onChange={event => setTitle(event.target.value)}
                     withBooksSuggestions
                 />
             ) : (
-                <GuestRegistrationComposed.Input
+                <Input
                     id="author"
                     type="text"
                     value={author}
                     placeholder="Type author's name..."
                     error=""
-                    onChange={({ target }) => setAuthor(target.value)}
+                    onChange={event => setAuthor(event.target.value)}
                     withBooksSuggestions
                 />
             )}
@@ -97,5 +97,3 @@ const useBooksSuggestions = ({
         renderBooksSuggestionsInput
     }
 }
-
-export default useBooksSuggestions

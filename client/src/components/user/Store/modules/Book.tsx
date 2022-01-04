@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
 
-import hooks from 'hooks'
-
 import * as Styled from '../styled'
+
+import { useCart } from 'hooks'
 
 type BookContainerType = {
     withPopup?: boolean

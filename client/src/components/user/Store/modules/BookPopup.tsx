@@ -2,15 +2,17 @@ import React from 'react'
 import styled from 'styled-components'
 import { gql, useMutation } from '@apollo/client'
 
-import hooks from 'hooks'
+import Book from './Book'
 
 import * as Styled from '../styled'
 
-import Composed from '.'
+import { fadeIn } from 'assets/animations'
 
-import utils from 'utils'
+import { useCart } from 'hooks'
 
-import animations from 'assets/animations'
+import { setApiFeedback } from 'helpers'
+
+import { history } from 'utils'
 
 type BorrowBookMutation = {
     borrowBook: {
@@ -36,7 +38,7 @@ export const BookPopupContainer = styled.div`
     justify-content: center;
     align-items: center;
     position: fixed;
-    animation: ${animations.fadeIn} 0.5s ease-in-out;
+    animation: ${fadeIn} 0.5s ease-in-out;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -84,14 +86,7 @@ const BookPopup: React.FC<IBookPopup> = ({ id, title, author, cover, price, setB
     return (
         <BookPopupContainer>
             <Styled.ContentContainer>
-                <Composed.Book
-                    id={id}
-                    title={title}
-                    author={author}
-                    cover={cover}
-                    price={price}
-                    withPopup
-                />
+                <Book id={id} title={title} author={author} cover={cover} price={price} withPopup />
                 <Styled.Content>
                     <Styled.Header black>
                         Are you sure you want to
