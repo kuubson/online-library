@@ -1,0 +1,6 @@
+export { HeaderContainer } from './HeaderContainer'
+export { Header } from './Header'
+export { Buttons } from './Buttons'
+export { Button } from './Button'
+export { AdvantagesContainer } from './AdvantagesContainer'
+export { Advantage } from './Advantage'
