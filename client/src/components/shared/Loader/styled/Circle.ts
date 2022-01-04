@@ -6,7 +6,7 @@ const circleAnimation = keyframes`
     } 
 `
 
-export default styled.div`
+export const Circle = styled.div`
     width: 40px;
     height: 40px;
     position: relative;

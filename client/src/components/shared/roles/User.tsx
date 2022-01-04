@@ -7,7 +7,7 @@ import { GuestContainer } from 'components/shared/roles/Guest'
 
 import Menu from 'components/user/Store/modules/Menu'
 
-import { useSocket, useCart, useMessages } from 'hooks'
+import { useSocket, useCart, useMessagesInfo } from 'hooks'
 
 import { handleApiError } from 'helpers'
 
@@ -29,7 +29,7 @@ export const User: React.FC<IUser> = ({ children, withChat }) => {
         unreadMessagesAmount,
         setLastUnreadMessageIndex,
         setUnreadMessagesAmount
-    } = useMessages()
+    } = useMessagesInfo()
     const { cart } = useCart()
     const [shouldMenuExpand, _setShouldMenuExpand] = useState(false)
     const [currentUserId, setCurrentUserId] = useState()
@@ -55,8 +55,8 @@ export const User: React.FC<IUser> = ({ children, withChat }) => {
                 handleApiError(error)
             }
         }
-        const getUnreadMessagesInfo = async () => {
-            const url = '/api/user/chat/getUnreadMessagesInfo'
+        const getMessagesInfo = async () => {
+            const url = '/api/user/chat/getMessagesInfo'
             const response = await axios.get(url)
             if (response) {
                 const { lastUnreadMessageIndex, unreadMessagesAmount, userId } = response.data
@@ -66,7 +66,7 @@ export const User: React.FC<IUser> = ({ children, withChat }) => {
             }
         }
         checkToken()
-        getUnreadMessagesInfo()
+        getMessagesInfo()
     }, [])
     useEffect(() => {
         const handleOnSendMessage = ({ userId }: { userId: number }) => {

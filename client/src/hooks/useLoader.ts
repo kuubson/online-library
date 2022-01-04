@@ -1,9 +1,7 @@
-import { useSelector } from 'react-redux'
-
-import { RootState } from 'redux/reducers'
+import { useAppSelector } from 'redux/hooks'
 
 export const useLoader = () => {
-    const { loading } = useSelector((state: RootState) => state.loader)
+    const { loading } = useAppSelector(state => state.loader)
     return {
         loading
     }

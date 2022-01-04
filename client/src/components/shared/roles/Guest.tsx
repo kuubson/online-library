@@ -17,12 +17,9 @@ export const GuestContainer = styled.section`
 `
 
 export const Guest: React.FC = ({ children }) => {
-    const { socket, setSocket } = useSocket()
+    const { closeSocketConnection } = useSocket()
     useEffect(() => {
-        if (socket) {
-            socket.disconnect()
-            setSocket(undefined)
-        }
+        closeSocketConnection()
         const checkToken = async () => {
             try {
                 const url = '/api/global/auth/checkToken'

@@ -5,9 +5,9 @@
 -   HTML, CSS, JS, TS
 -   React.js + Redux (Hooks, Styled Components, PWA, Web Push Notifications, PayPal, Stripe)
 -   GraphQL + Apollo
--   React Native ([online-library-native](https://github.com/toxxiczny/online-library-native))
 -   Node.js + Express (passport.js, JWT, socket.io, multer, cloudinary)
 -   MySQL (ORM Sequelize)
+-   React Native ([online-library-native](https://github.com/toxxiczny/online-library-native))
 
 ## Description
 
@@ -59,7 +59,7 @@ npm install
 npm start
 ```
 
-Make sure to create **MySQL** database with credentials the same as in **.env** with the usage of e.g, [xampp](https://www.apachefriends.org/pl/index.html)
+Make sure to create **MySQL** database with credentials the same as in **.env** with the usage of event.g, [xampp](https://www.apachefriends.org/pl/index.html)
 
 ## Some screenshots
 

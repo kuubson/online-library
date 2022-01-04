@@ -6,26 +6,22 @@ import socket from './socket'
 import loader from './loader'
 import apiFeedback from './apiFeedback'
 import cart from './cart'
-import messages from './messages'
+import messagesInfo from './messagesInfo'
 
 const cartConfig = {
     key: 'cart',
     storage
 }
 
-const messagesConfig = {
-    key: 'messages',
+const messagesInfoConfig = {
+    key: 'messagesInfo',
     storage
 }
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
     socket,
     loader,
     apiFeedback,
     cart: persistReducer(cartConfig, cart),
-    messages: persistReducer(messagesConfig, messages)
+    messagesInfo: persistReducer(messagesInfoConfig, messagesInfo)
 })
-
-export type RootState = ReturnType<typeof rootReducer>
-
-export default rootReducer

@@ -1,35 +1,36 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import actions from 'redux/actions'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-const initialState = {
-    data: {
-        header: '',
-        message: '',
-        buttonText: '',
-        callback: () => {}
-    }
+type SliceState = {
+    header: string
+    message: string
+    buttonText: string
+    callback: () => void
 }
 
-type Action = {
-    payload: {
-        header: string
-        message: string
-        buttonText: string
-        callback: () => void
-    }
-    type: 'setApiFeedback'
+const initialState: SliceState = {
+    header: '',
+    message: '',
+    buttonText: '',
+    callback: () => {}
 }
 
-const apiFeedback = (state = initialState, { payload, type }: Action) => {
-    switch (type) {
-        case actions.setApiFeedback:
-            return {
-                ...state,
-                data: payload
-            }
-        default:
-            return state
+const apiFeedbackSlice = createSlice({
+    name: 'apiFeedback',
+    initialState,
+    reducers: {
+        setApiFeedback: (
+            state,
+            { payload: { header, message, buttonText, callback } }: PayloadAction<SliceState>
+        ) => {
+            state.header = header
+            state.message = message
+            state.buttonText = buttonText
+            state.callback = callback
+        }
     }
-}
+})
 
-export default apiFeedback
+export const { setApiFeedback } = apiFeedbackSlice.actions
+
+export default apiFeedbackSlice.reducer

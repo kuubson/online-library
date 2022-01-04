@@ -15,7 +15,7 @@ const dotBeforeAnimation = keyframes`
     } 
 `
 
-export default styled.span`
+export const Dot = styled.span`
     width: 100%;
     height: 100%;
     animation: ${dotAnimation} 2s infinite ease-in-out both;

@@ -1,38 +1,27 @@
-import actions from 'redux/actions'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-type State = {
+type SliceState = {
     cart: number[]
 }
 
-const initialState: State = {
+const initialState: SliceState = {
     cart: []
 }
 
-type Action = {
-    payload: number
-    type: 'resetCart' | 'addToCart' | 'removeFromCart'
-}
-
-const cart = (state = initialState, { payload, type }: Action) => {
-    switch (type) {
-        case actions.resetCart:
-            return {
-                ...state,
-                cart: []
-            }
-        case actions.addToCart:
-            return {
-                ...state,
-                cart: [payload, ...state.cart]
-            }
-        case actions.removeFromCart:
-            return {
-                ...state,
-                cart: [...state.cart.filter(bookId => bookId !== payload)]
-            }
-        default:
-            return state
+const cartSlice = createSlice({
+    name: 'cart',
+    initialState,
+    reducers: {
+        resetCart: () => initialState,
+        addToCart: (state, { payload }: PayloadAction<number>) => {
+            state.cart.push(payload)
+        },
+        removeFromCart: (state, { payload }: PayloadAction<number>) => {
+            state.cart.filter(id => id !== payload)
+        }
     }
-}
+})
 
-export default cart
+export const { resetCart, addToCart, removeFromCart } = cartSlice.actions
+
+export default cartSlice.reducer

@@ -10,7 +10,7 @@ import ProgressLoader from './modules/ProgressLoader/ProgressLoader'
 import * as StyledStore from 'components/user/Store/styled'
 import * as Styled from './styled'
 
-import { useSocket, useMessages } from 'hooks'
+import { useSocket, useMessagesInfo } from 'hooks'
 
 import {
     setApiFeedback,
@@ -44,7 +44,7 @@ interface IChat {
 
 const Chat: React.FC<IChat> = ({ shouldMenuExpand }) => {
     const { socket } = useSocket()
-    const { lastUnreadMessageIndex, setUnreadMessagesAmount } = useMessages()
+    const { lastUnreadMessageIndex, setUnreadMessagesAmount } = useMessagesInfo()
     const messagesRef = useRef<HTMLDivElement>(null)
     const textareaRef = useRef<HTMLTextAreaElement>(null)
     const endOfMessages = useRef<HTMLDivElement>(null)

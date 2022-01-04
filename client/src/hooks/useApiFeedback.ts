@@ -1,11 +1,7 @@
-import { useSelector } from 'react-redux'
-
-import { RootState } from 'redux/reducers'
+import { useAppSelector } from 'redux/hooks'
 
 export const useApiFeedback = () => {
-    const {
-        data: { header, message, buttonText, callback }
-    } = useSelector((state: RootState) => state.apiFeedback)
+    const { header, message, buttonText, callback } = useAppSelector(state => state.apiFeedback)
     const showApiFeedback = !!header && !!message && !!buttonText
     return {
         header,
