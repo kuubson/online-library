@@ -5,7 +5,7 @@ import { useSocket, useMessagesInfo } from 'hooks'
 
 import { setApiFeedback, subscribePushNotifications, handleApiError } from 'helpers'
 
-import { axios as apiAxios } from 'utils'
+import { axios as apiAxios, filesInfo } from 'utils'
 
 type ChatHook = {
     setLoading: ReactDispatch<boolean>
@@ -164,14 +164,14 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: ChatHoo
         let percentage = 0
         const file = event.currentTarget.files![0]
         if (file) {
-            const path = event.currentTarget.value
+            const {
+                regex: { images, videos, files },
+                sizes: { maxImageSize, maxVideoSize, maxFileSize }
+            } = filesInfo
             const { name, size } = file
-            const imageExtensions = /\.(jpg|jpeg|png|gif)$/i
-            const videoExtensions = /\.(mp4)$/i
-            const fileExtensions = /\.(txt|rtf|doc|docx|xlsx|ppt|pptx|pdf)$/i
-            const isImage = imageExtensions.test(path) || imageExtensions.test(name)
-            const isVideo = videoExtensions.test(path) || videoExtensions.test(name)
-            const isFile = fileExtensions.test(path) || fileExtensions.test(name)
+            const isImage = images.test(name)
+            const isVideo = videos.test(name)
+            const isFile = files.test(name)
             const resetFileInput = () => {
                 setShowFileInput(false)
                 setShowFileInput(true)
@@ -192,20 +192,20 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: ChatHoo
                 )
             }
             if (isImage) {
-                if (size > 31457280) {
-                    resetFileInput() // 30MB
+                if (size > maxImageSize) {
+                    resetFileInput()
                     largeSizeError()
                 }
             }
             if (isVideo) {
-                if (size > 52428800) {
-                    resetFileInput() // 50MB
+                if (size > maxVideoSize) {
+                    resetFileInput()
                     largeSizeError()
                 }
             }
             if (isFile) {
-                if (size > 10485760) {
-                    resetFileInput() // 10MB
+                if (size > maxFileSize) {
+                    resetFileInput()
                     largeSizeError()
                 }
             }

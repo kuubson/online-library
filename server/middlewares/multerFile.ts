@@ -26,7 +26,7 @@ export const multerFile = multer({
     fileFilter: (req: MulterRequest, { mimetype, originalname }, callback) => {
         const {
             regex: { images, videos, files },
-            sizes
+            sizes: { maxImageSize, maxVideoSize, maxFileSize }
         } = filesInfo
         const size = parseInt(req.headers['content-length']!)
         const isImage = images.test(mimetype) || images.test(originalname)
@@ -36,17 +36,17 @@ export const multerFile = multer({
             req.allowedExtenstionsError = true
         }
         if (isImage) {
-            if (size > sizes.imageMaxSize) {
+            if (size > maxImageSize) {
                 req.sizeLimit = true
             }
         }
         if (isVideo) {
-            if (size > sizes.maxVideoSize) {
+            if (size > maxVideoSize) {
                 req.sizeLimit = true
             }
         }
         if (isFile) {
-            if (size > sizes.maxFileSize) {
+            if (size > maxFileSize) {
                 req.sizeLimit = true
             }
         }
