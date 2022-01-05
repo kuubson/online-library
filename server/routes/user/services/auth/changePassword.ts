@@ -18,7 +18,13 @@ export const changePassword: Route = async (req, res, next) => {
                 process.env.JWT_KEY!,
                 async (error: any, data: any) => {
                     try {
-                        if (error) {
+                        const user = await User.findOne({
+                            where: {
+                                email: data.email,
+                                passwordToken
+                            }
+                        })
+                        if (error || !user) {
                             if (error.message.includes('expired')) {
                                 throw new ApiError(
                                     'Password recovery',
@@ -30,20 +36,6 @@ export const changePassword: Route = async (req, res, next) => {
                                 'Password recovery',
                                 'The password recovery link is invalid',
                                 400
-                            )
-                        }
-                        const user = await User.findOne({
-                            where: {
-                                email: data.email,
-                                passwordToken
-                            },
-                            transaction
-                        })
-                        if (!user) {
-                            throw new ApiError(
-                                'Password recovery',
-                                'The password recovery link is invalid',
-                                404
                             )
                         }
                         await user.update(

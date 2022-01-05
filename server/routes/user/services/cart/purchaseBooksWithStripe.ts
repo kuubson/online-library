@@ -26,8 +26,7 @@ export const purchaseBooksWithStripe: ProtectedRoute = async (req, res, next) =>
             const books = await Book.findAll({
                 where: {
                     id: products
-                },
-                transaction
+                }
             }).then(books => books.filter(({ id }) => !userBooks.includes(id)))
             if (books.length === 0) {
                 throw new ApiError(

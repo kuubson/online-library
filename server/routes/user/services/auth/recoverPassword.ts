@@ -16,8 +16,7 @@ export const recoverPassword: Route = async (req, res, next) => {
                 where: {
                     email
                 },
-                include: [Authentication],
-                transaction
+                include: [Authentication]
             })
             if (!user || !user.authentication) {
                 throw new ApiError(

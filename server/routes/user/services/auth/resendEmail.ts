@@ -16,8 +16,7 @@ export const resendEmail: Route = async (req, res, next) => {
                 where: {
                     email
                 },
-                include: [Authentication],
-                transaction
+                include: [Authentication]
             })
             if (!user || !user.authentication) {
                 throw new ApiError('E-mail resending', 'The email address provided is invalid', 404)

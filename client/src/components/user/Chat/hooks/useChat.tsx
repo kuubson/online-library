@@ -244,11 +244,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: ChatHoo
                     socket!.emit('sendMessage', message)
                 }
             } catch (error) {
-                setApiFeedback(
-                    'Sending a file',
-                    'There was an unexpected problem when sending the file',
-                    'Okey'
-                )
+                handleApiError(error)
                 resetFileInput()
                 clearInterval(intervalId)
                 setPercentage(0)

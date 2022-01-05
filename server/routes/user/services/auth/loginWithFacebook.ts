@@ -16,8 +16,7 @@ export const loginWithFacebook: Route = async (req, res, next) => {
             const user = await User.findOne({
                 where: {
                     email
-                },
-                transaction
+                }
             })
             const token = jwt.sign({ email, role: 'user' }, process.env.JWT_KEY!)
             if (user) {

@@ -4,6 +4,8 @@ import { Server, Socket } from 'socket.io'
 import { User, Message } from 'database'
 import { User as UserClass } from 'database/models/User'
 
+import { updateReadByProperty } from 'routes/user/services/chat/helpers'
+
 import { cookie } from 'utils'
 
 interface ISocket extends Socket {
@@ -45,21 +47,8 @@ export const user = (io: Server) => {
         const id = socket.user!.id
         socket.on('sendMessage', data => socket.broadcast.emit('sendMessage', data))
         socket.on('readMessages', async () => {
-            await Message.findAll().then(
-                async messages =>
-                    await Promise.all(
-                        messages.map(async message => {
-                            const readByIds = message.readBy.split(',').filter(v => v)
-                            const ID = id.toString()
-                            if (!readByIds.includes(ID)) {
-                                readByIds.push(ID)
-                            }
-                            await message.update({
-                                readBy: readByIds.join(',')
-                            })
-                        })
-                    )
-            )
+            const messages = await Message.findAll()
+            await updateReadByProperty(id, messages)
         })
     })
 }

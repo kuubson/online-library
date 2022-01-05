@@ -17,10 +17,9 @@ export const authenticateEmail: Route = async (req, res, next) => {
                     const authentication = await Authentication.findOne({
                         where: {
                             token
-                        },
-                        transaction
+                        }
                     })
-                    if (error) {
+                    if (error || !authentication) {
                         if (authentication && error.message.includes('expired')) {
                             throw new ApiError(
                                 'Email address authentication',
@@ -32,13 +31,6 @@ export const authenticateEmail: Route = async (req, res, next) => {
                             'Email address authentication',
                             'The activation link is invalid',
                             400
-                        )
-                    }
-                    if (!authentication) {
-                        throw new ApiError(
-                            'Email address authentication',
-                            'The activation link is invalid',
-                            404
                         )
                     }
                     if (authentication.authenticated) {

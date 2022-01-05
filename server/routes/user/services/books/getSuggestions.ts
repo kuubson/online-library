@@ -1,7 +1,7 @@
 import { Op } from 'sequelize'
 import { check } from 'express-validator'
 
-import { Connection, Book } from 'database'
+import { Book } from 'database'
 import { Book as BookClass } from 'database/models/Book'
 
 import { validator } from 'helpers'
@@ -10,35 +10,31 @@ import { ProtectedRoute } from 'types/express'
 
 export const getSuggestions: ProtectedRoute = async (req, res, next) => {
     try {
-        await Connection.transaction(async transaction => {
-            const { title, author, withProfile } = req.body
-            const property = title ? 'title' : 'author'
-            const value = title ? title : author
-            let books: BookClass[] = []
-            if (value) {
-                if (!withProfile) {
-                    books = await Book.findAll({
-                        where: {
-                            [property]: {
-                                [Op.like]: `%${value}%`
-                            }
-                        },
-                        transaction
-                    })
-                } else {
-                    books = await req.user.getBooks({
-                        where: {
-                            [property]: {
-                                [Op.like]: `%${value}%`
-                            }
-                        },
-                        transaction
-                    })
-                }
+        const { title, author, withProfile } = req.body
+        const property = title ? 'title' : 'author'
+        const value = title ? title : author
+        let books: BookClass[] = []
+        if (value) {
+            if (!withProfile) {
+                books = await Book.findAll({
+                    where: {
+                        [property]: {
+                            [Op.like]: `%${value}%`
+                        }
+                    }
+                })
+            } else {
+                books = await req.user.getBooks({
+                    where: {
+                        [property]: {
+                            [Op.like]: `%${value}%`
+                        }
+                    }
+                })
             }
-            res.send({
-                books
-            })
+        }
+        res.send({
+            books
         })
     } catch (error) {
         next(error)
