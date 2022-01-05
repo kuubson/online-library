@@ -13,6 +13,17 @@ type ChatHook = {
     setPercentage: ReactDispatch<number>
 }
 
+type GetMessagesResponse = {
+    messages: IMessage[]
+    userId: string
+    userName: string
+}
+
+type SendFileResponse = {
+    type: string
+    content: string
+}
+
 export const useChat = ({ setLoading, setShowFileInput, setPercentage }: ChatHook) => {
     const { socket } = useSocket()
     const { lastUnreadMessageIndex, setUnreadMessagesAmount } = useMessagesInfo()
@@ -32,7 +43,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: ChatHoo
         if (event) {
             const target = event.target as any
             if (target.scrollTop <= 0 && hasMoreMessages) {
-                const response = await apiAxios.post(url, {
+                const response = await apiAxios.post<GetMessagesResponse>(url, {
                     limit,
                     offset
                 })
@@ -49,7 +60,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: ChatHoo
             }
         }
         if (!event) {
-            const response = await apiAxios.post(url, {
+            const response = await apiAxios.post<GetMessagesResponse>(url, {
                 limit,
                 offset
             })
@@ -91,7 +102,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: ChatHoo
     }, [socket])
     const getUnreadMessages = async () => {
         const url = '/api/user/chat/getMessages'
-        const response = await apiAxios.post(url, {
+        const response = await apiAxios.post<GetMessagesResponse>(url, {
             limit: lastUnreadMessageIndex,
             offset: 0
         })
@@ -208,7 +219,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: ChatHoo
                         setPercentage(percentage => percentage + 1)
                     }
                 }, 500)
-                const response = await axios.post(url, form)
+                const response = await axios.post<SendFileResponse>(url, form)
                 if (response) {
                     setPercentage(100)
                     clearInterval(intervalId)

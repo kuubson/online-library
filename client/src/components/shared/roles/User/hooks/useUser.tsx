@@ -8,6 +8,12 @@ import { handleApiError } from 'helpers'
 
 import { history } from 'utils'
 
+type GetMessagesInfoResponse = {
+    lastUnreadMessageIndex: number
+    unreadMessagesAmount: number
+    userId: string
+}
+
 export const useUser = (withChat: boolean | undefined) => {
     const { socket, setSocket } = useSocket()
     const { cart } = useCart()
@@ -17,7 +23,7 @@ export const useUser = (withChat: boolean | undefined) => {
         setLastUnreadMessageIndex,
         setUnreadMessagesAmount
     } = useMessagesInfo()
-    const [currentUserId, setCurrentUserId] = useState()
+    const [currentUserId, setCurrentUserId] = useState<string | null>(null)
     useEffect(() => {
         if (!socket) {
             setSocket(io('/user'))
@@ -25,7 +31,7 @@ export const useUser = (withChat: boolean | undefined) => {
         const checkToken = async () => {
             try {
                 const url = '/api/global/auth/checkToken'
-                const response = await axios.get(url)
+                const response = await axios.get<CheckTokenResponse>(url)
                 if (response) {
                     const { role } = response.data
                     if (role !== 'user') {
@@ -39,7 +45,7 @@ export const useUser = (withChat: boolean | undefined) => {
         checkToken()
         const getMessagesInfo = async () => {
             const url = '/api/user/chat/getMessagesInfo'
-            const response = await axios.get(url)
+            const response = await axios.get<GetMessagesInfoResponse>(url)
             if (response) {
                 const { lastUnreadMessageIndex, unreadMessagesAmount, userId } = response.data
                 setLastUnreadMessageIndex(lastUnreadMessageIndex)
@@ -52,9 +58,11 @@ export const useUser = (withChat: boolean | undefined) => {
     const handleOnSendMessage = (message: IMessage) => {
         if (!withChat && message.userId !== currentUserId) {
             setUnreadMessagesAmount(unreadMessagesAmount + 1)
-            !lastUnreadMessageIndex
-                ? setLastUnreadMessageIndex(1)
-                : setLastUnreadMessageIndex(lastUnreadMessageIndex + 1)
+            if (!lastUnreadMessageIndex) {
+                setLastUnreadMessageIndex(1)
+            } else {
+                setLastUnreadMessageIndex(lastUnreadMessageIndex + 1)
+            }
         }
     }
     useEffect(() => {

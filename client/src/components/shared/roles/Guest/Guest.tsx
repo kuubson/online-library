@@ -22,7 +22,7 @@ export const Guest: React.FC = ({ children }) => {
         const checkToken = async () => {
             try {
                 const url = '/api/global/auth/checkToken'
-                const response = await axios.get(url)
+                const response = await axios.get<CheckTokenResponse>(url)
                 if (response) {
                     const { role } = response.data
                     if (role === 'user') {

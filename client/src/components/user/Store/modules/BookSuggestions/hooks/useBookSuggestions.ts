@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react'
 
 import { axios } from 'utils'
 
+type GetSuggestionsResponse = {
+    books: IBook[]
+}
+
 export const useBookSuggestions = ({
     freeBooks,
     paidBooks,
@@ -16,7 +20,7 @@ export const useBookSuggestions = ({
     useEffect(() => {
         const getSuggestions = async () => {
             const url = '/api/user/books/getSuggestions'
-            const response = await axios.post(url, {
+            const response = await axios.post<GetSuggestionsResponse>(url, {
                 title,
                 author,
                 withProfile: !!withProfile
