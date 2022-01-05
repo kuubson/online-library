@@ -53,18 +53,25 @@ const Message = ({
     const [imageError, setImageError] = useState(false)
     const [videoError, setVideoError] = useState(false)
     const date = new Date(createdAt)
+    const withFile = type === 'FILE'
     const withCurrentUser = userId === currentUserId
     const withLastUserMessage = (nextMessage && userId !== nextMessage.userId) || !nextMessage
-    const withFile = type === 'FILE'
     useEffect(() => {
         scrollToTheBottom()
     }, [])
     useEffect(() => {
-        shouldDetailsAppear && setTimeout(() => setShouldDetailsAppear(false), 3000)
+        if (shouldDetailsAppear) {
+            setTimeout(() => setShouldDetailsAppear(false), 3000)
+        }
     }, [shouldDetailsAppear])
-    const scrollToTheBottom = () => withLastMessage && scrollToLastMessage(0)
-    const handleFileLoadingError = () =>
+    const scrollToTheBottom = () => {
+        if (withLastMessage) {
+            scrollToLastMessage(0)
+        }
+    }
+    const handleFileLoadingError = () => {
         type === 'IMAGE' ? setImageError(true) : setVideoError(true)
+    }
     const showError = (error: string) => (
         <Styled.Content
             withCurrentUser={withCurrentUser}
