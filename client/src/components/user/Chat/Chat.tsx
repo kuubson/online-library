@@ -8,6 +8,7 @@ import Messages from './modules/Messages/Messages'
 import ProgressLoader from './modules/ProgressLoader/ProgressLoader'
 
 import * as StyledStore from 'components/user/Store/styled'
+import { Warning } from 'components/user/Store/modules/Books/styled'
 import * as Styled from './styled'
 
 import { useSocket, useMessagesInfo } from 'hooks'
@@ -301,7 +302,7 @@ const Chat = ({ shouldMenuExpand }: IChat) => {
                         scrollToLastMessage={scrollToLastMessage}
                     />
                 ) : (
-                    <StyledStore.Warning>There are no messages</StyledStore.Warning>
+                    <Warning>There are no messages</Warning>
                 ))}
             <Styled.TextareaContainer>
                 <Styled.Textarea

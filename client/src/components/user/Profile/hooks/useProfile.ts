@@ -27,6 +27,7 @@ export const useProfile = () => {
     const [boughtBooks, setBoughtBooks] = useState<IBook[]>([])
     const [borrowedBooks, setBorrowedBooks] = useState<IBook[]>([])
     const { loading } = useQuery<Query>(GET_PROFILE_BOOKS, {
+        fetchPolicy: 'cache-and-network',
         onCompleted: ({ boughtBooks, borrowedBooks }) => {
             setBoughtBooks(boughtBooks)
             setBorrowedBooks(borrowedBooks)

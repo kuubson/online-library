@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { BookPopupContainer } from 'components/user/Store/modules/BookPopup/BookPopup'
 
 import * as StyledStore from 'components/user/Store/styled'
+import * as StyledBookPopup from 'components/user/Store/modules/BookPopup/styled'
 import * as Styled from './styled'
 
 import Book from 'components/user/Store/modules/Book/Book'
@@ -22,7 +23,7 @@ const BookPopup = ({ id, title, author, cover, price, setBookPopupData }: IBookP
     }, [currentPage])
     return (
         <BookPopupContainer>
-            <StyledStore.ContentContainer withFlips>
+            <StyledBookPopup.ContentContainer withFlips>
                 <Styled.BookContainer withFlips={opened} read={read}>
                     {pages.map((_, index) => (
                         <Styled.Page
@@ -47,8 +48,8 @@ const BookPopup = ({ id, title, author, cover, price, setBookPopupData }: IBookP
                         </Styled.Page>
                     ))}
                 </Styled.BookContainer>
-                <StyledStore.Content withFlips>
-                    <StyledStore.ButtonsContainer>
+                <StyledBookPopup.Content withFlips>
+                    <StyledBookPopup.ButtonsContainer>
                         {opened ? (
                             <>
                                 <StyledStore.Button
@@ -96,9 +97,9 @@ const BookPopup = ({ id, title, author, cover, price, setBookPopupData }: IBookP
                                 </StyledStore.Button>
                             </>
                         )}
-                    </StyledStore.ButtonsContainer>
-                </StyledStore.Content>
-            </StyledStore.ContentContainer>
+                    </StyledBookPopup.ButtonsContainer>
+                </StyledBookPopup.Content>
+            </StyledBookPopup.ContentContainer>
         </BookPopupContainer>
     )
 }

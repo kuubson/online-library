@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import styled, { css } from 'styled-components'
 
-import * as Styled from '../../styled'
+import * as StyledStore from '../../styled'
+import * as Styled from './styled'
 
 import { useCart } from 'hooks'
 
@@ -80,25 +81,29 @@ const Book = ({
                 <Styled.Annotation withTitle>{title}</Styled.Annotation>
             </Styled.AnnotationsContainer>
             {withCart ? (
-                <Styled.Button onClick={() => removeFromCart(id)} price={price}>
+                <StyledStore.Button onClick={() => removeFromCart(id)} price={price}>
                     Remove
-                </Styled.Button>
+                </StyledStore.Button>
             ) : withProfile ? (
-                <Styled.Button onClick={handleBookPopup}>Open</Styled.Button>
+                <StyledStore.Button onClick={handleBookPopup}>Open</StyledStore.Button>
             ) : !withPopup ? (
-                <Styled.Button
-                    onClick={() => !inCart && handleBookPopup}
+                <StyledStore.Button
+                    onClick={() => {
+                        if (!inCart) {
+                            handleBookPopup()
+                        }
+                    }}
                     price={price}
                     withoutHover={inCart}
                 >
                     {price ? (inCart ? 'In cart' : 'Buy') : 'Borrow'}
-                </Styled.Button>
+                </StyledStore.Button>
             ) : (
                 withPopup &&
                 price && (
-                    <Styled.Button price={price} withoutHover>
+                    <StyledStore.Button price={price} withoutHover>
                         Price
-                    </Styled.Button>
+                    </StyledStore.Button>
                 )
             )}
         </BookContainer>

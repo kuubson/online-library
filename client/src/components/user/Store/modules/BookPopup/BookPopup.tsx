@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 import Book from '../Book/Book'
 
-import * as Styled from '../../styled'
+import * as StyledStore from '../../styled'
+import * as Styled from './styled'
 
 import { fadeIn } from 'assets/animations'
 
@@ -37,20 +38,20 @@ const BookPopup = ({ id, title, author, cover, price, setBookPopupData }: IBookP
             <Styled.ContentContainer>
                 <Book id={id} title={title} author={author} cover={cover} price={price} withPopup />
                 <Styled.Content>
-                    <Styled.Header black>
+                    <StyledStore.Header black>
                         Are you sure you want to
                         {price ? ' add this book to the cart' : ' borrow this book'}?
-                    </Styled.Header>
+                    </StyledStore.Header>
                     <Styled.ButtonsContainer>
-                        <Styled.Button
+                        <StyledStore.Button
                             onClick={price ? () => handleAdddingToCart(id) : handleBorrowingBook}
                             notAbsolute
                         >
                             Yes
-                        </Styled.Button>
-                        <Styled.Button onClick={() => setBookPopupData(undefined)} notAbsolute>
+                        </StyledStore.Button>
+                        <StyledStore.Button onClick={() => setBookPopupData(undefined)} notAbsolute>
                             No
-                        </Styled.Button>
+                        </StyledStore.Button>
                     </Styled.ButtonsContainer>
                 </Styled.Content>
             </Styled.ContentContainer>

@@ -2,7 +2,8 @@ import styled, { css } from 'styled-components'
 
 import Book from '../Book/Book'
 
-import * as Styled from '../../styled'
+import * as StyledStore from '../../styled'
+import * as Styled from './styled'
 
 import { fadeIn } from 'assets/animations'
 
@@ -83,17 +84,17 @@ const Books = ({
             fullWidth={fullWidth}
         >
             {areThereBooks && (
-                <Styled.HeaderContainer withoutInput={withoutInput}>
+                <StyledStore.HeaderContainer withoutInput={withoutInput}>
                     {header && (
-                        <Styled.Header
+                        <StyledStore.Header
                             withMoreMarginBottom={!!searchInput}
                             withPaddingRight={!!searchInput}
                         >
                             {header}
-                        </Styled.Header>
+                        </StyledStore.Header>
                     )}
                     {searchInput && searchInput()}
-                </Styled.HeaderContainer>
+                </StyledStore.HeaderContainer>
             )}
             <Styled.Books empty={!areThereBooks}>
                 {areThereBooks ? (
@@ -114,9 +115,9 @@ const Books = ({
                     <Styled.Warning>{error}</Styled.Warning>
                 )}
                 {books.length >= 10 && hasMore && !withCart && (
-                    <Styled.Button onClick={loadMore} notAbsolute withLoadMore>
+                    <StyledStore.Button onClick={loadMore} notAbsolute withLoadMore>
                         Load more
-                    </Styled.Button>
+                    </StyledStore.Button>
                 )}
             </Styled.Books>
         </BooksContainer>

@@ -6,6 +6,7 @@ import { BookPopupContainer } from 'components/user/Store/modules/BookPopup/Book
 
 import * as StyledStore from 'components/user/Store/styled'
 import * as StyledRegistration from 'components/guest/Registration/styled'
+import * as StyledBookPopup from 'components/user/Store/modules/BookPopup/styled'
 import * as Styled from './styled'
 
 import { useIsKeyboardOpened } from 'hooks'
@@ -24,8 +25,8 @@ const StripePopup = ({ price, setShouldStripePopupAppear }: IStripePopup) => {
     const [error, setError] = useState('')
     return (
         <StripePopupContainer>
-            <StyledStore.ContentContainer withLessHeight isKeyboardOpened={isKeyboardOpened}>
-                <StyledStore.Content withoutMargin>
+            <StyledBookPopup.ContentContainer withLessHeight isKeyboardOpened={isKeyboardOpened}>
+                <StyledBookPopup.Content withoutMargin>
                     <StyledStore.Header black>
                         Enter your details and submit payment
                     </StyledStore.Header>
@@ -49,7 +50,7 @@ const StripePopup = ({ price, setShouldStripePopupAppear }: IStripePopup) => {
                         />
                     </Styled.CardContainer>
                     {error && <StyledRegistration.Error>{error}</StyledRegistration.Error>}
-                    <StyledStore.ButtonsContainer>
+                    <StyledBookPopup.ButtonsContainer>
                         <StyledStore.Button
                             onClick={() => setShouldStripePopupAppear(false)}
                             notAbsolute
@@ -59,9 +60,9 @@ const StripePopup = ({ price, setShouldStripePopupAppear }: IStripePopup) => {
                         <StyledStore.Button onClick={handlePaying} notAbsolute withoutFixedWidth>
                             Submit ${price}
                         </StyledStore.Button>
-                    </StyledStore.ButtonsContainer>
-                </StyledStore.Content>
-            </StyledStore.ContentContainer>
+                    </StyledBookPopup.ButtonsContainer>
+                </StyledBookPopup.Content>
+            </StyledBookPopup.ContentContainer>
         </StripePopupContainer>
     )
 }

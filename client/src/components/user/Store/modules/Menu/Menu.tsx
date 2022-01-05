@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import { useLocation } from 'react-router'
 
-import * as Styled from '../../styled'
+import * as Styled from './styled'
 
 import { useMenu } from './hooks'
 
