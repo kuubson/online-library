@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 
 type Props = {
     withFlips?: boolean
-    isRead?: boolean
+    read?: boolean
 }
 
 export const BookContainer = styled.div<Props>`
@@ -36,8 +36,8 @@ export const BookContainer = styled.div<Props>`
                   }
               `
             : null};
-    ${({ isRead }) =>
-        isRead
+    ${({ read }) =>
+        read
             ? css`
                   transform: translateX(100%);
                   @media (max-width: 700px) {

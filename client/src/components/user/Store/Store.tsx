@@ -1,34 +1,11 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { gql, useQuery } from '@apollo/client'
 
-import Books from './modules/Books'
-import BookPopup from './modules/BookPopup'
+import BookSuggestions from './modules/BookSuggestions/BookSuggestions'
+import Books from './modules/Books/Books'
+import BookPopup from './modules/BookPopup/BookPopup'
 
-import { useBooksSuggestions } from './hooks'
-
-type StoreQuery = {
-    freeBooks: IBook[]
-    paidBooks: IBook[]
-}
-
-const storeQuery = gql`
-    query ($freeBooksOffset: Int!, $paidBooksOffset: Int!) {
-        freeBooks(freeBooksOffset: $freeBooksOffset, paidBooksOffset: $paidBooksOffset) {
-            id
-            title
-            author
-            cover
-        }
-        paidBooks(paidBooksOffset: $paidBooksOffset, freeBooksOffset: $freeBooksOffset) {
-            id
-            title
-            author
-            cover
-            price
-        }
-    }
-`
+import { useStore } from './hooks'
 
 type Props = {
     shouldMenuExpand?: boolean
@@ -55,48 +32,19 @@ interface IStore {
 }
 
 const Store = ({ shouldMenuExpand }: IStore) => {
-    const [loading, setLoading] = useState(true)
-    const [freeBooks, setFreeBooks] = useState<IBook[]>([])
-    const [paidBooks, setPaidBooks] = useState<IBook[]>([])
-    const [hasMoreFreeBooks, setHasMoreFreeBooks] = useState(true)
-    const [hasMorePaidBooks, setHasMorePaidBooks] = useState(true)
+    const {
+        loading,
+        freeBooks,
+        paidBooks,
+        hasMoreFreeBooks,
+        hasMorePaidBooks,
+        setFreeBooks,
+        setPaidBooks,
+        getMoreBooks
+    } = useStore()
     const [bookPopupData, setBookPopupData] = useState<IBook>()
     const areThereFreeBooks = !!freeBooks.length
     const areTherePaidBooks = !!paidBooks.length
-    const { fetchMore: getBooks } = useQuery<StoreQuery>(storeQuery, {
-        variables: {
-            freeBooksOffset: 0,
-            paidBooksOffset: 0
-        },
-        onCompleted: ({ freeBooks, paidBooks }) => {
-            setLoading(false)
-            setFreeBooks(freeBooks)
-            setPaidBooks(paidBooks)
-        }
-    })
-    const getMoreBooks = (freeBooksOffset: number, paidBooksOffset: number) =>
-        getBooks({
-            variables: {
-                freeBooksOffset,
-                paidBooksOffset
-            },
-            updateQuery: (_, { fetchMoreResult }): any => {
-                if (fetchMoreResult) {
-                    const { freeBooks, paidBooks } = fetchMoreResult
-                    freeBooksOffset > 0 && setHasMoreFreeBooks(freeBooks.length !== 0)
-                    paidBooksOffset > 0 && setHasMorePaidBooks(paidBooks.length !== 0)
-                    setFreeBooks(books => [...books, ...freeBooks])
-                    setPaidBooks(books => [...books, ...paidBooks])
-                }
-            }
-        })
-    const { renderBooksSuggestionsInput } = useBooksSuggestions({
-        freeBooks,
-        setFreeBooks,
-        paidBooks,
-        setPaidBooks,
-        withProfile: false
-    })
     return (
         <StoreContainer shouldMenuExpand={shouldMenuExpand}>
             {bookPopupData && <BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />}
@@ -111,7 +59,14 @@ const Store = ({ shouldMenuExpand }: IStore) => {
                             error="There are no free books in the library right now"
                             hasMore={hasMoreFreeBooks}
                             setBookPopupData={setBookPopupData}
-                            renderBooksSuggestionsInput={renderBooksSuggestionsInput}
+                            searchInput={() => (
+                                <BookSuggestions
+                                    freeBooks={freeBooks}
+                                    setFreeBooks={setFreeBooks}
+                                    paidBooks={paidBooks}
+                                    setPaidBooks={setPaidBooks}
+                                />
+                            )}
                             loadMore={() => getMoreBooks(freeBooks.length, 0)}
                             withMarginRight
                         />
@@ -132,7 +87,14 @@ const Store = ({ shouldMenuExpand }: IStore) => {
                             error="There are no paid books in the library right now"
                             hasMore={hasMorePaidBooks}
                             setBookPopupData={setBookPopupData}
-                            renderBooksSuggestionsInput={renderBooksSuggestionsInput}
+                            searchInput={() => (
+                                <BookSuggestions
+                                    freeBooks={freeBooks}
+                                    setFreeBooks={setFreeBooks}
+                                    paidBooks={paidBooks}
+                                    setPaidBooks={setPaidBooks}
+                                />
+                            )}
                             loadMore={() => getMoreBooks(0, paidBooks.length)}
                             withMarginRight
                         />

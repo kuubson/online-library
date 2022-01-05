@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styled, { css } from 'styled-components'
 
-import * as Styled from '../styled'
+import * as Styled from '../../styled'
 
 import { useCart } from 'hooks'
 
@@ -45,9 +45,20 @@ const Book = ({
     withPopup,
     withFlips
 }: IBook) => {
-    const [loading, setLoading] = useState(true)
     const { cart, removeFromCart } = useCart()
-    const isInCart = cart.includes(id)
+    const [loading, setLoading] = useState(true)
+    const handleBookPopup = () => {
+        if (setBookPopupData) {
+            setBookPopupData({
+                id,
+                title,
+                author,
+                cover,
+                price
+            })
+        }
+    }
+    const inCart = cart.includes(id)
     return (
         <BookContainer withPopup={withPopup} withFlips={withFlips}>
             <Styled.Loader
@@ -73,37 +84,14 @@ const Book = ({
                     Remove
                 </Styled.Button>
             ) : withProfile ? (
-                <Styled.Button
-                    onClick={() =>
-                        setBookPopupData &&
-                        setBookPopupData({
-                            id,
-                            title,
-                            author,
-                            cover,
-                            price
-                        })
-                    }
-                >
-                    Open
-                </Styled.Button>
+                <Styled.Button onClick={handleBookPopup}>Open</Styled.Button>
             ) : !withPopup ? (
                 <Styled.Button
-                    onClick={() =>
-                        setBookPopupData &&
-                        !isInCart &&
-                        setBookPopupData({
-                            id,
-                            title,
-                            author,
-                            cover,
-                            price
-                        })
-                    }
+                    onClick={() => !inCart && handleBookPopup}
                     price={price}
-                    withoutHover={isInCart}
+                    withoutHover={inCart}
                 >
-                    {price ? (isInCart ? 'In cart' : 'Buy') : 'Borrow'}
+                    {price ? (inCart ? 'In cart' : 'Buy') : 'Borrow'}
                 </Styled.Button>
             ) : (
                 withPopup &&

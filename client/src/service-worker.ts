@@ -43,21 +43,21 @@ self.addEventListener('message', event => {
 self.addEventListener('push', event => {
     if (event.data) {
         const { tag, title, body, image, icon, data } = event.data.json()
-        const isFocused = () =>
+        const focused = () =>
             self.clients
                 .matchAll({
                     type: 'window',
                     includeUncontrolled: true
                 })
                 .then(windows => {
-                    let isFocused = false
+                    let focused = false
                     for (let i = 0; i < windows.length; i++) {
                         if (windows[i].focused) {
-                            isFocused = true
+                            focused = true
                             break
                         }
                     }
-                    return isFocused
+                    return focused
                 })
         event.waitUntil(
             self.registration
@@ -74,8 +74,8 @@ self.addEventListener('push', event => {
                             notification.close()
                         }
                     })
-                    return isFocused().then(isFocused =>
-                        !isFocused
+                    return focused().then(focused =>
+                        !focused
                             ? self.registration.showNotification(title, {
                                   tag,
                                   body: notificationExists

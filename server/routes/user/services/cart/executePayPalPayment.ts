@@ -23,7 +23,7 @@ const executePayPalPayment: ProtectedRoute = async (req, res, next) => {
                     402
                 )
             }
-            if (payment.isApproved) {
+            if (payment.approved) {
                 throw new utils.ApiError(
                     'Submitting the order',
                     'The order has been already approved',
@@ -50,7 +50,7 @@ const executePayPalPayment: ProtectedRoute = async (req, res, next) => {
                     })
                     await Promise.all(books.map(async book => await req.user.addBook(book)))
                     await payment.update({
-                        isApproved: true
+                        approved: true
                     })
                     res.send({
                         success: true

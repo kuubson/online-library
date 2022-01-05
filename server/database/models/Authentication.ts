@@ -3,7 +3,7 @@ import { Sequelize, Model, TEXT, BOOLEAN } from 'sequelize'
 class AuthenticationValues extends Model {
     id: number
     token: string
-    isAuthenticated: boolean
+    authenticated: boolean
 }
 
 export class Authentication extends AuthenticationValues {
@@ -17,7 +17,7 @@ const AuthenticationModel = (sequelize: Sequelize) => {
                 type: TEXT,
                 allowNull: false
             },
-            isAuthenticated: {
+            authenticated: {
                 type: BOOLEAN,
                 defaultValue: false
             }

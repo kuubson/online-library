@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { GuestContainer } from 'components/shared/roles/Guest/Guest'
 
-import Menu from 'components/user/Store/modules/Menu'
+import Menu from 'components/user/Store/modules/Menu/Menu'
 
 import { useUser } from './hooks'
 

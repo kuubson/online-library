@@ -32,7 +32,7 @@ interface IInput {
     type: string
     value: string
     placeholder: string
-    error: string
+    error?: string
     onChange: React.ChangeEventHandler<HTMLInputElement>
     withBooksSuggestions?: boolean
 }

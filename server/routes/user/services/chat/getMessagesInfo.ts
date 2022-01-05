@@ -2,7 +2,7 @@ import { Connection, Message } from 'database/database'
 
 import { ProtectedRoute } from 'types/global'
 
-const getUnreadMessagesInfo: ProtectedRoute = async (req, res, next) => {
+const getMessagesInfo: ProtectedRoute = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { id } = req.user
@@ -36,4 +36,4 @@ const getUnreadMessagesInfo: ProtectedRoute = async (req, res, next) => {
     }
 }
 
-export default getUnreadMessagesInfo
+export default getMessagesInfo

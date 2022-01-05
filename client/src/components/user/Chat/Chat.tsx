@@ -48,16 +48,16 @@ const Chat = ({ shouldMenuExpand }: IChat) => {
     const messagesRef = useRef<HTMLDivElement>(null)
     const textareaRef = useRef<HTMLTextAreaElement>(null)
     const endOfMessages = useRef<HTMLDivElement>(null)
-    const [isLoading, setIsLoading] = useState(true)
+    const [loading, setLoading] = useState(true)
     const [currentUserId, setCurrentUserId] = useState<string | undefined>()
     const [currentUserName, setCurrentUserName] = useState<string | undefined>()
     const [messages, setMessages] = useState<IMessage[]>([])
     const [message, setMessage] = useState('')
     const [hasMoreMessages, setHasMoreMessages] = useState(true)
-    const [shouldFileInputExist, setShouldFileInputExist] = useState(true)
+    const [showFileInput, setShowFileInput] = useState(true)
     const [percentage, setPercentage] = useState(0)
     const areThereMessages = messages.length > 0
-    const isFileUploading = percentage > 0
+    const fileUploadInProgess = percentage > 0
     useEffect(() => {
         getMessages(20, 0, undefined)
         setTimeout(() => {
@@ -112,7 +112,7 @@ const Chat = ({ shouldMenuExpand }: IChat) => {
                 offset
             })
             if (response) {
-                setIsLoading(false)
+                setLoading(false)
                 const { messages, userId, userName } = response.data
                 setCurrentUserId(userId)
                 setCurrentUserName(userName)
@@ -197,8 +197,8 @@ const Chat = ({ shouldMenuExpand }: IChat) => {
             const isVideo = videoExtensions.test(path) || videoExtensions.test(name)
             const isFile = fileExtensions.test(path) || fileExtensions.test(name)
             const resetFileInput = () => {
-                setShouldFileInputExist(false)
-                setShouldFileInputExist(true)
+                setShowFileInput(false)
+                setShowFileInput(true)
             }
             const largeSizeError = () => {
                 return setApiFeedback(
@@ -280,12 +280,12 @@ const Chat = ({ shouldMenuExpand }: IChat) => {
     }
     return (
         <ChatContainer shouldMenuExpand={shouldMenuExpand} areThereMessages={areThereMessages}>
-            {!isLoading && lastUnreadMessageIndex && messages.length < lastUnreadMessageIndex && (
+            {!loading && lastUnreadMessageIndex && messages.length < lastUnreadMessageIndex && (
                 <Styled.MessagesInfo onClick={getUnreadMessages}>
                     Unread messages
                 </Styled.MessagesInfo>
             )}
-            {!isLoading &&
+            {!loading &&
                 (areThereMessages ? (
                     <Messages
                         ref={messagesRef}
@@ -308,7 +308,7 @@ const Chat = ({ shouldMenuExpand }: IChat) => {
                     ref={textareaRef}
                     value={message}
                     placeholder="Type your message..."
-                    disabled={isFileUploading}
+                    disabled={fileUploadInProgess}
                     onChange={event => setMessage(event.target.value)}
                     onFocus={() => scrollToLastMessage(500)}
                     onKeyPress={event => {
@@ -326,14 +326,14 @@ const Chat = ({ shouldMenuExpand }: IChat) => {
                         }
                     }}
                 />
-                {isFileUploading ? (
+                {fileUploadInProgess ? (
                     <ProgressLoader percentage={percentage} />
                 ) : (
                     <StyledStore.Button as="label" htmlFor="file" withChat>
                         Upload file
                     </StyledStore.Button>
                 )}
-                {shouldFileInputExist && <Styled.FileInput onChange={sendFile} />}
+                {showFileInput && <Styled.FileInput onChange={sendFile} />}
                 <StyledStore.Button
                     onClick={() => {
                         sendMessage()

@@ -31,15 +31,15 @@ export const usePasswordRecovery = () => {
     const { password, repeatedPassword } = form
     const formHandler = useFormHandler(setForm)
     const validate = () => {
-        let isValidated = true
+        let validated = true
         setForm(form => ({
             ...form,
             passwordError: '',
             repeatedPasswordError: ''
         }))
-        if (!formHandler.validatePassword(password, repeatedPassword, false)) isValidated = false
-        if (!formHandler.validateRepeatedPassword(repeatedPassword, password)) isValidated = false
-        return isValidated
+        if (!formHandler.validatePassword(password, repeatedPassword, false)) validated = false
+        if (!formHandler.validateRepeatedPassword(repeatedPassword, password)) validated = false
+        return validated
     }
     const changePassword = async (event: React.FormEvent) => {
         event.preventDefault()

@@ -31,15 +31,15 @@ export const useLogin = () => {
     const { email, password } = form
     const formHandler = useFormHandler(setForm)
     const validate = () => {
-        let isValidated = true
+        let validated = true
         setForm(form => ({
             ...form,
             emailError: '',
             passwordError: ''
         }))
-        if (!formHandler.validateEmail(email)) isValidated = false
-        if (!formHandler.validatePassword(password, '', true)) isValidated = false
-        return isValidated
+        if (!formHandler.validateEmail(email)) validated = false
+        if (!formHandler.validatePassword(password, '', true)) validated = false
+        return validated
     }
     const login = async (event: React.FormEvent) => {
         event.preventDefault()

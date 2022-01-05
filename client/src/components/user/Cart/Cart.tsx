@@ -1,41 +1,20 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
-import { gql, useQuery } from '@apollo/client'
 
 import { StoreContainer } from 'components/user/Store/Store'
 
-import Books from 'components/user/Store/modules/Books'
-import StripePopup from './modules/StripePopup'
+import Books from 'components/user/Store/modules/Books/Books'
+import StripePopup from './modules/StripePopup/StripePopup'
 
 import * as StyledRegistration from 'components/guest/Registration/styled'
 import * as StyledStore from 'components/user/Store/styled'
 import * as Styled from './styled'
 
-import { useQueryParams, useCart } from 'hooks'
-
-import { setApiFeedback } from 'helpers'
-
-import { axios, history } from 'utils'
+import { useCart } from './hooks'
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY!)
-
-type CartQuery = {
-    books: IBook[]
-}
-
-const cartQuery = gql`
-    query Books($ids: [ID!]!) {
-        books(ids: $ids) {
-            id
-            title
-            author
-            cover
-            price
-        }
-    }
-`
 
 type Props = {
     empty?: boolean
@@ -48,59 +27,9 @@ interface ICart {
 }
 
 const Cart = ({ shouldMenuExpand }: ICart) => {
-    const { paymentId, PayerID } = useQueryParams()
-    const { cart, resetCart } = useCart()
+    const { books, price, createPayPalPayment } = useCart()
     const [shouldStripePopupAppear, setShouldStripePopupAppear] = useState(false)
-    const { data } = useQuery<CartQuery>(cartQuery, {
-        variables: {
-            ids: cart
-        }
-    })
-    const books = data ? data.books : []
-    const price = books
-        .map(({ price }) => price!)
-        .reduce((total, price) => total + price, 0)
-        .toFixed(2)
     const areThereBooks = !!books.length
-    useEffect(() => {
-        const executePayPalPayment = async () => {
-            try {
-                if (paymentId && PayerID) {
-                    const url = '/api/user/cart/executePayPalPayment'
-                    const response = await axios.post(url, {
-                        paymentId,
-                        PayerID
-                    })
-                    if (response) {
-                        setApiFeedback(
-                            'Submitting the order',
-                            `You have successfully purchased new books`,
-                            'Check them out in your profile',
-                            () => {
-                                resetCart()
-                                history.push('/profile')
-                            }
-                        )
-                    }
-                }
-            } catch (error: any) {
-                if (error.response.status === 409) {
-                    resetCart()
-                    history.push('/profile')
-                }
-            }
-        }
-        executePayPalPayment()
-    }, [paymentId, PayerID])
-    const createPayPalPayment = async () => {
-        const url = '/api/user/cart/createPayPalPayment'
-        const response = await axios.post(url, {
-            products: cart
-        })
-        if (response) {
-            window.location = response.data.link
-        }
-    }
     return (
         <Elements
             stripe={stripePromise}

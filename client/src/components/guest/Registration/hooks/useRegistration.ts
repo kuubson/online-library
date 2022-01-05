@@ -20,7 +20,7 @@ export const useRegistration = () => {
     const { name, email, password, repeatedPassword } = form
     const formHandler = useFormHandler(setForm)
     const validate = () => {
-        let isValidated = true
+        let validated = true
         setForm(form => ({
             ...form,
             nameError: '',
@@ -28,11 +28,11 @@ export const useRegistration = () => {
             passwordError: '',
             repeatedPasswordError: ''
         }))
-        if (!formHandler.validateProperty('name', name)) isValidated = false
-        if (!formHandler.validateEmail(email)) isValidated = false
-        if (!formHandler.validatePassword(password, repeatedPassword, false)) isValidated = false
-        if (!formHandler.validateRepeatedPassword(repeatedPassword, password)) isValidated = false
-        return isValidated
+        if (!formHandler.validateProperty('name', name)) validated = false
+        if (!formHandler.validateEmail(email)) validated = false
+        if (!formHandler.validatePassword(password, repeatedPassword, false)) validated = false
+        if (!formHandler.validateRepeatedPassword(repeatedPassword, password)) validated = false
+        return validated
     }
     const register = async (event: React.FormEvent) => {
         event.preventDefault()

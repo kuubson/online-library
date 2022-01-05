@@ -24,7 +24,7 @@ const resendEmail: Route = async (req, res, next) => {
                     404
                 )
             }
-            if (user.authentication.isAuthenticated) {
+            if (user.authentication.authenticated) {
                 throw new utils.ApiError(
                     'E-mail resending',
                     'An account assigned to email address provided is already authenticated',

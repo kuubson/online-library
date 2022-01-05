@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components'
 
-import Book from './Book'
+import Book from '../Book/Book'
 
-import * as Styled from '../styled'
+import * as Styled from '../../styled'
 
 import { fadeIn } from 'assets/animations'
 
@@ -52,8 +52,7 @@ interface IBooks {
     header?: string
     hasMore?: boolean
     setBookPopupData?: ReactDispatch<IBook | undefined>
-
-    renderBooksSuggestionsInput?: () => JSX.Element
+    searchInput?: () => JSX.Element
     loadMore?: () => void
     withCart?: boolean
     withProfile?: boolean
@@ -68,7 +67,7 @@ const Books = ({
     header,
     hasMore,
     setBookPopupData,
-    renderBooksSuggestionsInput,
+    searchInput,
     loadMore,
     withCart,
     withProfile,
@@ -87,13 +86,13 @@ const Books = ({
                 <Styled.HeaderContainer withoutInput={withoutInput}>
                     {header && (
                         <Styled.Header
-                            withMoreMarginBottom={!!renderBooksSuggestionsInput}
-                            withPaddingRight={!!renderBooksSuggestionsInput}
+                            withMoreMarginBottom={!!searchInput}
+                            withPaddingRight={!!searchInput}
                         >
                             {header}
                         </Styled.Header>
                     )}
-                    {renderBooksSuggestionsInput && renderBooksSuggestionsInput()}
+                    {searchInput && searchInput()}
                 </Styled.HeaderContainer>
             )}
             <Styled.Books empty={!areThereBooks}>
@@ -115,7 +114,7 @@ const Books = ({
                     <Styled.Warning>{error}</Styled.Warning>
                 )}
                 {books.length >= 10 && hasMore && !withCart && (
-                    <Styled.Button notAbsolute withLoadMore onClick={loadMore}>
+                    <Styled.Button onClick={loadMore} notAbsolute withLoadMore>
                         Load more
                     </Styled.Button>
                 )}

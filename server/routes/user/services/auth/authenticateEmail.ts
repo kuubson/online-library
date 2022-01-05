@@ -39,7 +39,7 @@ const authenticateEmail: Route = async (req, res, next) => {
                             404
                         )
                     }
-                    if (authentication.isAuthenticated) {
+                    if (authentication.authenticated) {
                         throw new utils.ApiError(
                             'Email address authentication',
                             'An account assigned to email address provided is already authenticated',
@@ -48,7 +48,7 @@ const authenticateEmail: Route = async (req, res, next) => {
                     }
                     await authentication.update(
                         {
-                            isAuthenticated: true
+                            authenticated: true
                         },
                         {
                             transaction

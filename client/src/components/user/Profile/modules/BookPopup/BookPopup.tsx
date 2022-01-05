@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 
-import { BookPopupContainer } from 'components/user/Store/modules/BookPopup'
+import { BookPopupContainer } from 'components/user/Store/modules/BookPopup/BookPopup'
 
 import * as StyledStore from 'components/user/Store/styled'
-import * as Styled from '../styled'
+import * as Styled from './styled'
 
-import Book from 'components/user/Store/modules/Book'
+import Book from 'components/user/Store/modules/Book/Book'
 
 interface IBookPopup extends IBook {
     setBookPopupData: ReactDispatch<IBook | undefined>
@@ -14,20 +14,20 @@ interface IBookPopup extends IBook {
 const BookPopup = ({ id, title, author, cover, price, setBookPopupData }: IBookPopup) => {
     const [pages] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     const [currentPage, setCurrentPage] = useState(0)
-    const [isOpened, setIsOpened] = useState(false)
-    const [isRead, setIsRead] = useState(false)
+    const [opened, setOpened] = useState(false)
+    const [read, setRead] = useState(false)
     useEffect(() => {
-        setIsOpened(currentPage > 0)
-        setIsRead(currentPage >= pages.length - 1)
+        setOpened(currentPage > 0)
+        setRead(currentPage >= pages.length - 1)
     }, [currentPage])
     return (
         <BookPopupContainer>
             <StyledStore.ContentContainer withFlips>
-                <Styled.BookContainer withFlips={isOpened} isRead={isRead}>
+                <Styled.BookContainer withFlips={opened} read={read}>
                     {pages.map((_, index) => (
                         <Styled.Page
                             key={index}
-                            flip={isOpened && (index === currentPage || index <= currentPage)}
+                            flip={opened && (index === currentPage || index <= currentPage)}
                             zIndex={index <= currentPage ? 1 : -index}
                         >
                             {index === 0 ? (
@@ -49,7 +49,7 @@ const BookPopup = ({ id, title, author, cover, price, setBookPopupData }: IBookP
                 </Styled.BookContainer>
                 <StyledStore.Content withFlips>
                     <StyledStore.ButtonsContainer>
-                        {isOpened ? (
+                        {opened ? (
                             <>
                                 <StyledStore.Button
                                     onClick={() => setCurrentPage(0)}
@@ -66,9 +66,11 @@ const BookPopup = ({ id, title, author, cover, price, setBookPopupData }: IBookP
                                     Previous page
                                 </StyledStore.Button>
                                 <StyledStore.Button
-                                    onClick={() =>
-                                        !isRead && setCurrentPage(currentPage => currentPage + 1)
-                                    }
+                                    onClick={() => {
+                                        if (!read) {
+                                            setCurrentPage(currentPage => currentPage + 1)
+                                        }
+                                    }}
                                     notAbsolute
                                     withoutFixedWidth
                                     withMarginLeft

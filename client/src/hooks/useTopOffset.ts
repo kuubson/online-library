@@ -8,5 +8,5 @@ export const useTopOffset = () => {
         window.addEventListener('scroll', handleOffest)
         return () => window.removeEventListener('scroll', handleOffest)
     }, [])
-    return offest
+    return parseInt(offest)
 }

@@ -25,7 +25,7 @@ const login: Route = async (req, res, next) => {
                     404
                 )
             }
-            if (!user.authentication.isAuthenticated) {
+            if (!user.authentication.authenticated) {
                 throw new utils.ApiError(
                     'Logging to app',
                     'An account assigned to email address provided must be firstly authenticated',

@@ -14,13 +14,13 @@ export const useSupport = (withPasswordSupport: boolean | undefined) => {
     const { email } = form
     const formHandler = useFormHandler(setForm)
     const validate = () => {
-        let isValidated = true
+        let validated = true
         setForm(form => ({
             ...form,
             emailError: ''
         }))
-        if (!formHandler.validateEmail(email)) isValidated = false
-        return isValidated
+        if (!formHandler.validateEmail(email)) validated = false
+        return validated
     }
     const handleSupport = async (event: React.FormEvent) => {
         event.preventDefault()

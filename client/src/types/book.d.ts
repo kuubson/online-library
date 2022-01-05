@@ -10,3 +10,11 @@ interface IBook {
     withPopup?: boolean
     withFlips?: boolean
 }
+
+interface IBookSuggestions {
+    freeBooks: IBook[]
+    paidBooks: IBook[]
+    setFreeBooks: ReactDispatch<IBook[]>
+    setPaidBooks: ReactDispatch<IBook[]>
+    withProfile?: boolean
+}

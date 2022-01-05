@@ -4,7 +4,7 @@ class PaymentValues extends Model {
     id: number
     paymentId: string
     products: string
-    isApproved: boolean
+    approved: boolean
 }
 
 export class Payment extends PaymentValues {
@@ -22,7 +22,7 @@ const PaymentModel = (sequelize: Sequelize) => {
                 type: TEXT,
                 allowNull: false
             },
-            isApproved: {
+            approved: {
                 type: BOOLEAN,
                 defaultValue: false
             }

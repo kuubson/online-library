@@ -1,15 +1,14 @@
-import { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 import { useLocation } from 'react-router'
 
-import * as Styled from '../styled'
+import * as Styled from '../../styled'
 
-import { useSocket, useCart, useTopOffset } from 'hooks'
+import { useMenu } from './hooks'
 
-import { axios, history } from 'utils'
+import { history } from 'utils'
 
 type Props = {
-    shouldStickMenu?: boolean
+    shouldMenuStick?: boolean
 }
 
 const MenuContainer = styled.nav<Props>`
@@ -29,8 +28,8 @@ const MenuContainer = styled.nav<Props>`
         height: 80px;
         padding: 0px 25px 0px 20px;
     }
-    ${({ shouldStickMenu }) =>
-        shouldStickMenu
+    ${({ shouldMenuStick }) =>
+        shouldMenuStick
             ? css`
                   width: 100%;
                   position: fixed;
@@ -55,28 +54,10 @@ type Option = {
 
 const Menu = ({ options, _setShouldMenuExpand }: IMenu) => {
     const location = useLocation()
-    const { closeSocketConnection } = useSocket()
-    const [shouldMenuExpand, setShouldMenuExpand] = useState(false)
-    useEffect(() => _setShouldMenuExpand(shouldMenuExpand), [shouldMenuExpand])
-    const { cart, removeFromCart } = useCart()
-    const logout = async () => {
-        const url = '/api/global/auth/logout'
-        const response = await axios.get(url)
-        if (response) {
-            window.FB.getLoginStatus((response: any) => {
-                if (response.status === 'connected') {
-                    window.FB.logout(() => null)
-                }
-            })
-            closeSocketConnection()
-            cart.map(id => removeFromCart(id))
-            history.push('/login')
-        }
-    }
-    const offset = useTopOffset()
-    const shouldStickMenu = parseInt(offset) > 20
+    const { shouldMenuExpand, shouldMenuStick, setShouldMenuExpand, logout } =
+        useMenu(_setShouldMenuExpand)
     return (
-        <MenuContainer shouldStickMenu={shouldStickMenu}>
+        <MenuContainer shouldMenuStick={shouldMenuStick}>
             <Styled.Logo>Online Library</Styled.Logo>
             <Styled.LinesContainer
                 onClick={() => setShouldMenuExpand(shouldMenuExpand => !shouldMenuExpand)}

@@ -2,14 +2,14 @@ import * as getMessages from './getMessages'
 import * as sendMessage from './sendMessage'
 import * as sendFile from './sendFile'
 import * as subscribePushNotifications from './subscribePushNotifications'
-import * as getUnreadMessagesInfo from './getUnreadMessagesInfo'
+import * as getMessagesInfo from './getMessagesInfo'
 
 const chat = {
     getMessages,
     sendMessage,
     sendFile,
     subscribePushNotifications,
-    getUnreadMessagesInfo
+    getMessagesInfo
 }
 
 export default chat

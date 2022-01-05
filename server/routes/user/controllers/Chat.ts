@@ -37,10 +37,6 @@ router.post(
     chat.subscribePushNotifications.default as any
 )
 
-router.get(
-    '/getUnreadMessagesInfo',
-    middlewares.jwtAuthorization,
-    chat.getUnreadMessagesInfo.default as any
-)
+router.get('/getMessagesInfo', middlewares.jwtAuthorization, chat.getMessagesInfo.default as any)
 
 export default router
