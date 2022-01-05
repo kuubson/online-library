@@ -19,7 +19,7 @@ export const getMessages: ProtectedRoute = async (req, res, next) => {
                     attributes: ['name']
                 }
             ]
-        })
+        }).then(messages => messages.sort((a, b) => a.id - b.id))
         const updatedMessage = await updateReadByProperty(id, messages)
         const messagesWithUserName = updatedMessage.map(message => ({
             ...message.dataValues,
