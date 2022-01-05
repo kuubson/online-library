@@ -2,11 +2,13 @@ import jwt from 'jsonwebtoken'
 
 import { Connection, User } from 'database'
 
-import utils from 'utils'
+import { validator } from 'helpers'
+
+import { ApiError } from 'utils'
 
 import { Route } from 'types/express'
 
-const checkPasswordToken: Route = async (req, res, next) => {
+export const checkPasswordToken: Route = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { passwordToken } = req.body
@@ -17,13 +19,13 @@ const checkPasswordToken: Route = async (req, res, next) => {
                     try {
                         if (error) {
                             if (error.message.includes('expired')) {
-                                throw new utils.ApiError(
+                                throw new ApiError(
                                     'Password recovery',
                                     'The password recovery link has expired',
                                     400
                                 )
                             }
-                            throw new utils.ApiError(
+                            throw new ApiError(
                                 'Password recovery',
                                 'The password recovery link is invalid',
                                 400
@@ -37,7 +39,7 @@ const checkPasswordToken: Route = async (req, res, next) => {
                             transaction
                         })
                         if (!user) {
-                            throw new utils.ApiError(
+                            throw new ApiError(
                                 'Password recovery',
                                 'The password recovery link is invalid',
                                 404
@@ -57,6 +59,4 @@ const checkPasswordToken: Route = async (req, res, next) => {
     }
 }
 
-export const validation = () => [utils.validator.validateProperty('passwordToken').isJWT()]
-
-export default checkPasswordToken
+export const validation = () => [validator.validateProperty('passwordToken').isJWT()]

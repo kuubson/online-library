@@ -1,21 +1,8 @@
-import * as register from './register'
-import * as authenticateEmail from './authenticateEmail'
-import * as resendEmail from './resendEmail'
-import * as login from './login'
-import * as loginWithFacebook from './loginWithFacebook'
-import * as recoverPassword from './recoverPassword'
-import * as checkPasswordToken from './checkPasswordToken'
-import * as changePassword from './changePassword'
-
-const auth = {
-    register,
-    authenticateEmail,
-    resendEmail,
-    login,
-    loginWithFacebook,
-    recoverPassword,
-    checkPasswordToken,
-    changePassword
-}
-
-export default auth
+export * as register from './register'
+export * as authenticateEmail from './authenticateEmail'
+export * as resendEmail from './resendEmail'
+export * as login from './login'
+export * as loginWithFacebook from './loginWithFacebook'
+export * as recoverPassword from './recoverPassword'
+export * as checkPasswordToken from './checkPasswordToken'
+export * as changePassword from './changePassword'

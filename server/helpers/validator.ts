@@ -24,7 +24,7 @@ const validateArray = (property: string, canBeEmpty: boolean) => {
     if (!canBeEmpty) {
         return check(`${property}`).notEmpty().bail().isArray().bail()
     } else {
-        check(`${property}`).isArray().bail()
+        return check(`${property}`).isArray().bail()
     }
 }
 const validateEmail = () => {

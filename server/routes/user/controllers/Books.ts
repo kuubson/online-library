@@ -1,17 +1,15 @@
 import { Router } from 'express'
 
-import middlewares from 'middlewares'
+import { jwtAuthorization, checkValidation } from 'middlewares'
 
-import books from '../services/books'
+import { books } from '../services'
 
-const router = Router()
+export const Books = Router()
 
-router.post(
+Books.post(
     '/getSuggestions',
-    middlewares.jwtAuthorization,
+    jwtAuthorization,
     books.getSuggestions.validation(),
-    middlewares.checkValidation,
-    books.getSuggestions.default as any
+    checkValidation,
+    books.getSuggestions.getSuggestions as any
 )
-
-export default router

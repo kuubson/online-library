@@ -3,6 +3,8 @@ import path from 'path'
 import crypto from 'crypto'
 import multer from 'multer'
 
+import { filesInfo } from 'utils'
+
 import { MulterRequest } from 'types/multer'
 
 const storage = multer.diskStorage({

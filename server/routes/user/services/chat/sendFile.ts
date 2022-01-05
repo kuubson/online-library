@@ -1,16 +1,22 @@
 import { Response, NextFunction } from 'express'
 
-import fs from 'fs'
 import cloudinary from 'cloudinary'
 import webpush from 'web-push'
 
 import { User, Subscription } from 'database'
 
-import utils from 'utils'
+import { deleteTemporaryFile } from 'helpers'
 
-import { UserRequest, MulterRequest } from 'types/global'
+import { Op, ApiError, baseUrl } from 'utils'
 
-const sendFile = async (req: UserRequest & MulterRequest, res: Response, next: NextFunction) => {
+import { UserRequest } from 'types/express'
+import { MulterRequest } from 'types/multer'
+
+export const sendFile = async (
+    req: UserRequest & MulterRequest,
+    res: Response,
+    next: NextFunction
+) => {
     const { filename, path } = req.file
     try {
         const { id, name } = req.user
@@ -26,7 +32,7 @@ const sendFile = async (req: UserRequest & MulterRequest, res: Response, next: N
                 type = 'FILE'
                 break
             default:
-                throw new utils.ApiError(
+                throw new ApiError(
                     'Sending a file',
                     'There was an unexpected problem when sending the file',
                     500
@@ -59,9 +65,7 @@ const sendFile = async (req: UserRequest & MulterRequest, res: Response, next: N
             content = secure_url
             cloudinaryId = public_id
         }
-        try {
-            fs.existsSync(path) && fs.unlinkSync(path)
-        } catch (error) {}
+        deleteTemporaryFile(path)
         await req.user.createMessage({
             type,
             content,
@@ -71,7 +75,7 @@ const sendFile = async (req: UserRequest & MulterRequest, res: Response, next: N
         await User.findAll({
             where: {
                 id: {
-                    [utils.Op.ne]: id
+                    [Op.ne]: id
                 }
             },
             include: [Subscription]
@@ -94,7 +98,7 @@ const sendFile = async (req: UserRequest & MulterRequest, res: Response, next: N
                                 icon: 'https://picsum.photos/1920/1080',
                                 data: {
                                     userName: name,
-                                    url: `${utils.baseUrl(req)}/chat`
+                                    url: `${baseUrl(req)}/chat`
                                 }
                             })
                         )
@@ -111,11 +115,7 @@ const sendFile = async (req: UserRequest & MulterRequest, res: Response, next: N
             content
         })
     } catch (error) {
-        try {
-            fs.existsSync(path) && fs.unlinkSync(path)
-        } catch (error) {}
+        deleteTemporaryFile(path)
         next(error)
     }
 }
-
-export default sendFile

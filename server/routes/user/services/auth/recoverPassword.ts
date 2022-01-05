@@ -2,11 +2,13 @@ import jwt from 'jsonwebtoken'
 
 import { Connection, User, Authentication } from 'database'
 
-import utils from 'utils'
+import { transporter, validator } from 'helpers'
+
+import { ApiError, baseUrl, emailTemplate } from 'utils'
 
 import { Route } from 'types/express'
 
-const recoverPassword: Route = async (req, res, next) => {
+export const recoverPassword: Route = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { email } = req.body
@@ -18,14 +20,14 @@ const recoverPassword: Route = async (req, res, next) => {
                 transaction
             })
             if (!user || !user.authentication) {
-                throw new utils.ApiError(
+                throw new ApiError(
                     'Password recovery',
                     'The email address provided is invalid',
                     404
                 )
             }
             if (!user.authentication.authenticated) {
-                throw new utils.ApiError(
+                throw new ApiError(
                     'Password recovery',
                     'An account assigned to email address provided must be firstly authenticated',
                     409
@@ -43,17 +45,17 @@ const recoverPassword: Route = async (req, res, next) => {
             const mailOptions = {
                 to: email,
                 subject: 'Password recovery in the Online Library',
-                html: utils.emailTemplate(
+                html: emailTemplate(
                     'Password recovery in the Online Library',
                     `To change your password click the button`,
                     'Change password',
-                    `${utils.baseUrl(req)}/password-recovery/${passwordToken}`
+                    `${baseUrl(req)}/password-recovery/${passwordToken}`
                 )
             }
-            utils.transporter.sendMail(mailOptions, (error, info) => {
+            transporter.sendMail(mailOptions, (error, info) => {
                 try {
                     if (error || !info) {
-                        throw new utils.ApiError(
+                        throw new ApiError(
                             'Password recovery',
                             'There was an unexpected problem when sending an e-mail with a password recovery link for your account',
                             502
@@ -72,6 +74,4 @@ const recoverPassword: Route = async (req, res, next) => {
     }
 }
 
-export const validation = () => [utils.validator.validateEmail()]
-
-export default recoverPassword
+export const validation = () => [validator.validateEmail()]

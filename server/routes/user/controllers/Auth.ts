@@ -1,74 +1,72 @@
 import { Router } from 'express'
 
-import middlewares from 'middlewares'
+import { rateLimiter, facebookAuthorization, checkValidation } from 'middlewares'
 
-import auth from '../services/auth'
+import { auth } from '../services'
 
-const router = Router()
+export const Auth = Router()
 
-router.post(
+Auth.post(
     '/register',
-    middlewares.rateLimiter('registration'),
+    rateLimiter('registration'),
     auth.register.validation(),
-    middlewares.checkValidation,
-    auth.register.default
+    checkValidation,
+    auth.register.register
 )
 
-router.post(
+Auth.post(
     '/authenticateEmail',
-    middlewares.rateLimiter('email authentication'),
+    rateLimiter('email authentication'),
     auth.authenticateEmail.validation(),
-    middlewares.checkValidation,
-    auth.authenticateEmail.default
+    checkValidation,
+    auth.authenticateEmail.authenticateEmail
 )
 
-router.post(
+Auth.post(
     '/resendEmail',
-    middlewares.rateLimiter('resending email'),
+    rateLimiter('resending email'),
     auth.resendEmail.validation(),
-    middlewares.checkValidation,
-    auth.resendEmail.default
+    checkValidation,
+    auth.resendEmail.resendEmail
 )
 
-router.post(
+Auth.post(
     '/login',
-    middlewares.rateLimiter('login'),
+    rateLimiter('login'),
     auth.login.validation(),
-    middlewares.checkValidation,
-    auth.login.default
+    checkValidation,
+    auth.login.login
 )
 
-router.post(
+Auth.post(
     '/loginWithFacebook',
-    middlewares.rateLimiter('login'),
-    middlewares.facebookAuthorization,
+    rateLimiter('login'),
+    facebookAuthorization,
     auth.loginWithFacebook.validation(),
-    middlewares.checkValidation,
-    auth.loginWithFacebook.default
+    checkValidation,
+    auth.loginWithFacebook.loginWithFacebook
 )
 
-router.post(
+Auth.post(
     '/recoverPassword',
-    middlewares.rateLimiter('recovering password'),
+    rateLimiter('recovering password'),
     auth.recoverPassword.validation(),
-    middlewares.checkValidation,
-    auth.recoverPassword.default
+    checkValidation,
+    auth.recoverPassword.recoverPassword
 )
 
-router.post(
+Auth.post(
     '/checkPasswordToken',
-    middlewares.rateLimiter('recovering password'),
+    rateLimiter('recovering password'),
     auth.checkPasswordToken.validation(),
-    middlewares.checkValidation,
-    auth.checkPasswordToken.default
+    checkValidation,
+    auth.checkPasswordToken.checkPasswordToken
 )
 
-router.post(
+Auth.post(
     '/changePassword',
-    middlewares.rateLimiter('changing password'),
+    rateLimiter('changing password'),
     auth.changePassword.validation(),
-    middlewares.checkValidation,
-    auth.changePassword.default
+    checkValidation,
+    auth.changePassword.changePassword
 )
-
-export default router

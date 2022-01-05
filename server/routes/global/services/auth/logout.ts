@@ -1,6 +1,6 @@
 import { Route } from 'types/express'
 
-const logout: Route = (_, res, next) => {
+export const logout: Route = (_, res, next) => {
     try {
         res.clearCookie('token', {
             secure: process.env.NODE_ENV === 'production',
@@ -13,5 +13,3 @@ const logout: Route = (_, res, next) => {
         next(error)
     }
 }
-
-export default logout

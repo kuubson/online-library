@@ -3,11 +3,13 @@ import bcrypt from 'bcrypt'
 
 import { Connection, User } from 'database'
 
-import utils from 'utils'
+import { validator } from 'helpers'
+
+import { ApiError } from 'utils'
 
 import { Route } from 'types/express'
 
-const changePassword: Route = async (req, res, next) => {
+export const changePassword: Route = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { password, passwordToken } = req.body
@@ -18,13 +20,13 @@ const changePassword: Route = async (req, res, next) => {
                     try {
                         if (error) {
                             if (error.message.includes('expired')) {
-                                throw new utils.ApiError(
+                                throw new ApiError(
                                     'Password recovery',
                                     'The password recovery link has expired',
                                     400
                                 )
                             }
-                            throw new utils.ApiError(
+                            throw new ApiError(
                                 'Password recovery',
                                 'The password recovery link is invalid',
                                 400
@@ -38,7 +40,7 @@ const changePassword: Route = async (req, res, next) => {
                             transaction
                         })
                         if (!user) {
-                            throw new utils.ApiError(
+                            throw new ApiError(
                                 'Password recovery',
                                 'The password recovery link is invalid',
                                 404
@@ -68,9 +70,7 @@ const changePassword: Route = async (req, res, next) => {
 }
 
 export const validation = () => [
-    utils.validator.validatePassword(),
-    utils.validator.validateRepeatedPassword(),
-    utils.validator.validateProperty('passwordToken').isJWT()
+    validator.validatePassword(),
+    validator.validateRepeatedPassword(),
+    validator.validateProperty('passwordToken').isJWT()
 ]
-
-export default changePassword

@@ -1,10 +1,10 @@
 import { Connection, User, Message } from 'database'
 
-import utils from 'utils'
+import { validator } from 'helpers'
 
 import { ProtectedRoute } from 'types/express'
 
-const getMessages: ProtectedRoute = async (req, res, next) => {
+export const getMessages: ProtectedRoute = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { id, name } = req.user
@@ -53,8 +53,6 @@ const getMessages: ProtectedRoute = async (req, res, next) => {
 }
 
 export const validation = () => [
-    utils.validator.validateInteger('limit'),
-    utils.validator.validateInteger('offset')
+    validator.validateInteger('limit'),
+    validator.validateInteger('offset')
 ]
-
-export default getMessages

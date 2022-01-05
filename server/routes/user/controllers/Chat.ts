@@ -1,42 +1,35 @@
 import { Router } from 'express'
 
-import middlewares from 'middlewares'
+import { jwtAuthorization, handleMulterFile, checkValidation } from 'middlewares'
 
-import chat from '../services/chat'
+import { chat } from '../services'
 
-const router = Router()
+export const Chat = Router()
 
-router.post(
+Chat.post(
     '/getMessages',
-    middlewares.jwtAuthorization,
+    jwtAuthorization,
     chat.getMessages.validation(),
-    middlewares.checkValidation,
-    chat.getMessages.default as any
+    checkValidation,
+    chat.getMessages.getMessages as any
 )
 
-router.post(
+Chat.post(
     '/sendMessage',
-    middlewares.jwtAuthorization,
+    jwtAuthorization,
     chat.sendMessage.validation(),
-    middlewares.checkValidation,
-    chat.sendMessage.default as any
+    checkValidation,
+    chat.sendMessage.sendMessage as any
 )
 
-router.post(
-    '/sendFile',
-    middlewares.jwtAuthorization,
-    middlewares.handleMulterFile() as any,
-    chat.sendFile.default as any
-)
+Chat.post('/sendFile', jwtAuthorization, handleMulterFile() as any, chat.sendFile.sendFile as any)
 
-router.post(
+Chat.post(
     '/subscribePushNotifications',
-    middlewares.jwtAuthorization,
+    jwtAuthorization,
     chat.subscribePushNotifications.validation(),
-    middlewares.checkValidation,
-    chat.subscribePushNotifications.default as any
+    checkValidation,
+    chat.subscribePushNotifications.subscribePushNotifications as any
 )
 
-router.get('/getMessagesInfo', middlewares.jwtAuthorization, chat.getMessagesInfo.default as any)
-
-export default router
+Chat.get('/getMessagesInfo', jwtAuthorization, chat.getMessagesInfo.getMessagesInfo as any)

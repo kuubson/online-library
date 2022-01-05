@@ -2,11 +2,13 @@ import jwt from 'jsonwebtoken'
 
 import { Connection, Authentication } from 'database'
 
-import utils from 'utils'
+import { validator } from 'helpers'
+
+import { ApiError } from 'utils'
 
 import { Route } from 'types/express'
 
-const authenticateEmail: Route = async (req, res, next) => {
+export const authenticateEmail: Route = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { token } = req.body
@@ -20,27 +22,27 @@ const authenticateEmail: Route = async (req, res, next) => {
                     })
                     if (error) {
                         if (authentication && error.message.includes('expired')) {
-                            throw new utils.ApiError(
+                            throw new ApiError(
                                 'Email address authentication',
                                 'The activation link has expired',
                                 400
                             )
                         }
-                        throw new utils.ApiError(
+                        throw new ApiError(
                             'Email address authentication',
                             'The activation link is invalid',
                             400
                         )
                     }
                     if (!authentication) {
-                        throw new utils.ApiError(
+                        throw new ApiError(
                             'Email address authentication',
                             'The activation link is invalid',
                             404
                         )
                     }
                     if (authentication.authenticated) {
-                        throw new utils.ApiError(
+                        throw new ApiError(
                             'Email address authentication',
                             'An account assigned to email address provided is already authenticated',
                             400
@@ -67,6 +69,4 @@ const authenticateEmail: Route = async (req, res, next) => {
     }
 }
 
-export const validation = () => [utils.validator.validateProperty('token').isJWT()]
-
-export default authenticateEmail
+export const validation = () => [validator.validateProperty('token').isJWT()]

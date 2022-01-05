@@ -1,15 +1,5 @@
-import * as getMessages from './getMessages'
-import * as sendMessage from './sendMessage'
-import * as sendFile from './sendFile'
-import * as subscribePushNotifications from './subscribePushNotifications'
-import * as getMessagesInfo from './getMessagesInfo'
-
-const chat = {
-    getMessages,
-    sendMessage,
-    sendFile,
-    subscribePushNotifications,
-    getMessagesInfo
-}
-
-export default chat
+export * as getMessages from './getMessages'
+export * as sendMessage from './sendMessage'
+export * as sendFile from './sendFile'
+export * as subscribePushNotifications from './subscribePushNotifications'
+export * as getMessagesInfo from './getMessagesInfo'

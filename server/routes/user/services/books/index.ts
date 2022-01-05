@@ -1,7 +1,1 @@
-import * as getSuggestions from './getSuggestions'
-
-const books = {
-    getSuggestions
-}
-
-export default books
+export * as getSuggestions from './getSuggestions'

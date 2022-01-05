@@ -1,9 +1,7 @@
 import { Router } from 'express'
 
-import Controllers from './controllers'
+import { Auth } from './controllers'
 
-const router = Router()
+export const Global = Router()
 
-router.use('/auth', Controllers.Auth)
-
-export default router
+Global.use('/auth', Auth)

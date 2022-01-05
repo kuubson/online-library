@@ -1,17 +1,21 @@
 import { Book } from 'database'
 
-import middlewares from 'middlewares'
+import { roleAuthorization } from 'middlewares'
 
-import utils from 'utils'
+import { ApiError } from 'utils'
 
-import { GraphQLResolverContext } from 'types/graphql'
+import { GraphQLContext } from 'types/graphql'
 
-export const borrowBook = async (_: any, { bookId }: any, context: GraphQLResolverContext) => {
-    middlewares.roleAuthorization(context, 'user')
+type Args = {
+    bookId: number
+}
+
+export const borrowBook = async (_: any, { bookId }: Args, context: GraphQLContext) => {
+    roleAuthorization(context)
     const book = await Book.findByPk(bookId)
-    if (await context.user.hasBook(book)) {
-        throw new utils.ApiError('Borrowing a book', 'You have already borrowed this book', 409)
+    if (await context.req.user.user.hasBook(book)) {
+        throw new ApiError('Borrowing a book', 'You have already borrowed this book', 409)
     }
-    await context.user.addBook(book)
+    await context.req.user.user.addBook(book)
     return book
 }

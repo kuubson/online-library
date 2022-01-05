@@ -3,11 +3,11 @@ import webpush from 'web-push'
 
 import { Connection, User, Subscription } from 'database'
 
-import utils from 'utils'
+import { Op, baseUrl } from 'utils'
 
 import { ProtectedRoute } from 'types/express'
 
-const sendMessage: ProtectedRoute = async (req, res, next) => {
+export const sendMessage: ProtectedRoute = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { id, name } = req.user
@@ -25,7 +25,7 @@ const sendMessage: ProtectedRoute = async (req, res, next) => {
             await User.findAll({
                 where: {
                     id: {
-                        [utils.Op.ne]: id
+                        [Op.ne]: id
                     }
                 },
                 include: [Subscription]
@@ -48,7 +48,7 @@ const sendMessage: ProtectedRoute = async (req, res, next) => {
                                     icon: 'https://picsum.photos/1920/1080',
                                     data: {
                                         userName: name,
-                                        url: `${utils.baseUrl(req)}/chat`
+                                        url: `${baseUrl(req)}/chat`
                                     }
                                 })
                             )
@@ -70,5 +70,3 @@ const sendMessage: ProtectedRoute = async (req, res, next) => {
 }
 
 export const validation = () => [check('content').trim().isString().bail()]
-
-export default sendMessage

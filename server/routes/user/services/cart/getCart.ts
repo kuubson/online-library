@@ -1,10 +1,10 @@
 import { Connection, Book } from 'database'
 
-import utils from 'utils'
+import { validator } from 'helpers'
 
 import { ProtectedRoute } from 'types/express'
 
-const getCart: ProtectedRoute = async (req, res, next) => {
+export const getCart: ProtectedRoute = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { cart } = req.body
@@ -23,6 +23,4 @@ const getCart: ProtectedRoute = async (req, res, next) => {
     }
 }
 
-export const validation = () => [utils.validator.validateArray('cart', true)]
-
-export default getCart
+export const validation = () => [validator.validateArray('cart', true)]

@@ -12,11 +12,4 @@ export type GraphQLRequest = Request & {
 export type GraphQLContext = {
     req: GraphQLRequest
     res: Response
-    role: 'user'
-}
-
-export type GraphQLResolverContext = {
-    res: Response
-    user: User
-    role: 'user'
 }

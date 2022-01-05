@@ -1,12 +1,10 @@
 import { Router } from 'express'
 
-import Controllers from './controllers'
+import { Auth, Books, Cart, Chat } from './controllers'
 
-const router = Router()
+export const User = Router()
 
-router.use('/auth', Controllers.Auth)
-router.use('/books', Controllers.Books)
-router.use('/cart', Controllers.Cart)
-router.use('/chat', Controllers.Chat)
-
-export default router
+User.use('/auth', Auth)
+User.use('/books', Books)
+User.use('/cart', Cart)
+User.use('/chat', Chat)

@@ -2,16 +2,21 @@ import { Op } from 'sequelize'
 
 import { Book } from 'database'
 
-import middlewares from 'middlewares'
+import { roleAuthorization } from 'middlewares'
 
-import { GraphQLResolverContext } from 'types/graphql'
+import { GraphQLContext } from 'types/graphql'
+
+type Args = {
+    paidBooksOffset: number
+    freeBooksOffset: number
+}
 
 export const paidBooks = async (
     _: any,
-    { paidBooksOffset, freeBooksOffset }: any,
-    context: GraphQLResolverContext
+    { paidBooksOffset, freeBooksOffset }: Args,
+    context: GraphQLContext
 ) => {
-    middlewares.roleAuthorization(context, 'user')
+    roleAuthorization(context)
     return await Book.findAll({
         where: {
             price: {

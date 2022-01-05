@@ -1,10 +1,10 @@
-import middlewares from 'middlewares'
+import { roleAuthorization } from 'middlewares'
 
-import { GraphQLResolverContext } from 'types/graphql'
+import { GraphQLContext } from 'types/graphql'
 
-export const borrowedBooks = async (_: any, __: any, context: GraphQLResolverContext) => {
-    middlewares.roleAuthorization(context, 'user')
-    return await context.user.getBooks({
+export const borrowedBooks = async (_: any, __: any, context: GraphQLContext) => {
+    roleAuthorization(context)
+    return await context.req.user.user.getBooks({
         where: {
             price: null
         }

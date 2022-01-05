@@ -2,11 +2,13 @@ import jwt from 'jsonwebtoken'
 
 import { Connection, User, Authentication } from 'database'
 
-import utils from 'utils'
+import { transporter, validator } from 'helpers'
+
+import { ApiError, baseUrl, emailTemplate } from 'utils'
 
 import { Route } from 'types/express'
 
-const register: Route = async (req, res, next) => {
+export const register: Route = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { name, email, password } = req.body
@@ -17,7 +19,7 @@ const register: Route = async (req, res, next) => {
                 transaction
             })
             if (user) {
-                throw new utils.ApiError(
+                throw new ApiError(
                     'Account registration',
                     'User with email address provided already exists',
                     409
@@ -41,17 +43,17 @@ const register: Route = async (req, res, next) => {
             const mailOptions = {
                 to: email,
                 subject: 'Account activation in the Online Library',
-                html: utils.emailTemplate(
+                html: emailTemplate(
                     'Account activation in the Online Library',
                     `To activate your account click the button`,
                     'Activate account',
-                    `${utils.baseUrl(req)}/authentication/${token}`
+                    `${baseUrl(req)}/authentication/${token}`
                 )
             }
-            utils.transporter.sendMail(mailOptions, (error, info) => {
+            transporter.sendMail(mailOptions, (error, info) => {
                 try {
                     if (error || !info) {
-                        throw new utils.ApiError(
+                        throw new ApiError(
                             'Account registration',
                             'There was an unexpected problem when sending an e-mail with an activation link for your account',
                             502
@@ -71,10 +73,8 @@ const register: Route = async (req, res, next) => {
 }
 
 export const validation = () => [
-    utils.validator.validateProperty('name'),
-    utils.validator.validateEmail(),
-    utils.validator.validatePassword(),
-    utils.validator.validateRepeatedPassword()
+    validator.validateProperty('name'),
+    validator.validateEmail(),
+    validator.validatePassword(),
+    validator.validateRepeatedPassword()
 ]
-
-export default register

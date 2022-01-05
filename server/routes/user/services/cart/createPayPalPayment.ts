@@ -2,11 +2,13 @@ import paypal from 'paypal-rest-sdk'
 
 import { Connection, Book } from 'database'
 
-import utils from 'utils'
+import { validator } from 'helpers'
+
+import { ApiError, baseUrl } from 'utils'
 
 import { ProtectedRoute } from 'types/express'
 
-const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
+export const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { products } = req.body
@@ -24,7 +26,7 @@ const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
                 transaction
             }).then(books => books.filter(({ id }) => !userBooks.includes(id)))
             if (books.length === 0) {
-                throw new utils.ApiError(
+                throw new ApiError(
                     'Submitting the order',
                     'You have already purchased selected books before',
                     409
@@ -41,8 +43,8 @@ const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
                     payment_method: 'paypal'
                 },
                 redirect_urls: {
-                    return_url: `${utils.baseUrl(req)}/cart`,
-                    cancel_url: `${utils.baseUrl(req)}/cart`
+                    return_url: `${baseUrl(req)}/cart`,
+                    cancel_url: `${baseUrl(req)}/cart`
                 },
                 transactions: [
                     {
@@ -68,7 +70,7 @@ const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
             paypal.payment.create(payment as any, async (error: any, payment: any) => {
                 try {
                     if (error) {
-                        throw new utils.ApiError(
+                        throw new ApiError(
                             'Submitting the order',
                             'There was an unexpected problem when processing your payment',
                             402
@@ -78,7 +80,7 @@ const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
                         ({ rel }: any) => rel === 'approval_url'
                     )
                     if (!approvalLink) {
-                        throw new utils.ApiError(
+                        throw new ApiError(
                             'Submitting the order',
                             'There was an unexpected problem when processing your payment',
                             402
@@ -101,6 +103,4 @@ const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
     }
 }
 
-export const validation = () => [utils.validator.validateArray('products', false)]
-
-export default createPayPalPayment
+export const validation = () => [validator.validateArray('products', false)]

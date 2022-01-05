@@ -1,11 +1,15 @@
 import { Book } from 'database'
 
-import middlewares from 'middlewares'
+import { roleAuthorization } from 'middlewares'
 
-import { GraphQLResolverContext } from 'types/graphql'
+import { GraphQLContext } from 'types/graphql'
 
-export const books = async (_: any, { ids }: any, context: GraphQLResolverContext) => {
-    middlewares.roleAuthorization(context, 'user')
+type Args = {
+    ids: number[]
+}
+
+export const books = async (_: any, { ids }: Args, context: GraphQLContext) => {
+    roleAuthorization(context, 'user')
     return await Book.findAll({
         where: {
             id: ids

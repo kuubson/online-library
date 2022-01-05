@@ -3,11 +3,13 @@ import bcrypt from 'bcrypt'
 
 import { Connection, User } from 'database'
 
-import utils from 'utils'
+import { validator } from 'helpers'
+
+import { cookie } from 'utils'
 
 import { Route } from 'types/express'
 
-const loginWithFacebook: Route = async (req, res, next) => {
+export const loginWithFacebook: Route = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { name, email, access_token } = req.body
@@ -24,7 +26,7 @@ const loginWithFacebook: Route = async (req, res, next) => {
                         secure: process.env.NODE_ENV === 'production',
                         httpOnly: true,
                         sameSite: true,
-                        maxAge: utils.cookie.maxAge
+                        maxAge: cookie.maxAge
                     })
                     .send({
                         success: true
@@ -44,7 +46,7 @@ const loginWithFacebook: Route = async (req, res, next) => {
                 secure: process.env.NODE_ENV === 'production',
                 httpOnly: true,
                 sameSite: true,
-                maxAge: utils.cookie.maxAge
+                maxAge: cookie.maxAge
             }).send({
                 success: true
             })
@@ -55,9 +57,7 @@ const loginWithFacebook: Route = async (req, res, next) => {
 }
 
 export const validation = () => [
-    utils.validator.validateProperty('name'),
-    utils.validator.validateEmail(),
-    utils.validator.validateProperty('access_token')
+    validator.validateProperty('name'),
+    validator.validateEmail(),
+    validator.validateProperty('access_token')
 ]
-
-export default loginWithFacebook

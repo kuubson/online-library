@@ -10,7 +10,7 @@ import 'database'
 
 import { initializeMiddlewares, errorHandler } from 'middlewares'
 
-import routes from 'routes/routes'
+import { routes } from 'routes'
 
 const app = express()
 const server = http.createServer(app)

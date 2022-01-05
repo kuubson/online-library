@@ -13,7 +13,6 @@ export const schema = makeExecutableSchema({
         gql`
             type Query
             type Mutation
-            type Subscription
         `,
         userTypeDefs
     ],

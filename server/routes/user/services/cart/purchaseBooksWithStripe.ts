@@ -2,15 +2,17 @@ import Stripe from 'stripe'
 
 import { Connection, Book } from 'database'
 
-import utils from 'utils'
+import { validator } from 'helpers'
+
+import { ApiError } from 'utils'
+
+import { ProtectedRoute } from 'types/express'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: '2020-03-02' as any
 })
 
-import { ProtectedRoute } from 'types/express'
-
-const purchaseBooksWithStripe: ProtectedRoute = async (req, res, next) => {
+export const purchaseBooksWithStripe: ProtectedRoute = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { paymentId, products } = req.body
@@ -28,7 +30,7 @@ const purchaseBooksWithStripe: ProtectedRoute = async (req, res, next) => {
                 transaction
             }).then(books => books.filter(({ id }) => !userBooks.includes(id)))
             if (books.length === 0) {
-                throw new utils.ApiError(
+                throw new ApiError(
                     'Submitting the order',
                     'You have already purchased selected books before',
                     409
@@ -52,7 +54,7 @@ const purchaseBooksWithStripe: ProtectedRoute = async (req, res, next) => {
                 confirm: true
             })
             if (payment.status !== 'succeeded') {
-                throw new utils.ApiError(
+                throw new ApiError(
                     'Submitting the order',
                     'There was an unexpected problem when processing your payment',
                     402
@@ -76,8 +78,6 @@ const purchaseBooksWithStripe: ProtectedRoute = async (req, res, next) => {
 }
 
 export const validation = () => [
-    utils.validator.validateProperty('paymentId'),
-    utils.validator.validateArray('products', false)
+    validator.validateProperty('paymentId'),
+    validator.validateArray('products', false)
 ]
-
-export default purchaseBooksWithStripe

@@ -4,16 +4,16 @@ import { Server, Socket } from 'socket.io'
 import { User, Message } from 'database'
 import { User as UserClass } from 'database/models/User'
 
-import utils from 'utils'
+import { cookie } from 'utils'
 
 interface ISocket extends Socket {
     user?: UserClass
 }
 
-const user = (io: Server) => {
+export const user = (io: Server) => {
     const userIo = io.of('/user')
     userIo.use((socket: ISocket, next) => {
-        const token = utils.cookie.getCookie(socket.request.headers.cookie, 'token')
+        const token = cookie.getCookie(socket.request.headers.cookie, 'token')
         if (!token) {
             next(new Error())
         } else {
@@ -63,5 +63,3 @@ const user = (io: Server) => {
         })
     })
 }
-
-export default user

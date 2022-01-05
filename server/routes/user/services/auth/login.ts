@@ -3,11 +3,13 @@ import bcrypt from 'bcrypt'
 
 import { Connection, User, Authentication } from 'database'
 
-import utils from 'utils'
+import { validator } from 'helpers'
+
+import { ApiError, cookie } from 'utils'
 
 import { Route } from 'types/express'
 
-const login: Route = async (req, res, next) => {
+export const login: Route = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { email, password } = req.body
@@ -19,14 +21,14 @@ const login: Route = async (req, res, next) => {
                 transaction
             })
             if (!user || !bcrypt.compareSync(password, user.password)) {
-                throw new utils.ApiError(
+                throw new ApiError(
                     'Logging to app',
                     'The email address or password provided are invalid',
                     404
                 )
             }
             if (!user.authentication.authenticated) {
-                throw new utils.ApiError(
+                throw new ApiError(
                     'Logging to app',
                     'An account assigned to email address provided must be firstly authenticated',
                     409
@@ -37,7 +39,7 @@ const login: Route = async (req, res, next) => {
                 secure: process.env.NODE_ENV === 'production',
                 httpOnly: true,
                 sameSite: true,
-                maxAge: utils.cookie.maxAge
+                maxAge: cookie.maxAge
             }).send({
                 success: true
             })
@@ -47,9 +49,4 @@ const login: Route = async (req, res, next) => {
     }
 }
 
-export const validation = () => [
-    utils.validator.validateEmail(),
-    utils.validator.validatePassword(true)
-]
-
-export default login
+export const validation = () => [validator.validateEmail(), validator.validatePassword(true)]

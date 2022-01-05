@@ -1,18 +1,11 @@
 import { Router } from 'express'
 
-import middlewares from 'middlewares'
+import { checkValidation } from 'middlewares'
 
-import auth from '../services/auth'
+import { auth } from '../services/'
 
-const router = Router()
+export const Auth = Router()
 
-router.get(
-    '/checkToken',
-    auth.checkToken.validation(),
-    middlewares.checkValidation,
-    auth.checkToken.default
-)
+Auth.get('/checkToken', auth.checkToken.validation(), checkValidation, auth.checkToken.checkToken)
 
-router.get('/logout', auth.logout.default)
-
-export default router
+Auth.get('/logout', auth.logout.logout)

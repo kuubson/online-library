@@ -1,41 +1,39 @@
 import { Router } from 'express'
 
-import middlewares from 'middlewares'
+import { jwtAuthorization, checkValidation } from 'middlewares'
 
-import cart from '../services/cart'
+import { cart } from '../services'
 
-const router = Router()
+export const Cart = Router()
 
-router.post(
+Cart.post(
     '/getCart',
-    middlewares.jwtAuthorization,
+    jwtAuthorization,
     cart.getCart.validation(),
-    middlewares.checkValidation,
-    cart.getCart.default as any
+    checkValidation,
+    cart.getCart.getCart as any
 )
 
-router.post(
+Cart.post(
     '/purchaseBooksWithStripe',
-    middlewares.jwtAuthorization,
+    jwtAuthorization,
     cart.purchaseBooksWithStripe.validation(),
-    middlewares.checkValidation,
-    cart.purchaseBooksWithStripe.default as any
+    checkValidation,
+    cart.purchaseBooksWithStripe.purchaseBooksWithStripe as any
 )
 
-router.post(
+Cart.post(
     '/createPayPalPayment',
-    middlewares.jwtAuthorization,
+    jwtAuthorization,
     cart.createPayPalPayment.validation(),
-    middlewares.checkValidation,
-    cart.createPayPalPayment.default as any
+    checkValidation,
+    cart.createPayPalPayment.createPayPalPayment as any
 )
 
-router.post(
+Cart.post(
     '/executePayPalPayment',
-    middlewares.jwtAuthorization,
+    jwtAuthorization,
     cart.executePayPalPayment.validation(),
-    middlewares.checkValidation,
-    cart.executePayPalPayment.default as any
+    checkValidation,
+    cart.executePayPalPayment.executePayPalPayment as any
 )
-
-export default router

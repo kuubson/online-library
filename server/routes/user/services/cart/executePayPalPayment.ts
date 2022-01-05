@@ -2,11 +2,13 @@ import paypal from 'paypal-rest-sdk'
 
 import { Connection, Book } from 'database'
 
-import utils from 'utils'
+import { validator } from 'helpers'
+
+import { ApiError } from 'utils'
 
 import { ProtectedRoute } from 'types/express'
 
-const executePayPalPayment: ProtectedRoute = async (req, res, next) => {
+export const executePayPalPayment: ProtectedRoute = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { paymentId, PayerID } = req.body
@@ -17,14 +19,14 @@ const executePayPalPayment: ProtectedRoute = async (req, res, next) => {
                 transaction
             })
             if (!payment) {
-                throw new utils.ApiError(
+                throw new ApiError(
                     'Submitting the order',
                     'There was an unexpected problem when processing your payment',
                     402
                 )
             }
             if (payment.approved) {
-                throw new utils.ApiError(
+                throw new ApiError(
                     'Submitting the order',
                     'The order has been already approved',
                     409
@@ -37,7 +39,7 @@ const executePayPalPayment: ProtectedRoute = async (req, res, next) => {
                 },
                 async (error: any, executedPayment: any) => {
                     if (error || executedPayment.state !== 'approved') {
-                        throw new utils.ApiError(
+                        throw new ApiError(
                             'Submitting the order',
                             'There was an unexpected problem when processing your payment',
                             402
@@ -64,8 +66,6 @@ const executePayPalPayment: ProtectedRoute = async (req, res, next) => {
 }
 
 export const validation = () => [
-    utils.validator.validateProperty('paymentId'),
-    utils.validator.validateProperty('PayerID')
+    validator.validateProperty('paymentId'),
+    validator.validateProperty('PayerID')
 ]
-
-export default executePayPalPayment

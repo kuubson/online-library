@@ -2,11 +2,13 @@ import jwt from 'jsonwebtoken'
 
 import { Connection, User } from 'database'
 
-import utils from 'utils'
+import { validator } from 'helpers'
+
+import { ApiError } from 'utils'
 
 import { Route } from 'types/express'
 
-const checkToken: Route = async (req, res, next) => {
+export const checkToken: Route = async (req, res, next) => {
     await Connection.transaction(async transaction => {
         const { token } = req.cookies
         if (!token) {
@@ -24,13 +26,13 @@ const checkToken: Route = async (req, res, next) => {
             try {
                 if (error) {
                     if (error.message.includes('expired')) {
-                        throw new utils.ApiError(
+                        throw new ApiError(
                             'Authorization',
                             'The authentication cookie has expired, log in again',
                             401
                         )
                     }
-                    throw new utils.ApiError(
+                    throw new ApiError(
                         'Authorization',
                         'The authentication cookie is invalid, log in again',
                         401
@@ -44,7 +46,7 @@ const checkToken: Route = async (req, res, next) => {
                         transaction
                     })
                     if (!user) {
-                        throw new utils.ApiError(
+                        throw new ApiError(
                             'Authorization',
                             'The authentication cookie is invalid, log in again',
                             401
@@ -54,7 +56,7 @@ const checkToken: Route = async (req, res, next) => {
                         role: 'user'
                     })
                 } else {
-                    throw new utils.ApiError(
+                    throw new ApiError(
                         'Authorization',
                         'The authentication cookie is invalid, log in again',
                         401
@@ -67,6 +69,4 @@ const checkToken: Route = async (req, res, next) => {
     })
 }
 
-export const validation = () => [utils.validator.validateProperty('token').optional()]
-
-export default checkToken
+export const validation = () => [validator.validateProperty('token').optional()]

@@ -2,7 +2,7 @@ import { Connection, Message } from 'database'
 
 import { ProtectedRoute } from 'types/express'
 
-const getMessagesInfo: ProtectedRoute = async (req, res, next) => {
+export const getMessagesInfo: ProtectedRoute = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { id } = req.user
@@ -35,5 +35,3 @@ const getMessagesInfo: ProtectedRoute = async (req, res, next) => {
         next(error)
     }
 }
-
-export default getMessagesInfo

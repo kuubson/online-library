@@ -2,11 +2,13 @@ import jwt from 'jsonwebtoken'
 
 import { Connection, User, Authentication } from 'database'
 
-import utils from 'utils'
+import { transporter, validator } from 'helpers'
+
+import { ApiError, baseUrl, emailTemplate } from 'utils'
 
 import { Route } from 'types/express'
 
-const resendEmail: Route = async (req, res, next) => {
+export const resendEmail: Route = async (req, res, next) => {
     try {
         await Connection.transaction(async transaction => {
             const { email } = req.body
@@ -18,14 +20,10 @@ const resendEmail: Route = async (req, res, next) => {
                 transaction
             })
             if (!user || !user.authentication) {
-                throw new utils.ApiError(
-                    'E-mail resending',
-                    'The email address provided is invalid',
-                    404
-                )
+                throw new ApiError('E-mail resending', 'The email address provided is invalid', 404)
             }
             if (user.authentication.authenticated) {
-                throw new utils.ApiError(
+                throw new ApiError(
                     'E-mail resending',
                     'An account assigned to email address provided is already authenticated',
                     409
@@ -43,17 +41,17 @@ const resendEmail: Route = async (req, res, next) => {
             const mailOptions = {
                 to: email,
                 subject: 'Account activation in the Online Library',
-                html: utils.emailTemplate(
+                html: emailTemplate(
                     'Account activation in the Online Library',
                     `To activate your account click the button`,
                     'Activate account',
-                    `${utils.baseUrl(req)}/authentication/${token}`
+                    `${baseUrl(req)}/authentication/${token}`
                 )
             }
-            utils.transporter.sendMail(mailOptions, (error, info) => {
+            transporter.sendMail(mailOptions, (error, info) => {
                 try {
                     if (error || !info) {
-                        throw new utils.ApiError(
+                        throw new ApiError(
                             'E-mail resending',
                             'There was an unexpected problem when sending an e-mail with an activation link for your account',
                             502
@@ -72,6 +70,4 @@ const resendEmail: Route = async (req, res, next) => {
     }
 }
 
-export const validation = () => [utils.validator.validateEmail()]
-
-export default resendEmail
+export const validation = () => [validator.validateEmail()]
