@@ -1,11 +1,11 @@
 import { Application, Response, Request, NextFunction } from 'express'
 import csurf from 'csurf'
 
-import unless from './unless'
+import { unless } from '.'
 
-import utils from 'utils'
+import { cookie } from 'utils'
 
-const csrf = async (app: Application) => {
+export const initializeCsrf = async (app: Application) => {
     app.use(
         unless(
             '/graphql',
@@ -14,7 +14,7 @@ const csrf = async (app: Application) => {
                     secure: process.env.NODE_ENV === 'production',
                     httpOnly: true,
                     sameSite: true,
-                    maxAge: utils.cookie.maxAge
+                    maxAge: cookie.maxAge
                 }
             })
         )
@@ -24,11 +24,9 @@ const csrf = async (app: Application) => {
             res.cookie('XSRF-TOKEN', req.csrfToken(), {
                 secure: process.env.NODE_ENV === 'production',
                 sameSite: true,
-                maxAge: utils.cookie.maxAge
+                maxAge: cookie.maxAge
             })
             next()
         })
     )
 }
-
-export default csrf

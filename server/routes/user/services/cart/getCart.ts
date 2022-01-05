@@ -2,7 +2,7 @@ import { Connection, Book } from 'database'
 
 import utils from 'utils'
 
-import { ProtectedRoute } from 'types/global'
+import { ProtectedRoute } from 'types/express'
 
 const getCart: ProtectedRoute = async (req, res, next) => {
     try {

@@ -1,6 +1,6 @@
 import { Middleware } from 'express-validator/src/base'
 
-const unless = (path: any, middleware: any) => {
+export const unless = (path: any, middleware: any) => {
     const middlewareFunction: Middleware = (req, res, next) => {
         if (path === req.path) {
             return next()
@@ -10,5 +10,3 @@ const unless = (path: any, middleware: any) => {
     }
     return middlewareFunction
 }
-
-export default unless

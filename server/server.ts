@@ -1,26 +1,27 @@
 import path from 'path'
-import dotenv from 'dotenv'
-dotenv.config({ path: path.resolve(__dirname, '../.env.local') })
-
 import express from 'express'
 import http from 'http'
 
+import 'dotenv/config'
+
+import './aliases'
+
 import 'database'
 
-import middlewares from 'middlewares'
+import { initializeMiddlewares, errorHandler } from 'middlewares'
 
 import routes from 'routes/routes'
 
 const app = express()
 const server = http.createServer(app)
 
-middlewares.init(app, server)
+initializeMiddlewares(app, server)
 
 routes(app)
 
-middlewares.errorHandler(app)
+errorHandler(app)
 
-const buildPath = '../out'
+const buildPath = process.env.NODE_ENV === 'production' ? '../../client/build' : '../client/build'
 
 app.use(express.static(path.resolve(__dirname, buildPath)))
 

@@ -2,7 +2,7 @@ import { Connection, User, Message } from 'database'
 
 import utils from 'utils'
 
-import { ProtectedRoute } from 'types/global'
+import { ProtectedRoute } from 'types/express'
 
 const getMessages: ProtectedRoute = async (req, res, next) => {
     try {

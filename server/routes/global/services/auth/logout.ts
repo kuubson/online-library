@@ -1,4 +1,4 @@
-import { Route } from 'types/global'
+import { Route } from 'types/express'
 
 const logout: Route = (_, res, next) => {
     try {

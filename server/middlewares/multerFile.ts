@@ -3,7 +3,7 @@ import path from 'path'
 import crypto from 'crypto'
 import multer from 'multer'
 
-import { MulterRequest } from 'types/global'
+import { MulterRequest } from 'types/multer'
 
 const storage = multer.diskStorage({
     destination: (_, __, callback) => {
@@ -14,45 +14,37 @@ const storage = multer.diskStorage({
         } catch (error) {}
     },
     filename: (_, { originalname }, callback) => {
-        const extension = path.extname(originalname)
-        const hash = crypto.randomBytes(30).toString('hex')
-        callback(null, `filefilename${originalname}filename${hash}${extension}`)
+        const name = `${crypto.randomBytes(60).toString('hex')}${path.extname(originalname)}`
+        callback(null, name)
     }
 })
 
-const multerFile = multer({
+export const multerFile = multer({
     storage,
-    fileFilter: (req: MulterRequest, { mimetype, originalname, size }, callback) => {
-        const imageExtensions = /jpg|jpeg|png|gif|/i
-        const videoExtensions = /mp4|/i
-        const fileExtensions = /txt|rtf|doc|docx|xlsx|ppt|pptx|pdf|/i
-        const isImage = imageExtensions.test(mimetype) || imageExtensions.test(originalname)
-        const isVideo = videoExtensions.test(mimetype) || videoExtensions.test(originalname)
-        const isFile = fileExtensions.test(mimetype) || fileExtensions.test(originalname)
+    fileFilter: (req: MulterRequest, { mimetype, originalname }, callback) => {
+        const { regex, sizes } = filesInfo
+        const isImage = regex.images.test(mimetype) || regex.images.test(originalname)
+        const isVideo = regex.videos.test(mimetype) || regex.videos.test(originalname)
+        const isFile = regex.files.test(mimetype) || regex.files.test(originalname)
         if (!isImage && !isVideo && !isFile) {
             req.allowedExtenstionsError = true
-            return callback(null, false)
         }
+        const size = parseInt(req.headers['content-length']!)
         if (isImage) {
-            if (size > 31457280) {
-                req.sizeLimit = true // 30MB
-                return callback(null, false)
+            if (size > sizes.imageMaxSize) {
+                req.sizeLimit = true
             }
         }
         if (isVideo) {
-            if (size > 52428800) {
-                req.sizeLimit = true // 50MB
-                return callback(null, false)
+            if (size > sizes.maxVideoSize) {
+                req.sizeLimit = true
             }
         }
         if (isFile) {
-            if (size > 10485760) {
-                req.sizeLimit = true // 10MB
-                return callback(null, false)
+            if (size > sizes.maxFileSize) {
+                req.sizeLimit = true
             }
         }
         return callback(null, true)
     }
 })
-
-export default multerFile

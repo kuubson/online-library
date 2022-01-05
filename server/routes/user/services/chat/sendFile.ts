@@ -8,15 +8,6 @@ import { User, Subscription } from 'database'
 
 import utils from 'utils'
 
-const initCloudinary = () => {
-    ;(cloudinary as any).config({
-        cloud_name: process.env.CLOUDINARY_NAME,
-        api_key: process.env.CLOUDINARY_API_KEY,
-        api_secret: process.env.CLOUDINARY_API_SECRET
-    })
-}
-initCloudinary()
-
 import { UserRequest, MulterRequest } from 'types/global'
 
 const sendFile = async (req: UserRequest & MulterRequest, res: Response, next: NextFunction) => {

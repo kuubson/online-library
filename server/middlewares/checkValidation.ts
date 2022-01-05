@@ -1,20 +1,18 @@
 import { validationResult } from 'express-validator'
 
-import { Route } from 'types/global'
+import { Route } from 'types/express'
 
-const checkValidation: Route = (req, res, next) => {
+export const checkValidation: Route = (req, res, next) => {
     const results = validationResult(req)
     if (!results.isEmpty()) {
         return res.status(422).send({
-            results: results.array().map(({ param, msg }) => {
+            results: results.array().map(({ param: parameter, msg: error }) => {
                 return {
-                    parameter: param,
-                    error: msg
+                    parameter,
+                    error
                 }
             })
         })
     }
     next()
 }
-
-export default checkValidation

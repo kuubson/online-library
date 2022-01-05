@@ -13,7 +13,7 @@ type Cookies = {
     }
 }
 
-const passport = (passport: PassportStatic) => {
+export const initializePassport = (passport: PassportStatic) => {
     const extractJwtFromCookies = ({ cookies }: Cookies) => cookies.token
     passport.use(
         new JwtStrategy(
@@ -50,5 +50,3 @@ const passport = (passport: PassportStatic) => {
         )
     )
 }
-
-export default passport

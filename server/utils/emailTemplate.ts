@@ -1,4 +1,9 @@
-const emailTemplate = (header: string, content: string, buttontText: string, href: string) => `
+export const emailTemplate = (
+    header: string,
+    content: string,
+    buttontText: string,
+    href: string
+) => `
     <table
         cellpadding="20"
         cellspacing="0"
@@ -63,5 +68,3 @@ const emailTemplate = (header: string, content: string, buttontText: string, hre
         </tr>
     </table>
 `
-
-export default emailTemplate

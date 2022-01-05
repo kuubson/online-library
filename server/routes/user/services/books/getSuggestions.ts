@@ -6,7 +6,7 @@ import { Book as BookClass } from 'database/models/Book'
 
 import utils from 'utils'
 
-import { ProtectedRoute } from 'types/global'
+import { ProtectedRoute } from 'types/express'
 
 const getSuggestions: ProtectedRoute = async (req, res, next) => {
     try {

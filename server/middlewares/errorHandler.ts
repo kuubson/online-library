@@ -1,10 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Application, Request, Response, NextFunction } from 'express'
 
-import utils from 'utils'
+import { handleError } from 'helpers'
 
-const errorHandler = (app: Application) =>
-    app.use((error: any, _: Request, res: Response, __: NextFunction) =>
-        utils.handleError(res, error)
-    )
-
-export default errorHandler
+export const errorHandler = (app: Application) =>
+    app.use((error: any, _: Request, res: Response, __: NextFunction) => handleError(res, error))

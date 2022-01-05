@@ -2,23 +2,23 @@ import { Application, Response } from 'express'
 import { PassportStatic } from 'passport'
 import { ApolloServer } from 'apollo-server-express'
 
-import utils from 'utils'
+import { ApiError } from 'utils'
 
 import { schema } from 'gql/schema'
 
-import { GraphQLRequest } from 'types/global'
+import { GraphQLRequest } from 'types/graphql'
 
 type Context = {
     req: GraphQLRequest
     res: Response
 }
 
-export const graphql = async (app: Application, passport: PassportStatic) => {
+export const initializeGraphQL = async (app: Application, passport: PassportStatic) => {
     app.use('/graphql', (req, res, next) => {
         passport.authenticate('jwt', { session: false }, (error, { user, role }) => {
             try {
                 if (error || !user) {
-                    throw new utils.ApiError(
+                    throw new ApiError(
                         'Authorization',
                         'The authentication cookie is invalid, log in again',
                         401

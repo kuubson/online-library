@@ -5,9 +5,7 @@ const getCookie = (cookiesString: string | undefined, cookieName: string) => {
     return cookies.split(`; ${cookieName}=`).pop()!.split(';').shift()
 }
 
-const cookie = {
+export const cookie = {
     maxAge,
     getCookie
 }
-
-export default cookie

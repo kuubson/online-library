@@ -4,7 +4,7 @@ import { Connection, User } from 'database'
 
 import utils from 'utils'
 
-import { Route } from 'types/global'
+import { Route } from 'types/express'
 
 const checkToken: Route = async (req, res, next) => {
     await Connection.transaction(async transaction => {

@@ -5,13 +5,7 @@ import { Connection, User, Subscription } from 'database'
 
 import utils from 'utils'
 
-webpush.setVapidDetails(
-    `mailto:${process.env.NODEMAILER_USERNAME}`,
-    process.env.NEXT_PUBLIC_PUBLIC_VAPID_KEY!,
-    process.env.PRIVATE_VAPID_KEY!
-)
-
-import { ProtectedRoute } from 'types/global'
+import { ProtectedRoute } from 'types/express'
 
 const sendMessage: ProtectedRoute = async (req, res, next) => {
     try {

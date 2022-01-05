@@ -1,6 +1,6 @@
 import limiter from 'express-rate-limit'
 
-const rateLimiter = (request: string) => {
+export const rateLimiter = (request: string) => {
     return limiter({
         windowMs: 30 * 60 * 1000, // 30 min
         max: 10,
@@ -13,5 +13,3 @@ const rateLimiter = (request: string) => {
         }
     })
 }
-
-export default rateLimiter

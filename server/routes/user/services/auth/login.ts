@@ -5,7 +5,7 @@ import { Connection, User, Authentication } from 'database'
 
 import utils from 'utils'
 
-import { Route } from 'types/global'
+import { Route } from 'types/express'
 
 const login: Route = async (req, res, next) => {
     try {

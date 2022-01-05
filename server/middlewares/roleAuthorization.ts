@@ -1,6 +1,6 @@
-import { GraphQLResolverContext } from 'types/global'
+import { GraphQLResolverContext } from 'types/graphql'
 
-const roleAuthorization = (context: GraphQLResolverContext, role: 'user') => {
+export const roleAuthorization = (context: GraphQLResolverContext, role: 'user') => {
     try {
         if (context.role !== role) {
             throw new Error('Authorization Error')
@@ -15,5 +15,3 @@ const roleAuthorization = (context: GraphQLResolverContext, role: 'user') => {
             .status(401)
     }
 }
-
-export default roleAuthorization

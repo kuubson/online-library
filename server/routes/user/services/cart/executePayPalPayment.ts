@@ -4,7 +4,7 @@ import { Connection, Book } from 'database'
 
 import utils from 'utils'
 
-import { ProtectedRoute } from 'types/global'
+import { ProtectedRoute } from 'types/express'
 
 const executePayPalPayment: ProtectedRoute = async (req, res, next) => {
     try {

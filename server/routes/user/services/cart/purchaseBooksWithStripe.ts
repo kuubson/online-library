@@ -8,7 +8,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: '2020-03-02' as any
 })
 
-import { ProtectedRoute } from 'types/global'
+import { ProtectedRoute } from 'types/express'
 
 const purchaseBooksWithStripe: ProtectedRoute = async (req, res, next) => {
     try {

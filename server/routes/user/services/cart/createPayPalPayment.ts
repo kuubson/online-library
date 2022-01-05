@@ -4,13 +4,7 @@ import { Connection, Book } from 'database'
 
 import utils from 'utils'
 
-paypal.configure({
-    mode: 'sandbox',
-    client_id: process.env.PAYPAL_CLIENT_ID!,
-    client_secret: process.env.PAYPAL_CLIENT_SECRET!
-})
-
-import { ProtectedRoute } from 'types/global'
+import { ProtectedRoute } from 'types/express'
 
 const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
     try {

@@ -4,7 +4,7 @@ import { Connection, User, Authentication } from 'database'
 
 import utils from 'utils'
 
-import { Route } from 'types/global'
+import { Route } from 'types/express'
 
 const recoverPassword: Route = async (req, res, next) => {
     try {
@@ -41,7 +41,6 @@ const recoverPassword: Route = async (req, res, next) => {
                 }
             )
             const mailOptions = {
-                from: `"Online Library" <${process.env.NODEMAILER_USERNAME}>`,
                 to: email,
                 subject: 'Password recovery in the Online Library',
                 html: utils.emailTemplate(

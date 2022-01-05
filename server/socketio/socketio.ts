@@ -2,8 +2,6 @@ import { Server } from 'socket.io'
 
 import user from './user'
 
-const socketio = (io: Server) => {
+export const initializeSocketIO = (io: Server) => {
     user(io)
 }
-
-export default socketio

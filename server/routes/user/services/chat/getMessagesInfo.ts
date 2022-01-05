@@ -1,6 +1,6 @@
 import { Connection, Message } from 'database'
 
-import { ProtectedRoute } from 'types/global'
+import { ProtectedRoute } from 'types/express'
 
 const getMessagesInfo: ProtectedRoute = async (req, res, next) => {
     try {
