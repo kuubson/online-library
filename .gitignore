@@ -7,5 +7,5 @@ uploads/
 
 .env
 
-# Prevent crashing heroku build
-package-lock.json
+# It prevent from crashing the heroku build
+/server/package-lock.json
