@@ -81,7 +81,7 @@ Make sure to create **MySQL** database with credentials the same as in **.env** 
 
 ### Profile (reading book simulation)
 
-[![online-library-User-Profile.png](https://i.postimg.cc/GtFyS4Vs/online-library-User-Profile.png)](https://postimg.cc/2L5y1Szz)
+https://user-images.githubusercontent.com/38701627/148210183-97434604-9cd8-4969-b3a0-5cfd083f98ec.mp4
 
 ### Chat
 
