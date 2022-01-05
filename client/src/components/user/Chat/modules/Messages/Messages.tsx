@@ -39,15 +39,10 @@ const Messages = forwardRef<HTMLDivElement, IMessages>(
     ) => {
         return (
             <MessagesContainer ref={ref} onTouchStart={onTouchStart} onScroll={onScroll}>
-                {messages.map(({ id, type, content, userId, userName, createdAt }, index) => (
+                {messages.map((message, index) => (
                     <Message
-                        key={id}
-                        id={id}
-                        type={type}
-                        content={content}
-                        userId={userId}
-                        userName={userName}
-                        createdAt={createdAt}
+                        key={message.id}
+                        {...message}
                         currentUserId={currentUserId}
                         nextMessage={messages[index + 1]}
                         scrollToLastMessage={scrollToLastMessage}

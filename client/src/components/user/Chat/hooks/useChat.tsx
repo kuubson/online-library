@@ -233,6 +233,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: ChatHoo
                         id,
                         type,
                         content,
+                        filename: name,
                         userId: currentUserId,
                         userName: currentUserName,
                         createdAt: new Date()

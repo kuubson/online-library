@@ -29,6 +29,10 @@ const MessageModel = (sequelize: Sequelize) => {
                 type: TEXT,
                 allowNull: false
             },
+            filename: {
+                type: TEXT,
+                defaultValue: ''
+            },
             readBy: {
                 type: TEXT,
                 defaultValue: ''

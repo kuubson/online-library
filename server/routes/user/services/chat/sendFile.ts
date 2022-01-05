@@ -17,7 +17,7 @@ export const sendFile = async (
     res: Response,
     next: NextFunction
 ) => {
-    const { filename, path } = req.file
+    const { filename, path, originalname } = req.file
     try {
         const { id, name } = req.user
         let type, content, cloudinaryId
@@ -69,6 +69,7 @@ export const sendFile = async (
         await req.user.createMessage({
             type,
             content,
+            filename: originalname,
             readBy: id,
             cloudinaryId
         })

@@ -41,6 +41,7 @@ type MessageProps = {
 const Message = ({
     type,
     content,
+    filename,
     userId,
     userName,
     createdAt,
@@ -120,14 +121,12 @@ const Message = ({
                 )
             ) : (
                 <Styled.Content
-                    onClick={() =>
-                        withFile && fileSaver.saveAs(content, content.split('filename')[1])
-                    }
+                    onClick={() => withFile && fileSaver.saveAs(content, filename)}
                     withCurrentUser={withCurrentUser}
                     withLastUserMessage={withLastUserMessage}
                     withFile={withFile}
                 >
-                    {withFile ? content.split('filename')[1] : content}
+                    {withFile ? filename : content}
                     {withLastUserMessage && showAvatar()}
                 </Styled.Content>
             )}
