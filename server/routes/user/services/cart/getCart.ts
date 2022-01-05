@@ -1,4 +1,4 @@
-import { Connection, Book } from 'database/database'
+import { Connection, Book } from 'database'
 
 import utils from 'utils'
 

@@ -9,7 +9,6 @@ const connection = new Sequelize(DATABASE_NAME!, DATABASE_USERNAME!, DATABASE_PA
         charset: 'utf8mb4',
         collate: 'utf8mb4_unicode_ci'
     }
-    // logging: false
 })
 
 import UserModel from './models/User'
@@ -19,12 +18,12 @@ import MessageModel from './models/Message'
 import PaymentModel from './models/Payment'
 import SubscriptionModel from './models/Subscription'
 
-const User = UserModel(connection)
-const Authentication = AuthenticationModel(connection)
-const Book = BookModel(connection)
-const Message = MessageModel(connection)
-const Payment = PaymentModel(connection)
-const Subscription = SubscriptionModel(connection)
+export const User = UserModel(connection)
+export const Authentication = AuthenticationModel(connection)
+export const Book = BookModel(connection)
+export const Message = MessageModel(connection)
+export const Payment = PaymentModel(connection)
+export const Subscription = SubscriptionModel(connection)
 
 User.hasOne(Authentication)
 Authentication.belongsTo(User)
@@ -41,7 +40,7 @@ Payment.belongsTo(User)
 User.hasMany(Subscription)
 Subscription.belongsTo(User)
 
-const init = async () => {
+const initializeDatabase = async () => {
     try {
         // await connection.sync({ force: true })
         // await connection.sync({ alter: true })
@@ -54,6 +53,6 @@ const init = async () => {
         })
     }
 }
-init()
+initializeDatabase()
 
-export { connection as Connection, User, Authentication, Book, Message, Payment, Subscription }
+export { connection as Connection }

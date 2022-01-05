@@ -1,7 +1,7 @@
 import { Op } from 'sequelize'
 import { check } from 'express-validator'
 
-import { Connection, Book } from 'database/database'
+import { Connection, Book } from 'database'
 import { Book as BookClass } from 'database/models/Book'
 
 import utils from 'utils'

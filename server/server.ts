@@ -5,7 +5,7 @@ dotenv.config({ path: path.resolve(__dirname, '../.env.local') })
 import express from 'express'
 import http from 'http'
 
-import 'database/database'
+import 'database'
 
 import middlewares from 'middlewares'
 

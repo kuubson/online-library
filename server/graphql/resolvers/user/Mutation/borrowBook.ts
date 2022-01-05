@@ -1,4 +1,4 @@
-import { Book } from 'database/database'
+import { Book } from 'database'
 
 import middlewares from 'middlewares'
 

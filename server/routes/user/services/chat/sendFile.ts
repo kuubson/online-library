@@ -4,7 +4,7 @@ import fs from 'fs'
 import cloudinary from 'cloudinary'
 import webpush from 'web-push'
 
-import { User, Subscription } from 'database/database'
+import { User, Subscription } from 'database'
 
 import utils from 'utils'
 

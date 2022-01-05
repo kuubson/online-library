@@ -1,4 +1,4 @@
-import { Connection } from 'database/database'
+import { Connection } from 'database'
 
 import utils from 'utils'
 

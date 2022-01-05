@@ -1,4 +1,4 @@
-import { Connection, Message } from 'database/database'
+import { Connection, Message } from 'database'
 
 import { ProtectedRoute } from 'types/global'
 

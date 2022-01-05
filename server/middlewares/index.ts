@@ -40,7 +40,6 @@ const init = (app: Application, server: Server) => {
     app.use(passport.initialize())
     initGraphQL(app, passport)
     initCSRF(app)
-    app.set('trust proxy', true)
 }
 
 const middlewares = {

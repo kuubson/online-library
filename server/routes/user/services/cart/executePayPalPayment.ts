@@ -1,6 +1,6 @@
 import paypal from 'paypal-rest-sdk'
 
-import { Connection, Book } from 'database/database'
+import { Connection, Book } from 'database'
 
 import utils from 'utils'
 

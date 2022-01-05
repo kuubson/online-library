@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { Server, Socket } from 'socket.io'
 
-import { User, Message } from 'database/database'
+import { User, Message } from 'database'
 import { User as UserClass } from 'database/models/User'
 
 import utils from 'utils'

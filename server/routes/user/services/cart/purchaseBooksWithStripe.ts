@@ -1,6 +1,6 @@
 import Stripe from 'stripe'
 
-import { Connection, Book } from 'database/database'
+import { Connection, Book } from 'database'
 
 import utils from 'utils'
 

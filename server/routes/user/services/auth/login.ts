@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 
-import { Connection, User, Authentication } from 'database/database'
+import { Connection, User, Authentication } from 'database'
 
 import utils from 'utils'
 

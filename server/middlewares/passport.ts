@@ -2,7 +2,7 @@ import { PassportStatic } from 'passport'
 import passportJwt from 'passport-jwt'
 import FacebookTokenStrategy from 'passport-facebook-token'
 
-import { User } from 'database/database'
+import { User } from 'database'
 
 const JwtStrategy = passportJwt.Strategy
 const ExtractJwt = passportJwt.ExtractJwt

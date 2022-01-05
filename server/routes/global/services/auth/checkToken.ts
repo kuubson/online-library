@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { Connection, User } from 'database/database'
+import { Connection, User } from 'database'
 
 import utils from 'utils'
 

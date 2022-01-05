@@ -1,4 +1,4 @@
-import { Connection, User, Message } from 'database/database'
+import { Connection, User, Message } from 'database'
 
 import utils from 'utils'
 
