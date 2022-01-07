@@ -18,18 +18,50 @@ export const sendFile = async (
 ) => {
     try {
         await Connection.transaction(async transaction => {
-            const { mimetype, originalname, path } = req.file
+            const {
+                regex: { images, videos, files },
+                sizes: { maxImageSize, maxVideoSize, maxFileSize }
+            } = filesInfo
+            const { mimetype, originalname, path, size } = req.file
+            const isImage = images.test(mimetype) || images.test(originalname)
+            const isVideo = videos.test(mimetype) || videos.test(originalname)
+            const isFile = files.test(mimetype) || files.test(originalname)
+            if (!isImage && !isVideo && !isFile) {
+                throw new ApiError(
+                    'Sending a file',
+                    'You cannot send a file with this extension',
+                    500
+                )
+            }
+            let sizeError = false
+            if (isImage) {
+                if (size > maxImageSize) {
+                    sizeError = true
+                }
+            }
+            if (isVideo) {
+                if (size > maxVideoSize) {
+                    sizeError = true
+                }
+            }
+            if (isFile) {
+                if (size > maxFileSize) {
+                    sizeError = true
+                }
+            }
+            if (sizeError) {
+                throw new ApiError('Sending a file', 'You cannot send this large file', 500)
+            }
             const { id, name } = req.user
-            const { images, videos, files } = filesInfo.regex
             let type, content, cloudinaryId
             switch (true) {
-                case images.test(mimetype) || images.test(originalname):
+                case isImage:
                     type = 'IMAGE'
                     break
-                case videos.test(mimetype) || videos.test(originalname):
+                case isVideo:
                     type = 'VIDEO'
                     break
-                case files.test(mimetype) || files.test(originalname):
+                case isFile:
                     type = 'FILE'
                     break
                 default:

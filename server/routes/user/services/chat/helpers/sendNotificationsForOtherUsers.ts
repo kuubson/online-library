@@ -4,7 +4,7 @@ import { User, Subscription } from 'database'
 
 import { Op } from 'utils'
 
-type NotificationsForOtherUsersSender = (userId: number, options: Options) => void
+type NotificationsForOtherUsersSender = (userId: number, options: Options) => Promise<void>
 
 type Options = {
     tag: number
