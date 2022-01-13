@@ -1,10 +1,10 @@
 import { gql } from 'apollo-server-express'
 import { makeExecutableSchema } from '@graphql-tools/schema'
 
-import { Book } from 'gql/user/typeDefs/Book'
+import { userTypeDefs } from 'gql/user/typeDefs'
 import { userResolvers } from 'gql/user/resolvers'
 
-const userTypeDefs = [Book]
+const typeDefs = [...userTypeDefs]
 
 const resolvers = [userResolvers]
 
@@ -14,7 +14,7 @@ export const schema = makeExecutableSchema({
             type Query
             type Mutation
         `,
-        userTypeDefs
+        typeDefs
     ],
     resolvers
 })
