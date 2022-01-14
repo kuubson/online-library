@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     shouldMenuExpand?: boolean
 }
 
-export const Line = styled.div<Props>`
+export const Line = styled.div<StyledProps>`
     width: 20px;
     border-bottom: 3px solid white;
     margin-bottom: 4px;

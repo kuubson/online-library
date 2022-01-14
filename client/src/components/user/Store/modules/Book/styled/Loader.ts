@@ -2,11 +2,11 @@ import styled, { css } from 'styled-components'
 
 import { fadeOut } from 'assets/animations'
 
-type Props = {
+type StyledProps = {
     $loading?: boolean
 }
 
-export const Loader = styled.div<Props>`
+export const Loader = styled.div<StyledProps>`
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.6);

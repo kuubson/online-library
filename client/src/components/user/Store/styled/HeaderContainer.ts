@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     withoutInput?: boolean
 }
 
-export const HeaderContainer = styled.div<Props>`
+export const HeaderContainer = styled.div<StyledProps>`
     height: 30px;
     display: flex;
     justify-content: center;

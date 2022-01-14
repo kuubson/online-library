@@ -6,12 +6,12 @@ import * as Styled from './styled'
 
 import { useCart } from 'hooks'
 
-type Props = {
+type StyledProps = {
     withPopup?: boolean
     withFlips?: boolean
 }
 
-const BookContainer = styled.div<Props>`
+const BookContainer = styled.div<StyledProps>`
     width: 100%;
     height: 100%;
     position: relative;

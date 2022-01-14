@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     withCurrentUser?: boolean
 }
 
-export const Avatar = styled.div<Props>`
+export const Avatar = styled.div<StyledProps>`
     width: 40px;
     height: 40px;
     border-radius: 50%;

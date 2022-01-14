@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     shouldMenuExpand?: boolean
     counter?: number
 }
 
-export const Option = styled.li<Props>`
+export const Option = styled.li<StyledProps>`
     font-size: 17px;
     margin-right: 40px;
     cursor: pointer;

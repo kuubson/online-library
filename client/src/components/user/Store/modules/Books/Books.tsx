@@ -7,13 +7,13 @@ import * as Styled from './styled'
 
 import { fadeIn } from 'assets/animations'
 
-type Props = {
+type StyledProps = {
     withMarginRight?: boolean
     empty?: boolean
     fullWidth?: boolean
 }
 
-const BooksContainer = styled.div<Props>`
+const BooksContainer = styled.div<StyledProps>`
     width: 55%;
     margin-top: 20px;
     animation: ${fadeIn} 0.4s ease-in-out;

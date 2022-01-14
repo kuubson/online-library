@@ -15,11 +15,11 @@ import { useChat } from './hooks'
 
 import { detectMobileDevice } from 'helpers'
 
-type Props = {
+type StyledProps = {
     areThereMessages?: boolean
 }
 
-const ChatContainer = styled(StoreContainer)<Props>`
+const ChatContainer = styled(StoreContainer)<StyledProps>`
     ${({ areThereMessages }) =>
         areThereMessages
             ? css`

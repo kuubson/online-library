@@ -3,11 +3,11 @@ import styled, { css } from 'styled-components'
 
 import * as Styled from '../styled'
 
-type Props = {
+type StyledProps = {
     withBooksSuggestions?: boolean
 }
 
-const InputContainer = styled.div<Props>`
+const InputContainer = styled.div<StyledProps>`
     width: 550px;
     margin: 0px auto 30px auto;
     :last-of-type {

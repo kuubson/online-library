@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     withBooksSuggestions?: boolean
 }
 
-export const Input = styled.input<Props>`
+export const Input = styled.input<StyledProps>`
     width: 100%;
     font-size: 13px;
     padding-bottom: 12px;

@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     withoutMargin?: boolean
     withFlips?: boolean
 }
 
-export const Content = styled.div<Props>`
+export const Content = styled.div<StyledProps>`
     width: 100%;
     height: 100%;
     margin-left: 18px;

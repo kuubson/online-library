@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     withLessMarginTop?: boolean
     withFacebook?: boolean
 }
 
-export const Submit = styled.button<Props>`
+export const Submit = styled.button<StyledProps>`
     font-size: 14px;
     padding: 10px 40px;
     margin: 45px auto 0px auto;

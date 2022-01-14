@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     shouldMenuExpand?: boolean
 }
 
-export const OptionsContainer = styled.ul<Props>`
+export const OptionsContainer = styled.ul<StyledProps>`
     display: flex;
     justify-content: center;
     align-items: center;

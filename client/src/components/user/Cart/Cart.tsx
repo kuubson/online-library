@@ -16,11 +16,11 @@ import { useCart } from './hooks'
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY!)
 
-type Props = {
+type StyledProps = {
     empty?: boolean
 }
 
-const CartContainer = styled(StoreContainer)<Props>``
+const CartContainer = styled(StoreContainer)<StyledProps>``
 
 interface ICart {
     shouldMenuExpand?: boolean

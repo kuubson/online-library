@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     withTitle?: boolean
 }
 
-export const Annotation = styled.p<Props>`
+export const Annotation = styled.p<StyledProps>`
     width: 150px;
     font-size: 15px;
     font-weight: bold;

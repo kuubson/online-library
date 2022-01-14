@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     withFlips?: boolean
     read?: boolean
 }
 
-export const BookContainer = styled.div<Props>`
+export const BookContainer = styled.div<StyledProps>`
     width: 400px;
     height: 400px;
     perspective: 1000px;

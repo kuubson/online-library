@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     shouldMenuExpand?: boolean
 }
 
-export const LinesContainer = styled.div<Props>`
+export const LinesContainer = styled.div<StyledProps>`
     display: none;
     cursor: pointer;
     position: relative;

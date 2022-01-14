@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     withLessHeight?: boolean
     isKeyboardOpened?: boolean
     withFlips?: boolean
 }
 
-export const ContentContainer = styled.div<Props>`
+export const ContentContainer = styled.div<StyledProps>`
     width: 60%;
     height: 70%;
     background: white;

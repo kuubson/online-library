@@ -7,11 +7,11 @@ import { useMenu } from './hooks'
 
 import { history } from 'utils'
 
-type Props = {
+type StyledProps = {
     shouldMenuStick?: boolean
 }
 
-const MenuContainer = styled.nav<Props>`
+const MenuContainer = styled.nav<StyledProps>`
     width: calc(100% - 40px);
     height: 90px;
     padding: 0px 30px;

@@ -1,13 +1,13 @@
 import styled, { css } from 'styled-components'
 
-type props = {
+type StyledProps = {
     withCurrentUser?: boolean
     withLastUserMessage?: boolean
     withFile?: boolean
     withError?: boolean
 }
 
-export const Content = styled.div<props>`
+export const Content = styled.div<StyledProps>`
     width: max-content;
     max-width: 70vw;
     word-break: break-all;

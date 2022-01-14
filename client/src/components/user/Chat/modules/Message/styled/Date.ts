@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     withCurrentUser?: boolean
     withLastUserMessage?: boolean
     shouldDetailsAppear?: boolean
 }
 
-export const Date = styled.div<Props>`
+export const Date = styled.div<StyledProps>`
     width: 100%;
     font-size: 13px;
     text-align: left;

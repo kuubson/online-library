@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     back?: boolean
 }
 
-export const PageContent = styled.div<Props>`
+export const PageContent = styled.div<StyledProps>`
     width: 100%;
     height: 100%;
     background: #333;

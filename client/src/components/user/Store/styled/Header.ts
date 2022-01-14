@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     withMoreMarginBottom?: boolean
     withPaddingRight?: boolean
     black?: boolean
 }
 
-export const Header = styled.h2<Props>`
+export const Header = styled.h2<StyledProps>`
     white-space: nowrap;
     font-size: 22px;
     line-height: 1.5;

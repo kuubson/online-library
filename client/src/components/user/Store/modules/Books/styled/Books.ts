@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     empty?: boolean
 }
 
-export const Books = styled.div<Props>`
+export const Books = styled.div<StyledProps>`
     margin-top: 35px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));

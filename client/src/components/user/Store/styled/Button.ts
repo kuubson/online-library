@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     price?: number
     notAbsolute?: boolean
     withoutHover?: boolean
@@ -10,7 +10,7 @@ type Props = {
     withChat?: boolean
 }
 
-export const Button = styled.button<Props>`
+export const Button = styled.button<StyledProps>`
     font-size: 13px;
     padding: 8px 12px;
     background: #333;

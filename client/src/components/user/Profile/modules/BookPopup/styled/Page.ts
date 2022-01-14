@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components'
 
-type Props = {
+type StyledProps = {
     zIndex: number
     flip?: boolean
 }
 
-export const Page = styled.div<Props>`
+export const Page = styled.div<StyledProps>`
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;

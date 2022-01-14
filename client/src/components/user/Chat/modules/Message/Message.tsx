@@ -4,12 +4,12 @@ import fileSaver from 'file-saver'
 
 import * as Styled from './styled'
 
-type Props = {
+type StyledProps = {
     withCurrentUser?: boolean
     withLastUserMessage?: boolean
 }
 
-const MessageContainer = styled.div<Props>`
+const MessageContainer = styled.div<StyledProps>`
     display: flex;
     justify-content: center;
     align-items: flex-start;

@@ -7,11 +7,11 @@ import BookPopup from './modules/BookPopup/BookPopup'
 
 import { useStore } from './hooks'
 
-type Props = {
+type StyledProps = {
     shouldMenuExpand?: boolean
 }
 
-export const StoreContainer = styled.section<Props>`
+export const StoreContainer = styled.section<StyledProps>`
     min-height: 100%;
     display: flex;
     justify-content: center;
