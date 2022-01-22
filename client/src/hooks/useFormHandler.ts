@@ -33,7 +33,7 @@ export const useFormHandler: FormHandler = setForm => {
         switch (true) {
             case !value.trim():
                 validated = false
-                handleInputError(property, 'This fields cannot be empty')
+                handleInputError(property, 'This field cannot be empty')
                 break
             case value !== sanitize(value):
                 validated = false

@@ -6,7 +6,7 @@ const validateProperty = (property: string) => {
     return check(`${property}`)
         .trim()
         .notEmpty()
-        .withMessage('This fields cannot be empty')
+        .withMessage('This field cannot be empty')
         .bail()
         .isString()
         .bail()
