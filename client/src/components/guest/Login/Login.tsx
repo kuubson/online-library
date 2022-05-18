@@ -49,9 +49,9 @@ const Login = () => {
                     }}
                 />
                 <StyledRegistration.Submit>Login</StyledRegistration.Submit>
-<!--                 <StyledRegistration.Submit onClick={loginWithFacebook} withFacebook>
+                {/* <StyledRegistration.Submit onClick={loginWithFacebook} withFacebook>
                     Login with Facebook
-                </StyledRegistration.Submit> -->
+                </StyledRegistration.Submit> */}
                 <StyledRegistration.AnnotationsContainer>
                     <StyledRegistration.Annotation onClick={() => history.push('/registration')}>
                         {"I don't have an account yet, go to registration page"}
