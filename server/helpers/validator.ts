@@ -14,19 +14,22 @@ const validateProperty = (property: string) => {
       .withMessage('This field contains incorrect characters')
       .bail()
 }
+
 const validateInteger = (property: string) => {
    return check(`${property}`).notEmpty().bail().isInt().bail()
 }
+
 const validateBoolean = (property: string) => {
    return check(`${property}`).isBoolean().bail()
 }
+
 const validateArray = (property: string, canBeEmpty: boolean) => {
    if (!canBeEmpty) {
       return check(`${property}`).notEmpty().bail().isArray().bail()
-   } else {
-      return check(`${property}`).isArray().bail()
    }
+   return check(`${property}`).isArray().bail()
 }
+
 const validateEmail = () => {
    return check('email')
       .trim()
@@ -37,6 +40,7 @@ const validateEmail = () => {
       .withMessage('Type proper email address')
       .normalizeEmail()
 }
+
 const validatePassword = (withLogin = false) => {
    if (!withLogin) {
       return check('password')
@@ -61,10 +65,10 @@ const validatePassword = (withLogin = false) => {
             }
             return password
          })
-   } else {
-      return check('password').notEmpty().withMessage('Type your password')
    }
+   return check('password').notEmpty().withMessage('Type your password')
 }
+
 const validateRepeatedPassword = () => {
    return check('repeatedPassword')
       .notEmpty()

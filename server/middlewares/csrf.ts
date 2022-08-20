@@ -6,25 +6,12 @@ import { cookie } from 'utils'
 import { unless } from './'
 
 export const initializeCsrf = async (app: Application) => {
-   app.use(
-      unless(
-         '/graphql',
-         csurf({
-            cookie: {
-               secure: process.env.NODE_ENV === 'production',
-               httpOnly: true,
-               sameSite: true,
-               maxAge: cookie.maxAge,
-            },
-         })
-      )
-   )
+   app.use(unless('/graphql', csurf({ cookie: cookie() })))
    app.use(
       unless('/graphql', (req: Request, res: Response, next: NextFunction) => {
          res.cookie('XSRF-TOKEN', req.csrfToken(), {
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: true,
-            maxAge: cookie.maxAge,
+            ...cookie(true),
+            httpOnly: false,
          })
          next()
       })

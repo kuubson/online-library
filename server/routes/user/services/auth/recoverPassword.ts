@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken'
 
-import { Authentication, Connection, User } from 'database'
+import { JWT_KEY } from 'config'
+
+import { Connection, User } from 'database'
 
 import { transporter, validator } from 'helpers'
 
@@ -12,15 +14,16 @@ export const recoverPassword: Route = async (req, res, next) => {
    try {
       await Connection.transaction(async transaction => {
          const { email } = req.body
+
          const user = await User.findOne({
-            where: {
-               email,
-            },
-            include: [Authentication],
+            where: { email },
+            include: [User.associations.authentication],
          })
+
          if (!user || !user.authentication) {
             throw new ApiError('Password recovery', 'The email address provided is invalid', 404)
          }
+
          if (!user.authentication.authenticated) {
             throw new ApiError(
                'Password recovery',
@@ -28,17 +31,11 @@ export const recoverPassword: Route = async (req, res, next) => {
                409
             )
          }
-         const passwordToken = jwt.sign({ email }, process.env.JWT_KEY!, {
-            expiresIn: '1h',
-         })
-         await user.update(
-            {
-               passwordToken,
-            },
-            {
-               transaction,
-            }
-         )
+
+         const passwordToken = jwt.sign({ email }, JWT_KEY, { expiresIn: '1h' })
+
+         await user.update({ passwordToken }, { transaction })
+
          const mailOptions = {
             to: email,
             subject: 'Password recovery in the Online Library',
@@ -49,6 +46,7 @@ export const recoverPassword: Route = async (req, res, next) => {
                `${baseUrl(req)}/password-recovery/${passwordToken}`
             ),
          }
+
          transporter.sendMail(mailOptions, (error, info) => {
             try {
                if (error || !info) {
@@ -58,9 +56,7 @@ export const recoverPassword: Route = async (req, res, next) => {
                      502
                   )
                }
-               res.send({
-                  success: true,
-               })
+               res.send()
             } catch (error) {
                next(error)
             }

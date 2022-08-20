@@ -4,25 +4,16 @@ import { Book } from 'database'
 
 import { roleAuthorization } from 'middlewares'
 
-import { GraphQLContext } from 'types/graphql'
+import { QueryResolvers } from 'types/graphql'
 
-type Args = {
-   paidBooksOffset: number
-   freeBooksOffset: number
-}
-
-export const paidBooks = async (
-   _: any,
-   { paidBooksOffset, freeBooksOffset }: Args,
-   context: GraphQLContext
+export const paidBooks: QueryResolvers['paidBooks'] = async (
+   _,
+   { paidBooksOffset, freeBooksOffset },
+   context
 ) => {
    roleAuthorization(context)
-   return await Book.findAll({
-      where: {
-         price: {
-            [Op.ne]: null,
-         },
-      },
+   return Book.findAll({
+      where: { price: { [Op.ne]: null } },
       limit: freeBooksOffset > 0 ? 0 : 10,
       offset: paidBooksOffset,
    })

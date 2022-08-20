@@ -1,6 +1,5 @@
 overwrite: true
 schema: "http://localhost:3001/graphql"
-documents: "**/*.gql"
 generates:
   client/src/gql/index.ts:
     plugins:

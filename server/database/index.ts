@@ -2,12 +2,12 @@ import { Sequelize } from 'sequelize'
 
 import { DATABASE_HOST, DATABASE_NAME, DATABASE_PASSWORD, DATABASE_USERNAME } from 'config'
 
-import AuthenticationModel from './models/Authentication'
-import BookModel from './models/Book'
-import MessageModel from './models/Message'
-import PaymentModel from './models/Payment'
-import SubscriptionModel from './models/Subscription'
-import UserModel from './models/User'
+import { AuthenticationModel } from './models/Authentication'
+import { BookModel } from './models/Book'
+import { MessageModel } from './models/Message'
+import { PaymentModel } from './models/Payment'
+import { SubscriptionModel } from './models/Subscription'
+import { UserModel } from './models/User'
 
 const connection = new Sequelize(DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD, {
    host: DATABASE_HOST,

@@ -1,48 +1,46 @@
-import jwt from 'jsonwebtoken'
+import { verify } from 'jsonwebtoken'
 import { Server, Socket as _Socket } from 'socket.io'
+import { ExtendedError } from 'socket.io/dist/namespace'
 
 import { JWT_KEY } from 'config'
 
 import { Message, User } from 'database'
-import { User as UserClass } from 'database/models/User'
+import { User as UserType } from 'database/models/User'
 
 import { updateReadByProperty } from 'routes/user/services/chat/helpers'
 
-import { cookie } from 'utils'
+import { getCookie } from 'utils'
+
+import { AuthTokenData } from 'types'
 
 type Socket = _Socket & {
-   user?: UserClass
+   user?: UserType
 }
 
 export const user = (io: Server) => {
    const userIo = io.of('/user')
 
-   userIo.use((socket: Socket, next) => {
-      const token = cookie.getCookie(socket.request.headers.cookie, 'token')
-      if (!token) {
-         next(new Error())
-      } else {
-         jwt.verify(token, JWT_KEY, async (error: any, data: any) => {
-            if (error) {
-               return next(new Error())
-            }
+   userIo.use(async (socket: Socket, next) => {
+      try {
+         const token = getCookie(socket.request.headers.cookie, 'token')
 
-            const { email } = data
+         if (!token) {
+            throw new Error()
+         }
 
-            try {
-               const user = await User.findOne({ where: { email } })
+         const { email } = verify(token, JWT_KEY) as AuthTokenData
 
-               if (!user) {
-                  return next(new Error())
-               }
+         const user = await User.findOne({ where: { email } })
 
-               socket.user = user
+         if (!user) {
+            throw new Error()
+         }
 
-               next()
-            } catch (error) {
-               next(new Error())
-            }
-         })
+         socket.user = user
+
+         next()
+      } catch (error) {
+         next(error as ExtendedError)
       }
    })
 

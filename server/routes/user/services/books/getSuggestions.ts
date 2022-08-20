@@ -2,7 +2,7 @@ import { check } from 'express-validator'
 import { Op } from 'sequelize'
 
 import { Book } from 'database'
-import { Book as BookClass } from 'database/models/Book'
+import { Book as BookType } from 'database/models/Book'
 
 import { validator } from 'helpers'
 
@@ -11,31 +11,22 @@ import { ProtectedRoute } from 'types/express'
 export const getSuggestions: ProtectedRoute = async (req, res, next) => {
    try {
       const { title, author, withProfile } = req.body
+
       const property = title ? 'title' : 'author'
+
       const value = title ? title : author
-      let books: BookClass[] = []
+
+      let books: BookType[] = []
+
       if (value) {
          if (!withProfile) {
-            books = await Book.findAll({
-               where: {
-                  [property]: {
-                     [Op.like]: `%${value}%`,
-                  },
-               },
-            })
+            books = await Book.findAll({ where: { [property]: { [Op.like]: `%${value}%` } } })
          } else {
-            books = await req.user.getBooks({
-               where: {
-                  [property]: {
-                     [Op.like]: `%${value}%`,
-                  },
-               },
-            })
+            books = await req.user.getBooks({ where: { [property]: { [Op.like]: `%${value}%` } } })
          }
       }
-      res.send({
-         books,
-      })
+
+      res.send({ books })
    } catch (error) {
       next(error)
    }

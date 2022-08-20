@@ -22,9 +22,7 @@ const Authentication = () => {
 
             const url = `/api/user/auth/authenticateEmail`
 
-            const response = await axios.post(url, {
-               token,
-            })
+            const response = await axios.post(url, { token })
 
             if (response) {
                setApiFeedback(

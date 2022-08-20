@@ -1,29 +1,51 @@
-import { Model, STRING, Sequelize } from 'sequelize'
+import {
+   Association,
+   CreationOptional,
+   DataTypes,
+   InferAttributes,
+   InferCreationAttributes,
+   Model,
+   NonAttribute,
+   Sequelize,
+} from 'sequelize'
 
-class SubscriptionValues extends Model {
-   id: number
-   endpoint: string
-   p256dh: string
-   auth: string
+import { dbDefaultAttributes } from 'utils'
+
+import { User } from './User'
+
+export class Subscription extends Model<
+   InferAttributes<Subscription>,
+   InferCreationAttributes<Subscription>
+> {
+   declare id: CreationOptional<number>
+   declare createdAt: CreationOptional<Date>
+   declare updatedAt: CreationOptional<Date>
+
+   declare endpoint: string
+   declare p256dh: string
+   declare auth: string
+
+   declare user?: NonAttribute<User>
+
+   declare static associations: {
+      user: Association<Subscription, User>
+   }
 }
 
-export class Subscription extends SubscriptionValues {
-   dataValues: SubscriptionValues
-}
-
-const SubscriptionModel = (sequelize: Sequelize) => {
+export const SubscriptionModel = (sequelize: Sequelize) =>
    Subscription.init(
       {
+         ...dbDefaultAttributes,
          endpoint: {
-            type: STRING,
+            type: DataTypes.STRING,
             allowNull: false,
          },
          p256dh: {
-            type: STRING,
+            type: DataTypes.STRING,
             allowNull: false,
          },
          auth: {
-            type: STRING,
+            type: DataTypes.STRING,
             allowNull: false,
          },
       },
@@ -32,7 +54,3 @@ const SubscriptionModel = (sequelize: Sequelize) => {
          modelName: 'subscription',
       }
    )
-   return Subscription
-}
-
-export default SubscriptionModel

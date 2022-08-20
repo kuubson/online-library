@@ -9,7 +9,9 @@ import { updateReadByProperty } from './helpers'
 export const getMessages: ProtectedRoute = async (req, res, next) => {
    try {
       const { id, name } = req.user
+
       const { limit, offset } = req.body
+
       const messages = await Message.findAll({
          limit,
          offset,
@@ -21,13 +23,16 @@ export const getMessages: ProtectedRoute = async (req, res, next) => {
             },
          ],
       }).then(messages => messages.sort((a, b) => a.id - b.id))
+
       const updatedMessage = await updateReadByProperty(id, messages)
-      const messagesWithUserName = updatedMessage.map(message => ({
-         ...message.dataValues,
-         userName: message.user.name,
+
+      const messagesWithUserNames = updatedMessage.map(message => ({
+         ...message, // TODO: verify if removing .dataValues does not break stuff
+         userName: message.user?.name,
       }))
+
       res.send({
-         messages: messagesWithUserName,
+         messages: messagesWithUserNames,
          userId: id,
          userName: name,
       })

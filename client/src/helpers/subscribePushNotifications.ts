@@ -20,9 +20,7 @@ export const subscribePushNotifications = async (url: string) => {
             if (pushManager) {
                const subscription = await pushManager.subscribe({
                   userVisibleOnly: true,
-                  applicationServerKey: urlBase64ToUint8Array(
-                     process.env.REACT_APP_PUBLIC_VAPID_KEY!
-                  ),
+                  applicationServerKey: urlBase64ToUint8Array(REACT_APP_PUBLIC_VAPID_KEY!),
                })
                await axios.post(url, subscription)
             }

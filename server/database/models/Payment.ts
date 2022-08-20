@@ -1,29 +1,48 @@
-import { BOOLEAN, Model, Sequelize, TEXT } from 'sequelize'
+import {
+   Association,
+   CreationOptional,
+   DataTypes,
+   InferAttributes,
+   InferCreationAttributes,
+   Model,
+   NonAttribute,
+   Sequelize,
+} from 'sequelize'
 
-class PaymentValues extends Model {
-   id: number
-   paymentId: string
-   products: string
-   approved: boolean
+import { dbDefaultAttributes } from 'utils'
+
+import { User } from './User'
+
+export class Payment extends Model<InferAttributes<Payment>, InferCreationAttributes<Payment>> {
+   declare id: CreationOptional<number>
+   declare createdAt: CreationOptional<Date>
+   declare updatedAt: CreationOptional<Date>
+
+   declare paymentId: 'MESSAGE' | 'IMAGE' | 'VIDEO' | 'FILE'
+   declare products: string
+   declare approved: boolean
+
+   declare user?: NonAttribute<User>
+
+   declare static associations: {
+      user: Association<Payment, User>
+   }
 }
 
-export class Payment extends PaymentValues {
-   dataValues: PaymentValues
-}
-
-const PaymentModel = (sequelize: Sequelize) => {
+export const PaymentModel = (sequelize: Sequelize) =>
    Payment.init(
       {
+         ...dbDefaultAttributes,
          paymentId: {
-            type: TEXT,
+            type: DataTypes.TEXT,
             allowNull: false,
          },
          products: {
-            type: TEXT,
+            type: DataTypes.TEXT,
             allowNull: false,
          },
          approved: {
-            type: BOOLEAN,
+            type: DataTypes.BOOLEAN,
             defaultValue: false,
          },
       },
@@ -32,7 +51,3 @@ const PaymentModel = (sequelize: Sequelize) => {
          modelName: 'payment',
       }
    )
-   return Payment
-}
-
-export default PaymentModel

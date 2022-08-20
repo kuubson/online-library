@@ -1,52 +1,60 @@
-import { ENUM, Model, Sequelize, TEXT } from 'sequelize'
+import {
+   Association,
+   CreationOptional,
+   DataTypes,
+   InferAttributes,
+   InferCreationAttributes,
+   Model,
+   NonAttribute,
+   Sequelize,
+} from 'sequelize'
+
+import { dbDefaultAttributes } from 'utils'
 
 import { User } from './User'
 
-class MessageValues extends Model {
-   id: number
-   type: 'MESSAGE' | 'IMAGE' | 'VIDEO' | 'FILE'
-   content: string
-   readBy: string
-   cloudinaryId: string
+export class Message extends Model<InferAttributes<Message>, InferCreationAttributes<Message>> {
+   declare id: CreationOptional<number>
+   declare createdAt: CreationOptional<Date>
+   declare updatedAt: CreationOptional<Date>
+
+   declare type: 'MESSAGE' | 'IMAGE' | 'VIDEO' | 'FILE'
+   declare content: string
+   declare filename: string
+   declare readBy: string
+   declare cloudinaryId: string
+
+   declare user?: NonAttribute<User>
+
+   declare static associations: {
+      user: Association<Message, User>
+   }
 }
 
-class MessageAssociations extends MessageValues {
-   user: User
-}
-
-export class Message extends MessageAssociations {
-   dataValues: MessageValues
-}
-
-const MessageModel = (sequelize: Sequelize) => {
+export const MessageModel = (sequelize: Sequelize) =>
    Message.init(
       {
+         ...dbDefaultAttributes,
          type: {
-            type: ENUM('MESSAGE', 'IMAGE', 'VIDEO', 'FILE'),
+            type: DataTypes.ENUM('MESSAGE', 'IMAGE', 'VIDEO', 'FILE'),
             allowNull: false,
          },
          content: {
-            type: TEXT,
+            type: DataTypes.TEXT,
             allowNull: false,
          },
          filename: {
-            type: TEXT,
+            type: DataTypes.TEXT,
             defaultValue: '',
          },
          readBy: {
-            type: TEXT,
+            type: DataTypes.TEXT,
             defaultValue: '',
          },
-         cloudinaryId: {
-            type: TEXT,
-         },
+         cloudinaryId: { type: DataTypes.TEXT },
       },
       {
          sequelize,
          modelName: 'message',
       }
    )
-   return Message
-}
-
-export default MessageModel

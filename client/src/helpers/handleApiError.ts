@@ -2,7 +2,7 @@ import { setApiFeedback } from 'helpers'
 
 import { history } from 'utils'
 
-const production = process.env.NODE_ENV === 'production'
+const production = NODE_ENV === 'production'
 
 export const handleApiError = (error: any) => {
    if (!production) {

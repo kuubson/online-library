@@ -14,7 +14,7 @@ import { useCart } from './hooks'
 
 import StripePopup from './modules/StripePopup/StripePopup'
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY!)
+const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLISHABLE_KEY!)
 
 type StyledProps = {
    empty?: boolean

@@ -1,5 +1,17 @@
 import bcrypt from 'bcrypt'
-import { Model, STRING, Sequelize, TEXT } from 'sequelize'
+import {
+   Association,
+   CreationOptional,
+   InferAttributes,
+   InferCreationAttributes,
+   Model,
+   NonAttribute,
+   STRING,
+   Sequelize,
+   TEXT,
+} from 'sequelize'
+
+import { dbDefaultAttributes } from 'utils'
 
 import { Authentication } from './Authentication'
 import { Book } from './Book'
@@ -7,18 +19,21 @@ import { Message } from './Message'
 import { Payment } from './Payment'
 import { Subscription } from './Subscription'
 
-class UserValues extends Model {
-   id: number
-   name: string
-   email: string
-   password: string
-   passwordToken: string
-}
+export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+   declare id: CreationOptional<number>
+   declare createdAt: CreationOptional<Date>
+   declare updatedAt: CreationOptional<Date>
 
-class UserAssociations extends UserValues {
-   authentication: Authentication
+   declare name: string
+   declare email: string
+   declare password: string
+   declare passwordToken: string | null
 
-   subscriptions: Subscription[]
+   declare authentication?: NonAttribute<Authentication>
+   declare subscriptions?: NonAttribute<Subscription[]>
+
+   createAuthentication: (parameters: object, options?: object) => Promise<Authentication>
+
    createSubscription: (parameters: object, options?: object) => Promise<Subscription>
    getSubscriptions: (parameters?: object) => Promise<Subscription[]>
 
@@ -30,15 +45,20 @@ class UserAssociations extends UserValues {
 
    createPayment: (parameters: object, options?: object) => Promise<Payment>
    getPayments: (parameters?: object) => Promise<Payment[]>
+
+   declare static associations: {
+      authentication: Association<User, Authentication>
+      book: Association<User, Book>
+      message: Association<User, Message>
+      payment: Association<User, Payment>
+      subscription: Association<User, Subscription>
+   }
 }
 
-export class User extends UserAssociations {
-   dataValues: UserValues
-}
-
-const UserModel = (sequelize: Sequelize) => {
+export const UserModel = (sequelize: Sequelize) =>
    User.init(
       {
+         ...dbDefaultAttributes,
          name: {
             type: STRING,
             allowNull: false,
@@ -51,9 +71,7 @@ const UserModel = (sequelize: Sequelize) => {
             type: TEXT,
             allowNull: false,
          },
-         passwordToken: {
-            type: TEXT,
-         },
+         passwordToken: { type: TEXT },
       },
       {
          sequelize,
@@ -65,7 +83,3 @@ const UserModel = (sequelize: Sequelize) => {
          },
       }
    )
-   return User
-}
-
-export default UserModel

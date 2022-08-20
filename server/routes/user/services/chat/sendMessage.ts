@@ -12,17 +12,18 @@ export const sendMessage: ProtectedRoute = async (req, res, next) => {
    try {
       await Connection.transaction(async transaction => {
          const { id, name } = req.user
+
          const { content } = req.body
+
          await req.user.createMessage(
             {
                type: 'MESSAGE',
                content,
                readBy: id,
             },
-            {
-               transaction,
-            }
+            { transaction }
          )
+
          sendNotificationsForOtherUsers(id, {
             tag: id,
             title: `From ${name}`,
@@ -33,9 +34,8 @@ export const sendMessage: ProtectedRoute = async (req, res, next) => {
                url: `${baseUrl(req)}/chat`,
             },
          })
-         res.send({
-            success: true,
-         })
+
+         res.send()
       })
    } catch (error) {
       next(error)

@@ -3,5 +3,9 @@ import { Application, NextFunction, Request, Response } from 'express'
 
 import { handleError } from 'helpers'
 
+import { ExpressError } from 'types'
+
 export const errorHandler = (app: Application) =>
-   app.use((error: any, _: Request, res: Response, __: NextFunction) => handleError(res, error))
+   app.use((error: ExpressError, _: Request, res: Response, __: NextFunction) =>
+      handleError(res, error)
+   )

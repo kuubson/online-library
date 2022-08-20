@@ -1,4 +1,4 @@
-import paypal from 'paypal-rest-sdk'
+import paypal, { Payment } from 'paypal-rest-sdk'
 
 import { Book } from 'database'
 
@@ -11,18 +11,15 @@ import { ProtectedRoute } from 'types/express'
 export const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
    try {
       const { products } = req.body
+
       const userBooks = await req.user
-         .getBooks({
-            where: {
-               id: products,
-            },
-         })
+         .getBooks({ where: { id: products } })
          .then(books => books.map(({ id }) => id))
-      const books = await Book.findAll({
-         where: {
-            id: products,
-         },
-      }).then(books => books.filter(({ id }) => !userBooks.includes(id)))
+
+      const books = await Book.findAll({ where: { id: products } }).then(books =>
+         books.filter(({ id }) => !userBooks.includes(id))
+      )
+
       if (books.length === 0) {
          throw new ApiError(
             'Submitting the order',
@@ -30,16 +27,17 @@ export const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
             409
          )
       }
+
       const description = books.map(({ title }) => title).join(', ')
+
       const price = books
-         .map(({ price }) => price)
+         .map(({ price }) => price ?? 0)
          .reduce((total, price) => total + price, 0)
          .toFixed(2)
-      const payment = {
+
+      const payment: Payment = {
          intent: 'sale',
-         payer: {
-            payment_method: 'paypal',
-         },
+         payer: { payment_method: 'paypal' },
          redirect_urls: {
             return_url: `${baseUrl(req)}/cart`,
             cancel_url: `${baseUrl(req)}/cart`,
@@ -47,15 +45,13 @@ export const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
          transactions: [
             {
                item_list: {
-                  items: books.map(book => {
-                     return {
-                        sku: book.id,
-                        name: `Book "${book.title}"`,
-                        price: book.price.toString(),
-                        currency: 'USD',
-                        quantity: 1,
-                     }
-                  }),
+                  items: books.map(book => ({
+                     sku: book.id as unknown as string,
+                     name: `Book "${book.title}"`,
+                     price: book.price?.toString() || '0',
+                     currency: 'USD',
+                     quantity: 1,
+                  })),
                },
                description,
                amount: {
@@ -65,7 +61,8 @@ export const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
             },
          ],
       }
-      paypal.payment.create(payment as any, async (error: any, payment: any) => {
+
+      paypal.payment.create(payment, async (error, payment) => {
          try {
             if (error) {
                throw new ApiError(
@@ -74,7 +71,9 @@ export const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
                   402
                )
             }
-            const approvalLink = payment.links.find(({ rel }: any) => rel === 'approval_url')
+
+            const approvalLink = payment.links?.find(({ rel }) => rel === 'approval_url')
+
             if (!approvalLink) {
                throw new ApiError(
                   'Submitting the order',
@@ -82,13 +81,13 @@ export const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
                   402
                )
             }
+
             await req.user.createPayment({
                paymentId: payment.id,
                products: products.join(),
             })
-            res.send({
-               link: approvalLink.href,
-            })
+
+            res.send({ link: approvalLink.href })
          } catch (error) {
             next(error)
          }

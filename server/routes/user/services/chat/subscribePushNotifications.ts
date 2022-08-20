@@ -11,6 +11,7 @@ export const subscribePushNotifications: ProtectedRoute = async (req, res, next)
             endpoint,
             keys: { p256dh, auth },
          } = req.body
+
          await req.user.getSubscriptions().then(async subscriptions => {
             if (!subscriptions.some(subscription => subscription.endpoint === endpoint)) {
                await req.user.createSubscription(
@@ -19,15 +20,12 @@ export const subscribePushNotifications: ProtectedRoute = async (req, res, next)
                      p256dh,
                      auth,
                   },
-                  {
-                     transaction,
-                  }
+                  { transaction }
                )
             }
          })
-         res.send({
-            success: true,
-         })
+
+         res.send()
       })
    } catch (error) {
       next(error)

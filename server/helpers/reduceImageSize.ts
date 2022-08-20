@@ -7,7 +7,7 @@ import { deleteTemporaryFile } from 'helpers'
 import { ApiError } from 'utils'
 
 export const reduceImageSize = async (path: string, next: NextFunction) =>
-   await sharp(path)
+   sharp(path)
       .rotate()
       .resize(800)
       .jpeg({ quality: 75 })

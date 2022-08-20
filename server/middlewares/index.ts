@@ -64,7 +64,7 @@ export const initializeMiddlewares = (app: Application, server: Server) => {
 
    initializeSocketIO(new SocketServer(server))
 
-   initializeGraphQL(app, passport)
+   initializeGraphQL(app, server)
 
    if (NODE_ENV === 'production') {
       const buildPath = '../../../../client/build'

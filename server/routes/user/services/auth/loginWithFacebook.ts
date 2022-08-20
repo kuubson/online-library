@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
+import { JWT_KEY } from 'config'
+
 import { Connection, User } from 'database'
 
 import { validator } from 'helpers'
@@ -13,42 +15,31 @@ export const loginWithFacebook: Route = async (req, res, next) => {
    try {
       await Connection.transaction(async transaction => {
          const { name, email, access_token } = req.body
-         const user = await User.findOne({
-            where: {
+
+         const user = await User.findOne({ where: { email } })
+
+         const token = jwt.sign(
+            {
                email,
+               role: 'user',
             },
-         })
-         const token = jwt.sign({ email, role: 'user' }, process.env.JWT_KEY!)
+            JWT_KEY
+         )
+
          if (user) {
-            return res
-               .cookie('token', token, {
-                  secure: process.env.NODE_ENV === 'production',
-                  httpOnly: true,
-                  sameSite: true,
-                  maxAge: cookie.maxAge,
-               })
-               .send({
-                  success: true,
-               })
+            return res.cookie('token', token, cookie(true)).send({ success: true })
          }
+
          await User.create(
             {
                name,
                email,
                password: bcrypt.hashSync(access_token, 11),
             },
-            {
-               transaction,
-            }
+            { transaction }
          )
-         res.cookie('token', token, {
-            secure: process.env.NODE_ENV === 'production',
-            httpOnly: true,
-            sameSite: true,
-            maxAge: cookie.maxAge,
-         }).send({
-            success: true,
-         })
+
+         res.cookie('token', token, cookie(true)).send({ success: true })
       })
    } catch (error) {
       next(error)

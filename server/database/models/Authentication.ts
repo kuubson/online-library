@@ -1,24 +1,46 @@
-import { BOOLEAN, Model, Sequelize, TEXT } from 'sequelize'
+import {
+   Association,
+   CreationOptional,
+   DataTypes,
+   InferAttributes,
+   InferCreationAttributes,
+   Model,
+   NonAttribute,
+   Sequelize,
+} from 'sequelize'
 
-class AuthenticationValues extends Model {
-   id: number
-   token: string
-   authenticated: boolean
+import { dbDefaultAttributes } from 'utils'
+
+import { User } from './User'
+
+export class Authentication extends Model<
+   InferAttributes<Authentication>,
+   InferCreationAttributes<Authentication>
+> {
+   declare id: CreationOptional<number>
+   declare createdAt: CreationOptional<Date>
+   declare updatedAt: CreationOptional<Date>
+
+   declare token: string
+   declare authenticated: boolean | null
+
+   declare user?: NonAttribute<User>
+
+   declare static associations: {
+      user: Association<Authentication, User>
+   }
 }
 
-export class Authentication extends AuthenticationValues {
-   dataValues: AuthenticationValues
-}
-
-const AuthenticationModel = (sequelize: Sequelize) => {
+export const AuthenticationModel = (sequelize: Sequelize) =>
    Authentication.init(
       {
+         ...dbDefaultAttributes,
          token: {
-            type: TEXT,
+            type: DataTypes.TEXT,
             allowNull: false,
          },
          authenticated: {
-            type: BOOLEAN,
+            type: DataTypes.BOOLEAN,
             defaultValue: false,
          },
       },
@@ -27,7 +49,3 @@ const AuthenticationModel = (sequelize: Sequelize) => {
          modelName: 'authentication',
       }
    )
-   return Authentication
-}
-
-export default AuthenticationModel

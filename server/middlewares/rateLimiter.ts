@@ -1,8 +1,8 @@
 import limiter from 'express-rate-limit'
 
-export const rateLimiter = (request: string) => {
-   return limiter({
-      windowMs: 30 * 60 * 1000, // 30 min
+export const rateLimiter = (request: string) =>
+   limiter({
+      windowMs: 30 * 60 * 1000,
       max: 10,
       handler: (_, res) => {
          const status = 429
@@ -12,4 +12,3 @@ export const rateLimiter = (request: string) => {
          })
       },
    })
-}

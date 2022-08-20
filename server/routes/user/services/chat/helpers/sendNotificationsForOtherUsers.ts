@@ -1,6 +1,6 @@
 import webpush from 'web-push'
 
-import { Subscription, User } from 'database'
+import { User } from 'database'
 
 import { Op } from 'utils'
 
@@ -23,10 +23,10 @@ export const sendNotificationsForOtherUsers: NotificationsForOtherUsersSender = 
 ) => {
    const users = await User.findAll({
       where: { id: { [Op.ne]: userId } },
-      include: [Subscription],
+      include: [User.associations.subscription],
    })
    users.map(user => {
-      user.subscriptions.map(subscription => {
+      user.subscriptions?.map(subscription => {
          webpush
             .sendNotification(
                {

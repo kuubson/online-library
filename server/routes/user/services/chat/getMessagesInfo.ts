@@ -5,10 +5,14 @@ import { ProtectedRoute } from 'types/express'
 export const getMessagesInfo: ProtectedRoute = async (req, res, next) => {
    try {
       const { id } = req.user
+
       const messages = await Message.findAll()
+
       const countUnreadMessagesInfo = () => {
          let lastUnreadMessageIndex: number | undefined
+
          let unreadMessagesAmount = 0
+
          messages.map(({ readBy }, index) => {
             const readByIds = readBy.split(',').filter(v => v)
             if (!readByIds.includes(id.toString())) {
@@ -18,12 +22,15 @@ export const getMessagesInfo: ProtectedRoute = async (req, res, next) => {
                }
             }
          })
+
          return {
             lastUnreadMessageIndex,
             unreadMessagesAmount,
          }
       }
+
       const { lastUnreadMessageIndex, unreadMessagesAmount } = countUnreadMessagesInfo()
+
       res.send({
          lastUnreadMessageIndex,
          unreadMessagesAmount,

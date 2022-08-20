@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken'
 
-import { Authentication, Connection, User } from 'database'
+import { JWT_KEY } from 'config'
+
+import { Connection, User } from 'database'
 
 import { transporter, validator } from 'helpers'
 
@@ -12,11 +14,9 @@ export const register: Route = async (req, res, next) => {
    try {
       await Connection.transaction(async transaction => {
          const { name, email, password } = req.body
-         const user = await User.findOne({
-            where: {
-               email,
-            },
-         })
+
+         const user = await User.findOne({ where: { email } })
+
          if (user) {
             throw new ApiError(
                'Account registration',
@@ -24,23 +24,20 @@ export const register: Route = async (req, res, next) => {
                409
             )
          }
-         const token = jwt.sign({ email }, process.env.JWT_KEY!, {
-            expiresIn: '24h',
-         })
-         await User.create(
+
+         const token = jwt.sign({ email }, JWT_KEY, { expiresIn: '24h' })
+
+         const createdUser = await User.create(
             {
                name,
                email,
                password,
-               authentication: {
-                  token,
-               },
             },
-            {
-               include: [Authentication],
-               transaction,
-            }
+            { transaction }
          )
+
+         await createdUser.createAuthentication({ token })
+
          const mailOptions = {
             to: email,
             subject: 'Account activation in the Online Library',
@@ -51,6 +48,7 @@ export const register: Route = async (req, res, next) => {
                `${baseUrl(req)}/authentication/${token}`
             ),
          }
+
          transporter.sendMail(mailOptions, (error, info) => {
             try {
                if (error || !info) {
@@ -60,9 +58,7 @@ export const register: Route = async (req, res, next) => {
                      502
                   )
                }
-               res.send({
-                  success: true,
-               })
+               res.send()
             } catch (error) {
                next(error)
             }

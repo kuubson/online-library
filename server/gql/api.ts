@@ -6,8 +6,8 @@ import { NODE_ENV } from 'config'
 
 import { scanResolvers } from 'helpers'
 
-export const load = (path: string, withSchema = false) => {
-   const extension = withSchema ? 'gql' : NODE_ENV === 'production' ? 'js' : 'ts'
+export const load = (path: string, isSchema = false) => {
+   const extension = isSchema ? 'gql' : NODE_ENV === 'production' ? 'js' : 'ts'
    return loadFilesSync(_path.join(__dirname, `./${path}/*.${extension}`))
 }
 

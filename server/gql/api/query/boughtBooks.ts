@@ -2,15 +2,9 @@ import { Op } from 'sequelize'
 
 import { roleAuthorization } from 'middlewares'
 
-import { GraphQLContext } from 'types/graphql'
+import { QueryResolvers } from 'types/graphql'
 
-export const boughtBooks = async (_: any, __: any, context: GraphQLContext) => {
+export const boughtBooks: QueryResolvers['boughtBooks'] = async (_, __, context) => {
    roleAuthorization(context)
-   return await context.req.user.user.getBooks({
-      where: {
-         price: {
-            [Op.ne]: null,
-         },
-      },
-   })
+   return context.req.user.user.getBooks({ where: { price: { [Op.ne]: null } } })
 }
