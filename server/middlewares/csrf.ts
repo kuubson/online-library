@@ -3,7 +3,7 @@ import { Application, NextFunction, Request, Response } from 'express'
 
 import { cookie } from 'utils'
 
-import { unless } from '.'
+import { unless } from './'
 
 export const initializeCsrf = async (app: Application) => {
    app.use(

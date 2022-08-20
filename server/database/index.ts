@@ -1,5 +1,7 @@
 import { Sequelize } from 'sequelize'
 
+import { DATABASE_HOST, DATABASE_NAME, DATABASE_PASSWORD, DATABASE_USERNAME } from 'config'
+
 import AuthenticationModel from './models/Authentication'
 import BookModel from './models/Book'
 import MessageModel from './models/Message'
@@ -7,11 +9,11 @@ import PaymentModel from './models/Payment'
 import SubscriptionModel from './models/Subscription'
 import UserModel from './models/User'
 
-const { DATABASE_HOST, DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD } = process.env
-
-const connection = new Sequelize(DATABASE_NAME!, DATABASE_USERNAME!, DATABASE_PASSWORD, {
+const connection = new Sequelize(DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD, {
    host: DATABASE_HOST,
-   dialect: 'mysql',
+   dialect: 'postgres',
+   logging: false,
+   dialectOptions: { ssl: { rejectUnauthorized: false } },
    define: {
       charset: 'utf8mb4',
       collate: 'utf8mb4_unicode_ci',
@@ -45,7 +47,7 @@ const initializeDatabase = async () => {
       // await connection.sync({ force: true })
       // await connection.sync({ alter: true })
       await connection.sync()
-      console.log('The database connection has been established')
+      console.log('📁 Database connected')
    } catch (error) {
       console.log({
          error,

@@ -1,17 +1,12 @@
 import { ApolloServer } from 'apollo-server-express'
-import { Application, Response } from 'express'
+import { Application } from 'express'
 import { PassportStatic } from 'passport'
 
 import { schema } from 'gql/schema'
 
 import { ApiError } from 'utils'
 
-import { GraphQLRequest } from 'types/graphql'
-
-type Context = {
-   req: GraphQLRequest
-   res: Response
-}
+import { GraphQLContext } from 'types/graphql'
 
 export const initializeGraphQL = async (app: Application, passport: PassportStatic) => {
    app.use('/graphql', (req, res, next) => {
@@ -24,21 +19,29 @@ export const initializeGraphQL = async (app: Application, passport: PassportStat
                   401
                )
             }
+
             req.user = {
                user,
                role,
             }
+
             next()
          } catch (error) {
             next(error)
          }
       })(req, res, next)
    })
+
    const apolloServer = new ApolloServer({
       schema,
-      context: ({ req, res }: Context) => ({ req, res }),
+      context: ({ req, res }: GraphQLContext) => ({
+         req,
+         res,
+      }),
    })
+
    await apolloServer.start()
+
    apolloServer.applyMiddleware({
       app,
       path: '/graphql',

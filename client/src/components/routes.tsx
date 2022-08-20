@@ -1,5 +1,5 @@
 import Authentication from 'components/guest/Authentication/Authentication'
-import Home from 'components/guest/Home/Home'
+import { Home } from 'components/guest/Home/Home'
 import Login from 'components/guest/Login/Login'
 import PasswordRecovery from 'components/guest/PasswordRecovery/PasswordRecovery'
 import Registration from 'components/guest/Registration/Registration'

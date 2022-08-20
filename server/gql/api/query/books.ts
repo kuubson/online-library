@@ -10,7 +10,7 @@ type Args = {
 
 export const books = async (_: any, { ids }: Args, context: GraphQLContext) => {
    roleAuthorization(context, 'user')
-   return await Book.findAll({
+   return Book.findAll({
       where: {
          id: ids,
       },

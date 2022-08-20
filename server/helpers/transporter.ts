@@ -10,19 +10,17 @@ export const transporter = nodemailer.createTransport(
          pass: NODEMAILER_PASSWORD,
       },
    },
-   {
-      from: `"Online Library" <${NODEMAILER_USERNAME}>`,
-   }
+   { from: `"Online Library" <${NODEMAILER_USERNAME}>` }
 )
 
-transporter.verify((error, success) => {
-   if (error) {
-      console.log({
-         error,
-         message: 'There was a problem connecting to the Online Library email',
-      })
-   }
-   if (success) {
-      console.log('The connection with Online Library email has been established')
-   }
-})
+// transporter.verify((error, success) => {
+//    if (error) {
+//       console.log({
+//          error,
+//          message: 'There was a problem connecting to the Online Library email',
+//       })
+//    }
+//    if (success) {
+//       console.log('The connection with Online Library email has been established')
+//    }
+// })

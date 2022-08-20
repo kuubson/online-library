@@ -1,5 +1,8 @@
 {
   "workbench.colorCustomizations": {
     "titleBar.inactiveBackground": "#0088ff"
+  },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
   }
 }

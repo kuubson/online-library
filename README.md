@@ -6,7 +6,7 @@
 - React.js + Redux (Hooks, Styled Components, PWA, Web Push Notifications, PayPal, Stripe)
 - GraphQL + Apollo
 - Node.js + Express (passport.js, JWT, socket.io, multer, cloudinary)
-- MySQL (ORM Sequelize)
+- PostgreSQL (ORM Sequelize)
 - React Native ([online-library-native](https://github.com/toxxiczny/online-library-native))
 
 ## Description
