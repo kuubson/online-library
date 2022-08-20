@@ -2,11 +2,15 @@
     "compilerOptions": {
         "baseUrl": ".",
         "target": "es6",
+        "allowJs": true,
         "module": "commonjs",
-        "rootDir": ".",
+        "rootDirs": [".", "../client"],
         "outDir": "./dist",
         "esModuleInterop": true,
         "strict": true,
-        "strictPropertyInitialization": false
-    }
+        "strictPropertyInitialization": false,
+        "skipLibCheck": true,
+        "paths": { "shared": ["../client/src/shared"] }
+    },
+    "ts-node": { "swc": true }
 }

@@ -1,10 +1,10 @@
 {
-    "name": "online-library-sever",
+    "name": "sever",
     "private": true,
     "scripts": {
-        "start": "babel-watch server.ts --extensions .ts",
-        "lint": "eslint .",
-        "build": "npm run lint && tsc"
+        "start": "nodemon -e ts,gql server.ts",
+        "check": "eslint . && tsc --noEmit",
+        "build": "tsc && copyfiles gql/**/**/*.gql dist/server"
     },
     "dependencies": {
         "apollo-server-express": "^3.6.1",

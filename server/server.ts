@@ -1,18 +1,15 @@
-import path from 'path'
+import './config/aliases'
+import { NODE_ENV } from 'config'
+import 'database'
+import 'dotenv/config'
 import express from 'express'
 import http from 'http'
-
-import 'dotenv/config'
-
-import './aliases'
-
-import 'database'
-
-import { initializeMiddlewares, errorHandler } from 'middlewares'
-
+import { errorHandler, initializeMiddlewares } from 'middlewares'
+import path from 'path'
 import { routes } from 'routes'
 
 const app = express()
+
 const server = http.createServer(app)
 
 initializeMiddlewares(app, server)
@@ -21,7 +18,7 @@ routes(app)
 
 errorHandler(app)
 
-const buildPath = process.env.NODE_ENV === 'production' ? '../../client/build' : '../client/build'
+const buildPath = `${NODE_ENV === 'production' ? '../../' : '../'}client/build`
 
 app.use(express.static(path.resolve(__dirname, buildPath)))
 
