@@ -1,7 +1,7 @@
-import * as Query from './query'
 import * as Mutation from './mutation'
+import * as Query from './query'
 
 export const userResolvers = {
-    Query,
-    Mutation
+   Query,
+   Mutation,
 }

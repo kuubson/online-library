@@ -1,12 +1,18 @@
-import './config/aliases'
-import { NODE_ENV } from 'config'
-import 'database'
-import 'dotenv/config'
 import express from 'express'
 import http from 'http'
-import { errorHandler, initializeMiddlewares } from 'middlewares'
 import path from 'path'
+
+import 'dotenv/config'
+
+import { NODE_ENV } from 'config'
+
+import 'database'
+
+import { errorHandler, initializeMiddlewares } from 'middlewares'
+
 import { routes } from 'routes'
+
+import './aliases'
 
 const app = express()
 

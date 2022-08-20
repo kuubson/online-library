@@ -7,8 +7,8 @@ const circleAnimation = keyframes`
 `
 
 export const Circle = styled.div`
-    width: 40px;
-    height: 40px;
-    position: relative;
-    animation: ${circleAnimation} 2.5s infinite linear both;
+   width: 40px;
+   height: 40px;
+   position: relative;
+   animation: ${circleAnimation} 2.5s infinite linear both;
 `

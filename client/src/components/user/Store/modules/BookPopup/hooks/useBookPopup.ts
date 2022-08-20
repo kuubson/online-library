@@ -7,61 +7,61 @@ import { setApiFeedback } from 'helpers'
 import { history } from 'utils'
 
 type Mutation = {
-    borrowBook: {
-        title: string
-        author: string
-    }
+   borrowBook: {
+      title: string
+      author: string
+   }
 }
 
 const BORROW_BOOK = gql`
-    mutation ($bookId: Int!) {
-        borrowBook(bookId: $bookId) {
-            title
-            author
-        }
-    }
+   mutation ($bookId: Int!) {
+      borrowBook(bookId: $bookId) {
+         title
+         author
+      }
+   }
 `
 
 type BookPopupHook = {
-    id: number
-    setBookPopupData: ReactDispatch<IBook | undefined>
+   id: number
+   setBookPopupData: ReactDispatch<IBook | undefined>
 }
 
 export const useBookPopup = ({ id, setBookPopupData }: BookPopupHook) => {
-    const [borrowBook] = useMutation<Mutation>(BORROW_BOOK)
-    const { cart, addToCart } = useCart()
-    const handleBorrowingBook = async () => {
-        try {
-            const { data } = await borrowBook({
-                variables: {
-                    bookId: id
-                }
-            })
-            if (data) {
-                const { title, author } = data.borrowBook
-                setBookPopupData(undefined)
-                setApiFeedback(
-                    'Borrowing a book',
-                    `You have successfully borrowed a book "${title}" written by ${author}`,
-                    'Check it out in your profile',
-                    () => history.push('/profile')
-                )
-            }
-        } catch (error) {
+   const [borrowBook] = useMutation<Mutation>(BORROW_BOOK)
+   const { cart, addToCart } = useCart()
+   const handleBorrowingBook = async () => {
+      try {
+         const { data } = await borrowBook({
+            variables: {
+               bookId: id,
+            },
+         })
+         if (data) {
+            const { title, author } = data.borrowBook
             setBookPopupData(undefined)
-        }
-    }
-    const handleAdddingToCart = async (id: number) => {
-        if (cart.includes(id)) {
-            setBookPopupData(undefined)
-            return setApiFeedback('Buying a book', 'This book is already in the cart', 'Okey')
-        }
-        addToCart(id)
-        setBookPopupData(undefined)
-        setApiFeedback('Buying a book', 'The book has been added to the cart', 'Okey')
-    }
-    return {
-        handleBorrowingBook,
-        handleAdddingToCart
-    }
+            setApiFeedback(
+               'Borrowing a book',
+               `You have successfully borrowed a book "${title}" written by ${author}`,
+               'Check it out in your profile',
+               () => history.push('/profile')
+            )
+         }
+      } catch (error) {
+         setBookPopupData(undefined)
+      }
+   }
+   const handleAdddingToCart = async (id: number) => {
+      if (cart.includes(id)) {
+         setBookPopupData(undefined)
+         return setApiFeedback('Buying a book', 'This book is already in the cart', 'Okey')
+      }
+      addToCart(id)
+      setBookPopupData(undefined)
+      setApiFeedback('Buying a book', 'The book has been added to the cart', 'Okey')
+   }
+   return {
+      handleBorrowingBook,
+      handleAdddingToCart,
+   }
 }

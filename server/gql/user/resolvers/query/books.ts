@@ -5,14 +5,14 @@ import { roleAuthorization } from 'middlewares'
 import { GraphQLContext } from 'types/graphql'
 
 type Args = {
-    ids: number[]
+   ids: number[]
 }
 
 export const books = async (_: any, { ids }: Args, context: GraphQLContext) => {
-    roleAuthorization(context, 'user')
-    return await Book.findAll({
-        where: {
-            id: ids
-        }
-    })
+   roleAuthorization(context, 'user')
+   return await Book.findAll({
+      where: {
+         id: ids,
+      },
+   })
 }

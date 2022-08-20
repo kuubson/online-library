@@ -1,9 +1,9 @@
 {
-    "settings": { "react": { "version": "18.2.0" } },
-    "extends": ["../.eslintrc", "plugin:react/recommended"],
-    "rules": {
-        "@typescript-eslint/ban-types": "warn",
-        "react/no-unescaped-entities": "warn",
-        "react/react-in-jsx-scope": "off"
-    }
+   "settings": { "react": { "version": "18.2.0" } },
+   "extends": ["../.eslintrc", "plugin:react/recommended"],
+   "rules": {
+      "@typescript-eslint/ban-types": "warn",
+      "react/no-unescaped-entities": "warn",
+      "react/react-in-jsx-scope": "off"
+   }
 }
