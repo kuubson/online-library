@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { Socket } from 'socket.io-client'
+import type { Socket } from 'socket.io-client'
 
 import { _setSocket } from 'redux/reducers/socket'
 

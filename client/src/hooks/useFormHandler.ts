@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import sanitize from 'sanitize-html'
 import validator from 'validator'
 
@@ -25,9 +25,15 @@ type RepeatedPasswordValidator = (repeatedPassword: string, password: string) =>
 
 export const useFormHandler: FormHandler = setForm => {
    const handleInputValue: InputValueHandler = ({ target: { name, value } }) =>
-      setForm(form => ({ ...form, [name]: value }))
+      setForm(form => ({
+         ...form,
+         [name]: value,
+      }))
    const handleInputError: InputErrorHandler = (errorKey, error) =>
-      setForm(form => ({ ...form, [`${errorKey}Error`]: error }))
+      setForm(form => ({
+         ...form,
+         [`${errorKey}Error`]: error,
+      }))
    const validateProperty: PropertyValidator = (property, value) => {
       let validated = true
       switch (true) {
