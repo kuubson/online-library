@@ -1,8 +1,9 @@
 /* eslint-disable object-curly-newline */
 import cloudinary from 'cloudinary'
-import { NextFunction, Response } from 'express'
+import type { NextFunction, Response } from 'express'
 
 import { Connection } from 'database'
+import type { Message } from 'database/models/Message'
 
 import { filesInfo } from 'shared'
 
@@ -10,9 +11,9 @@ import { deleteTemporaryFile } from 'helpers'
 
 import { ApiError, baseUrl } from 'utils'
 
-import { ExpressError } from 'types'
-import { UserRequest } from 'types/express'
-import { MulterRequest } from 'types/multer'
+import type { ExpressError } from 'types'
+import type { UserRequest } from 'types/express'
+import type { MulterRequest } from 'types/multer'
 
 import { sendNotificationsForOtherUsers } from './helpers'
 
@@ -64,7 +65,9 @@ export const sendFile = async (
 
          const { id, name } = req.user
 
-         let type, content, cloudinaryId
+         let type: Message['type'],
+            content = '',
+            cloudinaryId = ''
 
          switch (true) {
             case isImage:
@@ -128,7 +131,7 @@ export const sendFile = async (
                type,
                content,
                filename: originalname,
-               readBy: id,
+               readBy: id as unknown as string,
                cloudinaryId,
             },
             { transaction }

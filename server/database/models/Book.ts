@@ -1,16 +1,15 @@
-import {
+import type {
    Association,
    CreationOptional,
-   DataTypes,
    InferAttributes,
    InferCreationAttributes,
-   Model,
    Sequelize,
 } from 'sequelize'
+import { DataTypes, Model } from 'sequelize'
 
 import { dbDefaultAttributes } from 'utils'
 
-import { User } from './User'
+import type { User } from './User'
 
 export class Book extends Model<InferAttributes<Book>, InferCreationAttributes<Book>> {
    declare id: CreationOptional<number>

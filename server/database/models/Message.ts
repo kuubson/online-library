@@ -1,17 +1,19 @@
-import {
+import type {
    Association,
+   BelongsToCreateAssociationMixin,
+   BelongsToGetAssociationMixin,
+   BelongsToSetAssociationMixin,
    CreationOptional,
-   DataTypes,
    InferAttributes,
    InferCreationAttributes,
-   Model,
    NonAttribute,
    Sequelize,
 } from 'sequelize'
+import { DataTypes, Model } from 'sequelize'
 
 import { dbDefaultAttributes } from 'utils'
 
-import { User } from './User'
+import type { User } from './User'
 
 export class Message extends Model<InferAttributes<Message>, InferCreationAttributes<Message>> {
    declare id: CreationOptional<number>
@@ -20,11 +22,14 @@ export class Message extends Model<InferAttributes<Message>, InferCreationAttrib
 
    declare type: 'MESSAGE' | 'IMAGE' | 'VIDEO' | 'FILE'
    declare content: string
-   declare filename: string
+   declare filename: string | null
    declare readBy: string
-   declare cloudinaryId: string
+   declare cloudinaryId: string | null
 
    declare user?: NonAttribute<User>
+   declare getUser: BelongsToGetAssociationMixin<User>
+   declare setUser: BelongsToSetAssociationMixin<User, User['id']>
+   declare createUser: BelongsToCreateAssociationMixin<User>
 
    declare static associations: {
       user: Association<Message, User>

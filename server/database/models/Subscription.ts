@@ -1,17 +1,19 @@
-import {
+import type {
    Association,
+   BelongsToCreateAssociationMixin,
+   BelongsToGetAssociationMixin,
+   BelongsToSetAssociationMixin,
    CreationOptional,
-   DataTypes,
    InferAttributes,
    InferCreationAttributes,
-   Model,
    NonAttribute,
    Sequelize,
 } from 'sequelize'
+import { DataTypes, Model } from 'sequelize'
 
 import { dbDefaultAttributes } from 'utils'
 
-import { User } from './User'
+import type { User } from './User'
 
 export class Subscription extends Model<
    InferAttributes<Subscription>,
@@ -26,6 +28,9 @@ export class Subscription extends Model<
    declare auth: string
 
    declare user?: NonAttribute<User>
+   declare getUser: BelongsToGetAssociationMixin<User>
+   declare setUser: BelongsToSetAssociationMixin<User, User['id']>
+   declare createUser: BelongsToCreateAssociationMixin<User>
 
    declare static associations: {
       user: Association<Subscription, User>

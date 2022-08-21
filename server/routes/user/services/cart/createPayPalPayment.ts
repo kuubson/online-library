@@ -1,5 +1,6 @@
 import { totalBooksPrice } from 'helpers/totalBooksPrice'
-import paypal, { Payment } from 'paypal-rest-sdk'
+import type { Payment } from 'paypal-rest-sdk'
+import paypal from 'paypal-rest-sdk'
 
 import { Book } from 'database'
 
@@ -7,7 +8,7 @@ import { validator } from 'helpers'
 
 import { ApiError, baseUrl } from 'utils'
 
-import { ProtectedRoute } from 'types/express'
+import type { ProtectedRoute } from 'types/express'
 
 export const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
    try {
@@ -62,7 +63,7 @@ export const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
 
       paypal.payment.create(payment, async (error, payment) => {
          try {
-            if (error) {
+            if (error || !payment.id) {
                throw new ApiError(
                   'Submitting the order',
                   'There was an unexpected problem when processing your payment',

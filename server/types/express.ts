@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from 'express'
+import type { NextFunction, Request, Response } from 'express'
 
-import { User } from 'database/models/User'
+import type { User } from 'database/models/User'
 
 export type Route = (req: Request, res: Response, next: NextFunction) => void
 

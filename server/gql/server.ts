@@ -1,9 +1,9 @@
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core'
 import { ApolloServer } from 'apollo-server-express'
-import { Application } from 'express'
+import type { Application } from 'express'
 import { PubSub } from 'graphql-subscriptions'
 import { useServer } from 'graphql-ws/lib/use/ws'
-import { Server } from 'http'
+import type { Server } from 'http'
 import { verify } from 'jsonwebtoken'
 import { WebSocketServer } from 'ws'
 
@@ -13,7 +13,7 @@ import { schema } from 'gql/schema'
 
 import { getCookie } from 'utils'
 
-import { AuthTokenData, GraphqlContext } from 'types'
+import type { AuthTokenData, GraphqlContext } from 'types'
 
 export const initializeGraphQL = async (app: Application, server: Server) => {
    const pubsub = new PubSub()
@@ -57,6 +57,8 @@ export const initializeGraphQL = async (app: Application, server: Server) => {
          req,
          res,
       }),
+      csrfPrevention: true,
+      persistedQueries: false,
    })
 
    await apolloServer.start()

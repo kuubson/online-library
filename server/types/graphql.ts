@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/consistent-type-imports */
+
 /* eslint-disable @typescript-eslint/ban-types */
 import { GraphQLResolveInfo } from 'graphql'
 

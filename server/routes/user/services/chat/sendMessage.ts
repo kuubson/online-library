@@ -4,7 +4,7 @@ import { Connection } from 'database'
 
 import { baseUrl } from 'utils'
 
-import { ProtectedRoute } from 'types/express'
+import type { ProtectedRoute } from 'types/express'
 
 import { sendNotificationsForOtherUsers } from './helpers'
 
@@ -19,7 +19,7 @@ export const sendMessage: ProtectedRoute = async (req, res, next) => {
             {
                type: 'MESSAGE',
                content,
-               readBy: id,
+               readBy: id as unknown as string,
             },
             { transaction }
          )

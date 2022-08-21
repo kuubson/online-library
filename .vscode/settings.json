@@ -3,7 +3,8 @@
     "titleBar.inactiveBackground": "#0088ff"
   },
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true
+    "source.organizeImports": true,
+    "source.fixAll.eslint": true
   },
   "typescript.tsserver.experimental.enableProjectDiagnostics": true
 }
