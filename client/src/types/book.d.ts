@@ -1,10 +1,10 @@
-interface IBook {
+type BookType = {
    id: number
    title: string
    author: string
    cover: string
    price: number
-   setBookPopupData?: ReactDispatch<IBook | undefined>
+   setBookPopupData?: ReactDispatch<BookType | undefined>
    withCart?: boolean
    withProfile?: boolean
    withPopup?: boolean
@@ -12,9 +12,9 @@ interface IBook {
 }
 
 interface IBookSuggestions {
-   freeBooks: IBook[]
-   paidBooks: IBook[]
-   setFreeBooks: ReactDispatch<IBook[]>
-   setPaidBooks: ReactDispatch<IBook[]>
+   freeBooks: BookType[]
+   paidBooks: BookType[]
+   setFreeBooks: ReactDispatch<BookType[]>
+   setPaidBooks: ReactDispatch<BookType[]>
    withProfile?: boolean
 }

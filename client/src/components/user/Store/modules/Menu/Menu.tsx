@@ -8,55 +8,21 @@ import { useMenu } from './hooks'
 
 import { history } from 'utils'
 
-type StyledProps = {
-   shouldMenuStick?: boolean
-}
-
-const MenuContainer = styled.nav<StyledProps>`
-   width: calc(100% - 40px);
-   height: 90px;
-   padding: 0px 30px;
-   background: ${({ theme }) => theme.mainColor};
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   transition: width 0.3s ease-in-out, right 0.3s ease-in-out, left 0.3s ease-in-out;
-   position: absolute;
-   top: 20px;
-   left: 20px;
-   right: 20px;
-   @media (max-width: 800px) {
-      height: 80px;
-      padding: 0px 25px 0px 20px;
-   }
-   ${({ shouldMenuStick }) =>
-      shouldMenuStick
-         ? css`
-              width: 100%;
-              position: fixed;
-              top: 0px;
-              right: 0px;
-              left: 0px;
-              z-index: 3;
-           `
-         : null};
-`
-
-interface IMenu {
-   options: Option[]
+type MenuProps = {
+   options: {
+      option: string
+      pathname?: string
+      counter?: number
+   }[]
    _setShouldMenuExpand: ReactDispatch<boolean>
 }
 
-type Option = {
-   option: string
-   pathname?: string
-   counter?: number
-}
-
-const Menu = ({ options, _setShouldMenuExpand }: IMenu) => {
+export const Menu = ({ options, _setShouldMenuExpand }: MenuProps) => {
    const location = useLocation()
+
    const { shouldMenuExpand, shouldMenuStick, setShouldMenuExpand, logout } =
       useMenu(_setShouldMenuExpand)
+
    return (
       <MenuContainer shouldMenuStick={shouldMenuStick}>
          <Styled.Logo>Online Library</Styled.Logo>
@@ -89,4 +55,36 @@ const Menu = ({ options, _setShouldMenuExpand }: IMenu) => {
    )
 }
 
-export default Menu
+type MenuContainerProps = {
+   shouldMenuStick?: boolean
+}
+
+const MenuContainer = styled.nav<MenuContainerProps>`
+   width: calc(100% - 40px);
+   height: 90px;
+   padding: 0px 30px;
+   background: ${({ theme }) => theme.mainColor};
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   transition: width 0.3s ease-in-out, right 0.3s ease-in-out, left 0.3s ease-in-out;
+   position: absolute;
+   top: 20px;
+   left: 20px;
+   right: 20px;
+   @media (max-width: 800px) {
+      height: 80px;
+      padding: 0px 25px 0px 20px;
+   }
+   ${({ shouldMenuStick }) =>
+      shouldMenuStick
+         ? css`
+              width: 100%;
+              position: fixed;
+              top: 0px;
+              right: 0px;
+              left: 0px;
+              z-index: 3;
+           `
+         : null};
+`

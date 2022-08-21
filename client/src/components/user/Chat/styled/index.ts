@@ -1,4 +1,4 @@
-export { MessagesInfo } from './MessagesInfo'
-export { TextareaContainer } from './TextareaContainer'
-export { Textarea } from './Textarea'
 export { FileInput } from './FileInput'
+export { MessagesInfo } from './MessagesInfo'
+export { Textarea } from './Textarea'
+export { TextareaContainer } from './TextareaContainer'

@@ -8,35 +8,7 @@ import { useCart } from 'hooks'
 
 import * as StyledStore from '../../styled'
 
-type StyledProps = {
-   withPopup?: boolean
-   withFlips?: boolean
-}
-
-const BookContainer = styled.div<StyledProps>`
-   width: 100%;
-   height: 100%;
-   position: relative;
-   ${({ withPopup }) =>
-      withPopup
-         ? css`
-              width: 100%;
-              @media (max-width: 1150px) {
-                 max-height: 50%;
-              }
-           `
-         : null}
-   ${({ withFlips }) =>
-      withFlips
-         ? css`
-              @media (max-width: 1150px) {
-                 max-height: 100%;
-              }
-           `
-         : null}
-`
-
-const Book = ({
+export const Book = ({
    id,
    title,
    author,
@@ -47,9 +19,11 @@ const Book = ({
    withProfile,
    withPopup,
    withFlips,
-}: IBook) => {
+}: BookType) => {
    const { cart, removeFromCart } = useCart()
+
    const [loading, setLoading] = useState(true)
+
    const handleBookPopup = () => {
       if (setBookPopupData) {
          setBookPopupData({
@@ -61,7 +35,9 @@ const Book = ({
          })
       }
    }
+
    const inCart = cart.includes(id)
+
    return (
       <BookContainer withPopup={withPopup} withFlips={withFlips}>
          <Styled.Loader
@@ -112,4 +88,30 @@ const Book = ({
    )
 }
 
-export default Book
+type BookContainerProps = {
+   withPopup?: boolean
+   withFlips?: boolean
+}
+
+const BookContainer = styled.div<BookContainerProps>`
+   width: 100%;
+   height: 100%;
+   position: relative;
+   ${({ withPopup }) =>
+      withPopup
+         ? css`
+              width: 100%;
+              @media (max-width: 1150px) {
+                 max-height: 50%;
+              }
+           `
+         : null}
+   ${({ withFlips }) =>
+      withFlips
+         ? css`
+              @media (max-width: 1150px) {
+                 max-height: 100%;
+              }
+           `
+         : null}
+`

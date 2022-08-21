@@ -11,23 +11,32 @@ export const useSupport = (withPasswordSupport: boolean | undefined) => {
       email: '',
       emailError: '',
    })
+
    const { email } = form
+
    const formHandler = useFormHandler(setForm)
+
    const validate = () => {
       let validated = true
+
       setForm(form => ({
          ...form,
          emailError: '',
       }))
+
       if (!formHandler.validateEmail(email)) validated = false
+
       return validated
    }
+
    const handleSupport = async (event: React.FormEvent) => {
       event.preventDefault()
       if (validate()) {
          try {
             const url = `/api/user/auth/${withPasswordSupport ? 'recoverPassword' : 'resendEmail'}`
+
             const response = await axios.post(url, { email })
+
             if (response) {
                if (withPasswordSupport) {
                   return setApiFeedback(
@@ -49,6 +58,7 @@ export const useSupport = (withPasswordSupport: boolean | undefined) => {
          }
       }
    }
+
    return {
       form,
       formHandler,

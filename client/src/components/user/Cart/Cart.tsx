@@ -10,7 +10,7 @@ import * as Styled from './styled'
 
 import * as StyledRegistration from 'components/guest/Registration/styled'
 import { StoreContainer } from 'components/user/Store/Store'
-import Books from 'components/user/Store/modules/Books/Books'
+import { Books } from 'components/user/Store/modules'
 import * as StyledStore from 'components/user/Store/styled'
 
 import { useCart } from './hooks'

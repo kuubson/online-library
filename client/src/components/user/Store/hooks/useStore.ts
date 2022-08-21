@@ -2,8 +2,8 @@ import { gql, useQuery } from '@apollo/client'
 import { useState } from 'react'
 
 type Query = {
-   freeBooks: IBook[]
-   paidBooks: IBook[]
+   freeBooks: BookType[]
+   paidBooks: BookType[]
 }
 
 const GET_FREE_AND_PAID_BOOKS = gql`
@@ -25,10 +25,12 @@ const GET_FREE_AND_PAID_BOOKS = gql`
 `
 
 export const useStore = () => {
-   const [freeBooks, setFreeBooks] = useState<IBook[]>([])
-   const [paidBooks, setPaidBooks] = useState<IBook[]>([])
+   const [freeBooks, setFreeBooks] = useState<BookType[]>([])
+   const [paidBooks, setPaidBooks] = useState<BookType[]>([])
+
    const [hasMoreFreeBooks, setHasMoreFreeBooks] = useState(true)
    const [hasMorePaidBooks, setHasMorePaidBooks] = useState(true)
+
    const { loading, fetchMore: getBooks } = useQuery<Query>(GET_FREE_AND_PAID_BOOKS, {
       variables: {
          freeBooksOffset: 0,
@@ -39,13 +41,14 @@ export const useStore = () => {
          setPaidBooks(paidBooks)
       },
    })
+
    const getMoreBooks = (freeBooksOffset: number, paidBooksOffset: number) => {
       getBooks({
          variables: {
             freeBooksOffset,
             paidBooksOffset,
          },
-         updateQuery: (_, { fetchMoreResult }): any => {
+         updateQuery: (query, { fetchMoreResult }) => {
             if (fetchMoreResult) {
                const { freeBooks, paidBooks } = fetchMoreResult
                setFreeBooks(books => [...books, ...freeBooks])
@@ -53,9 +56,11 @@ export const useStore = () => {
                freeBooksOffset > 0 && setHasMoreFreeBooks(freeBooks.length !== 0)
                paidBooksOffset > 0 && setHasMorePaidBooks(paidBooks.length !== 0)
             }
+            return query
          },
       })
    }
+
    return {
       loading,
       freeBooks,

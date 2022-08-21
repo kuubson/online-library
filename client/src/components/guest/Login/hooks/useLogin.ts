@@ -6,21 +6,6 @@ import { handleApiValidation, setApiFeedback } from 'helpers'
 
 import { axios, history } from 'utils'
 
-type FBLoginRequest = {
-   authResponse: {
-      userID: string
-      signedRequest: string
-      expiresIn: string
-      accessToken: string
-   }
-   status: 'connected' | 'not_authorized'
-}
-
-type FBMeRespose = {
-   first_name: string
-   email: string
-}
-
 export const useLogin = () => {
    const [form, setForm] = useState({
       email: '',
@@ -28,28 +13,37 @@ export const useLogin = () => {
       password: '',
       passwordError: '',
    })
+
    const { email, password } = form
+
    const formHandler = useFormHandler(setForm)
+
    const validate = () => {
       let validated = true
+
       setForm(form => ({
          ...form,
          emailError: '',
          passwordError: '',
       }))
+
       if (!formHandler.validateEmail(email)) validated = false
       if (!formHandler.validatePassword(password, '', true)) validated = false
+
       return validated
    }
+
    const login = async (event: React.FormEvent) => {
       event.preventDefault()
       if (validate()) {
          try {
             const url = '/api/user/auth/login'
+
             const response = await axios.post(url, {
                email,
                password,
             })
+
             if (response) {
                history.push('/store')
             }
@@ -58,9 +52,12 @@ export const useLogin = () => {
          }
       }
    }
+
    const loginWithFacebook = async (event: React.MouseEvent) => {
       event.preventDefault()
+
       const url = '/api/user/auth/loginWithFacebook'
+
       window.FB.login(
          ({ authResponse, status }: FBLoginRequest) => {
             if (authResponse && status === 'connected') {
@@ -87,6 +84,7 @@ export const useLogin = () => {
          { scope: 'email,public_profile' }
       )
    }
+
    return {
       form,
       formHandler,

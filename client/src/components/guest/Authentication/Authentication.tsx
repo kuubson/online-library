@@ -9,9 +9,7 @@ import { setApiFeedback } from 'helpers'
 
 import { axios, history } from 'utils'
 
-const AuthenticationContainer = styled(HomeContainer)``
-
-const Authentication = () => {
+export const Authentication = () => {
    const { token } = useParams()
 
    useEffect(() => {
@@ -43,4 +41,4 @@ const Authentication = () => {
    return <AuthenticationContainer />
 }
 
-export default Authentication
+const AuthenticationContainer = styled(HomeContainer)``

@@ -1,15 +1,12 @@
 import styled from 'styled-components/macro'
 
 import { RegistrationContainer } from 'components/guest/Registration/Registration'
-import HomeButton from 'components/guest/Registration/modules/HomeButton'
-import Input from 'components/guest/Registration/modules/Input'
+import { HomeButton, Input } from 'components/guest/Registration/modules'
 import * as StyledRegistration from 'components/guest/Registration/styled'
 
 import { usePasswordRecovery } from './hooks'
 
-const UserPasswordRecoveryContainer = styled(RegistrationContainer)``
-
-const UserPasswordRecovery = () => {
+export const PasswordRecovery = () => {
    const {
       form: { password, passwordError, repeatedPassword, repeatedPasswordError },
       formHandler: { handleInputValue, validatePassword, validateRepeatedPassword },
@@ -49,4 +46,4 @@ const UserPasswordRecovery = () => {
    )
 }
 
-export default UserPasswordRecovery
+const UserPasswordRecoveryContainer = styled(RegistrationContainer)``

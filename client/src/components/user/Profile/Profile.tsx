@@ -3,24 +3,25 @@ import { useState } from 'react'
 import styled from 'styled-components/macro'
 
 import { StoreContainer } from 'components/user/Store/Store'
-import BookSuggestions from 'components/user/Store/modules/BookSuggestions/BookSuggestions'
-import Books from 'components/user/Store/modules/Books/Books'
+import { BookSuggestions, Books } from 'components/user/Store/modules'
+
+import { BookPopup } from './modules'
 
 import { useProfile } from './hooks'
 
-import BookPopup from './modules/BookPopup/BookPopup'
-
-const ProfileContainer = styled(StoreContainer)``
-
-interface IProfile {
+type ProfileProps = {
    shouldMenuExpand?: boolean
 }
 
-const Profile = ({ shouldMenuExpand }: IProfile) => {
+export const Profile = ({ shouldMenuExpand }: ProfileProps) => {
    const { loading, boughtBooks, borrowedBooks, setBoughtBooks, setBorrowedBooks } = useProfile()
-   const [bookPopupData, setBookPopupData] = useState<IBook>()
+
+   const [bookPopupData, setBookPopupData] = useState<BookType>()
+
    const areThereBoughtBooks = !!boughtBooks.length
+
    const areThereBorrowedBooks = !!borrowedBooks.length
+
    return (
       <ProfileContainer shouldMenuExpand={shouldMenuExpand}>
          {bookPopupData && <BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />}
@@ -86,4 +87,4 @@ const Profile = ({ shouldMenuExpand }: IProfile) => {
    )
 }
 
-export default Profile
+const ProfileContainer = styled(StoreContainer)``

@@ -1,17 +1,14 @@
 import styled from 'styled-components/macro'
 
 import { RegistrationContainer } from 'components/guest/Registration/Registration'
-import HomeButton from 'components/guest/Registration/modules/HomeButton'
-import Input from 'components/guest/Registration/modules/Input'
+import { HomeButton, Input } from 'components/guest/Registration/modules'
 import * as StyledRegistration from 'components/guest/Registration/styled'
 
 import { useLogin } from './hooks'
 
 import { history } from 'utils'
 
-const LoginContainer = styled(RegistrationContainer)``
-
-const Login = () => {
+export const Login = () => {
    const {
       form: { email, emailError, password, passwordError },
       formHandler: { handleInputValue, validateEmail, validatePassword },
@@ -47,9 +44,9 @@ const Login = () => {
                }}
             />
             <StyledRegistration.Submit>Login</StyledRegistration.Submit>
-            {/* <StyledRegistration.Submit onClick={loginWithFacebook} withFacebook>
-                    Login with Facebook
-                </StyledRegistration.Submit> */}
+            <StyledRegistration.Submit onClick={loginWithFacebook} withFacebook>
+               Login with Facebook
+            </StyledRegistration.Submit>
             <StyledRegistration.AnnotationsContainer>
                <StyledRegistration.Annotation onClick={() => history.push('/registration')}>
                   {"I don't have an account yet, go to registration page"}
@@ -63,4 +60,4 @@ const Login = () => {
    )
 }
 
-export default Login
+const LoginContainer = styled(RegistrationContainer)``

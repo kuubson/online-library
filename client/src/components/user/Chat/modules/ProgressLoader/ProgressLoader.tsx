@@ -4,30 +4,33 @@ import styled from 'styled-components/macro'
 
 import * as Styled from './styled'
 
-const ProgressLoaderContainer = styled.div`
-   margin-right: 10px;
-   display: flex;
-   flex-direction: column;
-`
-
-interface IProgressLoader {
+type ProgressLoaderProps = {
    percentage: number
 }
 
-const ProgressLoader = ({ percentage }: IProgressLoader) => {
+export const ProgressLoader = ({ percentage }: ProgressLoaderProps) => {
    const circle = useRef<SVGCircleElement>(null)
+
    const dimension = 50
+
    const strokeWidth = 2
+
    const radius = dimension / 2 - strokeWidth * 2
+
    useEffect(() => {
       if (circle) {
-         const radius = circle.current!.r.baseVal.value
+         const radius = circle.current?.r.baseVal.value || 0
+
          const circumference = radius * 2 * Math.PI
-         circle.current!.style.strokeDasharray = `${circumference} ${circumference}`
-         const offset = circumference - (percentage / 100) * circumference
-         circle.current!.style.strokeDashoffset = offset.toString()
+
+         if (circle.current) {
+            circle.current.style.strokeDasharray = `${circumference} ${circumference}`
+            const offset = circumference - (percentage / 100) * circumference
+            circle.current.style.strokeDashoffset = offset.toString()
+         }
       }
    }, [percentage])
+
    return (
       <ProgressLoaderContainer>
          <Styled.RingsContainer dimension={dimension}>
@@ -47,4 +50,8 @@ const ProgressLoader = ({ percentage }: IProgressLoader) => {
    )
 }
 
-export default ProgressLoader
+const ProgressLoaderContainer = styled.div`
+   margin-right: 10px;
+   display: flex;
+   flex-direction: column;
+`

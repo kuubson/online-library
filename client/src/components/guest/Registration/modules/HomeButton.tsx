@@ -2,6 +2,16 @@ import styled from 'styled-components/macro'
 
 import { history } from 'utils'
 
+type HomeButtonProps = {
+   withReturnButton?: boolean
+}
+
+export const HomeButton = ({ withReturnButton }: HomeButtonProps) => (
+   <HomeButtonContainer onClick={() => (withReturnButton ? history.back() : history.push('/'))}>
+      {withReturnButton ? 'Return' : 'Home page'}
+   </HomeButtonContainer>
+)
+
 const HomeButtonContainer = styled.button`
    height: 38px;
    font-size: 13px;
@@ -23,17 +33,3 @@ const HomeButtonContainer = styled.button`
       padding: 0px 22px;
    }
 `
-
-interface IHomeButton {
-   withReturnButton?: boolean
-}
-
-const HomeButton = ({ withReturnButton }: IHomeButton) => {
-   return (
-      <HomeButtonContainer onClick={() => (withReturnButton ? history.back() : history.push('/'))}>
-         {withReturnButton ? 'Return' : 'Home page'}
-      </HomeButtonContainer>
-   )
-}
-
-export default HomeButton

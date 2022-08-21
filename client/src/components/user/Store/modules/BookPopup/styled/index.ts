@@ -1,3 +1,3 @@
-export { ContentContainer } from './ContentContainer'
-export { Content } from './Content'
 export { ButtonsContainer } from './ButtonsContainer'
+export { Content } from './Content'
+export { ContentContainer } from './ContentContainer'

@@ -8,7 +8,9 @@ let timeoutId: number | undefined
 
 axios.interceptors.request.use(
    request => {
-      !timeoutId && (timeoutId = window.setTimeout(() => setLoading(true), 500))
+      if (!timeoutId) {
+         timeoutId = window.setTimeout(() => setLoading(true), 500)
+      }
       return request
    },
    error => {

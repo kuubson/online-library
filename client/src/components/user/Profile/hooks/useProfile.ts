@@ -2,8 +2,8 @@ import { gql, useQuery } from '@apollo/client'
 import { useState } from 'react'
 
 type Query = {
-   boughtBooks: IBook[]
-   borrowedBooks: IBook[]
+   boughtBooks: BookType[]
+   borrowedBooks: BookType[]
 }
 
 const GET_PROFILE_BOOKS = gql`
@@ -24,8 +24,10 @@ const GET_PROFILE_BOOKS = gql`
 `
 
 export const useProfile = () => {
-   const [boughtBooks, setBoughtBooks] = useState<IBook[]>([])
-   const [borrowedBooks, setBorrowedBooks] = useState<IBook[]>([])
+   const [boughtBooks, setBoughtBooks] = useState<BookType[]>([])
+
+   const [borrowedBooks, setBorrowedBooks] = useState<BookType[]>([])
+
    const { loading } = useQuery<Query>(GET_PROFILE_BOOKS, {
       fetchPolicy: 'cache-and-network',
       onCompleted: ({ boughtBooks, borrowedBooks }) => {
@@ -33,6 +35,7 @@ export const useProfile = () => {
          setBorrowedBooks(borrowedBooks)
       },
    })
+
    return {
       loading,
       boughtBooks,

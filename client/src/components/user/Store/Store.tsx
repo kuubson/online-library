@@ -2,37 +2,15 @@ import { useState } from 'react'
 
 import styled from 'styled-components/macro'
 
+import { BookPopup, BookSuggestions, Books } from './modules'
+
 import { useStore } from './hooks'
 
-import BookPopup from './modules/BookPopup/BookPopup'
-import BookSuggestions from './modules/BookSuggestions/BookSuggestions'
-import Books from './modules/Books/Books'
-
-type StyledProps = {
+type StoreProps = {
    shouldMenuExpand?: boolean
 }
 
-export const StoreContainer = styled.section<StyledProps>`
-   min-height: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: flex-start;
-   transition: padding 0.4s ease-in-out;
-   @media (min-width: 800px) {
-      padding: 130px 20px 20px 20px;
-   }
-   @media (max-width: 800px) {
-      flex-direction: column;
-      padding: ${({ shouldMenuExpand }) =>
-         shouldMenuExpand ? '330px 20px 20px 20px' : '120px 20px 20px 20px'};
-   }
-`
-
-interface IStore {
-   shouldMenuExpand?: boolean
-}
-
-const Store = ({ shouldMenuExpand }: IStore) => {
+export const Store = ({ shouldMenuExpand }: StoreProps) => {
    const {
       loading,
       freeBooks,
@@ -43,9 +21,13 @@ const Store = ({ shouldMenuExpand }: IStore) => {
       setPaidBooks,
       getMoreBooks,
    } = useStore()
-   const [bookPopupData, setBookPopupData] = useState<IBook>()
+
+   const [bookPopupData, setBookPopupData] = useState<BookType>()
+
    const areThereFreeBooks = !!freeBooks.length
+
    const areTherePaidBooks = !!paidBooks.length
+
    return (
       <StoreContainer shouldMenuExpand={shouldMenuExpand}>
          {bookPopupData && <BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />}
@@ -113,4 +95,22 @@ const Store = ({ shouldMenuExpand }: IStore) => {
    )
 }
 
-export default Store
+type StoreContainerProps = {
+   shouldMenuExpand?: boolean
+}
+
+export const StoreContainer = styled.section<StoreContainerProps>`
+   min-height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
+   transition: padding 0.4s ease-in-out;
+   @media (min-width: 800px) {
+      padding: 130px 20px 20px 20px;
+   }
+   @media (max-width: 800px) {
+      flex-direction: column;
+      padding: ${({ shouldMenuExpand }) =>
+         shouldMenuExpand ? '330px 20px 20px 20px' : '120px 20px 20px 20px'};
+   }
+`

@@ -1,19 +1,16 @@
 import styled from 'styled-components/macro'
 
 import { RegistrationContainer } from 'components/guest/Registration/Registration'
-import HomeButton from 'components/guest/Registration/modules/HomeButton'
-import Input from 'components/guest/Registration/modules/Input'
+import { HomeButton, Input } from 'components/guest/Registration/modules'
 import * as StyledRegistration from 'components/guest/Registration/styled'
 
 import { useSupport } from './hooks'
 
-const UserSupportContainer = styled(RegistrationContainer)``
-
-interface ISupport {
+type SupportProps = {
    withPasswordSupport?: boolean
 }
 
-const Support = ({ withPasswordSupport }: ISupport) => {
+export const Support = ({ withPasswordSupport }: SupportProps) => {
    const {
       form: { email, emailError },
       formHandler: { handleInputValue, validateEmail },
@@ -43,4 +40,4 @@ const Support = ({ withPasswordSupport }: ISupport) => {
    )
 }
 
-export default Support
+const UserSupportContainer = styled(RegistrationContainer)``

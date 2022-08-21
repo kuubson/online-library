@@ -5,33 +5,6 @@ import styled, { css } from 'styled-components/macro'
 
 import * as Styled from './styled'
 
-type StyledProps = {
-   withCurrentUser?: boolean
-   withLastUserMessage?: boolean
-}
-
-const MessageContainer = styled.div<StyledProps>`
-   display: flex;
-   justify-content: center;
-   align-items: flex-start;
-   flex-direction: column;
-   align-self: flex-start;
-   cursor: pointer;
-   position: relative;
-   ${({ withCurrentUser }) =>
-      withCurrentUser
-         ? css`
-              align-self: flex-end;
-           `
-         : null}
-   ${({ withLastUserMessage }) =>
-      withLastUserMessage
-         ? css`
-              margin-bottom: 20px;
-           `
-         : null}
-`
-
 type MessageProps = {
    currentUserId: string | undefined
    nextMessage: IMessage
@@ -39,7 +12,7 @@ type MessageProps = {
    withLastMessage: boolean
 }
 
-const Message = ({
+export const Message = ({
    type,
    content,
    filename,
@@ -54,26 +27,35 @@ const Message = ({
    const [shouldDetailsAppear, setShouldDetailsAppear] = useState(false)
    const [imageError, setImageError] = useState(false)
    const [videoError, setVideoError] = useState(false)
+
    const date = new Date(createdAt)
+
    const withFile = type === 'FILE'
+
    const withCurrentUser = userId === currentUserId
+
    const withLastUserMessage = (nextMessage && userId !== nextMessage.userId) || !nextMessage
+
    useEffect(() => {
       scrollToTheBottom()
    }, [])
+
    useEffect(() => {
       if (shouldDetailsAppear) {
          setTimeout(() => setShouldDetailsAppear(false), 3000)
       }
    }, [shouldDetailsAppear])
+
    const scrollToTheBottom = () => {
       if (withLastMessage) {
          scrollToLastMessage(0)
       }
    }
+
    const handleFileLoadingError = () => {
       type === 'IMAGE' ? setImageError(true) : setVideoError(true)
    }
+
    const showError = (error: string) => (
       <Styled.Content
          withCurrentUser={withCurrentUser}
@@ -84,9 +66,11 @@ const Message = ({
          {withLastUserMessage && showAvatar()}
       </Styled.Content>
    )
+
    const showAvatar = () => (
-      <Styled.Avatar withCurrentUser={withCurrentUser}>{userName!.charAt(0)}</Styled.Avatar>
+      <Styled.Avatar withCurrentUser={withCurrentUser}>{userName?.charAt(0)}</Styled.Avatar>
    )
+
    return (
       <MessageContainer
          onClick={() => setShouldDetailsAppear(true)}
@@ -146,4 +130,29 @@ const Message = ({
    )
 }
 
-export default Message
+type MessageContainerProps = {
+   withCurrentUser?: boolean
+   withLastUserMessage?: boolean
+}
+
+const MessageContainer = styled.div<MessageContainerProps>`
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
+   flex-direction: column;
+   align-self: flex-start;
+   cursor: pointer;
+   position: relative;
+   ${({ withCurrentUser }) =>
+      withCurrentUser
+         ? css`
+              align-self: flex-end;
+           `
+         : null}
+   ${({ withLastUserMessage }) =>
+      withLastUserMessage
+         ? css`
+              margin-bottom: 20px;
+           `
+         : null}
+`

@@ -2,22 +2,11 @@ import styled from 'styled-components/macro'
 
 import * as Styled from './styled'
 
-import Input from 'components/guest/Registration/modules/Input'
+import { Input } from 'components/guest/Registration/modules'
 
 import { useBookSuggestions } from './hooks'
 
-const BookSuggestionsContainer = styled.div`
-   width: 50%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   position: relative;
-   @media (max-width: 1100px) {
-      width: 100%;
-   }
-`
-
-const BookSuggestions = ({
+export const BookSuggestions = ({
    freeBooks,
    paidBooks,
    setFreeBooks,
@@ -59,7 +48,7 @@ const BookSuggestions = ({
          <Styled.SuggestionsContainer>
             {books.map(({ id, title, author, price }) => (
                <Styled.Suggestion key={id} onClick={() => handleSort(id, price)}>
-                  "{title}" written by {author}
+                  {`"{${title}}" written by ${author}`}
                </Styled.Suggestion>
             ))}
          </Styled.SuggestionsContainer>
@@ -67,4 +56,13 @@ const BookSuggestions = ({
    )
 }
 
-export default BookSuggestions
+const BookSuggestionsContainer = styled.div`
+   width: 50%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: relative;
+   @media (max-width: 1100px) {
+      width: 100%;
+   }
+`

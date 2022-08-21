@@ -4,55 +4,15 @@ import { fadeIn } from 'assets/animations'
 
 import * as Styled from './styled'
 
-import * as StyledStore from '../../styled'
-import Book from '../Book/Book'
+import { Book } from 'components/user/Store/modules'
+import * as StyledStore from 'components/user/Store/styled'
 
-type StyledProps = {
-   withMarginRight?: boolean
-   empty?: boolean
-   fullWidth?: boolean
-}
-
-const BooksContainer = styled.div<StyledProps>`
-   width: 55%;
-   margin-top: 20px;
-   animation: ${fadeIn} 0.4s ease-in-out;
-   @media (max-width: 800px) {
-      width: 100%;
-   }
-   ${({ withMarginRight }) =>
-      withMarginRight
-         ? css`
-              margin-right: 20px;
-              @media (max-width: 800px) {
-                 margin-right: 0px;
-              }
-           `
-         : css`
-              @media (max-width: 800px) {
-                 margin-top: 35px;
-              }
-           `}
-   ${({ empty }) =>
-      empty
-         ? css`
-              margin-top: 0px !important;
-           `
-         : null}
-    ${({ fullWidth }) =>
-      fullWidth
-         ? css`
-              width: 100%;
-           `
-         : null}
-`
-
-interface IBooks {
-   books: IBook[]
+type BooksProps = {
+   books: BookType[]
    error: string
    header?: string
    hasMore?: boolean
-   setBookPopupData?: ReactDispatch<IBook | undefined>
+   setBookPopupData?: ReactDispatch<BookType | undefined>
    searchInput?: () => JSX.Element
    loadMore?: () => void
    withCart?: boolean
@@ -62,7 +22,7 @@ interface IBooks {
    withoutInput?: boolean
 }
 
-const Books = ({
+export const Books = ({
    books,
    error,
    header,
@@ -75,7 +35,7 @@ const Books = ({
    withMarginRight,
    fullWidth,
    withoutInput,
-}: IBooks) => {
+}: BooksProps) => {
    const areThereBooks = !!books.length
    return (
       <BooksContainer
@@ -124,4 +84,42 @@ const Books = ({
    )
 }
 
-export default Books
+type BooksContainerProps = {
+   withMarginRight?: boolean
+   empty?: boolean
+   fullWidth?: boolean
+}
+
+const BooksContainer = styled.div<BooksContainerProps>`
+   width: 55%;
+   margin-top: 20px;
+   animation: ${fadeIn} 0.4s ease-in-out;
+   @media (max-width: 800px) {
+      width: 100%;
+   }
+   ${({ withMarginRight }) =>
+      withMarginRight
+         ? css`
+              margin-right: 20px;
+              @media (max-width: 800px) {
+                 margin-right: 0px;
+              }
+           `
+         : css`
+              @media (max-width: 800px) {
+                 margin-top: 35px;
+              }
+           `}
+   ${({ empty }) =>
+      empty
+         ? css`
+              margin-top: 0px !important;
+           `
+         : null}
+    ${({ fullWidth }) =>
+      fullWidth
+         ? css`
+              width: 100%;
+           `
+         : null}
+`

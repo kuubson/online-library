@@ -1,14 +1,15 @@
-import Authentication from 'components/guest/Authentication/Authentication'
+import { Guest, User } from 'components/shared'
+
+import { Authentication } from 'components/guest/Authentication/Authentication'
 import { Home } from 'components/guest/Home/Home'
-import Login from 'components/guest/Login/Login'
-import PasswordRecovery from 'components/guest/PasswordRecovery/PasswordRecovery'
-import Registration from 'components/guest/Registration/Registration'
-import Support from 'components/guest/Support/Support'
-import { Guest, User } from 'components/shared/roles'
+import { Login } from 'components/guest/Login/Login'
+import { PasswordRecovery } from 'components/guest/PasswordRecovery/PasswordRecovery'
+import { Registration } from 'components/guest/Registration/Registration'
+import { Support } from 'components/guest/Support/Support'
 import { Cart } from 'components/user/Cart/Cart'
-import Chat from 'components/user/Chat/Chat'
-import Profile from 'components/user/Profile/Profile'
-import Store from 'components/user/Store/Store'
+import { Chat } from 'components/user/Chat/Chat'
+import { Profile } from 'components/user/Profile/Profile'
+import { Store } from 'components/user/Store/Store'
 
 export const HomeRoute = () => (
    <Guest>

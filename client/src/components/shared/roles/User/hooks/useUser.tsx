@@ -16,22 +16,29 @@ type GetMessagesInfoResponse = {
 
 export const useUser = (withChat: boolean | undefined) => {
    const { socket, setSocket } = useSocket()
+
    const { cart } = useCart()
+
    const {
       lastUnreadMessageIndex,
       unreadMessagesAmount,
       setLastUnreadMessageIndex,
       setUnreadMessagesAmount,
    } = useMessagesInfo()
+
    const [currentUserId, setCurrentUserId] = useState<string | null>(null)
+
    useEffect(() => {
       if (!socket) {
          setSocket(io('/user'))
       }
+
       const checkToken = async () => {
          try {
             const url = '/api/global/auth/checkToken'
+
             const response = await axios.get<CheckTokenResponse>(url)
+
             if (response) {
                const { role } = response.data
                if (role !== 'user') {
@@ -42,29 +49,34 @@ export const useUser = (withChat: boolean | undefined) => {
             handleApiError(error as ApiError)
          }
       }
-      checkToken()
+
       const getMessagesInfo = async () => {
          const url = '/api/user/chat/getMessagesInfo'
+
          const response = await axios.get<GetMessagesInfoResponse>(url)
+
          if (response) {
             const { lastUnreadMessageIndex, unreadMessagesAmount, userId } = response.data
+
             setLastUnreadMessageIndex(lastUnreadMessageIndex)
             setUnreadMessagesAmount(unreadMessagesAmount)
+
             setCurrentUserId(userId)
          }
       }
+
+      checkToken()
+
       getMessagesInfo()
    }, [])
+
    const handleOnSendMessage = (message: IMessage) => {
       if (!withChat && message.userId !== currentUserId) {
          setUnreadMessagesAmount(unreadMessagesAmount + 1)
-         if (!lastUnreadMessageIndex) {
-            setLastUnreadMessageIndex(1)
-         } else {
-            setLastUnreadMessageIndex(lastUnreadMessageIndex + 1)
-         }
+         setLastUnreadMessageIndex(lastUnreadMessageIndex ? lastUnreadMessageIndex + 1 : 1)
       }
    }
+
    useEffect(() => {
       if (socket) {
          socket.on('sendMessage', handleOnSendMessage)
@@ -75,6 +87,7 @@ export const useUser = (withChat: boolean | undefined) => {
          }
       }
    }, [socket, unreadMessagesAmount, currentUserId])
+
    const options = [
       {
          option: 'Store',
@@ -94,11 +107,8 @@ export const useUser = (withChat: boolean | undefined) => {
          pathname: '/chat',
          counter: unreadMessagesAmount && (unreadMessagesAmount <= 99 ? unreadMessagesAmount : 99),
       },
-      {
-         option: 'Logout',
-      },
+      { option: 'Logout' },
    ]
-   return {
-      options,
-   }
+
+   return { options }
 }

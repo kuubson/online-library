@@ -2,24 +2,36 @@ import { useEffect, useState } from 'react'
 
 import * as Styled from './styled'
 
-import Book from 'components/user/Store/modules/Book/Book'
+import { Book } from 'components/user/Store/modules'
 import { BookPopupContainer } from 'components/user/Store/modules/BookPopup/BookPopup'
 import * as StyledBookPopup from 'components/user/Store/modules/BookPopup/styled'
 import * as StyledStore from 'components/user/Store/styled'
 
-interface IBookPopup extends IBook {
-   setBookPopupData: ReactDispatch<IBook | undefined>
+type BookPopupProps = BookType & {
+   setBookPopupData: ReactDispatch<BookType | undefined>
 }
 
-const BookPopup = ({ id, title, author, cover, price, setBookPopupData }: IBookPopup) => {
+export const BookPopup = ({
+   id,
+   title,
+   author,
+   cover,
+   price,
+   setBookPopupData,
+}: BookPopupProps) => {
    const [pages] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
    const [currentPage, setCurrentPage] = useState(0)
+
    const [opened, setOpened] = useState(false)
+
    const [read, setRead] = useState(false)
+
    useEffect(() => {
       setOpened(currentPage > 0)
       setRead(currentPage >= pages.length - 1)
    }, [currentPage])
+
    return (
       <BookPopupContainer>
          <StyledBookPopup.ContentContainer withFlips>
@@ -102,5 +114,3 @@ const BookPopup = ({ id, title, author, cover, price, setBookPopupData }: IBookP
       </BookPopupContainer>
    )
 }
-
-export default BookPopup

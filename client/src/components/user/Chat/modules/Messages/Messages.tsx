@@ -5,7 +5,38 @@ import styled from 'styled-components/macro'
 
 import { fadeIn } from 'assets/animations'
 
-import Message from '../Message/Message'
+import { Message } from '../'
+
+type MessagesProps = {
+   ref: React.RefObject<HTMLDivElement>
+   endOfMessages: React.RefObject<HTMLDivElement>
+   messages: IMessage[]
+   currentUserId: string | undefined
+   onTouchStart: () => void
+   onScroll: (event: React.UIEvent<HTMLDivElement>) => Promise<void>
+   scrollToLastMessage: (delay: number) => void
+}
+
+export const Messages = forwardRef<HTMLDivElement, MessagesProps>(
+   (
+      { endOfMessages, messages, currentUserId, onTouchStart, onScroll, scrollToLastMessage },
+      ref
+   ) => (
+      <MessagesContainer ref={ref} onTouchStart={onTouchStart} onScroll={onScroll}>
+         {messages.map((message, index) => (
+            <Message
+               key={message.id}
+               {...message}
+               currentUserId={currentUserId}
+               nextMessage={messages[index + 1]}
+               scrollToLastMessage={scrollToLastMessage}
+               withLastMessage={index === messages.length - 1}
+            />
+         ))}
+         <div ref={endOfMessages}></div>
+      </MessagesContainer>
+   )
+)
 
 const MessagesContainer = styled.div`
    width: 100%;
@@ -22,38 +53,3 @@ const MessagesContainer = styled.div`
       height: calc(100vh - 225px);
    }
 `
-
-interface IMessages {
-   ref: React.RefObject<HTMLDivElement>
-   endOfMessages: React.RefObject<HTMLDivElement>
-   messages: IMessage[]
-   currentUserId: string | undefined
-   onTouchStart: () => void
-   onScroll: (event: React.UIEvent<HTMLDivElement>) => Promise<void>
-   scrollToLastMessage: (delay: number) => void
-}
-
-const Messages = forwardRef<HTMLDivElement, IMessages>(
-   (
-      { endOfMessages, messages, currentUserId, onTouchStart, onScroll, scrollToLastMessage },
-      ref
-   ) => {
-      return (
-         <MessagesContainer ref={ref} onTouchStart={onTouchStart} onScroll={onScroll}>
-            {messages.map((message, index) => (
-               <Message
-                  key={message.id}
-                  {...message}
-                  currentUserId={currentUserId}
-                  nextMessage={messages[index + 1]}
-                  scrollToLastMessage={scrollToLastMessage}
-                  withLastMessage={index === messages.length - 1}
-               />
-            ))}
-            <div ref={endOfMessages}></div>
-         </MessagesContainer>
-      )
-   }
-)
-
-export default Messages

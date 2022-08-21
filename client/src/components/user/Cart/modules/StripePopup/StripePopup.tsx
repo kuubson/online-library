@@ -14,15 +14,20 @@ import { useIsKeyboardOpened } from 'hooks'
 
 import { useStripePopup } from './hooks'
 
-interface IStripePopup {
+import { cardElementOptions } from './utils'
+
+type StripePopupProps = {
    price: string | undefined
    setShouldStripePopupAppear: ReactDispatch<boolean>
 }
 
-export const StripePopup = ({ price, setShouldStripePopupAppear }: IStripePopup) => {
+export const StripePopup = ({ price, setShouldStripePopupAppear }: StripePopupProps) => {
    const isKeyboardOpened = useIsKeyboardOpened()
+
    const { handlePaying } = useStripePopup(setShouldStripePopupAppear)
+
    const [error, setError] = useState('')
+
    return (
       <StripePopupContainer>
          <StyledBookPopup.ContentContainer withLessHeight isKeyboardOpened={isKeyboardOpened}>
@@ -30,16 +35,7 @@ export const StripePopup = ({ price, setShouldStripePopupAppear }: IStripePopup)
                <StyledStore.Header black>Enter your details and submit payment</StyledStore.Header>
                <Styled.CardContainer>
                   <CardElement
-                     options={{
-                        style: {
-                           base: {
-                              iconColor: '#0088ff',
-                              color: 'black',
-                              '::placeholder': { color: 'black' },
-                           },
-                        },
-                        hidePostalCode: true,
-                     }}
+                     options={cardElementOptions}
                      onChange={event =>
                         event.error ? setError(event.error.message) : setError('')
                      }

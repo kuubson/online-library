@@ -4,11 +4,47 @@ import styled, { css } from 'styled-components/macro'
 
 import * as Styled from '../styled'
 
-type StyledProps = {
+type InputProps = {
+   id: string
+   label?: string
+   type: string
+   value: string
+   placeholder: string
+   error?: string
+   onChange: React.ChangeEventHandler<HTMLInputElement>
    withBooksSuggestions?: boolean
 }
 
-const InputContainer = styled.div<StyledProps>`
+export const Input = ({
+   id,
+   label,
+   type,
+   value,
+   placeholder,
+   error,
+   onChange,
+   withBooksSuggestions,
+}: InputProps) => (
+   <InputContainer withBooksSuggestions={withBooksSuggestions}>
+      {label && <Styled.Label htmlFor={id}>{label}</Styled.Label>}
+      <Styled.Input
+         id={id}
+         name={id}
+         type={type}
+         value={value}
+         placeholder={placeholder}
+         onChange={onChange}
+         withBooksSuggestions={withBooksSuggestions}
+      />
+      {error && <Styled.Error>{error}</Styled.Error>}
+   </InputContainer>
+)
+
+type InputContainerProps = {
+   withBooksSuggestions?: boolean
+}
+
+const InputContainer = styled.div<InputContainerProps>`
    width: 550px;
    margin: 0px auto 30px auto;
    :last-of-type {
@@ -26,43 +62,3 @@ const InputContainer = styled.div<StyledProps>`
            `
          : null}
 `
-
-interface IInput {
-   id: string
-   label?: string
-   type: string
-   value: string
-   placeholder: string
-   error?: string
-   onChange: React.ChangeEventHandler<HTMLInputElement>
-   withBooksSuggestions?: boolean
-}
-
-const Input = ({
-   id,
-   label,
-   type,
-   value,
-   placeholder,
-   error,
-   onChange,
-   withBooksSuggestions,
-}: IInput) => {
-   return (
-      <InputContainer withBooksSuggestions={withBooksSuggestions}>
-         {label && <Styled.Label htmlFor={id}>{label}</Styled.Label>}
-         <Styled.Input
-            id={id}
-            name={id}
-            type={type}
-            value={value}
-            placeholder={placeholder}
-            onChange={onChange}
-            withBooksSuggestions={withBooksSuggestions}
-         />
-         {error && <Styled.Error>{error}</Styled.Error>}
-      </InputContainer>
-   )
-}
-
-export default Input

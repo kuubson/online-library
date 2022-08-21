@@ -14,6 +14,7 @@ clientsClaim()
 precacheAndRoute(self.__WB_MANIFEST)
 
 const fileExtensionRegexp = new RegExp('/[^/?]+\\.[^/]+$')
+
 registerRoute(({ request, url }: { request: Request; url: URL }) => {
    if (request.mode !== 'navigate') {
       return false

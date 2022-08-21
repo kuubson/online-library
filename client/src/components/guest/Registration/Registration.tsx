@@ -4,20 +4,13 @@ import * as Styled from './styled'
 
 import { HomeContainer } from 'components/guest/Home/Home'
 
+import { HomeButton, Input } from './modules'
+
 import { useRegistration } from './hooks'
 
 import { history } from 'utils'
 
-import HomeButton from './modules/HomeButton'
-import Input from './modules/Input'
-
-export const RegistrationContainer = styled(HomeContainer)`
-   height: initial;
-   min-height: 100%;
-   padding: 96px 0px 35px 0px;
-`
-
-const Registration = () => {
+export const Registration = () => {
    const {
       form: {
          name,
@@ -104,4 +97,8 @@ const Registration = () => {
    )
 }
 
-export default Registration
+export const RegistrationContainer = styled(HomeContainer)`
+   height: initial;
+   min-height: 100%;
+   padding: 96px 0px 35px 0px;
+`

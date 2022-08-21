@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import styled, { css } from 'styled-components/macro'
 
@@ -8,42 +8,29 @@ import { StoreContainer } from 'components/user/Store/Store'
 import { Warning } from 'components/user/Store/modules/Books/styled'
 import * as StyledStore from 'components/user/Store/styled'
 
+import { Messages, ProgressLoader } from './modules'
+
 import { useMessagesInfo } from 'hooks'
 
 import { useChat } from './hooks'
 
 import { detectMobileDevice } from 'helpers'
 
-import Messages from './modules/Messages/Messages'
-import ProgressLoader from './modules/ProgressLoader/ProgressLoader'
-
-type StyledProps = {
-   areThereMessages?: boolean
-}
-
-const ChatContainer = styled(StoreContainer)<StyledProps>`
-   ${({ areThereMessages }) =>
-      areThereMessages
-         ? css`
-              justify-content: flex-start;
-           `
-         : css`
-              height: 100vh;
-              padding-bottom: 90px;
-              align-items: center;
-           `}
-`
-
-interface IChat {
+type ChatProps = {
    shouldMenuExpand?: boolean
 }
 
-const Chat = ({ shouldMenuExpand }: IChat) => {
+export const Chat = ({ shouldMenuExpand }: ChatProps) => {
    const { lastUnreadMessageIndex } = useMessagesInfo()
+
    const textareaRef = useRef<HTMLTextAreaElement>(null)
+
    const [loading, setLoading] = useState(true)
+
    const [showFileInput, setShowFileInput] = useState(true)
+
    const [percentage, setPercentage] = useState(0)
+
    const {
       messagesRef,
       endOfMessages,
@@ -61,8 +48,26 @@ const Chat = ({ shouldMenuExpand }: IChat) => {
       setShowFileInput,
       setPercentage,
    })
+
    const areThereMessages = messages.length > 0
+
    const fileUploadInProgess = percentage > 0
+
+   const handleOnKeyPress = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (event.key === 'Enter') {
+         switch (true) {
+            case detectMobileDevice() as boolean:
+               return
+            case !event.currentTarget.value.trim():
+               event.preventDefault()
+               break
+            case !event.shiftKey:
+               sendMessage()
+               break
+         }
+      }
+   }
+
    return (
       <ChatContainer shouldMenuExpand={shouldMenuExpand} areThereMessages={areThereMessages}>
          {!loading && lastUnreadMessageIndex && messages.length < lastUnreadMessageIndex && (
@@ -92,20 +97,7 @@ const Chat = ({ shouldMenuExpand }: IChat) => {
                disabled={fileUploadInProgess}
                onChange={event => setMessage(event.target.value)}
                onFocus={() => scrollToLastMessage(500)}
-               onKeyPress={event => {
-                  if (event.key === 'Enter') {
-                     switch (true) {
-                        case detectMobileDevice() as boolean:
-                           return
-                        case !event.currentTarget.value.trim():
-                           event.preventDefault()
-                           break
-                        case !event.shiftKey:
-                           sendMessage()
-                           break
-                     }
-                  }
-               }}
+               onKeyPress={handleOnKeyPress}
             />
             {fileUploadInProgess ? (
                <ProgressLoader percentage={percentage} />
@@ -119,7 +111,7 @@ const Chat = ({ shouldMenuExpand }: IChat) => {
                onClick={() => {
                   sendMessage()
                   if (detectMobileDevice()) {
-                     textareaRef.current!.focus()
+                     textareaRef.current?.focus()
                   }
                }}
                withChat
@@ -131,4 +123,19 @@ const Chat = ({ shouldMenuExpand }: IChat) => {
    )
 }
 
-export default Chat
+type ChatContainerProps = {
+   areThereMessages?: boolean
+}
+
+const ChatContainer = styled(StoreContainer)<ChatContainerProps>`
+   ${({ areThereMessages }) =>
+      areThereMessages
+         ? css`
+              justify-content: flex-start;
+           `
+         : css`
+              height: 100vh;
+              padding-bottom: 90px;
+              align-items: center;
+           `}
+`
