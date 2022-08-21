@@ -1,37 +1,16 @@
-import { gql, useQuery } from '@apollo/client'
 import { useState } from 'react'
 
-type Query = {
-   freeBooks: BookType[]
-   paidBooks: BookType[]
-}
-
-const GET_FREE_AND_PAID_BOOKS = gql`
-   query getFreeAndPaidBooks($freeBooksOffset: Int!, $paidBooksOffset: Int!) {
-      freeBooks(freeBooksOffset: $freeBooksOffset, paidBooksOffset: $paidBooksOffset) {
-         id
-         title
-         author
-         cover
-      }
-      paidBooks(paidBooksOffset: $paidBooksOffset, freeBooksOffset: $freeBooksOffset) {
-         id
-         title
-         author
-         cover
-         price
-      }
-   }
-`
+import type { Book } from 'gql'
+import { useGetFreeAndPaidBooksQuery } from 'gql'
 
 export const useStore = () => {
-   const [freeBooks, setFreeBooks] = useState<BookType[]>([])
-   const [paidBooks, setPaidBooks] = useState<BookType[]>([])
+   const [freeBooks, setFreeBooks] = useState<Book[]>([])
+   const [paidBooks, setPaidBooks] = useState<Book[]>([])
 
    const [hasMoreFreeBooks, setHasMoreFreeBooks] = useState(true)
    const [hasMorePaidBooks, setHasMorePaidBooks] = useState(true)
 
-   const { loading, fetchMore: getBooks } = useQuery<Query>(GET_FREE_AND_PAID_BOOKS, {
+   const { loading, fetchMore: getBooks } = useGetFreeAndPaidBooksQuery({
       variables: {
          freeBooksOffset: 0,
          paidBooksOffset: 0,

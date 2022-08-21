@@ -1,34 +1,14 @@
-import { gql, useQuery } from '@apollo/client'
 import { useState } from 'react'
 
-type Query = {
-   boughtBooks: BookType[]
-   borrowedBooks: BookType[]
-}
-
-const GET_PROFILE_BOOKS = gql`
-   query getProfileBooks {
-      boughtBooks {
-         id
-         title
-         author
-         cover
-      }
-      borrowedBooks {
-         id
-         title
-         author
-         cover
-      }
-   }
-`
+import type { Book } from 'gql'
+import { useGetProfileBooksQuery } from 'gql'
 
 export const useProfile = () => {
-   const [boughtBooks, setBoughtBooks] = useState<BookType[]>([])
+   const [boughtBooks, setBoughtBooks] = useState<Book[]>([])
 
-   const [borrowedBooks, setBorrowedBooks] = useState<BookType[]>([])
+   const [borrowedBooks, setBorrowedBooks] = useState<Book[]>([])
 
-   const { loading } = useQuery<Query>(GET_PROFILE_BOOKS, {
+   const { loading } = useGetProfileBooksQuery({
       fetchPolicy: 'cache-and-network',
       onCompleted: ({ boughtBooks, borrowedBooks }) => {
          setBoughtBooks(boughtBooks)

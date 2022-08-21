@@ -2,11 +2,21 @@ import { useState } from 'react'
 
 import styled, { css } from 'styled-components/macro'
 
+import type { Book as BookType } from 'gql'
+
 import * as Styled from './styled'
 
 import { useCart } from 'hooks'
 
 import * as StyledStore from '../../styled'
+
+type BookProps = {
+   setBookPopupData?: ReactDispatch<BookType | undefined>
+   withCart?: boolean
+   withProfile?: boolean
+   withPopup?: boolean
+   withFlips?: boolean
+} & BookType
 
 export const Book = ({
    id,
@@ -19,7 +29,7 @@ export const Book = ({
    withProfile,
    withPopup,
    withFlips,
-}: BookType) => {
+}: BookProps) => {
    const { cart, removeFromCart } = useCart()
 
    const [loading, setLoading] = useState(true)

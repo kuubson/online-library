@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client'
+import { useBorrowBookMutation } from 'gql'
 
 import { useCart } from 'hooks'
 
@@ -6,35 +6,21 @@ import { setApiFeedback } from 'helpers'
 
 import { history } from 'utils'
 
-type Mutation = {
-   borrowBook: {
-      title: string
-      author: string
-   }
-}
-
-const BORROW_BOOK = gql`
-   mutation ($bookId: Int!) {
-      borrowBook(bookId: $bookId) {
-         title
-         author
-      }
-   }
-`
+import type { SetBookPopupDataFn } from 'types'
 
 type UseBookPopupProps = {
    id: number
-   setBookPopupData: ReactDispatch<BookType | undefined>
+   setBookPopupData: SetBookPopupDataFn
 }
 
 export const useBookPopup = ({ id, setBookPopupData }: UseBookPopupProps) => {
-   const [borrowBook] = useMutation<Mutation>(BORROW_BOOK)
+   const [borrowBook] = useBorrowBookMutation({ variables: { bookId: id } })
 
    const { cart, addToCart } = useCart()
 
    const handleBorrowingBook = async () => {
       try {
-         const { data } = await borrowBook({ variables: { bookId: id } })
+         const { data } = await borrowBook()
          if (data) {
             const { title, author } = data.borrowBook
 

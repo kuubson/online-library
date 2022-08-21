@@ -2,6 +2,8 @@ import { useState } from 'react'
 
 import styled from 'styled-components/macro'
 
+import type { Book } from 'gql'
+
 import { BookPopup, BookSuggestions, Books } from './modules'
 
 import { useStore } from './hooks'
@@ -22,7 +24,7 @@ export const Store = ({ shouldMenuExpand }: StoreProps) => {
       getMoreBooks,
    } = useStore()
 
-   const [bookPopupData, setBookPopupData] = useState<BookType>()
+   const [bookPopupData, setBookPopupData] = useState<Book>()
 
    const areThereFreeBooks = !!freeBooks.length
 

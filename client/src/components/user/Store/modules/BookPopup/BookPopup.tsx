@@ -1,5 +1,7 @@
 import styled from 'styled-components/macro'
 
+import type { Book as BookType } from 'gql'
+
 import { fadeIn } from 'assets/animations'
 
 import * as Styled from './styled'
@@ -9,8 +11,10 @@ import * as StyledStore from 'components/user/Store/styled'
 
 import { useBookPopup } from './hooks'
 
+import type { SetBookPopupDataFn } from 'types'
+
 type BookPopupProps = BookType & {
-   setBookPopupData: ReactDispatch<BookType | undefined>
+   setBookPopupData: SetBookPopupDataFn
 }
 
 export const BookPopup = ({

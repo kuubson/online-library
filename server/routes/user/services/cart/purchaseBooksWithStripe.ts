@@ -1,3 +1,4 @@
+import { totalBooksPrice } from 'helpers/totalBooksPrice'
 import Stripe from 'stripe'
 
 import { STRIPE_SECRET_KEY } from 'config'
@@ -35,10 +36,7 @@ export const purchaseBooksWithStripe: ProtectedRoute = async (req, res, next) =>
 
          const description = books.map(({ title }) => title).join(', ')
 
-         const price = books
-            .map(({ price }) => price ?? 0)
-            .reduce((total, price) => total + price, 0)
-            .toFixed(2)
+         const price = totalBooksPrice(books)
 
          const customer = await stripe.customers.create({
             name: req.user.name,

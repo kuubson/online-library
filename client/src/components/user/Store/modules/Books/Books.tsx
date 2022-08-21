@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
+import type { Book as BookType } from 'gql'
+
 import { fadeIn } from 'assets/animations'
 
 import * as Styled from './styled'

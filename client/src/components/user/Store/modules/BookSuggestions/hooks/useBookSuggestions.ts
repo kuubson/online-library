@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react'
 
+import type { Book } from 'gql'
+
 import { axios } from 'utils'
 
+import type { BookSuggestionsProps } from '../types'
+
 type GetSuggestionsResponse = {
-   books: BookType[]
+   books: Book[]
 }
 
 export const useBookSuggestions = ({
@@ -12,14 +16,14 @@ export const useBookSuggestions = ({
    setFreeBooks,
    setPaidBooks,
    withProfile,
-}: IBookSuggestions) => {
+}: BookSuggestionsProps) => {
    const [title, setTitle] = useState('')
 
    const [author, setAuthor] = useState('')
 
    const [findByTitle, setFindByTitle] = useState(true)
 
-   const [books, setBooks] = useState<BookType[]>([])
+   const [books, setBooks] = useState<Book[]>([])
 
    useEffect(() => {
       const getSuggestions = async () => {
@@ -45,10 +49,10 @@ export const useBookSuggestions = ({
       setFindByTitle(findByTitle => !findByTitle)
    }
 
-   const handleSort = (id: number, price: number) => {
-      const filterOut = (book: BookType) => book.id !== id
+   const handleSort = (id: number, price: number | null | undefined) => {
+      const filterOut = (book: Book) => book.id !== id
 
-      const filter = (book: BookType) => book.id === id
+      const filter = (book: Book) => book.id === id
 
       if (!price) {
          const sortedFreeBooks = freeBooks.filter(filterOut)

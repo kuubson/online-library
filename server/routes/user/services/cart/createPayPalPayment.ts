@@ -1,3 +1,4 @@
+import { totalBooksPrice } from 'helpers/totalBooksPrice'
 import paypal, { Payment } from 'paypal-rest-sdk'
 
 import { Book } from 'database'
@@ -30,10 +31,7 @@ export const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
 
       const description = books.map(({ title }) => title).join(', ')
 
-      const price = books
-         .map(({ price }) => price ?? 0)
-         .reduce((total, price) => total + price, 0)
-         .toFixed(2)
+      const price = totalBooksPrice(books)
 
       const payment: Payment = {
          intent: 'sale',

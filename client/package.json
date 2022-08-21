@@ -3,7 +3,7 @@
    "private": true,
    "scripts": {
       "start": "react-scripts start",
-      "check": "stylelint src/**/*.{ts,tsx} && tsc --noEmit",
+      "check": "eslint . && tsc --noEmit && stylelint src/**/*.{ts,tsx}",
       "build": "react-scripts build",
       "test": "react-scripts test"
    },

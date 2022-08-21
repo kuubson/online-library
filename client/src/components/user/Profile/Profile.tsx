@@ -2,6 +2,8 @@ import { useState } from 'react'
 
 import styled from 'styled-components/macro'
 
+import type { Book as BookType } from 'gql'
+
 import { StoreContainer } from 'components/user/Store/Store'
 import { BookSuggestions, Books } from 'components/user/Store/modules'
 

@@ -1,5 +1,6 @@
-import { gql, useQuery } from '@apollo/client'
 import { useEffect, useState } from 'react'
+
+import { useGetBooksQuery } from 'gql'
 
 import { useCart as useCartHook, useQueryParams } from 'hooks'
 
@@ -7,36 +8,22 @@ import { setApiFeedback } from 'helpers'
 
 import { axios, history } from 'utils'
 
-type Query = {
-   books: BookType[]
-}
-
-const GET_BOOKS = gql`
-   query getBooks($ids: [Int!]!) {
-      books(ids: $ids) {
-         id
-         title
-         author
-         cover
-         price
-      }
-   }
-`
-
 export const useCart = () => {
    const { paymentId, PayerID } = useQueryParams()
 
    const { cart, resetCart } = useCartHook()
 
-   const { data } = useQuery<Query>(GET_BOOKS, { variables: { ids: cart } })
-
-   const books = data ? data.books : []
+   const { data } = useGetBooksQuery({ variables: { ids: cart } })
 
    const [price, setPrice] = useState('')
 
+   const books = data ? data.books : []
+
    useEffect(() => {
       let total = 0
-      books.map(({ price }) => (total += price))
+
+      books.map(({ price }) => (total += price || 0))
+
       setPrice(total.toFixed(2))
    }, [books])
 

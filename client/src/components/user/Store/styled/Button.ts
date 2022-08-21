@@ -1,7 +1,9 @@
 import styled, { css } from 'styled-components/macro'
 
+import type { Book } from 'gql'
+
 type StyledProps = {
-   price?: number
+   price?: Book['price']
    notAbsolute?: boolean
    withoutHover?: boolean
    withoutFixedWidth?: boolean

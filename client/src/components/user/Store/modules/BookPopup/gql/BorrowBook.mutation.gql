@@ -1,0 +1,6 @@
+mutation borrowBook($bookId: Int!) {
+   borrowBook(bookId: $bookId) {
+      title
+      author
+   }
+}

@@ -1,0 +1,15 @@
+query getFreeAndPaidBooks($freeBooksOffset: Int!, $paidBooksOffset: Int!) {
+   freeBooks(freeBooksOffset: $freeBooksOffset, paidBooksOffset: $paidBooksOffset) {
+      id
+      title
+      author
+      cover
+   }
+   paidBooks(paidBooksOffset: $paidBooksOffset, freeBooksOffset: $freeBooksOffset) {
+      id
+      title
+      author
+      cover
+      price
+   }
+}

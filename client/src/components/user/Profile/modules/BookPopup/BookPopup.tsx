@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import type { Book as BookType } from 'gql'
+
 import * as Styled from './styled'
 
 import { Book } from 'components/user/Store/modules'
@@ -7,8 +9,10 @@ import { BookPopupContainer } from 'components/user/Store/modules/BookPopup/Book
 import * as StyledBookPopup from 'components/user/Store/modules/BookPopup/styled'
 import * as StyledStore from 'components/user/Store/styled'
 
+import type { SetBookPopupDataFn } from 'types'
+
 type BookPopupProps = BookType & {
-   setBookPopupData: ReactDispatch<BookType | undefined>
+   setBookPopupData: SetBookPopupDataFn
 }
 
 export const BookPopup = ({
