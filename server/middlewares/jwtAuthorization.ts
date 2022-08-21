@@ -2,7 +2,7 @@ import passport from 'passport'
 
 import { cookie } from 'utils'
 
-import { Route } from 'types/express'
+import type { Route } from 'types/express'
 
 export const jwtAuthorization: Route = (req, res, next) => {
    passport.authenticate('jwt', { session: false }, (error, { user, role }) => {

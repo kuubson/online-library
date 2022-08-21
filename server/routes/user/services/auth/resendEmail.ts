@@ -8,7 +8,7 @@ import { transporter, validator } from 'helpers'
 
 import { ApiError, baseUrl, emailTemplate } from 'utils'
 
-import { Route } from 'types/express'
+import type { Route } from 'types/express'
 
 export const resendEmail: Route = async (req, res, next) => {
    try {

@@ -2,7 +2,7 @@ import { Message, User } from 'database'
 
 import { validator } from 'helpers'
 
-import { ProtectedRoute } from 'types/express'
+import type { ProtectedRoute } from 'types/express'
 
 import { updateReadByProperty } from './helpers'
 

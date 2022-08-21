@@ -2,7 +2,7 @@ import { Book } from 'database'
 
 import { validator } from 'helpers'
 
-import { ProtectedRoute } from 'types/express'
+import type { ProtectedRoute } from 'types/express'
 
 export const getCart: ProtectedRoute = async (req, res, next) => {
    try {

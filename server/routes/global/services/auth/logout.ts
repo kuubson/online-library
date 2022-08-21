@@ -1,6 +1,6 @@
 import { cookie } from 'utils'
 
-import { Route } from 'types/express'
+import type { Route } from 'types/express'
 
 export const logout: Route = (_, res, next) => {
    try {

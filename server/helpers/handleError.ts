@@ -1,10 +1,10 @@
-import { Response } from 'express'
+import type { Response } from 'express'
 
 import { NODE_ENV } from 'config'
 
 import { cookie } from 'utils'
 
-import { ExpressError } from 'types'
+import type { ExpressError } from 'types'
 
 export const handleError = (res: Response, error: ExpressError) => {
    if (NODE_ENV !== 'production') {

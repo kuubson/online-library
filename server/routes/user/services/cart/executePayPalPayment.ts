@@ -6,7 +6,7 @@ import { validator } from 'helpers'
 
 import { ApiError } from 'utils'
 
-import { ProtectedRoute } from 'types/express'
+import type { ProtectedRoute } from 'types/express'
 
 export const executePayPalPayment: ProtectedRoute = async (req, res, next) => {
    try {

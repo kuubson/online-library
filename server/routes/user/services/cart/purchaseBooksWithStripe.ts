@@ -9,7 +9,7 @@ import { validator } from 'helpers'
 
 import { ApiError } from 'utils'
 
-import { ProtectedRoute } from 'types/express'
+import type { ProtectedRoute } from 'types/express'
 
 const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: '2020-08-27' })
 

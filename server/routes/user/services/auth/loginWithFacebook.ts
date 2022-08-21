@@ -9,7 +9,7 @@ import { validator } from 'helpers'
 
 import { cookie } from 'utils'
 
-import { Route } from 'types/express'
+import type { Route } from 'types/express'
 
 export const loginWithFacebook: Route = async (req, res, next) => {
    try {

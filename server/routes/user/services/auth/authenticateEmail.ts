@@ -8,7 +8,7 @@ import { validator } from 'helpers'
 
 import { ApiError } from 'utils'
 
-import { Route } from 'types/express'
+import type { Route } from 'types/express'
 
 export const authenticateEmail: Route = async (req, res, next) => {
    try {

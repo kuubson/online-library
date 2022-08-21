@@ -2,7 +2,7 @@ import { Book } from 'database'
 
 import { roleAuthorization } from 'middlewares'
 
-import { QueryResolvers } from 'types/graphql'
+import type { QueryResolvers } from 'types/graphql'
 
 export const books: QueryResolvers['books'] = async (_, { ids }, context) => {
    roleAuthorization(context, 'user')

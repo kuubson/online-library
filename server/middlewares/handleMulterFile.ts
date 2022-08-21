@@ -6,7 +6,7 @@ import { reduceImageSize } from 'helpers'
 
 import { ApiError } from 'utils'
 
-import { MulterMiddleware } from 'types/multer'
+import type { MulterMiddleware } from 'types/multer'
 
 export const handleMulterFile = (): MulterMiddleware => (req, res, next) =>
    multerFile.single('file')(req, res, () => {

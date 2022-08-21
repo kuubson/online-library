@@ -1,4 +1,4 @@
-import { NextFunction } from 'express'
+import type { NextFunction } from 'express'
 import fs from 'fs'
 import sharp from 'sharp'
 

@@ -9,7 +9,7 @@ import { validator } from 'helpers'
 
 import { ApiError, cookie } from 'utils'
 
-import { Route } from 'types/express'
+import type { Route } from 'types/express'
 
 export const login: Route = async (req, res, next) => {
    try {

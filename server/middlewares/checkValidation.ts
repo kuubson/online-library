@@ -1,6 +1,6 @@
 import { validationResult } from 'express-validator'
 
-import { Route } from 'types/express'
+import type { Route } from 'types/express'
 
 export const checkValidation: Route = (req, res, next) => {
    const results = validationResult(req)

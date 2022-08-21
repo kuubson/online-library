@@ -8,8 +8,8 @@ import { validator } from 'helpers'
 
 import { ApiError, cookie } from 'utils'
 
-import { AuthTokenData } from 'types'
-import { Route } from 'types/express'
+import type { AuthTokenData } from 'types'
+import type { Route } from 'types/express'
 
 export const checkToken: Route = async (req, res, next) => {
    try {

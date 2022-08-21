@@ -1,6 +1,6 @@
 import { roleAuthorization } from 'middlewares'
 
-import { QueryResolvers } from 'types/graphql'
+import type { QueryResolvers } from 'types/graphql'
 
 export const borrowedBooks: QueryResolvers['borrowedBooks'] = async (_, __, context) => {
    roleAuthorization(context)

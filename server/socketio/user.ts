@@ -1,17 +1,17 @@
 import { verify } from 'jsonwebtoken'
-import { Server, Socket as _Socket } from 'socket.io'
-import { ExtendedError } from 'socket.io/dist/namespace'
+import type { Server, Socket as _Socket } from 'socket.io'
+import type { ExtendedError } from 'socket.io/dist/namespace'
 
 import { JWT_KEY } from 'config'
 
 import { Message, User } from 'database'
-import { User as UserType } from 'database/models/User'
+import type { User as UserType } from 'database/models/User'
 
 import { updateReadByProperty } from 'routes/user/services/chat/helpers'
 
 import { getCookie } from 'utils'
 
-import { AuthTokenData } from 'types'
+import type { AuthTokenData } from 'types'
 
 type Socket = _Socket & {
    user?: UserType

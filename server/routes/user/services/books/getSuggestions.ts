@@ -2,11 +2,11 @@ import { check } from 'express-validator'
 import { Op } from 'sequelize'
 
 import { Book } from 'database'
-import { Book as BookType } from 'database/models/Book'
+import type { Book as BookType } from 'database/models/Book'
 
 import { validator } from 'helpers'
 
-import { ProtectedRoute } from 'types/express'
+import type { ProtectedRoute } from 'types/express'
 
 export const getSuggestions: ProtectedRoute = async (req, res, next) => {
    try {

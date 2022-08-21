@@ -1,6 +1,6 @@
-import { Request, Response } from 'express'
+import type { Request, Response } from 'express'
 
-import { User } from 'database/models/User'
+import type { User } from 'database/models/User'
 
 type Role = 'user'
 

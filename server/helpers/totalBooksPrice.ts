@@ -1,4 +1,4 @@
-import { Book } from 'database/models/Book'
+import type { Book } from 'database/models/Book'
 
 export const totalBooksPrice = (books: Book[]) => {
    return books

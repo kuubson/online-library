@@ -4,7 +4,7 @@ import { roleAuthorization } from 'middlewares'
 
 import { ApiError } from 'utils'
 
-import { MutationResolvers } from 'types/graphql'
+import type { MutationResolvers } from 'types/graphql'
 
 export const borrowBook: MutationResolvers['borrowBook'] = async (_, { bookId }, context) => {
    roleAuthorization(context)

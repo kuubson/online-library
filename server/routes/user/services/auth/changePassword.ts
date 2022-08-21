@@ -9,8 +9,8 @@ import { validator } from 'helpers'
 
 import { ApiError } from 'utils'
 
-import { PasswordTokendata } from 'types'
-import { Route } from 'types/express'
+import type { PasswordTokendata } from 'types'
+import type { Route } from 'types/express'
 
 export const changePassword: Route = async (req, res, next) => {
    try {

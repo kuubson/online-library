@@ -1,6 +1,6 @@
 import { cookie } from 'utils'
 
-import { GraphqlContext } from 'types'
+import type { GraphqlContext } from 'types'
 
 export const roleAuthorization = (context: GraphqlContext, role = 'user') => {
    try {

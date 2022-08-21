@@ -1,4 +1,4 @@
-import { Message } from 'database/models/Message'
+import type { Message } from 'database/models/Message'
 
 type ReadByPropertyUpdater = (userId: number, messages: Message[]) => Promise<Message[]>
 

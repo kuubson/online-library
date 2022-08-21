@@ -1,4 +1,4 @@
-import { Middleware } from 'express-validator/src/base'
+import type { Middleware } from 'express-validator/src/base'
 
 export const unless = (path: string, middleware: any) => {
    const middlewareFunction: Middleware = (req, res, next) => {

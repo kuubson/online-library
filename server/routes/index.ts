@@ -1,4 +1,4 @@
-import { Application } from 'express'
+import type { Application } from 'express'
 
 import { Global } from './global/global'
 import { User } from './user/user'

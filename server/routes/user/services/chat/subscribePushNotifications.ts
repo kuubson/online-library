@@ -2,7 +2,7 @@ import { Connection } from 'database'
 
 import { validator } from 'helpers'
 
-import { ProtectedRoute } from 'types/express'
+import type { ProtectedRoute } from 'types/express'
 
 export const subscribePushNotifications: ProtectedRoute = async (req, res, next) => {
    try {

@@ -1,4 +1,4 @@
-import { PassportStatic } from 'passport'
+import type { PassportStatic } from 'passport'
 import FacebookTokenStrategy from 'passport-facebook-token'
 import passportJwt from 'passport-jwt'
 

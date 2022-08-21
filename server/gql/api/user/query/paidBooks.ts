@@ -4,7 +4,7 @@ import { Book } from 'database'
 
 import { roleAuthorization } from 'middlewares'
 
-import { QueryResolvers } from 'types/graphql'
+import type { QueryResolvers } from 'types/graphql'
 
 export const paidBooks: QueryResolvers['paidBooks'] = async (
    _,
