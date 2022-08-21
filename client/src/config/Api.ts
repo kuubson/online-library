@@ -1,6 +1,6 @@
 const userApi = '/api/user'
 
-const globalApi = ``
+const globalApi = '/api/global'
 
 class _API {
    public authenticateEmail = `${userApi}/auth/authenticateEmail`
