@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize'
 
-import { db } from 'config'
+import { SEQUELIZE_AUTO, db } from 'config'
 
 import { generateDbTypes } from 'helpers'
 
@@ -43,7 +43,7 @@ const initializeDatabase = async () => {
 
       console.log('📁 Database connected')
 
-      if (process.env.SEQUELIZE_AUTO) {
+      if (SEQUELIZE_AUTO === 'true') {
          generateDbTypes(connection)
       }
    } catch (error) {
