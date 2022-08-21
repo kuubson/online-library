@@ -1,5 +1,7 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 
+import { API } from 'config'
+
 import { useCart } from 'hooks'
 
 import { setApiFeedback, setLoading } from 'helpers'
@@ -25,13 +27,10 @@ export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean
             })
 
             if (paymentMethod) {
-               const url = '/api/user/cart/purchaseBooksWithStripe'
-
-               const response = await axios.post(url, {
+               const response = await axios.post(API.purchaseBooksWithStripe, {
                   paymentId: paymentMethod.id,
                   products: cart,
                })
-
                if (response) {
                   setShouldStripePopupAppear(false)
                   setApiFeedback(

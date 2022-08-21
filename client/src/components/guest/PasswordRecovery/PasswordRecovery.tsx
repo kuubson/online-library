@@ -7,38 +7,26 @@ import * as StyledRegistration from 'components/guest/Registration/styled'
 import { usePasswordRecovery } from './hooks'
 
 export const PasswordRecovery = () => {
-   const {
-      form: { password, passwordError, repeatedPassword, repeatedPasswordError },
-      formHandler: { handleInputValue, validatePassword, validateRepeatedPassword },
-      changePassword,
-   } = usePasswordRecovery()
+   const { changePassword, control, errors } = usePasswordRecovery()
    return (
       <UserPasswordRecoveryContainer>
          <HomeButton />
          <StyledRegistration.Form onSubmit={changePassword}>
             <Input
+               {...{ control }}
                id="password"
                label="Password"
                type="password"
-               value={password}
                placeholder="Type your password..."
-               error={passwordError}
-               onChange={event => {
-                  handleInputValue(event)
-                  validatePassword(event.target.value, repeatedPassword, false)
-               }}
+               error={errors.password?.message}
             />
             <Input
+               {...{ control }}
                id="repeatedPassword"
                label="Repeat Password"
                type="password"
-               value={repeatedPassword}
                placeholder="Type your password again..."
-               error={repeatedPasswordError}
-               onChange={event => {
-                  handleInputValue(event)
-                  validateRepeatedPassword(event.target.value, password)
-               }}
+               error={errors.repeatedPassword?.message}
             />
             <StyledRegistration.Submit>Change password</StyledRegistration.Submit>
          </StyledRegistration.Form>

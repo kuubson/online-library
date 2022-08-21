@@ -1,7 +1,7 @@
 export { useApiFeedback } from './useApiFeedback'
 export { useCart } from './useCart'
 export { useDispatch } from './useDispatch'
-export { useFormHandler } from './useFormHandler'
+export { useForm } from './useForm'
 export { useIsKeyboardOpened } from './useIsKeyboardOpened'
 export { useLoader } from './useLoader'
 export { useMessagesInfo } from './useMessagesInfo'

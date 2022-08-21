@@ -1,71 +1,41 @@
 import type React from 'react'
-import { useState } from 'react'
 
-import { useFormHandler } from 'hooks'
+import { API } from 'config'
+
+import { email, uncheckedPassword, yup } from 'shared'
+
+import { useForm } from 'hooks'
 
 import { handleApiValidation, setApiFeedback } from 'helpers'
 
 import { axios, history } from 'utils'
 
+const schema = yup.object({
+   email,
+   password: uncheckedPassword,
+})
+
 export const useLogin = () => {
-   const [form, setForm] = useState({
-      email: '',
-      emailError: '',
-      password: '',
-      passwordError: '',
-   })
+   const { submit, control, errors, getValues, setError } = useForm({ schema })
 
-   const { email, password } = form
-
-   const formHandler = useFormHandler(setForm)
-
-   const validate = () => {
-      let validated = true
-
-      setForm(form => ({
-         ...form,
-         emailError: '',
-         passwordError: '',
-      }))
-
-      if (!formHandler.validateEmail(email)) validated = false
-      if (!formHandler.validatePassword(password, '', true)) validated = false
-
-      return validated
-   }
-
-   const login = async (event: React.FormEvent) => {
-      event.preventDefault()
-      if (validate()) {
-         try {
-            const url = '/api/user/auth/login'
-
-            const response = await axios.post(url, {
-               email,
-               password,
-            })
-
-            if (response) {
-               history.push('/store')
-            }
-         } catch (error) {
-            handleApiValidation(error as ApiError, setForm)
-         }
+   const login = async () => {
+      try {
+         await axios.post(API.login, getValues())
+         history.push('/store')
+      } catch (error) {
+         handleApiValidation(error as ApiError, setError)
       }
    }
 
    const loginWithFacebook = async (event: React.MouseEvent) => {
       event.preventDefault()
-
-      const url = '/api/user/auth/loginWithFacebook'
-
       window.FB.login(
          ({ authResponse, status }: FBLoginRequest) => {
             if (authResponse && status === 'connected') {
                return window.FB.api(
                   '/me?fields=id,first_name,email',
                   async ({ first_name, email }: FBMeRespose) => {
-                     const response = await axios.post(url, {
+                     const response = await axios.post(API.loginWithFacebook, {
                         name: first_name,
                         email,
                         access_token: authResponse.accessToken,
@@ -77,7 +47,7 @@ export const useLogin = () => {
                )
             }
             setApiFeedback(
-               'Logging to app',
+               'Logging to the app',
                'There was an unexpected problem when logging in with Facebook',
                'Okey'
             )
@@ -87,9 +57,9 @@ export const useLogin = () => {
    }
 
    return {
-      form,
-      formHandler,
-      login,
+      login: submit(login),
       loginWithFacebook,
+      control,
+      errors,
    }
 }

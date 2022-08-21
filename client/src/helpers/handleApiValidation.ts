@@ -1,34 +1,20 @@
-type ApiValidationHandler = <T>(error: ApiError, setForm: ReactDispatch<T>) => void
+import type { UseFormSetError } from 'react-hook-form'
 
 type Response = {
    status: number
    data: {
-      results: Result[]
+      results: {
+         parameter: string
+         error: string
+      }[]
    }
 }
 
-type Result = {
-   parameter: string
-   error: string
-}
-
-export const handleApiValidation: ApiValidationHandler = (error, setForm) => {
+export const handleApiValidation = (error: ApiError, setError: UseFormSetError<any>) => {
    const errorResponse: Response = error.response
-
    if (errorResponse && errorResponse.status === 422) {
-      let errors = {}
-
-      errorResponse.data.results.map(
-         ({ parameter, error }) =>
-            (errors = {
-               ...errors,
-               [`${parameter}Error`]: error,
-            })
-      )
-
-      setForm(form => ({
-         ...form,
-         ...errors,
-      }))
+      errorResponse.data.results.map(({ parameter, error }) => {
+         setError(parameter, { message: error })
+      })
    }
 }

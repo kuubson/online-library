@@ -11,77 +11,42 @@ import { useRegistration } from './hooks'
 import { history } from 'utils'
 
 export const Registration = () => {
-   const {
-      form: {
-         name,
-         nameError,
-         email,
-         emailError,
-         password,
-         passwordError,
-         repeatedPassword,
-         repeatedPasswordError,
-      },
-      formHandler: {
-         handleInputValue,
-         validateProperty,
-         validateEmail,
-         validatePassword,
-         validateRepeatedPassword,
-      },
-      register,
-   } = useRegistration()
+   const { register, control, errors } = useRegistration()
    return (
       <RegistrationContainer>
          <HomeButton />
          <Styled.Form onSubmit={register}>
             <Input
+               {...{ control }}
                id="name"
                label="Name"
                type="text"
-               value={name}
                placeholder="Type your name..."
-               error={nameError}
-               onChange={event => {
-                  handleInputValue(event)
-                  validateProperty('name', event.target.value)
-               }}
+               error={errors.name?.message}
             />
             <Input
+               {...{ control }}
                id="email"
                label="Email"
                type="text"
-               value={email}
                placeholder="Type your email address..."
-               error={emailError}
-               onChange={event => {
-                  handleInputValue(event)
-                  validateEmail(event.target.value)
-               }}
+               error={errors.email?.message}
             />
             <Input
+               {...{ control }}
                id="password"
                label="Password"
                type="password"
-               value={password}
                placeholder="Type your password..."
-               error={passwordError}
-               onChange={event => {
-                  handleInputValue(event)
-                  validatePassword(event.target.value, repeatedPassword, false)
-               }}
+               error={errors.password?.message}
             />
             <Input
+               {...{ control }}
                id="repeatedPassword"
                label="Repeat Password"
                type="password"
-               value={repeatedPassword}
                placeholder="Type your password again..."
-               error={repeatedPasswordError}
-               onChange={event => {
-                  handleInputValue(event)
-                  validateRepeatedPassword(event.target.value, password)
-               }}
+               error={errors.repeatedPassword?.message}
             />
             <Styled.Submit>Register</Styled.Submit>
             <Styled.AnnotationsContainer>

@@ -1,76 +1,40 @@
-import { useState } from 'react'
+import { API } from 'config'
 
-import { useFormHandler } from 'hooks'
+import { email, password, repeatedPassword, string, yup } from 'shared'
+
+import { useForm } from 'hooks'
 
 import { handleApiValidation, setApiFeedback } from 'helpers'
 
 import { axios, history } from 'utils'
 
+const schema = yup.object({
+   name: string,
+   email,
+   password,
+   repeatedPassword: repeatedPassword(),
+})
+
 export const useRegistration = () => {
-   const [form, setForm] = useState({
-      name: '',
-      nameError: '',
-      email: '',
-      emailError: '',
-      password: '',
-      passwordError: '',
-      repeatedPassword: '',
-      repeatedPasswordError: '',
-   })
+   const { submit, control, errors, getValues, setError } = useForm({ schema })
 
-   const { name, email, password, repeatedPassword } = form
-
-   const formHandler = useFormHandler(setForm)
-
-   const validate = () => {
-      let validated = true
-
-      setForm(form => ({
-         ...form,
-         nameError: '',
-         emailError: '',
-         passwordError: '',
-         repeatedPasswordError: '',
-      }))
-
-      if (!formHandler.validateProperty('name', name)) validated = false
-      if (!formHandler.validateEmail(email)) validated = false
-      if (!formHandler.validatePassword(password, repeatedPassword, false)) validated = false
-      if (!formHandler.validateRepeatedPassword(repeatedPassword, password)) validated = false
-
-      return validated
-   }
-
-   const register = async (event: React.FormEvent) => {
-      event.preventDefault()
-      if (validate()) {
-         try {
-            const url = '/api/user/auth/register'
-
-            const response = await axios.post(url, {
-               name,
-               email,
-               password,
-               repeatedPassword,
-            })
-
-            if (response) {
-               setApiFeedback(
-                  'Account registration',
-                  'An e-mail with an activation link has been sent to the email address provided. Open it and activate your account',
-                  'Okey',
-                  () => history.push('/login')
-               )
-            }
-         } catch (error) {
-            handleApiValidation(error as ApiError, setForm)
-         }
+   const register = async () => {
+      try {
+         await axios.post(API.register, getValues())
+         setApiFeedback(
+            'Account registration',
+            'An e-mail with an activation link has been sent to the email address provided. Open it and activate your account',
+            'Okey',
+            () => history.push('/login')
+         )
+      } catch (error) {
+         handleApiValidation(error as ApiError, setError)
       }
    }
 
    return {
-      form,
-      formHandler,
-      register,
+      register: submit(register),
+      control,
+      errors,
    }
 }

@@ -1,8 +1,6 @@
 import { Sequelize } from 'sequelize'
 
-import { SEQUELIZE_AUTO, db } from 'config'
-
-import { generateDbTypes } from 'helpers'
+import { SEQUELIZE_AUTO, db, generateDbTypes } from 'config'
 
 import { AuthenticationModel } from './models/Authentication'
 import { BookModel } from './models/Book'

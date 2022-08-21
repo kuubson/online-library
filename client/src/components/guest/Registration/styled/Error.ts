@@ -6,6 +6,9 @@ export const Error = styled.p`
    margin-top: 10px;
    text-align: left;
    font-weight: bold;
+   &::first-letter {
+      text-transform: capitalize;
+   }
    @media (max-width: 1000px) {
       font-size: 11px;
    }

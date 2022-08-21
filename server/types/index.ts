@@ -25,12 +25,12 @@ export type PasswordTokendata = {
    email: string
 }
 
-type Code = 'EBADCSRFTOKEN'
-
 export type ExpressError = {
    status: number
    message: string
    errorHeader: string
    errorMessage: string
-   code?: Code
+   code?: 'EBADCSRFTOKEN'
 }
+
+export type Resolver = any

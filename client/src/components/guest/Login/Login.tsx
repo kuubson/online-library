@@ -9,39 +9,26 @@ import { useLogin } from './hooks'
 import { history } from 'utils'
 
 export const Login = () => {
-   const {
-      form: { email, emailError, password, passwordError },
-      formHandler: { handleInputValue, validateEmail, validatePassword },
-      login,
-      loginWithFacebook,
-   } = useLogin()
+   const { login, loginWithFacebook, control, errors } = useLogin()
    return (
       <LoginContainer>
          <HomeButton />
          <StyledRegistration.Form onSubmit={login}>
             <Input
+               {...{ control }}
                id="email"
                label="Email"
                type="text"
-               value={email}
                placeholder="Type your email address..."
-               error={emailError}
-               onChange={event => {
-                  handleInputValue(event)
-                  validateEmail(event.target.value)
-               }}
+               error={errors.email?.message}
             />
             <Input
+               {...{ control }}
                id="password"
                label="Password"
                type="password"
-               value={password}
                placeholder="Type your password..."
-               error={passwordError}
-               onChange={event => {
-                  handleInputValue(event)
-                  validatePassword(event.target.value, '', true)
-               }}
+               error={errors.password?.message}
             />
             <StyledRegistration.Submit>Login</StyledRegistration.Submit>
             <StyledRegistration.Submit onClick={loginWithFacebook} withFacebook>

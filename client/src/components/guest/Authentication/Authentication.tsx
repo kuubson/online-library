@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 
 import styled from 'styled-components/macro'
 
+import { API } from 'config'
+
 import { HomeContainer } from 'components/guest/Home/Home'
 
 import { setApiFeedback } from 'helpers'
@@ -13,29 +15,25 @@ export const Authentication = () => {
    const { token } = useParams()
 
    useEffect(() => {
-      const verifyEmail = async () => {
+      const authenticateEmail = async () => {
          try {
             if (!token) {
                return history.push('/login')
             }
 
-            const url = `/api/user/auth/authenticateEmail`
+            await axios.post(API.authenticateEmail, { token })
 
-            const response = await axios.post(url, { token })
-
-            if (response) {
-               setApiFeedback(
-                  'Email address authentication',
-                  'Your email address has been successfully authenticated, you can login now',
-                  'Okey',
-                  () => history.push('/login')
-               )
-            }
+            setApiFeedback(
+               'Email address authentication',
+               'Your email address has been successfully authenticated, you can login now',
+               'Okey',
+               () => history.push('/login')
+            )
          } catch (error) {
             history.push('/login')
          }
       }
-      verifyEmail()
+      authenticateEmail()
    }, [token])
 
    return <AuthenticationContainer />

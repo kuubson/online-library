@@ -11,26 +11,18 @@ type SupportProps = {
 }
 
 export const Support = ({ withPasswordSupport }: SupportProps) => {
-   const {
-      form: { email, emailError },
-      formHandler: { handleInputValue, validateEmail },
-      handleSupport,
-   } = useSupport(withPasswordSupport)
+   const { handleSupport, control, errors } = useSupport(withPasswordSupport)
    return (
       <UserSupportContainer>
          <HomeButton withReturnButton />
          <StyledRegistration.Form onSubmit={handleSupport}>
             <Input
+               {...{ control }}
                id="email"
                label="Email"
                type="text"
-               value={email}
                placeholder="Type your email address..."
-               error={emailError}
-               onChange={event => {
-                  handleInputValue(event)
-                  validateEmail(event.target.value)
-               }}
+               error={errors.email?.message}
             />
             <StyledRegistration.Submit>
                {withPasswordSupport ? 'Recover password' : 'Resend e-mail'}

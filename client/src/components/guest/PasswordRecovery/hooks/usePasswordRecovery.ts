@@ -1,12 +1,20 @@
-import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { useFormHandler } from 'hooks'
+import { API } from 'config'
+
+import { password, repeatedPassword, yup } from 'shared'
+
+import { useForm } from 'hooks'
 
 import { handleApiValidation, setApiFeedback } from 'helpers'
 
 import { axios, history } from 'utils'
+
+const schema = yup.object({
+   password,
+   repeatedPassword: repeatedPassword('password'),
+})
 
 export const usePasswordRecovery = () => {
    const { passwordToken } = useParams()
@@ -14,8 +22,7 @@ export const usePasswordRecovery = () => {
    useEffect(() => {
       const checkPasswordToken = async () => {
          try {
-            const url = '/api/user/auth/checkPasswordToken'
-            await axios.post(url, { passwordToken })
+            await axios.post(API.checkPasswordToken, { passwordToken })
          } catch (error) {
             history.push('/login')
          }
@@ -23,61 +30,28 @@ export const usePasswordRecovery = () => {
       checkPasswordToken()
    }, [])
 
-   const [form, setForm] = useState({
-      password: '',
-      passwordError: '',
-      repeatedPassword: '',
-      repeatedPasswordError: '',
-   })
+   const { submit, control, errors, getValues, setError } = useForm({ schema })
 
-   const { password, repeatedPassword } = form
-
-   const formHandler = useFormHandler(setForm)
-
-   const validate = () => {
-      let validated = true
-
-      setForm(form => ({
-         ...form,
-         passwordError: '',
-         repeatedPasswordError: '',
-      }))
-
-      if (!formHandler.validatePassword(password, repeatedPassword, false)) validated = false
-      if (!formHandler.validateRepeatedPassword(repeatedPassword, password)) validated = false
-
-      return validated
-   }
-
-   const changePassword = async (event: React.FormEvent) => {
-      event.preventDefault()
-      if (validate()) {
-         try {
-            const url = '/api/user/auth/changePassword'
-
-            const response = await axios.post(url, {
-               password,
-               repeatedPassword,
-               passwordToken,
-            })
-
-            if (response) {
-               setApiFeedback(
-                  'Password Recovery',
-                  'Your password has been successfully changed, you can login now',
-                  'Okey',
-                  () => history.push('/login')
-               )
-            }
-         } catch (error) {
-            handleApiValidation(error as ApiError, setForm)
-         }
+   const changePassword = async () => {
+      try {
+         await axios.post(API.changePassword, {
+            ...getValues(),
+            passwordToken,
+         })
+         setApiFeedback(
+            'Password Recovery',
+            'Your password has been successfully changed, you can login now',
+            'Okey',
+            () => history.push('/login')
+         )
+      } catch (error) {
+         handleApiValidation(error as ApiError, setError)
       }
    }
 
    return {
-      form,
-      formHandler,
-      changePassword,
+      changePassword: submit(changePassword),
+      control,
+      errors,
    }
 }

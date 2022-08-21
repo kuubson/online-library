@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react'
 
+import { API } from 'config'
+
+import { string, yup } from 'shared'
+
 import type { Book } from 'gql'
+
+import { useForm } from 'hooks'
 
 import { axios } from 'utils'
 
@@ -10,6 +16,11 @@ type GetSuggestionsResponse = {
    books: Book[]
 }
 
+const schema = yup.object({
+   title: string,
+   author: string,
+})
+
 export const useBookSuggestions = ({
    freeBooks,
    paidBooks,
@@ -17,24 +28,17 @@ export const useBookSuggestions = ({
    setPaidBooks,
    withProfile,
 }: BookSuggestionsProps) => {
-   const [title, setTitle] = useState('')
-
-   const [author, setAuthor] = useState('')
+   const { control, getValues, setValue, watch } = useForm({ schema })
 
    const [findByTitle, setFindByTitle] = useState(true)
 
    const [books, setBooks] = useState<Book[]>([])
 
+   const [title, author] = watch(['title', 'author'])
+
    useEffect(() => {
       const getSuggestions = async () => {
-         const url = '/api/user/books/getSuggestions'
-
-         const response = await axios.post<GetSuggestionsResponse>(url, {
-            title,
-            author,
-            withProfile: !!withProfile,
-         })
-
+         const response = await axios.post<GetSuggestionsResponse>(API.getSuggestions, getValues())
          if (response) {
             const { books } = response.data
             setBooks(books)
@@ -45,7 +49,7 @@ export const useBookSuggestions = ({
    }, [title, author, withProfile])
 
    const switchFindBy = () => {
-      findByTitle ? setTitle('') : setAuthor('')
+      findByTitle ? setValue('title', '') : setValue('author', '')
       setFindByTitle(findByTitle => !findByTitle)
    }
 
@@ -72,7 +76,7 @@ export const useBookSuggestions = ({
          }
       }
 
-      findByTitle ? setTitle('') : setAuthor('')
+      findByTitle ? setValue('title', '') : setValue('author', '')
    }
 
    return {
@@ -80,9 +84,8 @@ export const useBookSuggestions = ({
       author,
       findByTitle,
       books,
-      setTitle,
-      setAuthor,
       switchFindBy,
       handleSort,
+      control,
    }
 }

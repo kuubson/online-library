@@ -29,37 +29,25 @@ Create **.env** file and fill it based on **.env-example** file, then:
 
 #### Front-end:
 
-Make sure to enter **/client** folder
-
-```bash
-cd ./client
-```
+Install dependencies on the root level (project uses **npm workspaces**)
 
 ```bash
 npm install
 ```
 
+#### Front-end:
+
 ```bash
-npm start
+cd ./client && npm start
 ```
 
 #### Back-end:
 
-Make sure to enter **/server** folder
-
 ```bash
-cd ./server
+cd ./server && npm start
 ```
 
-```bash
-npm install
-```
-
-```bash
-npm start
-```
-
-Make sure to create **MySQL** database with credentials the same as in **.env** with the usage of e.g, [xampp](https://www.apachefriends.org/pl/index.html)
+Make sure to setup **PostgreSQL** database with credentials the same as in **.env**. Can be different db, just adjust dialect settings inside the **server/config/db.ts**
 
 ## Some screenshots
 

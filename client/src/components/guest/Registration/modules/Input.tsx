@@ -1,40 +1,42 @@
-import React from 'react'
+import { Controller } from 'react-hook-form'
 
 import styled, { css } from 'styled-components/macro'
 
 import * as Styled from '../styled'
 
 type InputProps = {
+   control: any
    id: string
    label?: string
    type: string
-   value: string
    placeholder: string
    error?: string
-   onChange: React.ChangeEventHandler<HTMLInputElement>
    withBooksSuggestions?: boolean
 }
 
 export const Input = ({
+   control,
    id,
    label,
    type,
-   value,
    placeholder,
    error,
-   onChange,
    withBooksSuggestions,
 }: InputProps) => (
    <InputContainer withBooksSuggestions={withBooksSuggestions}>
       {label && <Styled.Label htmlFor={id}>{label}</Styled.Label>}
-      <Styled.Input
-         id={id}
+      <Controller
+         control={control}
          name={id}
-         type={type}
-         value={value}
-         placeholder={placeholder}
-         onChange={onChange}
-         withBooksSuggestions={withBooksSuggestions}
+         render={({ field }) => (
+            <Styled.Input
+               {...field}
+               id={id}
+               type={type}
+               placeholder={placeholder}
+               withBooksSuggestions={withBooksSuggestions}
+            />
+         )}
       />
       {error && <Styled.Error>{error}</Styled.Error>}
    </InputContainer>

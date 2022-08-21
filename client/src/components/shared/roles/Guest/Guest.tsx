@@ -3,6 +3,8 @@ import React, { useEffect } from 'react'
 
 import styled from 'styled-components/macro'
 
+import { API } from 'config'
+
 import { useSocket } from 'hooks'
 
 import { handleApiError } from 'helpers'
@@ -15,9 +17,7 @@ export const Guest: React.FC = ({ children }) => {
    useEffect(() => {
       const checkToken = async () => {
          try {
-            const url = '/api/global/auth/checkToken'
-
-            const response = await axios.get<CheckTokenResponse>(url)
+            const response = await axios.get<CheckTokenResponse>(API.checkToken)
 
             if (response) {
                const { role } = response.data

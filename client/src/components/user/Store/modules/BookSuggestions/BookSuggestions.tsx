@@ -15,32 +15,29 @@ export const BookSuggestions = ({
    setPaidBooks,
    withProfile,
 }: BookSuggestionsProps) => {
-   const { title, author, findByTitle, books, setTitle, setAuthor, switchFindBy, handleSort } =
-      useBookSuggestions({
-         freeBooks,
-         paidBooks,
-         setFreeBooks,
-         setPaidBooks,
-         withProfile,
-      })
+   const { findByTitle, books, switchFindBy, handleSort, control } = useBookSuggestions({
+      freeBooks,
+      paidBooks,
+      setFreeBooks,
+      setPaidBooks,
+      withProfile,
+   })
    return (
       <BookSuggestionsContainer>
          {findByTitle ? (
             <Input
+               {...{ control }}
                id="title"
                type="text"
-               value={title}
                placeholder="Type book's title..."
-               onChange={event => setTitle(event.target.value)}
                withBooksSuggestions
             />
          ) : (
             <Input
+               {...{ control }}
                id="author"
                type="text"
-               value={author}
                placeholder="Type author's name..."
-               onChange={event => setAuthor(event.target.value)}
                withBooksSuggestions
             />
          )}
