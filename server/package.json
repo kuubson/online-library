@@ -41,9 +41,6 @@
       "ws": "^8.8.1"
    },
    "devDependencies": {
-      "@babel/core": "^7.16.7",
-      "@babel/preset-env": "^7.16.7",
-      "@babel/preset-typescript": "^7.16.7",
       "@swc/core": "^1.2.241",
       "@types/bcrypt": "^5.0.0",
       "@types/cookie-parser": "^1.4.2",
@@ -60,16 +57,10 @@
       "@types/sharp": "^0.29.5",
       "@types/validator": "^13.7.1",
       "@types/web-push": "^3.3.2",
-      "@typescript-eslint/eslint-plugin": "^5.9.0",
-      "@typescript-eslint/parser": "^5.9.0",
-      "babel-watch": "^7.7.0",
+      "copyfiles": "^2.4.1",
       "dotenv": "^10.0.0",
       "eslint": "^8.6.0",
-      "eslint-config-prettier": "^8.3.0",
-      "eslint-plugin-prettier": "^4.0.0",
-      "prettier": "^2.5.1",
-      "sequelize-auto": "^0.8.8",
-      "typescript": "^4.5.4"
+      "sequelize-auto": "^0.8.8"
    },
    "eslintIgnore": [
       "/dist",

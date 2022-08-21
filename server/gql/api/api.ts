@@ -12,7 +12,7 @@ export const load = (path: string, isSchema = false) => {
 export const typeDefs = mergeTypeDefs([
    load('scalars', true),
    load('enums', true),
-   load('api/**/**/typeDefs', true),
+   load('./**/**/typeDefs', true),
 ])
 
 export const resolvers = [
