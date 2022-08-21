@@ -22,6 +22,8 @@ export const reduceImageSize = async (path: string, next: NextFunction) =>
                )
             )
          }
+
          fs.writeFileSync(path, buffer)
+
          next()
       })

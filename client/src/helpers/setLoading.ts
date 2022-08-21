@@ -1,7 +1,5 @@
 import { store } from 'redux/store'
 
-import { setLoading as setLoadingAction } from 'redux/reducers/loader'
+import { _setLoading } from 'redux/reducers/loader'
 
-export const setLoading = (loading: boolean) => {
-   store.dispatch(setLoadingAction(loading))
-}
+export const setLoading = (loading: boolean) => store.dispatch(_setLoading(loading))

@@ -20,6 +20,7 @@ export const subscribePushNotifications = async (url: string) => {
             }
          }
       }
+
       if (permissions) {
          const options = {
             name: 'push' as PermissionName,

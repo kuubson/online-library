@@ -7,20 +7,18 @@ type SliceState = {
    socket: SocketType
 }
 
-const initialState: SliceState = {
-   socket: null,
-}
+const initialState: SliceState = { socket: null }
 
 const socketSlice = createSlice({
    name: 'socket',
    initialState,
    reducers: {
-      setSocket: (state, { payload }: PayloadAction<SocketType>) => {
+      _setSocket: (state, { payload }: PayloadAction<SocketType>) => {
          state.socket = payload as any
       },
    },
 })
 
-export const { setSocket } = socketSlice.actions
+export const { _setSocket } = socketSlice.actions
 
-export default socketSlice.reducer
+export const socket = socketSlice.reducer

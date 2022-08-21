@@ -1,17 +1,20 @@
-import { useAppDispatch, useAppSelector } from 'redux/hooks'
+import { useSelector } from 'react-redux'
 
-import {
-   addToCart as addToCartAction,
-   removeFromCart as removeFromCartAction,
-   resetCart as resetCartAction,
-} from 'redux/reducers/cart'
+import { _addToCart, _removeFromCart, _resetCart } from 'redux/reducers/cart'
+
+import { useDispatch } from 'hooks'
 
 export const useCart = () => {
-   const dispatch = useAppDispatch()
-   const { cart } = useAppSelector(state => state.cart)
-   const resetCart = () => dispatch(resetCartAction())
-   const addToCart = (id: number) => dispatch(addToCartAction(id))
-   const removeFromCart = (id: number) => dispatch(removeFromCartAction(id))
+   const dispatch = useDispatch()
+
+   const { cart } = useSelector(state => state.cart)
+
+   const resetCart = () => dispatch(_resetCart())
+
+   const addToCart = (id: number) => dispatch(_addToCart(id))
+
+   const removeFromCart = (id: number) => dispatch(_removeFromCart(id))
+
    return {
       cart,
       resetCart,
