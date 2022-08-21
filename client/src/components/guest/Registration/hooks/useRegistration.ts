@@ -54,7 +54,7 @@ export const useRegistration = () => {
                )
             }
          } catch (error) {
-            handleApiValidation(error, setForm)
+            handleApiValidation(error as ApiError, setForm)
          }
       }
    }

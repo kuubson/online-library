@@ -2,8 +2,7 @@ import { unstable_HistoryRouter as HistoryRouter, Navigate, Route, Routes } from
 
 import styled from 'styled-components/macro'
 
-import ApiFeedback from 'components/shared/ApiFeedback/ApiFeedback'
-import Loader from 'components/shared/Loader/Loader'
+import { ApiFeedback, Loader } from 'components/shared'
 
 import { useApiFeedback, useLoader } from 'hooks'
 
@@ -23,13 +22,17 @@ import {
    StoreRoute,
 } from './routes'
 
-const AppContainer = styled.main`
-   height: 100%;
-`
+declare global {
+   interface Window {
+      FB: FBType
+   }
+}
 
-const App = () => {
+export const App = () => {
    const { loading } = useLoader()
+
    const { showApiFeedback } = useApiFeedback()
+
    return (
       <AppContainer>
          {loading && <Loader />}
@@ -57,4 +60,6 @@ const App = () => {
    )
 }
 
-export default App
+const AppContainer = styled.main`
+   height: 100%;
+`

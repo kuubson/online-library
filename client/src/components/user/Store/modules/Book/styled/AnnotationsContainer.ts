@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 export const AnnotationsContainer = styled.div`
    position: absolute;

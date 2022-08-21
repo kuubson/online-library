@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components/macro'
 
 const dotAnimation = keyframes`
     80%, 100% { 

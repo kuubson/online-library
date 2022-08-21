@@ -13,9 +13,7 @@ export const usePasswordRecovery = () => {
       const checkPasswordToken = async () => {
          try {
             const url = '/api/user/auth/checkPasswordToken'
-            await axios.post(url, {
-               passwordToken,
-            })
+            await axios.post(url, { passwordToken })
          } catch (error) {
             history.push('/login')
          }
@@ -60,7 +58,7 @@ export const usePasswordRecovery = () => {
                )
             }
          } catch (error) {
-            handleApiValidation(error, setForm)
+            handleApiValidation(error as ApiError, setForm)
          }
       }
    }

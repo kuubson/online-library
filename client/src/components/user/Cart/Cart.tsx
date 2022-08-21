@@ -1,7 +1,10 @@
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { useState } from 'react'
-import styled from 'styled-components'
+
+import styled from 'styled-components/macro'
+
+import { REACT_APP_STRIPE_PUBLISHABLE_KEY } from 'config'
 
 import * as Styled from './styled'
 
@@ -12,31 +15,23 @@ import * as StyledStore from 'components/user/Store/styled'
 
 import { useCart } from './hooks'
 
-import StripePopup from './modules/StripePopup/StripePopup'
+import { StripePopup } from './modules/'
 
-const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLISHABLE_KEY!)
+const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLISHABLE_KEY)
 
-type StyledProps = {
-   empty?: boolean
-}
-
-const CartContainer = styled(StoreContainer)<StyledProps>``
-
-interface ICart {
+type CarsProps = {
    shouldMenuExpand?: boolean
 }
 
-const Cart = ({ shouldMenuExpand }: ICart) => {
+export const Cart = ({ shouldMenuExpand }: CarsProps) => {
    const { books, price, createPayPalPayment } = useCart()
+
    const [shouldStripePopupAppear, setShouldStripePopupAppear] = useState(false)
+
    const areThereBooks = !!books.length
+
    return (
-      <Elements
-         stripe={stripePromise}
-         options={{
-            locale: 'en',
-         }}
-      >
+      <Elements stripe={stripePromise} options={{ locale: 'en' }}>
          <CartContainer shouldMenuExpand={shouldMenuExpand} empty={!areThereBooks}>
             {shouldStripePopupAppear && (
                <StripePopup price={price} setShouldStripePopupAppear={setShouldStripePopupAppear} />
@@ -58,7 +53,7 @@ const Cart = ({ shouldMenuExpand }: ICart) => {
                   <Styled.Summary>
                      {books.map(({ id, title, price }) => (
                         <Styled.Book key={id}>
-                           Book "{title}" 1 x ${price?.toFixed(2)}
+                           {`Book "{${title}}" 1 x ${price?.toFixed(2)}`}
                         </Styled.Book>
                      ))}
                   </Styled.Summary>
@@ -78,4 +73,8 @@ const Cart = ({ shouldMenuExpand }: ICart) => {
    )
 }
 
-export default Cart
+type CartContainerProps = {
+   empty?: boolean
+}
+
+const CartContainer = styled(StoreContainer)<CartContainerProps>``

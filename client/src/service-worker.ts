@@ -5,6 +5,8 @@ import { createHandlerBoundToURL, precacheAndRoute } from 'workbox-precaching'
 import { registerRoute } from 'workbox-routing'
 import { StaleWhileRevalidate } from 'workbox-strategies'
 
+import { PUBLIC_URL } from 'config'
+
 declare const self: ServiceWorkerGlobalScope
 
 clientsClaim()
@@ -23,7 +25,7 @@ registerRoute(({ request, url }: { request: Request; url: URL }) => {
       return false
    }
    return true
-}, createHandlerBoundToURL(PUBLIC_URL + '/index.html'))
+}, createHandlerBoundToURL(`${PUBLIC_URL}/index.html`))
 
 registerRoute(
    ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png'),
@@ -42,6 +44,7 @@ self.addEventListener('message', event => {
 self.addEventListener('push', event => {
    if (event.data) {
       const { tag, title, body, image, icon, data } = event.data.json()
+
       const focused = () =>
          self.clients
             .matchAll({
@@ -50,44 +53,46 @@ self.addEventListener('push', event => {
             })
             .then(windows => {
                let focused = false
+
                for (let i = 0; i < windows.length; i++) {
                   if (windows[i].focused) {
                      focused = true
                      break
                   }
                }
+
                return focused
             })
+
       event.waitUntil(
-         self.registration
-            .getNotifications({
-               tag,
+         self.registration.getNotifications({ tag }).then(notifications => {
+            let notificationExists = false
+
+            let messagesAmount = 1
+
+            notifications.forEach(notification => {
+               if (notification) {
+                  notificationExists = true
+                  messagesAmount = notification.data.messagesAmount + 1
+                  notification.close()
+               }
             })
-            .then(notifications => {
-               let notificationExists = false
-               let messagesAmount = 1
-               notifications.forEach(notification => {
-                  if (notification) {
-                     notificationExists = true
-                     messagesAmount = notification.data.messagesAmount + 1
-                     notification.close()
-                  }
-               })
-               return focused().then(focused =>
-                  !focused
-                     ? self.registration.showNotification(title, {
-                          tag,
-                          body: notificationExists ? `${messagesAmount} new messages` : body,
-                          image,
-                          icon,
-                          data: {
-                             ...data,
-                             messagesAmount,
-                          },
-                       })
-                     : null
-               )
-            })
+
+            return focused().then(focused =>
+               !focused
+                  ? self.registration.showNotification(title, {
+                       tag,
+                       body: notificationExists ? `${messagesAmount} new messages` : body,
+                       image,
+                       icon,
+                       data: {
+                          ...data,
+                          messagesAmount,
+                       },
+                    })
+                  : null
+            )
+         })
       )
    }
 })
@@ -104,9 +109,9 @@ self.addEventListener('notificationclick', event => {
             type: 'window',
             includeUncontrolled: true,
          })
-         .then(clientsList => {
-            for (let i = 0; i < clientsList.length; i++) {
-               const client = clientsList[i]
+         .then(clients => {
+            for (let i = 0; i < clients.length; i++) {
+               const client = clients[i]
                if ('focus' in client) return client.focus()
             }
             return self.clients.openWindow(event.notification.data.url)

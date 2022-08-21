@@ -22,12 +22,12 @@ const BORROW_BOOK = gql`
    }
 `
 
-type BookPopupHook = {
+type UseBookPopupProps = {
    id: number
    setBookPopupData: ReactDispatch<IBook | undefined>
 }
 
-export const useBookPopup = ({ id, setBookPopupData }: BookPopupHook) => {
+export const useBookPopup = ({ id, setBookPopupData }: UseBookPopupProps) => {
    const [borrowBook] = useMutation<Mutation>(BORROW_BOOK)
    const { cart, addToCart } = useCart()
    const handleBorrowingBook = async () => {

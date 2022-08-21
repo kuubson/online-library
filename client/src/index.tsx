@@ -3,7 +3,8 @@ import { StrictMode } from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
-import { ThemeProvider } from 'styled-components'
+
+import { ThemeProvider } from 'styled-components/macro'
 
 import { client } from 'gql/client'
 
@@ -12,17 +13,11 @@ import { persistor, store } from 'redux/store'
 import 'assets/styles/index.scss'
 import { theme } from 'assets/styles/theme'
 
-import App from 'components/App'
-import Loader from 'components/shared/Loader/Loader'
-import Wrapper from 'components/shared/Wrapper/Wrapper'
+import { Loader, Wrapper } from 'components/shared'
+
+import { App } from 'components/App'
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
-
-declare global {
-   interface Window {
-      FB: any
-   }
-}
 
 render(
    <StrictMode>

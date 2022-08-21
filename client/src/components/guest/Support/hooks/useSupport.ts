@@ -27,9 +27,7 @@ export const useSupport = (withPasswordSupport: boolean | undefined) => {
       if (validate()) {
          try {
             const url = `/api/user/auth/${withPasswordSupport ? 'recoverPassword' : 'resendEmail'}`
-            const response = await axios.post(url, {
-               email,
-            })
+            const response = await axios.post(url, { email })
             if (response) {
                if (withPasswordSupport) {
                   return setApiFeedback(
@@ -47,7 +45,7 @@ export const useSupport = (withPasswordSupport: boolean | undefined) => {
                )
             }
          } catch (error) {
-            handleApiValidation(error, setForm)
+            handleApiValidation(error as ApiError, setForm)
          }
       }
    }

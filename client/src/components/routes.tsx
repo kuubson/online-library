@@ -5,7 +5,7 @@ import PasswordRecovery from 'components/guest/PasswordRecovery/PasswordRecovery
 import Registration from 'components/guest/Registration/Registration'
 import Support from 'components/guest/Support/Support'
 import { Guest, User } from 'components/shared/roles'
-import Cart from 'components/user/Cart/Cart'
+import { Cart } from 'components/user/Cart/Cart'
 import Chat from 'components/user/Chat/Chat'
 import Profile from 'components/user/Profile/Profile'
 import Store from 'components/user/Store/Store'

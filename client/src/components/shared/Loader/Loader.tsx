@@ -1,6 +1,19 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 import * as Styled from './styled'
+
+export const Loader = () => (
+   <LoaderContainer>
+      <Styled.Circle>
+         <Styled.Dot />
+         <Styled.Dot />
+         <Styled.Dot />
+         <Styled.Dot />
+         <Styled.Dot />
+         <Styled.Dot />
+      </Styled.Circle>
+   </LoaderContainer>
+)
 
 export const LoaderContainer = styled.section`
    width: 100%;
@@ -15,20 +28,3 @@ export const LoaderContainer = styled.section`
    left: 0px;
    z-index: 5;
 `
-
-const Loader = () => {
-   return (
-      <LoaderContainer>
-         <Styled.Circle>
-            <Styled.Dot />
-            <Styled.Dot />
-            <Styled.Dot />
-            <Styled.Dot />
-            <Styled.Dot />
-            <Styled.Dot />
-         </Styled.Circle>
-      </LoaderContainer>
-   )
-}
-
-export default Loader

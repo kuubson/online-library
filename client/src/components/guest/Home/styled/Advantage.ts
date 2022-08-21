@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 export const Advantage = styled.li`
    font-size: 20px;

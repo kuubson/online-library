@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import styled from 'styled-components'
+
+import styled from 'styled-components/macro'
 
 import { StoreContainer } from 'components/user/Store/Store'
 import BookSuggestions from 'components/user/Store/modules/BookSuggestions/BookSuggestions'

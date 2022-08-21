@@ -1,20 +1,29 @@
+import { NODE_ENV } from 'config'
+
 import { setApiFeedback } from 'helpers'
 
 import { history } from 'utils'
 
 const production = NODE_ENV === 'production'
 
-export const handleApiError = (error: any) => {
+export const handleApiError = (error: ApiError) => {
    if (!production) {
       console.log(error)
    }
+
    if (error.response) {
-      const status = error.response.status
+      const responseStatus = error.response.status
+
       const { errorHeader, errorMessage } = error.response.data
-      status === 401 && history.push('/login')
+
+      if (responseStatus === 401) {
+         history.push('/login')
+      }
+
       if (errorHeader && errorMessage) {
          return setApiFeedback(errorHeader, errorMessage, 'Okey')
       }
+
       return setApiFeedback(
          'Connecting to the server',
          `A connection couldn't be established with the server or an unexpected problem occurred on its side`,
@@ -22,6 +31,7 @@ export const handleApiError = (error: any) => {
          () => production && window.location.reload()
       )
    }
+
    if (error.request) {
       return setApiFeedback(
          'Request Processing',
@@ -30,6 +40,7 @@ export const handleApiError = (error: any) => {
          () => production && window.location.reload()
       )
    }
+
    setApiFeedback(
       'Request Processing',
       'An unexpected problem has occurred in the application',

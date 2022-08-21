@@ -11,8 +11,8 @@ import { ApiError } from 'utils'
 import { Route } from 'types/express'
 
 export const authenticateEmail: Route = async (req, res, next) => {
-   await Connection.transaction(async transaction => {
-      try {
+   try {
+      await Connection.transaction(async transaction => {
          const { token } = req.body
 
          verify(token, JWT_KEY)
@@ -38,24 +38,20 @@ export const authenticateEmail: Route = async (req, res, next) => {
          await authentication.update({ authenticated: true }, { transaction })
 
          res.send()
-      } catch (error) {
-         if (error instanceof JsonWebTokenError) {
-            if (error instanceof TokenExpiredError) {
-               throw new ApiError(
-                  'Email address authentication',
-                  'The activation link has expired',
-                  400
-               )
-            }
+      })
+   } catch (error) {
+      if (error instanceof JsonWebTokenError) {
+         if (error instanceof TokenExpiredError) {
             throw new ApiError(
                'Email address authentication',
-               'The activation link is invalid',
+               'The activation link has expired',
                400
             )
          }
-         next(error)
+         throw new ApiError('Email address authentication', 'The activation link is invalid', 400)
       }
-   })
+      next(error)
+   }
 }
 
 export const validation = () => [validator.validateProperty('token').isJWT()]

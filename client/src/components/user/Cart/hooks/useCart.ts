@@ -26,11 +26,7 @@ const GET_BOOKS = gql`
 export const useCart = () => {
    const { paymentId, PayerID } = useQueryParams()
    const { cart, resetCart } = useCartHook()
-   const { data } = useQuery<Query>(GET_BOOKS, {
-      variables: {
-         ids: cart,
-      },
-   })
+   const { data } = useQuery<Query>(GET_BOOKS, { variables: { ids: cart } })
    const books = data ? data.books : []
    const [price, setPrice] = useState('')
    useEffect(() => {

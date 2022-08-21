@@ -13,8 +13,8 @@ import { PasswordTokendata } from 'types'
 import { Route } from 'types/express'
 
 export const changePassword: Route = async (req, res, next) => {
-   await Connection.transaction(async transaction => {
-      try {
+   try {
+      await Connection.transaction(async transaction => {
          const { password, passwordToken } = req.body
 
          const { email } = jwt.verify(passwordToken, JWT_KEY) as PasswordTokendata
@@ -39,20 +39,16 @@ export const changePassword: Route = async (req, res, next) => {
          )
 
          res.send()
-      } catch (error) {
-         if (error instanceof JsonWebTokenError) {
-            if (error instanceof TokenExpiredError) {
-               throw new ApiError(
-                  'Password recovery',
-                  'The password recovery link has expired',
-                  400
-               )
-            }
-            throw new ApiError('Password recovery', 'The password recovery link is invalid', 400)
+      })
+   } catch (error) {
+      if (error instanceof JsonWebTokenError) {
+         if (error instanceof TokenExpiredError) {
+            throw new ApiError('Password recovery', 'The password recovery link has expired', 400)
          }
-         next(error)
+         throw new ApiError('Password recovery', 'The password recovery link is invalid', 400)
       }
-   })
+      next(error)
+   }
 }
 
 export const validation = () => [

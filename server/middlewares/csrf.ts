@@ -1,9 +1,9 @@
 import csurf from 'csurf'
 import { Application, NextFunction, Request, Response } from 'express'
 
-import { cookie } from 'utils'
+import { unless } from 'middlewares'
 
-import { unless } from './'
+import { cookie } from 'utils'
 
 export const initializeCsrf = async (app: Application) => {
    app.use(unless('/graphql', csurf({ cookie: cookie() })))

@@ -1,0 +1,13 @@
+{
+   "processors": ["stylelint-processor-styled-components"],
+   "extends": ["stylelint-config-styled-components"],
+   "customSyntax": "postcss-scss",
+   "rules": {
+      "custom-property-pattern": "^[a-z][a-zA-Z0-9]+$",
+      "declaration-block-no-duplicate-properties": true,
+      "no-descending-specificity": true,
+      "color-hex-case": "lower",
+      "value-no-vendor-prefix": null,
+      "property-no-vendor-prefix": null
+   }
+}

@@ -3,14 +3,14 @@ import { store } from 'redux/store'
 
 import { setApiFeedback as setApiFeedbackAction } from 'redux/reducers/apiFeedback'
 
-type ApiFeedbackSetter = (
+type SetApiFeedbackFn = (
    header: string,
    message: string,
    buttonText: string,
    callback?: () => void
 ) => void
 
-export const setApiFeedback: ApiFeedbackSetter = (
+export const setApiFeedback: SetApiFeedbackFn = (
    header,
    message,
    buttonText = 'Okey',

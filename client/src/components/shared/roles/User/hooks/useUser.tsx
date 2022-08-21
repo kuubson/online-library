@@ -39,7 +39,7 @@ export const useUser = (withChat: boolean | undefined) => {
                }
             }
          } catch (error) {
-            handleApiError(error)
+            handleApiError(error as ApiError)
          }
       }
       checkToken()

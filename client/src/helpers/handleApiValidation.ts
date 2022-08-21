@@ -1,4 +1,4 @@
-type ApiValidationHandler = <T>(error: any, setForm: ReactDispatch<T>) => void
+type ApiValidationHandler = <T>(error: ApiError, setForm: ReactDispatch<T>) => void
 
 type Response = {
    status: number

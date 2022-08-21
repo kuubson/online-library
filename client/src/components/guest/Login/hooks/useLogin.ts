@@ -54,7 +54,7 @@ export const useLogin = () => {
                history.push('/store')
             }
          } catch (error) {
-            handleApiValidation(error, setForm)
+            handleApiValidation(error as ApiError, setForm)
          }
       }
    }

@@ -1,3 +1,5 @@
+import { NODE_ENV, PUBLIC_URL } from 'config'
+
 const isLocalhost = Boolean(
    window.location.hostname === 'localhost' ||
       window.location.hostname === '[::1]' ||
@@ -67,9 +69,7 @@ function registerValidSW(swUrl: string, config?: Config) {
 }
 
 function checkValidServiceWorker(swUrl: string, config?: Config) {
-   fetch(swUrl, {
-      headers: { 'Service-Worker': 'script' },
-   })
+   fetch(swUrl, { headers: { 'Service-Worker': 'script' } })
       .then(response => {
          const contentType = response.headers.get('content-type')
          if (

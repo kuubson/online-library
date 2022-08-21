@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
+
+import styled from 'styled-components/macro'
 
 import { GuestContainer } from 'components/shared/roles/Guest/Guest'
 import Menu from 'components/user/Store/modules/Menu/Menu'

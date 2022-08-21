@@ -1,6 +1,7 @@
 import { CardElement } from '@stripe/react-stripe-js'
 import { useState } from 'react'
-import styled from 'styled-components'
+
+import styled from 'styled-components/macro'
 
 import * as Styled from './styled'
 
@@ -13,14 +14,12 @@ import { useIsKeyboardOpened } from 'hooks'
 
 import { useStripePopup } from './hooks'
 
-const StripePopupContainer = styled(BookPopupContainer)``
-
 interface IStripePopup {
    price: string | undefined
    setShouldStripePopupAppear: ReactDispatch<boolean>
 }
 
-const StripePopup = ({ price, setShouldStripePopupAppear }: IStripePopup) => {
+export const StripePopup = ({ price, setShouldStripePopupAppear }: IStripePopup) => {
    const isKeyboardOpened = useIsKeyboardOpened()
    const { handlePaying } = useStripePopup(setShouldStripePopupAppear)
    const [error, setError] = useState('')
@@ -36,9 +35,7 @@ const StripePopup = ({ price, setShouldStripePopupAppear }: IStripePopup) => {
                            base: {
                               iconColor: '#0088ff',
                               color: 'black',
-                              '::placeholder': {
-                                 color: 'black',
-                              },
+                              '::placeholder': { color: 'black' },
                            },
                         },
                         hidePostalCode: true,
@@ -63,4 +60,4 @@ const StripePopup = ({ price, setShouldStripePopupAppear }: IStripePopup) => {
    )
 }
 
-export default StripePopup
+const StripePopupContainer = styled(BookPopupContainer)``

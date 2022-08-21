@@ -1,12 +1,12 @@
-import axios from 'axios'
+import _axios from 'axios'
 
 import { handleApiError, setLoading } from 'helpers'
 
-const apiAxios = axios.create()
+export const axios = _axios.create()
 
 let timeoutId: number | undefined
 
-apiAxios.interceptors.request.use(
+axios.interceptors.request.use(
    request => {
       !timeoutId && (timeoutId = window.setTimeout(() => setLoading(true), 500))
       return request
@@ -20,7 +20,7 @@ apiAxios.interceptors.request.use(
    }
 )
 
-apiAxios.interceptors.response.use(
+axios.interceptors.response.use(
    response => {
       setLoading(false)
       clearTimeout(timeoutId)
@@ -35,5 +35,3 @@ apiAxios.interceptors.response.use(
       throw error
    }
 )
-
-export default apiAxios

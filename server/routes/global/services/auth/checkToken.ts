@@ -12,8 +12,8 @@ import { AuthTokenData } from 'types'
 import { Route } from 'types/express'
 
 export const checkToken: Route = async (req, res, next) => {
-   await Connection.transaction(async transaction => {
-      try {
+   try {
+      await Connection.transaction(async transaction => {
          const { token } = req.cookies
 
          if (!token) {
@@ -47,24 +47,24 @@ export const checkToken: Route = async (req, res, next) => {
                )
             }
          }
-      } catch (error) {
-         if (error instanceof JsonWebTokenError) {
-            if (error instanceof TokenExpiredError) {
-               throw new ApiError(
-                  'Authorization',
-                  'The authentication cookie has expired, log in again',
-                  401
-               )
-            }
+      })
+   } catch (error) {
+      if (error instanceof JsonWebTokenError) {
+         if (error instanceof TokenExpiredError) {
             throw new ApiError(
                'Authorization',
-               'The authentication cookie is invalid, log in again',
+               'The authentication cookie has expired, log in again',
                401
             )
          }
-         next(error)
+         throw new ApiError(
+            'Authorization',
+            'The authentication cookie is invalid, log in again',
+            401
+         )
       }
-   })
+      next(error)
+   }
 }
 
 export const validation = () => [validator.validateProperty('token').optional()]

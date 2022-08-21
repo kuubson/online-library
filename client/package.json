@@ -1,7 +1,12 @@
 {
    "name": "client",
-   "version": "0.1.0",
    "private": true,
+   "scripts": {
+      "start": "react-scripts start",
+      "check": "stylelint src/**/*.{ts,tsx} && tsc --noEmit",
+      "build": "react-scripts build",
+      "test": "react-scripts test"
+   },
    "dependencies": {
       "@apollo/client": "^3.5.6",
       "@reduxjs/toolkit": "^1.7.1",
@@ -44,6 +49,7 @@
       "workbox-streams": "^5.1.4"
    },
    "devDependencies": {
+      "@stylelint/postcss-css-in-js": "^0.38.0",
       "@types/file-saver": "^2.0.4",
       "@types/react-router-dom": "^5.3.2",
       "@types/sanitize-html": "^2.6.1",
@@ -55,12 +61,11 @@
       "eslint-config-prettier": "^8.3.0",
       "eslint-plugin-prettier": "^4.0.0",
       "eslint-plugin-react": "^7.28.0",
-      "prettier": "^2.5.1"
-   },
-   "scripts": {
-      "start": "react-scripts start",
-      "lint": "eslint .",
-      "build": "npm run lint && react-scripts build"
+      "postcss-scss": "^4.0.4",
+      "prettier": "^2.5.1",
+      "stylelint": "^14.10.0",
+      "stylelint-config-styled-components": "^0.1.1",
+      "stylelint-processor-styled-components": "^1.10.0"
    },
    "eslintConfig": {
       "extends": [
@@ -68,6 +73,9 @@
          "react-app/jest"
       ]
    },
+   "eslintIgnore": [
+      "/build"
+   ],
    "browserslist": {
       "production": [
          ">0.2%",

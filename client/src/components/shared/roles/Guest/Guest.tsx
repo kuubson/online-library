@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect } from 'react'
-import styled from 'styled-components'
+
+import styled from 'styled-components/macro'
 
 import { useSocket } from 'hooks'
 
@@ -32,7 +33,7 @@ export const Guest: React.FC = ({ children }) => {
                }
             }
          } catch (error) {
-            handleApiError(error)
+            handleApiError(error as ApiError)
          }
       }
       checkToken()

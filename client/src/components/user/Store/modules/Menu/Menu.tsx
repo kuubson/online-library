@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router'
-import styled, { css } from 'styled-components'
+
+import styled, { css } from 'styled-components/macro'
 
 import * as Styled from './styled'
 

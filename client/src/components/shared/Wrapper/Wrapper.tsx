@@ -1,18 +1,16 @@
 import React from 'react'
-import styled from 'styled-components'
 
-import ApiFeedback from 'components/shared/ApiFeedback/ApiFeedback'
-import Loader from 'components/shared/Loader/Loader'
+import styled from 'styled-components/macro'
+
+import { ApiFeedback, Loader } from 'components/shared'
 
 import { useApiFeedback, useLoader } from 'hooks'
 
-const WrapperContainer = styled.section`
-   height: 100%;
-`
-
-const Wrapper: React.FC = ({ children }) => {
+export const Wrapper: React.FC = ({ children }) => {
    const { loading } = useLoader()
+
    const { showApiFeedback } = useApiFeedback()
+
    return (
       <WrapperContainer>
          {loading && <Loader />}
@@ -22,4 +20,6 @@ const Wrapper: React.FC = ({ children }) => {
    )
 }
 
-export default Wrapper
+const WrapperContainer = styled.section`
+   height: 100%;
+`

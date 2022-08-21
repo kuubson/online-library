@@ -1,26 +1,20 @@
 import axios from 'axios'
 
-const urlBase64ToUint8Array = (base64String: string) => {
-   const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
-   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/')
-   const rawData = window.atob(base64)
-   const outputArray = new Uint8Array(rawData.length)
-   for (let i = 0; i < rawData.length; ++i) {
-      outputArray[i] = rawData.charCodeAt(i)
-   }
-   return outputArray
-}
+import { REACT_APP_PUBLIC_VAPID_KEY } from 'config'
+
+import { urlBase64ToUint8Array } from 'helpers'
 
 export const subscribePushNotifications = async (url: string) => {
    try {
       const { permissions, serviceWorker } = navigator
+
       const handlePushNotifications = async () => {
          if (serviceWorker) {
             const { pushManager } = await serviceWorker.ready
             if (pushManager) {
                const subscription = await pushManager.subscribe({
                   userVisibleOnly: true,
-                  applicationServerKey: urlBase64ToUint8Array(REACT_APP_PUBLIC_VAPID_KEY!),
+                  applicationServerKey: urlBase64ToUint8Array(REACT_APP_PUBLIC_VAPID_KEY),
                })
                await axios.post(url, subscription)
             }
@@ -28,10 +22,12 @@ export const subscribePushNotifications = async (url: string) => {
       }
       if (permissions) {
          const options = {
-            name: 'push',
+            name: 'push' as PermissionName,
             userVisibleOnly: true,
          }
-         const { state } = await permissions.query(options as any)
+
+         const { state } = await permissions.query(options)
+
          switch (state) {
             case 'granted':
                handlePushNotifications()

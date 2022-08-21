@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 import { Submit } from 'components/guest/Registration/styled'
 

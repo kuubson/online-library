@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 import { fadeIn } from 'assets/animations'
 
@@ -10,18 +10,14 @@ import { useApiFeedback } from 'hooks'
 
 import { setApiFeedback } from 'helpers'
 
-const ApiFeedbackContainer = styled(LoaderContainer)`
-   flex-direction: column;
-   animation: ${fadeIn} 0.5s ease-in-out;
-   z-index: 6;
-`
-
-const ApiFeedback = () => {
+export const ApiFeedback = () => {
    const { header, message, buttonText, callback } = useApiFeedback()
+
    const handleOnClick = () => {
       callback()
       setApiFeedback('', '', '')
    }
+
    return (
       <ApiFeedbackContainer>
          <Styled.HeaderContainer>
@@ -33,4 +29,8 @@ const ApiFeedback = () => {
    )
 }
 
-export default ApiFeedback
+const ApiFeedbackContainer = styled(LoaderContainer)`
+   flex-direction: column;
+   animation: ${fadeIn} 0.5s ease-in-out;
+   z-index: 6;
+`

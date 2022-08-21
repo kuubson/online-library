@@ -4,9 +4,11 @@ import { NextFunction, Response } from 'express'
 
 import { Connection } from 'database'
 
+import { filesInfo } from 'shared'
+
 import { deleteTemporaryFile } from 'helpers'
 
-import { ApiError, baseUrl, filesInfo } from 'utils'
+import { ApiError, baseUrl } from 'utils'
 
 import { ExpressError } from 'types'
 import { UserRequest } from 'types/express'

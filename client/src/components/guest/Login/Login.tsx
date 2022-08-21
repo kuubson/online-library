@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 import { RegistrationContainer } from 'components/guest/Registration/Registration'
 import HomeButton from 'components/guest/Registration/modules/HomeButton'

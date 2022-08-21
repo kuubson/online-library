@@ -1,8 +1,10 @@
+import { filesInfo } from 'shared'
+
 import { multerFile } from 'middlewares'
 
 import { reduceImageSize } from 'helpers'
 
-import { ApiError, filesInfo } from 'utils'
+import { ApiError } from 'utils'
 
 import { MulterMiddleware } from 'types/multer'
 
