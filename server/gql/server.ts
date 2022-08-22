@@ -5,17 +5,47 @@ import { PubSub } from 'graphql-subscriptions'
 import { useServer } from 'graphql-ws/lib/use/ws'
 import type { Server } from 'http'
 import { verify } from 'jsonwebtoken'
+import type { PassportStatic } from 'passport'
 import { WebSocketServer } from 'ws'
 
 import { JWT_KEY } from 'config'
 
 import { schema } from 'gql/schema'
 
-import { getCookie } from 'utils'
+import { getCookie } from 'helpers'
+
+import { ApiError } from 'utils'
 
 import type { AuthTokenData, GraphqlContext } from 'types'
 
-export const initializeGraphQL = async (app: Application, server: Server) => {
+export const initializeGraphQL = async (
+   app: Application,
+   server: Server,
+   passport: PassportStatic
+) => {
+   app.use('/graphql', (req, res, next) => {
+      passport.authenticate('jwt', { session: false }, (error, { user, role }) => {
+         try {
+            if (error || !user) {
+               throw new ApiError(
+                  'Authorization',
+                  'The authentication cookie is invalid, log in again',
+                  401
+               )
+            }
+
+            req.user = {
+               user,
+               role,
+            }
+
+            next()
+         } catch (error) {
+            next(error)
+         }
+      })(req, res, next)
+   })
+
    const pubsub = new PubSub()
 
    const wsServer = new WebSocketServer({
