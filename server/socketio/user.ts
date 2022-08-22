@@ -9,7 +9,7 @@ import type { User as UserType } from 'database/models/User'
 
 import { updateReadByProperty } from 'routes/user/services/chat/helpers'
 
-import { getCookie } from 'utils'
+import { getCookie } from 'helpers'
 
 import type { AuthTokenData } from 'types'
 

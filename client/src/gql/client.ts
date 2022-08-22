@@ -19,20 +19,20 @@ const errorHandler = onError(({ graphQLErrors, networkError }) => {
    if (graphQLErrors) {
       const error = graphQLErrors as GraphqlError
       if (error) {
-         const errorHeader = error.exception.errorHeader || 'Request Processing'
+         const errorHeader = error.exception?.errorHeader || 'Request Processing'
 
          const errorMessage =
-            error.exception.errorMessage || 'The server cannot temporarily process your request'
+            error.exception?.errorMessage || 'The server cannot temporarily process your request'
 
          switch (true) {
-            case errorHeader === 'Request Processing':
-               setApiFeedback(
+            case errorHeader === 'Request Processing': {
+               return setApiFeedback(
                   'Request Processing',
                   'The server cannot temporarily process your request',
                   'Refresh the application',
                   () => NODE_ENV === 'production' && window.location.reload()
                )
-               break
+            }
             default:
                setApiFeedback(errorHeader, errorMessage, 'Okey')
          }

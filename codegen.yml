@@ -16,8 +16,8 @@ generates:
       - "typescript-resolvers"
       - add:
           content:
-            - "/* eslint-disable @typescript-eslint/ban-types */"
-            - /* eslint-disable @typescript-eslint/consistent-type-imports */"
+            - /* eslint-disable @typescript-eslint/ban-types */
+            - /* eslint-disable @typescript-eslint/consistent-type-imports */
     config:
       contextType: ./#GraphqlContext
 config:
