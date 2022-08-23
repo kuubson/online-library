@@ -6,7 +6,7 @@ import { email, uncheckedPassword, yup } from 'shared'
 
 import { useForm } from 'hooks'
 
-import { handleApiValidation, setApiFeedback } from 'helpers'
+import { setApiFeedback } from 'helpers'
 
 import { axios, history } from 'utils'
 
@@ -16,15 +16,11 @@ const schema = yup.object({
 })
 
 export const useLogin = () => {
-   const { submit, control, errors, getValues, setError } = useForm({ schema })
+   const { submit, control, errors, getValues } = useForm({ schema })
 
    const login = async () => {
-      try {
-         await axios.post(API.login, getValues())
-         history.push('/store')
-      } catch (error) {
-         handleApiValidation(error as ApiError, setError)
-      }
+      await axios.post(API.login, getValues())
+      history.push('/store')
    }
 
    const loginWithFacebook = async (event: React.MouseEvent) => {

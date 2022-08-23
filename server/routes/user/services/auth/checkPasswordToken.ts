@@ -4,7 +4,9 @@ import { JWT_KEY } from 'config'
 
 import { User } from 'database'
 
-import { validator } from 'helpers'
+import { yupValidation } from 'middlewares'
+
+import { yup } from 'helpers'
 
 import { ApiError } from 'utils'
 
@@ -40,4 +42,4 @@ export const checkPasswordToken: Route = async (req, res, next) => {
    }
 }
 
-export const validation = () => [validator.validateProperty('passwordToken').isJWT()]
+export const validation = yupValidation({ body: { passwordToken: yup.string().jwt().required() } })

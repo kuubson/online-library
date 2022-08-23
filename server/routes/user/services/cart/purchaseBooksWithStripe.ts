@@ -1,11 +1,14 @@
-import { totalBooksPrice } from 'helpers/totalBooksPrice'
 import Stripe from 'stripe'
 
 import { STRIPE_SECRET_KEY } from 'config'
 
 import { Book, Connection } from 'database'
 
-import { validator } from 'helpers'
+import { string } from 'shared'
+
+import { yupValidation } from 'middlewares'
+
+import { totalBooksPrice, yup } from 'helpers'
 
 import { ApiError } from 'utils'
 
@@ -69,7 +72,9 @@ export const purchaseBooksWithStripe: ProtectedRoute = async (req, res, next) =>
    }
 }
 
-export const validation = () => [
-   validator.validateProperty('paymentId'),
-   validator.validateArray('products', false),
-]
+export const validation = yupValidation({
+   body: {
+      paymentId: string,
+      products: yup.array().required().min(1).of(string),
+   },
+})

@@ -4,7 +4,9 @@ import { JWT_KEY } from 'config'
 
 import { Authentication, Connection } from 'database'
 
-import { validator } from 'helpers'
+import { yupValidation } from 'middlewares'
+
+import { yup } from 'helpers'
 
 import { ApiError } from 'utils'
 
@@ -54,4 +56,4 @@ export const authenticateEmail: Route = async (req, res, next) => {
    }
 }
 
-export const validation = () => [validator.validateProperty('token').isJWT()]
+export const validation = yupValidation({ cookies: { token: yup.string().jwt() } })

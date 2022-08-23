@@ -7,7 +7,7 @@ import { password, repeatedPassword, yup } from 'shared'
 
 import { useForm } from 'hooks'
 
-import { handleApiValidation, setApiFeedback } from 'helpers'
+import { setApiFeedback } from 'helpers'
 
 import { axios, history } from 'utils'
 
@@ -30,23 +30,19 @@ export const usePasswordRecovery = () => {
       checkPasswordToken()
    }, [])
 
-   const { submit, control, errors, getValues, setError } = useForm({ schema })
+   const { submit, control, errors, getValues } = useForm({ schema })
 
    const changePassword = async () => {
-      try {
-         await axios.post(API.changePassword, {
-            ...getValues(),
-            passwordToken,
-         })
-         setApiFeedback(
-            'Password Recovery',
-            'Your password has been successfully changed, you can login now',
-            'Okey',
-            () => history.push('/login')
-         )
-      } catch (error) {
-         handleApiValidation(error as ApiError, setError)
-      }
+      await axios.post(API.changePassword, {
+         ...getValues(),
+         passwordToken,
+      })
+      setApiFeedback(
+         'Password Recovery',
+         'Your password has been successfully changed, you can login now',
+         'Okey',
+         () => history.push('/login')
+      )
    }
 
    return {

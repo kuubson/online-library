@@ -5,7 +5,11 @@ import { JWT_KEY } from 'config'
 
 import { Connection, User } from 'database'
 
-import { validator } from 'helpers'
+import { password, repeatedPassword } from 'shared'
+
+import { yupValidation } from 'middlewares'
+
+import { yup } from 'helpers'
 
 import { ApiError } from 'utils'
 
@@ -51,8 +55,10 @@ export const changePassword: Route = async (req, res, next) => {
    }
 }
 
-export const validation = () => [
-   validator.validatePassword(),
-   validator.validateRepeatedPassword(),
-   validator.validateProperty('passwordToken').isJWT(),
-]
+export const validation = yupValidation({
+   body: {
+      password,
+      repeatedPassword: repeatedPassword(),
+      passwordToken: yup.string().jwt().required(),
+   },
+})

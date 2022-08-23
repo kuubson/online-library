@@ -76,7 +76,6 @@ export const initializeMiddlewares = (app: Application, server: Server) => {
    }
 }
 
-export { checkValidation } from './checkValidation'
 export { errorHandler } from './errorHandler'
 export { facebookAuthorization } from './facebookAuthorization'
 export { handleMulterFile } from './handleMulterFile'
@@ -85,3 +84,4 @@ export { multerFile } from './multerFile'
 export { rateLimiter } from './rateLimiter'
 export { roleAuthorization } from './roleAuthorization'
 export { unless } from './unless'
+export { yupValidation } from './yupValidation'

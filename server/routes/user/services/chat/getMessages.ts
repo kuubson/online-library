@@ -1,6 +1,8 @@
 import { Message, User } from 'database'
 
-import { validator } from 'helpers'
+import { yupValidation } from 'middlewares'
+
+import { yup } from 'helpers'
 
 import type { ProtectedRoute } from 'types/express'
 
@@ -41,7 +43,9 @@ export const getMessages: ProtectedRoute = async (req, res, next) => {
    }
 }
 
-export const validation = () => [
-   validator.validateInteger('limit'),
-   validator.validateInteger('offset'),
-]
+export const validation = yupValidation({
+   body: {
+      limit: yup.number().required(),
+      offset: yup.number().required(),
+   },
+})

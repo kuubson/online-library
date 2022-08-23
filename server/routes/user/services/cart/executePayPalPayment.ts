@@ -2,7 +2,9 @@ import paypal from 'paypal-rest-sdk'
 
 import { Book } from 'database'
 
-import { validator } from 'helpers'
+import { string } from 'shared'
+
+import { yupValidation } from 'middlewares'
 
 import { ApiError } from 'utils'
 
@@ -48,7 +50,9 @@ export const executePayPalPayment: ProtectedRoute = async (req, res, next) => {
    }
 }
 
-export const validation = () => [
-   validator.validateProperty('paymentId'),
-   validator.validateProperty('PayerID'),
-]
+export const validation = yupValidation({
+   body: {
+      paymentId: string,
+      PayerID: string,
+   },
+})

@@ -15,6 +15,8 @@ export const password = yup
       validator.isStrongPassword(password || '', { minSymbols: 0 })
    )
 
+export const uncheckedPassword = yup.string().required()
+
 export const repeatedPassword = (key = 'password') =>
    yup
       .string()
@@ -31,7 +33,7 @@ export const string = yup
    .test(
       'test-string',
       'Input contains incorrect characters',
-      value => value !== sanitize(value || '')
+      value => value === sanitize(value || '')
    )
 
-export const uncheckedPassword = yup.string().required()
+export const bool = yup.bool().required()

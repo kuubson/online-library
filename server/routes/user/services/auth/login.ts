@@ -5,7 +5,9 @@ import { JWT_KEY } from 'config'
 
 import { User } from 'database'
 
-import { validator } from 'helpers'
+import { email, uncheckedPassword } from 'shared'
+
+import { yupValidation } from 'middlewares'
 
 import { ApiError, cookie } from 'utils'
 
@@ -50,4 +52,9 @@ export const login: Route = async (req, res, next) => {
    }
 }
 
-export const validation = () => [validator.validateEmail(), validator.validatePassword(true)]
+export const validation = yupValidation({
+   body: {
+      email,
+      password: uncheckedPassword,
+   },
+})

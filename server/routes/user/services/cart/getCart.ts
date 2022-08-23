@@ -1,6 +1,10 @@
 import { Book } from 'database'
 
-import { validator } from 'helpers'
+import { string } from 'shared'
+
+import { yupValidation } from 'middlewares'
+
+import { yup } from 'helpers'
 
 import type { ProtectedRoute } from 'types/express'
 
@@ -16,4 +20,4 @@ export const getCart: ProtectedRoute = async (req, res, next) => {
    }
 }
 
-export const validation = () => [validator.validateArray('cart', true)]
+export const validation = yupValidation({ body: { cart: yup.array().required().of(string) } })

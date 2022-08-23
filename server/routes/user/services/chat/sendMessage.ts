@@ -1,6 +1,8 @@
-import { check } from 'express-validator'
-
 import { Connection } from 'database'
+
+import { yupValidation } from 'middlewares'
+
+import { yup } from 'helpers'
 
 import { baseUrl } from 'utils'
 
@@ -42,4 +44,4 @@ export const sendMessage: ProtectedRoute = async (req, res, next) => {
    }
 }
 
-export const validation = () => [check('content').trim().isString().bail()]
+export const validation = yupValidation({ body: { content: yup.string().trim() } })

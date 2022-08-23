@@ -1,10 +1,14 @@
-import { totalBooksPrice } from 'helpers/totalBooksPrice'
+/* eslint-disable object-curly-newline */
 import type { Payment } from 'paypal-rest-sdk'
 import paypal from 'paypal-rest-sdk'
 
 import { Book } from 'database'
 
-import { validator } from 'helpers'
+import { string } from 'shared'
+
+import { yupValidation } from 'middlewares'
+
+import { totalBooksPrice, yup } from 'helpers'
 
 import { ApiError, baseUrl } from 'utils'
 
@@ -96,4 +100,6 @@ export const createPayPalPayment: ProtectedRoute = async (req, res, next) => {
    }
 }
 
-export const validation = () => [validator.validateArray('products', false)]
+export const validation = yupValidation({
+   body: { products: yup.array().required().min(1).of(string) },
+})

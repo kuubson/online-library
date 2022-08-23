@@ -2,7 +2,9 @@ import { JsonWebTokenError, TokenExpiredError, verify } from 'jsonwebtoken'
 
 import { JWT_KEY } from 'config'
 
-import { validator } from 'helpers'
+import { yupValidation } from 'middlewares'
+
+import { yup } from 'helpers'
 
 import { ApiError, cookie } from 'utils'
 
@@ -19,16 +21,11 @@ export const checkToken: Route = async (req, res, next) => {
 
       const { role } = verify(token, JWT_KEY) as AuthTokenData
 
-      switch (true) {
-         case role === 'user':
-            return res.send({ role: 'user' })
-         default:
-            throw new ApiError(
-               'Authorization',
-               'The authentication cookie is invalid, log in again',
-               401
-            )
+      if (role === 'user') {
+         return res.send({ role: 'user' })
       }
+
+      throw new ApiError('Authorization', 'The authentication cookie is invalid, log in again', 401)
    } catch (error) {
       if (error instanceof JsonWebTokenError) {
          if (error instanceof TokenExpiredError) {
@@ -48,4 +45,4 @@ export const checkToken: Route = async (req, res, next) => {
    }
 }
 
-export const validation = () => [validator.validateProperty('token').optional()]
+export const validation = yupValidation({ cookies: { token: yup.string().jwt() } })

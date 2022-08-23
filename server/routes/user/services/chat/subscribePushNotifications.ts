@@ -1,6 +1,8 @@
 import { Connection } from 'database'
 
-import { validator } from 'helpers'
+import { string } from 'shared'
+
+import { yupValidation } from 'middlewares'
 
 import type { ProtectedRoute } from 'types/express'
 
@@ -32,8 +34,10 @@ export const subscribePushNotifications: ProtectedRoute = async (req, res, next)
    }
 }
 
-export const validation = () => [
-   validator.validateProperty('endpoint'),
-   validator.validateProperty('keys.p256dh'),
-   validator.validateProperty('keys.auth'),
-]
+export const validation = yupValidation({
+   body: {
+      endpoint: string,
+      'keys.p256dh': string,
+      'keys.auth': string,
+   },
+})

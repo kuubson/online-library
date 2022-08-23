@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { checkValidation, handleMulterFile, jwtAuthorization } from 'middlewares'
+import { handleMulterFile, jwtAuthorization } from 'middlewares'
 
 import { chat } from '../services'
 
@@ -9,16 +9,14 @@ export const Chat = Router()
 Chat.post(
    '/getMessages',
    jwtAuthorization,
-   chat.getMessages.validation(),
-   checkValidation,
+   chat.getMessages.validation,
    chat.getMessages.getMessages as any
 )
 
 Chat.post(
    '/sendMessage',
    jwtAuthorization,
-   chat.sendMessage.validation(),
-   checkValidation,
+   chat.sendMessage.validation,
    chat.sendMessage.sendMessage as any
 )
 
@@ -27,8 +25,7 @@ Chat.post('/sendFile', jwtAuthorization, handleMulterFile() as any, chat.sendFil
 Chat.post(
    '/subscribePushNotifications',
    jwtAuthorization,
-   chat.subscribePushNotifications.validation(),
-   checkValidation,
+   chat.subscribePushNotifications.validation,
    chat.subscribePushNotifications.subscribePushNotifications as any
 )
 

@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { checkValidation, facebookAuthorization, rateLimiter } from 'middlewares'
+import { facebookAuthorization, rateLimiter } from 'middlewares'
 
 import { auth } from '../services'
 
@@ -9,64 +9,51 @@ export const Auth = Router()
 Auth.post(
    '/register',
    rateLimiter('registration'),
-   auth.register.validation(),
-   checkValidation,
+   auth.register.validation,
    auth.register.register
 )
 
 Auth.post(
    '/authenticateEmail',
    rateLimiter('email authentication'),
-   auth.authenticateEmail.validation(),
-   checkValidation,
+   auth.authenticateEmail.validation,
    auth.authenticateEmail.authenticateEmail
 )
 
 Auth.post(
    '/resendEmail',
    rateLimiter('resending email'),
-   auth.resendEmail.validation(),
-   checkValidation,
+   auth.resendEmail.validation,
    auth.resendEmail.resendEmail
 )
 
-Auth.post(
-   '/login',
-   rateLimiter('login'),
-   auth.login.validation(),
-   checkValidation,
-   auth.login.login
-)
+Auth.post('/login', rateLimiter('login'), auth.login.validation, auth.login.login)
 
 Auth.post(
    '/loginWithFacebook',
    rateLimiter('login'),
    facebookAuthorization,
-   auth.loginWithFacebook.validation(),
-   checkValidation,
+   auth.loginWithFacebook.validation,
    auth.loginWithFacebook.loginWithFacebook
 )
 
 Auth.post(
    '/recoverPassword',
    rateLimiter('recovering password'),
-   auth.recoverPassword.validation(),
-   checkValidation,
+   auth.recoverPassword.validation,
    auth.recoverPassword.recoverPassword
 )
 
 Auth.post(
    '/checkPasswordToken',
    rateLimiter('recovering password'),
-   auth.checkPasswordToken.validation(),
-   checkValidation,
+   auth.checkPasswordToken.validation,
    auth.checkPasswordToken.checkPasswordToken
 )
 
 Auth.post(
    '/changePassword',
    rateLimiter('changing password'),
-   auth.changePassword.validation(),
-   checkValidation,
+   auth.changePassword.validation,
    auth.changePassword.changePassword
 )

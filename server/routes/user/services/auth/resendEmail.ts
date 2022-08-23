@@ -4,7 +4,11 @@ import { JWT_KEY } from 'config'
 
 import { Connection, User } from 'database'
 
-import { transporter, validator } from 'helpers'
+import { email } from 'shared'
+
+import { yupValidation } from 'middlewares'
+
+import { transporter } from 'helpers'
 
 import { ApiError, baseUrl, emailTemplate } from 'utils'
 
@@ -67,4 +71,4 @@ export const resendEmail: Route = async (req, res, next) => {
    }
 }
 
-export const validation = () => [validator.validateEmail()]
+export const validation = yupValidation({ body: { email } })

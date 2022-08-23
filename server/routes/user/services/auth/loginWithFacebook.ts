@@ -5,7 +5,9 @@ import { JWT_KEY } from 'config'
 
 import { Connection, User } from 'database'
 
-import { validator } from 'helpers'
+import { email, string } from 'shared'
+
+import { yupValidation } from 'middlewares'
 
 import { cookie } from 'utils'
 
@@ -46,8 +48,10 @@ export const loginWithFacebook: Route = async (req, res, next) => {
    }
 }
 
-export const validation = () => [
-   validator.validateProperty('name'),
-   validator.validateEmail(),
-   validator.validateProperty('access_token'),
-]
+export const validation = yupValidation({
+   body: {
+      name: string,
+      email,
+      access_token: string,
+   },
+})

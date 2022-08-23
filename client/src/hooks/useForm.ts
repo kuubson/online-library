@@ -16,7 +16,6 @@ export const useForm = <T extends ObjectShape>({ schema }: UseFormProps<T>) => {
       setValue,
       getValues,
       reset,
-      setError,
    } = _useForm<InferType<typeof schema>>({ resolver: yupResolver(schema) })
    return {
       submit,
@@ -26,6 +25,5 @@ export const useForm = <T extends ObjectShape>({ schema }: UseFormProps<T>) => {
       setValue,
       getValues,
       reset,
-      setError,
    }
 }
