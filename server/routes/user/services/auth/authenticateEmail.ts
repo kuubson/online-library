@@ -56,4 +56,4 @@ export const authenticateEmail: Route = async (req, res, next) => {
    }
 }
 
-export const validation = yupValidation({ cookies: { token: yup.string().jwt() } })
+export const validation = yupValidation({ body: { token: yup.string().jwt() } })

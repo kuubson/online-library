@@ -37,3 +37,5 @@ export const string = yup
    )
 
 export const bool = yup.bool().required()
+
+export const integer = yup.number().required()

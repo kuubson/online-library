@@ -2,13 +2,11 @@ import { Connection } from 'database'
 
 import { yupValidation } from 'middlewares'
 
-import { yup } from 'helpers'
+import { sendNotificationsForOtherUsers, yup } from 'helpers'
 
 import { baseUrl } from 'utils'
 
 import type { ProtectedRoute } from 'types/express'
-
-import { sendNotificationsForOtherUsers } from './helpers'
 
 export const sendMessage: ProtectedRoute = async (req, res, next) => {
    try {

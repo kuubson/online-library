@@ -7,9 +7,7 @@ import { JWT_KEY } from 'config'
 import { Message, User } from 'database'
 import type { User as UserType } from 'database/models/User'
 
-import { updateReadByProperty } from 'routes/user/services/chat/helpers'
-
-import { getCookie } from 'helpers'
+import { getCookie, updateReadByProperty } from 'helpers'
 
 import type { AuthTokenData } from 'types'
 

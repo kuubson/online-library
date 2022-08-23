@@ -1,12 +1,12 @@
 import { Message, User } from 'database'
 
+import { integer } from 'shared'
+
 import { yupValidation } from 'middlewares'
 
-import { yup } from 'helpers'
+import { updateReadByProperty } from 'helpers'
 
 import type { ProtectedRoute } from 'types/express'
-
-import { updateReadByProperty } from './helpers'
 
 export const getMessages: ProtectedRoute = async (req, res, next) => {
    try {
@@ -45,7 +45,7 @@ export const getMessages: ProtectedRoute = async (req, res, next) => {
 
 export const validation = yupValidation({
    body: {
-      limit: yup.number().required(),
-      offset: yup.number().required(),
+      limit: integer,
+      offset: integer,
    },
 })

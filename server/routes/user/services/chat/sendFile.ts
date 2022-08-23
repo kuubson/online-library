@@ -7,15 +7,13 @@ import type { Message } from 'database/models/Message'
 
 import { filesInfo } from 'shared'
 
-import { deleteTemporaryFile } from 'helpers'
+import { deleteTemporaryFile, sendNotificationsForOtherUsers } from 'helpers'
 
 import { ApiError, baseUrl } from 'utils'
 
 import type { ExpressError } from 'types'
 import type { UserRequest } from 'types/express'
 import type { MulterRequest } from 'types/multer'
-
-import { sendNotificationsForOtherUsers } from './helpers'
 
 export const sendFile = async (
    req: UserRequest & MulterRequest,
