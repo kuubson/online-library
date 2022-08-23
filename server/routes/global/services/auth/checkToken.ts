@@ -2,8 +2,6 @@ import { JsonWebTokenError, TokenExpiredError, verify } from 'jsonwebtoken'
 
 import { JWT_KEY } from 'config'
 
-import { Connection, User } from 'database'
-
 import { validator } from 'helpers'
 
 import { ApiError, cookie } from 'utils'
@@ -13,41 +11,24 @@ import type { Route } from 'types/express'
 
 export const checkToken: Route = async (req, res, next) => {
    try {
-      await Connection.transaction(async transaction => {
-         const { token } = req.cookies
+      const { token } = req.cookies
 
-         if (!token) {
-            return res.clearCookie('token', cookie()).send({ role: 'guest' })
-         }
+      if (!token) {
+         return res.clearCookie('token', cookie()).send({ role: 'guest' })
+      }
 
-         const { role, email } = verify(token, JWT_KEY) as AuthTokenData
+      const { role } = verify(token, JWT_KEY) as AuthTokenData
 
-         switch (true) {
-            case role === 'user': {
-               const user = await User.findOne({
-                  where: { email },
-                  transaction,
-               })
-
-               if (!user) {
-                  throw new ApiError(
-                     'Authorization',
-                     'The authentication cookie is invalid, log in again',
-                     401
-                  )
-               }
-
-               return res.send({ role: 'user' })
-            }
-            default: {
-               throw new ApiError(
-                  'Authorization',
-                  'The authentication cookie is invalid, log in again',
-                  401
-               )
-            }
-         }
-      })
+      switch (true) {
+         case role === 'user':
+            return res.send({ role: 'user' })
+         default:
+            throw new ApiError(
+               'Authorization',
+               'The authentication cookie is invalid, log in again',
+               401
+            )
+      }
    } catch (error) {
       if (error instanceof JsonWebTokenError) {
          if (error instanceof TokenExpiredError) {

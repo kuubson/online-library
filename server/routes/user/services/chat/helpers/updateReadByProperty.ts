@@ -1,9 +1,7 @@
 import type { Message } from 'database/models/Message'
 
-type ReadByPropertyUpdater = (userId: number, messages: Message[]) => Promise<Message[]>
-
-export const updateReadByProperty: ReadByPropertyUpdater = async (userId, messages) =>
-   Promise.all(
+export const updateReadByProperty = async (userId: number, messages: Message[]) => {
+   const updatedMessages = await Promise.all(
       messages.map(async message => {
          const readByIds = message.readBy.split(',').filter(v => v)
 
@@ -18,3 +16,5 @@ export const updateReadByProperty: ReadByPropertyUpdater = async (userId, messag
          return message
       })
    )
+   return { updatedMessages }
+}

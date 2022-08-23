@@ -24,10 +24,10 @@ export const getMessages: ProtectedRoute = async (req, res, next) => {
          ],
       }).then(messages => messages.sort((a, b) => a.id - b.id))
 
-      const updatedMessage = await updateReadByProperty(id, messages)
+      const { updatedMessages } = await updateReadByProperty(id, messages)
 
-      const messagesWithUserNames = updatedMessage.map(message => ({
-         ...message, // TODO: verify if removing .dataValues does not break stuff
+      const messagesWithUserNames = updatedMessages.map(message => ({
+         ...message.get({ plain: true }),
          userName: message.user?.name,
       }))
 
