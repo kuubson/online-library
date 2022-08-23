@@ -105,10 +105,10 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
 
    declare static associations: {
       authentication: Association<User, Authentication>
-      book: Association<User, Book>
-      message: Association<User, Message>
-      payment: Association<User, Payment>
-      subscription: Association<User, Subscription>
+      books: Association<User, Book>
+      messages: Association<User, Message>
+      payments: Association<User, Payment>
+      subscriptions: Association<User, Subscription>
    }
 }
 

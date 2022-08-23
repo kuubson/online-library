@@ -23,7 +23,7 @@ export const sendNotificationsForOtherUsers: NotificationsForOtherUsersSender = 
 ) => {
    const users = await User.findAll({
       where: { id: { [Op.ne]: userId } },
-      include: [User.associations.subscription],
+      include: [User.associations.subscriptions],
    })
    users.map(user => {
       user.subscriptions?.map(subscription => {
