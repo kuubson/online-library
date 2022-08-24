@@ -1,9 +1,8 @@
-import { useSelector } from 'react-redux'
 import type { Socket } from 'socket.io-client'
 
 import { _setSocket } from 'redux/reducers/socket'
 
-import { useDispatch } from 'hooks'
+import { useDispatch, useSelector } from 'hooks'
 
 export const useSocket = () => {
    const dispatch = useDispatch()

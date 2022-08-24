@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 import styled from 'styled-components/macro'
 
@@ -11,7 +11,11 @@ import { handleApiError } from 'helpers'
 
 import { history } from 'utils'
 
-export const Guest: React.FC = ({ children }) => {
+type GuestProps = {
+   children: React.ReactNode
+}
+
+export const Guest = ({ children }: GuestProps) => {
    const { closeSocketConnection } = useSocket()
 
    useEffect(() => {

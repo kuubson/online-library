@@ -1,8 +1,6 @@
-import { useSelector } from 'react-redux'
-
 import { _addToCart, _removeFromCart, _resetCart } from 'redux/reducers/cart'
 
-import { useDispatch } from 'hooks'
+import { useDispatch, useSelector } from 'hooks'
 
 export const useCart = () => {
    const dispatch = useDispatch()

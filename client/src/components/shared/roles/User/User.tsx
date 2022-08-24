@@ -8,10 +8,11 @@ import { Menu } from 'components/user/Store/modules'
 import { useUser } from './hooks'
 
 type UserProps = {
+   children: React.ReactNode
    withChat?: boolean
 }
 
-export const User: React.FC<UserProps> = ({ children, withChat }) => {
+export const User = ({ children, withChat }: UserProps) => {
    const { options } = useUser(withChat)
 
    const [shouldMenuExpand, _setShouldMenuExpand] = useState(false)

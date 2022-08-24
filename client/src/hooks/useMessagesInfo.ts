@@ -1,8 +1,6 @@
-import { useSelector } from 'react-redux'
-
 import { _setLastUnreadMessageIndex, _setUnreadMessagesAmount } from 'redux/reducers/messagesInfo'
 
-import { useDispatch } from 'hooks'
+import { useDispatch, useSelector } from 'hooks'
 
 export const useMessagesInfo = () => {
    const dispatch = useDispatch()

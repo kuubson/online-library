@@ -6,7 +6,11 @@ import { ApiFeedback, Loader } from 'components/shared'
 
 import { useApiFeedback, useLoader } from 'hooks'
 
-export const Wrapper: React.FC = ({ children }) => {
+type WrapperProps = {
+   children: React.ReactNode
+}
+
+export const Wrapper = ({ children }: WrapperProps) => {
    const { loading } = useLoader()
 
    const { showApiFeedback } = useApiFeedback()

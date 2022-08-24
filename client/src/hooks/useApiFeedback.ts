@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux'
+import { useSelector } from 'hooks'
 
 export const useApiFeedback = () => {
    const { header, message, buttonText, callback } = useSelector(state => state.apiFeedback)
