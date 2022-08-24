@@ -32,7 +32,7 @@ Create **.env** file and fill it based on **.env-example** file, then:
 Install dependencies on the root level (project uses **npm workspaces**)
 
 ```bash
-npm install
+nvm use && npm install
 ```
 
 #### Front-end:

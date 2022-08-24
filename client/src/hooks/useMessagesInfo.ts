@@ -1,16 +1,15 @@
 import { _setLastUnreadMessageIndex, _setUnreadMessagesAmount } from 'redux/reducers/messagesInfo'
 
-import { useDispatch, useSelector } from 'hooks'
+import { useSelector } from 'hooks'
+
+import { useAction } from './useAction'
 
 export const useMessagesInfo = () => {
-   const dispatch = useDispatch()
-
    const { lastUnreadMessageIndex, unreadMessagesAmount } = useSelector(state => state.messagesInfo)
 
-   const setLastUnreadMessageIndex = (payload: number) =>
-      dispatch(_setLastUnreadMessageIndex(payload))
+   const setLastUnreadMessageIndex = useAction(_setLastUnreadMessageIndex)
 
-   const setUnreadMessagesAmount = (payload: number) => dispatch(_setUnreadMessagesAmount(payload))
+   const setUnreadMessagesAmount = useAction(_setUnreadMessagesAmount)
 
    return {
       lastUnreadMessageIndex,
