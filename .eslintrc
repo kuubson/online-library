@@ -20,5 +20,6 @@
       "warn",
       { "ObjectExpression": { "multiline": true, "minProperties": 2 } }
     ]
-  }
+  },
+  "ignorePatterns": ["build", "dist", "database/generated"]
 }

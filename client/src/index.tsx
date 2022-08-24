@@ -19,7 +19,7 @@ import { App } from 'components/App'
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 
-const app = document.getElementById('app') || document.createElement('div')
+const app = document.getElementById('app')!
 
 createRoot(app).render(
    <Provider store={store}>
