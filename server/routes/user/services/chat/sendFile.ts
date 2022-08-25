@@ -1,6 +1,5 @@
 /* eslint-disable object-curly-newline */
 import cloudinary from 'cloudinary'
-import type { NextFunction, Response } from 'express'
 
 import { Connection } from 'database'
 import type { Message } from 'database/models/Message'
@@ -12,14 +11,9 @@ import { deleteTemporaryFile, sendNotificationsForOtherUsers } from 'helpers'
 import { ApiError, baseUrl } from 'utils'
 
 import type { ExpressError } from 'types'
-import type { UserRequest } from 'types/express'
-import type { MulterRequest } from 'types/multer'
+import type { ProtectedRoute } from 'types/express'
 
-export const sendFile = async (
-   req: UserRequest & MulterRequest,
-   res: Response,
-   next: NextFunction
-) => {
+export const sendFile: ProtectedRoute = async (req, res, next) => {
    try {
       await Connection.transaction(async transaction => {
          const {

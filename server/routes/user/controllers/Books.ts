@@ -10,5 +10,5 @@ Books.post(
    '/getSuggestions',
    jwtAuthorization,
    books.getSuggestions.validation,
-   books.getSuggestions.getSuggestions as any
+   books.getSuggestions.getSuggestions
 )

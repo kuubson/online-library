@@ -4,7 +4,7 @@ import { string } from 'shared'
 
 import { yupValidation } from 'middlewares'
 
-import type { ProtectedRoute } from 'types/express'
+import { type ProtectedRoute } from 'types/express'
 
 export const subscribePushNotifications: ProtectedRoute = async (req, res, next) => {
    try {

@@ -10,23 +10,23 @@ Chat.post(
    '/getMessages',
    jwtAuthorization,
    chat.getMessages.validation,
-   chat.getMessages.getMessages as any
+   chat.getMessages.getMessages
 )
 
 Chat.post(
    '/sendMessage',
    jwtAuthorization,
    chat.sendMessage.validation,
-   chat.sendMessage.sendMessage as any
+   chat.sendMessage.sendMessage
 )
 
-Chat.post('/sendFile', jwtAuthorization, handleMulterFile() as any, chat.sendFile.sendFile as any)
+Chat.post('/sendFile', jwtAuthorization, handleMulterFile, chat.sendFile.sendFile)
 
 Chat.post(
    '/subscribePushNotifications',
    jwtAuthorization,
    chat.subscribePushNotifications.validation,
-   chat.subscribePushNotifications.subscribePushNotifications as any
+   chat.subscribePushNotifications.subscribePushNotifications
 )
 
-Chat.get('/getMessagesInfo', jwtAuthorization, chat.getMessagesInfo.getMessagesInfo as any)
+Chat.get('/getMessagesInfo', jwtAuthorization, chat.getMessagesInfo.getMessagesInfo)

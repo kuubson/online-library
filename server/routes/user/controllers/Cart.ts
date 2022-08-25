@@ -6,25 +6,25 @@ import { cart } from '../services'
 
 export const Cart = Router()
 
-Cart.post('/getCart', jwtAuthorization, cart.getCart.validation, cart.getCart.getCart as any)
+Cart.post('/getCart', jwtAuthorization, cart.getCart.validation, cart.getCart.getCart)
 
 Cart.post(
    '/purchaseBooksWithStripe',
    jwtAuthorization,
    cart.purchaseBooksWithStripe.validation,
-   cart.purchaseBooksWithStripe.purchaseBooksWithStripe as any
+   cart.purchaseBooksWithStripe.purchaseBooksWithStripe
 )
 
 Cart.post(
    '/createPayPalPayment',
    jwtAuthorization,
    cart.createPayPalPayment.validation,
-   cart.createPayPalPayment.createPayPalPayment as any
+   cart.createPayPalPayment.createPayPalPayment
 )
 
 Cart.post(
    '/executePayPalPayment',
    jwtAuthorization,
    cart.executePayPalPayment.validation,
-   cart.executePayPalPayment.executePayPalPayment as any
+   cart.executePayPalPayment.executePayPalPayment
 )
