@@ -7,7 +7,7 @@ import * as Styled from './styled'
 
 type MessageProps = {
    currentUserId: string | undefined
-   nextMessage: IMessage
+   nextMessage: Message
    scrollToLastMessage: (delay: number) => void
    withLastMessage: boolean
 }
@@ -23,7 +23,7 @@ export const Message = ({
    nextMessage,
    scrollToLastMessage,
    withLastMessage,
-}: IMessage & MessageProps) => {
+}: Message & MessageProps) => {
    const [shouldDetailsAppear, setShouldDetailsAppear] = useState(false)
    const [imageError, setImageError] = useState(false)
    const [videoError, setVideoError] = useState(false)

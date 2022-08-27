@@ -1,23 +1,16 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { store } from 'redux/store'
 
-import { _setApiFeedback } from 'redux/reducers/apiFeedback'
+import { apiFeedbackActions } from 'redux/reducers/apiFeedback'
 
-type SetApiFeedbackFn = (
+export const setApiFeedback = (
    header: string,
    message: string,
-   buttonText: string,
-   callback?: () => void
-) => void
-
-export const setApiFeedback: SetApiFeedbackFn = (
-   header,
-   message,
    buttonText = 'Okey',
-   callback = () => {}
+   callback: () => void = () => {}
 ) => {
    store.dispatch(
-      _setApiFeedback({
+      apiFeedbackActions.setApiFeedback({
          header,
          message,
          buttonText,

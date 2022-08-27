@@ -10,7 +10,7 @@ import { Message } from '../'
 type MessagesProps = {
    ref: React.RefObject<HTMLDivElement>
    endOfMessages: React.RefObject<HTMLDivElement>
-   messages: IMessage[]
+   messages: Message[]
    currentUserId: string | undefined
    onTouchStart: () => void
    onScroll: (event: React.UIEvent<HTMLDivElement>) => Promise<void>

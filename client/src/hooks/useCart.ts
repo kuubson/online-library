@@ -1,4 +1,4 @@
-import { _addToCart, _removeFromCart, _resetCart } from 'redux/reducers/cart'
+import { cartActions } from 'redux/reducers/cart'
 
 import { useSelector } from 'hooks'
 
@@ -7,11 +7,11 @@ import { useAction } from './useAction'
 export const useCart = () => {
    const { cart } = useSelector(state => state.cart)
 
-   const resetCart = useAction(_resetCart)
+   const resetCart = useAction(cartActions.resetCart)
 
-   const addToCart = useAction(_addToCart)
+   const addToCart = useAction(cartActions.addToCart)
 
-   const removeFromCart = useAction(_removeFromCart)
+   const removeFromCart = useAction(cartActions.removeFromCart)
 
    return {
       cart,

@@ -67,7 +67,7 @@ export const useUser = (withChat: boolean | undefined) => {
       getMessagesInfo()
    }, [])
 
-   const handleOnSendMessage = (message: IMessage) => {
+   const handleOnSendMessage = (message: Message) => {
       if (!withChat && message.userId !== currentUserId) {
          setUnreadMessagesAmount(unreadMessagesAmount + 1)
          setLastUnreadMessageIndex(lastUnreadMessageIndex ? lastUnreadMessageIndex + 1 : 1)

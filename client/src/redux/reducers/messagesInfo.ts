@@ -17,15 +17,15 @@ const messagesInfoSlice = createSlice({
    name: 'messagesInfo',
    initialState,
    reducers: {
-      _setLastUnreadMessageIndex: (state, { payload }: Payload) => {
+      setLastUnreadMessageIndex: (state, { payload }: Payload) => {
          state.lastUnreadMessageIndex = payload
       },
-      _setUnreadMessagesAmount: (state, { payload }: Payload) => {
+      setUnreadMessagesAmount: (state, { payload }: Payload) => {
          state.unreadMessagesAmount = payload
       },
    },
 })
 
-export const { _setLastUnreadMessageIndex, _setUnreadMessagesAmount } = messagesInfoSlice.actions
+export const messagesInfoActions = messagesInfoSlice.actions
 
 export const messagesInfo = messagesInfoSlice.reducer

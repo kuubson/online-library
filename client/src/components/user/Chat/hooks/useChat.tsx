@@ -19,7 +19,7 @@ type UseChatProps = {
 }
 
 type GetMessagesResponse = {
-   messages: IMessage[]
+   messages: Message[]
    userId: string
    userName: string
 }
@@ -42,7 +42,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
    const [currentUserId, setCurrentUserId] = useState<string | undefined>()
    const [currentUserName, setCurrentUserName] = useState<string | undefined>()
 
-   const [messages, setMessages] = useState<IMessage[]>([])
+   const [messages, setMessages] = useState<Message[]>([])
    const [message, setMessage] = useState('')
    const [hasMoreMessages, setHasMoreMessages] = useState(true)
 
@@ -111,7 +111,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
    }, [])
 
    useEffect(() => {
-      const handleOnSendMessage = (message: IMessage) => {
+      const handleOnSendMessage = (message: Message) => {
          setMessages(messages => [...messages, message])
 
          if (message.type === 'MESSAGE' || message.type === 'FILE') {
@@ -181,7 +181,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
             createdAt: new Date(),
          }
 
-         setMessages(messages => [...messages, _message] as IMessage[])
+         setMessages(messages => [...messages, _message] as Message[])
 
          pushToLastMessage()
 
@@ -301,7 +301,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
                   createdAt: new Date(),
                }
 
-               setMessages([...messages, message] as IMessage[])
+               setMessages([...messages, message] as Message[])
 
                scrollToLastMessage(0)
 

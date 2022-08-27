@@ -1,4 +1,4 @@
-interface IMessage {
+type Message = {
    id: number
    type: 'MESSAGE' | 'IMAGE' | 'VIDEO' | 'FILE'
    content: string

@@ -14,8 +14,8 @@
     "no-unneeded-ternary": ["error"],
     "prefer-template": ["error"],
     "@typescript-eslint/consistent-type-imports": "error",
-    "unused-imports/no-unused-imports": "warn",
     "no-empty": ["error", { "allowEmptyCatch": true }],
+    "unused-imports/no-unused-imports": "warn",
     "object-curly-newline": [
       "warn",
       { "ObjectExpression": { "multiline": true, "minProperties": 2 } }

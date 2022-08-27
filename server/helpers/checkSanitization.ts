@@ -1,9 +1,7 @@
 import sanitize from 'sanitize-html'
 
 export const checkSanitization = (value: string) => {
-   const _value = value.toString()
-
-   if (_value !== sanitize(value)) {
+   if (value.toString() !== sanitize(value)) {
       throw new Error()
    }
 

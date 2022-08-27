@@ -20,7 +20,7 @@ const apiFeedbackSlice = createSlice({
    name: 'apiFeedback',
    initialState,
    reducers: {
-      _setApiFeedback: (
+      setApiFeedback: (
          state,
          { payload: { header, message, buttonText, callback } }: PayloadAction<SliceState>
       ) => {
@@ -32,6 +32,6 @@ const apiFeedbackSlice = createSlice({
    },
 })
 
-export const { _setApiFeedback } = apiFeedbackSlice.actions
+export const apiFeedbackActions = apiFeedbackSlice.actions
 
 export const apiFeedback = apiFeedbackSlice.reducer
