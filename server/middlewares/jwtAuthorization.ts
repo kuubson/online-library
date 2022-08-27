@@ -2,13 +2,13 @@ import passport from 'passport'
 
 import { cookie } from 'utils'
 
-import type { Route } from 'types/express'
+import type { RouteType } from 'types/express'
 
-export const jwtAuthorization: Route = (req, res, next) => {
+export const jwtAuthorization: RouteType = (req, res, next) => {
    passport.authenticate('jwt', { session: false }, (error, { user, role }) => {
-      const roleDoesNotMatchEndpointUrl = role !== req.originalUrl.split('/')[2]
+      const roleMatchesWithEndpoint = role === req.originalUrl.split('/')[2]
 
-      if (error || !user || roleDoesNotMatchEndpointUrl) {
+      if (error || !user || !roleMatchesWithEndpoint) {
          return res.clearCookie('token', cookie()).status(401).send({
             errorHeader: 'Authorization',
             errorMessage: 'The authentication cookie is invalid, log in again',

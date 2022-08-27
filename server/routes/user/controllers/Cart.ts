@@ -2,29 +2,21 @@ import { Router } from 'express'
 
 import { jwtAuthorization } from 'middlewares'
 
-import { cart } from '../services'
+import {
+   createPayPalPayment,
+   executePayPalPayment,
+   getCart,
+   purchaseBooksWithStripe,
+} from '../services/cart'
 
 export const Cart = Router()
 
-Cart.post('/getCart', jwtAuthorization, cart.getCart.validation, cart.getCart.getCart)
+Cart.use(jwtAuthorization)
 
-Cart.post(
-   '/purchaseBooksWithStripe',
-   jwtAuthorization,
-   cart.purchaseBooksWithStripe.validation,
-   cart.purchaseBooksWithStripe.purchaseBooksWithStripe
-)
+Cart.post('/getCart', ...getCart)
 
-Cart.post(
-   '/createPayPalPayment',
-   jwtAuthorization,
-   cart.createPayPalPayment.validation,
-   cart.createPayPalPayment.createPayPalPayment
-)
+Cart.post('/purchaseBooksWithStripe', ...purchaseBooksWithStripe)
 
-Cart.post(
-   '/executePayPalPayment',
-   jwtAuthorization,
-   cart.executePayPalPayment.validation,
-   cart.executePayPalPayment.executePayPalPayment
-)
+Cart.post('/createPayPalPayment', ...createPayPalPayment)
+
+Cart.post('/executePayPalPayment', ...executePayPalPayment)

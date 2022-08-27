@@ -1,6 +1,6 @@
 import passport from 'passport'
 
-import type { Route } from 'types/express'
+import type { RouteType } from 'types/express'
 
-export const facebookAuthorization: Route = (req, res, next) =>
+export const facebookAuthorization: RouteType = (req, res, next) =>
    passport.authenticate('facebook-token', { session: false })(req, res, next)

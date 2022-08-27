@@ -2,62 +2,39 @@ import { Router } from 'express'
 
 import { facebookAuthorization, rateLimiter } from 'middlewares'
 
-import { auth } from '../services'
+import {
+   authenticateEmail,
+   changePassword,
+   checkPasswordToken,
+   checkToken,
+   login,
+   loginWithFacebook,
+   logout,
+   recoverPassword,
+   register,
+   resendEmail,
+} from '../services/auth'
 
 export const Auth = Router()
 
-Auth.get('/checkToken', auth.checkToken.validation, auth.checkToken.checkToken)
+Auth.use(rateLimiter())
 
-Auth.get('/logout', auth.logout.validation, auth.logout.logout)
+Auth.get('/checkToken', ...checkToken)
 
-Auth.post(
-   '/register',
-   rateLimiter('registration'),
-   auth.register.validation,
-   auth.register.register
-)
+Auth.get('/logout', ...logout)
 
-Auth.post(
-   '/authenticateEmail',
-   rateLimiter('email authentication'),
-   auth.authenticateEmail.validation,
-   auth.authenticateEmail.authenticateEmail
-)
+Auth.post('/register', ...register)
 
-Auth.post(
-   '/resendEmail',
-   rateLimiter('resending email'),
-   auth.resendEmail.validation,
-   auth.resendEmail.resendEmail
-)
+Auth.post('/authenticateEmail', ...authenticateEmail)
 
-Auth.post('/login', rateLimiter('login'), auth.login.validation, auth.login.login)
+Auth.post('/resendEmail', ...resendEmail)
 
-Auth.post(
-   '/loginWithFacebook',
-   rateLimiter('login'),
-   facebookAuthorization,
-   auth.loginWithFacebook.validation,
-   auth.loginWithFacebook.loginWithFacebook
-)
+Auth.post('/login', ...login)
 
-Auth.post(
-   '/recoverPassword',
-   rateLimiter('recovering password'),
-   auth.recoverPassword.validation,
-   auth.recoverPassword.recoverPassword
-)
+Auth.post('/loginWithFacebook', facebookAuthorization, ...loginWithFacebook)
 
-Auth.post(
-   '/checkPasswordToken',
-   rateLimiter('recovering password'),
-   auth.checkPasswordToken.validation,
-   auth.checkPasswordToken.checkPasswordToken
-)
+Auth.post('/recoverPassword', ...recoverPassword)
 
-Auth.post(
-   '/changePassword',
-   rateLimiter('changing password'),
-   auth.changePassword.validation,
-   auth.changePassword.changePassword
-)
+Auth.post('/checkPasswordToken', ...checkPasswordToken)
+
+Auth.post('/changePassword', ...changePassword)

@@ -10,26 +10,14 @@ import { ApiError } from 'utils'
 
 import type { ProtectedRoute } from 'types/express'
 
-export const executePayPalPayment: ProtectedRoute = async (req, res, next) => {
-   try {
-      const { paymentId, PayerID } = req.body
+export const executePayPalPayment: ProtectedRoute = [
+   async (req, res, next) => {
+      try {
+         const { paymentId, PayerID } = req.body
 
-      const [payment] = await req.user.getPayments({ where: { paymentId } })
+         const [payment] = await req.user.getPayments({ where: { paymentId } })
 
-      if (!payment) {
-         throw new ApiError(
-            'Submitting the order',
-            'There was an unexpected problem when processing your payment',
-            402
-         )
-      }
-
-      if (payment.approved) {
-         throw new ApiError('Submitting the order', 'The order has been already approved', 409)
-      }
-
-      paypal.payment.execute(paymentId, { payer_id: PayerID }, async (error, { state }) => {
-         if (error || state !== 'approved') {
+         if (!payment) {
             throw new ApiError(
                'Submitting the order',
                'There was an unexpected problem when processing your payment',
@@ -37,22 +25,35 @@ export const executePayPalPayment: ProtectedRoute = async (req, res, next) => {
             )
          }
 
-         const books = await Book.findAll({ where: { id: payment.products.split(',') } })
+         if (payment.approved) {
+            throw new ApiError('Submitting the order', 'The order has been already approved', 409)
+         }
 
-         await Promise.all(books.map(async book => req.user.addBook(book)))
+         paypal.payment.execute(paymentId, { payer_id: PayerID }, async (error, { state }) => {
+            if (error || state !== 'approved') {
+               throw new ApiError(
+                  'Submitting the order',
+                  'There was an unexpected problem when processing your payment',
+                  402
+               )
+            }
 
-         await payment.update({ approved: true })
+            const books = await Book.findAll({ where: { id: payment.products.split(',') } })
 
-         res.send()
-      })
-   } catch (error) {
-      next(error)
-   }
-}
+            await Promise.all(books.map(async book => req.user.addBook(book)))
 
-export const validation = yupValidation({
-   body: {
-      paymentId: string,
-      PayerID: string,
+            await payment.update({ approved: true })
+
+            res.send()
+         })
+      } catch (error) {
+         next(error)
+      }
    },
-})
+   yupValidation({
+      body: {
+         paymentId: string,
+         PayerID: string,
+      },
+   }),
+]

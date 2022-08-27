@@ -1,1 +1,1 @@
-export * as getSuggestions from './getSuggestions'
+export { getSuggestions } from './getSuggestions'

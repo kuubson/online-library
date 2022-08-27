@@ -24,9 +24,9 @@ type Env = {
 
    STRIPE_SECRET_KEY: string
 
-   SEED_BOOKS: boolean
+   SEED_BOOKS: 'true' | undefined
 
-   SEQUELIZE_AUTO: boolean
+   SEQUELIZE_AUTO: 'true' | undefined
 
    PORT: string | undefined
 

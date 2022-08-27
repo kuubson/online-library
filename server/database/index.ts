@@ -43,10 +43,10 @@ const initializeDatabase = async () => {
       console.log('📁 Database connected')
 
       if (NODE_ENV === 'development') {
-         if (SEED_BOOKS === true) {
-            seedBooks()
+         if (SEED_BOOKS === 'true') {
+            seedBooks(10)
          }
-         if (SEQUELIZE_AUTO === true) {
+         if (SEQUELIZE_AUTO === 'true') {
             generateDbTypes(connection)
          }
       }

@@ -11,35 +11,36 @@ import { yup } from 'helpers'
 
 import type { ProtectedRoute } from 'types/express'
 
-export const getSuggestions: ProtectedRoute = async (req, res, next) => {
-   try {
-      const { title, author, withProfile } = req.body
+export const getSuggestions: ProtectedRoute = [
+   async (req, res, next) => {
+      try {
+         const { title, author, withProfile } = req.body
 
-      let books: BookType[] = []
+         let books: BookType[] = []
 
-      const searchByKey = title ? 'title' : 'author'
-      const searchByValue = title ?? author
+         const searchByKey = title ? 'title' : 'author'
+         const searchByValue = title ?? author
 
-      const query = { where: { [searchByKey]: { [Op.like]: `%${searchByValue}%` } } }
+         const query = { where: { [searchByKey]: { [Op.like]: `%${searchByValue}%` } } }
 
-      if (searchByValue) {
-         if (withProfile) {
-            books = await req.user.getBooks(query)
-         } else {
-            books = await Book.findAll(query)
+         if (searchByValue) {
+            if (withProfile) {
+               books = await req.user.getBooks(query)
+            } else {
+               books = await Book.findAll(query)
+            }
          }
+
+         res.send({ books })
+      } catch (error) {
+         next(error)
       }
-
-      res.send({ books })
-   } catch (error) {
-      next(error)
-   }
-}
-
-export const validation = yupValidation({
-   body: {
-      title: yup.string().trim(),
-      author: yup.string().trim(),
-      withProfile: bool,
    },
-})
+   yupValidation({
+      body: {
+         title: yup.string().trim(),
+         author: yup.string().trim(),
+         withProfile: bool,
+      },
+   }),
+]

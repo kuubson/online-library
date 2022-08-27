@@ -2,13 +2,10 @@ import { Router } from 'express'
 
 import { jwtAuthorization } from 'middlewares'
 
-import { books } from '../services'
+import { getSuggestions } from '../services/books'
 
 export const Books = Router()
 
-Books.post(
-   '/getSuggestions',
-   jwtAuthorization,
-   books.getSuggestions.validation,
-   books.getSuggestions.getSuggestions
-)
+Books.use(jwtAuthorization)
+
+Books.post('/getSuggestions', ...getSuggestions)

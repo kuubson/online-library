@@ -1,7 +1,7 @@
-import type { Route } from 'types/express'
+import type { RouteType } from 'types/express'
 
-export const unless = (path: string, middleware: Route) => {
-   const route: Route = (req, res, next) => {
+export const unless = (path: string, middleware: RouteType) => {
+   const route: RouteType = (req, res, next) => {
       if (path === req.path) {
          return next()
       }
