@@ -55,7 +55,7 @@ export const Option = styled.li<StyledProps>`
                  height: 18px;
                  cursor: initial;
                  content: '${counter}';
-                 padding-top: 2px;
+                 padding-top: 0.5px;
                  padding-left: 1.5px;
                  font-size: 11px;
                  font-weight: bold;

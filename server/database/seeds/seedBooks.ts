@@ -15,7 +15,7 @@ export const seedBooks = async (amount: number) => {
       const price = Math.floor(Number(faker.finance.amount(2, 10)))
 
       await Book.create({
-         title: faker.random.words(3),
+         title: faker.music.songName(),
          author: faker.name.fullName(),
          cover: faker.image.imageUrl(640, 480, 'nature', true),
          price: x % 2 === 0 ? price : null,

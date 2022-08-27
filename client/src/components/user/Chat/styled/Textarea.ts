@@ -4,7 +4,7 @@ export const Textarea = styled.textarea`
    width: 100%;
    height: 100%;
    background: transparent;
-   padding: 10px 15px;
+   padding: 15px;
    border: none;
    resize: none;
    ::placeholder {
