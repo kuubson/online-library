@@ -21,28 +21,29 @@ export const sendNotificationsForOtherUsers: NotificationsForOtherUsersSender = 
    userId,
    options
 ) => {
-   const users = await User.findAll({
+   await User.findAll({
       where: { id: { [Op.ne]: userId } },
       include: [User.associations.subscriptions],
-   })
-   users.map(user => {
-      user.subscriptions?.map(subscription => {
-         webpush
-            .sendNotification(
-               {
-                  endpoint: subscription.endpoint,
-                  keys: {
-                     p256dh: subscription.p256dh,
-                     auth: subscription.auth,
+   }).then(users =>
+      users.map(user => {
+         user.subscriptions?.map(subscription => {
+            webpush
+               .sendNotification(
+                  {
+                     endpoint: subscription.endpoint,
+                     keys: {
+                        p256dh: subscription.p256dh,
+                        auth: subscription.auth,
+                     },
                   },
-               },
-               JSON.stringify(options)
-            )
-            .catch(async ({ statusCode }) => {
-               if (statusCode === 410) {
-                  await subscription.destroy()
-               }
-            })
+                  JSON.stringify(options)
+               )
+               .catch(async ({ statusCode }) => {
+                  if (statusCode === 410) {
+                     await subscription.destroy()
+                  }
+               })
+         })
       })
-   })
+   )
 }

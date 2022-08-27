@@ -26,6 +26,7 @@ import { initializeGraphQL } from 'gql/server'
 
 import { initializeCsrf } from './csrf'
 import { initializePassport } from './passport'
+import { initializeSwagger } from './swagger'
 
 webpush.setVapidDetails(
    `mailto:${NODEMAILER_USERNAME}`,
@@ -66,6 +67,10 @@ export const initializeMiddlewares = (app: Application, server: Server) => {
    initializeSocketIO(new SocketServer(server))
 
    initializeGraphQL(app, server, passport)
+
+   if (NODE_ENV === 'development') {
+      initializeSwagger(app)
+   }
 
    if (NODE_ENV === 'production') {
       const buildPath = '../../../../client/build'

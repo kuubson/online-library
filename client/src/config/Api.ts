@@ -1,7 +1,5 @@
 const userApi = '/api/user'
 
-const globalApi = '/api/global'
-
 class _API {
    public authenticateEmail = `${userApi}/auth/authenticateEmail`
 
@@ -18,7 +16,7 @@ class _API {
    public passwordSupport = (withPasswordSupport: boolean | undefined) =>
       `/api/user/auth/${withPasswordSupport ? 'recoverPassword' : 'resendEmail'}`
 
-   public checkToken = `${globalApi}/auth/checkToken`
+   public checkToken = `${userApi}/auth/checkToken`
 
    public getMessagesInfo = `${userApi}/chat/getMessagesInfo`
 
@@ -38,7 +36,7 @@ class _API {
 
    public getSuggestions = `${userApi}/books/getSuggestions`
 
-   public logout = `${globalApi}/auth/logout`
+   public logout = `${userApi}/auth/logout`
 }
 
 export const API = new _API()

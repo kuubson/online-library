@@ -24,7 +24,9 @@ type Env = {
 
    STRIPE_SECRET_KEY: string
 
-   SEQUELIZE_AUTO: 'true' | undefined
+   SEED_BOOKS: boolean
+
+   SEQUELIZE_AUTO: boolean
 
    PORT: string | undefined
 
@@ -49,7 +51,8 @@ export const {
    REACT_APP_FACEBOOK_APP_ID,
    FACEBOOK_APP_SECRET,
    STRIPE_SECRET_KEY,
+   SEED_BOOKS,
    SEQUELIZE_AUTO,
    PORT,
    NODE_ENV,
-} = process.env as Env
+} = process.env as unknown as Env

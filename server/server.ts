@@ -11,7 +11,7 @@ import 'database'
 
 import { errorHandler, initializeMiddlewares } from 'middlewares'
 
-import { routes } from 'routes'
+import { router } from 'routes'
 
 const app = express()
 
@@ -19,8 +19,8 @@ const server = http.createServer(app)
 
 initializeMiddlewares(app, server)
 
-routes(app)
-
 errorHandler(app)
+
+app.use(router)
 
 server.listen(PORT || 3001, () => console.log(`🚀 Server has launched`))

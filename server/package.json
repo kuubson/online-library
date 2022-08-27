@@ -1,10 +1,12 @@
 {
    "name": "sever",
    "private": true,
+   "version": "1.0.0",
    "scripts": {
-      "start": "nodemon -e ts,gql server.ts",
+      "start": "export NODE_ENV=development && nodemon -e ts,gql server.ts",
       "check": "eslint . && tsc --noEmit",
-      "build": "tsc && copyfiles gql/**/**/*.gql dist/server"
+      "build": "tsc && copyfiles gql/**/**/*.gql dist/server",
+      "docs": "npx ts-node swagger.ts"
    },
    "dependencies": {
       "@graphql-tools/load-files": "^6.6.1",
@@ -36,6 +38,9 @@
       "sharp": "^0.29.3",
       "socket.io": "^4.4.0",
       "stripe": "^8.195.0",
+      "swagger-autogen": "^2.21.5",
+      "swagger-jsdoc": "^6.2.5",
+      "swagger-ui-express": "^4.5.0",
       "web-push": "^3.4.5",
       "ws": "^8.8.1",
       "yup": "^0.32.11"
@@ -56,6 +61,8 @@
       "@types/paypal-rest-sdk": "^1.7.6",
       "@types/sanitize-html": "^2.6.1",
       "@types/sharp": "^0.29.5",
+      "@types/swagger-jsdoc": "^6.0.1",
+      "@types/swagger-ui-express": "^4.1.3",
       "@types/web-push": "^3.3.2",
       "copyfiles": "^2.4.1",
       "dotenv": "^10.0.0",

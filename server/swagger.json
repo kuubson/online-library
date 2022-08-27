@@ -1,0 +1,153 @@
+{
+   "swagger": "2.0",
+   "info": {
+      "version": "1.0.0",
+      "title": "Online Library",
+      "description": "API for Online Library"
+   },
+   "host": "localhost:3000",
+   "basePath": "/",
+   "schemes": ["http"],
+   "paths": {
+      "/checkToken": {
+         "get": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/logout": {
+         "get": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/register": {
+         "post": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/authenticateEmail": {
+         "post": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/resendEmail": {
+         "post": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/login": {
+         "post": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/loginWithFacebook": {
+         "post": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/recoverPassword": {
+         "post": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/checkPasswordToken": {
+         "post": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/changePassword": {
+         "post": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/getSuggestions": {
+         "post": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/getCart": {
+         "post": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/purchaseBooksWithStripe": {
+         "post": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/createPayPalPayment": {
+         "post": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/executePayPalPayment": {
+         "post": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/getMessages": {
+         "post": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/sendMessage": {
+         "post": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/sendFile": {
+         "post": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/subscribePushNotifications": {
+         "post": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/getMessagesInfo": {
+         "get": {
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      }
+   }
+}

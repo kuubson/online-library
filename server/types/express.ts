@@ -4,11 +4,11 @@ import type { User } from 'database/models/User'
 
 export type Route = (req: Request, res: Response, next: NextFunction) => void
 
-export type ProtectedRoute = (req: Request<true>, res: Response, next: NextFunction) => void
+export type ProtectedRoute = (req: Request<'protected'>, res: Response, next: NextFunction) => void
 
 export interface Request<T = ''> extends _Request {
-   user: T extends boolean ? User : undefined
-   file: T extends boolean ? Express.Multer.File : undefined
+   user: T extends 'protected' ? User : undefined
+   file: T extends 'protected' ? Express.Multer.File : undefined
 }
 
 declare module 'express-serve-static-core' {
