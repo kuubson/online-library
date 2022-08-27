@@ -22,7 +22,7 @@ export const usePasswordRecovery = () => {
    useEffect(() => {
       const checkPasswordToken = async () => {
          try {
-            await axios.post(API.checkPasswordToken, { passwordToken })
+            await axios.post(API.auth.checkPasswordToken, { passwordToken })
          } catch (error) {
             history.push('/login')
          }
@@ -33,7 +33,7 @@ export const usePasswordRecovery = () => {
    const { submit, control, errors, getValues } = useForm({ schema })
 
    const changePassword = async () => {
-      await axios.post(API.changePassword, {
+      await axios.post(API.auth.changePassword, {
          ...getValues(),
          passwordToken,
       })

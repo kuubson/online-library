@@ -21,7 +21,7 @@ export const Guest = ({ children }: GuestProps) => {
    useEffect(() => {
       const checkToken = async () => {
          try {
-            const response = await axios.get<CheckTokenResponse>(API.checkToken)
+            const response = await axios.get<CheckTokenResponse>(API.global.checkToken)
 
             if (response) {
                const { role } = response.data

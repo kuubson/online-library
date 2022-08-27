@@ -38,7 +38,7 @@ export const useBookSuggestions = ({
 
    useEffect(() => {
       const getSuggestions = async () => {
-         const response = await axios.post<GetSuggestionsResponse>(API.getSuggestions, {
+         const response = await axios.post<GetSuggestionsResponse>(API.books.getSuggestions, {
             ...getValues(),
             withProfile: !!withProfile,
          })

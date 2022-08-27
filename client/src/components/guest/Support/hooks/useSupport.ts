@@ -14,7 +14,7 @@ export const useSupport = (withPasswordSupport: boolean | undefined) => {
    const { submit, control, errors, getValues } = useForm({ schema })
 
    const handleSupport = async () => {
-      await axios.post(API.passwordSupport(withPasswordSupport), getValues())
+      await axios.post(API.auth.passwordSupport(withPasswordSupport), getValues())
 
       if (withPasswordSupport) {
          return setApiFeedback(

@@ -21,7 +21,7 @@ export const Authentication = () => {
                return history.push('/login')
             }
 
-            await axios.post(API.authenticateEmail, { token })
+            await axios.post(API.auth.authenticateEmail, { token })
 
             setApiFeedback(
                'Email address authentication',

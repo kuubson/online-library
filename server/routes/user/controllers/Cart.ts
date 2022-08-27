@@ -1,7 +1,5 @@
 import { Router } from 'express'
 
-import { jwtAuthorization } from 'middlewares'
-
 import {
    createPayPalPayment,
    executePayPalPayment,
@@ -10,8 +8,6 @@ import {
 } from '../services/cart'
 
 export const Cart = Router()
-
-Cart.use(jwtAuthorization)
 
 Cart.post('/getCart', ...getCart)
 

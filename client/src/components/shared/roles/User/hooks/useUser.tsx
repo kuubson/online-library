@@ -37,7 +37,7 @@ export const useUser = (withChat: boolean | undefined) => {
 
       const checkToken = async () => {
          try {
-            const response = await axios.get<CheckTokenResponse>(API.checkToken)
+            const response = await axios.get<CheckTokenResponse>(API.global.checkToken)
             if (response) {
                const { role } = response.data
                if (role !== 'user') {
@@ -50,7 +50,7 @@ export const useUser = (withChat: boolean | undefined) => {
       }
 
       const getMessagesInfo = async () => {
-         const response = await axios.get<GetMessagesInfoResponse>(API.getMessagesInfo)
+         const response = await axios.get<GetMessagesInfoResponse>(API.chat.getMessagesInfo)
 
          if (response) {
             const { lastUnreadMessageIndex, unreadMessagesAmount, userId } = response.data

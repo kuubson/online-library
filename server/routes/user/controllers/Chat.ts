@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { handleMulterFile, jwtAuthorization } from 'middlewares'
+import { handleMulterFile } from 'middlewares'
 
 import {
    getMessages,
@@ -11,8 +11,6 @@ import {
 } from '../services/chat'
 
 export const Chat = Router()
-
-Chat.use(jwtAuthorization)
 
 Chat.post('/getMessages', ...getMessages)
 

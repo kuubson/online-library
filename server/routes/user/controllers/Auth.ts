@@ -1,27 +1,19 @@
 import { Router } from 'express'
 
-import { facebookAuthorization, rateLimiter } from 'middlewares'
+import { facebookAuthorization } from 'middlewares'
 
 import {
    authenticateEmail,
    changePassword,
    checkPasswordToken,
-   checkToken,
    login,
    loginWithFacebook,
-   logout,
    recoverPassword,
    register,
    resendEmail,
 } from '../services/auth'
 
 export const Auth = Router()
-
-Auth.use(rateLimiter())
-
-Auth.get('/checkToken', ...checkToken)
-
-Auth.get('/logout', ...logout)
 
 Auth.post('/register', ...register)
 

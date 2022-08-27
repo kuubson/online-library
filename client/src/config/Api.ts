@@ -1,42 +1,54 @@
-const userApi = '/api/user'
+class AuthAPI {
+   public authenticateEmail = `/api/user/auth/authenticateEmail`
 
-class _API {
-   public authenticateEmail = `${userApi}/auth/authenticateEmail`
+   public login = `/api/user/auth/login`
 
-   public login = `${userApi}/auth/login`
+   public loginWithFacebook = `/api/user/auth/loginWithFacebook`
 
-   public loginWithFacebook = `${userApi}/auth/loginWithFacebook`
+   public changePassword = `/api/user/auth/changePassword`
 
-   public changePassword = `${userApi}/auth/changePassword`
+   public checkPasswordToken = `/api/user/auth/checkPasswordToken`
 
-   public checkPasswordToken = `${userApi}/auth/checkPasswordToken`
-
-   public register = `${userApi}/auth/register`
+   public register = `/api/user/auth/register`
 
    public passwordSupport = (withPasswordSupport: boolean | undefined) =>
       `/api/user/auth/${withPasswordSupport ? 'recoverPassword' : 'resendEmail'}`
-
-   public checkToken = `${userApi}/auth/checkToken`
-
-   public getMessagesInfo = `${userApi}/chat/getMessagesInfo`
-
-   public executePayPalPayment = `${userApi}/cart/executePayPalPayment`
-
-   public createPayPalPayment = `${userApi}/cart/createPayPalPayment`
-
-   public purchaseBooksWithStripe = `${userApi}/cart/purchaseBooksWithStripe`
-
-   public getMessages = `${userApi}/chat/getMessages`
-
-   public subscribePushNotifications = `${userApi}/chat/subscribePushNotifications`
-
-   public sendMessage = `${userApi}/chat/sendMessage`
-
-   public sendFile = `${userApi}/chat/sendFile`
-
-   public getSuggestions = `${userApi}/books/getSuggestions`
-
-   public logout = `${userApi}/auth/logout`
 }
 
-export const API = new _API()
+class ChatAPI {
+   public getMessagesInfo = `/api/user/chat/getMessagesInfo`
+
+   public getMessages = `/api/user/chat/getMessages`
+
+   public subscribePushNotifications = `/api/user/chat/subscribePushNotifications`
+
+   public sendMessage = `/api/user/chat/sendMessage`
+
+   public sendFile = `/api/user/chat/sendFile`
+}
+
+class CartAPI {
+   public executePayPalPayment = `/api/cart/executePayPalPayment`
+
+   public createPayPalPayment = `/api/cart/createPayPalPayment`
+
+   public purchaseBooksWithStripe = `/api/cart/purchaseBooksWithStripe`
+}
+
+class BooksAPI {
+   public getSuggestions = `/api/user/books/getSuggestions`
+}
+
+class GlobalAPI {
+   public checkToken = `/api/user/global/checkToken`
+
+   public logout = `/api/user/global/logout`
+}
+
+export const API = {
+   auth: new AuthAPI(),
+   chat: new ChatAPI(),
+   cart: new CartAPI(),
+   books: new BooksAPI(),
+   global: new GlobalAPI(),
+}

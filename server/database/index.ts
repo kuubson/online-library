@@ -44,7 +44,7 @@ const initializeDatabase = async () => {
 
       if (NODE_ENV === 'development') {
          if (SEED_BOOKS === 'true') {
-            seedBooks(10)
+            seedBooks(100)
          }
          if (SEQUELIZE_AUTO === 'true') {
             generateDbTypes(connection)

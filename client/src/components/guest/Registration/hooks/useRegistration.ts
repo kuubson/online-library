@@ -19,7 +19,7 @@ export const useRegistration = () => {
    const { submit, control, errors, getValues } = useForm({ schema })
 
    const register = async () => {
-      await axios.post(API.register, getValues())
+      await axios.post(API.auth.register, getValues())
       setApiFeedback(
          'Account registration',
          'An e-mail with an activation link has been sent to the email address provided. Open it and activate your account',
