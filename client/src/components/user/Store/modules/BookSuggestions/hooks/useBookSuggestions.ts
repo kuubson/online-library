@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { API } from 'config'
+import { BooksAPI } from 'config'
 
 import { string, yup } from 'shared'
 
@@ -38,7 +38,7 @@ export const useBookSuggestions = ({
 
    useEffect(() => {
       const getSuggestions = async () => {
-         const response = await axios.post<GetSuggestionsResponse>(API.books.getSuggestions, {
+         const response = await axios.post<GetSuggestionsResponse>(BooksAPI.getSuggestions, {
             ...getValues(),
             withProfile: !!withProfile,
          })

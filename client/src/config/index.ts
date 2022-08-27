@@ -1,2 +1,2 @@
-export { API } from './Api'
+export * from './API'
 export * from './env'

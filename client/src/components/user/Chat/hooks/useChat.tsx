@@ -2,7 +2,7 @@ import axios from 'axios'
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 
-import { API } from 'config'
+import { ChatAPI } from 'config'
 
 import { filesInfo } from 'shared'
 
@@ -54,7 +54,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
       if (event) {
          const target = event.target as HTMLDivElement
          if (target.scrollTop <= 0 && hasMoreMessages) {
-            const response = await apiAxios.post<GetMessagesResponse>(API.chat.getMessages, {
+            const response = await apiAxios.post<GetMessagesResponse>(ChatAPI.getMessages, {
                limit,
                offset,
             })
@@ -78,7 +78,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
             }
          }
       } else {
-         const response = await apiAxios.post<GetMessagesResponse>(API.chat.getMessages, {
+         const response = await apiAxios.post<GetMessagesResponse>(ChatAPI.getMessages, {
             limit,
             offset,
          })
@@ -106,7 +106,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
    useEffect(() => {
       getMessages(20, 0, undefined)
       setTimeout(() => {
-         subscribePushNotifications(API.chat.subscribePushNotifications)
+         subscribePushNotifications(ChatAPI.subscribePushNotifications)
       }, 2000)
    }, [])
 
@@ -133,7 +133,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
    }, [socket])
 
    const getUnreadMessages = async () => {
-      const response = await apiAxios.post<GetMessagesResponse>(API.chat.getMessages, {
+      const response = await apiAxios.post<GetMessagesResponse>(ChatAPI.getMessages, {
          limit: lastUnreadMessageIndex,
          offset: 0,
       })
@@ -190,7 +190,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
          }, 0)
 
          try {
-            await axios.post(API.chat.sendMessage, { content: message })
+            await axios.post(ChatAPI.sendMessage, { content: message })
             socket?.emit('sendMessage', _message)
          } catch (error) {
             const conversation = messages
@@ -274,7 +274,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
                }
             }, 500)
 
-            const response = await axios.post<SendFileResponse>(API.chat.sendFile, form)
+            const response = await axios.post<SendFileResponse>(ChatAPI.sendFile, form)
 
             if (response) {
                setPercentage(100)

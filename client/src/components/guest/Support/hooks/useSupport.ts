@@ -1,4 +1,4 @@
-import { API } from 'config'
+import { AuthAPI } from 'config'
 
 import { email, yup } from 'shared'
 
@@ -14,23 +14,23 @@ export const useSupport = (withPasswordSupport: boolean | undefined) => {
    const { submit, control, errors, getValues } = useForm({ schema })
 
    const handleSupport = async () => {
-      await axios.post(API.auth.passwordSupport(withPasswordSupport), getValues())
-
       if (withPasswordSupport) {
-         return setApiFeedback(
+         await axios.post(AuthAPI.recoverPassword, getValues())
+         setApiFeedback(
             'Password recovery',
             'An e-mail with an password recovery link for your account has been sent',
             'Okey',
             () => history.push('/login')
          )
+      } else {
+         await axios.post(AuthAPI.resendEmail, getValues())
+         setApiFeedback(
+            'E-mail resending',
+            'An e-mail with an activation link for your account has been resent',
+            'Okey',
+            () => history.push('/login')
+         )
       }
-
-      setApiFeedback(
-         'E-mail resending',
-         'An e-mail with an activation link for your account has been resent',
-         'Okey',
-         () => history.push('/login')
-      )
    }
 
    return {

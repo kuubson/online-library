@@ -24,9 +24,9 @@ import {
 
 import { initializeGraphQL } from 'gql/server'
 
+import { initializeApiDocs } from './apiDocs'
 import { initializeCsrf } from './csrf'
 import { initializePassport } from './passport'
-import { initializeSwagger } from './swagger'
 
 webpush.setVapidDetails(
    `mailto:${NODEMAILER_USERNAME}`,
@@ -69,7 +69,7 @@ export const initializeMiddlewares = (app: Application, server: Server) => {
    initializeGraphQL(app, server, passport)
 
    if (NODE_ENV === 'development') {
-      initializeSwagger(app)
+      initializeApiDocs(app)
    }
 
    if (NODE_ENV === 'production') {

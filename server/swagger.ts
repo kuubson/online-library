@@ -10,4 +10,4 @@ const doc = {
    },
 }
 
-swaggerAutogen()('./swagger.json', ['./server.ts'], doc)
+swaggerAutogen()('../client/src/shared/swagger.json', ['./server.ts'], doc)

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { API } from 'config'
+import { AuthAPI } from 'config'
 
 import { password, repeatedPassword, yup } from 'shared'
 
@@ -22,7 +22,7 @@ export const usePasswordRecovery = () => {
    useEffect(() => {
       const checkPasswordToken = async () => {
          try {
-            await axios.post(API.auth.checkPasswordToken, { passwordToken })
+            await axios.post(AuthAPI.checkPasswordToken, { passwordToken })
          } catch (error) {
             history.push('/login')
          }
@@ -33,7 +33,7 @@ export const usePasswordRecovery = () => {
    const { submit, control, errors, getValues } = useForm({ schema })
 
    const changePassword = async () => {
-      await axios.post(API.auth.changePassword, {
+      await axios.post(AuthAPI.changePassword, {
          ...getValues(),
          passwordToken,
       })

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import styled from 'styled-components/macro'
 
-import { API } from 'config'
+import { AuthAPI } from 'config'
 
 import { HomeContainer } from 'components/guest/Home/Home'
 
@@ -21,7 +21,7 @@ export const Authentication = () => {
                return history.push('/login')
             }
 
-            await axios.post(API.auth.authenticateEmail, { token })
+            await axios.post(AuthAPI.authenticateEmail, { token })
 
             setApiFeedback(
                'Email address authentication',

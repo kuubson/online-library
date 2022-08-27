@@ -1,8 +1,8 @@
 import type { Application } from 'express'
 import { serve, setup } from 'swagger-ui-express'
 
-import swagger from '../swagger.json'
+import { swagger } from 'shared'
 
-export const initializeSwagger = async (app: Application) => {
+export const initializeApiDocs = async (app: Application) => {
    app.use('/api-docs', serve, setup(swagger))
 }

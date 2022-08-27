@@ -1,6 +1,6 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 
-import { API } from 'config'
+import { CartAPI } from 'config'
 
 import { useCart } from 'hooks'
 
@@ -27,7 +27,7 @@ export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean
             })
 
             if (paymentMethod) {
-               const response = await axios.post(API.cart.purchaseBooksWithStripe, {
+               const response = await axios.post(CartAPI.purchaseBooksWithStripe, {
                   paymentId: paymentMethod.id,
                   products: cart,
                })

@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 
 import styled from 'styled-components/macro'
 
-import { API } from 'config'
+import { GlobalAPI } from 'config'
 
 import { useSocket } from 'hooks'
 
@@ -21,7 +21,7 @@ export const Guest = ({ children }: GuestProps) => {
    useEffect(() => {
       const checkToken = async () => {
          try {
-            const response = await axios.get<CheckTokenResponse>(API.global.checkToken)
+            const response = await axios.get<CheckTokenResponse>(GlobalAPI.checkToken)
 
             if (response) {
                const { role } = response.data
