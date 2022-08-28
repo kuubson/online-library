@@ -8,6 +8,11 @@ const doc = {
       title: 'Online Library',
       description: 'API for Online Library',
    },
+   definitions: {
+      name: 'John',
+      email: 'john@example.com',
+      password: 'Sp2mc$10#F',
+   },
 }
 
 swaggerAutogen()('../client/src/shared/swagger.json', ['./server.ts'], doc)

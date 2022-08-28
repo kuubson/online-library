@@ -1,155 +1,224 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "version": "1.0.0",
-    "title": "Online Library",
-    "description": "API for Online Library"
-  },
-  "host": "localhost:3000",
-  "basePath": "/",
-  "schemes": [
-    "http"
-  ],
-  "paths": {
-    "/api/user/auth/register": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
+   "swagger": "2.0",
+   "info": {
+      "version": "1.0.0",
+      "title": "Online Library",
+      "description": "API for Online Library"
+   },
+   "host": "localhost:3000",
+   "basePath": "/",
+   "schemes": ["http"],
+   "paths": {
+      "/api/user/auth/register": {
+         "post": {
+            "tags": ["Auth"],
+            "description": "  ✅ Checks if user already exists <br />  ✅ Generates an <b>activation token</b> <br />  ✅ Sends link with teh <b>token</b> to provided email address, to allow user activate his account",
+            "parameters": [
+               {
+                  "name": "name",
+                  "in": "body",
+                  "description": "User name",
+                  "required": true,
+                  "schema": {
+                     "$ref": "#/definitions/name"
+                  }
+               },
+               {
+                  "name": "email",
+                  "in": "body",
+                  "description": "User email",
+                  "required": true,
+                  "schema": {
+                     "$ref": "#/definitions/email"
+                  }
+               },
+               {
+                  "name": "password",
+                  "in": "body",
+                  "description": "User password. It gets hashed",
+                  "required": true,
+                  "schema": {
+                     "$ref": "#/definitions/password"
+                  }
+               },
+               {
+                  "name": "repeatedPassword",
+                  "in": "body",
+                  "description": "User password. It is required just for the sake of validation",
+                  "required": true,
+                  "schema": {
+                     "$ref": "#/definitions/password"
+                  }
+               }
+            ],
+            "responses": {}
+         }
+      },
+      "/api/user/auth/authenticateEmail": {
+         "post": {
+            "tags": ["Auth"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/auth/resendEmail": {
+         "post": {
+            "tags": ["Auth"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/auth/login": {
+         "post": {
+            "tags": ["Auth"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/auth/loginWithFacebook": {
+         "post": {
+            "tags": ["Auth"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/auth/recoverPassword": {
+         "post": {
+            "tags": ["Auth"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/auth/checkPasswordToken": {
+         "post": {
+            "tags": ["Auth"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/auth/changePassword": {
+         "post": {
+            "tags": ["Auth"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/books/getSuggestions": {
+         "post": {
+            "tags": ["Books"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/cart/getCart": {
+         "post": {
+            "tags": ["Cart"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/cart/purchaseBooksWithStripe": {
+         "post": {
+            "tags": ["Cart"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/cart/createPayPalPayment": {
+         "post": {
+            "tags": ["Cart"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/cart/executePayPalPayment": {
+         "post": {
+            "tags": ["Cart"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/chat/getMessages": {
+         "post": {
+            "tags": ["Chat"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/chat/sendMessage": {
+         "post": {
+            "tags": ["Chat"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/chat/sendFile": {
+         "post": {
+            "tags": ["Chat"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/chat/subscribePushNotifications": {
+         "post": {
+            "tags": ["Chat"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/chat/getMessagesInfo": {
+         "get": {
+            "tags": ["Chat"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/global/checkToken": {
+         "get": {
+            "tags": ["Global"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
+      },
+      "/api/user/global/logout": {
+         "get": {
+            "tags": ["Global"],
+            "description": "",
+            "parameters": [],
+            "responses": {}
+         }
       }
-    },
-    "/api/user/auth/authenticateEmail": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
+   },
+   "definitions": {
+      "name": {
+         "type": "string",
+         "example": "John"
+      },
+      "email": {
+         "type": "string",
+         "example": "john@example.com"
+      },
+      "password": {
+         "type": "string",
+         "example": "Sp2mc$10#F"
       }
-    },
-    "/api/user/auth/resendEmail": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/user/auth/login": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/user/auth/loginWithFacebook": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/user/auth/recoverPassword": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/user/auth/checkPasswordToken": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/user/auth/changePassword": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/user/books/getSuggestions": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/user/cart/getCart": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/user/cart/purchaseBooksWithStripe": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/user/cart/createPayPalPayment": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/user/cart/executePayPalPayment": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/user/chat/getMessages": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/user/chat/sendMessage": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/user/chat/sendFile": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/user/chat/subscribePushNotifications": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/user/chat/getMessagesInfo": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/user/global/checkToken": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/user/global/logout": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    }
-  }
+   }
 }
