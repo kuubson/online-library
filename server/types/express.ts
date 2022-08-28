@@ -17,39 +17,41 @@ export type InitialBody = object
 
 export type InitialCookies = object
 
-type Type = 'default' | 'protected'
+type RouteTypeBase<RT extends 'default' | 'protected' = 'default'> = RT
 
-export interface Request<
-   Body extends object = InitialBody,
-   Cookies = InitialCookies,
-   RouteType extends Type = 'default'
-> extends _Request {
-   user: RouteType extends 'protected' ? User : undefined
-   file: RouteType extends 'protected' ? Express.Multer.File : undefined
-   body: Body
-   cookies: Cookies
+type BodyBase<B extends object = InitialBody> = B
+
+type CookiesBase<C extends object = InitialCookies> = C
+
+type ValidationBase<V extends boolean = true> = V
+export interface Request<B = BodyBase, C = CookiesBase, RT = RouteTypeBase> extends _Request {
+   user: RT extends 'protected' ? User : undefined
+   file: RT extends 'protected' ? Express.Multer.File : undefined
+   body: B
+   cookies: C
 }
 
-export type Middleware<
-   Body extends object = InitialBody,
-   Cookies extends object = InitialCookies,
-   RouteType extends Type = 'default'
-> = (req: Request<Body, Cookies, RouteType>, res: Response, next: NextFunction) => void
+export type Middleware<B = BodyBase, C = CookiesBase, RT = RouteTypeBase> = (
+   req: Request<B, C, RT>,
+   res: Response,
+   next: NextFunction
+) => void
 
 export type Route<
-   Body extends object = InitialBody,
-   Cookies extends object = InitialCookies,
-   RouteType extends Type = 'default',
-   Validation extends boolean = true
-> = Validation extends true
-   ? [Middleware, Middleware<Body, Cookies, RouteType>] // requires validation middleware
-   : [Middleware<Body, Cookies, RouteType>]
+   B = BodyBase,
+   C = CookiesBase,
+   RT = RouteTypeBase,
+   V = ValidationBase
+> = V extends true
+   ? [Middleware, Middleware<B, C, RT>] // requires validation middleware
+   : [Middleware<B, C, RT>]
 
-export type ProtectedRoute<
-   Body extends object = InitialBody,
-   Cookies extends object = InitialCookies,
-   Validation extends boolean = true
-> = Route<Body, Cookies, 'protected', Validation>
+export type ProtectedRoute<B = BodyBase, C = CookiesBase, V = ValidationBase> = Route<
+   B,
+   C,
+   'protected',
+   V
+>
 
 export type Body<RouteType extends TypedSchema> = InferType<RouteType>['body']
 

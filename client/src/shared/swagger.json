@@ -209,14 +209,6 @@
             "responses": {}
          }
       },
-      "/api/user/cart/getCart": {
-         "post": {
-            "tags": ["Cart"],
-            "description": "",
-            "parameters": [],
-            "responses": {}
-         }
-      },
       "/api/user/cart/purchaseBooksWithStripe": {
          "post": {
             "tags": ["Cart"],
