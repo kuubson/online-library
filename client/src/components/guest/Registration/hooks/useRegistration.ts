@@ -17,13 +17,14 @@ export const useRegistration = () => {
    const { submit, control, errors, getValues } = useForm({ schema })
 
    const register = async () => {
-      await axios.post(API.AUTH.register.url, getValues())
-      setApiFeedback(
-         'Account registration',
-         'An e-mail with an activation link has been sent to the email address provided. Open it and activate your account',
-         'Okey',
-         () => history.push('/login')
-      )
+      await axios.post(API.AUTH.register.url, getValues()).then(() => {
+         setApiFeedback(
+            API.AUTH.register.header,
+            API.AUTH.register.post.responses[200].description,
+            'Okey',
+            () => history.push('/login')
+         )
+      })
    }
 
    return {

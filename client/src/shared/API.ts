@@ -4,7 +4,7 @@ export type Endpoint = keyof typeof swagger['paths']
 
 export const getEndpointInfo = <E extends Endpoint>(endpoint: E) => ({
    url: endpoint,
-   info: swagger['paths'][endpoint],
+   ...swagger['paths'][endpoint],
 })
 
 class _API {
@@ -30,7 +30,7 @@ class _API {
          ...getEndpointInfo('/api/user/auth/checkPasswordToken'),
       },
       register: {
-         header: '',
+         header: 'Account registration',
          ...getEndpointInfo('/api/user/auth/register'),
       },
       recoverPassword: {

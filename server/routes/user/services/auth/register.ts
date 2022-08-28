@@ -14,8 +14,6 @@ import { ApiError, baseUrl, emailTemplate } from 'utils'
 
 import type { Route } from 'types/express'
 
-const details = API.AUTH.register
-
 export const register: Route = [
    yupValidation({
       body: {
@@ -33,7 +31,11 @@ export const register: Route = [
             const user = await User.findOne({ where: { email } })
 
             if (user) {
-               throw new ApiError(details.header, details.info.post.responses[409].description, 409)
+               throw new ApiError(
+                  API.AUTH.register.header,
+                  API.AUTH.register.post.responses[409].description,
+                  409
+               )
             }
 
             const token = jwt.sign({ email }, JWT_KEY, { expiresIn: '24h' })
@@ -51,9 +53,9 @@ export const register: Route = [
 
             const mailOptions = {
                to: email,
-               subject: 'Account activation in the Online Library',
+               subject: `${API.AUTH.register.header} in the Online Library`,
                html: emailTemplate(
-                  'Account activation in the Online Library',
+                  `${API.AUTH.register.header} in the Online Library`,
                   `To activate your account click the button`,
                   'Activate account',
                   `${baseUrl(req)}/authentication/${token}`
@@ -64,8 +66,8 @@ export const register: Route = [
                try {
                   if (error || !info) {
                      throw new ApiError(
-                        details.header,
-                        details.info.post.responses[522].description,
+                        API.AUTH.register.header,
+                        API.AUTH.register.post.responses[522].description,
                         502
                      )
                   }

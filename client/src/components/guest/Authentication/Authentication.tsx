@@ -20,15 +20,14 @@ export const Authentication = () => {
             if (!token) {
                return history.push('/login')
             }
-
-            await axios.post(API.AUTH.authenticateEmail.url, { token })
-
-            setApiFeedback(
-               'Email address authentication',
-               'Your email address has been successfully authenticated, you can login now',
-               'Okey',
-               () => history.push('/login')
-            )
+            await axios.post(API.AUTH.authenticateEmail.url, { token }).then(() => {
+               setApiFeedback(
+                  'Email address authentication',
+                  'Your email address has been successfully authenticated, you can login now',
+                  'Okey',
+                  () => history.push('/login')
+               )
+            })
          } catch (error) {
             history.push('/login')
          }

@@ -46,6 +46,9 @@ Auth.post(
          required: 'true',
          schema: { $ref: '#/definitions/password' }
       } 
+      #swagger.responses[200] = {
+         description: 'Activate account by clicking the link that has been sent to you',
+      }  
       #swagger.responses[409] = {
          description: 'Email address already taken',
       }  
