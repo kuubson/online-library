@@ -14,6 +14,12 @@ import { ApiError, cookie } from 'utils'
 import type { Route } from 'types/express'
 
 export const login: Route = [
+   yupValidation({
+      body: {
+         email,
+         password: uncheckedPassword,
+      },
+   }),
    async (req, res, next) => {
       try {
          const { email, password } = req.body
@@ -52,10 +58,4 @@ export const login: Route = [
          next(error)
       }
    },
-   yupValidation({
-      body: {
-         email,
-         password: uncheckedPassword,
-      },
-   }),
 ]

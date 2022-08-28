@@ -4,7 +4,7 @@ import { JWT_KEY } from 'config'
 
 import { Connection, User } from 'database'
 
-import { email, password, repeatedPassword, string } from 'shared'
+import { email, getEndpointInfo, password, repeatedPassword, string } from 'shared'
 
 import { yupValidation } from 'middlewares'
 
@@ -14,7 +14,19 @@ import { ApiError, baseUrl, emailTemplate } from 'utils'
 
 import type { Route } from 'types/express'
 
+const {
+   post: { responses },
+} = getEndpointInfo('/api/user/auth/register')
+
 export const register: Route = [
+   yupValidation({
+      body: {
+         name: string,
+         email,
+         password,
+         repeatedPassword: repeatedPassword(),
+      },
+   }),
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {
@@ -23,11 +35,7 @@ export const register: Route = [
             const user = await User.findOne({ where: { email } })
 
             if (user) {
-               throw new ApiError(
-                  'Account registration',
-                  'User with email address provided already exists',
-                  409
-               )
+               throw new ApiError('Account registration', responses[409].description, 409)
             }
 
             const token = jwt.sign({ email }, JWT_KEY, { expiresIn: '24h' })
@@ -57,11 +65,7 @@ export const register: Route = [
             transporter.sendMail(mailOptions, (error, info) => {
                try {
                   if (error || !info) {
-                     throw new ApiError(
-                        'Account registration',
-                        'There was an unexpected problem when sending an e-mail with an activation link for your account',
-                        502
-                     )
+                     throw new ApiError('Account registration', responses[522].description, 502)
                   }
                   res.send()
                } catch (error) {
@@ -73,12 +77,4 @@ export const register: Route = [
          next(error)
       }
    },
-   yupValidation({
-      body: {
-         name: string,
-         email,
-         password,
-         repeatedPassword: repeatedPassword(),
-      },
-   }),
 ]

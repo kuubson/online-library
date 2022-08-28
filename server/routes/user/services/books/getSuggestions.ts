@@ -12,6 +12,13 @@ import { yup } from 'helpers'
 import type { ProtectedRoute } from 'types/express'
 
 export const getSuggestions: ProtectedRoute = [
+   yupValidation({
+      body: {
+         title: yup.string().trim(),
+         author: yup.string().trim(),
+         withProfile: bool,
+      },
+   }),
    async (req, res, next) => {
       try {
          const { title, author, withProfile } = req.body
@@ -36,11 +43,4 @@ export const getSuggestions: ProtectedRoute = [
          next(error)
       }
    },
-   yupValidation({
-      body: {
-         title: yup.string().trim(),
-         author: yup.string().trim(),
-         withProfile: bool,
-      },
-   }),
 ]

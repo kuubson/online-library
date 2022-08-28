@@ -15,6 +15,8 @@ import { ApiError, baseUrl, emailTemplate } from 'utils'
 import type { Route } from 'types/express'
 
 export const recoverPassword: Route = [
+   yupValidation({ body: { email } }),
+
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {
@@ -71,5 +73,4 @@ export const recoverPassword: Route = [
          next(error)
       }
    },
-   yupValidation({ body: { email } }),
 ]

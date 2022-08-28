@@ -12,6 +12,7 @@ import type { AuthTokenData } from 'types'
 import type { Route } from 'types/express'
 
 export const checkToken: Route = [
+   yupValidation({ cookies: { token: yup.string().jwt() } }),
    async (req, res, next) => {
       try {
          const { token } = req.cookies
@@ -49,5 +50,4 @@ export const checkToken: Route = [
          next(error)
       }
    },
-   yupValidation({ cookies: { token: yup.string().jwt() } }),
 ]

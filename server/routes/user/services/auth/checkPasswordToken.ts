@@ -14,6 +14,7 @@ import type { PasswordTokendata } from 'types'
 import type { Route } from 'types/express'
 
 export const checkPasswordToken: Route = [
+   yupValidation({ body: { passwordToken: yup.string().jwt().required() } }),
    async (req, res, next) => {
       try {
          const { passwordToken } = req.body
@@ -46,5 +47,4 @@ export const checkPasswordToken: Route = [
          next(error)
       }
    },
-   yupValidation({ body: { passwordToken: yup.string().jwt().required() } }),
 ]

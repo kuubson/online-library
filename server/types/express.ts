@@ -4,8 +4,10 @@ import type { User } from 'database/models/User'
 
 export type RouteType<T = ''> = (req: Request<T>, res: Response, next: NextFunction) => void
 
+type YupValidator = RouteType
+
 export type Route<T = '', Validation = true> = Validation extends true
-   ? [RouteType<T>, RouteType]
+   ? [YupValidator, RouteType<T>]
    : [RouteType<T>]
 
 export type ProtectedRoute<Validation = true> = Route<'protected', Validation>

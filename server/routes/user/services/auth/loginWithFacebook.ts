@@ -14,6 +14,13 @@ import { cookie } from 'utils'
 import type { Route } from 'types/express'
 
 export const loginWithFacebook: Route = [
+   yupValidation({
+      body: {
+         name: string,
+         email,
+         access_token: string,
+      },
+   }),
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {
@@ -48,11 +55,4 @@ export const loginWithFacebook: Route = [
          next(error)
       }
    },
-   yupValidation({
-      body: {
-         name: string,
-         email,
-         access_token: string,
-      },
-   }),
 ]

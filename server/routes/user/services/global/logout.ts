@@ -7,6 +7,7 @@ import { cookie } from 'utils'
 import type { Route } from 'types/express'
 
 export const logout: Route = [
+   () => yupValidation({ cookies: { token: yup.string().jwt() } }),
    (_, res, next) => {
       try {
          res.clearCookie('token', cookie()).send()
@@ -14,5 +15,4 @@ export const logout: Route = [
          next(error)
       }
    },
-   yupValidation({ cookies: { token: yup.string().jwt() } }),
 ]

@@ -46,6 +46,12 @@ Auth.post(
          required: 'true',
          schema: { $ref: '#/definitions/password' }
       } 
+      #swagger.responses[409] = {
+         description: 'Email address already taken',
+      }  
+      #swagger.responses[522] = {
+         description: 'There was a problem sending the activation link',
+      }  
     */
    '/register',
    ...register

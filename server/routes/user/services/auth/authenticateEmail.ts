@@ -13,6 +13,7 @@ import { ApiError } from 'utils'
 import type { Route } from 'types/express'
 
 export const authenticateEmail: Route = [
+   yupValidation({ body: { token: yup.string().jwt() } }),
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {
@@ -60,5 +61,4 @@ export const authenticateEmail: Route = [
          next(error)
       }
    },
-   yupValidation({ body: { token: yup.string().jwt() } }),
 ]

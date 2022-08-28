@@ -9,6 +9,7 @@ import { baseUrl } from 'utils'
 import type { ProtectedRoute } from 'types/express'
 
 export const sendMessage: ProtectedRoute = [
+   yupValidation({ body: { content: yup.string().trim() } }),
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {
@@ -42,5 +43,4 @@ export const sendMessage: ProtectedRoute = [
          next(error)
       }
    },
-   yupValidation({ body: { content: yup.string().trim() } }),
 ]

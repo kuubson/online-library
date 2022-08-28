@@ -9,6 +9,12 @@ import { updateReadByProperty } from 'helpers'
 import type { ProtectedRoute } from 'types/express'
 
 export const getMessages: ProtectedRoute = [
+   yupValidation({
+      body: {
+         limit: integer,
+         offset: integer,
+      },
+   }),
    async (req, res, next) => {
       try {
          const { id, name } = req.user
@@ -43,10 +49,4 @@ export const getMessages: ProtectedRoute = [
          next(error)
       }
    },
-   yupValidation({
-      body: {
-         limit: integer,
-         offset: integer,
-      },
-   }),
 ]

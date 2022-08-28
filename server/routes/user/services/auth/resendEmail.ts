@@ -15,6 +15,7 @@ import { ApiError, baseUrl, emailTemplate } from 'utils'
 import type { Route } from 'types/express'
 
 export const resendEmail: Route = [
+   yupValidation({ body: { email } }),
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {
@@ -71,5 +72,4 @@ export const resendEmail: Route = [
          next(error)
       }
    },
-   yupValidation({ body: { email } }),
 ]

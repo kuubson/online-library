@@ -17,6 +17,12 @@ import type { ProtectedRoute } from 'types/express'
 const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: '2020-08-27' })
 
 export const purchaseBooksWithStripe: ProtectedRoute = [
+   yupValidation({
+      body: {
+         paymentId: string,
+         products: yup.array().required().min(1).of(string),
+      },
+   }),
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {
@@ -72,10 +78,4 @@ export const purchaseBooksWithStripe: ProtectedRoute = [
          next(error)
       }
    },
-   yupValidation({
-      body: {
-         paymentId: string,
-         products: yup.array().required().min(1).of(string),
-      },
-   }),
 ]

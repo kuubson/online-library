@@ -19,8 +19,8 @@ const server = http.createServer(app)
 
 initializeMiddlewares(app, server)
 
-errorHandler(app)
-
 app.use(router)
+
+errorHandler(app)
 
 server.listen(PORT || 3001, () => console.log(`🚀 Server has launched`))

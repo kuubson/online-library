@@ -11,6 +11,12 @@ import { ApiError } from 'utils'
 import type { ProtectedRoute } from 'types/express'
 
 export const executePayPalPayment: ProtectedRoute = [
+   yupValidation({
+      body: {
+         paymentId: string,
+         PayerID: string,
+      },
+   }),
    async (req, res, next) => {
       try {
          const { paymentId, PayerID } = req.body
@@ -50,10 +56,4 @@ export const executePayPalPayment: ProtectedRoute = [
          next(error)
       }
    },
-   yupValidation({
-      body: {
-         paymentId: string,
-         PayerID: string,
-      },
-   }),
 ]

@@ -51,7 +51,15 @@
                   }
                }
             ],
-            "responses": {}
+            "responses": {
+               "409": {
+                  "description": "User with email address provided already exists"
+               },
+               "522": {
+                  "description": "There was a problem sending you an activation link",
+                  "summary": "There was a problem sending you an activation link"
+               }
+            }
          }
       },
       "/api/user/auth/authenticateEmail": {

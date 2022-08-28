@@ -7,6 +7,13 @@ import { yupValidation } from 'middlewares'
 import { type ProtectedRoute } from 'types/express'
 
 export const subscribePushNotifications: ProtectedRoute = [
+   yupValidation({
+      body: {
+         endpoint: string,
+         'keys.p256dh': string,
+         'keys.auth': string,
+      },
+   }),
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {
@@ -34,11 +41,4 @@ export const subscribePushNotifications: ProtectedRoute = [
          next(error)
       }
    },
-   yupValidation({
-      body: {
-         endpoint: string,
-         'keys.p256dh': string,
-         'keys.auth': string,
-      },
-   }),
 ]

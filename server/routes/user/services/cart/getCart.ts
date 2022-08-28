@@ -9,6 +9,7 @@ import { yup } from 'helpers'
 import type { ProtectedRoute } from 'types/express'
 
 export const getCart: ProtectedRoute = [
+   yupValidation({ body: { cart: yup.array().required().of(string) } }),
    async (req, res, next) => {
       try {
          const { cart } = req.body
@@ -20,5 +21,4 @@ export const getCart: ProtectedRoute = [
          next(error)
       }
    },
-   yupValidation({ body: { cart: yup.array().required().of(string) } }),
 ]
