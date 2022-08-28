@@ -37,7 +37,7 @@ export const loginWithFacebook: Route = [
             )
 
             if (user) {
-               return res.cookie('token', token, cookie(true)).send({ success: true })
+               return res.cookie('token', token, cookie(true)).send()
             }
 
             await User.create(
@@ -49,7 +49,7 @@ export const loginWithFacebook: Route = [
                { transaction }
             )
 
-            res.cookie('token', token, cookie(true)).send({ success: true })
+            res.cookie('token', token, cookie(true)).send()
          })
       } catch (error) {
          next(error)

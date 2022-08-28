@@ -16,7 +16,7 @@
         "tags": [
           "Auth"
         ],
-        "description": "  ✅ Checks if user already exists <br />  ✅ Generates an <b>activation token</b> <br />  ✅ Sends link with the <b>token</b> to allow user activate his account",
+        "description": "  ✅ Checks if user already exist <br />  ✅ Generates an <b>activation token</b <br />  ✅ Sends link with the <b>token</b> to allow user activate his account",
         "parameters": [
           {
             "name": "name",
@@ -73,7 +73,7 @@
         "tags": [
           "Auth"
         ],
-        "description": "  ✅ Check if user already activated his account <br />  ✅ Toggles account as activated if it's not already <br />",
+        "description": "  ✅ Check if user already activated his accoun <br />  ✅ Toggles account as activated if it's not alread <br />",
         "parameters": [
           {
             "name": "activationToken",
@@ -109,7 +109,7 @@
         "tags": [
           "Auth"
         ],
-        "description": "  ✅ Ensures user with provided email address exists <br />  ✅ Rejects resending activation token if account is already activated <br />  ✅ Sends new activation token to the user <br />",
+        "description": "  ✅ Ensures user with provided email address exists <br />  ✅ Rejects resending activation token if account is already activate <br />  ✅ Sends new activation token to the use <br />",
         "parameters": [
           {
             "name": "email",
@@ -148,9 +148,35 @@
         "tags": [
           "Auth"
         ],
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "description": "  ✅ Checks given email and password <br />  ✅ Check if account is activated <br />  ✅ Sends authentication if credentials are ok <br />",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "body",
+            "description": "User email",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/email"
+            }
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "description": "User password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/password"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Given credentials are wrong"
+          },
+          "403": {
+            "description": "Account not activated"
+          }
+        }
       }
     },
     "/api/user/auth/loginWithFacebook": {

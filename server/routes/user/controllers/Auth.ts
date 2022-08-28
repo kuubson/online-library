@@ -19,8 +19,8 @@ Auth.post(
    /*
    `  #swagger.tags = ['Auth']
       #swagger.description = `
-         ✅ Checks if user already exists <br />
-         ✅ Generates an <b>activation token</b> <br />
+         ✅ Checks if user already exist <br />
+         ✅ Generates an <b>activation token</b <br />
          ✅ Sends link with the <b>token</b> to allow user activate his account
       #swagger.parameters['name'] = {
          in: 'body',
@@ -64,8 +64,8 @@ Auth.post(
    /*
    `  #swagger.tags = ['Auth']
       #swagger.description = `
-         ✅ Check if user already activated his account <br />
-         ✅ Toggles account as activated if it's not already <br />
+         ✅ Check if user already activated his accoun <br />
+         ✅ Toggles account as activated if it's not alread <br />
       #swagger.parameters['activationToken'] = {
          in: 'body',
          description: 'Account activation token. Expires in 24h',
@@ -96,9 +96,9 @@ Auth.post(
    /*
    `  #swagger.tags = ['Auth']
       #swagger.description = `
-         ✅ Ensures user with provided email address exists  <br />
-         ✅ Rejects resending activation token if account is already activated <br />
-         ✅ Sends new activation token to the user <br />
+         ✅ Ensures user with provided email address exists <br />
+         ✅ Rejects resending activation token if account is already activate <br />
+         ✅ Sends new activation token to the use <br />
       #swagger.parameters['email'] = {
          in: 'body',
          description: 'User email',
@@ -129,7 +129,31 @@ Auth.post(
 )
 
 Auth.post(
-   // #swagger.tags = ['Auth']
+   /*
+   `  #swagger.tags = ['Auth']
+      #swagger.description = `
+         ✅ Checks given email and password <br />
+         ✅ Check if account is activated <br />
+         ✅ Sends authentication if credentials are ok <br />
+      #swagger.parameters['email'] = {
+         in: 'body',
+         description: 'User email',
+         required: 'true',
+         schema: { $ref: '#/definitions/email' }
+      } 
+      #swagger.parameters['password'] = {
+         in: 'body',
+         description: 'User password',
+         required: 'true',
+         schema: { $ref: '#/definitions/password' }
+      } 
+      #swagger.responses[401] = {
+         description: 'Given credentials are wrong',
+      }  
+      #swagger.responses[403] = {
+         description: 'Account not activated',
+      }  
+    */
    '/login',
    ...login
 )

@@ -14,7 +14,7 @@ class _API {
          ...getEndpointInfo('/api/user/auth/activateAccount'),
       },
       login: {
-         header: '',
+         header: 'Authentication',
          ...getEndpointInfo('/api/user/auth/login'),
       },
       loginWithFacebook: {

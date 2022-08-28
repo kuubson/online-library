@@ -5,7 +5,7 @@ import { JWT_KEY } from 'config'
 
 import { User } from 'database'
 
-import { email, uncheckedPassword } from 'shared'
+import { API, email, uncheckedPassword } from 'shared'
 
 import { yupValidation } from 'middlewares'
 
@@ -31,17 +31,17 @@ export const login: Route = [
 
          if (!user || !bcrypt.compareSync(password, user.password)) {
             throw new ApiError(
-               'Logging to app',
-               'The email address or password provided are invalid',
-               404
+               API.AUTH.login.header,
+               API.AUTH.login.post.responses[401].description,
+               401
             )
          }
 
          if (!user.authentication?.authenticated) {
             throw new ApiError(
-               'Logging to app',
-               'An account assigned to email address provided must be firstly authenticated',
-               409
+               API.AUTH.login.header,
+               API.AUTH.login.post.responses[403].description,
+               403
             )
          }
 
@@ -53,7 +53,7 @@ export const login: Route = [
             JWT_KEY
          )
 
-         res.cookie('token', token, cookie(true)).send({ success: true })
+         res.cookie('token', token, cookie(true)).send()
       } catch (error) {
          next(error)
       }

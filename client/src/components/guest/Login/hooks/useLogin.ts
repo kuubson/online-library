@@ -24,32 +24,33 @@ export const useLogin = () => {
 
    const loginWithFacebook = async (event: React.MouseEvent) => {
       event.preventDefault()
-      window.FB.login(
-         ({ authResponse, status }: FBLoginRequest) => {
-            if (authResponse && status === 'connected') {
-               return window.FB.api(
-                  '/me?fields=id,first_name,email',
-                  async ({ first_name, email }: FBMeRespose) => {
-                     await axios
-                        .post(API.AUTH.loginWithFacebook.url, {
-                           name: first_name,
-                           email,
-                           access_token: authResponse.accessToken,
-                        })
-                        .then(() => {
-                           history.push('/store')
-                        })
-                  }
-               )
-            }
+
+      const handleFBlogin = ({ authResponse, status }: FBLoginRequest) => {
+         if (authResponse && status === 'connected') {
+            window.FB.api(
+               '/me?fields=id,first_name,email',
+               async ({ first_name, email }: FBMeRespose) => {
+                  await axios
+                     .post(API.AUTH.loginWithFacebook.url, {
+                        name: first_name,
+                        email,
+                        access_token: authResponse.accessToken,
+                     })
+                     .then(() => {
+                        history.push('/store')
+                     })
+               }
+            )
+         } else {
             setApiFeedback(
                'Logging to the app',
                'There was an unexpected problem when logging in with Facebook',
                'Okey'
             )
-         },
-         { scope: 'email,public_profile' }
-      )
+         }
+      }
+
+      window.FB.login(handleFBlogin, { scope: 'email,public_profile' })
    }
 
    return {
