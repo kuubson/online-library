@@ -17,10 +17,10 @@ export const transporter = nodemailer.createTransport(
 //    if (error) {
 //       console.log({
 //          error,
-//          message: 'There was a problem connecting to the Online Library email',
+//          message: 'There was a problem connecting to email serivce',
 //       })
 //    }
 //    if (success) {
-//       console.log('The connection with Online Library email has been established')
+//       console.log('📧 SMTP host connected')
 //    }
 // })

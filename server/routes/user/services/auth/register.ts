@@ -51,31 +51,26 @@ export const register: Route = [
 
             await createdUser.createAuthentication({ token })
 
-            const mailOptions = {
-               to: email,
-               subject: `${API.AUTH.register.header} in the Online Library`,
-               html: emailTemplate(
-                  `${API.AUTH.register.header} in the Online Library`,
-                  `To activate your account click the button`,
-                  'Activate account',
-                  `${baseUrl(req)}/authentication/${token}`
-               ),
+            try {
+               await transporter.sendMail({
+                  to: email,
+                  subject: `${API.AUTH.register.header} in the Online Library`,
+                  html: emailTemplate(
+                     `${API.AUTH.register.header} in the Online Library`,
+                     `To activate your account click the button`,
+                     'Activate account',
+                     `${baseUrl(req)}/authentication/${token}`
+                  ),
+               })
+            } catch {
+               throw new ApiError(
+                  API.AUTH.register.header,
+                  API.AUTH.register.post.responses[502].description,
+                  502
+               )
             }
 
-            transporter.sendMail(mailOptions, (error, info) => {
-               try {
-                  if (error || !info) {
-                     throw new ApiError(
-                        API.AUTH.register.header,
-                        API.AUTH.register.post.responses[522].description,
-                        502
-                     )
-                  }
-                  res.send()
-               } catch (error) {
-                  next(error)
-               }
-            })
+            res.send()
          })
       } catch (error) {
          next(error)

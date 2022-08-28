@@ -42,31 +42,26 @@ export const resendEmail: Route = [
 
             await user.authentication.update({ token }, { transaction })
 
-            const mailOptions = {
-               to: email,
-               subject: 'Account activation in the Online Library',
-               html: emailTemplate(
-                  'Account activation in the Online Library',
-                  `To activate your account click the button`,
-                  'Activate account',
-                  `${baseUrl(req)}/authentication/${token}`
-               ),
+            try {
+               await transporter.sendMail({
+                  to: email,
+                  subject: 'Account activation in the Online Library',
+                  html: emailTemplate(
+                     'Account activation in the Online Library',
+                     `To activate your account click the button`,
+                     'Activate account',
+                     `${baseUrl(req)}/authentication/${token}`
+                  ),
+               })
+            } catch (error) {
+               throw new ApiError(
+                  'E-mail resending',
+                  'There was an unexpected problem when sending an e-mail with an activation link for your account',
+                  502
+               )
             }
 
-            transporter.sendMail(mailOptions, (error, info) => {
-               try {
-                  if (error || !info) {
-                     throw new ApiError(
-                        'E-mail resending',
-                        'There was an unexpected problem when sending an e-mail with an activation link for your account',
-                        502
-                     )
-                  }
-                  res.send()
-               } catch (error) {
-                  next(error)
-               }
-            })
+            res.send()
          })
       } catch (error) {
          next(error)

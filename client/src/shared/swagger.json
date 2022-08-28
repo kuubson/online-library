@@ -62,7 +62,7 @@
           "409": {
             "description": "Email address already taken"
           },
-          "522": {
+          "502": {
             "description": "There was a problem sending the activation link"
           }
         }

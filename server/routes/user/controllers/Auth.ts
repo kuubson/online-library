@@ -52,7 +52,7 @@ Auth.post(
       #swagger.responses[409] = {
          description: 'Email address already taken',
       }  
-      #swagger.responses[522] = {
+      #swagger.responses[502] = {
          description: 'There was a problem sending the activation link',
       }  
     */
