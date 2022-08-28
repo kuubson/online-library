@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { JWT_KEY } from 'config'
+import { JWT_KEY, TokenExpiration } from 'config'
 
 import { Connection, User } from 'database'
 
@@ -38,7 +38,9 @@ export const register: Route = [
                )
             }
 
-            const token = jwt.sign({ email }, JWT_KEY, { expiresIn: '24h' })
+            const activationToken = jwt.sign({ email }, JWT_KEY, {
+               expiresIn: TokenExpiration['24h'],
+            })
 
             const createdUser = await User.create(
                {
@@ -49,7 +51,7 @@ export const register: Route = [
                { transaction }
             )
 
-            await createdUser.createAuthentication({ token })
+            await createdUser.createAuthentication({ activationToken })
 
             try {
                await transporter.sendMail({
@@ -59,7 +61,7 @@ export const register: Route = [
                      `${API.AUTH.register.header} in the Online Library`,
                      `To activate your account click the button`,
                      'Activate account',
-                     `${baseUrl(req)}/authentication/${token}`
+                     `${baseUrl(req)}/authentication/${activationToken}`
                   ),
                })
             } catch {

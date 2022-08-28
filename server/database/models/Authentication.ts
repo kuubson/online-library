@@ -23,7 +23,7 @@ export class Authentication extends Model<
    declare createdAt: CreationOptional<Date>
    declare updatedAt: CreationOptional<Date>
 
-   declare token: string
+   declare activationToken: string
    declare authenticated: boolean | null
 
    declare user?: NonAttribute<User>
@@ -40,7 +40,7 @@ export const AuthenticationModel = (sequelize: Sequelize) =>
    Authentication.init(
       {
          ...dbDefaultAttributes,
-         token: {
+         activationToken: {
             type: DataTypes.TEXT,
             allowNull: false,
          },

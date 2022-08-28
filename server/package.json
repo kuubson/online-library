@@ -3,7 +3,7 @@
    "private": true,
    "version": "1.0.0",
    "scripts": {
-      "start": "export NODE_ENV=development && nodemon -e ts,gql server.ts",
+      "start": "export NODE_ENV=development && nodemon server.ts",
       "check": "eslint . && tsc --noEmit",
       "build": "tsc && copyfiles gql/**/**/*.gql dist/server",
       "docs": "npx ts-node swagger.ts"

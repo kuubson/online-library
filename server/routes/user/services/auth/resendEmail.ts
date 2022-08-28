@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { JWT_KEY } from 'config'
+import { JWT_KEY, TokenExpiration } from 'config'
 
 import { Connection, User } from 'database'
 
@@ -38,9 +38,11 @@ export const resendEmail: Route = [
                )
             }
 
-            const token = jwt.sign({ email }, JWT_KEY, { expiresIn: '24h' })
+            const activationToken = jwt.sign({ email }, JWT_KEY, {
+               expiresIn: TokenExpiration['24h'],
+            })
 
-            await user.authentication.update({ token }, { transaction })
+            await user.authentication.update({ activationToken }, { transaction })
 
             try {
                await transporter.sendMail({
@@ -50,7 +52,7 @@ export const resendEmail: Route = [
                      'Account activation in the Online Library',
                      `To activate your account click the button`,
                      'Activate account',
-                     `${baseUrl(req)}/authentication/${token}`
+                     `${baseUrl(req)}/authentication/${activationToken}`
                   ),
                })
             } catch (error) {

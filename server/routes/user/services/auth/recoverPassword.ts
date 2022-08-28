@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { JWT_KEY } from 'config'
+import { JWT_KEY, TokenExpiration } from 'config'
 
 import { Connection, User } from 'database'
 
@@ -38,7 +38,7 @@ export const recoverPassword: Route = [
                )
             }
 
-            const passwordToken = jwt.sign({ email }, JWT_KEY, { expiresIn: '1h' })
+            const passwordToken = jwt.sign({ email }, JWT_KEY, { expiresIn: TokenExpiration['1h'] })
 
             await user.update({ passwordToken }, { transaction })
 

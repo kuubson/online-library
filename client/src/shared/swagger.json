@@ -16,7 +16,7 @@
         "tags": [
           "Auth"
         ],
-        "description": "  ✅ Checks if user already exists <br />  ✅ Generates an <b>activation token</b> <br />  ✅ Sends link with teh <b>token</b> to provided email address, to allow user activate his account",
+        "description": "  ✅ Checks if user already exists <br />  ✅ Generates an <b>activation token</b> <br />  ✅ Sends link with the <b>token</b> to allow user activate his account",
         "parameters": [
           {
             "name": "name",
@@ -73,9 +73,35 @@
         "tags": [
           "Auth"
         ],
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "description": "  ✅ Check if user already activated his account <br />  ✅ Toggles account as activated if it's not already <br />",
+        "parameters": [
+          {
+            "name": "activationToken",
+            "in": "body",
+            "description": "Account activation token. Expires in 24h",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/jwt"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account activated. You can login now"
+          },
+          "400": {
+            "description": "The activation link is invalid"
+          },
+          "401": {
+            "description": "The activation link has expired"
+          },
+          "403": {
+            "description": "Account already activated"
+          },
+          "409": {
+            "description": "No authentication associated with this link"
+          }
+        }
       }
     },
     "/api/user/auth/resendEmail": {
@@ -271,6 +297,10 @@
     "password": {
       "type": "string",
       "example": "Sp2mc$10#F"
+    },
+    "jwt": {
+      "type": "string",
+      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
     }
   }
 }

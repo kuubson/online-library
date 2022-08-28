@@ -21,7 +21,7 @@ Auth.post(
       #swagger.description = `
          ✅ Checks if user already exists <br />
          ✅ Generates an <b>activation token</b> <br />
-         ✅ Sends link with teh <b>token</b> to provided email address, to allow user activate his account
+         ✅ Sends link with the <b>token</b> to allow user activate his account
       #swagger.parameters['name'] = {
          in: 'body',
          description: 'User name',
@@ -61,7 +61,33 @@ Auth.post(
 )
 
 Auth.post(
-   // #swagger.tags = ['Auth']
+   /*
+   `  #swagger.tags = ['Auth']
+      #swagger.description = `
+         ✅ Check if user already activated his account <br />
+         ✅ Toggles account as activated if it's not already <br />
+      #swagger.parameters['activationToken'] = {
+         in: 'body',
+         description: 'Account activation token. Expires in 24h',
+         required: 'true',
+         schema: { $ref: '#/definitions/jwt' }
+      } 
+      #swagger.responses[200] = {
+         description: 'Account activated. You can login now',
+      }  
+      #swagger.responses[409] = {
+         description: 'No authentication associated with this link',
+      }  
+      #swagger.responses[403] = {
+         description: 'Account already activated',
+      }  
+      #swagger.responses[401] = {
+         description: 'The activation link has expired',
+      }  
+      #swagger.responses[400] = {
+         description: 'The activation link is invalid',
+      }  
+    */
    '/authenticateEmail',
    ...authenticateEmail
 )

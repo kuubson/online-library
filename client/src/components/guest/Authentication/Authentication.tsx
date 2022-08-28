@@ -12,18 +12,18 @@ import { setApiFeedback } from 'helpers'
 import { axios, history } from 'utils'
 
 export const Authentication = () => {
-   const { token } = useParams()
+   const { activationToken } = useParams()
 
    useEffect(() => {
       const authenticateEmail = async () => {
          try {
-            if (!token) {
+            if (!activationToken) {
                return history.push('/login')
             }
-            await axios.post(API.AUTH.authenticateEmail.url, { token }).then(() => {
+            await axios.post(API.AUTH.authenticateEmail.url, { activationToken }).then(() => {
                setApiFeedback(
-                  'Email address authentication',
-                  'Your email address has been successfully authenticated, you can login now',
+                  API.AUTH.authenticateEmail.header,
+                  API.AUTH.authenticateEmail.post.responses[200].description,
                   'Okey',
                   () => history.push('/login')
                )
@@ -33,7 +33,7 @@ export const Authentication = () => {
          }
       }
       authenticateEmail()
-   }, [token])
+   }, [activationToken])
 
    return <AuthenticationContainer />
 }
