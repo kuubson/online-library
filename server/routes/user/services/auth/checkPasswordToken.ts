@@ -11,10 +11,12 @@ import { yup } from 'helpers'
 import { ApiError } from 'utils'
 
 import type { PasswordTokendata } from 'types'
-import type { Route } from 'types/express'
+import type { Body, Route } from 'types/express'
 
-export const checkPasswordToken: Route = [
-   yupValidation({ body: { passwordToken: yup.string().jwt().required() } }),
+const schema = yup.object({ body: yup.object({ passwordToken: yup.string().jwt().required() }) })
+
+export const checkPasswordToken: Route<Body<typeof schema>> = [
+   yupValidation({ schema }),
    async (req, res, next) => {
       try {
          const { passwordToken } = req.body

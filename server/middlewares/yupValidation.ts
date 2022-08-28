@@ -1,30 +1,21 @@
 import type { NextFunction, Request, Response } from 'express'
 import { ValidationError } from 'yup'
-import type { ObjectShape } from 'yup/lib/object'
-
-import { yup } from 'helpers'
+import type { ObjectShape, OptionalObjectSchema } from 'yup/lib/object'
 
 import { ApiError } from 'utils'
 
-type Schema = {
-   body?: ObjectShape
-   cookies?: ObjectShape
+type Schema<T extends ObjectShape> = {
+   schema: OptionalObjectSchema<T>
 }
 
 export const yupValidation =
-   ({ body, cookies }: Schema) =>
+   <T extends ObjectShape>({ schema }: Schema<T>) =>
    async (req: Request, _: Response, next: NextFunction) => {
       try {
-         const schema = yup.object({
-            body: yup.object({ ...body }),
-            cookies: yup.object({ ...cookies }),
-         })
-
          await schema.validate({
             body: req.body,
             cookies: req.cookies,
          })
-
          next()
       } catch (err) {
          if (err instanceof ValidationError) {

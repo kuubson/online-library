@@ -6,10 +6,12 @@ import { sendNotificationsForOtherUsers, yup } from 'helpers'
 
 import { baseUrl } from 'utils'
 
-import type { ProtectedRoute } from 'types/express'
+import type { Body, ProtectedRoute } from 'types/express'
 
-export const sendMessage: ProtectedRoute = [
-   yupValidation({ body: { content: yup.string().trim() } }),
+const schema = yup.object({ body: yup.object({ content: yup.string().required().trim() }) })
+
+export const sendMessage: ProtectedRoute<Body<typeof schema>> = [
+   yupValidation({ schema }),
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {

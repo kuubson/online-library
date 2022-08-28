@@ -11,11 +11,13 @@ import { ApiError, cookie } from 'utils'
 import type { AuthTokenData } from 'types'
 import type { Route } from 'types/express'
 
+const schema = yup.object({ cookies: yup.object({ token: yup.string().jwt() }) })
+
 export const checkToken: Route = [
-   yupValidation({ cookies: { token: yup.string().jwt() } }),
+   yupValidation({ schema }),
    async (req, res, next) => {
       try {
-         const { token } = req.cookies
+         const { token } = req.cookies // TODO: inherit cookies type from schema
 
          if (!token) {
             return res.clearCookie('token', cookie()).send({ role: 'guest' })

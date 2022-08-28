@@ -1,10 +1,9 @@
-/* eslint-disable object-curly-newline */
 import type { Payment } from 'paypal-rest-sdk'
 import paypal from 'paypal-rest-sdk'
 
 import { Book } from 'database'
 
-import { string } from 'shared'
+import { API, products } from 'shared'
 
 import { yupValidation } from 'middlewares'
 
@@ -12,12 +11,14 @@ import { totalBooksPrice, yup } from 'helpers'
 
 import { ApiError, baseUrl } from 'utils'
 
-import type { ProtectedRoute } from 'types/express'
+import type { Body, ProtectedRoute } from 'types/express'
 
-export const createPayPalPayment: ProtectedRoute = [
-   yupValidation({
-      body: { products: yup.array().required().min(1).of(string) },
-   }),
+const ENDPOINT = API.CART.createPayPalPayment
+
+const schema = yup.object({ body: yup.object({ products }) })
+
+export const createPayPalPayment: ProtectedRoute<Body<typeof schema>> = [
+   yupValidation({ schema }),
    async (req, res, next) => {
       try {
          const { products } = req.body

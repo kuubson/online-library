@@ -1,20 +1,24 @@
 import { Message, User } from 'database'
 
-import { integer } from 'shared'
+import { API, integer } from 'shared'
 
 import { yupValidation } from 'middlewares'
 
-import { updateReadByProperty } from 'helpers'
+import { updateReadByProperty, yup } from 'helpers'
 
-import type { ProtectedRoute } from 'types/express'
+import type { Body, ProtectedRoute } from 'types/express'
 
-export const getMessages: ProtectedRoute = [
-   yupValidation({
-      body: {
-         limit: integer,
-         offset: integer,
-      },
+const ENDPOINT = API.CHAT.getMessages
+
+const schema = yup.object({
+   body: yup.object({
+      limit: integer,
+      offset: integer,
    }),
+})
+
+export const getMessages: ProtectedRoute<Body<typeof schema>> = [
+   yupValidation({ schema }),
    async (req, res, next) => {
       try {
          const { id, name } = req.user

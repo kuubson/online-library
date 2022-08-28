@@ -1,4 +1,6 @@
+import { email, password, repeatedPassword, string, uncheckedPassword } from './schemas'
 import swagger from './swagger.json'
+import { yup } from './yup'
 
 export type Endpoint = keyof typeof swagger['paths']
 
@@ -10,88 +12,107 @@ export const getEndpointInfo = <E extends Endpoint>(endpoint: E) => ({
 class _API {
    public AUTH = {
       activateAccount: {
-         header: 'Email address authentication',
          ...getEndpointInfo('/api/user/auth/activateAccount'),
+         header: 'Email address authentication',
       },
       login: {
-         header: 'Authentication',
          ...getEndpointInfo('/api/user/auth/login'),
+         header: 'Authentication',
+         schema: yup.object({
+            email,
+            password: uncheckedPassword,
+         }),
       },
       loginWithFacebook: {
-         header: '',
          ...getEndpointInfo('/api/user/auth/loginWithFacebook'),
+         header: '',
       },
       changePassword: {
-         header: '',
          ...getEndpointInfo('/api/user/auth/changePassword'),
+         header: '',
+         schema: yup.object({
+            password,
+            repeatedPassword: repeatedPassword(),
+         }),
       },
       checkPasswordToken: {
-         header: '',
          ...getEndpointInfo('/api/user/auth/checkPasswordToken'),
+         header: '',
       },
       register: {
-         header: 'Account registration',
          ...getEndpointInfo('/api/user/auth/register'),
+         header: 'Account registration',
+         schema: yup.object({
+            name: string,
+            email,
+            password,
+            repeatedPassword: repeatedPassword(),
+         }),
       },
       recoverPassword: {
-         header: '',
          ...getEndpointInfo('/api/user/auth/recoverPassword'),
+         header: '',
       },
       resendActivationToken: {
-         header: 'Activation token',
          ...getEndpointInfo('/api/user/auth/resendActivationToken'),
+         header: 'Activation token',
       },
    }
+
    public CHAT = {
       getMessagesInfo: {
-         header: '',
          ...getEndpointInfo('/api/user/chat/getMessagesInfo'),
+         header: '',
       },
       getMessages: {
-         header: '',
          ...getEndpointInfo('/api/user/chat/getMessages'),
+
+         header: '',
       },
       subscribePushNotifications: {
-         header: '',
          ...getEndpointInfo('/api/user/chat/subscribePushNotifications'),
+         header: '',
       },
       sendMessage: {
-         header: '',
          ...getEndpointInfo('/api/user/chat/sendMessage'),
+         header: '',
       },
       sendFile: {
-         header: '',
          ...getEndpointInfo('/api/user/chat/sendFile'),
+         header: '',
       },
    }
+
    public CART = {
       executePayPalPayment: {
-         header: '',
          ...getEndpointInfo('/api/user/cart/executePayPalPayment'),
+         header: '',
       },
       createPayPalPayment: {
-         header: '',
          ...getEndpointInfo('/api/user/cart/createPayPalPayment'),
+         header: '',
       },
       purchaseBooksWithStripe: {
-         header: '',
          ...getEndpointInfo('/api/user/cart/purchaseBooksWithStripe'),
+         header: '',
       },
    }
+
    public BOOKS = {
       getSuggestions: {
-         header: '',
          ...getEndpointInfo('/api/user/books/getSuggestions'),
+         header: '',
       },
    }
+
    public GLOBAL = {
       checkToken: {
-         header: '',
          ...getEndpointInfo('/api/user/global/checkToken'),
+         header: '',
       },
       logout: {
-         header: '',
          ...getEndpointInfo('/api/user/global/logout'),
+         header: '',
       },
    }
 }

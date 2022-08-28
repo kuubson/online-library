@@ -5,21 +5,22 @@ import { JWT_KEY } from 'config'
 
 import { User } from 'database'
 
-import { API, email, uncheckedPassword } from 'shared'
+import { API } from 'shared'
 
 import { yupValidation } from 'middlewares'
 
+import { yup } from 'helpers'
+
 import { ApiError, cookie } from 'utils'
 
-import type { Route } from 'types/express'
+import type { Body, Route } from 'types/express'
 
-export const login: Route = [
-   yupValidation({
-      body: {
-         email,
-         password: uncheckedPassword,
-      },
-   }),
+const ENDPOINT = API.AUTH.login
+
+const schema = yup.object({ body: ENDPOINT.schema })
+
+export const login: Route<Body<typeof schema>> = [
+   yupValidation({ schema }),
    async (req, res, next) => {
       try {
          const { email, password } = req.body
@@ -30,19 +31,11 @@ export const login: Route = [
          })
 
          if (!user || !bcrypt.compareSync(password, user.password)) {
-            throw new ApiError(
-               API.AUTH.login.header,
-               API.AUTH.login.post.responses[401].description,
-               401
-            )
+            throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses[401].description, 401)
          }
 
          if (!user.authentication?.authenticated) {
-            throw new ApiError(
-               API.AUTH.login.header,
-               API.AUTH.login.post.responses[403].description,
-               403
-            )
+            throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses[403].description, 403)
          }
 
          const token = jwt.sign(

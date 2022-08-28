@@ -6,8 +6,11 @@ import { cookie } from 'utils'
 
 import type { Route } from 'types/express'
 
+const schema = yup.object({ cookies: yup.object({ token: yup.string().jwt() }) })
+
 export const logout: Route = [
-   () => yupValidation({ cookies: { token: yup.string().jwt() } }),
+   // TODO: inherit cookies type from schema
+   yupValidation({ schema }),
    (_, res, next) => {
       try {
          res.clearCookie('token', cookie()).send()

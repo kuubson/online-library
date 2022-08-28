@@ -9,18 +9,22 @@ import { email, string } from 'shared'
 
 import { yupValidation } from 'middlewares'
 
+import { yup } from 'helpers'
+
 import { cookie } from 'utils'
 
-import type { Route } from 'types/express'
+import type { Body, Route } from 'types/express'
 
-export const loginWithFacebook: Route = [
-   yupValidation({
-      body: {
-         name: string,
-         email,
-         access_token: string,
-      },
+const schema = yup.object({
+   body: yup.object({
+      name: string,
+      email,
+      access_token: string,
    }),
+})
+
+export const loginWithFacebook: Route<Body<typeof schema>> = [
+   yupValidation({ schema }),
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {

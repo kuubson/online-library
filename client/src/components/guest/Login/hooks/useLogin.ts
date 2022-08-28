@@ -1,6 +1,6 @@
 import type React from 'react'
 
-import { API, email, uncheckedPassword, yup } from 'shared'
+import { API } from 'shared'
 
 import { useForm } from 'hooks'
 
@@ -8,13 +8,8 @@ import { setApiFeedback } from 'helpers'
 
 import { axios, history } from 'utils'
 
-const schema = yup.object({
-   email,
-   password: uncheckedPassword,
-})
-
 export const useLogin = () => {
-   const { submit, control, errors, getValues } = useForm({ schema })
+   const { submit, control, errors, getValues } = useForm({ schema: API.AUTH.login.schema })
 
    const login = async () => {
       await axios.post(API.AUTH.login.url, getValues()).then(() => {

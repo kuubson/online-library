@@ -9,16 +9,18 @@ import { yupValidation } from 'middlewares'
 
 import { yup } from 'helpers'
 
-import type { ProtectedRoute } from 'types/express'
+import type { Body, ProtectedRoute } from 'types/express'
 
-export const getSuggestions: ProtectedRoute = [
-   yupValidation({
-      body: {
-         title: yup.string().trim(),
-         author: yup.string().trim(),
-         withProfile: bool,
-      },
+const schema = yup.object({
+   body: yup.object({
+      title: yup.string().trim(),
+      author: yup.string().trim(),
+      withProfile: bool,
    }),
+})
+
+export const getSuggestions: ProtectedRoute<Body<typeof schema>> = [
+   yupValidation({ schema }),
    async (req, res, next) => {
       try {
          const { title, author, withProfile } = req.body

@@ -1,21 +1,30 @@
 import type { NextFunction, Response, Request as _Request } from 'express'
+import type { InferType } from 'yup'
+import type { TypedSchema } from 'yup/lib/util/types'
 
 import type { User } from 'database/models/User'
 
-export type RouteType<T = ''> = (req: Request<T>, res: Response, next: NextFunction) => void
+export type RouteType<B = object, T = ''> = (
+   req: Request<B, T>,
+   res: Response,
+   next: NextFunction
+) => void
 
 type YupValidator = RouteType
 
-export type Route<T = '', Validation = true> = Validation extends true
-   ? [YupValidator, RouteType<T>]
-   : [RouteType<T>]
+export type Route<B = object, T = '', Validation = true> = Validation extends true
+   ? [YupValidator, RouteType<B, T>]
+   : [RouteType<B, T>]
 
-export type ProtectedRoute<Validation = true> = Route<'protected', Validation>
+export type ProtectedRoute<B = object, Validation = true> = Route<B, 'protected', Validation>
 
-export interface Request<T = ''> extends _Request {
+export interface Request<B = object, T = ''> extends _Request {
    user: T extends 'protected' ? User : undefined
    file: T extends 'protected' ? Express.Multer.File : undefined
+   body: B
 }
+
+export type Body<T extends TypedSchema> = InferType<T>['body']
 
 declare module 'express-serve-static-core' {
    interface Request {

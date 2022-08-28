@@ -36,6 +36,8 @@ export const string = yup
       value => value === sanitize(value || '')
    )
 
+export const products = yup.array().required().min(1).of(string).required()
+
 export const bool = yup.bool().required()
 
 export const integer = yup.number().required()

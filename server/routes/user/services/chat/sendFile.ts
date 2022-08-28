@@ -13,7 +13,7 @@ import { ApiError, baseUrl } from 'utils'
 import type { ExpressError } from 'types'
 import type { ProtectedRoute } from 'types/express'
 
-export const sendFile: ProtectedRoute<false> = [
+export const sendFile: ProtectedRoute<object, false> = [
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {

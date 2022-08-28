@@ -4,16 +4,23 @@ import { string } from 'shared'
 
 import { yupValidation } from 'middlewares'
 
+import { yup } from 'helpers'
+
+import type { Body } from 'types/express'
 import { type ProtectedRoute } from 'types/express'
 
-export const subscribePushNotifications: ProtectedRoute = [
-   yupValidation({
-      body: {
-         endpoint: string,
-         'keys.p256dh': string,
-         'keys.auth': string,
-      },
+const schema = yup.object({
+   body: yup.object({
+      endpoint: string,
+      keys: yup.object({
+         auth: string,
+         p256dh: string,
+      }),
    }),
+})
+
+export const subscribePushNotifications: ProtectedRoute<Body<typeof schema>> = [
+   yupValidation({ schema }),
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {

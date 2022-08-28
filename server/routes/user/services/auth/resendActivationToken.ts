@@ -8,14 +8,18 @@ import { API, email } from 'shared'
 
 import { yupValidation } from 'middlewares'
 
-import { transporter } from 'helpers'
+import { transporter, yup } from 'helpers'
 
 import { ApiError, baseUrl, emailTemplate } from 'utils'
 
-import type { Route } from 'types/express'
+import type { Body, Route } from 'types/express'
 
-export const resendActivationToken: Route = [
-   yupValidation({ body: { email } }),
+const ENDPOINT = API.AUTH.resendActivationToken
+
+const schema = yup.object({ body: yup.object({ email }) })
+
+export const resendActivationToken: Route<Body<typeof schema>> = [
+   yupValidation({ schema }),
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {
@@ -27,19 +31,11 @@ export const resendActivationToken: Route = [
             })
 
             if (!user || !user.authentication) {
-               throw new ApiError(
-                  API.AUTH.resendActivationToken.header,
-                  API.AUTH.resendActivationToken.post.responses[404].description,
-                  404
-               )
+               throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses[404].description, 404)
             }
 
             if (user.authentication.authenticated) {
-               throw new ApiError(
-                  API.AUTH.resendActivationToken.header,
-                  API.AUTH.resendActivationToken.post.responses[403].description,
-                  403
-               )
+               throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses[403].description, 403)
             }
 
             const activationToken = jwt.sign({ email }, JWT_KEY, {
@@ -51,20 +47,16 @@ export const resendActivationToken: Route = [
             try {
                await transporter.sendMail({
                   to: email,
-                  subject: `${API.AUTH.resendActivationToken.header} in the Online Library`,
+                  subject: `${ENDPOINT.header} in the Online Library`,
                   html: emailTemplate(
-                     `${API.AUTH.resendActivationToken.header} in the Online Library`,
+                     `${ENDPOINT.header} in the Online Library`,
                      `To activate your account click the button`,
                      'Activate account',
                      `${baseUrl(req)}/activation/${activationToken}`
                   ),
                })
             } catch (error) {
-               throw new ApiError(
-                  API.AUTH.resendActivationToken.header,
-                  API.AUTH.resendActivationToken.post.responses[502].description,
-                  502
-               )
+               throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses[502].description, 502)
             }
 
             res.send()

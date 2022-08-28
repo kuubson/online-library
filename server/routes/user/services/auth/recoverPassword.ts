@@ -8,14 +8,16 @@ import { email } from 'shared'
 
 import { yupValidation } from 'middlewares'
 
-import { transporter } from 'helpers'
+import { transporter, yup } from 'helpers'
 
 import { ApiError, baseUrl, emailTemplate } from 'utils'
 
-import type { Route } from 'types/express'
+import type { Body, Route } from 'types/express'
 
-export const recoverPassword: Route = [
-   yupValidation({ body: { email } }),
+const schema = yup.object({ body: yup.object({ email }) })
+
+export const recoverPassword: Route<Body<typeof schema>> = [
+   yupValidation({ schema }),
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {

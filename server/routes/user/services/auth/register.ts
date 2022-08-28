@@ -4,25 +4,22 @@ import { JWT_KEY, TokenExpiration } from 'config'
 
 import { Connection, User } from 'database'
 
-import { API, email, password, repeatedPassword, string } from 'shared'
+import { API } from 'shared'
 
 import { yupValidation } from 'middlewares'
 
-import { transporter } from 'helpers'
+import { transporter, yup } from 'helpers'
 
 import { ApiError, baseUrl, emailTemplate } from 'utils'
 
-import type { Route } from 'types/express'
+import type { Body, Route } from 'types/express'
 
-export const register: Route = [
-   yupValidation({
-      body: {
-         name: string,
-         email,
-         password,
-         repeatedPassword: repeatedPassword(),
-      },
-   }),
+const ENDPOINT = API.AUTH.register
+
+const schema = yup.object({ body: ENDPOINT.schema })
+
+export const register: Route<Body<typeof schema>> = [
+   yupValidation({ schema }),
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {
@@ -31,11 +28,7 @@ export const register: Route = [
             const user = await User.findOne({ where: { email } })
 
             if (user) {
-               throw new ApiError(
-                  API.AUTH.register.header,
-                  API.AUTH.register.post.responses[409].description,
-                  409
-               )
+               throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses[409].description, 409)
             }
 
             const activationToken = jwt.sign({ email }, JWT_KEY, {
@@ -56,20 +49,16 @@ export const register: Route = [
             try {
                await transporter.sendMail({
                   to: email,
-                  subject: `${API.AUTH.register.header} in the Online Library`,
+                  subject: `${ENDPOINT.header} in the Online Library`,
                   html: emailTemplate(
-                     `${API.AUTH.register.header} in the Online Library`,
+                     `${ENDPOINT.header} in the Online Library`,
                      `To activate your account click the button`,
                      'Activate account',
                      `${baseUrl(req)}/activation/${activationToken}`
                   ),
                })
             } catch {
-               throw new ApiError(
-                  API.AUTH.register.header,
-                  API.AUTH.register.post.responses[502].description,
-                  502
-               )
+               throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses[502].description, 502)
             }
 
             res.send()

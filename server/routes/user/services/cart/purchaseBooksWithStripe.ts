@@ -4,7 +4,7 @@ import { STRIPE_SECRET_KEY } from 'config'
 
 import { Book, Connection } from 'database'
 
-import { string } from 'shared'
+import { API, products, string } from 'shared'
 
 import { yupValidation } from 'middlewares'
 
@@ -12,17 +12,21 @@ import { totalBooksPrice, yup } from 'helpers'
 
 import { ApiError } from 'utils'
 
-import type { ProtectedRoute } from 'types/express'
+import type { Body, ProtectedRoute } from 'types/express'
 
 const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: '2020-08-27' })
 
-export const purchaseBooksWithStripe: ProtectedRoute = [
-   yupValidation({
-      body: {
-         paymentId: string,
-         products: yup.array().required().min(1).of(string),
-      },
+const ENDPOINT = API.CART.purchaseBooksWithStripe
+
+const schema = yup.object({
+   body: yup.object({
+      paymentId: string,
+      products,
    }),
+})
+
+export const purchaseBooksWithStripe: ProtectedRoute<Body<typeof schema>> = [
+   yupValidation({ schema }),
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {
