@@ -1,4 +1,3 @@
-/* eslint-disable object-curly-newline */
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 

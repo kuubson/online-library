@@ -1,8 +1,8 @@
 import { Message } from 'database'
 
-import type { ProtectedRoute } from 'types/express'
+import type { InitialBody, InitialCookies, ProtectedRoute } from 'types/express'
 
-export const getMessagesInfo: ProtectedRoute<object, false> = [
+export const getMessagesInfo: ProtectedRoute<InitialBody, InitialCookies, false> = [
    async (req, res, next) => {
       try {
          const { id } = req.user

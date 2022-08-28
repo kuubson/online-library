@@ -2,9 +2,9 @@ import passport from 'passport'
 
 import { cookie } from 'utils'
 
-import type { RouteType } from 'types/express'
+import type { Middleware } from 'types/express'
 
-export const jwtAuthorization: RouteType = (req, res, next) => {
+export const jwtAuthorization: Middleware = (req, res, next) => {
    passport.authenticate('jwt', { session: false }, (error, { user, role }) => {
       const roleMatchesWithEndpoint = role === req.originalUrl.split('/')[2]
 

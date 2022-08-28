@@ -9,15 +9,15 @@ import { yup } from 'helpers'
 import { ApiError, cookie } from 'utils'
 
 import type { AuthTokenData } from 'types'
-import type { Route } from 'types/express'
+import type { Cookies, InitialBody, Route } from 'types/express'
 
 const schema = yup.object({ cookies: yup.object({ token: yup.string().jwt() }) })
 
-export const checkToken: Route = [
+export const checkToken: Route<InitialBody, Cookies<typeof schema>> = [
    yupValidation({ schema }),
    async (req, res, next) => {
       try {
-         const { token } = req.cookies // TODO: inherit cookies type from schema
+         const { token } = req.cookies
 
          if (!token) {
             return res.clearCookie('token', cookie()).send({ role: 'guest' })

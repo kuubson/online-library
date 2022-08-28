@@ -6,9 +6,13 @@ import { reduceImageSize } from 'helpers'
 
 import { ApiError } from 'utils'
 
-import type { RouteType } from 'types/express'
+import type { InitialBody, InitialCookies, Middleware } from 'types/express'
 
-export const handleMulterFile: RouteType<object, 'protected'> = (req, res, next) =>
+export const handleMulterFile: Middleware<InitialBody, InitialCookies, 'protected'> = (
+   req,
+   res,
+   next
+) =>
    multerFile.single('file')(req, res, () => {
       if (!req.file) {
          next(new ApiError('Sending a file', 'There was a problem sending the file', 500))

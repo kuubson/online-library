@@ -1,4 +1,3 @@
-/* eslint-disable object-curly-newline */
 import cloudinary from 'cloudinary'
 
 import { Connection } from 'database'
@@ -11,9 +10,9 @@ import { deleteTemporaryFile, sendNotificationsForOtherUsers } from 'helpers'
 import { ApiError, baseUrl } from 'utils'
 
 import type { ExpressError } from 'types'
-import type { ProtectedRoute } from 'types/express'
+import type { InitialBody, InitialCookies, ProtectedRoute } from 'types/express'
 
-export const sendFile: ProtectedRoute<object, false> = [
+export const sendFile: ProtectedRoute<InitialBody, InitialCookies, false> = [
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {

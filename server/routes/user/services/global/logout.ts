@@ -4,12 +4,11 @@ import { yup } from 'helpers'
 
 import { cookie } from 'utils'
 
-import type { Route } from 'types/express'
+import type { Cookies, InitialBody, Route } from 'types/express'
 
 const schema = yup.object({ cookies: yup.object({ token: yup.string().jwt() }) })
 
-export const logout: Route = [
-   // TODO: inherit cookies type from schema
+export const logout: Route<InitialBody, Cookies<typeof schema>> = [
    yupValidation({ schema }),
    (_, res, next) => {
       try {

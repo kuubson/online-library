@@ -1,6 +1,5 @@
-/* eslint-disable object-curly-newline */
-import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
+import { gql } from '@apollo/client'
 
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
@@ -163,13 +162,19 @@ export const GetBooksDocument = gql`
 export function useGetBooksQuery(
    baseOptions: Apollo.QueryHookOptions<GetBooksQuery, GetBooksQueryVariables>
 ) {
-   const options = { ...defaultOptions, ...baseOptions }
+   const options = {
+      ...defaultOptions,
+      ...baseOptions,
+   }
    return Apollo.useQuery<GetBooksQuery, GetBooksQueryVariables>(GetBooksDocument, options)
 }
 export function useGetBooksLazyQuery(
    baseOptions?: Apollo.LazyQueryHookOptions<GetBooksQuery, GetBooksQueryVariables>
 ) {
-   const options = { ...defaultOptions, ...baseOptions }
+   const options = {
+      ...defaultOptions,
+      ...baseOptions,
+   }
    return Apollo.useLazyQuery<GetBooksQuery, GetBooksQueryVariables>(GetBooksDocument, options)
 }
 export type GetBooksQueryHookResult = ReturnType<typeof useGetBooksQuery>
@@ -210,7 +215,10 @@ export const GetProfileBooksDocument = gql`
 export function useGetProfileBooksQuery(
    baseOptions?: Apollo.QueryHookOptions<GetProfileBooksQuery, GetProfileBooksQueryVariables>
 ) {
-   const options = { ...defaultOptions, ...baseOptions }
+   const options = {
+      ...defaultOptions,
+      ...baseOptions,
+   }
    return Apollo.useQuery<GetProfileBooksQuery, GetProfileBooksQueryVariables>(
       GetProfileBooksDocument,
       options
@@ -219,7 +227,10 @@ export function useGetProfileBooksQuery(
 export function useGetProfileBooksLazyQuery(
    baseOptions?: Apollo.LazyQueryHookOptions<GetProfileBooksQuery, GetProfileBooksQueryVariables>
 ) {
-   const options = { ...defaultOptions, ...baseOptions }
+   const options = {
+      ...defaultOptions,
+      ...baseOptions,
+   }
    return Apollo.useLazyQuery<GetProfileBooksQuery, GetProfileBooksQueryVariables>(
       GetProfileBooksDocument,
       options
@@ -269,7 +280,10 @@ export const GetFreeAndPaidBooksDocument = gql`
 export function useGetFreeAndPaidBooksQuery(
    baseOptions: Apollo.QueryHookOptions<GetFreeAndPaidBooksQuery, GetFreeAndPaidBooksQueryVariables>
 ) {
-   const options = { ...defaultOptions, ...baseOptions }
+   const options = {
+      ...defaultOptions,
+      ...baseOptions,
+   }
    return Apollo.useQuery<GetFreeAndPaidBooksQuery, GetFreeAndPaidBooksQueryVariables>(
       GetFreeAndPaidBooksDocument,
       options
@@ -281,7 +295,10 @@ export function useGetFreeAndPaidBooksLazyQuery(
       GetFreeAndPaidBooksQueryVariables
    >
 ) {
-   const options = { ...defaultOptions, ...baseOptions }
+   const options = {
+      ...defaultOptions,
+      ...baseOptions,
+   }
    return Apollo.useLazyQuery<GetFreeAndPaidBooksQuery, GetFreeAndPaidBooksQueryVariables>(
       GetFreeAndPaidBooksDocument,
       options
@@ -328,7 +345,10 @@ export type BorrowBookMutationFn = Apollo.MutationFunction<
 export function useBorrowBookMutation(
    baseOptions?: Apollo.MutationHookOptions<BorrowBookMutation, BorrowBookMutationVariables>
 ) {
-   const options = { ...defaultOptions, ...baseOptions }
+   const options = {
+      ...defaultOptions,
+      ...baseOptions,
+   }
    return Apollo.useMutation<BorrowBookMutation, BorrowBookMutationVariables>(
       BorrowBookDocument,
       options
