@@ -4,6 +4,14 @@ import { checkToken, logout } from '../services/global'
 
 export const Global = Router()
 
-Global.get('/checkToken', ...checkToken)
+Global.get(
+   // #swagger.tags = ['Global']
+   '/checkToken',
+   ...checkToken
+)
 
-Global.get('/logout', ...logout)
+Global.get(
+   // #swagger.tags = ['Global']
+   '/logout',
+   ...logout
+)

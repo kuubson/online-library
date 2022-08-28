@@ -12,12 +12,33 @@ import {
 
 export const Chat = Router()
 
-Chat.post('/getMessages', ...getMessages)
+Chat.post(
+   // #swagger.tags = ['Chat']
+   '/getMessages',
+   ...getMessages
+)
 
-Chat.post('/sendMessage', ...sendMessage)
+Chat.post(
+   // #swagger.tags = ['Chat']
+   '/sendMessage',
+   ...sendMessage
+)
 
-Chat.post('/sendFile', handleMulterFile, ...sendFile)
+Chat.post(
+   // #swagger.tags = ['Chat']
+   '/sendFile',
+   handleMulterFile,
+   ...sendFile
+)
 
-Chat.post('/subscribePushNotifications', ...subscribePushNotifications)
+Chat.post(
+   // #swagger.tags = ['Chat']
+   '/subscribePushNotifications',
+   ...subscribePushNotifications
+)
 
-Chat.get('/getMessagesInfo', ...getMessagesInfo)
+Chat.get(
+   // #swagger.tags = ['Chat']
+   '/getMessagesInfo',
+   ...getMessagesInfo
+)

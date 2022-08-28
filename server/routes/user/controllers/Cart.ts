@@ -9,10 +9,26 @@ import {
 
 export const Cart = Router()
 
-Cart.post('/getCart', ...getCart)
+Cart.post(
+   // #swagger.tags = ['Cart']
+   '/getCart',
+   ...getCart
+)
 
-Cart.post('/purchaseBooksWithStripe', ...purchaseBooksWithStripe)
+Cart.post(
+   // #swagger.tags = ['Cart']
+   '/purchaseBooksWithStripe',
+   ...purchaseBooksWithStripe
+)
 
-Cart.post('/createPayPalPayment', ...createPayPalPayment)
+Cart.post(
+   // #swagger.tags = ['Cart']
+   '/createPayPalPayment',
+   ...createPayPalPayment
+)
 
-Cart.post('/executePayPalPayment', ...executePayPalPayment)
+Cart.post(
+   // #swagger.tags = ['Cart']
+   '/executePayPalPayment',
+   ...executePayPalPayment
+)

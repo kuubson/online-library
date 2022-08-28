@@ -15,18 +15,51 @@ import {
 
 export const Auth = Router()
 
-Auth.post('/register', ...register)
+Auth.post(
+   // #swagger.tags = ['Auth']
+   '/register',
+   ...register
+)
 
-Auth.post('/authenticateEmail', ...authenticateEmail)
+Auth.post(
+   // #swagger.tags = ['Auth']
+   '/authenticateEmail',
+   ...authenticateEmail
+)
 
-Auth.post('/resendEmail', ...resendEmail)
+Auth.post(
+   // #swagger.tags = ['Auth']
+   '/resendEmail',
+   ...resendEmail
+)
 
-Auth.post('/login', ...login)
+Auth.post(
+   // #swagger.tags = ['Auth']
+   '/login',
+   ...login
+)
 
-Auth.post('/loginWithFacebook', facebookAuthorization, ...loginWithFacebook)
+Auth.post(
+   // #swagger.tags = ['Auth']
+   '/loginWithFacebook',
+   facebookAuthorization,
+   ...loginWithFacebook
+)
 
-Auth.post('/recoverPassword', ...recoverPassword)
+Auth.post(
+   // #swagger.tags = ['Auth']
+   '/recoverPassword',
+   ...recoverPassword
+)
 
-Auth.post('/checkPasswordToken', ...checkPasswordToken)
+Auth.post(
+   // #swagger.tags = ['Auth']
+   '/checkPasswordToken',
+   ...checkPasswordToken
+)
 
-Auth.post('/changePassword', ...changePassword)
+Auth.post(
+   // #swagger.tags = ['Auth']
+   '/changePassword',
+   ...changePassword
+)
