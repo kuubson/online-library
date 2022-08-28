@@ -9,9 +9,9 @@ export const getEndpointInfo = <E extends Endpoint>(endpoint: E) => ({
 
 class _API {
    public AUTH = {
-      authenticateEmail: {
+      activateAccount: {
          header: 'Email address authentication',
-         ...getEndpointInfo('/api/user/auth/authenticateEmail'),
+         ...getEndpointInfo('/api/user/auth/activateAccount'),
       },
       login: {
          header: '',
@@ -37,9 +37,9 @@ class _API {
          header: '',
          ...getEndpointInfo('/api/user/auth/recoverPassword'),
       },
-      resendEmail: {
-         header: '',
-         ...getEndpointInfo('/api/user/auth/resendEmail'),
+      resendActivationToken: {
+         header: 'Activation token',
+         ...getEndpointInfo('/api/user/auth/resendActivationToken'),
       },
    }
    public CHAT = {

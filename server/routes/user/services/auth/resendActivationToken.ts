@@ -4,7 +4,7 @@ import { JWT_KEY, TokenExpiration } from 'config'
 
 import { Connection, User } from 'database'
 
-import { email } from 'shared'
+import { API, email } from 'shared'
 
 import { yupValidation } from 'middlewares'
 
@@ -14,7 +14,7 @@ import { ApiError, baseUrl, emailTemplate } from 'utils'
 
 import type { Route } from 'types/express'
 
-export const resendEmail: Route = [
+export const resendActivationToken: Route = [
    yupValidation({ body: { email } }),
    async (req, res, next) => {
       try {
@@ -27,14 +27,18 @@ export const resendEmail: Route = [
             })
 
             if (!user || !user.authentication) {
-               throw new ApiError('E-mail resending', 'The email address provided is invalid', 404)
+               throw new ApiError(
+                  API.AUTH.resendActivationToken.header,
+                  API.AUTH.resendActivationToken.post.responses[404].description,
+                  404
+               )
             }
 
             if (user.authentication.authenticated) {
                throw new ApiError(
-                  'E-mail resending',
-                  'An account assigned to email address provided is already authenticated',
-                  409
+                  API.AUTH.resendActivationToken.header,
+                  API.AUTH.resendActivationToken.post.responses[403].description,
+                  403
                )
             }
 
@@ -47,18 +51,18 @@ export const resendEmail: Route = [
             try {
                await transporter.sendMail({
                   to: email,
-                  subject: 'Account activation in the Online Library',
+                  subject: `${API.AUTH.resendActivationToken.header} in the Online Library`,
                   html: emailTemplate(
-                     'Account activation in the Online Library',
+                     `${API.AUTH.resendActivationToken.header} in the Online Library`,
                      `To activate your account click the button`,
                      'Activate account',
-                     `${baseUrl(req)}/authentication/${activationToken}`
+                     `${baseUrl(req)}/activation/${activationToken}`
                   ),
                })
             } catch (error) {
                throw new ApiError(
-                  'E-mail resending',
-                  'There was an unexpected problem when sending an e-mail with an activation link for your account',
+                  API.AUTH.resendActivationToken.header,
+                  API.AUTH.resendActivationToken.post.responses[502].description,
                   502
                )
             }

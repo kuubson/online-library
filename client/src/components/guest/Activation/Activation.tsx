@@ -11,19 +11,19 @@ import { setApiFeedback } from 'helpers'
 
 import { axios, history } from 'utils'
 
-export const Authentication = () => {
+export const Activation = () => {
    const { activationToken } = useParams()
 
    useEffect(() => {
-      const authenticateEmail = async () => {
+      const activateAccount = async () => {
          try {
             if (!activationToken) {
                return history.push('/login')
             }
-            await axios.post(API.AUTH.authenticateEmail.url, { activationToken }).then(() => {
+            await axios.post(API.AUTH.activateAccount.url, { activationToken }).then(() => {
                setApiFeedback(
-                  API.AUTH.authenticateEmail.header,
-                  API.AUTH.authenticateEmail.post.responses[200].description,
+                  API.AUTH.activateAccount.header,
+                  API.AUTH.activateAccount.post.responses[200].description,
                   'Okey',
                   () => history.push('/login')
                )
@@ -32,10 +32,10 @@ export const Authentication = () => {
             history.push('/login')
          }
       }
-      authenticateEmail()
+      activateAccount()
    }, [activationToken])
 
-   return <AuthenticationContainer />
+   return <ActivationContainer />
 }
 
-const AuthenticationContainer = styled(HomeContainer)``
+const ActivationContainer = styled(HomeContainer)``

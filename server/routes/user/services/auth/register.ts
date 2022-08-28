@@ -61,7 +61,7 @@ export const register: Route = [
                      `${API.AUTH.register.header} in the Online Library`,
                      `To activate your account click the button`,
                      'Activate account',
-                     `${baseUrl(req)}/authentication/${activationToken}`
+                     `${baseUrl(req)}/activation/${activationToken}`
                   ),
                })
             } catch {

@@ -3,14 +3,14 @@ import { Router } from 'express'
 import { facebookAuthorization } from 'middlewares'
 
 import {
-   authenticateEmail,
+   activateAccount,
    changePassword,
    checkPasswordToken,
    login,
    loginWithFacebook,
    recoverPassword,
    register,
-   resendEmail,
+   resendActivationToken,
 } from '../services/auth'
 
 export const Auth = Router()
@@ -73,7 +73,7 @@ Auth.post(
          schema: { $ref: '#/definitions/jwt' }
       } 
       #swagger.responses[200] = {
-         description: 'Account activated. You can login now',
+         description: 'Account activated, you can login now',
       }  
       #swagger.responses[409] = {
          description: 'No authentication associated with this link',
@@ -88,14 +88,44 @@ Auth.post(
          description: 'The activation link is invalid',
       }  
     */
-   '/authenticateEmail',
-   ...authenticateEmail
+   '/activateAccount',
+   ...activateAccount
 )
 
 Auth.post(
-   // #swagger.tags = ['Auth']
-   '/resendEmail',
-   ...resendEmail
+   /*
+   `  #swagger.tags = ['Auth']
+      #swagger.description = `
+         ✅ Ensures user with provided email address exists  <br />
+         ✅ Rejects resending activation token if account is already activated <br />
+         ✅ Sends new activation token to the user <br />
+      #swagger.parameters['email'] = {
+         in: 'body',
+         description: 'User email',
+         required: 'true',
+         schema: { $ref: '#/definitions/email' }
+      } 
+      #swagger.responses[200] = {
+         description: 'Link with new activation token has been sent',
+      }  
+      #swagger.responses[404] = {
+         description: 'Provided email address is invalid',
+      }  
+      #swagger.responses[403] = {
+         description: 'Account already activated',
+      }  
+      #swagger.responses[401] = {
+         description: 'The activation link has expired',
+      }  
+      #swagger.responses[400] = {
+         description: 'The activation link is invalid',
+      }  
+      #swagger.responses[502] = {
+         description: 'There was a problem sending the activation link',
+      }  
+    */
+   '/resendActivationToken',
+   ...resendActivationToken
 )
 
 Auth.post(

@@ -14,7 +14,7 @@ import { ApiError } from 'utils'
 
 import type { Route } from 'types/express'
 
-export const authenticateEmail: Route = [
+export const activateAccount: Route = [
    yupValidation({ body: { activationToken: yup.string().jwt() } }),
    async (req, res, next) => {
       try {
@@ -27,16 +27,16 @@ export const authenticateEmail: Route = [
 
             if (!authentication) {
                throw new ApiError(
-                  API.AUTH.authenticateEmail.header,
-                  API.AUTH.authenticateEmail.post.responses[409].description,
+                  API.AUTH.activateAccount.header,
+                  API.AUTH.activateAccount.post.responses[409].description,
                   409
                )
             }
 
             if (authentication.authenticated) {
                throw new ApiError(
-                  API.AUTH.authenticateEmail.header,
-                  API.AUTH.authenticateEmail.post.responses[403].description,
+                  API.AUTH.activateAccount.header,
+                  API.AUTH.activateAccount.post.responses[403].description,
                   403
                )
             }
@@ -49,14 +49,14 @@ export const authenticateEmail: Route = [
          if (error instanceof JsonWebTokenError) {
             if (error instanceof TokenExpiredError) {
                throw new ApiError(
-                  API.AUTH.authenticateEmail.header,
-                  API.AUTH.authenticateEmail.post.responses[401].description,
+                  API.AUTH.activateAccount.header,
+                  API.AUTH.activateAccount.post.responses[401].description,
                   401
                )
             }
             throw new ApiError(
-               API.AUTH.authenticateEmail.header,
-               API.AUTH.authenticateEmail.post.responses[400].description,
+               API.AUTH.activateAccount.header,
+               API.AUTH.activateAccount.post.responses[400].description,
                400
             )
          }

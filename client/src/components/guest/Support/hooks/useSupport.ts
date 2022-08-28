@@ -21,10 +21,10 @@ export const useSupport = (withPasswordSupport: boolean | undefined) => {
             () => history.push('/login')
          )
       } else {
-         await axios.post(API.AUTH.resendEmail.url, getValues())
+         await axios.post(API.AUTH.resendActivationToken.url, getValues())
          setApiFeedback(
-            'E-mail resending',
-            'An e-mail with an activation link for your account has been resent',
+            API.AUTH.resendActivationToken.header,
+            API.AUTH.resendActivationToken.post.responses[200].description,
             'Okey',
             () => history.push('/login')
          )

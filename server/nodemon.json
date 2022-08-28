@@ -1,4 +1,5 @@
 {
    "ext": "ts,gql",
-   "ignore": ["./database/generated/"]
+   "ignore": ["./database/generated/"],
+   "exec": "npm run docs"
 }

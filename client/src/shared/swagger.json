@@ -68,7 +68,7 @@
         }
       }
     },
-    "/api/user/auth/authenticateEmail": {
+    "/api/user/auth/activateAccount": {
       "post": {
         "tags": [
           "Auth"
@@ -87,7 +87,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Account activated. You can login now"
+            "description": "Account activated, you can login now"
           },
           "400": {
             "description": "The activation link is invalid"
@@ -104,14 +104,43 @@
         }
       }
     },
-    "/api/user/auth/resendEmail": {
+    "/api/user/auth/resendActivationToken": {
       "post": {
         "tags": [
           "Auth"
         ],
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "description": "  ✅ Ensures user with provided email address exists <br />  ✅ Rejects resending activation token if account is already activated <br />  ✅ Sends new activation token to the user <br />",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "body",
+            "description": "User email",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/email"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Link with new activation token has been sent"
+          },
+          "400": {
+            "description": "The activation link is invalid"
+          },
+          "401": {
+            "description": "The activation link has expired"
+          },
+          "403": {
+            "description": "Account already activated"
+          },
+          "404": {
+            "description": "Provided email address is invalid"
+          },
+          "502": {
+            "description": "There was a problem sending the activation link"
+          }
+        }
       }
     },
     "/api/user/auth/login": {
