@@ -17,8 +17,9 @@ export const useLogin = () => {
    const { submit, control, errors, getValues } = useForm({ schema })
 
    const login = async () => {
-      await axios.post(API.AUTH.login.url, getValues())
-      history.push('/store')
+      await axios.post(API.AUTH.login.url, getValues()).then(() => {
+         history.push('/store')
+      })
    }
 
    const loginWithFacebook = async (event: React.MouseEvent) => {
@@ -29,14 +30,15 @@ export const useLogin = () => {
                return window.FB.api(
                   '/me?fields=id,first_name,email',
                   async ({ first_name, email }: FBMeRespose) => {
-                     const response = await axios.post(API.AUTH.loginWithFacebook.url, {
-                        name: first_name,
-                        email,
-                        access_token: authResponse.accessToken,
-                     })
-                     if (response) {
-                        history.push('/store')
-                     }
+                     await axios
+                        .post(API.AUTH.loginWithFacebook.url, {
+                           name: first_name,
+                           email,
+                           access_token: authResponse.accessToken,
+                        })
+                        .then(() => {
+                           history.push('/store')
+                        })
                   }
                )
             }

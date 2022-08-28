@@ -33,22 +33,22 @@ export const useCart = () => {
       const executePayPalPayment = async () => {
          try {
             if (paymentId && PayerID) {
-               const response = await axios.post(API.CART.executePayPalPayment.url, {
-                  paymentId,
-                  PayerID,
-               })
-
-               if (response) {
-                  setApiFeedback(
-                     'Submitting the order',
-                     `You have successfully purchased new books`,
-                     'Check them out in your profile',
-                     () => {
-                        resetCart()
-                        history.push('/profile')
-                     }
-                  )
-               }
+               await axios
+                  .post(API.CART.executePayPalPayment.url, {
+                     paymentId,
+                     PayerID,
+                  })
+                  .then(() => {
+                     setApiFeedback(
+                        'Submitting the order',
+                        `You have successfully purchased new books`,
+                        'Check them out in your profile',
+                        () => {
+                           resetCart()
+                           history.push('/profile')
+                        }
+                     )
+                  })
             }
          } catch (error) {
             if ((error as ApiError).response.status === 409) {

@@ -31,16 +31,19 @@ export const usePasswordRecovery = () => {
    const { submit, control, errors, getValues } = useForm({ schema })
 
    const changePassword = async () => {
-      await axios.post(API.AUTH.changePassword.url, {
-         ...getValues(),
-         passwordToken,
-      })
-      setApiFeedback(
-         'Password Recovery',
-         'Your password has been successfully changed, you can login now',
-         'Okey',
-         () => history.push('/login')
-      )
+      await axios
+         .post(API.AUTH.changePassword.url, {
+            ...getValues(),
+            passwordToken,
+         })
+         .then(() => {
+            setApiFeedback(
+               'Password Recovery',
+               'Your password has been successfully changed, you can login now',
+               'Okey',
+               () => history.push('/login')
+            )
+         })
    }
 
    return {

@@ -27,22 +27,23 @@ export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean
             })
 
             if (paymentMethod) {
-               const response = await axios.post(API.CART.purchaseBooksWithStripe.url, {
-                  paymentId: paymentMethod.id,
-                  products: cart,
-               })
-               if (response) {
-                  setShouldStripePopupAppear(false)
-                  setApiFeedback(
-                     'Submitting the order',
-                     `You have successfully purchased new books`,
-                     'Check them out in your profile',
-                     () => {
-                        resetCart()
-                        history.push('/profile')
-                     }
-                  )
-               }
+               await axios
+                  .post(API.CART.purchaseBooksWithStripe.url, {
+                     paymentId: paymentMethod.id,
+                     products: cart,
+                  })
+                  .then(() => {
+                     setShouldStripePopupAppear(false)
+                     setApiFeedback(
+                        'Submitting the order',
+                        `You have successfully purchased new books`,
+                        'Check them out in your profile',
+                        () => {
+                           resetCart()
+                           history.push('/profile')
+                        }
+                     )
+                  })
             } else {
                setLoading(false)
             }

@@ -13,21 +13,23 @@ export const useSupport = (withPasswordSupport: boolean | undefined) => {
 
    const handleSupport = async () => {
       if (withPasswordSupport) {
-         await axios.post(API.AUTH.recoverPassword.url, getValues())
-         setApiFeedback(
-            'Password recovery',
-            'An e-mail with an password recovery link for your account has been sent',
-            'Okey',
-            () => history.push('/login')
-         )
+         await axios.post(API.AUTH.recoverPassword.url, getValues()).then(() => {
+            setApiFeedback(
+               'Password recovery',
+               'An e-mail with an password recovery link for your account has been sent',
+               'Okey',
+               () => history.push('/login')
+            )
+         })
       } else {
-         await axios.post(API.AUTH.resendActivationToken.url, getValues())
-         setApiFeedback(
-            API.AUTH.resendActivationToken.header,
-            API.AUTH.resendActivationToken.post.responses[200].description,
-            'Okey',
-            () => history.push('/login')
-         )
+         await axios.post(API.AUTH.resendActivationToken.url, getValues()).then(() => {
+            setApiFeedback(
+               API.AUTH.resendActivationToken.header,
+               API.AUTH.resendActivationToken.post.responses[200].description,
+               'Okey',
+               () => history.push('/login')
+            )
+         })
       }
    }
 

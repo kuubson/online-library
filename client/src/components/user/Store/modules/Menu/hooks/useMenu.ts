@@ -16,9 +16,7 @@ export const useMenu = (_setShouldMenuExpand: ReactDispatch<boolean>) => {
    useEffect(() => _setShouldMenuExpand(shouldMenuExpand), [shouldMenuExpand])
 
    const logout = async () => {
-      const response = await axios.get(API.GLOBAL.logout.url)
-
-      if (response) {
+      await axios.get(API.GLOBAL.logout.url).then(() => {
          window.FB.getLoginStatus((response: any) => {
             if (response.status === 'connected') {
                window.FB.logout(() => null)
@@ -30,7 +28,7 @@ export const useMenu = (_setShouldMenuExpand: ReactDispatch<boolean>) => {
          resetCart()
 
          history.push('/login')
-      }
+      })
    }
 
    const shouldMenuStick = useTopOffset() > 20
