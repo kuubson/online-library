@@ -4,7 +4,7 @@ import { JWT_KEY } from 'config'
 
 import { Connection, User } from 'database'
 
-import { email, getEndpointInfo, password, repeatedPassword, string } from 'shared'
+import { API, email, password, repeatedPassword, string } from 'shared'
 
 import { yupValidation } from 'middlewares'
 
@@ -14,9 +14,7 @@ import { ApiError, baseUrl, emailTemplate } from 'utils'
 
 import type { Route } from 'types/express'
 
-const {
-   post: { responses },
-} = getEndpointInfo('/api/user/auth/register')
+const details = API.AUTH.register
 
 export const register: Route = [
    yupValidation({
@@ -35,7 +33,7 @@ export const register: Route = [
             const user = await User.findOne({ where: { email } })
 
             if (user) {
-               throw new ApiError('Account registration', responses[409].description, 409)
+               throw new ApiError(details.header, details.info.post.responses[409].description, 409)
             }
 
             const token = jwt.sign({ email }, JWT_KEY, { expiresIn: '24h' })
@@ -65,7 +63,11 @@ export const register: Route = [
             transporter.sendMail(mailOptions, (error, info) => {
                try {
                   if (error || !info) {
-                     throw new ApiError('Account registration', responses[522].description, 502)
+                     throw new ApiError(
+                        details.header,
+                        details.info.post.responses[522].description,
+                        502
+                     )
                   }
                   res.send()
                } catch (error) {

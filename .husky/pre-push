@@ -2,3 +2,4 @@
 . "$(dirname "$0")/_/husky.sh"
 
 npm run test --workspace=client -- --watchAll=false 
+npm run docs --workspace=server

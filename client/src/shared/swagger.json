@@ -53,11 +53,10 @@
             ],
             "responses": {
                "409": {
-                  "description": "User with email address provided already exists"
+                  "description": "Email address already taken"
                },
                "522": {
-                  "description": "There was a problem sending you an activation link",
-                  "summary": "There was a problem sending you an activation link"
+                  "description": "There was a problem sending the activation link"
                }
             }
          }

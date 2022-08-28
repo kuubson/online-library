@@ -1,5 +1,5 @@
+export { API } from './API'
 export { filesInfo } from './filesInfo'
-export * from './getEndpointInfo'
 export * from './schemas'
 export { default as swagger } from './swagger.json'
 export { yup } from './yup'

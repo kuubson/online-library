@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { CartAPI } from 'config'
+import { API } from 'shared'
 
 import { useGetBooksQuery } from 'gql'
 
@@ -33,7 +33,7 @@ export const useCart = () => {
       const executePayPalPayment = async () => {
          try {
             if (paymentId && PayerID) {
-               const response = await axios.post(CartAPI.executePayPalPayment, {
+               const response = await axios.post(API.CART.executePayPalPayment.url, {
                   paymentId,
                   PayerID,
                })
@@ -61,7 +61,7 @@ export const useCart = () => {
    }, [paymentId, PayerID])
 
    const createPayPalPayment = async () => {
-      const response = await axios.post(CartAPI.createPayPalPayment, { products: cart })
+      const response = await axios.post(API.CART.createPayPalPayment.url, { products: cart })
       if (response) {
          window.location = response.data.link
       }

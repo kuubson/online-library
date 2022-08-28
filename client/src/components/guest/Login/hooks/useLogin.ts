@@ -1,8 +1,6 @@
 import type React from 'react'
 
-import { AuthAPI } from 'config'
-
-import { email, uncheckedPassword, yup } from 'shared'
+import { API, email, uncheckedPassword, yup } from 'shared'
 
 import { useForm } from 'hooks'
 
@@ -19,7 +17,7 @@ export const useLogin = () => {
    const { submit, control, errors, getValues } = useForm({ schema })
 
    const login = async () => {
-      await axios.post(AuthAPI.login, getValues())
+      await axios.post(API.AUTH.login.url, getValues())
       history.push('/store')
    }
 
@@ -31,7 +29,7 @@ export const useLogin = () => {
                return window.FB.api(
                   '/me?fields=id,first_name,email',
                   async ({ first_name, email }: FBMeRespose) => {
-                     const response = await axios.post(AuthAPI.loginWithFacebook, {
+                     const response = await axios.post(API.AUTH.loginWithFacebook.url, {
                         name: first_name,
                         email,
                         access_token: authResponse.accessToken,

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { GlobalAPI } from 'config'
+import { API } from 'shared'
 
 import { useCart, useSocket, useTopOffset } from 'hooks'
 
@@ -16,7 +16,7 @@ export const useMenu = (_setShouldMenuExpand: ReactDispatch<boolean>) => {
    useEffect(() => _setShouldMenuExpand(shouldMenuExpand), [shouldMenuExpand])
 
    const logout = async () => {
-      const response = await axios.get(GlobalAPI.logout)
+      const response = await axios.get(API.GLOBAL.logout.url)
 
       if (response) {
          window.FB.getLoginStatus((response: any) => {

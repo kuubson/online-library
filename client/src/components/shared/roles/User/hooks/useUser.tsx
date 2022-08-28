@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import io from 'socket.io-client'
 
-import { ChatAPI, GlobalAPI } from 'config'
+import { API } from 'shared'
 
 import { useCart, useMessagesInfo, useSocket } from 'hooks'
 
@@ -37,7 +37,7 @@ export const useUser = (withChat: boolean | undefined) => {
 
       const checkToken = async () => {
          try {
-            const response = await axios.get<CheckTokenResponse>(GlobalAPI.checkToken)
+            const response = await axios.get<CheckTokenResponse>(API.GLOBAL.checkToken.url)
             if (response) {
                const { role } = response.data
                if (role !== 'user') {
@@ -50,7 +50,7 @@ export const useUser = (withChat: boolean | undefined) => {
       }
 
       const getMessagesInfo = async () => {
-         const response = await axios.get<GetMessagesInfoResponse>(ChatAPI.getMessagesInfo)
+         const response = await axios.get<GetMessagesInfoResponse>(API.CHAT.getMessagesInfo.url)
 
          if (response) {
             const { lastUnreadMessageIndex, unreadMessagesAmount, userId } = response.data

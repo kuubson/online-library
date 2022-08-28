@@ -1,6 +1,4 @@
-import { AuthAPI } from 'config'
-
-import { email, password, repeatedPassword, string, yup } from 'shared'
+import { API, email, password, repeatedPassword, string, yup } from 'shared'
 
 import { useForm } from 'hooks'
 
@@ -19,7 +17,7 @@ export const useRegistration = () => {
    const { submit, control, errors, getValues } = useForm({ schema })
 
    const register = async () => {
-      await axios.post(AuthAPI.register, getValues())
+      await axios.post(API.AUTH.register.url, getValues())
       setApiFeedback(
          'Account registration',
          'An e-mail with an activation link has been sent to the email address provided. Open it and activate your account',

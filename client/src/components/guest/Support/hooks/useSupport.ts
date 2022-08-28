@@ -1,6 +1,4 @@
-import { AuthAPI } from 'config'
-
-import { email, yup } from 'shared'
+import { API, email, yup } from 'shared'
 
 import { useForm } from 'hooks'
 
@@ -15,7 +13,7 @@ export const useSupport = (withPasswordSupport: boolean | undefined) => {
 
    const handleSupport = async () => {
       if (withPasswordSupport) {
-         await axios.post(AuthAPI.recoverPassword, getValues())
+         await axios.post(API.AUTH.recoverPassword.url, getValues())
          setApiFeedback(
             'Password recovery',
             'An e-mail with an password recovery link for your account has been sent',
@@ -23,7 +21,7 @@ export const useSupport = (withPasswordSupport: boolean | undefined) => {
             () => history.push('/login')
          )
       } else {
-         await axios.post(AuthAPI.resendEmail, getValues())
+         await axios.post(API.AUTH.resendEmail.url, getValues())
          setApiFeedback(
             'E-mail resending',
             'An e-mail with an activation link for your account has been resent',
