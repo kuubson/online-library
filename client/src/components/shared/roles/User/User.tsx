@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 
 import styled from 'styled-components/macro'
 
+import { Menu } from 'components/shared'
+
 import { GuestContainer } from 'components/shared/Roles/Guest/Guest'
-import { Menu } from 'components/user/Store/modules'
 
 import { useUser } from './hooks'
 
