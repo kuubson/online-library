@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-
 import styled from 'styled-components/macro'
 
 import * as Styled from './styled'

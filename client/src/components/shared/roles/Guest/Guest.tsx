@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { useEffect } from 'react'
-
 import styled from 'styled-components/macro'
 
 import { API } from 'shared'

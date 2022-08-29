@@ -1,5 +1,4 @@
 import { unstable_HistoryRouter as HistoryRouter, Navigate, Route, Routes } from 'react-router-dom'
-
 import styled from 'styled-components/macro'
 
 import { ApiFeedback, Guest, Loader, User } from 'components/shared'

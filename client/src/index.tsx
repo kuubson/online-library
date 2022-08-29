@@ -3,7 +3,6 @@ import { ApolloProvider } from '@apollo/client'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
-
 import { ThemeProvider } from 'styled-components/macro'
 
 import { client } from 'gql/client'

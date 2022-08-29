@@ -1,6 +1,5 @@
 /* eslint-disable react/display-name */
 import React, { forwardRef } from 'react'
-
 import styled from 'styled-components/macro'
 
 import { fadeIn } from 'assets/animations'

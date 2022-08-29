@@ -1,6 +1,5 @@
 import { CardElement } from '@stripe/react-stripe-js'
 import { useState } from 'react'
-
 import styled from 'styled-components/macro'
 
 import * as Styled from './styled'

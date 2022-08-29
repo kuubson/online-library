@@ -1,7 +1,6 @@
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { useState } from 'react'
-
 import styled from 'styled-components/macro'
 
 import { REACT_APP_STRIPE_PUBLISHABLE_KEY } from 'config'

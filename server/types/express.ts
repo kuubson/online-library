@@ -1,8 +1,9 @@
 import type { NextFunction, Response, Request as _Request } from 'express'
 import type { InferType } from 'yup'
-import type { TypedSchema } from 'yup/lib/util/types'
 
 import type { User } from 'database/models/User'
+
+import type { TypedSchema } from 'yup/lib/util/types'
 
 declare module 'express-serve-static-core' {
    interface Request {

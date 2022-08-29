@@ -5,17 +5,25 @@
    "singleQuote": true,
    "arrowParens": "avoid",
    "trailingComma": "es5",
-   "plugins": ["../node_modules/@trivago/prettier-plugin-sort-imports"],
+   "plugins": ["./node_modules/@trivago/prettier-plugin-sort-imports"],
    "importOrderSeparation": true,
    "importOrderSortSpecifiers": true,
    "importOrder": [
-      "styled-components/macro",
+      "<THIRD_PARTY_MODULES>",
 
+      "^dotenv(.*)",
+      "^./config/aliases$",
       "^config$",
+
+      "^database(.*)",
 
       "^shared$",
 
       "^gql(.*)",
+
+      "^middlewares(.*)",
+
+      "^routes(.*)",
 
       "^redux/hooks$",
       "^redux/store$",
@@ -44,7 +52,7 @@
       "^utils$",
       "(.*)/utils$",
 
-      "^types$",
+      "^types(.*)",
       "(.*)/types$",
 
       "^[./]"

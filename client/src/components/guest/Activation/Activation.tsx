@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-
 import styled from 'styled-components/macro'
 
 import { API } from 'shared'
