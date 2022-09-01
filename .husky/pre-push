@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run test --workspace=client  
-npm run docs --workspace=server
+npm run test
+npm run docs

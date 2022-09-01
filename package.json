@@ -6,6 +6,7 @@
       "check": "turbo run check",
       "test": "turbo run test",
       "build": "turbo run build",
+      "docs": "turbo run docs",
       "gql": "graphql-codegen",
       "postinstall": "husky install",
       "heroku-postbuild": "turbo run build"

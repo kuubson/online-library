@@ -15,6 +15,10 @@
          "dependsOn": ["^build", "check", "test"],
          "outputs": ["build", "dist"]
       },
+      "docs": {
+         "dependsOn": [],
+         "outputs": []
+      },
       "deploy": {
          "dependsOn": ["build", "check", "test"],
          "outputs": []
