@@ -1,5 +1,5 @@
 export { ApiFeedback } from './ApiFeedback/ApiFeedback'
 export { Loader } from './Loader/Loader'
 export { Menu } from './Menu/Menu'
-export * from './Roles'
+export * from './roles'
 export { Wrapper } from './Wrapper/Wrapper'

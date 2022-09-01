@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 
 import { Menu } from 'components/shared'
 
-import { GuestContainer } from 'components/shared/Roles/Guest/Guest'
+import { GuestContainer } from 'components/shared/roles/Guest/Guest'
 
 import { useUser } from './hooks'
 

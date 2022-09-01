@@ -12,7 +12,10 @@ export const password = yup
    .string()
    .required()
    .test('test-password', 'Password too weak (8 chars/1 lowercase/1 uppercase/1 digit)', password =>
-      validator.isStrongPassword(password || '', { minSymbols: 0 })
+      validator.isStrongPassword(password || '', {
+         minSymbols: 0,
+         returnScore: false,
+      })
    )
 
 export const uncheckedPassword = yup.string().required()

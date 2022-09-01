@@ -12,7 +12,7 @@
       "/api/user/auth/register": {
          "post": {
             "tags": ["Auth"],
-            "description": "  ✅ Checks if user already exist <br />  ✅ Generates an <b>activation token</b <br />  ✅ Sends link with the <b>token</b> to allow user activate his account",
+            "description": "   ✅ Checks if user already exist <br />   ✅ Generates an <b>activation token</b <br />   ✅ Sends link with the <b>token</b> to allow user activate his account",
             "parameters": [
                {
                   "name": "name",
@@ -67,7 +67,7 @@
       "/api/user/auth/activateAccount": {
          "post": {
             "tags": ["Auth"],
-            "description": "  ✅ Check if user already activated his accoun <br />  ✅ Toggles account as activated if it's not alread <br />",
+            "description": "   ✅ Check if user already activated his accoun <br />   ✅ Toggles account as activated if it's not alread <br />",
             "parameters": [
                {
                   "name": "activationToken",
@@ -101,7 +101,7 @@
       "/api/user/auth/resendActivationToken": {
          "post": {
             "tags": ["Auth"],
-            "description": "  ✅ Ensures user with provided email address exists <br />  ✅ Rejects resending activation token if account is already activate <br />  ✅ Sends new activation token to the use <br />",
+            "description": "   ✅ Ensures user with provided email address exists <br />   ✅ Rejects resending activation token if account is already activate <br />   ✅ Sends new activation token to the use <br />",
             "parameters": [
                {
                   "name": "email",
@@ -138,7 +138,7 @@
       "/api/user/auth/login": {
          "post": {
             "tags": ["Auth"],
-            "description": "  ✅ Checks given email and password <br />  ✅ Check if account is activated <br />  ✅ Sends authentication if credentials are ok <br />",
+            "description": "   ✅ Checks given email and password <br />   ✅ Check if account is activated <br />   ✅ Sends authentication if credentials are ok <br />",
             "parameters": [
                {
                   "name": "email",
