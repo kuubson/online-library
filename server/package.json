@@ -3,15 +3,16 @@
    "private": true,
    "version": "1.0.0",
    "scripts": {
-      "start": "cross-env NODE_ENV=development nodemon server.ts",
-      "check": "eslint . && tsc --noEmit",
+      "dev": "cross-env NODE_ENV=development nodemon server.ts",
+      "check": "eslint . --fix && tsc --noEmit",
+      "test": "",
       "build": "tsc && copyfiles gql/**/**/*.gql dist/server",
       "docs": "npx ts-node swagger.ts"
    },
    "dependencies": {
       "@graphql-tools/load-files": "^6.6.1",
       "apollo-server-core": "^3.10.1",
-      "apollo-server-express": "^3.6.1",
+      "apollo-server-express": "^3.6.0",
       "bcrypt": "^5.0.1",
       "cloudinary": "^1.28.0",
       "cookie-parser": "^1.4.6",
@@ -20,6 +21,8 @@
       "express-rate-limit": "^6.0.4",
       "graphql": "^16.2.0",
       "graphql-middleware": "^6.1.32",
+      "graphql-rate-limit": "^3.3.0",
+      "graphql-shield": "^7.5.0",
       "graphql-subscriptions": "^2.0.0",
       "graphql-ws": "^5.10.1",
       "jsonwebtoken": "^8.5.1",

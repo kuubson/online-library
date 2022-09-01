@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import io from 'socket.io-client'
 
@@ -8,7 +7,7 @@ import { useCart, useMessagesInfo, useSocket } from 'hooks'
 
 import { handleApiError } from 'helpers'
 
-import { history } from 'utils'
+import { defaultAxios, history } from 'utils'
 
 type GetMessagesInfoResponse = {
    lastUnreadMessageIndex: number
@@ -37,7 +36,7 @@ export const useUser = (withChat: boolean | undefined) => {
 
       const checkToken = async () => {
          try {
-            const response = await axios.get<CheckTokenResponse>(API.GLOBAL.checkToken.url)
+            const response = await defaultAxios.get<CheckTokenResponse>(API.GLOBAL.checkToken.url)
             if (response) {
                const { role } = response.data
                if (role !== 'user') {
@@ -50,7 +49,9 @@ export const useUser = (withChat: boolean | undefined) => {
       }
 
       const getMessagesInfo = async () => {
-         const response = await axios.get<GetMessagesInfoResponse>(API.CHAT.getMessagesInfo.url)
+         const response = await defaultAxios.get<GetMessagesInfoResponse>(
+            API.CHAT.getMessagesInfo.url
+         )
 
          if (response) {
             const { lastUnreadMessageIndex, unreadMessagesAmount, userId } = response.data

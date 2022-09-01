@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { useEffect } from 'react'
 import styled from 'styled-components/macro'
 
@@ -8,7 +7,7 @@ import { useSocket } from 'hooks'
 
 import { handleApiError } from 'helpers'
 
-import { history } from 'utils'
+import { defaultAxios, history } from 'utils'
 
 type GuestProps = {
    children: React.ReactNode
@@ -20,7 +19,7 @@ export const Guest = ({ children }: GuestProps) => {
    useEffect(() => {
       const checkToken = async () => {
          try {
-            const response = await axios.get<CheckTokenResponse>(API.GLOBAL.checkToken.url)
+            const response = await defaultAxios.get<CheckTokenResponse>(API.GLOBAL.checkToken.url)
 
             if (response) {
                const { role } = response.data

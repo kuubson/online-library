@@ -1,3 +1,4 @@
+export { default as defaultAxios } from 'axios'
 export { axios } from './axios'
-export { baseUrl } from './baseUrl'
 export { history } from './history'
+export * from './urls'

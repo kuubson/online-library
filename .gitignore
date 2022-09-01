@@ -1,15 +1,15 @@
-node_modules/
 
-dist/
-build/
-
+build
+dist
 uploads/
 
-.env
-
-.DS_Store
-
-/server/database/generated
+server/database/generated
 
 # It prevents from crashing the heroku build
-/server/package-lock.json
+server/package-lock.json
+
+.env
+.turbo
+.DS_Store
+
+node_modules/

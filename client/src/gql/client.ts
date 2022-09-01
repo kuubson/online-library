@@ -1,57 +1,50 @@
-import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from '@apollo/client'
+import { ApolloClient, ApolloLink, HttpLink, InMemoryCache, split } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
+import { getMainDefinition } from '@apollo/client/utilities'
+import { createClient } from 'graphql-ws'
 
-import { NODE_ENV } from 'config'
+import { API } from 'shared'
 
 import { setApiFeedback, setLoading } from 'helpers'
 
-import { history } from 'utils'
+import { defaultAxios, history, websocketUrl } from 'utils'
 
 let timeoutId: NodeJS.Timeout | undefined
 
-const errorHandler = onError(({ graphQLErrors, networkError }) => {
-   setLoading(false)
-
-   clearTimeout(timeoutId)
-
-   timeoutId = undefined
-
-   if (graphQLErrors) {
-      const error = graphQLErrors as GraphqlError
-      if (error) {
-         const errorHeader = error.exception?.errorHeader || 'Request Processing'
-
-         const errorMessage =
-            error.exception?.errorMessage || 'The server cannot temporarily process your request'
-
-         switch (true) {
-            case errorHeader === 'Request Processing':
-               return setApiFeedback(
-                  'Request Processing',
-                  'The server cannot temporarily process your request',
-                  'Refresh the application',
-                  () => NODE_ENV === 'production' && window.location.reload()
-               )
-            default:
-               setApiFeedback(errorHeader, errorMessage, 'Okey')
-         }
-      }
+const handleOnClosed = (event: any) => {
+   if (event.code === 4401) {
+      client.clearStore()
    }
+}
 
-   if (networkError && networkError.message.includes('401')) {
-      setApiFeedback(
-         'Authorization',
-         'The authentication cookie is invalid, log in again',
-         'Okey',
-         () => history.push('/login')
-      )
-   }
-})
+const webSocketLink = new GraphQLWsLink(
+   createClient({
+      url: websocketUrl,
+      on: { closed: handleOnClosed },
+   })
+)
 
 const customFetch = (uri: RequestInfo | URL, options: RequestInit) => {
-   !timeoutId && (timeoutId = setTimeout(() => setLoading(true), 500))
+   if (!timeoutId) {
+      timeoutId = setTimeout(() => setLoading(true), 500)
+   }
    return fetch(uri, options)
 }
+
+const httpLink = new HttpLink({
+   uri: '/graphql',
+   fetch: customFetch,
+})
+
+const splitLink = split(
+   ({ query }) => {
+      const definition = getMainDefinition(query)
+      return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
+   },
+   webSocketLink,
+   httpLink
+)
 
 const handleLoader = new ApolloLink((operation, forward) => {
    return forward(operation).map(response => {
@@ -62,7 +55,40 @@ const handleLoader = new ApolloLink((operation, forward) => {
    })
 })
 
+const handleError = onError(({ graphQLErrors, networkError }) => {
+   setLoading(false)
+
+   clearTimeout(timeoutId)
+
+   timeoutId = undefined
+
+   if (graphQLErrors) {
+      const [
+         {
+            extensions: { exception },
+         },
+      ] = graphQLErrors
+
+      setApiFeedback(exception.errorHeader, exception.errorMessage, 'Okey')
+
+      if (exception.status === 401) {
+         defaultAxios.get(API.GLOBAL.logout.url).then(() => {
+            history.push('/login')
+         })
+      }
+   }
+
+   if (networkError) {
+      setApiFeedback(
+         'Server connectivity',
+         'There was a problem connecting to the server',
+         'Okey',
+         () => history.push('/login')
+      )
+   }
+})
+
 export const client = new ApolloClient({
+   link: ApolloLink.from([handleLoader, handleError, splitLink]),
    cache: new InMemoryCache(),
-   link: ApolloLink.from([errorHandler, handleLoader, new HttpLink({ fetch: customFetch })]),
 })

@@ -1,10 +1,10 @@
-import type { Request, Response } from 'express'
+import type { Response, Request as _Request } from 'express'
 
 import type { User } from 'database/models/User'
 
 type Role = 'user'
 
-type GraphQLRequest = Request & {
+interface Request extends _Request {
    user: {
       user: User
       role: Role
@@ -12,7 +12,7 @@ type GraphQLRequest = Request & {
 }
 
 export type GraphqlContext = {
-   req: GraphQLRequest
+   req: Request
    res: Response
 }
 

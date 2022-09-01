@@ -8,7 +8,7 @@ export const rateLimiter = () =>
          const status = 429
          res.status(status).send({
             status,
-            errorMessage: `You have exceeded max amount of requests. Try again later`,
+            errorMessage: 'You have exceeded max amount of requests, try again later',
          })
       },
    })
