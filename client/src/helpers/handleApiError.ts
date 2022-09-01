@@ -11,7 +11,7 @@ export const handleApiError = (error: ApiError) => {
       console.log(error)
    }
 
-   if (error.response) {
+   if (error.response?.data) {
       const responseStatus = error.response.status
 
       const { errorHeader, errorMessage } = error.response.data

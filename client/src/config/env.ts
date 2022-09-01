@@ -7,7 +7,7 @@ type Env = {
 
    PUBLIC_URL: string
 
-   NODE_ENV: 'development' | 'production'
+   NODE_ENV: 'development' | 'test' | 'production'
 }
 
 export const {

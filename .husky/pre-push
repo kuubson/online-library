@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run test --workspace=client -- --watchAll=false 
+npm run test:skipWatch --workspace=client  
 npm run docs --workspace=server
