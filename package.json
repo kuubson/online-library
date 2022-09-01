@@ -11,8 +11,8 @@
       "heroku-postbuild": "turbo run build"
    },
    "workspaces": [
-      "client",
-      "server"
+      "apps/*",
+      "packages/*"
    ],
    "devDependencies": {
       "@graphql-codegen/add": "^3.1.1",
