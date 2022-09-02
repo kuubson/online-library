@@ -8,7 +8,7 @@
          "outputs": []
       },
       "test": {
-         "dependsOn": ["check"],
+         "dependsOn": [],
          "outputs": []
       },
       "build": {
