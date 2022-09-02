@@ -16,6 +16,6 @@ const doc = {
    },
 }
 
-const outputPath = '../../packages/online-library/swagger.json'
+const outputPath = '../../packages/online-library/src/swagger.json'
 
 swaggerAutogen()(outputPath, ['./server.ts'], doc)
