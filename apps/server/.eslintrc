@@ -1,1 +1,1 @@
-{ "extends": ["online-library"] }
+{ "extends": ["custom"] }

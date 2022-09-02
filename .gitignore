@@ -1,7 +1,10 @@
 
 build
 dist
+
 uploads/
+
+tsconfig.tsbuildinfo
 
 server/database/generated
 

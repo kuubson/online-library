@@ -4,7 +4,7 @@
    "version": "1.0.0",
    "scripts": {
       "dev": "cross-env NODE_ENV=development nodemon server.ts",
-      "check": "eslint . --fix && tsc --noEmit",
+      "check": "eslint . && tsc --noEmit",
       "test": "",
       "build": "tsc && copyfiles gql/**/**/*.gql dist/server",
       "docs": "npx ts-node swagger.ts"
@@ -50,7 +50,7 @@
       "yup": "^0.32.11"
    },
    "devDependencies": {
-      "eslint-config-online-library": "*",
+      "eslint-config-custom": "*",
       "@faker-js/faker": "^7.4.0",
       "@swc/core": "^1.2.241",
       "@types/bcrypt": "^5.0.0",
@@ -72,7 +72,6 @@
       "copyfiles": "^2.4.1",
       "cross-env": "^7.0.3",
       "dotenv": "^10.0.0",
-      "eslint": "^8.6.0",
       "nodemon": "^2.0.19",
       "sequelize-auto": "^0.8.8"
    }
