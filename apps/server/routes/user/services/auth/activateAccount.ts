@@ -1,10 +1,10 @@
 import { JsonWebTokenError, TokenExpiredError, verify } from 'jsonwebtoken'
 
+import { API } from 'online-library'
+
 import { JWT_KEY } from 'config'
 
 import { Authentication, Connection } from 'database'
-
-import { API } from 'shared'
 
 import { yupValidation } from 'middlewares'
 

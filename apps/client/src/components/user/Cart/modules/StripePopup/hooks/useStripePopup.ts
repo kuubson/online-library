@@ -1,6 +1,6 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 
-import { API } from 'shared'
+import { API } from 'online-library'
 
 import { useCart } from 'hooks'
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { API } from 'shared'
+import { API } from 'online-library'
 
 import { useGetBooksQuery } from 'gql'
 

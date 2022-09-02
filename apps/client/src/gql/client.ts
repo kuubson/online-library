@@ -4,7 +4,7 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { createClient } from 'graphql-ws'
 
-import { API } from 'shared'
+import { API } from 'online-library'
 
 import { setApiFeedback, setLoading } from 'helpers'
 

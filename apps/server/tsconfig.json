@@ -4,14 +4,13 @@
       "target": "es6",
       "allowJs": true,
       "module": "commonjs",
-      "rootDirs": [".", "../client"],
+      "rootDir": ".",
       "outDir": "./dist",
       "esModuleInterop": true,
       "resolveJsonModule": true,
       "strict": true,
       "strictPropertyInitialization": false,
-      "skipLibCheck": true,
-      "paths": { "shared": ["../client/src/shared"] }
+      "skipLibCheck": true
    },
    "ts-node": { "swc": true }
 }

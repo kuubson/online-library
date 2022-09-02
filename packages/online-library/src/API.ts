@@ -2,9 +2,9 @@ import { email, password, repeatedPassword, string, uncheckedPassword } from './
 import swagger from './swagger.json'
 import { yup } from './yup'
 
-export type Endpoint = keyof typeof swagger['paths']
+type Endpoint = keyof typeof swagger['paths']
 
-export const getEndpointInfo = <E extends Endpoint>(endpoint: E) => ({
+const getEndpointInfo = <E extends Endpoint>(endpoint: E) => ({
    url: endpoint,
    ...swagger['paths'][endpoint],
 })

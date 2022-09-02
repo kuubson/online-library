@@ -1,9 +1,9 @@
 import cloudinary from 'cloudinary'
 
+import { filesInfo } from 'online-library'
+
 import { Connection } from 'database'
 import type { Message } from 'database/models/Message'
-
-import { filesInfo } from 'shared'
 
 import { deleteTemporaryFile, sendNotificationsForOtherUsers } from 'helpers'
 

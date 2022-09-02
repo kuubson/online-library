@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken'
 
+import { email } from 'online-library'
+
 import { JWT_KEY, TokenExpiration } from 'config'
 
 import { Connection, User } from 'database'
-
-import { email } from 'shared'
 
 import { yupValidation } from 'middlewares'
 

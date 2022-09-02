@@ -1,9 +1,9 @@
 import { Op } from 'sequelize'
 
+import { bool } from 'online-library'
+
 import { Book } from 'database'
 import type { Book as BookType } from 'database/models/Book'
-
-import { bool } from 'shared'
 
 import { yupValidation } from 'middlewares'
 

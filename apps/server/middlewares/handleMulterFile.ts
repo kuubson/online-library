@@ -1,4 +1,4 @@
-import { filesInfo } from 'shared'
+import { filesInfo } from 'online-library'
 
 import { multerFile } from 'middlewares'
 

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { API } from 'shared'
+import { API } from 'online-library'
 
 import { useForm } from 'hooks'
 

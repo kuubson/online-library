@@ -1,6 +1,6 @@
-import { Message, User } from 'database'
+import { API, integer } from 'online-library'
 
-import { API, integer } from 'shared'
+import { Message, User } from 'database'
 
 import { yupValidation } from 'middlewares'
 

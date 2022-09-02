@@ -1,4 +1,4 @@
-import { API } from 'shared'
+import { API } from 'online-library'
 
 import { useForm } from 'hooks'
 

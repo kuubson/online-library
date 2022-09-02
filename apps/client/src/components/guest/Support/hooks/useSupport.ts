@@ -1,4 +1,4 @@
-import { API, email, yup } from 'shared'
+import { API, email, yup } from 'online-library'
 
 import { useForm } from 'hooks'
 

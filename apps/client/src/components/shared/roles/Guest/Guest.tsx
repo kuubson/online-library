@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import styled from 'styled-components/macro'
 
-import { API } from 'shared'
+import { API } from 'online-library'
 
 import { useSocket } from 'hooks'
 

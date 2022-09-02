@@ -1,10 +1,10 @@
 import Stripe from 'stripe'
 
+import { API, products, string } from 'online-library'
+
 import { STRIPE_SECRET_KEY } from 'config'
 
 import { Book, Connection } from 'database'
-
-import { API, products, string } from 'shared'
 
 import { yupValidation } from 'middlewares'
 

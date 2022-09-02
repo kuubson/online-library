@@ -1,9 +1,9 @@
 import type { Payment } from 'paypal-rest-sdk'
 import paypal from 'paypal-rest-sdk'
 
-import { Book } from 'database'
+import { API, products } from 'online-library'
 
-import { API, products } from 'shared'
+import { Book } from 'database'
 
 import { yupValidation } from 'middlewares'
 

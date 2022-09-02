@@ -25,8 +25,8 @@ export const handleApiError = (error: ApiError) => {
       }
 
       return setApiFeedback(
-         'Connecting to the server',
-         `A connection couldn't be established with the server or an unexpected problem occurred on its side`,
+         'Server connectivity',
+         `Couldn't connect to the server`,
          'Refresh the application',
          () => production && window.location.reload()
       )
@@ -34,7 +34,7 @@ export const handleApiError = (error: ApiError) => {
 
    if (error.request) {
       return setApiFeedback(
-         'Request Processing',
+         'Server connectivity',
          'The server cannot temporarily process your request',
          'Refresh the application',
          () => production && window.location.reload()
@@ -42,7 +42,7 @@ export const handleApiError = (error: ApiError) => {
    }
 
    setApiFeedback(
-      'Request Processing',
+      'Server connectivity',
       'An unexpected problem has occurred in the application',
       'Refresh the application',
       () => production && window.location.reload()

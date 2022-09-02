@@ -10,6 +10,7 @@
       "docs": "npx ts-node swagger.ts"
    },
    "dependencies": {
+      "online-library": "*",
       "@graphql-tools/load-files": "^6.6.1",
       "apollo-server-core": "^3.10.1",
       "apollo-server-express": "^3.6.0",
@@ -49,6 +50,7 @@
       "yup": "^0.32.11"
    },
    "devDependencies": {
+      "eslint-config-online-library": "*",
       "@faker-js/faker": "^7.4.0",
       "@swc/core": "^1.2.241",
       "@types/bcrypt": "^5.0.0",

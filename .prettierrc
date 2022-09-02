@@ -11,6 +11,8 @@
    "importOrder": [
       "<THIRD_PARTY_MODULES>",
 
+      "online-library",
+
       "^dotenv(.*)",
       "^./config/aliases$",
       "^config$",

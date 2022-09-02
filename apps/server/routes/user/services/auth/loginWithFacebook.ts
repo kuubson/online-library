@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
+import { email, string } from 'online-library'
+
 import { JWT_KEY } from 'config'
 
 import { Connection, User } from 'database'
-
-import { email, string } from 'shared'
 
 import { yupValidation } from 'middlewares'
 

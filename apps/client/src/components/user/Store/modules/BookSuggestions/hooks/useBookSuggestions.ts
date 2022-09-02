@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { API, string, yup } from 'shared'
+import { API, string, yup } from 'online-library'
 
 import type { Book } from 'gql'
 

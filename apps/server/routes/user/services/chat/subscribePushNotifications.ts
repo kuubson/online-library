@@ -1,6 +1,6 @@
-import { Connection } from 'database'
+import { string } from 'online-library'
 
-import { string } from 'shared'
+import { Connection } from 'database'
 
 import { yupValidation } from 'middlewares'
 

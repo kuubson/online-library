@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import io from 'socket.io-client'
 
-import { API } from 'shared'
+import { API } from 'online-library'
 
 import { useCart, useMessagesInfo, useSocket } from 'hooks'
 

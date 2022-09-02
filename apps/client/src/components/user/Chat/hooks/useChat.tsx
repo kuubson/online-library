@@ -1,7 +1,7 @@
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 
-import { API, filesInfo } from 'shared'
+import { API, filesInfo } from 'online-library'
 
 import { useMessagesInfo, useSocket } from 'hooks'
 

@@ -10,6 +10,7 @@
       "build": "react-scripts build"
    },
    "dependencies": {
+      "online-library": "*",
       "@apollo/client": "^3.6.9",
       "@hookform/resolvers": "^2.9.7",
       "@reduxjs/toolkit": "^1.8.5",
@@ -48,6 +49,8 @@
       "yup": "^0.32.11"
    },
    "devDependencies": {
+      "eslint-config-online-library": "*",
+      "tsconfig": "*",
       "@stylelint/postcss-css-in-js": "^0.38.0",
       "@types/file-saver": "^2.0.5",
       "@types/react-router-dom": "^5.3.3",
@@ -62,12 +65,6 @@
       "stylelint": "^14.11.0",
       "stylelint-config-styled-components": "^0.1.1",
       "stylelint-processor-styled-components": "^1.10.0"
-   },
-   "eslintConfig": {
-      "extends": [
-         "react-app",
-         "react-app/jest"
-      ]
    },
    "browserslist": {
       "production": [

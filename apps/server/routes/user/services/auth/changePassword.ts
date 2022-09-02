@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt'
 import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken'
 
+import { password, repeatedPassword } from 'online-library'
+
 import { JWT_KEY } from 'config'
 
 import { Connection, User } from 'database'
-
-import { password, repeatedPassword } from 'shared'
 
 import { yupValidation } from 'middlewares'
 

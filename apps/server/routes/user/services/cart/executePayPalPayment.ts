@@ -1,8 +1,8 @@
 import paypal from 'paypal-rest-sdk'
 
-import { Book } from 'database'
+import { API, string } from 'online-library'
 
-import { API, string } from 'shared'
+import { Book } from 'database'
 
 import { yupValidation } from 'middlewares'
 
