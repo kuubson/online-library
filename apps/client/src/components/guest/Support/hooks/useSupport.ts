@@ -15,8 +15,8 @@ export const useSupport = (withPasswordSupport: boolean | undefined) => {
       if (withPasswordSupport) {
          await axios.post(API.AUTH.recoverPassword.url, getValues()).then(() => {
             setApiFeedback(
-               'Password recovery',
-               'An e-mail with an password recovery link for your account has been sent',
+               API.AUTH.recoverPassword.header,
+               API.AUTH.recoverPassword.post.responses[200].description,
                'Okey',
                () => history.push('/login')
             )

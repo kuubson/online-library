@@ -50,10 +50,12 @@ cd ./server && npm start
 #### TIPS:
 
 -  Make sure to setup **PostgreSQL** database with credentials the same as in **.env**. Can be different db, just adjust dialect settings inside the **server/config/db.ts**
--  When describing API with **swagger**, add the following property to the **nodemon.json**:
+-  When describing API with **swagger**, add the following property to the **nodemon.json**. It helps with :
 
 ```bash
-"exec": "npm run docs"
+"events": {
+    "restart": "npm run docs"
+}
 ```
 
 ## Some screenshots

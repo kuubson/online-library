@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { email } from 'online-library'
+import { API } from 'online-library'
 
 import { JWT_KEY, TokenExpiration } from 'config'
 
@@ -14,7 +14,9 @@ import { ApiError, baseUrl, emailTemplate } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
-const schema = yup.object({ body: yup.object({ email }) })
+const ENDPOINT = API.AUTH.recoverPassword
+
+const schema = yup.object({ body: ENDPOINT.schema })
 
 export const recoverPassword: Route<Body<typeof schema>> = [
    yupValidation({ schema }),
@@ -29,15 +31,11 @@ export const recoverPassword: Route<Body<typeof schema>> = [
             })
 
             if (!user || !user.authentication) {
-               throw new ApiError('Password recovery', 'The email address provided is invalid', 404)
+               throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses['404'].description, 404)
             }
 
             if (!user.authentication.authenticated) {
-               throw new ApiError(
-                  'Password recovery',
-                  'An account assigned to email address provided must be firstly authenticated',
-                  409
-               )
+               throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses['409'].description, 409)
             }
 
             const passwordToken = jwt.sign({ email }, JWT_KEY, { expiresIn: TokenExpiration['1h'] })
@@ -56,11 +54,7 @@ export const recoverPassword: Route<Body<typeof schema>> = [
                   ),
                })
             } catch (error) {
-               throw new ApiError(
-                  'Password recovery',
-                  'There was an unexpected problem when sending an e-mail with a password recovery link for your account',
-                  502
-               )
+               throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses['502'].description, 502)
             }
 
             res.send()

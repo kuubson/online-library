@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
-import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 
-import { password, repeatedPassword } from 'online-library'
+import { API } from 'online-library'
 
 import { JWT_KEY } from 'config'
 
@@ -16,12 +16,10 @@ import { ApiError } from 'utils'
 import type { PasswordTokendata } from 'types'
 import type { Body, Route } from 'types/express'
 
+const ENDPOINT = API.AUTH.changePassword
+
 const schema = yup.object({
-   body: yup.object({
-      password,
-      repeatedPassword: repeatedPassword(),
-      passwordToken: yup.string().jwt().required(),
-   }),
+   body: ENDPOINT.schema.shape({ passwordToken: yup.string().jwt().required() }),
 })
 
 export const changePassword: Route<Body<typeof schema>> = [
@@ -41,7 +39,7 @@ export const changePassword: Route<Body<typeof schema>> = [
             })
 
             if (!user) {
-               throw new ApiError('Password recovery', 'The password recovery link is invalid', 400)
+               throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses['400'].description, 400)
             }
 
             await user.update(
@@ -55,16 +53,6 @@ export const changePassword: Route<Body<typeof schema>> = [
             res.send()
          })
       } catch (error) {
-         if (error instanceof JsonWebTokenError) {
-            if (error instanceof TokenExpiredError) {
-               throw new ApiError(
-                  'Password recovery',
-                  'The password recovery link has expired',
-                  400
-               )
-            }
-            throw new ApiError('Password recovery', 'The password recovery link is invalid', 400)
-         }
          next(error)
       }
    },

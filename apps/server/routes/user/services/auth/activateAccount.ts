@@ -1,4 +1,4 @@
-import { JsonWebTokenError, TokenExpiredError, verify } from 'jsonwebtoken'
+import { verify } from 'jsonwebtoken'
 
 import { API } from 'online-library'
 
@@ -16,6 +16,7 @@ import type { Body, Route } from 'types/express'
 
 const ENDPOINT = API.AUTH.activateAccount
 
+// TODO: move schema to API.ts
 const schema = yup.object({ body: yup.object({ activationToken: yup.string().jwt().required() }) })
 
 export const activateAccount: Route<Body<typeof schema>> = [
@@ -42,12 +43,6 @@ export const activateAccount: Route<Body<typeof schema>> = [
             res.send()
          })
       } catch (error) {
-         if (error instanceof JsonWebTokenError) {
-            if (error instanceof TokenExpiredError) {
-               throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses[401].description, 401)
-            }
-            throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses[400].description, 400)
-         }
          next(error)
       }
    },

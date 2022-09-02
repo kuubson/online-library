@@ -26,7 +26,7 @@ export const handleApiError = (error: ApiError) => {
 
       return setApiFeedback(
          'Server connectivity',
-         `Couldn't connect to the server`,
+         `There was a problem connecting to the server`,
          'Refresh the application',
          () => production && window.location.reload()
       )

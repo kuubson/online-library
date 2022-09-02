@@ -38,8 +38,8 @@ export const useLogin = () => {
             )
          } else {
             setApiFeedback(
-               'Logging to the app',
-               'There was an unexpected problem when logging in with Facebook',
+               API.AUTH.loginWithFacebook.header,
+               API.AUTH.loginWithFacebook.post.responses['400'].description,
                'Okey'
             )
          }

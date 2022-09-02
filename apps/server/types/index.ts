@@ -25,12 +25,28 @@ export type PasswordTokendata = {
    email: string
 }
 
+type OAuthError = {
+   statusCode: number
+   data: string
+}
+
+export type OAuthErrorData = {
+   error: {
+      message: string
+      type: string
+      code: number
+      fbtrace_id: string
+   }
+}
+
 export type ExpressError = {
    status: number
+   type: string
    message: string
    errorHeader: string
    errorMessage: string
    code?: 'EBADCSRFTOKEN'
+   oauthError: OAuthError
 }
 
 export type Resolver = any

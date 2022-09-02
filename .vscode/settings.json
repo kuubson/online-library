@@ -2,6 +2,9 @@
    "workbench.colorCustomizations": {
       "titleBar.inactiveBackground": "#0088ff"
    },
+   "editor.tokenColorCustomizations": {
+      "comments": "#32BF91"
+   },
    "editor.codeActionsOnSave": {
       "source.organizeImports": true,
       "source.fixAll.eslint": true

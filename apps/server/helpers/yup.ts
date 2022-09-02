@@ -14,9 +14,17 @@ _yup.addMethod<_yup.StringSchema>(_yup.string, 'jwt', function () {
       } catch (error) {
          if (error instanceof JsonWebTokenError) {
             if (error instanceof TokenExpiredError) {
-               throw new ApiError('Authentication', 'Token has expired, please log in again', 401)
+               throw new ApiError(
+                  'Request processing',
+                  'Token required by this action has expired',
+                  401
+               )
             }
-            throw new ApiError('Authentication', 'Token is invalid, please log in again', 401)
+            throw new ApiError(
+               'Request processing',
+               'Token required by this action is invalid',
+               401
+            )
          }
       }
       return true

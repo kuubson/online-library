@@ -1,4 +1,6 @@
-import { JsonWebTokenError, TokenExpiredError, verify } from 'jsonwebtoken'
+import { verify } from 'jsonwebtoken'
+
+import { API } from 'online-library'
 
 import { JWT_KEY } from 'config'
 
@@ -13,6 +15,9 @@ import { ApiError } from 'utils'
 import type { PasswordTokendata } from 'types'
 import type { Body, Route } from 'types/express'
 
+const ENDPOINT = API.AUTH.checkPasswordToken
+
+// TODO: move schema to API.ts
 const schema = yup.object({ body: yup.object({ passwordToken: yup.string().jwt().required() }) })
 
 export const checkPasswordToken: Route<Body<typeof schema>> = [
@@ -31,21 +36,11 @@ export const checkPasswordToken: Route<Body<typeof schema>> = [
          })
 
          if (!user) {
-            throw new ApiError('Password recovery', 'The password recovery link is invalid', 400)
+            throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses['400'].description, 400)
          }
 
          res.send()
       } catch (error) {
-         if (error instanceof JsonWebTokenError) {
-            if (error instanceof TokenExpiredError) {
-               throw new ApiError(
-                  'Password recovery',
-                  'The password recovery link has expired',
-                  400
-               )
-            }
-            throw new ApiError('Password recovery', 'The password recovery link is invalid', 400)
-         }
          next(error)
       }
    },

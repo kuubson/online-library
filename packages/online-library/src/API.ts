@@ -25,11 +25,16 @@ class _API {
       },
       loginWithFacebook: {
          ...getEndpointInfo('/api/user/auth/loginWithFacebook'),
-         header: '',
+         header: 'Authentication',
+         schema: yup.object({
+            name: string,
+            email,
+            access_token: string,
+         }),
       },
       changePassword: {
          ...getEndpointInfo('/api/user/auth/changePassword'),
-         header: '',
+         header: 'Changing the password',
          schema: yup.object({
             password,
             repeatedPassword: repeatedPassword(),
@@ -37,7 +42,7 @@ class _API {
       },
       checkPasswordToken: {
          ...getEndpointInfo('/api/user/auth/checkPasswordToken'),
-         header: '',
+         header: 'Recovering the password',
       },
       register: {
          ...getEndpointInfo('/api/user/auth/register'),
@@ -51,11 +56,13 @@ class _API {
       },
       recoverPassword: {
          ...getEndpointInfo('/api/user/auth/recoverPassword'),
-         header: '',
+         header: 'Recovering the password',
+         schema: yup.object({ email }),
       },
       resendActivationToken: {
          ...getEndpointInfo('/api/user/auth/resendActivationToken'),
          header: 'Activation token',
+         schema: yup.object({ email }),
       },
    }
 
@@ -66,7 +73,6 @@ class _API {
       },
       getMessages: {
          ...getEndpointInfo('/api/user/chat/getMessages'),
-
          header: '',
       },
       subscribePushNotifications: {

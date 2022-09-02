@@ -1,4 +1,4 @@
-import { JsonWebTokenError, TokenExpiredError, verify } from 'jsonwebtoken'
+import { verify } from 'jsonwebtoken'
 
 import { JWT_KEY } from 'config'
 
@@ -35,20 +35,6 @@ export const checkToken: Route<InitialBody, Cookies<typeof schema>> = [
             401
          )
       } catch (error) {
-         if (error instanceof JsonWebTokenError) {
-            if (error instanceof TokenExpiredError) {
-               throw new ApiError(
-                  'Authorization',
-                  'The authentication cookie has expired, log in again',
-                  401
-               )
-            }
-            throw new ApiError(
-               'Authorization',
-               'The authentication cookie is invalid, log in again',
-               401
-            )
-         }
          next(error)
       }
    },

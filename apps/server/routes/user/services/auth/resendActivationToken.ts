@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { API, email } from 'online-library'
+import { API } from 'online-library'
 
 import { JWT_KEY, TokenExpiration } from 'config'
 
@@ -16,7 +16,7 @@ import type { Body, Route } from 'types/express'
 
 const ENDPOINT = API.AUTH.resendActivationToken
 
-const schema = yup.object({ body: yup.object({ email }) })
+const schema = yup.object({ body: ENDPOINT.schema })
 
 export const resendActivationToken: Route<Body<typeof schema>> = [
    yupValidation({ schema }),

@@ -4,6 +4,7 @@
    "private": true,
    "main": "./dist/index.js",
    "types": "./dist/index.d.ts",
+   "sideEffects": false,
    "scripts": {
       "build": "tsup src/index.tsx --format cjs --dts --external react",
       "clean": "rm -rf dist",

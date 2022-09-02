@@ -35,8 +35,8 @@ export const usePasswordRecovery = () => {
          })
          .then(() => {
             setApiFeedback(
-               'Password Recovery',
-               'Your password has been successfully changed, you can login now',
+               API.AUTH.changePassword.header,
+               API.AUTH.changePassword.post.responses['200'].description,
                'Okey',
                () => history.push('/login')
             )
