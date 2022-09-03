@@ -77,8 +77,8 @@ const handleError = onError(({ graphQLErrors, networkError }) => {
       if ('statusCode' in networkError) {
          if (networkError.statusCode === 401) {
             defaultAxios.get(API.GLOBAL.logout.url).then(() => {
-               history.push('/login')
                setApiFeedback(AuthError.errorHeader, AuthError.errorMessage, 'Okey')
+               history.push('/login')
             })
          }
       } else {

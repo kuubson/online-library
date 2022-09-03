@@ -1,14 +1,10 @@
 import limiter from 'express-rate-limit'
 
+import { RateLimitError } from 'online-library'
+
 export const rateLimiter = () =>
    limiter({
-      windowMs: 30 * 60 * 1000, // 30 min
+      windowMs: 5 * 60 * 1000, // 5 min
       max: 10,
-      handler: (_, res) => {
-         const status = 429
-         res.status(status).send({
-            status,
-            errorMessage: 'You have exceeded max amount of requests, try again later',
-         })
-      },
+      handler: (_, res) => res.status(RateLimitError.status).send(RateLimitError),
    })

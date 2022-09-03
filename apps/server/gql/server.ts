@@ -8,7 +8,7 @@ import { verify } from 'jsonwebtoken'
 import type { PassportStatic } from 'passport'
 import { WebSocketServer } from 'ws'
 
-import { JWT_KEY } from 'config'
+import { CODEGEN, JWT_KEY } from 'config'
 
 import { schema } from 'gql/schema'
 
@@ -23,7 +23,9 @@ export const initializeGraphQL = async (
    server: Server,
    passport: PassportStatic
 ) => {
-   app.use('/graphql', (...args) => gqlAuthorization(passport)(...args))
+   if (!CODEGEN) {
+      app.use('/graphql', (...args) => gqlAuthorization(passport)(...args))
+   }
 
    const pubsub = new PubSub()
 

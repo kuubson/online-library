@@ -1,6 +1,6 @@
 import { JsonWebTokenError, TokenExpiredError, verify } from 'jsonwebtoken'
 
-import { ApiError, yup } from 'online-library'
+import { ExpiredToken, InvalidToken, yup } from 'online-library'
 
 import { JWT_KEY } from 'config'
 
@@ -15,17 +15,9 @@ export const jwt = yup
       } catch (error) {
          if (error instanceof JsonWebTokenError) {
             if (error instanceof TokenExpiredError) {
-               throw new ApiError(
-                  'Request processing',
-                  'Token required by this action has expired',
-                  422
-               )
+               throw ExpiredToken
             }
-            throw new ApiError(
-               'Request processing',
-               'Token required by this action is invalid',
-               422
-            )
+            throw InvalidToken
          }
       }
       return true

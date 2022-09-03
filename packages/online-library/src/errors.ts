@@ -42,6 +42,18 @@ export const RateLimitError = new ApiError(
    429
 )
 
+export const ExpiredToken = new ApiError(
+   'Request processing',
+   'Token required by this action has expired',
+   422
+)
+
+export const InvalidToken = new ApiError(
+   'Request processing',
+   'Token required by this action is invalid',
+   422
+)
+
 export const FBError = new ApiError(
    API.AUTH.loginWithFacebook.header,
    API.AUTH.loginWithFacebook.post.responses['400'].description,
