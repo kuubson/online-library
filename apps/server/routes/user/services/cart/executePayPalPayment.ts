@@ -1,25 +1,16 @@
 import paypal from 'paypal-rest-sdk'
 
-import { API, string } from 'online-library'
+import { API, ApiError, yup } from 'online-library'
 
 import { Book } from 'database'
 
 import { yupValidation } from 'middlewares'
 
-import { yup } from 'helpers'
-
-import { ApiError } from 'utils'
-
 import type { Body, ProtectedRoute } from 'types/express'
 
 const ENDPOINT = API.CART.executePayPalPayment
 
-const schema = yup.object({
-   body: yup.object({
-      paymentId: string,
-      PayerID: string,
-   }),
-})
+const schema = yup.object({ body: ENDPOINT.schema })
 
 export const executePayPalPayment: ProtectedRoute<Body<typeof schema>> = [
    yupValidation({ schema }),

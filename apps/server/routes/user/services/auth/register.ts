@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { API } from 'online-library'
+import { API, ApiError, yup } from 'online-library'
 
 import { JWT_KEY, TokenExpiration } from 'config'
 
@@ -8,9 +8,9 @@ import { Connection, User } from 'database'
 
 import { yupValidation } from 'middlewares'
 
-import { transporter, yup } from 'helpers'
+import { transporter } from 'helpers'
 
-import { ApiError, baseUrl, emailTemplate } from 'utils'
+import { baseUrl, emailTemplate } from 'utils'
 
 import type { Body, Route } from 'types/express'
 

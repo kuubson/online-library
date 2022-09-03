@@ -1,12 +1,13 @@
 import { JsonWebTokenError, TokenExpiredError, verify } from 'jsonwebtoken'
-import * as _yup from 'yup'
+
+import { ApiError, yup } from 'online-library'
 
 import { JWT_KEY } from 'config'
 
-import { ApiError } from 'utils'
-
-_yup.addMethod<_yup.StringSchema>(_yup.string, 'jwt', function () {
-   return this.test('test-jwt', 'Token is invalid', function (jwt) {
+export const jwt = yup
+   .string()
+   .required()
+   .test('test-jwt', function (jwt) {
       try {
          if (jwt) {
             verify(jwt, JWT_KEY)
@@ -17,24 +18,15 @@ _yup.addMethod<_yup.StringSchema>(_yup.string, 'jwt', function () {
                throw new ApiError(
                   'Request processing',
                   'Token required by this action has expired',
-                  401
+                  422
                )
             }
             throw new ApiError(
                'Request processing',
                'Token required by this action is invalid',
-               401
+               422
             )
          }
       }
       return true
    })
-})
-
-declare module 'yup' {
-   interface StringSchema extends _yup.BaseSchema {
-      jwt(): StringSchema
-   }
-}
-
-export const yup = _yup

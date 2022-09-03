@@ -15,7 +15,7 @@ export const getMessagesInfo: ProtectedRoute<InitialBody, InitialCookies, false>
             let unreadMessagesAmount = 0
 
             messages.map(({ readBy }, index) => {
-               const readByIds = readBy.split(',').filter(v => v)
+               const readByIds = readBy.split(',').filter(id => id)
                if (!readByIds.includes(id.toString())) {
                   unreadMessagesAmount++
                   if (!lastUnreadMessageIndex) {

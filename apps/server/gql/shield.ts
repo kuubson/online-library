@@ -1,9 +1,9 @@
 import { shield as _shield, and } from 'graphql-shield'
 import type { LogicRule } from 'graphql-shield/dist/rules'
 
-import { isUser, rateLimiter } from 'gql/middlewares'
+import { AuthError } from 'online-library'
 
-import { ApiError } from 'utils'
+import { isUser, rateLimiter } from 'gql/middlewares'
 
 import { load } from './api'
 
@@ -36,10 +36,6 @@ export const shield = _shield(
    },
    {
       allowExternalErrors: true,
-      fallbackError: new ApiError(
-         'Authorization',
-         'Something went wrong, please log in again',
-         401
-      ),
+      fallbackError: AuthError,
    }
 )

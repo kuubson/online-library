@@ -1,15 +1,14 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-import { API } from 'online-library'
+import type { Role } from 'online-library'
+import { API, yup } from 'online-library'
 
 import { JWT_KEY } from 'config'
 
 import { Connection, User } from 'database'
 
 import { yupValidation } from 'middlewares'
-
-import { yup } from 'helpers'
 
 import { cookie } from 'utils'
 
@@ -29,7 +28,7 @@ export const loginWithFacebook: Route<Body<typeof schema>> = [
             const token = jwt.sign(
                {
                   email,
-                  role: 'user',
+                  role: 'user' as Role,
                },
                JWT_KEY
             )

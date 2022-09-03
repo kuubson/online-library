@@ -3,7 +3,7 @@ import type { Message } from 'database/models/Message'
 export const updateReadByProperty = async (userId: number, messages: Message[]) => {
    const updatedMessages = await Promise.all(
       messages.map(async message => {
-         const readByIds = message.readBy.split(',').filter(v => v)
+         const readByIds = message.readBy.split(',').filter(id => id)
 
          const ID = userId.toString()
 

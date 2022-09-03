@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
+import { verify } from 'jsonwebtoken'
 
-import { API } from 'online-library'
+import { API, ApiError, yup } from 'online-library'
 
 import { JWT_KEY } from 'config'
 
@@ -9,18 +9,14 @@ import { Connection, User } from 'database'
 
 import { yupValidation } from 'middlewares'
 
-import { yup } from 'helpers'
+import { jwt } from 'utils'
 
-import { ApiError } from 'utils'
-
-import type { PasswordTokendata } from 'types'
+import type { PasswordTokenData } from 'types'
 import type { Body, Route } from 'types/express'
 
 const ENDPOINT = API.AUTH.changePassword
 
-const schema = yup.object({
-   body: ENDPOINT.schema.shape({ passwordToken: yup.string().jwt().required() }),
-})
+const schema = yup.object({ body: ENDPOINT.schema.shape({ passwordToken: jwt }) })
 
 export const changePassword: Route<Body<typeof schema>> = [
    yupValidation({ schema }),
@@ -29,7 +25,7 @@ export const changePassword: Route<Body<typeof schema>> = [
          await Connection.transaction(async transaction => {
             const { password, passwordToken } = req.body
 
-            const { email } = jwt.verify(passwordToken, JWT_KEY) as PasswordTokendata
+            const { email } = verify(passwordToken, JWT_KEY) as PasswordTokenData
 
             const user = await User.findOne({
                where: {

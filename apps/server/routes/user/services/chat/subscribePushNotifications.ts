@@ -1,23 +1,12 @@
-import { string } from 'online-library'
+import { API, yup } from 'online-library'
 
 import { Connection } from 'database'
 
 import { yupValidation } from 'middlewares'
 
-import { yup } from 'helpers'
+import type { Body, ProtectedRoute } from 'types/express'
 
-import type { Body } from 'types/express'
-import { type ProtectedRoute } from 'types/express'
-
-const schema = yup.object({
-   body: yup.object({
-      endpoint: string,
-      keys: yup.object({
-         auth: string,
-         p256dh: string,
-      }),
-   }),
-})
+const schema = yup.object({ body: API.CHAT.subscribePushNotifications.schema })
 
 export const subscribePushNotifications: ProtectedRoute<Body<typeof schema>> = [
    yupValidation({ schema }),

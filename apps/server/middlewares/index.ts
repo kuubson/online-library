@@ -28,6 +28,16 @@ import { initializeApiDocs } from './apiDocs'
 import { initializeCsrf } from './csrf'
 import { initializePassport } from './passport'
 
+export { facebookAuthorization } from './facebookAuthorization'
+export { formatErrors } from './formatErrors'
+export { gqlAuthorization } from './gqlAuthorization'
+export { handleMulterFile } from './handleMulterFile'
+export { jwtAuthorization } from './jwtAuthorization'
+export { multerFile } from './multerFile'
+export { rateLimiter } from './rateLimiter'
+export { unless } from './unless'
+export { yupValidation } from './yupValidation'
+
 webpush.setVapidDetails(
    `mailto:${NODEMAILER_USERNAME}`,
    REACT_APP_PUBLIC_VAPID_KEY,
@@ -80,12 +90,3 @@ export const initializeMiddlewares = (app: Application, server: Server) => {
       app.get('*', (_, res) => res.sendFile(path.resolve(__dirname, buildPath, 'index.html')))
    }
 }
-
-export { errorHandler } from './errorHandler'
-export { facebookAuthorization } from './facebookAuthorization'
-export { handleMulterFile } from './handleMulterFile'
-export { jwtAuthorization } from './jwtAuthorization'
-export { multerFile } from './multerFile'
-export { rateLimiter } from './rateLimiter'
-export { unless } from './unless'
-export { yupValidation } from './yupValidation'

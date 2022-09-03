@@ -1,4 +1,4 @@
-import { API, email, yup } from 'online-library'
+import { API } from 'online-library'
 
 import { useForm } from 'hooks'
 
@@ -6,10 +6,10 @@ import { setApiFeedback } from 'helpers'
 
 import { axios, history } from 'utils'
 
-const schema = yup.object({ email })
-
 export const useSupport = (withPasswordSupport: boolean | undefined) => {
-   const { submit, control, errors, getValues } = useForm({ schema })
+   const { submit, control, errors, getValues } = useForm({
+      schema: API.AUTH.recoverPassword.schema,
+   })
 
    const handleSupport = async () => {
       if (withPasswordSupport) {

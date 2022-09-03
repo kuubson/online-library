@@ -1,6 +1,6 @@
 import Stripe from 'stripe'
 
-import { API, products, string } from 'online-library'
+import { API, ApiError, yup } from 'online-library'
 
 import { STRIPE_SECRET_KEY } from 'config'
 
@@ -8,9 +8,7 @@ import { Book, Connection } from 'database'
 
 import { yupValidation } from 'middlewares'
 
-import { totalBooksPrice, yup } from 'helpers'
-
-import { ApiError } from 'utils'
+import { totalBooksPrice } from 'helpers'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
@@ -18,12 +16,7 @@ const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: '2020-08-27' })
 
 const ENDPOINT = API.CART.purchaseBooksWithStripe
 
-const schema = yup.object({
-   body: yup.object({
-      paymentId: string,
-      products,
-   }),
-})
+const schema = yup.object({ body: ENDPOINT.schema })
 
 export const purchaseBooksWithStripe: ProtectedRoute<Body<typeof schema>> = [
    yupValidation({ schema }),
@@ -42,7 +35,7 @@ export const purchaseBooksWithStripe: ProtectedRoute<Body<typeof schema>> = [
 
             if (books.length === 0) {
                throw new ApiError(
-                  'Submitting the order',
+                  ENDPOINT.header,
                   'You have already purchased selected books before',
                   409
                )
@@ -68,7 +61,7 @@ export const purchaseBooksWithStripe: ProtectedRoute<Body<typeof schema>> = [
 
             if (payment.status !== 'succeeded') {
                throw new ApiError(
-                  'Submitting the order',
+                  ENDPOINT.header,
                   'There was an unexpected problem when processing your payment',
                   402
                )

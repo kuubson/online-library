@@ -8,7 +8,7 @@ type StyledProps = {
 
 export const Date = styled.div<StyledProps>`
    width: 100%;
-   font-size: 13px;
+   font-size: 11px;
    text-align: left;
    font-weight: bold;
    white-space: nowrap;

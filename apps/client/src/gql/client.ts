@@ -4,7 +4,9 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { createClient } from 'graphql-ws'
 
-import { API } from 'online-library'
+import { API, AuthError, ConnectivityError } from 'online-library'
+
+import { NODE_ENV } from 'config'
 
 import { setApiFeedback, setLoading } from 'helpers'
 
@@ -68,23 +70,25 @@ const handleError = onError(({ graphQLErrors, networkError }) => {
             extensions: { exception },
          },
       ] = graphQLErrors
-
       setApiFeedback(exception.errorHeader, exception.errorMessage, 'Okey')
-
-      if (exception.status === 401) {
-         defaultAxios.get(API.GLOBAL.logout.url).then(() => {
-            history.push('/login')
-         })
-      }
    }
 
    if (networkError) {
-      setApiFeedback(
-         'Server connectivity',
-         'There was a problem connecting to the server',
-         'Okey',
-         () => history.push('/login')
-      )
+      if ('statusCode' in networkError) {
+         if (networkError.statusCode === 401) {
+            defaultAxios.get(API.GLOBAL.logout.url).then(() => {
+               history.push('/login')
+               setApiFeedback(AuthError.errorHeader, AuthError.errorMessage, 'Okey')
+            })
+         }
+      } else {
+         setApiFeedback(
+            ConnectivityError.errorHeader,
+            ConnectivityError.errorMessage,
+            'Okey',
+            () => NODE_ENV === 'production' && window.location.reload()
+         )
+      }
    }
 })
 

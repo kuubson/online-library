@@ -1,6 +1,6 @@
 import { mergeResolvers } from '@graphql-tools/merge'
 
-import type { Resolver } from 'types'
+type Resolver = any
 
 type LoadFn = (pathname: string, withSchema?: boolean) => Resolver[]
 

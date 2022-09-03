@@ -9,7 +9,7 @@ import { PORT } from 'config'
 
 import 'database'
 
-import { errorHandler, initializeMiddlewares } from 'middlewares'
+import { formatErrors, initializeMiddlewares } from 'middlewares'
 
 import { router } from 'routes'
 
@@ -21,6 +21,6 @@ initializeMiddlewares(app, server)
 
 app.use(router)
 
-errorHandler(app)
+formatErrors(app)
 
 server.listen(PORT || 3001, () => console.log(`🚀 Server has launched`))

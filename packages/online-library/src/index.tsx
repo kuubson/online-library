@@ -1,5 +1,6 @@
+export * from '../types'
 export { API } from './API'
+export * from './errors'
 export { filesInfo } from './filesInfo'
-export * from './schemas'
 export { default as swagger } from './swagger.json'
-export { yup } from './yup'
+export * from './yup'

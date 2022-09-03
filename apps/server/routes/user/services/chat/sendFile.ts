@@ -1,15 +1,14 @@
 import cloudinary from 'cloudinary'
 
-import { filesInfo } from 'online-library'
+import { ApiError, filesInfo } from 'online-library'
 
 import { Connection } from 'database'
 import type { Message } from 'database/models/Message'
 
 import { deleteTemporaryFile, sendNotificationsForOtherUsers } from 'helpers'
 
-import { ApiError, baseUrl } from 'utils'
+import { baseUrl } from 'utils'
 
-import type { ExpressError } from 'types'
 import type { InitialBody, InitialCookies, ProtectedRoute } from 'types/express'
 
 export const sendFile: ProtectedRoute<InitialBody, InitialCookies, false> = [
@@ -151,13 +150,6 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, false> = [
          })
       } catch (error) {
          deleteTemporaryFile(req.file.path)
-
-         const emptyTextFile = (error as ExpressError).message === 'Empty file'
-
-         if (emptyTextFile) {
-            return next(new ApiError('Sending a file', 'The selected text file is empty', 422))
-         }
-
          next(error)
       }
    },

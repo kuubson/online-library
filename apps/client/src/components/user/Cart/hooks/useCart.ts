@@ -10,6 +10,8 @@ import { setApiFeedback } from 'helpers'
 
 import { axios, history } from 'utils'
 
+import type { ApiError } from 'types'
+
 export const useCart = () => {
    const { paymentId, PayerID } = useQueryParams()
 
@@ -51,7 +53,7 @@ export const useCart = () => {
                   })
             }
          } catch (error) {
-            if ((error as ApiError).response.status === 409) {
+            if ((error as ApiError).response?.status === 409) {
                resetCart()
                history.push('/profile')
             }

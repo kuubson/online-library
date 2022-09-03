@@ -1,5 +1,7 @@
-import type { NextFunction, Response, Request as _Request } from 'express'
+import type { NextFunction, Request, Response } from 'express'
 import type { InferType } from 'yup'
+
+import type { Role } from 'online-library'
 
 import type { User } from 'database/models/User'
 
@@ -25,7 +27,7 @@ type BodyBase<B extends object = InitialBody> = B
 type CookiesBase<C extends object = InitialCookies> = C
 
 type ValidationBase<V extends boolean = true> = V
-export interface Request<B = BodyBase, C = CookiesBase, RT = RouteTypeBase> extends _Request {
+interface ExpressRequest<B = BodyBase, C = CookiesBase, RT = RouteTypeBase> extends Request {
    user: RT extends 'protected' ? User : undefined
    file: RT extends 'protected' ? Express.Multer.File : undefined
    body: B
@@ -33,7 +35,7 @@ export interface Request<B = BodyBase, C = CookiesBase, RT = RouteTypeBase> exte
 }
 
 export type Middleware<B = BodyBase, C = CookiesBase, RT = RouteTypeBase> = (
-   req: Request<B, C, RT>,
+   req: ExpressRequest<B, C, RT>,
    res: Response,
    next: NextFunction
 ) => void
@@ -57,3 +59,10 @@ export type ProtectedRoute<B = BodyBase, C = CookiesBase, V = ValidationBase> = 
 export type Body<RouteType extends TypedSchema> = InferType<RouteType>['body']
 
 export type Cookies<RouteType extends TypedSchema> = InferType<RouteType>['cookies']
+
+export interface CustomRequest extends Request {
+   user: {
+      user: User
+      role: Role
+   }
+}

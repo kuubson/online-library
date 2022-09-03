@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { API, string, yup } from 'online-library'
+import { API } from 'online-library'
 
 import type { Book } from 'gql'
 
@@ -8,16 +8,7 @@ import { useForm } from 'hooks'
 
 import { axios } from 'utils'
 
-import type { BookSuggestionsProps } from '../types'
-
-type GetSuggestionsResponse = {
-   books: Book[]
-}
-
-const schema = yup.object({
-   title: string,
-   author: string,
-})
+import type { BookSuggestionsProps, GetSuggestionsResponse } from 'types'
 
 export const useBookSuggestions = ({
    freeBooks,
@@ -26,7 +17,9 @@ export const useBookSuggestions = ({
    setPaidBooks,
    withProfile,
 }: BookSuggestionsProps) => {
-   const { control, getValues, setValue, watch } = useForm({ schema })
+   const { control, getValues, setValue, watch } = useForm({
+      schema: API.BOOKS.getSuggestions.schema,
+   })
 
    const [findByTitle, setFindByTitle] = useState(true)
 

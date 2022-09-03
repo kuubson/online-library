@@ -6,7 +6,7 @@ import { Input } from 'components/guest/Registration/modules'
 
 import { useBookSuggestions } from './hooks'
 
-import type { BookSuggestionsProps } from './types'
+import type { BookSuggestionsProps } from 'types'
 
 export const BookSuggestions = ({
    freeBooks,

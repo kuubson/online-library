@@ -9,11 +9,7 @@ import { handleApiError } from 'helpers'
 
 import { defaultAxios, history } from 'utils'
 
-type GetMessagesInfoResponse = {
-   lastUnreadMessageIndex: number
-   unreadMessagesAmount: number
-   userId: string
-}
+import type { CheckTokenResponse, GetMessagesInfoResponse } from 'types'
 
 export const useUser = (withChat: boolean | undefined) => {
    const { socket, setSocket } = useSocket()
@@ -44,7 +40,7 @@ export const useUser = (withChat: boolean | undefined) => {
                }
             }
          } catch (error) {
-            handleApiError(error as ApiError)
+            handleApiError(error)
          }
       }
 

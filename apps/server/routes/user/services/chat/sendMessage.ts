@@ -1,8 +1,10 @@
+import { yup } from 'online-library'
+
 import { Connection } from 'database'
 
 import { yupValidation } from 'middlewares'
 
-import { sendNotificationsForOtherUsers, yup } from 'helpers'
+import { sendNotificationsForOtherUsers } from 'helpers'
 
 import { baseUrl } from 'utils'
 

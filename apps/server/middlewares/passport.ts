@@ -6,6 +6,8 @@ import { FACEBOOK_APP_SECRET, JWT_KEY, REACT_APP_FACEBOOK_APP_ID } from 'config'
 
 import { User } from 'database'
 
+import type { AuthTokenData } from 'types'
+
 const { Strategy, ExtractJwt } = passportJwt
 
 type Cookies = {
@@ -23,7 +25,7 @@ export const initializePassport = (passport: PassportStatic) => {
             jwtFromRequest: ExtractJwt.fromExtractors([extractJwtFromCookies]),
             secretOrKey: JWT_KEY,
          },
-         async (data, done) => {
+         async (data: AuthTokenData, done) => {
             const { email, role } = data
 
             if (role === 'user') {

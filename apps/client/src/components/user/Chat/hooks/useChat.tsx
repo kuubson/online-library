@@ -9,21 +9,12 @@ import { handleApiError, setApiFeedback, subscribePushNotifications } from 'help
 
 import { axios, defaultAxios } from 'utils'
 
+import type { GetMessagesResponse, SendFileResponse } from 'types'
+
 type UseChatProps = {
    setLoading: ReactDispatch<boolean>
    setShowFileInput: ReactDispatch<boolean>
    setPercentage: ReactDispatch<number>
-}
-
-type GetMessagesResponse = {
-   messages: Message[]
-   userId: string
-   userName: string
-}
-
-type SendFileResponse = {
-   type: string
-   content: string
 }
 
 let intervalId: ReturnType<typeof setInterval>
@@ -194,7 +185,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
 
             setMessages(conversation)
 
-            handleApiError(error as ApiError)
+            handleApiError(error)
          }
       }
    }
@@ -307,7 +298,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
                socket?.emit('sendMessage', message)
             }
          } catch (error) {
-            handleApiError(error as ApiError)
+            handleApiError(error)
 
             resetFileInput()
 

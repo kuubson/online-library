@@ -1,21 +1,16 @@
-import { API, integer } from 'online-library'
+import { API, yup } from 'online-library'
 
 import { Message, User } from 'database'
 
 import { yupValidation } from 'middlewares'
 
-import { updateReadByProperty, yup } from 'helpers'
+import { updateReadByProperty } from 'helpers'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
 const ENDPOINT = API.CHAT.getMessages
 
-const schema = yup.object({
-   body: yup.object({
-      limit: integer,
-      offset: integer,
-   }),
-})
+const schema = yup.object({ body: ENDPOINT.schema })
 
 export const getMessages: ProtectedRoute<Body<typeof schema>> = [
    yupValidation({ schema }),

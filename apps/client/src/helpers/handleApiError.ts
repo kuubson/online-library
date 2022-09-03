@@ -1,22 +1,30 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
+import { ConnectivityError, RequestError } from 'online-library'
+
 import { NODE_ENV } from 'config'
 
 import { setApiFeedback } from 'helpers'
 
 import { history } from 'utils'
 
+import type { ApiError } from 'types'
+
 const production = NODE_ENV === 'production'
 
-export const handleApiError = (error: ApiError) => {
+export const handleApiError = <T extends unknown>(error: T) => {
    if (!production) {
       console.log(error)
    }
 
-   if (error.response?.data) {
-      const responseStatus = error.response.status
+   const { response, request } = error as ApiError
 
-      const { errorHeader, errorMessage } = error.response.data
+   if (response.data) {
+      const {
+         status,
+         data: { errorHeader, errorMessage },
+      } = response
 
-      if (responseStatus === 401) {
+      if (status === 401) {
          history.push('/login')
       }
 
@@ -25,24 +33,24 @@ export const handleApiError = (error: ApiError) => {
       }
 
       return setApiFeedback(
-         'Server connectivity',
-         `There was a problem connecting to the server`,
+         ConnectivityError.errorHeader,
+         ConnectivityError.errorMessage,
          'Refresh the application',
          () => production && window.location.reload()
       )
    }
 
-   if (error.request) {
+   if (request) {
       return setApiFeedback(
-         'Server connectivity',
-         'The server cannot temporarily process your request',
+         RequestError.errorHeader,
+         RequestError.errorMessage,
          'Refresh the application',
          () => production && window.location.reload()
       )
    }
 
    setApiFeedback(
-      'Server connectivity',
+      ConnectivityError.errorHeader,
       'An unexpected problem has occurred in the application',
       'Refresh the application',
       () => production && window.location.reload()

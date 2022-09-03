@@ -2,7 +2,7 @@ import type { NextFunction, Request, Response } from 'express'
 import { ValidationError } from 'yup'
 import type { ObjectShape, OptionalObjectSchema } from 'yup/lib/object'
 
-import { ApiError } from 'utils'
+import { DataValidationError } from 'online-library'
 
 type Schema<T extends ObjectShape> = {
    schema: OptionalObjectSchema<T>
@@ -17,10 +17,10 @@ export const yupValidation =
             cookies: req.cookies,
          })
          next()
-      } catch (err) {
-         if (err instanceof ValidationError) {
-            next(new ApiError('Request processing', 'Something went wrong! Try again', 422))
+      } catch (error) {
+         if (error instanceof ValidationError) {
+            next(DataValidationError)
          }
-         next(err)
+         next(error)
       }
    }

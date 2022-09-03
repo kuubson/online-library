@@ -1,21 +1,21 @@
 import type { Payment } from 'paypal-rest-sdk'
 import paypal from 'paypal-rest-sdk'
 
-import { API, products } from 'online-library'
+import { API, ApiError, yup } from 'online-library'
 
 import { Book } from 'database'
 
 import { yupValidation } from 'middlewares'
 
-import { totalBooksPrice, yup } from 'helpers'
+import { totalBooksPrice } from 'helpers'
 
-import { ApiError, baseUrl } from 'utils'
+import { baseUrl } from 'utils'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
 const ENDPOINT = API.CART.createPayPalPayment
 
-const schema = yup.object({ body: yup.object({ products }) })
+const schema = yup.object({ body: ENDPOINT.schema })
 
 export const createPayPalPayment: ProtectedRoute<Body<typeof schema>> = [
    yupValidation({ schema }),
@@ -33,7 +33,7 @@ export const createPayPalPayment: ProtectedRoute<Body<typeof schema>> = [
 
          if (books.length === 0) {
             throw new ApiError(
-               'Submitting the order',
+               ENDPOINT.header,
                'You have already purchased selected books before',
                409
             )
@@ -74,7 +74,7 @@ export const createPayPalPayment: ProtectedRoute<Body<typeof schema>> = [
             try {
                if (error || !payment.id) {
                   throw new ApiError(
-                     'Submitting the order',
+                     ENDPOINT.header,
                      'There was an unexpected problem when processing your payment',
                      402
                   )
@@ -84,7 +84,7 @@ export const createPayPalPayment: ProtectedRoute<Body<typeof schema>> = [
 
                if (!approvalLink) {
                   throw new ApiError(
-                     'Submitting the order',
+                     ENDPOINT.header,
                      'There was an unexpected problem when processing your payment',
                      402
                   )

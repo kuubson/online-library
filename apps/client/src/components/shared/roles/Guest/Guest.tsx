@@ -1,39 +1,16 @@
 import { useEffect } from 'react'
 import styled from 'styled-components/macro'
 
-import { API } from 'online-library'
-
-import { useSocket } from 'hooks'
-
-import { handleApiError } from 'helpers'
-
-import { defaultAxios, history } from 'utils'
+import { useGuest } from './hooks'
 
 type GuestProps = {
    children: React.ReactNode
 }
 
 export const Guest = ({ children }: GuestProps) => {
-   const { closeSocketConnection } = useSocket()
+   const { checkToken } = useGuest()
 
    useEffect(() => {
-      const checkToken = async () => {
-         try {
-            const response = await defaultAxios.get<CheckTokenResponse>(API.GLOBAL.checkToken.url)
-
-            if (response) {
-               const { role } = response.data
-
-               if (role === 'user') {
-                  return history.push('/store')
-               }
-
-               closeSocketConnection()
-            }
-         } catch (error) {
-            handleApiError(error as ApiError)
-         }
-      }
       checkToken()
    }, [])
 

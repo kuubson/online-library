@@ -46,8 +46,7 @@
       "swagger-jsdoc": "^6.2.5",
       "swagger-ui-express": "^4.5.0",
       "web-push": "^3.4.5",
-      "ws": "^8.8.1",
-      "yup": "^0.32.11"
+      "ws": "^8.8.1"
    },
    "devDependencies": {
       "eslint-config-custom": "*",

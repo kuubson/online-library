@@ -2,9 +2,9 @@ import type { NextFunction } from 'express'
 import fs from 'fs'
 import sharp from 'sharp'
 
-import { deleteTemporaryFile } from 'helpers'
+import { ApiError } from 'online-library'
 
-import { ApiError } from 'utils'
+import { deleteTemporaryFile } from 'helpers'
 
 export const reduceImageSize = async (path: string, next: NextFunction) =>
    sharp(path)

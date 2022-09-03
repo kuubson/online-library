@@ -1,6 +1,6 @@
 import { verify } from 'jsonwebtoken'
 
-import { API } from 'online-library'
+import { API, ApiError, yup } from 'online-library'
 
 import { JWT_KEY } from 'config'
 
@@ -8,16 +8,13 @@ import { Authentication, Connection } from 'database'
 
 import { yupValidation } from 'middlewares'
 
-import { yup } from 'helpers'
-
-import { ApiError } from 'utils'
+import { jwt } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
 const ENDPOINT = API.AUTH.activateAccount
 
-// TODO: move schema to API.ts
-const schema = yup.object({ body: yup.object({ activationToken: yup.string().jwt().required() }) })
+const schema = yup.object({ body: yup.object({ activationToken: jwt }) })
 
 export const activateAccount: Route<Body<typeof schema>> = [
    yupValidation({ schema }),

@@ -1,23 +1,17 @@
 import { Op } from 'sequelize'
 
-import { bool } from 'online-library'
+import { API, yup } from 'online-library'
 
 import { Book } from 'database'
 import type { Book as BookType } from 'database/models/Book'
 
 import { yupValidation } from 'middlewares'
 
-import { yup } from 'helpers'
-
 import type { Body, ProtectedRoute } from 'types/express'
 
-const schema = yup.object({
-   body: yup.object({
-      title: yup.string().trim(),
-      author: yup.string().trim(),
-      withProfile: bool,
-   }),
-})
+const ENDPOINT = API.BOOKS.getSuggestions
+
+const schema = yup.object({ body: ENDPOINT.schema })
 
 export const getSuggestions: ProtectedRoute<Body<typeof schema>> = [
    yupValidation({ schema }),

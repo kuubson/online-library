@@ -1,6 +1,6 @@
 import { verify } from 'jsonwebtoken'
 
-import { API } from 'online-library'
+import { API, ApiError, yup } from 'online-library'
 
 import { JWT_KEY } from 'config'
 
@@ -8,17 +8,14 @@ import { User } from 'database'
 
 import { yupValidation } from 'middlewares'
 
-import { yup } from 'helpers'
+import { jwt } from 'utils'
 
-import { ApiError } from 'utils'
-
-import type { PasswordTokendata } from 'types'
+import type { PasswordTokenData } from 'types'
 import type { Body, Route } from 'types/express'
 
 const ENDPOINT = API.AUTH.checkPasswordToken
 
-// TODO: move schema to API.ts
-const schema = yup.object({ body: yup.object({ passwordToken: yup.string().jwt().required() }) })
+const schema = yup.object({ body: yup.object({ passwordToken: jwt }) })
 
 export const checkPasswordToken: Route<Body<typeof schema>> = [
    yupValidation({ schema }),
@@ -26,7 +23,7 @@ export const checkPasswordToken: Route<Body<typeof schema>> = [
       try {
          const { passwordToken } = req.body
 
-         const { email } = verify(passwordToken, JWT_KEY) as PasswordTokendata
+         const { email } = verify(passwordToken, JWT_KEY) as PasswordTokenData
 
          const user = await User.findOne({
             where: {

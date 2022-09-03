@@ -1,6 +1,6 @@
-import { Book } from 'database'
+import { ApiError } from 'online-library'
 
-import { ApiError } from 'utils'
+import { Book } from 'database'
 
 import type { MutationResolvers } from 'types/graphql'
 

@@ -1,10 +1,9 @@
 import { filesInfo } from 'online-library'
+import { ApiError } from 'online-library'
 
 import { multerFile } from 'middlewares'
 
 import { reduceImageSize } from 'helpers'
-
-import { ApiError } from 'utils'
 
 import type { InitialBody, InitialCookies, Middleware } from 'types/express'
 

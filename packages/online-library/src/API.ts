@@ -1,4 +1,3 @@
-import { email, password, repeatedPassword, string, uncheckedPassword } from './schemas'
 import swagger from './swagger.json'
 import { yup } from './yup'
 
@@ -19,25 +18,25 @@ class _API {
          ...getEndpointInfo('/api/user/auth/login'),
          header: 'Authentication',
          schema: yup.object({
-            email,
-            password: uncheckedPassword,
+            email: yup.string().emailAddress(),
+            password: yup.string().uncheckedPassword(),
          }),
       },
       loginWithFacebook: {
          ...getEndpointInfo('/api/user/auth/loginWithFacebook'),
          header: 'Authentication',
          schema: yup.object({
-            name: string,
-            email,
-            access_token: string,
+            name: yup.string().sanitized(),
+            email: yup.string().emailAddress(),
+            access_token: yup.string().sanitized(),
          }),
       },
       changePassword: {
          ...getEndpointInfo('/api/user/auth/changePassword'),
          header: 'Changing the password',
          schema: yup.object({
-            password,
-            repeatedPassword: repeatedPassword(),
+            password: yup.string().password(),
+            repeatedPassword: yup.string().repeatedPassword(),
          }),
       },
       checkPasswordToken: {
@@ -48,21 +47,21 @@ class _API {
          ...getEndpointInfo('/api/user/auth/register'),
          header: 'Account registration',
          schema: yup.object({
-            name: string,
-            email,
-            password,
-            repeatedPassword: repeatedPassword(),
+            name: yup.string().sanitized(),
+            email: yup.string().emailAddress(),
+            password: yup.string().password(),
+            repeatedPassword: yup.string().repeatedPassword(),
          }),
       },
       recoverPassword: {
          ...getEndpointInfo('/api/user/auth/recoverPassword'),
          header: 'Recovering the password',
-         schema: yup.object({ email }),
+         schema: yup.object({ email: yup.string().emailAddress() }),
       },
       resendActivationToken: {
          ...getEndpointInfo('/api/user/auth/resendActivationToken'),
          header: 'Activation token',
-         schema: yup.object({ email }),
+         schema: yup.object({ email: yup.string().emailAddress() }),
       },
    }
 
@@ -74,10 +73,21 @@ class _API {
       getMessages: {
          ...getEndpointInfo('/api/user/chat/getMessages'),
          header: '',
+         schema: yup.object({
+            limit: yup.number().required(),
+            offset: yup.number().required(),
+         }),
       },
       subscribePushNotifications: {
          ...getEndpointInfo('/api/user/chat/subscribePushNotifications'),
          header: '',
+         schema: yup.object({
+            endpoint: yup.string().sanitized(),
+            keys: yup.object({
+               auth: yup.string().sanitized(),
+               p256dh: yup.string().sanitized(),
+            }),
+         }),
       },
       sendMessage: {
          ...getEndpointInfo('/api/user/chat/sendMessage'),
@@ -93,14 +103,23 @@ class _API {
       executePayPalPayment: {
          ...getEndpointInfo('/api/user/cart/executePayPalPayment'),
          header: '',
+         schema: yup.object({
+            paymentId: yup.string().sanitized(),
+            PayerID: yup.string().sanitized(),
+         }),
       },
       createPayPalPayment: {
          ...getEndpointInfo('/api/user/cart/createPayPalPayment'),
-         header: '',
+         header: 'Submitting the order',
+         schema: yup.object({ products: yup.array().products() }),
       },
       purchaseBooksWithStripe: {
          ...getEndpointInfo('/api/user/cart/purchaseBooksWithStripe'),
-         header: '',
+         header: 'Submitting the order',
+         schema: yup.object({
+            paymentId: yup.string().sanitized(),
+            products: yup.array().products(),
+         }),
       },
    }
 
@@ -108,6 +127,11 @@ class _API {
       getSuggestions: {
          ...getEndpointInfo('/api/user/books/getSuggestions'),
          header: '',
+         schema: yup.object({
+            title: yup.string().sanitized('optional'),
+            author: yup.string().sanitized('optional'),
+            withProfile: yup.bool().required(),
+         }),
       },
    }
 

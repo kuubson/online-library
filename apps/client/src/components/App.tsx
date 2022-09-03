@@ -16,6 +16,8 @@ import { Store } from 'components/user/Store/Store'
 
 import { useApiFeedback, useLoader } from 'hooks'
 
+import type { FBType } from 'types'
+
 declare global {
    interface Window {
       FB: FBType

@@ -8,6 +8,8 @@ import { setApiFeedback } from 'helpers'
 
 import { axios, history } from 'utils'
 
+import type { FBLoginRequest, FBMeRespose } from 'types'
+
 export const useLogin = () => {
    const { submit, control, errors, getValues } = useForm({ schema: API.AUTH.login.schema })
 

@@ -12,9 +12,9 @@ import { JWT_KEY } from 'config'
 
 import { schema } from 'gql/schema'
 
-import { getCookie } from 'helpers'
+import { gqlAuthorization } from 'middlewares'
 
-import { ApiError } from 'utils'
+import { getCookie } from 'helpers'
 
 import type { AuthTokenData, GraphqlContext } from 'types'
 
@@ -23,28 +23,7 @@ export const initializeGraphQL = async (
    server: Server,
    passport: PassportStatic
 ) => {
-   app.use('/graphql', (req, res, next) => {
-      passport.authenticate('jwt', { session: false }, (error, { user, role }) => {
-         try {
-            if (error || !user) {
-               throw new ApiError(
-                  'Authorization',
-                  'The authentication cookie is invalid, log in again',
-                  401
-               )
-            }
-
-            req.user = {
-               user,
-               role,
-            }
-
-            next()
-         } catch (error) {
-            next(error)
-         }
-      })(req, res, next)
-   })
+   app.use('/graphql', (...args) => gqlAuthorization(passport)(...args))
 
    const pubsub = new PubSub()
 
