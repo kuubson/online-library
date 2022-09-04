@@ -21,24 +21,16 @@ export const executePayPalPayment: ProtectedRoute<Body<typeof schema>> = [
          const [payment] = await req.user.getPayments({ where: { paymentId } })
 
          if (!payment) {
-            throw new ApiError(
-               header,
-               'There was an unexpected problem when processing your payment',
-               402
-            )
+            throw new ApiError(header, post[404], 404)
          }
 
          if (payment.approved) {
-            throw new ApiError(header, 'The order has been already approved', 409)
+            throw new ApiError(header, post[409], 409)
          }
 
          paypal.payment.execute(paymentId, { payer_id: PayerID }, async (error, { state }) => {
             if (error || state !== 'approved') {
-               throw new ApiError(
-                  header,
-                  'There was an unexpected problem when processing your payment',
-                  402
-               )
+               throw new ApiError(header, post[402], 402)
             }
 
             const books = await Book.findAll({ where: { id: payment.products.split(',') } })

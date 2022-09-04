@@ -6,7 +6,7 @@ import type { Book } from 'gql'
 
 import { useForm } from 'hooks'
 
-import { axios } from 'utils'
+import { defaultAxios } from 'utils'
 
 import type { BookSuggestionsProps, GetSuggestionsResponse } from 'types'
 
@@ -27,7 +27,7 @@ export const useBookSuggestions = ({
 
    useEffect(() => {
       const getSuggestions = async () => {
-         const response = await axios.post<GetSuggestionsResponse>(API.getSuggestions.url, {
+         const response = await defaultAxios.post<GetSuggestionsResponse>(API.getSuggestions.url, {
             ...getValues(),
             withProfile: !!withProfile,
          })
@@ -36,7 +36,6 @@ export const useBookSuggestions = ({
             setBooks(books)
          }
       }
-
       getSuggestions()
    }, [title, author, withProfile])
 

@@ -155,7 +155,7 @@ Auth.post(
    `  #swagger.tags = ['Auth']
       #swagger.description = `
          ✅ Verifies <b>access token</b> provided by facebook auth <br />
-         ✅ Sends *auth token* for either already existing user or newly created one <br />
+         ✅ Sends <b>auth token</b> for either already existing user or newly created one <br />
       `
       #swagger.parameters['name'] = {
          in: 'body',

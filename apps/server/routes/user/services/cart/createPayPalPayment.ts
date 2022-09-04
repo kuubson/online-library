@@ -32,7 +32,7 @@ export const createPayPalPayment: ProtectedRoute<Body<typeof schema>> = [
          )
 
          if (!books.length) {
-            throw new ApiError(header, 'You have already purchased selected books before', 409)
+            throw new ApiError(header, post[409], 409)
          }
 
          const description = books.map(({ title }) => title).join(', ')
@@ -69,21 +69,13 @@ export const createPayPalPayment: ProtectedRoute<Body<typeof schema>> = [
          paypal.payment.create(payment, async (error, payment) => {
             try {
                if (error || !payment.id || !payment.links) {
-                  throw new ApiError(
-                     header,
-                     'There was an unexpected problem when processing your payment',
-                     402
-                  )
+                  throw new ApiError(header, post[402], 402)
                }
 
                const approvalLink = payment.links.find(({ rel }) => rel === 'approval_url')
 
                if (!approvalLink) {
-                  throw new ApiError(
-                     header,
-                     'There was an unexpected problem when processing your payment',
-                     402
-                  )
+                  throw new ApiError(header, post[402], 402)
                }
 
                await req.user.createPayment({

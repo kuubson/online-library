@@ -33,8 +33,8 @@ export const purchaseBooksWithStripe: ProtectedRoute<Body<typeof schema>> = [
                books.filter(({ id }) => !userBooks.includes(id))
             )
 
-            if (books.length === 0) {
-               throw new ApiError(header, 'You have already purchased selected books before', 409)
+            if (!books.length) {
+               throw new ApiError(header, post[409], 409)
             }
 
             const description = books.map(({ title }) => title).join(', ')
@@ -56,11 +56,7 @@ export const purchaseBooksWithStripe: ProtectedRoute<Body<typeof schema>> = [
             })
 
             if (payment.status !== 'succeeded') {
-               throw new ApiError(
-                  header,
-                  'There was an unexpected problem when processing your payment',
-                  402
-               )
+               throw new ApiError(header, post[402], 402)
             }
 
             await Promise.all(books.map(async book => req.user.addBook(book, { transaction })))
