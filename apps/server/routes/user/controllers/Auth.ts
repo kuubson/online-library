@@ -125,7 +125,7 @@ Auth.post(
       #swagger.description = `
          ✅ Checks given email and password <br />
          ✅ Check if account is activated <br />
-         ✅ Sends authentication if credentials are ok <br />
+         ✅ Sends auth token, that expires in 24h, if credentials are ok<br />
       `
       #swagger.parameters['email'] = {
          in: 'body',
@@ -155,7 +155,7 @@ Auth.post(
    `  #swagger.tags = ['Auth']
       #swagger.description = `
          ✅ Verifies <b>access token</b> provided by facebook auth <br />
-         ✅ Sends <b>auth token</b> for either already existing user or newly created one <br />
+         ✅ Sends <b>auth token</b>, that expires in 24h, for either already existing user or newly created one <br />
       `
       #swagger.parameters['name'] = {
          in: 'body',

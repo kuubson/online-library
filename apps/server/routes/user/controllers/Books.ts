@@ -27,7 +27,8 @@ Books.post(
          description: 'Flag that decides if suggest global books or books of certain user',
          required: 'true',
          schema: { $ref: '#/definitions/boolean' }
-      } 
+      }
+      #swagger.security = [{ "token": [] }] 
     */
    '/getSuggestions',
    ...getSuggestions

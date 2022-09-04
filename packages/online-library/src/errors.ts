@@ -12,6 +12,12 @@ export class ApiError extends Error {
    }
 }
 
+export const CSRFError = new ApiError(
+   'Authentication',
+   'Invalid csrf token. Make sure any extension does not block cookies',
+   403
+)
+
 export const AuthError = new ApiError(
    'Authentication',
    'The authentication cookie is invalid, log in again',

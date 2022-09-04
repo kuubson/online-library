@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import type { Role } from 'online-library'
 import { API, yup } from 'online-library'
 
-import { JWT_KEY } from 'config'
+import { JWT_KEY, TokenExpiration } from 'config'
 
 import { Connection, User } from 'database'
 
@@ -30,7 +30,8 @@ export const loginWithFacebook: Route<Body<typeof schema>> = [
                   email,
                   role: 'user' as Role,
                },
-               JWT_KEY
+               JWT_KEY,
+               { expiresIn: TokenExpiration['24h'] }
             )
 
             if (user) {

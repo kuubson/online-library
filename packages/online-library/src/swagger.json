@@ -5,11 +5,19 @@
     "title": "Online Library",
     "description": "API for Online Library"
   },
-  "host": "localhost:3000",
+  "host": "localhost:3001",
   "basePath": "/",
   "schemes": [
     "http"
   ],
+  "securityDefinitions": {
+    "token": {
+      "in": "cookie",
+      "name": "token",
+      "type": "apiKey",
+      "description": "Auth token (jwt) generated with /login or /loginWithFacebook. Expires in 24h"
+    }
+  },
   "paths": {
     "/api/user/auth/register": {
       "post": {
@@ -136,7 +144,7 @@
         "tags": [
           "Auth"
         ],
-        "description": "   ✅ Checks given email and password <br />   ✅ Check if account is activated <br />   ✅ Sends authentication if credentials are ok <br />   ",
+        "description": "   ✅ Checks given email and password <br />   ✅ Check if account is activated <br />   ✅ Sends auth token, that expires in 24h, if credentials are ok<br />   ",
         "parameters": [
           {
             "name": "email",
@@ -172,7 +180,7 @@
         "tags": [
           "Auth"
         ],
-        "description": "   ✅ Verifies <b>access token</b> provided by facebook auth <br />   ✅ Sends <b>auth token</b> for either already existing user or newly created one <br />   ",
+        "description": "   ✅ Verifies <b>access token</b> provided by facebook auth <br />   ✅ Sends <b>auth token</b>, that expires in 24h, for either already existing user or newly created one <br />   ",
         "parameters": [
           {
             "name": "name",
@@ -337,7 +345,12 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {},
+        "security": [
+          {
+            "token": []
+          }
+        ]
       }
     },
     "/api/user/cart/purchaseBooksWithStripe": {
@@ -373,7 +386,12 @@
           "409": {
             "description": "You have already purchased selected books before"
           }
-        }
+        },
+        "security": [
+          {
+            "token": []
+          }
+        ]
       }
     },
     "/api/user/cart/createPayPalPayment": {
@@ -400,7 +418,12 @@
           "409": {
             "description": "You have already purchased selected books before"
           }
-        }
+        },
+        "security": [
+          {
+            "token": []
+          }
+        ]
       }
     },
     "/api/user/cart/executePayPalPayment": {
@@ -439,7 +462,12 @@
           "409": {
             "description": "The order has been already approved"
           }
-        }
+        },
+        "security": [
+          {
+            "token": []
+          }
+        ]
       }
     },
     "/api/user/chat/getMessages": {
@@ -497,8 +525,18 @@
         "tags": [
           "Global"
         ],
-        "description": "",
-        "parameters": [],
+        "description": "   ✅ Checks existance of <b>auth token</b> in cookies and validates it <br />   ✅ Returns proper role to the end user <br />   ",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "cookies",
+            "description": "Auth token. Expires in 24h",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/jwt"
+            }
+          }
+        ],
         "responses": {}
       }
     },
@@ -507,8 +545,18 @@
         "tags": [
           "Global"
         ],
-        "description": "",
-        "parameters": [],
+        "description": "   ✅ Logs user out <br />   ✅ Removes auth token from cookies <br />   ",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "cookies",
+            "description": "Auth token. Expires in 24h",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/jwt"
+            }
+          }
+        ],
         "responses": {}
       }
     }
@@ -540,7 +588,7 @@
     },
     "plain": {
       "type": "string",
-      "example": "example"
+      "example": "plain text"
     },
     "stripePaymentId": {
       "type": "string",

@@ -72,8 +72,6 @@ export const initializeMiddlewares = (app: Application, server: Server) => {
 
    app.use(passport.initialize())
 
-   initializeCsrf(app)
-
    initializeSocketIO(new SocketServer(server))
 
    initializeGraphQL(app, server, passport)
@@ -83,6 +81,8 @@ export const initializeMiddlewares = (app: Application, server: Server) => {
    }
 
    if (NODE_ENV === 'production') {
+      initializeCsrf(app)
+
       const buildPath = '../../../../client/build'
 
       app.use(express.static(path.resolve(__dirname, buildPath)))

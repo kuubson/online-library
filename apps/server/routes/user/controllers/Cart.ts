@@ -33,7 +33,8 @@ Cart.post(
       }  
       #swagger.responses[402] = {
          description: 'Payment has failed',
-      }  
+      } 
+      #swagger.security = [{ "token": [] }] 
     */
    '/purchaseBooksWithStripe',
    ...purchaseBooksWithStripe
@@ -59,6 +60,7 @@ Cart.post(
       #swagger.responses[402] = {
          description: 'There was a problem preparing the payment, try again',
       }  
+      #swagger.security = [{ "token": [] }] 
     */
    '/createPayPalPayment',
    ...createPayPalPayment
@@ -94,6 +96,7 @@ Cart.post(
       #swagger.responses[404] = {
          description: 'Bad payment id',
       }  
+      #swagger.security = [{ "token": [] }] 
     */
    '/executePayPalPayment',
    ...executePayPalPayment
