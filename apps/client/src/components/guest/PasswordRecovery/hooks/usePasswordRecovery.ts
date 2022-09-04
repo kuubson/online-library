@@ -9,13 +9,17 @@ import { setApiFeedback } from 'helpers'
 
 import { axios, history } from 'utils'
 
+const { header, url, post, validation } = API.changePassword
+
 export const usePasswordRecovery = () => {
    const { passwordToken } = useParams()
+
+   const { submit, control, errors, getValues } = useForm(validation)
 
    useEffect(() => {
       const checkPasswordToken = async () => {
          try {
-            await axios.post(API.AUTH.checkPasswordToken.url, { passwordToken })
+            await axios.post(API.checkPasswordToken.url, { passwordToken })
          } catch (error) {
             history.push('/login')
          }
@@ -23,24 +27,13 @@ export const usePasswordRecovery = () => {
       checkPasswordToken()
    }, [])
 
-   const { submit, control, errors, getValues } = useForm({
-      schema: API.AUTH.changePassword.schema,
-   })
-
    const changePassword = async () => {
       await axios
-         .post(API.AUTH.changePassword.url, {
+         .post(url, {
             ...getValues(),
             passwordToken,
          })
-         .then(() => {
-            setApiFeedback(
-               API.AUTH.changePassword.header,
-               API.AUTH.changePassword.post.responses['200'].description,
-               'Okey',
-               () => history.push('/login')
-            )
-         })
+         .then(() => setApiFeedback(header, post[200], 'Okey', () => history.push('/login')))
    }
 
    return {

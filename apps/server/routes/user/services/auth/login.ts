@@ -14,9 +14,9 @@ import { cookie } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
-const ENDPOINT = API.AUTH.login
+const { header, post, validation } = API.login
 
-const schema = yup.object({ body: ENDPOINT.schema })
+const schema = yup.object({ body: validation })
 
 export const login: Route<Body<typeof schema>> = [
    yupValidation({ schema }),
@@ -30,11 +30,11 @@ export const login: Route<Body<typeof schema>> = [
          })
 
          if (!user || !bcrypt.compareSync(password, user.password)) {
-            throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses[401].description, 401)
+            throw new ApiError(header, post[401], 401)
          }
 
          if (!user.authentication?.authenticated) {
-            throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses[403].description, 403)
+            throw new ApiError(header, post[403], 403)
          }
 
          const token = jwt.sign(

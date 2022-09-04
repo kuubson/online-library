@@ -6,18 +6,15 @@ import { setApiFeedback } from 'helpers'
 
 import { axios, history } from 'utils'
 
+const { header, url, post, validation } = API.register
+
 export const useRegistration = () => {
-   const { submit, control, errors, getValues } = useForm({ schema: API.AUTH.register.schema })
+   const { submit, control, errors, getValues } = useForm(validation)
 
    const register = async () => {
-      await axios.post(API.AUTH.register.url, getValues()).then(() => {
-         setApiFeedback(
-            API.AUTH.register.header,
-            API.AUTH.register.post.responses[200].description,
-            'Okey',
-            () => history.push('/login')
-         )
-      })
+      await axios
+         .post(url, getValues())
+         .then(() => setApiFeedback(header, post[200], 'Okey', () => history.push('/login')))
    }
 
    return {

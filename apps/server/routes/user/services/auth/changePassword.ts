@@ -14,9 +14,9 @@ import { jwt } from 'utils'
 import type { PasswordTokenData } from 'types'
 import type { Body, Route } from 'types/express'
 
-const ENDPOINT = API.AUTH.changePassword
+const { header, post, validation } = API.changePassword
 
-const schema = yup.object({ body: ENDPOINT.schema.shape({ passwordToken: jwt }) })
+const schema = yup.object({ body: validation.shape({ passwordToken: jwt }) })
 
 export const changePassword: Route<Body<typeof schema>> = [
    yupValidation({ schema }),
@@ -35,7 +35,7 @@ export const changePassword: Route<Body<typeof schema>> = [
             })
 
             if (!user) {
-               throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses['400'].description, 400)
+               throw new ApiError(header, post[400], 400)
             }
 
             await user.update(

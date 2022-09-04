@@ -14,9 +14,9 @@ import { baseUrl, emailTemplate } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
-const ENDPOINT = API.AUTH.recoverPassword
+const { header, post, validation } = API.recoverPassword
 
-const schema = yup.object({ body: ENDPOINT.schema })
+const schema = yup.object({ body: validation })
 
 export const recoverPassword: Route<Body<typeof schema>> = [
    yupValidation({ schema }),
@@ -31,11 +31,11 @@ export const recoverPassword: Route<Body<typeof schema>> = [
             })
 
             if (!user || !user.authentication) {
-               throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses['404'].description, 404)
+               throw new ApiError(header, post[404], 404)
             }
 
             if (!user.authentication.authenticated) {
-               throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses['409'].description, 409)
+               throw new ApiError(header, post[409], 409)
             }
 
             const passwordToken = jwt.sign({ email }, JWT_KEY, { expiresIn: TokenExpiration['1h'] })
@@ -45,16 +45,16 @@ export const recoverPassword: Route<Body<typeof schema>> = [
             try {
                await transporter.sendMail({
                   to: email,
-                  subject: 'Password recovery in the Online Library',
+                  subject: `${header} in the Online Library`,
                   html: emailTemplate(
-                     'Password recovery in the Online Library',
+                     `${header} in the Online Library`,
                      `To change your password click the button`,
                      'Change password',
                      `${baseUrl(req)}/password-recovery/${passwordToken}`
                   ),
                })
             } catch (error) {
-               throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses['502'].description, 502)
+               throw new ApiError(header, post[502], 502)
             }
 
             res.send()

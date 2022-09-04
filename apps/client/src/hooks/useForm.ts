@@ -3,11 +3,7 @@ import { useForm as _useForm } from 'react-hook-form'
 import type { InferType } from 'yup'
 import type { ObjectShape, OptionalObjectSchema } from 'yup/lib/object'
 
-type UseFormProps<T extends ObjectShape> = {
-   schema: OptionalObjectSchema<T>
-}
-
-export const useForm = <T extends ObjectShape>({ schema }: UseFormProps<T>) => {
+export const useForm = <T extends ObjectShape>(validation: OptionalObjectSchema<T>) => {
    const {
       handleSubmit: submit,
       control,
@@ -16,7 +12,7 @@ export const useForm = <T extends ObjectShape>({ schema }: UseFormProps<T>) => {
       setValue,
       getValues,
       reset,
-   } = _useForm<InferType<typeof schema>>({ resolver: yupResolver(schema) })
+   } = _useForm<InferType<typeof validation>>({ resolver: yupResolver(validation) })
    return {
       submit,
       control,

@@ -13,7 +13,7 @@ import { jwt } from 'utils'
 import type { PasswordTokenData } from 'types'
 import type { Body, Route } from 'types/express'
 
-const ENDPOINT = API.AUTH.checkPasswordToken
+const { header, post } = API.checkPasswordToken
 
 const schema = yup.object({ body: yup.object({ passwordToken: jwt }) })
 
@@ -33,7 +33,7 @@ export const checkPasswordToken: Route<Body<typeof schema>> = [
          })
 
          if (!user) {
-            throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses['400'].description, 400)
+            throw new ApiError(header, post[400], 400)
          }
 
          res.send()

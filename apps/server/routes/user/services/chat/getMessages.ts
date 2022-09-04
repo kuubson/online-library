@@ -8,9 +8,7 @@ import { updateReadByProperty } from 'helpers'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
-const ENDPOINT = API.CHAT.getMessages
-
-const schema = yup.object({ body: ENDPOINT.schema })
+const schema = yup.object({ body: API.getMessages.validation })
 
 export const getMessages: ProtectedRoute<Body<typeof schema>> = [
    yupValidation({ schema }),

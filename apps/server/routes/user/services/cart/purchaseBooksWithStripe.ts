@@ -14,9 +14,9 @@ import type { Body, ProtectedRoute } from 'types/express'
 
 const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: '2020-08-27' })
 
-const ENDPOINT = API.CART.purchaseBooksWithStripe
+const { header, post, validation } = API.purchaseBooksWithStripe
 
-const schema = yup.object({ body: ENDPOINT.schema })
+const schema = yup.object({ body: validation })
 
 export const purchaseBooksWithStripe: ProtectedRoute<Body<typeof schema>> = [
    yupValidation({ schema }),
@@ -34,11 +34,7 @@ export const purchaseBooksWithStripe: ProtectedRoute<Body<typeof schema>> = [
             )
 
             if (books.length === 0) {
-               throw new ApiError(
-                  ENDPOINT.header,
-                  'You have already purchased selected books before',
-                  409
-               )
+               throw new ApiError(header, 'You have already purchased selected books before', 409)
             }
 
             const description = books.map(({ title }) => title).join(', ')
@@ -61,7 +57,7 @@ export const purchaseBooksWithStripe: ProtectedRoute<Body<typeof schema>> = [
 
             if (payment.status !== 'succeeded') {
                throw new ApiError(
-                  ENDPOINT.header,
+                  header,
                   'There was an unexpected problem when processing your payment',
                   402
                )

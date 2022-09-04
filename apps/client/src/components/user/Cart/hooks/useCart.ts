@@ -36,7 +36,7 @@ export const useCart = () => {
          try {
             if (paymentId && PayerID) {
                await axios
-                  .post(API.CART.executePayPalPayment.url, {
+                  .post(API.executePayPalPayment.url, {
                      paymentId,
                      PayerID,
                   })
@@ -63,7 +63,7 @@ export const useCart = () => {
    }, [paymentId, PayerID])
 
    const createPayPalPayment = async () => {
-      const response = await axios.post(API.CART.createPayPalPayment.url, { products: cart })
+      const response = await axios.post(API.createPayPalPayment.url, { products: cart })
       if (response) {
          window.location = response.data.link
       }

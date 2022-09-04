@@ -54,8 +54,6 @@ export const InvalidToken = new ApiError(
    422
 )
 
-export const FBError = new ApiError(
-   API.AUTH.loginWithFacebook.header,
-   API.AUTH.loginWithFacebook.post.responses['400'].description,
-   400
-)
+const { header, post } = API.loginWithFacebook
+
+export const FBError = new ApiError(header, post[400], 400)

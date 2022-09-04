@@ -10,6 +10,8 @@ import { setApiFeedback } from 'helpers'
 
 import { axios, history } from 'utils'
 
+const { header, url, post } = API.activateAccount
+
 export const Activation = () => {
    const { activationToken } = useParams()
 
@@ -19,13 +21,8 @@ export const Activation = () => {
             if (!activationToken) {
                return history.push('/login')
             }
-            await axios.post(API.AUTH.activateAccount.url, { activationToken }).then(() => {
-               setApiFeedback(
-                  API.AUTH.activateAccount.header,
-                  API.AUTH.activateAccount.post.responses[200].description,
-                  'Okey',
-                  () => history.push('/login')
-               )
+            await axios.post(url, { activationToken }).then(() => {
+               setApiFeedback(header, post[200], 'Okey', () => history.push('/login'))
             })
          } catch (error) {
             history.push('/login')

@@ -1,4 +1,4 @@
-import { yup } from 'online-library'
+import { API, yup } from 'online-library'
 
 import { Connection } from 'database'
 
@@ -10,7 +10,7 @@ import { baseUrl } from 'utils'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
-const schema = yup.object({ body: yup.object({ content: yup.string().required().trim() }) })
+const schema = yup.object({ body: API.sendMessage.validation })
 
 export const sendMessage: ProtectedRoute<Body<typeof schema>> = [
    yupValidation({ schema }),

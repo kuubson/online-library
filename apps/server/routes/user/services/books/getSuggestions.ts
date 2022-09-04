@@ -9,9 +9,7 @@ import { yupValidation } from 'middlewares'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
-const ENDPOINT = API.BOOKS.getSuggestions
-
-const schema = yup.object({ body: ENDPOINT.schema })
+const schema = yup.object({ body: API.getSuggestions.validation })
 
 export const getSuggestions: ProtectedRoute<Body<typeof schema>> = [
    yupValidation({ schema }),

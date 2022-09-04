@@ -16,7 +16,7 @@ export const useMenu = (_setShouldMenuExpand: ReactDispatch<boolean>) => {
    useEffect(() => _setShouldMenuExpand(shouldMenuExpand), [shouldMenuExpand])
 
    const logout = async () => {
-      await axios.get(API.GLOBAL.logout.url).then(() => {
+      await axios.get(API.logout.url).then(() => {
          window.FB.getLoginStatus((response: any) => {
             if (response.status === 'connected') {
                window.FB.logout(() => null)

@@ -1,6 +1,6 @@
 import cloudinary from 'cloudinary'
 
-import { ApiError, filesInfo } from 'online-library'
+import { API, ApiError, filesInfo } from 'online-library'
 
 import { Connection } from 'database'
 import type { Message } from 'database/models/Message'
@@ -10,6 +10,8 @@ import { deleteTemporaryFile, sendNotificationsForOtherUsers } from 'helpers'
 import { baseUrl } from 'utils'
 
 import type { InitialBody, InitialCookies, ProtectedRoute } from 'types/express'
+
+const { header, post } = API.sendFile
 
 export const sendFile: ProtectedRoute<InitialBody, InitialCookies, false> = [
    async (req, res, next) => {
@@ -27,11 +29,7 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, false> = [
             const isFile = files.test(mimetype) || files.test(originalname)
 
             if (!isImage && !isVideo && !isFile) {
-               throw new ApiError(
-                  'Sending a file',
-                  'You cannot send a file with this extension',
-                  500
-               )
+               throw new ApiError(header, 'You cannot send a file with this extension', 500)
             }
 
             let sizeError = false
@@ -55,7 +53,7 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, false> = [
             }
 
             if (sizeError) {
-               throw new ApiError('Sending a file', 'You cannot send this large file', 500)
+               throw new ApiError(header, 'You cannot send this large file', 500)
             }
 
             const { id, name } = req.user
@@ -76,7 +74,7 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, false> = [
                   break
                default:
                   throw new ApiError(
-                     'Sending a file',
+                     header,
                      'There was an unexpected problem when sending the file',
                      500
                   )

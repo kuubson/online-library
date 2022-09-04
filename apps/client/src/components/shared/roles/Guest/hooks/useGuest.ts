@@ -13,7 +13,7 @@ export const useGuest = () => {
 
    const checkToken = async () => {
       try {
-         const response = await defaultAxios.get<CheckTokenResponse>(API.GLOBAL.checkToken.url)
+         const response = await defaultAxios.get<CheckTokenResponse>(API.checkToken.url)
 
          if (response) {
             const { role } = response.data

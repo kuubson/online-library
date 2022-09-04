@@ -13,9 +13,9 @@ import { baseUrl } from 'utils'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
-const ENDPOINT = API.CART.createPayPalPayment
+const { header, post, validation } = API.createPayPalPayment
 
-const schema = yup.object({ body: ENDPOINT.schema })
+const schema = yup.object({ body: validation })
 
 export const createPayPalPayment: ProtectedRoute<Body<typeof schema>> = [
    yupValidation({ schema }),
@@ -31,12 +31,8 @@ export const createPayPalPayment: ProtectedRoute<Body<typeof schema>> = [
             books.filter(({ id }) => !userBooks.includes(id))
          )
 
-         if (books.length === 0) {
-            throw new ApiError(
-               ENDPOINT.header,
-               'You have already purchased selected books before',
-               409
-            )
+         if (!books.length) {
+            throw new ApiError(header, 'You have already purchased selected books before', 409)
          }
 
          const description = books.map(({ title }) => title).join(', ')
@@ -72,19 +68,19 @@ export const createPayPalPayment: ProtectedRoute<Body<typeof schema>> = [
 
          paypal.payment.create(payment, async (error, payment) => {
             try {
-               if (error || !payment.id) {
+               if (error || !payment.id || !payment.links) {
                   throw new ApiError(
-                     ENDPOINT.header,
+                     header,
                      'There was an unexpected problem when processing your payment',
                      402
                   )
                }
 
-               const approvalLink = payment.links?.find(({ rel }) => rel === 'approval_url')
+               const approvalLink = payment.links.find(({ rel }) => rel === 'approval_url')
 
                if (!approvalLink) {
                   throw new ApiError(
-                     ENDPOINT.header,
+                     header,
                      'There was an unexpected problem when processing your payment',
                      402
                   )

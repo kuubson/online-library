@@ -14,7 +14,7 @@ import { cookie } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
-const schema = yup.object({ body: API.AUTH.loginWithFacebook.schema })
+const schema = yup.object({ body: API.loginWithFacebook.validation })
 
 export const loginWithFacebook: Route<Body<typeof schema>> = [
    yupValidation({ schema }),

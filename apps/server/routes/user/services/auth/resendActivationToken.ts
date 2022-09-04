@@ -14,9 +14,9 @@ import { baseUrl, emailTemplate } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
-const ENDPOINT = API.AUTH.resendActivationToken
+const { header, post, validation } = API.resendActivationToken
 
-const schema = yup.object({ body: ENDPOINT.schema })
+const schema = yup.object({ body: validation })
 
 export const resendActivationToken: Route<Body<typeof schema>> = [
    yupValidation({ schema }),
@@ -31,11 +31,11 @@ export const resendActivationToken: Route<Body<typeof schema>> = [
             })
 
             if (!user || !user.authentication) {
-               throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses[404].description, 404)
+               throw new ApiError(header, post[404], 404)
             }
 
             if (user.authentication.authenticated) {
-               throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses[403].description, 403)
+               throw new ApiError(header, post[403], 403)
             }
 
             const activationToken = jwt.sign({ email }, JWT_KEY, {
@@ -47,16 +47,16 @@ export const resendActivationToken: Route<Body<typeof schema>> = [
             try {
                await transporter.sendMail({
                   to: email,
-                  subject: `${ENDPOINT.header} in the Online Library`,
+                  subject: `${header} in the Online Library`,
                   html: emailTemplate(
-                     `${ENDPOINT.header} in the Online Library`,
+                     `${header} in the Online Library`,
                      `To activate your account click the button`,
                      'Activate account',
                      `${baseUrl(req)}/activation/${activationToken}`
                   ),
                })
             } catch (error) {
-               throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses[502].description, 502)
+               throw new ApiError(header, post[502], 502)
             }
 
             res.send()

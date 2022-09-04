@@ -32,7 +32,7 @@ export const useUser = (withChat: boolean | undefined) => {
 
       const checkToken = async () => {
          try {
-            const response = await defaultAxios.get<CheckTokenResponse>(API.GLOBAL.checkToken.url)
+            const response = await defaultAxios.get<CheckTokenResponse>(API.checkToken.url)
             if (response) {
                const { role } = response.data
                if (role !== 'user') {
@@ -45,9 +45,7 @@ export const useUser = (withChat: boolean | undefined) => {
       }
 
       const getMessagesInfo = async () => {
-         const response = await defaultAxios.get<GetMessagesInfoResponse>(
-            API.CHAT.getMessagesInfo.url
-         )
+         const response = await defaultAxios.get<GetMessagesInfoResponse>(API.getMessagesInfo.url)
 
          if (response) {
             const { lastUnreadMessageIndex, unreadMessagesAmount, userId } = response.data

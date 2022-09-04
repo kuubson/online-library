@@ -28,7 +28,7 @@ export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean
 
             if (paymentMethod) {
                await axios
-                  .post(API.CART.purchaseBooksWithStripe.url, {
+                  .post(API.purchaseBooksWithStripe.url, {
                      paymentId: paymentMethod.id,
                      products: cart,
                   })

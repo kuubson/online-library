@@ -8,9 +8,9 @@ import { yupValidation } from 'middlewares'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
-const ENDPOINT = API.CART.executePayPalPayment
+const { header, post, validation } = API.executePayPalPayment
 
-const schema = yup.object({ body: ENDPOINT.schema })
+const schema = yup.object({ body: validation })
 
 export const executePayPalPayment: ProtectedRoute<Body<typeof schema>> = [
    yupValidation({ schema }),
@@ -22,20 +22,20 @@ export const executePayPalPayment: ProtectedRoute<Body<typeof schema>> = [
 
          if (!payment) {
             throw new ApiError(
-               'Submitting the order',
+               header,
                'There was an unexpected problem when processing your payment',
                402
             )
          }
 
          if (payment.approved) {
-            throw new ApiError('Submitting the order', 'The order has been already approved', 409)
+            throw new ApiError(header, 'The order has been already approved', 409)
          }
 
          paypal.payment.execute(paymentId, { payer_id: PayerID }, async (error, { state }) => {
             if (error || state !== 'approved') {
                throw new ApiError(
-                  'Submitting the order',
+                  header,
                   'There was an unexpected problem when processing your payment',
                   402
                )

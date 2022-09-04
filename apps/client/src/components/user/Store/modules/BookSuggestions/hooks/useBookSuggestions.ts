@@ -17,9 +17,7 @@ export const useBookSuggestions = ({
    setPaidBooks,
    withProfile,
 }: BookSuggestionsProps) => {
-   const { control, getValues, setValue, watch } = useForm({
-      schema: API.BOOKS.getSuggestions.schema,
-   })
+   const { control, getValues, setValue, watch } = useForm(API.getSuggestions.validation)
 
    const [findByTitle, setFindByTitle] = useState(true)
 
@@ -29,7 +27,7 @@ export const useBookSuggestions = ({
 
    useEffect(() => {
       const getSuggestions = async () => {
-         const response = await axios.post<GetSuggestionsResponse>(API.BOOKS.getSuggestions.url, {
+         const response = await axios.post<GetSuggestionsResponse>(API.getSuggestions.url, {
             ...getValues(),
             withProfile: !!withProfile,
          })
