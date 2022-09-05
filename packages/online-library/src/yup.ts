@@ -3,7 +3,7 @@ import sanitize from 'sanitize-html'
 import validator from 'validator'
 import * as _yup from 'yup'
 import type Lazy from 'yup/lib/Lazy'
-import type { RequiredArraySchema } from 'yup/lib/array'
+import type { AssertsShape, ObjectShape, TypeOfShape } from 'yup/lib/object'
 import type BaseSchema from 'yup/lib/schema'
 import type { AnySchema } from 'yup/lib/schema'
 import type { RequiredStringSchema } from 'yup/lib/string'
@@ -59,7 +59,11 @@ _yup.addMethod(_yup.string, 'sanitized', function (state: SanitizedStringState =
 })
 
 _yup.addMethod(_yup.array, 'products', function () {
-   return this.required().min(1).of(yup.string().sanitized()).required()
+   return this.required().min(1).of(yup.number().required())
+})
+
+_yup.addMethod(_yup.object, 'noOtherKeys', function () {
+   return this.noUnknown().strict()
 })
 
 declare module 'yup' {
@@ -80,12 +84,17 @@ declare module 'yup' {
       TIn extends Maybe<TypeOf<T>[]> = TypeOf<T>[] | undefined,
       TOut extends Maybe<Asserts<T>[]> = Asserts<T>[] | Optionals<TIn>
    > extends BaseSchema<TIn, C, TOut> {
-      products(): RequiredArraySchema<T, C, TIn>
+      products(): this
+   }
+
+   interface ObjectSchema<
+      TShape extends ObjectShape,
+      TContext extends AnyObject = AnyObject,
+      TIn extends Maybe<TypeOfShape<TShape>> = TypeOfShape<TShape>,
+      TOut extends Maybe<AssertsShape<TShape>> = AssertsShape<TShape> | Optionals<TIn>
+   > extends BaseSchema<TIn, TContext, TOut> {
+      noOtherKeys(): this
    }
 }
-
-export const bool = _yup.bool().required()
-
-export const integer = _yup.number().required()
 
 export const yup = _yup

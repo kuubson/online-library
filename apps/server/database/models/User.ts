@@ -123,6 +123,7 @@ export const UserModel = (sequelize: Sequelize) =>
          email: {
             type: STRING,
             allowNull: false,
+            unique: true,
          },
          password: {
             type: TEXT,

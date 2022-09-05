@@ -10,83 +10,72 @@ export const Cart = Router()
 
 Cart.post(
    /*
-   `  #swagger.tags = ['Cart']
       #swagger.description = `
          ✅ Makes sure that user does not pay for already purchased books <br />
+         ✅ Checks if selected books are still available in the store <br />
          ✅ Processes stripe payment with credit card <br />
          ✅ Assigns purchased books to the user <br />
       `
-      #swagger.parameters['paymentId'] = {
-         in: 'body',
-         description: 'Payment id created with stripe package on frontend',
-         required: 'true',
-         schema: { $ref: '#/definitions/stripePaymentId' }
+      #swagger.requestBody = {
+         required: true,
+         schema: { $ref: "#/definitions/purchaseBooksWithStripe" }
       } 
-      #swagger.parameters['products'] = {
-         in: 'body',
-         description: 'Array of book ids to purchase',
-         required: 'true',
-         schema: { $ref: '#/definitions/products' }
-      } 
+      #swagger.responses[404] = {
+         description: 'Selected books are not available anymore',
+      }  
       #swagger.responses[409] = {
          description: 'You have already purchased selected books before',
       }  
       #swagger.responses[402] = {
          description: 'Payment has failed',
       } 
-      #swagger.security = [{ "token": [] }] 
-    */
+*/
    '/purchaseBooksWithStripe',
    ...purchaseBooksWithStripe
 )
 
 Cart.post(
    /*
-   `  #swagger.tags = ['Cart']
       #swagger.description = `
          ✅ Makes sure that user does not pay for already purchased books <br />
+         ✅ Checks if selected books are still available in the store <br />
          ✅ Prepares paypal payment details <br />
          ✅ Redirects user to paypal checkout <br />
       `
-      #swagger.parameters['products'] = {
-         in: 'body',
-         description: 'Array of book ids to purchase',
-         required: 'true',
-         schema: { $ref: '#/definitions/products' }
-      } 
+      #swagger.requestBody = {
+         required: true,
+         schema: { $ref: "#/definitions/createPayPalPayment" }
+      }
+      #swagger.responses[200] = {
+         description: 'Returns paypal checkout link',
+         schema: { $ref: '#/definitions/paypalApprovalLink' }
+      }  
+      #swagger.responses[404] = {
+         description: 'Selected books are not available anymore',
+      }  
       #swagger.responses[409] = {
          description: 'You have already purchased selected books before',
       }  
       #swagger.responses[402] = {
          description: 'There was a problem preparing the payment, try again',
       }  
-      #swagger.security = [{ "token": [] }] 
-    */
+*/
    '/createPayPalPayment',
    ...createPayPalPayment
 )
 
 Cart.post(
    /*
-   `  #swagger.tags = ['Cart']
       #swagger.description = `
          ✅ Checks if user booked paymeny with certain id <br />
          ✅ Checks if payment is still in progress <br />
          ✅ Finalizes paypal payment and updates its status <br />
          ✅ Assigns purchased books to the user <br />
       `
-      #swagger.parameters['paymentId'] = {
-         in: 'body',
-         description: 'Payment id generated after submitting paypal checkout',
-         required: 'true',
-         schema: { $ref: '#/definitions/paypalPaymentId' }
-      } 
-      #swagger.parameters['paypalPayerID'] = {
-         in: 'body',
-         description: 'Payer id generated after submitting paypal checkout',
-         required: 'true',
-         schema: { $ref: '#/definitions/paypalPayerID' }
-      } 
+      #swagger.requestBody = {
+         required: true,
+         schema: { $ref: "#/definitions/executePayPalPayment" }
+      }
       #swagger.responses[409] = {
          description: 'The order has been already approved',
       }  
@@ -96,8 +85,7 @@ Cart.post(
       #swagger.responses[404] = {
          description: 'Bad payment id',
       }  
-      #swagger.security = [{ "token": [] }] 
-    */
+*/
    '/executePayPalPayment',
    ...executePayPalPayment
 )

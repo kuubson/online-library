@@ -6,3 +6,4 @@ export { sendNotificationsForOtherUsers } from './sendNotificationsForOtherUsers
 export { totalBooksPrice } from './totalBooksPrice'
 export { transporter } from './transporter'
 export { updateReadByProperty } from './updateReadByProperty'
+export { verifyPurchasingBooks } from './verifyPurchasingBooks'

@@ -24,7 +24,7 @@ export const formatErrors = (app: Application) =>
          res.clearCookie('token', cookie()).status(status).send(CSRFError)
       }
 
-      if (status === 401) {
+      if (status === 401 && errorMessage === AuthError.errorMessage) {
          res.clearCookie('token', cookie()).status(status).send(AuthError)
       }
 

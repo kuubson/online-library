@@ -1,68 +1,23 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
     "title": "Online Library",
     "description": "API for Online Library"
   },
-  "host": "localhost:3001",
-  "basePath": "/",
-  "schemes": [
-    "http"
-  ],
-  "securityDefinitions": {
-    "token": {
-      "in": "cookie",
-      "name": "token",
-      "type": "apiKey",
-      "description": "Auth token (jwt) generated with /login or /loginWithFacebook. Expires in 24h"
+  "servers": [
+    {
+      "url": "http://localhost:3001/"
     }
-  },
+  ],
   "paths": {
     "/api/user/auth/register": {
       "post": {
         "tags": [
-          "Auth"
+          "Auth (rate limited)"
         ],
         "description": "   ✅ Checks if user already exist <br />   ✅ Generates an <b>activation token</b> <br />   ✅ Sends link with the <b>token</b> to allow user activate his account <br />   ",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "body",
-            "description": "User name",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/name"
-            }
-          },
-          {
-            "name": "email",
-            "in": "body",
-            "description": "User email",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/email"
-            }
-          },
-          {
-            "name": "password",
-            "in": "body",
-            "description": "User password. It gets hashed",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/password"
-            }
-          },
-          {
-            "name": "repeatedPassword",
-            "in": "body",
-            "description": "User password. It is required just for the sake of validation",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/password"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Activate account by clicking the link that has been sent to you"
@@ -70,8 +25,26 @@
           "409": {
             "description": "Email address already taken"
           },
+          "422": {
+            "description": "Data validation failed"
+          },
           "502": {
             "description": "There was a problem sending the activation link"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/register"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/register"
+              }
+            }
           }
         }
       }
@@ -79,20 +52,10 @@
     "/api/user/auth/activateAccount": {
       "post": {
         "tags": [
-          "Auth"
+          "Auth (rate limited)"
         ],
         "description": "   ✅ Check if user already activated his account <br />   ✅ Toggles account as activated if it's not alread <br />   ",
-        "parameters": [
-          {
-            "name": "activationToken",
-            "in": "body",
-            "description": "Account activation token. Expires in 24h",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/jwt"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Account activated, you can login now"
@@ -102,6 +65,24 @@
           },
           "409": {
             "description": "No authentication associated with this link"
+          },
+          "422": {
+            "description": "Data validation failed"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/activateAccount"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/activateAccount"
+              }
+            }
           }
         }
       }
@@ -109,20 +90,10 @@
     "/api/user/auth/resendActivationToken": {
       "post": {
         "tags": [
-          "Auth"
+          "Auth (rate limited)"
         ],
         "description": "   ✅ Ensures user with provided email address exists <br />   ✅ Rejects resending activation token if account is already activate <br />   ✅ Sends new activation token to the use <br />   ",
-        "parameters": [
-          {
-            "name": "email",
-            "in": "body",
-            "description": "User email",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/email"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Link with new activation token has been sent"
@@ -133,8 +104,26 @@
           "404": {
             "description": "Provided email address is invalid"
           },
+          "422": {
+            "description": "Data validation failed"
+          },
           "502": {
             "description": "There was a problem sending the activation link"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/resendActivationToken"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/resendActivationToken"
+              }
+            }
           }
         }
       }
@@ -142,35 +131,37 @@
     "/api/user/auth/login": {
       "post": {
         "tags": [
-          "Auth"
+          "Auth (rate limited)"
         ],
         "description": "   ✅ Checks given email and password <br />   ✅ Check if account is activated <br />   ✅ Sends auth token, that expires in 24h, if credentials are ok<br />   ",
-        "parameters": [
-          {
-            "name": "email",
-            "in": "body",
-            "description": "User email",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/email"
-            }
-          },
-          {
-            "name": "password",
-            "in": "body",
-            "description": "User password",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/password"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
+          "200": {
+            "description": "Auth token was set in cookies"
+          },
           "401": {
             "description": "The given credentials are wrong"
           },
           "403": {
             "description": "Account not activated"
+          },
+          "422": {
+            "description": "Data validation failed"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/login"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/login"
+              }
+            }
           }
         }
       }
@@ -178,41 +169,34 @@
     "/api/user/auth/loginWithFacebook": {
       "post": {
         "tags": [
-          "Auth"
+          "Auth (rate limited)"
         ],
-        "description": "   ✅ Verifies <b>access token</b> provided by facebook auth <br />   ✅ Sends <b>auth token</b>, that expires in 24h, for either already existing user or newly created one <br />   ",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "body",
-            "description": "User name provided by FB",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/name"
-            }
-          },
-          {
-            "name": "email",
-            "in": "body",
-            "description": "User email provided by FB",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/email"
-            }
-          },
-          {
-            "name": "access_token",
-            "in": "body",
-            "description": "Access token provided by FB",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/access_token"
-            }
-          }
-        ],
+        "description": "   ✅ Verifies <b>access token</b> provided by FB auth <br />   ✅ Sends <b>auth token</b>, that expires in 24h, for either already existing user or newly created one <br />   ",
+        "parameters": [],
         "responses": {
+          "200": {
+            "description": "Auth token was set in cookies"
+          },
           "400": {
             "description": "There was an unexpected problem with FB authentication"
+          },
+          "422": {
+            "description": "Data validation failed"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/loginWithFacebook"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/loginWithFacebook"
+              }
+            }
           }
         }
       }
@@ -220,20 +204,10 @@
     "/api/user/auth/recoverPassword": {
       "post": {
         "tags": [
-          "Auth"
+          "Auth (rate limited)"
         ],
         "description": "   ✅ Checks if any user belongs to provided email address <br />   ✅ Makes sure that user account is activated <br />   ✅ Generates <b>password token</b> to authorize changing password in the next step (password form) <br />   ",
-        "parameters": [
-          {
-            "name": "email",
-            "in": "body",
-            "description": "User email",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/email"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Link to reset the password has been sent"
@@ -244,8 +218,26 @@
           "409": {
             "description": "Account must be firstly activated"
           },
+          "422": {
+            "description": "Data validation failed"
+          },
           "502": {
             "description": "There was a problem sending the link allowing resetting password"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/recoverPassword"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/recoverPassword"
+              }
+            }
           }
         }
       }
@@ -253,23 +245,31 @@
     "/api/user/auth/checkPasswordToken": {
       "post": {
         "tags": [
-          "Auth"
+          "Auth (rate limited)"
         ],
         "description": "   ✅ Checks password token generated by <b>/api/user/auth/recoverPassword</b> <br />   ✅ Checks if there is a user with email address as kept in password token <br />   ",
-        "parameters": [
-          {
-            "name": "passwordToken",
-            "in": "body",
-            "description": "Password token",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/jwt"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "400": {
             "description": "Link to reset the password is invalid"
+          },
+          "422": {
+            "description": "Data validation failed"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/checkPasswordToken"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/checkPasswordToken"
+              }
+            }
           }
         }
       }
@@ -277,35 +277,34 @@
     "/api/user/auth/changePassword": {
       "post": {
         "tags": [
-          "Auth"
+          "Auth (rate limited)"
         ],
         "description": "   ✅ Changes user password <br />   ",
-        "parameters": [
-          {
-            "name": "password",
-            "in": "body",
-            "description": "New user password",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/password"
-            }
-          },
-          {
-            "name": "passwordToken",
-            "in": "body",
-            "description": "Password token",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/jwt"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Password has been changed"
           },
           "400": {
             "description": "Link to reset the password is invalid"
+          },
+          "422": {
+            "description": "Data validation failed"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/changePassword"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/changePassword"
+              }
+            }
           }
         }
       }
@@ -315,42 +314,71 @@
         "tags": [
           "Books"
         ],
-        "description": "   ✅ Suggest books by searched author or title <br />   ",
-        "parameters": [
-          {
-            "name": "title",
-            "in": "body",
-            "description": "Title to search for",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/plain"
-            }
-          },
-          {
-            "name": "author",
-            "in": "body",
-            "description": "Author to search for",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/plain"
-            }
-          },
-          {
-            "name": "withProfile",
-            "in": "body",
-            "description": "Flag that decides if suggest global books or books of certain user",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/boolean"
+        "description": "   ✅ Suggest books by author or title <br />   ✅ Searches either books assigned to the user or from the whole store <br />   ",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Returns array of books that meet certain title or author",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/book"
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/book"
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
             }
           }
-        ],
-        "responses": {},
+        },
         "security": [
           {
             "token": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/getSuggestionsByTitle"
+                  },
+                  {
+                    "$ref": "#/components/schemas/getSuggestionsByAuthor"
+                  }
+                ]
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/getSuggestionsByTitle"
+                  },
+                  {
+                    "$ref": "#/components/schemas/getSuggestionsByAuthor"
+                  }
+                ]
+              }
+            }
+          }
+        }
       }
     },
     "/api/user/cart/purchaseBooksWithStripe": {
@@ -358,40 +386,42 @@
         "tags": [
           "Cart"
         ],
-        "description": "   ✅ Makes sure that user does not pay for already purchased books <br />   ✅ Processes stripe payment with credit card <br />   ✅ Assigns purchased books to the user <br />   ",
-        "parameters": [
-          {
-            "name": "paymentId",
-            "in": "body",
-            "description": "Payment id created with stripe package on frontend",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/stripePaymentId"
-            }
-          },
-          {
-            "name": "products",
-            "in": "body",
-            "description": "Array of book ids to purchase",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/products"
-            }
-          }
-        ],
+        "description": "   ✅ Makes sure that user does not pay for already purchased books <br />   ✅ Checks if selected books are still available in the store <br />   ✅ Processes stripe payment with credit card <br />   ✅ Assigns purchased books to the user <br />   ",
+        "parameters": [],
         "responses": {
           "402": {
             "description": "Payment has failed"
           },
+          "404": {
+            "description": "Selected books are not available anymore"
+          },
           "409": {
             "description": "You have already purchased selected books before"
+          },
+          "422": {
+            "description": "Data validation failed"
           }
         },
         "security": [
           {
             "token": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/purchaseBooksWithStripe"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/purchaseBooksWithStripe"
+              }
+            }
+          }
+        }
       }
     },
     "/api/user/cart/createPayPalPayment": {
@@ -399,31 +429,57 @@
         "tags": [
           "Cart"
         ],
-        "description": "   ✅ Makes sure that user does not pay for already purchased books <br />   ✅ Prepares paypal payment details <br />   ✅ Redirects user to paypal checkout <br />   ",
-        "parameters": [
-          {
-            "name": "products",
-            "in": "body",
-            "description": "Array of book ids to purchase",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/products"
-            }
-          }
-        ],
+        "description": "   ✅ Makes sure that user does not pay for already purchased books <br />   ✅ Checks if selected books are still available in the store <br />   ✅ Prepares paypal payment details <br />   ✅ Redirects user to paypal checkout <br />   ",
+        "parameters": [],
         "responses": {
+          "200": {
+            "description": "Returns paypal checkout link",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/paypalApprovalLink"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/paypalApprovalLink"
+                }
+              }
+            }
+          },
           "402": {
             "description": "There was a problem preparing the payment, try again"
           },
+          "404": {
+            "description": "Selected books are not available anymore"
+          },
           "409": {
             "description": "You have already purchased selected books before"
+          },
+          "422": {
+            "description": "Data validation failed"
           }
         },
         "security": [
           {
             "token": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createPayPalPayment"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/createPayPalPayment"
+              }
+            }
+          }
+        }
       }
     },
     "/api/user/cart/executePayPalPayment": {
@@ -432,26 +488,7 @@
           "Cart"
         ],
         "description": "   ✅ Checks if user booked paymeny with certain id <br />   ✅ Checks if payment is still in progress <br />   ✅ Finalizes paypal payment and updates its status <br />   ✅ Assigns purchased books to the user <br />   ",
-        "parameters": [
-          {
-            "name": "paymentId",
-            "in": "body",
-            "description": "Payment id generated after submitting paypal checkout",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/paypalPaymentId"
-            }
-          },
-          {
-            "name": "paypalPayerID",
-            "in": "body",
-            "description": "Payer id generated after submitting paypal checkout",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/paypalPayerID"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "402": {
             "description": "Payment has failed"
@@ -461,13 +498,31 @@
           },
           "409": {
             "description": "The order has been already approved"
+          },
+          "422": {
+            "description": "Data validation failed"
           }
         },
         "security": [
           {
             "token": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/executePayPalPayment"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/executePayPalPayment"
+              }
+            }
+          }
+        }
       }
     },
     "/api/user/chat/getMessages": {
@@ -477,7 +532,16 @@
         ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "422": {
+            "description": "Data validation failed"
+          }
+        },
+        "security": [
+          {
+            "token": []
+          }
+        ]
       }
     },
     "/api/user/chat/sendMessage": {
@@ -487,7 +551,16 @@
         ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "422": {
+            "description": "Data validation failed"
+          }
+        },
+        "security": [
+          {
+            "token": []
+          }
+        ]
       }
     },
     "/api/user/chat/sendFile": {
@@ -497,7 +570,16 @@
         ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "422": {
+            "description": "Data validation failed"
+          }
+        },
+        "security": [
+          {
+            "token": []
+          }
+        ]
       }
     },
     "/api/user/chat/subscribePushNotifications": {
@@ -507,7 +589,16 @@
         ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "422": {
+            "description": "Data validation failed"
+          }
+        },
+        "security": [
+          {
+            "token": []
+          }
+        ]
       }
     },
     "/api/user/chat/getMessagesInfo": {
@@ -517,7 +608,16 @@
         ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "422": {
+            "description": "Data validation failed"
+          }
+        },
+        "security": [
+          {
+            "token": []
+          }
+        ]
       }
     },
     "/api/user/global/checkToken": {
@@ -530,14 +630,18 @@
           {
             "name": "token",
             "in": "cookies",
-            "description": "Auth token. Expires in 24h",
+            "description": "Auth token",
             "required": false,
             "schema": {
-              "$ref": "#/definitions/jwt"
+              "$ref": "#/components/schemas/jwt"
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "422": {
+            "description": "Data validation failed"
+          }
+        }
       }
     },
     "/api/user/global/logout": {
@@ -550,61 +654,322 @@
           {
             "name": "token",
             "in": "cookies",
-            "description": "Auth token. Expires in 24h",
+            "description": "Auth token",
             "required": false,
             "schema": {
-              "$ref": "#/definitions/jwt"
+              "$ref": "#/components/schemas/jwt"
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "422": {
+            "description": "Data validation failed"
+          }
+        }
       }
     }
   },
-  "definitions": {
-    "name": {
-      "type": "string",
-      "example": "John"
+  "components": {
+    "schemas": {
+      "book": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 13
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-08-28T19:41:46.422Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-08-28T19:41:46.422Z"
+          },
+          "title": {
+            "type": "string",
+            "example": "Hound Dog"
+          },
+          "author": {
+            "type": "string",
+            "example": "Nina Barton"
+          },
+          "cover": {
+            "type": "string",
+            "format": "uri",
+            "qt-uri-protocols": [
+              "https"
+            ],
+            "example": "https://loremflickr.com/640/480/nature?78445"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Price in $",
+            "example": 14
+          }
+        }
+      },
+      "paypalApprovalLink": {
+        "type": "string",
+        "required": true,
+        "description": "Link to paypal checkout generated with /createPayPalPayment",
+        "example": "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-27H754218P7505C"
+      },
+      "plain": {
+        "type": "string",
+        "example": "plain text",
+        "xml": {
+          "name": "plain"
+        }
+      },
+      "paypalPaymentId": {
+        "type": "string",
+        "example": "",
+        "xml": {
+          "name": "paypalPaymentId"
+        }
+      },
+      "paypalPayerID": {
+        "type": "string",
+        "example": "",
+        "xml": {
+          "name": "paypalPayerID"
+        }
+      },
+      "register": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "required": true,
+            "example": "John"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "required": true,
+            "example": "john@onlinelibrary.com"
+          },
+          "password": {
+            "type": "string",
+            "required": true,
+            "example": "2hIq8^spf2"
+          },
+          "repeatedPassword": {
+            "type": "string",
+            "required": true,
+            "example": "2hIq8^spf2"
+          }
+        }
+      },
+      "activateAccount": {
+        "type": "object",
+        "properties": {
+          "activationToken": {
+            "type": "string",
+            "required": true,
+            "description": "jwt token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+          }
+        }
+      },
+      "resendActivationToken": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "required": true,
+            "example": "john@onlinelibrary.com"
+          }
+        }
+      },
+      "login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "required": true,
+            "example": "john@onlinelibrary.com"
+          },
+          "password": {
+            "type": "string",
+            "required": true,
+            "example": "2hIq8^spf2"
+          }
+        }
+      },
+      "loginWithFacebook": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "required": true,
+            "example": "John"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "required": true,
+            "example": "john@onlinelibrary.com"
+          },
+          "access_token": {
+            "type": "string",
+            "required": true,
+            "description": "Access token generated with FB auth",
+            "example": "EAAG6VehVAPMBAK30w7QenD65zUARr9d4P3yQf44X5anasd6QnjtEtXH2c7TG234fsBMchb4Pe"
+          }
+        }
+      },
+      "recoverPassword": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "required": true,
+            "example": "john@onlinelibrary.com"
+          }
+        }
+      },
+      "checkPasswordToken": {
+        "type": "object",
+        "properties": {
+          "passwordToken": {
+            "type": "string",
+            "required": true,
+            "description": "jwt token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+          }
+        }
+      },
+      "changePassword": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string",
+            "required": true,
+            "example": "2hIq8^spf2"
+          },
+          "passwordToken": {
+            "type": "string",
+            "required": true,
+            "description": "jwt token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+          }
+        }
+      },
+      "purchaseBooksWithStripe": {
+        "type": "object",
+        "properties": {
+          "paymentId": {
+            "type": "string",
+            "required": true,
+            "description": "Payment method id, created with stripejs package on the client side",
+            "example": "pm_1LeJuTCA0Hw88eOYpY9kEDWK"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "Array of book ids to purchase",
+            "example": [
+              1,
+              5,
+              9,
+              11
+            ]
+          }
+        }
+      },
+      "createPayPalPayment": {
+        "type": "object",
+        "properties": {
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "Array of book ids to purchase",
+            "example": [
+              1,
+              5,
+              9,
+              11
+            ]
+          }
+        }
+      },
+      "executePayPalPayment": {
+        "type": "object",
+        "properties": {
+          "paymentId": {
+            "type": "string",
+            "required": true,
+            "description": "Payment id generated after submitting paypal checkout",
+            "example": "PAYID-MMKLWRQ82689537V0194325L"
+          },
+          "PayerID": {
+            "type": "string",
+            "required": true,
+            "description": "Payer id generated after submitting paypal checkout",
+            "example": "KVYVDZAMZGRRA"
+          }
+        }
+      },
+      "getSuggestionsByTitle": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "required": true,
+            "description": "Title to search for",
+            "example": "Let it Be"
+          },
+          "withProfile": {
+            "type": "boolean",
+            "required": true,
+            "description": "If true, it searches books assigned to the user. Otherwise searches in the whole store"
+          }
+        }
+      },
+      "getSuggestionsByAuthor": {
+        "type": "object",
+        "properties": {
+          "author": {
+            "type": "string",
+            "required": true,
+            "description": "Author to search for",
+            "example": "Craig Nicolas"
+          },
+          "withProfile": {
+            "type": "boolean",
+            "required": true,
+            "description": "If true, it searches books assigned to the user. Otherwise searches in the whole store"
+          }
+        }
+      }
     },
-    "email": {
-      "type": "string",
-      "example": "john@example.com"
-    },
-    "password": {
-      "type": "string",
-      "example": "Sp2mc$10#F"
-    },
-    "jwt": {
-      "type": "string",
-      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-    },
-    "access_token": {
-      "type": "string",
-      "example": "EAAG6VehVAPMBAK30w7QenD65zUARr9d4P3yQf44X5anasd6QnjtEtXH2c7TG234fsBMchb4Pe"
-    },
-    "boolean": {
-      "type": "string",
-      "example": "true"
-    },
-    "plain": {
-      "type": "string",
-      "example": "plain text"
-    },
-    "stripePaymentId": {
-      "type": "string",
-      "example": "pm_1LeJuTCA0Hw88eOYpY9kEDWK"
-    },
-    "paypalPaymentId": {
-      "type": "string",
-      "example": "PAYID-MMKLWRQ82689537V0194325L"
-    },
-    "paypalPayerID": {
-      "type": "string",
-      "example": "KVYVDZAMZGRRA"
-    },
-    "products": {
-      "type": "string",
-      "example": "[1,5,9,11]"
+    "securitySchemes": {
+      "token": {
+        "in": "cookie",
+        "name": "token",
+        "type": "apiKey",
+        "description": "Auth token (jwt) generated with /login or /loginWithFacebook"
+      }
     }
   }
 }

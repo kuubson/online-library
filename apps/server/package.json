@@ -7,7 +7,7 @@
       "check": "eslint . && tsc --noEmit",
       "test": "",
       "build": "tsc && copyfiles gql/**/**/*.gql dist/server",
-      "docs": "npx ts-node swagger.ts"
+      "docs": "npx ts-node swagger/swagger.ts"
    },
    "dependencies": {
       "@graphql-tools/load-files": "^6.6.1",

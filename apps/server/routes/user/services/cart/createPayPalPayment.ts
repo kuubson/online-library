@@ -3,11 +3,9 @@ import paypal from 'paypal-rest-sdk'
 
 import { API, ApiError, yup } from 'online-library'
 
-import { Book } from 'database'
-
 import { yupValidation } from 'middlewares'
 
-import { totalBooksPrice } from 'helpers'
+import { totalBooksPrice, verifyPurchasingBooks } from 'helpers'
 
 import { baseUrl } from 'utils'
 
@@ -23,17 +21,11 @@ export const createPayPalPayment: ProtectedRoute<Body<typeof schema>> = [
       try {
          const { products } = req.body
 
-         const userBooks = await req.user
-            .getBooks({ where: { id: products } })
-            .then(books => books.map(({ id }) => id))
-
-         const books = await Book.findAll({ where: { id: products } }).then(books =>
-            books.filter(({ id }) => !userBooks.includes(id))
-         )
-
-         if (!books.length) {
-            throw new ApiError(header, post[409], 409)
-         }
+         const { books } = await verifyPurchasingBooks({
+            user: req.user,
+            products,
+            path: API.createPayPalPayment,
+         })
 
          const description = books.map(({ title }) => title).join(', ')
 
@@ -80,7 +72,7 @@ export const createPayPalPayment: ProtectedRoute<Body<typeof schema>> = [
 
                await req.user.createPayment({
                   paymentId: payment.id,
-                  products: products.join(),
+                  products: products?.join() || '', // TODO: yup array of required numbers return "number | undefined"
                })
 
                res.send({ link: approvalLink.href })

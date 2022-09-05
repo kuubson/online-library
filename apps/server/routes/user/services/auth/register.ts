@@ -44,7 +44,7 @@ export const register: Route<Body<typeof schema>> = [
                { transaction }
             )
 
-            await createdUser.createAuthentication({ activationToken })
+            await createdUser.createAuthentication({ activationToken }, { transaction })
 
             try {
                await transporter.sendMail({

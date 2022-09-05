@@ -1,7 +1,4 @@
 {
    "ext": "ts,gql",
-   "ignore": ["./database/generated/"],
-   "events": {
-      "restart": "npm run docs"
-   }
+   "ignore": ["./database/generated/"]
 }

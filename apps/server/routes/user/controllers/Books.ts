@@ -6,30 +6,24 @@ export const Books = Router()
 
 Books.post(
    /*
-   `  #swagger.tags = ['Books']
       #swagger.description = `
-         ✅ Suggest books by searched author or title <br />
+         ✅ Suggest books by author or title <br />
+         ✅ Searches either books assigned to the user or from the whole store <br />
       `
-      #swagger.parameters['title'] = {
-         in: 'body',
-         description: 'Title to search for',
-         required: 'false',
-         schema: { $ref: '#/definitions/plain' }
-      } 
-      #swagger.parameters['author'] = {
-         in: 'body',
-         description: 'Author to search for',
-         required: 'false',
-         schema: { $ref: '#/definitions/plain' }
-      } 
-      #swagger.parameters['withProfile'] = {
-         in: 'body',
-         description: 'Flag that decides if suggest global books or books of certain user',
-         required: 'true',
-         schema: { $ref: '#/definitions/boolean' }
+      #swagger.requestBody = {
+         required: true,
+         schema: {
+            oneOf: [
+               { $ref: "#/definitions/getSuggestionsByTitle" },
+               { $ref: "#/definitions/getSuggestionsByAuthor" }
+            ],
+         }
       }
-      #swagger.security = [{ "token": [] }] 
-    */
+      #swagger.responses[200] = {
+         description: 'Returns array of books that meet certain title or author',
+         schema: [{ $ref: '#/definitions/book' }]
+      }  
+*/
    '/getSuggestions',
    ...getSuggestions
 )
