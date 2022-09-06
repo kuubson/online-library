@@ -1,30 +1,14 @@
+import { mapValues } from 'lodash'
+
+import type { Errors, Paths, PropertiesOfPathMethods } from '../types'
+
 import swagger from './swagger.json'
 import { yup } from './yup'
 
-type Paths = typeof swagger.paths
-
-type Errors = {
-   [Method in keyof Paths]: {
-      [Property in keyof Paths[Method]]: Paths[Method][Property] extends { responses: object }
-         ? Record<keyof Paths[Method][Property]['responses'], string>
-         : undefined
-   }
-}
-
-const errors = Object.fromEntries(
-   Object.entries(swagger.paths).map(([path, methods]) => {
-      const errors = Object.fromEntries(
-         Object.entries(methods).map(([method, { responses }]) => {
-            const codes = Object.fromEntries(
-               Object.entries(responses).map(([code, { description }]: any) => {
-                  return [code, description]
-               })
-            )
-            return [method, codes]
-         })
-      )
-      return [path, errors]
-   })
+const errors = mapValues(swagger.paths, paths =>
+   mapValues(paths, ({ responses }: PropertiesOfPathMethods) =>
+      mapValues(responses, ({ description }: { description: string }) => description)
+   )
 ) as Errors
 
 const getPathInfo = <Path extends keyof Paths>(path: Path) => ({
