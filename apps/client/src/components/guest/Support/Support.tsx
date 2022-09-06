@@ -1,8 +1,6 @@
-import styled from 'styled-components/macro'
+import * as SharedStyled from 'components/shared/styled'
 
-import { RegistrationContainer } from 'components/guest/Registration/Registration'
-import { HomeButton, Input } from 'components/guest/Registration/modules'
-import * as StyledRegistration from 'components/guest/Registration/styled'
+import { HomeButton, Input } from 'components/shared'
 
 import { useSupport } from './hooks'
 
@@ -13,9 +11,9 @@ type SupportProps = {
 export const Support = ({ withPasswordSupport }: SupportProps) => {
    const { handleSupport, control, errors } = useSupport(withPasswordSupport)
    return (
-      <UserSupportContainer>
+      <SharedStyled.GuestContent>
          <HomeButton withReturnButton />
-         <StyledRegistration.Form onSubmit={handleSupport}>
+         <SharedStyled.Form onSubmit={handleSupport}>
             <Input
                {...{ control }}
                id="email"
@@ -24,12 +22,10 @@ export const Support = ({ withPasswordSupport }: SupportProps) => {
                placeholder="Type your email address..."
                error={errors.email?.message}
             />
-            <StyledRegistration.Submit>
+            <SharedStyled.Submit>
                {withPasswordSupport ? 'Recover password' : 'Resend e-mail'}
-            </StyledRegistration.Submit>
-         </StyledRegistration.Form>
-      </UserSupportContainer>
+            </SharedStyled.Submit>
+         </SharedStyled.Form>
+      </SharedStyled.GuestContent>
    )
 }
-
-const UserSupportContainer = styled(RegistrationContainer)``

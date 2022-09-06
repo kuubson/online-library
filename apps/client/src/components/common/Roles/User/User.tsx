@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 
-import { Menu } from 'components/shared'
+import { RoleContainer } from 'components/shared/styled'
 
-import { GuestContainer } from 'components/shared/roles/Guest/Guest'
+import { Menu } from 'components/shared'
 
 import { useUser } from './hooks'
 
@@ -20,14 +20,14 @@ export const User = ({ children, withChat }: UserProps) => {
    return (
       <>
          <Menu options={options} _setShouldMenuExpand={_setShouldMenuExpand} />
-         <UserContainer>
+         <UserContent>
             {React.cloneElement(children as JSX.Element, { shouldMenuExpand })}
-         </UserContainer>
+         </UserContent>
       </>
    )
 }
 
-const UserContainer = styled(GuestContainer)`
+const UserContent = styled(RoleContainer)`
    height: auto;
    min-height: 100%;
 `

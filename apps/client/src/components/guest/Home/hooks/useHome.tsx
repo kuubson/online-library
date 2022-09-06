@@ -1,10 +1,8 @@
 import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import styled from 'styled-components/macro'
 
 import { API } from 'online-library'
 
-import { HomeContainer } from 'components/guest/Home/Home'
+import { useQueryParams } from 'hooks'
 
 import { setApiFeedback } from 'helpers'
 
@@ -12,15 +10,12 @@ import { axios, history } from 'utils'
 
 const { header, url, post } = API.activateAccount
 
-export const Activation = () => {
-   const { activationToken } = useParams()
+export const useHome = () => {
+   const { activationToken } = useQueryParams()
 
    useEffect(() => {
       const activateAccount = async () => {
          try {
-            if (!activationToken) {
-               return history.push('/login')
-            }
             await axios.post(url, { activationToken }).then(() => {
                setApiFeedback(header, post[200], 'Okey', () => history.push('/login'))
             })
@@ -28,10 +23,8 @@ export const Activation = () => {
             history.push('/login')
          }
       }
-      activateAccount()
+      if (activationToken) {
+         activateAccount()
+      }
    }, [activationToken])
-
-   return <ActivationContainer />
 }
-
-const ActivationContainer = styled(HomeContainer)``

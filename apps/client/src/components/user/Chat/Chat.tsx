@@ -2,10 +2,7 @@ import React, { useRef, useState } from 'react'
 import styled, { css } from 'styled-components/macro'
 
 import * as Styled from './styled'
-
-import { StoreContainer } from 'components/user/Store/Store'
-import { Warning } from 'components/user/Store/modules/Books/styled'
-import * as StyledStore from 'components/user/Store/styled'
+import { Button, UserContent, Warning } from 'components/shared/styled'
 
 import { Messages, ProgressLoader } from './modules'
 
@@ -101,12 +98,12 @@ export const Chat = ({ shouldMenuExpand }: ChatProps) => {
             {fileUploadInProgess ? (
                <ProgressLoader percentage={percentage} />
             ) : (
-               <StyledStore.Button as="label" htmlFor="file" withChat>
+               <Button as="label" htmlFor="file" withChat>
                   Upload file
-               </StyledStore.Button>
+               </Button>
             )}
             {showFileInput && <Styled.FileInput onChange={sendFile} />}
-            <StyledStore.Button
+            <Button
                onClick={() => {
                   sendMessage()
                   if (detectMobileDevice()) {
@@ -116,7 +113,7 @@ export const Chat = ({ shouldMenuExpand }: ChatProps) => {
                withChat
             >
                Send
-            </StyledStore.Button>
+            </Button>
          </Styled.TextareaContainer>
       </ChatContainer>
    )
@@ -126,7 +123,7 @@ type ChatContainerProps = {
    areThereMessages?: boolean
 }
 
-const ChatContainer = styled(StoreContainer)<ChatContainerProps>`
+const ChatContainer = styled(UserContent)<ChatContainerProps>`
    ${({ areThereMessages }) =>
       areThereMessages
          ? css`

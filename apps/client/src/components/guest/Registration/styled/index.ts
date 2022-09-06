@@ -1,7 +1,2 @@
 export { Annotation } from './Annotation'
 export { AnnotationsContainer } from './AnnotationsContainer'
-export { Error } from './Error'
-export { Form } from './Form'
-export { Input } from './Input'
-export { Label } from './Label'
-export { Submit } from './Submit'

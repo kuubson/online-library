@@ -4,7 +4,7 @@ import { queries } from 'styles'
 
 import * as Styled from './styled'
 
-import { Input } from 'components/guest/Registration/modules'
+import { Input } from 'components/shared'
 
 import { useBookSuggestions } from './hooks'
 

@@ -3,11 +3,10 @@ import { useEffect, useState } from 'react'
 import type { Book as BookType } from 'gql'
 
 import * as Styled from './styled'
-
-import { Book } from 'components/user/Store/modules'
-import { BookPopupContainer } from 'components/user/Store/modules/BookPopup/BookPopup'
+import { Button, PopupContainer } from 'components/shared/styled'
 import * as StyledBookPopup from 'components/user/Store/modules/BookPopup/styled'
-import * as StyledStore from 'components/user/Store/styled'
+
+import { Book } from 'components/shared'
 
 import type { SetBookPopupDataFn } from 'types'
 
@@ -37,7 +36,7 @@ export const BookPopup = ({
    }, [currentPage])
 
    return (
-      <BookPopupContainer>
+      <PopupContainer>
          <StyledBookPopup.ContentContainer withFlips>
             <Styled.BookContainer withFlips={opened} read={read}>
                {pages.map((_, index) => (
@@ -67,21 +66,17 @@ export const BookPopup = ({
                <StyledBookPopup.ButtonsContainer>
                   {opened ? (
                      <>
-                        <StyledStore.Button
-                           onClick={() => setCurrentPage(0)}
-                           notAbsolute
-                           withoutFixedWidth
-                        >
+                        <Button onClick={() => setCurrentPage(0)} notAbsolute withoutFixedWidth>
                            First page
-                        </StyledStore.Button>
-                        <StyledStore.Button
+                        </Button>
+                        <Button
                            onClick={() => setCurrentPage(currentPage => currentPage - 1)}
                            notAbsolute
                            withoutFixedWidth
                         >
                            Previous page
-                        </StyledStore.Button>
-                        <StyledStore.Button
+                        </Button>
+                        <Button
                            onClick={() => {
                               if (!read) {
                                  setCurrentPage(currentPage => currentPage + 1)
@@ -92,29 +87,29 @@ export const BookPopup = ({
                            withMarginLeft
                         >
                            Next page
-                        </StyledStore.Button>
+                        </Button>
                      </>
                   ) : (
                      <>
-                        <StyledStore.Button
+                        <Button
                            onClick={() => setCurrentPage(currentPage => currentPage + 1)}
                            notAbsolute
                            withoutFixedWidth
                         >
                            Read it
-                        </StyledStore.Button>
-                        <StyledStore.Button
+                        </Button>
+                        <Button
                            onClick={() => setBookPopupData(undefined)}
                            notAbsolute
                            withoutFixedWidth
                         >
                            Close
-                        </StyledStore.Button>
+                        </Button>
                      </>
                   )}
                </StyledBookPopup.ButtonsContainer>
             </StyledBookPopup.Content>
          </StyledBookPopup.ContentContainer>
-      </BookPopupContainer>
+      </PopupContainer>
    )
 }

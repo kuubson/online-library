@@ -1,8 +1,7 @@
-import styled from 'styled-components/macro'
-
-import { RegistrationContainer } from 'components/guest/Registration/Registration'
-import { HomeButton, Input } from 'components/guest/Registration/modules'
 import * as StyledRegistration from 'components/guest/Registration/styled'
+import * as SharedStyled from 'components/shared/styled'
+
+import { HomeButton, Input } from 'components/shared'
 
 import { useLogin } from './hooks'
 
@@ -11,9 +10,9 @@ import { history } from 'utils'
 export const Login = () => {
    const { login, loginWithFacebook, control, errors } = useLogin()
    return (
-      <LoginContainer>
+      <SharedStyled.GuestContent>
          <HomeButton />
-         <StyledRegistration.Form onSubmit={login}>
+         <SharedStyled.Form onSubmit={login}>
             <Input
                {...{ control }}
                id="email"
@@ -30,10 +29,10 @@ export const Login = () => {
                placeholder="Type your password..."
                error={errors.password?.message}
             />
-            <StyledRegistration.Submit>Login</StyledRegistration.Submit>
-            <StyledRegistration.Submit onClick={loginWithFacebook} withFacebook>
+            <SharedStyled.Submit>Login</SharedStyled.Submit>
+            <SharedStyled.Submit onClick={loginWithFacebook} withFacebook>
                Login with Facebook
-            </StyledRegistration.Submit>
+            </SharedStyled.Submit>
             <StyledRegistration.AnnotationsContainer>
                <StyledRegistration.Annotation onClick={() => history.push('/registration')}>
                   {"I don't have an account yet, go to registration page"}
@@ -42,9 +41,7 @@ export const Login = () => {
                   I forgot password
                </StyledRegistration.Annotation>
             </StyledRegistration.AnnotationsContainer>
-         </StyledRegistration.Form>
-      </LoginContainer>
+         </SharedStyled.Form>
+      </SharedStyled.GuestContent>
    )
 }
-
-const LoginContainer = styled(RegistrationContainer)``

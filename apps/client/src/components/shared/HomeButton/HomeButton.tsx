@@ -9,7 +9,7 @@ type HomeButtonProps = {
 }
 
 export const HomeButton = ({ withReturnButton }: HomeButtonProps) => (
-   <HomeButtonContainer onClick={() => (withReturnButton ? history.back() : history.push('/'))}>
+   <HomeButtonContainer onClick={() => (withReturnButton ? history.back() : history.push('/home'))}>
       {withReturnButton ? 'Return' : 'Home page'}
    </HomeButtonContainer>
 )

@@ -4,10 +4,9 @@ import styled, { css } from 'styled-components/macro'
 import type { Book as BookType } from 'gql'
 
 import * as Styled from './styled'
+import { Button } from 'components/shared/styled'
 
 import { useCart } from 'hooks'
-
-import * as StyledStore from '../../styled'
 
 type BookProps = {
    setBookPopupData?: ReactDispatch<BookType | undefined>
@@ -68,13 +67,13 @@ export const Book = ({
             <Styled.Annotation withTitle>{title}</Styled.Annotation>
          </Styled.AnnotationsContainer>
          {withCart ? (
-            <StyledStore.Button onClick={() => removeFromCart(id)} price={price}>
+            <Button onClick={() => removeFromCart(id)} price={price}>
                Remove
-            </StyledStore.Button>
+            </Button>
          ) : withProfile ? (
-            <StyledStore.Button onClick={handleBookPopup}>Open</StyledStore.Button>
+            <Button onClick={handleBookPopup}>Open</Button>
          ) : !withPopup ? (
-            <StyledStore.Button
+            <Button
                onClick={() => {
                   if (!inCart) {
                      handleBookPopup()
@@ -84,13 +83,13 @@ export const Book = ({
                withoutHover={inCart}
             >
                {price ? (inCart ? 'In cart' : 'Buy') : 'Borrow'}
-            </StyledStore.Button>
+            </Button>
          ) : (
             withPopup &&
             price && (
-               <StyledStore.Button price={price} withoutHover>
+               <Button price={price} withoutHover>
                   Price
-               </StyledStore.Button>
+               </Button>
             )
          )}
       </BookContainer>

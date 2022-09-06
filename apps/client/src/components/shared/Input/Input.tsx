@@ -3,7 +3,8 @@ import styled, { css } from 'styled-components/macro'
 
 import { queries } from 'styles'
 
-import * as Styled from '../styled'
+import * as Styled from './styled'
+import { Error } from 'components/shared/styled'
 
 type InputProps = {
    control: any
@@ -39,7 +40,7 @@ export const Input = ({
             />
          )}
       />
-      {error && <Styled.Error>{error}</Styled.Error>}
+      {error && <Error>{error}</Error>}
    </InputContainer>
 )
 

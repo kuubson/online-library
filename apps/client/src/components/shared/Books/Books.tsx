@@ -7,9 +7,9 @@ import { queries } from 'styles'
 import { fadeIn } from 'assets/animations'
 
 import * as Styled from './styled'
+import * as SharedStyled from 'components/shared/styled'
 
-import { Book } from 'components/user/Store/modules'
-import * as StyledStore from 'components/user/Store/styled'
+import { Book } from 'components/shared'
 
 type BooksProps = {
    books: BookType[]
@@ -48,17 +48,17 @@ export const Books = ({
          fullWidth={fullWidth}
       >
          {areThereBooks && (
-            <StyledStore.HeaderContainer withoutInput={withoutInput}>
+            <SharedStyled.HeaderContainer withoutInput={withoutInput}>
                {header && (
-                  <StyledStore.Header
+                  <SharedStyled.Header
                      withMoreMarginBottom={!!searchInput}
                      withPaddingRight={!!searchInput}
                   >
                      {header}
-                  </StyledStore.Header>
+                  </SharedStyled.Header>
                )}
                {searchInput && searchInput()}
-            </StyledStore.HeaderContainer>
+            </SharedStyled.HeaderContainer>
          )}
          <Styled.Books empty={!areThereBooks}>
             {areThereBooks ? (
@@ -76,12 +76,12 @@ export const Books = ({
                   />
                ))
             ) : (
-               <Styled.Warning>{error}</Styled.Warning>
+               <SharedStyled.Warning>{error}</SharedStyled.Warning>
             )}
             {books.length >= 10 && hasMore && !withCart && (
-               <StyledStore.Button onClick={loadMore} notAbsolute withLoadMore>
+               <SharedStyled.Button onClick={loadMore} notAbsolute withLoadMore>
                   Load more
-               </StyledStore.Button>
+               </SharedStyled.Button>
             )}
          </Styled.Books>
       </BooksContainer>
