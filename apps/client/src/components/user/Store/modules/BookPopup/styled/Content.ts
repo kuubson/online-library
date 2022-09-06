@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 type StyledProps = {
    withoutMargin?: boolean
    withFlips?: boolean
@@ -29,7 +31,7 @@ export const Content = styled.div<StyledProps>`
          ? css`
               height: auto;
               margin-top: 80px !important;
-              @media (max-width: 500px) {
+              @media ${queries.smallTablet} {
                  margin-top: 50px !important;
               }
            `

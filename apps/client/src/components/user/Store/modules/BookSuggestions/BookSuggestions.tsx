@@ -1,5 +1,7 @@
 import styled from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 import * as Styled from './styled'
 
 import { Input } from 'components/guest/Registration/modules'
@@ -63,7 +65,7 @@ const BookSuggestionsContainer = styled.div`
    justify-content: center;
    align-items: center;
    position: relative;
-   @media (max-width: 1100px) {
+   @media ${queries.mediumDesktop} {
       width: 100%;
    }
 `

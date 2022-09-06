@@ -1,18 +1,20 @@
 import styled from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 export const Suggestion = styled.li`
    color: black;
    padding: 15px;
    font-weight: bold;
    font-size: 14px;
    cursor: pointer;
-   @media (max-width: 1200px) {
+   @media ${queries.largeDesktop} {
       font-size: 13px;
    }
-   @media (max-width: 900px) {
+   @media ${queries.smallDesktop} {
       font-size: 12px;
    }
-   @media (max-width: 600px) {
+   @media ${queries.tablet} {
       font-size: 11px;
    }
 `

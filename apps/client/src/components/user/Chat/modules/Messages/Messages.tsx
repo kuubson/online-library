@@ -2,6 +2,8 @@
 import React, { forwardRef } from 'react'
 import styled from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 import { fadeIn } from 'assets/animations'
 
 import { Message } from '../'
@@ -48,7 +50,7 @@ const MessagesContainer = styled.div`
    ::-webkit-scrollbar {
       display: none;
    }
-   @media (max-width: 800px) {
+   @media ${queries.largeTablet} {
       height: calc(100vh - 225px);
    }
 `

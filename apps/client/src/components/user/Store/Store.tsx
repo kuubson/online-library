@@ -3,6 +3,8 @@ import styled from 'styled-components/macro'
 
 import type { Book } from 'gql'
 
+import { queries } from 'styles'
+
 import { BookPopup, BookSuggestions, Books } from './modules'
 
 import { useStore } from './hooks'
@@ -106,10 +108,10 @@ export const StoreContainer = styled.section<StoreContainerProps>`
    justify-content: center;
    align-items: flex-start;
    transition: padding 0.4s ease-in-out;
-   @media (min-width: 800px) {
+   @media ${queries.minLargeTablet} {
       padding: 130px 20px 20px 20px;
    }
-   @media (max-width: 800px) {
+   @media ${queries.largeTablet} {
       flex-direction: column;
       padding: ${({ shouldMenuExpand }) =>
          shouldMenuExpand ? '330px 20px 20px 20px' : '120px 20px 20px 20px'};

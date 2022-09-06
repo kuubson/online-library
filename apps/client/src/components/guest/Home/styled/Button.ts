@@ -1,5 +1,7 @@
 import styled from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 export const Button = styled.button`
    width: 200px;
    padding: 15px 0px;
@@ -14,10 +16,10 @@ export const Button = styled.button`
    :last-of-type {
       margin-top: 15px;
    }
-   @media (max-width: 1200px) {
+   @media ${queries.largeDesktop} {
       font-size: 13px;
    }
-   @media (max-width: 1100px) {
+   @media ${queries.mediumDesktop} {
       width: 180px;
       font-size: 12px;
    }

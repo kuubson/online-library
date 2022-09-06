@@ -1,5 +1,7 @@
 import styled from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 export const Error = styled.p`
    color: red;
    font-size: 12px;
@@ -9,10 +11,10 @@ export const Error = styled.p`
    &::first-letter {
       text-transform: capitalize;
    }
-   @media (max-width: 1000px) {
+   @media ${queries.desktop} {
       font-size: 11px;
    }
-   @media (max-width: 500px) {
+   @media ${queries.smallTablet} {
       font-size: 10px;
    }
 `

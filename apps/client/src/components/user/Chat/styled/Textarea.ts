@@ -1,5 +1,7 @@
 import styled from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 export const Textarea = styled.textarea`
    width: 100%;
    height: 100%;
@@ -13,7 +15,7 @@ export const Textarea = styled.textarea`
    ::-webkit-scrollbar {
       display: none;
    }
-   @media (max-width: 800px) {
+   @media ${queries.largeTablet} {
       font-size: 11px;
       letter-spacing: 1px;
    }

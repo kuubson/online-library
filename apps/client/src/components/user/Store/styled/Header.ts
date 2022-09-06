@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 type StyledProps = {
    withMoreMarginBottom?: boolean
    withPaddingRight?: boolean
@@ -11,19 +13,19 @@ export const Header = styled.h2<StyledProps>`
    font-size: 22px;
    line-height: 1.5;
    font-weight: bold;
-   @media (max-width: 1200px) {
+   @media ${queries.largeDesktop} {
       font-size: 20px;
    }
-   @media (max-width: 900px) {
+   @media ${queries.smallDesktop} {
       font-size: 18px;
    }
-   @media (max-width: 600px) {
+   @media ${queries.tablet} {
       font-size: 16px;
    }
    ${({ withMoreMarginBottom }) =>
       withMoreMarginBottom
          ? css`
-              @media (max-width: 1100px) {
+              @media ${queries.mediumDesktop} {
                  margin-bottom: 20px;
               }
            `
@@ -32,7 +34,7 @@ export const Header = styled.h2<StyledProps>`
       withPaddingRight
          ? css`
               padding-right: 30px;
-              @media (max-width: 1100px) {
+              @media ${queries.mediumDesktop} {
                  padding-right: 0px;
               }
            `
@@ -45,13 +47,13 @@ export const Header = styled.h2<StyledProps>`
               white-space: pre-line;
               font-size: 18px;
               font-weight: initial;
-              @media (max-width: 1200px) {
+              @media ${queries.largeDesktop} {
                  font-size: 17px;
               }
-              @media (max-width: 900px) {
+              @media ${queries.smallDesktop} {
                  font-size: 16px;
               }
-              @media (max-width: 600px) {
+              @media ${queries.tablet} {
                  font-size: 15px;
               }
            `

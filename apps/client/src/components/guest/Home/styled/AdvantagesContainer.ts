@@ -1,5 +1,7 @@
 import styled from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 export const AdvantagesContainer = styled.ul`
    height: 100%;
    padding: 30px 0px;
@@ -7,7 +9,7 @@ export const AdvantagesContainer = styled.ul`
    justify-content: space-around;
    align-items: center;
    flex-direction: column;
-   @media (max-width: 900px) {
+   @media ${queries.smallDesktop} {
       display: none;
    }
 `

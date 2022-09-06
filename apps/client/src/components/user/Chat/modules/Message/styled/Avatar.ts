@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 type StyledProps = {
    withCurrentUser?: boolean
 }
@@ -19,7 +21,7 @@ export const Avatar = styled.div<StyledProps>`
    position: absolute;
    bottom: -2px;
    right: -50px;
-   @media (max-width: 800px) {
+   @media ${queries.largeTablet} {
       width: 30px;
       height: 30px;
       right: -40px;
@@ -28,7 +30,7 @@ export const Avatar = styled.div<StyledProps>`
       withCurrentUser
          ? css`
               left: -70px;
-              @media (max-width: 800px) {
+              @media ${queries.largeTablet} {
                  left: -55px;
               }
            `

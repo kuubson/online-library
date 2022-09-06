@@ -1,5 +1,7 @@
 import styled from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 export const Annotation = styled.p`
    font-size: 13px;
    font-weight: bold;
@@ -7,10 +9,10 @@ export const Annotation = styled.p`
    padding: 0px 20%;
    line-height: 1.5;
    cursor: pointer;
-   @media (max-width: 1000px) {
+   @media ${queries.desktop} {
       font-size: 12px;
    }
-   @media (max-width: 500px) {
+   @media ${queries.smallTablet} {
       font-size: 11px;
    }
    :last-of-type {

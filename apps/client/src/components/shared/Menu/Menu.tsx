@@ -1,6 +1,8 @@
 import { useLocation } from 'react-router'
 import styled, { css } from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 import * as Styled from './styled'
 
 import { useMenu } from './hooks'
@@ -71,7 +73,7 @@ const MenuContainer = styled.nav<MenuContainerProps>`
    top: 20px;
    left: 20px;
    right: 20px;
-   @media (max-width: 800px) {
+   @media ${queries.largeTablet} {
       height: 80px;
       padding: 0px 25px 0px 20px;
    }

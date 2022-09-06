@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 type StyledProps = {
    shouldMenuExpand?: boolean
 }
@@ -9,7 +11,7 @@ export const LinesContainer = styled.div<StyledProps>`
    cursor: pointer;
    position: relative;
    transition: 0.5s ease-in-out;
-   @media (max-width: 800px) {
+   @media ${queries.largeTablet} {
       display: block;
    }
    ${({ shouldMenuExpand }) =>

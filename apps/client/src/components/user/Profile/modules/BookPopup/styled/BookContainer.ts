@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 type StyledProps = {
    withFlips?: boolean
    read?: boolean
@@ -10,11 +12,11 @@ export const BookContainer = styled.div<StyledProps>`
    height: 400px;
    perspective: 1000px;
    transition: transform 1s ease-in-out, width 0.5s ease-in-out, height 0.5s ease-in-out;
-   @media (max-width: 700px) {
+   @media ${queries.mediumTablet} {
       width: 350px;
       height: 300px;
    }
-   @media (max-width: 500px) {
+   @media ${queries.smallTablet} {
       width: 250px;
    }
    ${({ withFlips }) =>
@@ -22,16 +24,16 @@ export const BookContainer = styled.div<StyledProps>`
          ? css`
               transform: translateX(50%);
               width: 450px;
-              @media (max-width: 1000px) {
+              @media ${queries.desktop} {
                  width: 90%;
               }
-              @media (max-width: 900px) {
+              @media ${queries.smallDesktop} {
                  width: 60%;
               }
-              @media (max-width: 700px) {
+              @media ${queries.mediumTablet} {
                  width: 60%;
               }
-              @media (max-width: 600px) {
+              @media ${queries.tablet} {
                  width: 55%;
               }
            `
@@ -40,11 +42,11 @@ export const BookContainer = styled.div<StyledProps>`
       read
          ? css`
               transform: translateX(100%);
-              @media (max-width: 700px) {
+              @media ${queries.mediumTablet} {
                  width: 350px;
                  height: 300px;
               }
-              @media (max-width: 500px) {
+              @media ${queries.smallTablet} {
                  width: 250px;
               }
            `

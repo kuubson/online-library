@@ -1,5 +1,7 @@
 import styled from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 export const PayPalButton = styled.button`
    background: ${({ theme }) => theme.payPalColor};
    border-radius: 15px;
@@ -13,10 +15,10 @@ export const PayPalButton = styled.button`
    :hover {
       transform: scale(1.03);
    }
-   @media (max-width: 1000px) {
+   @media ${queries.desktop} {
       font-size: 13px;
    }
-   @media (max-width: 500px) {
+   @media ${queries.smallTablet} {
       font-size: 12px;
    }
 `

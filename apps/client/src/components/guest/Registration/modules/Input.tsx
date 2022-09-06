@@ -1,6 +1,8 @@
 import { Controller } from 'react-hook-form'
 import styled, { css } from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 import * as Styled from '../styled'
 
 type InputProps = {
@@ -51,13 +53,13 @@ const InputContainer = styled.div<InputContainerProps>`
    :last-of-type {
       margin-bottom: 0px;
    }
-   @media (max-width: 1000px) {
+   @media ${queries.desktop} {
       width: 70%;
    }
    ${({ withBooksSuggestions }) =>
       withBooksSuggestions
          ? css`
-              @media (max-width: 1100px) {
+              @media ${queries.mediumDesktop} {
                  width: 100%;
               }
            `

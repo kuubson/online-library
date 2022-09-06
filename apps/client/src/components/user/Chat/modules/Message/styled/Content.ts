@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 type StyledProps = {
    withCurrentUser?: boolean
    withLastUserMessage?: boolean
@@ -19,10 +21,10 @@ export const Content = styled.div<StyledProps>`
    color: white;
    background: rgba(0, 136, 255, 0.4);
    position: relative;
-   @media (max-width: 1000px) {
+   @media ${queries.desktop} {
       font-size: 14px;
    }
-   @media (max-width: 700px) {
+   @media ${queries.mediumTablet} {
       font-size: 13px;
    }
    ${({ withCurrentUser }) =>

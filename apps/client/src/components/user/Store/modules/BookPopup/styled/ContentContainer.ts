@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 type StyledProps = {
    withLessHeight?: boolean
    isKeyboardOpened?: boolean
@@ -19,11 +21,11 @@ export const ContentContainer = styled.div<StyledProps>`
       height: 80%;
       flex-direction: column;
    }
-   @media (max-width: 900px) {
+   @media ${queries.smallDesktop} {
       width: 80%;
       height: 80%;
    }
-   @media (max-width: 600px) {
+   @media ${queries.tablet} {
       width: 90%;
       height: 90%;
    }
@@ -31,7 +33,7 @@ export const ContentContainer = styled.div<StyledProps>`
       withLessHeight
          ? css`
               height: 50% !important;
-              @media (max-width: 600px) {
+              @media ${queries.tablet} {
                  height: 60% !important;
               }
            `
@@ -40,7 +42,7 @@ export const ContentContainer = styled.div<StyledProps>`
       isKeyboardOpened
          ? css`
               height: 80% !important;
-              @media (max-width: 600px) {
+              @media ${queries.tablet} {
                  height: 80% !important;
               }
            `

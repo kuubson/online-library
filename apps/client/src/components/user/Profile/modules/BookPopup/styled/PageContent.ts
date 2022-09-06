@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 type StyledProps = {
    back?: boolean
 }
@@ -18,13 +20,13 @@ export const PageContent = styled.div<StyledProps>`
    justify-content: center;
    align-items: center;
    flex-direction: column;
-   @media (max-width: 1200px) {
+   @media ${queries.largeDesktop} {
       font-size: 14px;
    }
-   @media (max-width: 900px) {
+   @media ${queries.smallDesktop} {
       font-size: 13px;
    }
-   @media (max-width: 600px) {
+   @media ${queries.tablet} {
       font-size: 12px;
    }
    ${({ back }) =>

@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 type StyledProps = {
    shouldMenuExpand?: boolean
 }
@@ -9,7 +11,7 @@ export const OptionsContainer = styled.ul<StyledProps>`
    justify-content: center;
    align-items: center;
    transition: height 0.4s ease-in-out;
-   @media (max-width: 800px) {
+   @media ${queries.largeTablet} {
       width: 100%;
       height: 0px;
       overflow: hidden;

@@ -1,5 +1,7 @@
 import styled from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 import { history } from 'utils'
 
 type HomeButtonProps = {
@@ -24,11 +26,11 @@ const HomeButtonContainer = styled.button`
    @media (max-width: 1250px) {
       font-size: 12px;
    }
-   @media (max-width: 1000px) {
+   @media ${queries.desktop} {
       font-size: 11px;
       padding: 0px 25px;
    }
-   @media (max-width: 500px) {
+   @media ${queries.smallTablet} {
       font-size: 10px;
       padding: 0px 22px;
    }

@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 type StyledProps = {
    withLessMarginTop?: boolean
    withFacebook?: boolean
@@ -20,10 +22,10 @@ export const Submit = styled.button<StyledProps>`
    :first-of-type {
       margin: 45px auto 0px auto;
    }
-   @media (max-width: 1000px) {
+   @media ${queries.desktop} {
       font-size: 13px;
    }
-   @media (max-width: 500px) {
+   @media ${queries.smallTablet} {
       font-size: 12px;
    }
    ${({ withLessMarginTop }) =>

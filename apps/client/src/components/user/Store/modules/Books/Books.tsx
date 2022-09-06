@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components/macro'
 
 import type { Book as BookType } from 'gql'
 
+import { queries } from 'styles'
+
 import { fadeIn } from 'assets/animations'
 
 import * as Styled from './styled'
@@ -96,19 +98,19 @@ const BooksContainer = styled.div<BooksContainerProps>`
    width: 55%;
    margin-top: 20px;
    animation: ${fadeIn} 0.4s ease-in-out;
-   @media (max-width: 800px) {
+   @media ${queries.largeTablet} {
       width: 100%;
    }
    ${({ withMarginRight }) =>
       withMarginRight
          ? css`
               margin-right: 20px;
-              @media (max-width: 800px) {
+              @media ${queries.largeTablet} {
                  margin-right: 0px;
               }
            `
          : css`
-              @media (max-width: 800px) {
+              @media ${queries.largeTablet} {
                  margin-top: 35px;
               }
            `}

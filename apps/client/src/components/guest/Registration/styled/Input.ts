@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 type StyledProps = {
    withBooksSuggestions?: boolean
 }
@@ -13,10 +15,10 @@ export const Input = styled.input<StyledProps>`
    ::placeholder {
       color: white;
    }
-   @media (max-width: 1000px) {
+   @media ${queries.desktop} {
       font-size: 12px;
    }
-   @media (max-width: 500px) {
+   @media ${queries.smallTablet} {
       font-size: 11px;
    }
    ${({ withBooksSuggestions }) =>

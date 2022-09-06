@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components/macro'
 
 import type { Book } from 'gql'
 
+import { queries } from 'styles'
+
 type StyledProps = {
    price?: Book['price']
    notAbsolute?: boolean
@@ -25,10 +27,10 @@ export const Button = styled.button<StyledProps>`
    :hover {
       transform: translate(-50%, 0px) scale(1.03);
    }
-   @media (max-width: 900px) {
+   @media ${queries.smallDesktop} {
       font-size: 12px;
    }
-   @media (max-width: 600px) {
+   @media ${queries.tablet} {
       font-size: 11px;
    }
    ${({ price }) =>
@@ -99,7 +101,7 @@ export const Button = styled.button<StyledProps>`
               margin-right: 10px;
               letter-spacing: 1px;
               cursor: pointer;
-              @media (max-width: 800px) {
+              @media ${queries.largeTablet} {
                  font-size: 10px;
               }
               :hover {

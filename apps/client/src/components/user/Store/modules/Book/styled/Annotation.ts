@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 type StyledProps = {
    withTitle?: boolean
 }
@@ -13,10 +15,10 @@ export const Annotation = styled.p<StyledProps>`
    overflow: hidden;
    text-overflow: ellipsis;
    text-shadow: -1px 0px black;
-   @media (max-width: 900px) {
+   @media ${queries.smallDesktop} {
       font-size: 14px;
    }
-   @media (max-width: 600px) {
+   @media ${queries.tablet} {
       font-size: 13px;
    }
    ${({ withTitle }) =>
@@ -26,10 +28,10 @@ export const Annotation = styled.p<StyledProps>`
               font-weight: initial;
               font-size: 13px;
               margin-top: 10px;
-              @media (max-width: 900px) {
+              @media ${queries.smallDesktop} {
                  font-size: 12px;
               }
-              @media (max-width: 600px) {
+              @media ${queries.tablet} {
                  font-size: 11px;
               }
            `

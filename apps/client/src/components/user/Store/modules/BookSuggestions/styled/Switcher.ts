@@ -1,5 +1,7 @@
 import styled from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 export const Switcher = styled.button`
    width: 100px;
    font-size: 11px;
@@ -13,10 +15,10 @@ export const Switcher = styled.button`
    :hover {
       transform: none;
    }
-   @media (max-width: 1000px) {
+   @media ${queries.desktop} {
       font-size: 10px;
    }
-   @media (max-width: 500px) {
+   @media ${queries.smallTablet} {
       font-size: 9px;
       padding: 6px 16px;
    }

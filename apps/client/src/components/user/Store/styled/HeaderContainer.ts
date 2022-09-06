@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 type StyledProps = {
    withoutInput?: boolean
 }
@@ -9,7 +11,7 @@ export const HeaderContainer = styled.div<StyledProps>`
    display: flex;
    justify-content: center;
    align-items: center;
-   @media (max-width: 1100px) {
+   @media ${queries.mediumDesktop} {
       height: 40px;
       flex-direction: column;
    }

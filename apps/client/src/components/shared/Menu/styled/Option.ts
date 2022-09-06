@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
+import { queries } from 'styles'
+
 type StyledProps = {
    shouldMenuExpand?: boolean
    counter?: number
@@ -13,15 +15,15 @@ export const Option = styled.li<StyledProps>`
    :last-of-type {
       margin-right: 0px;
    }
-   @media (max-width: 1200px) {
+   @media ${queries.largeDesktop} {
       font-size: 16px;
       margin-right: 35px;
    }
-   @media (max-width: 1000px) {
+   @media ${queries.desktop} {
       font-size: 15px;
       margin-right: 30px;
    }
-   @media (max-width: 800px) {
+   @media ${queries.largeTablet} {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -31,10 +33,10 @@ export const Option = styled.li<StyledProps>`
          margin-bottom: 0px;
       }
    }
-   @media (min-width: 800px) {
+   @media ${queries.minLargeTablet} {
       opacity: 1;
    }
-   @media (max-width: 500px) {
+   @media ${queries.smallTablet} {
       font-size: 14px;
    }
    ${({ shouldMenuExpand }) =>
@@ -68,7 +70,7 @@ export const Option = styled.li<StyledProps>`
                  position: absolute;
                  top: -18px;
                  right: -18px;
-                 @media (max-width: 800px) {
+                 @media ${queries.largeTablet} {
                     position: static;
                     margin-left: 8px;
                  }
