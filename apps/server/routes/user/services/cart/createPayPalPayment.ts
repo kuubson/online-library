@@ -72,7 +72,7 @@ export const createPayPalPayment: ProtectedRoute<Body<typeof schema>> = [
 
                await req.user.createPayment({
                   paymentId: payment.id,
-                  products: products?.join() || '', // TODO: yup array of required numbers return "number | undefined"
+                  products: products.join(),
                })
 
                res.send({ link: approvalLink.href })

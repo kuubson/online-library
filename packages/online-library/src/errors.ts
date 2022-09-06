@@ -18,11 +18,13 @@ export const CSRFError = new ApiError(
    403
 )
 
-export const AuthError = new ApiError(
-   'Authentication',
-   'The authentication cookie is invalid, log in again',
-   401
-)
+export class AuthErrorBase extends ApiError {
+   constructor() {
+      super('Authentication', 'The authentication cookie is invalid, log in again', 401)
+   }
+}
+
+export const AuthError = new AuthErrorBase()
 
 export const ConnectivityError = new ApiError(
    'Server connectivity',

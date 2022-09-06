@@ -17,7 +17,10 @@ export const useBookSuggestions = ({
    setPaidBooks,
    withProfile,
 }: BookSuggestionsProps) => {
-   const { control, getValues, setValue, watch } = useForm(API.getSuggestions.validation)
+   const { submit, control, getValues, setValue, watch, errors } = useForm(
+      API.getSuggestions.validation,
+      { withProfile: !!withProfile }
+   )
 
    const [findByTitle, setFindByTitle] = useState(true)
 
@@ -26,21 +29,34 @@ export const useBookSuggestions = ({
    const [title, author] = watch(['title', 'author'])
 
    useEffect(() => {
-      const getSuggestions = async () => {
-         const response = await defaultAxios.post<GetSuggestionsResponse>(API.getSuggestions.url, {
-            ...getValues(),
-            withProfile: !!withProfile,
-         })
-         if (response) {
-            const { books } = response.data
-            setBooks(books)
-         }
+      if (title || author) {
+         const getSuggestions = setTimeout(
+            () =>
+               submit(async () => {
+                  const response = await defaultAxios.post<GetSuggestionsResponse>(
+                     API.getSuggestions.url,
+                     getValues()
+                  )
+                  if (response) {
+                     const { books } = response.data
+                     setBooks(books)
+                  }
+               })(),
+            500
+         )
+         return () => clearTimeout(getSuggestions)
+      } else {
+         resetForm()
       }
-      getSuggestions()
-   }, [title, author, withProfile])
+   }, [title, author])
+
+   const resetForm = () => {
+      setBooks([])
+      findByTitle ? setValue('title', '') : setValue('author', '')
+   }
 
    const switchFindBy = () => {
-      findByTitle ? setValue('title', '') : setValue('author', '')
+      resetForm()
       setFindByTitle(findByTitle => !findByTitle)
    }
 
@@ -67,8 +83,10 @@ export const useBookSuggestions = ({
          }
       }
 
-      findByTitle ? setValue('title', '') : setValue('author', '')
+      resetForm()
    }
+
+   const error = errors.title?.message || errors.author?.message
 
    return {
       title,
@@ -78,5 +96,6 @@ export const useBookSuggestions = ({
       switchFindBy,
       handleSort,
       control,
+      error,
    }
 }

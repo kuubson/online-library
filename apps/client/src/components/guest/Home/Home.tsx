@@ -23,8 +23,6 @@ export const Home = () => (
 
 export const HomeContainer = styled.section`
    height: 100%;
-   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-      url('https://picsum.photos/1920/1080') center center no-repeat;
    display: flex;
    justify-content: space-around;
    align-items: center;

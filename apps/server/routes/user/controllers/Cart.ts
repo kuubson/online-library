@@ -9,7 +9,7 @@ import {
 export const Cart = Router()
 
 Cart.post(
-   /*
+   /**
       #swagger.description = `
          ✅ Makes sure that user does not pay for already purchased books <br />
          ✅ Checks if selected books are still available in the store <br />
@@ -35,7 +35,7 @@ Cart.post(
 )
 
 Cart.post(
-   /*
+   /**
       #swagger.description = `
          ✅ Makes sure that user does not pay for already purchased books <br />
          ✅ Checks if selected books are still available in the store <br />
@@ -65,7 +65,7 @@ Cart.post(
 )
 
 Cart.post(
-   /*
+   /**
       #swagger.description = `
          ✅ Checks if user booked paymeny with certain id <br />
          ✅ Checks if payment is still in progress <br />

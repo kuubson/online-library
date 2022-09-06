@@ -2,7 +2,7 @@
 import type { Application, NextFunction, Request, Response } from 'express'
 
 import type { ApiError } from 'online-library'
-import { AuthError, CSRFError, RequestError } from 'online-library'
+import { AuthError, AuthErrorBase, CSRFError, RequestError } from 'online-library'
 
 import { NODE_ENV } from 'config'
 
@@ -24,7 +24,7 @@ export const formatErrors = (app: Application) =>
          res.clearCookie('token', cookie()).status(status).send(CSRFError)
       }
 
-      if (status === 401 && errorMessage === AuthError.errorMessage) {
+      if (error instanceof AuthErrorBase) {
          res.clearCookie('token', cookie()).status(status).send(AuthError)
       }
 

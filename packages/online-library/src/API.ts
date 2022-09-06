@@ -11,15 +11,6 @@ type Errors = {
    }
 }
 
-// boost readme,
-// tweak usage of @media queries,
-// test deploy on heroku,
-// prettier-config as package
-// jsonschema & https://app.quicktype.io/?l=ts
-// getSuggestions -> more complidated schema
-
-// simplify the following:
-
 const errors = Object.fromEntries(
    Object.entries(swagger.paths).map(([path, methods]) => {
       const errors = Object.fromEntries(
@@ -177,11 +168,26 @@ class _API {
    public getSuggestions = {
       ...getPathInfo('/api/user/books/getSuggestions'),
       validation: yup
-         .object({
-            title: yup.string().sanitized('optional'), // TODO: how to allow combinations of object. ALlow either title + withProfile OR author + withProfile
-            author: yup.string().sanitized('optional'),
-            withProfile: yup.bool().required(),
-         })
+         .object({})
+         .shape(
+            {
+               title: yup.string().when('author', {
+                  is: (author: string) => !!author,
+                  then: yup.string().test(title => !title),
+                  otherwise: yup.string().sanitized(),
+               }),
+               author: yup.string().when('title', {
+                  is: (title: string) => !!title,
+                  then: yup.string().test(author => !author),
+                  otherwise: yup.string().sanitized(),
+               }),
+               withProfile: yup.bool().required(),
+            },
+            [
+               ['title', 'author'],
+               ['author', 'title'],
+            ]
+         )
          .noOtherKeys(),
    }
 

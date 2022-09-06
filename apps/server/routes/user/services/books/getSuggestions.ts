@@ -20,9 +20,9 @@ export const getSuggestions: ProtectedRoute<Body<typeof schema>> = [
          let books: BookType[] = []
 
          const searchByKey = title ? 'title' : 'author'
-         const searchByValue = title ?? author
+         const searchByValue = title ? title : author
 
-         const query = { where: { [searchByKey]: { [Op.like]: `%${searchByValue}%` } } }
+         const query = { where: { [searchByKey]: { [Op.iLike]: `%${searchByValue}%` } } }
 
          if (searchByValue) {
             if (withProfile) {
