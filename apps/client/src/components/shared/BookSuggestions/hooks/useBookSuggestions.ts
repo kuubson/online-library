@@ -6,7 +6,7 @@ import type { Book } from 'gql'
 
 import { useForm } from 'hooks'
 
-import { defaultAxios } from 'utils'
+import { axios } from 'utils'
 
 import type { BookSuggestionsProps, GetSuggestionsResponse } from 'types'
 
@@ -19,7 +19,11 @@ export const useBookSuggestions = ({
 }: BookSuggestionsProps) => {
    const { submit, control, getValues, setValue, watch, errors } = useForm(
       API.getSuggestions.validation,
-      { withProfile: !!withProfile }
+      {
+         title: '',
+         author: '',
+         withProfile: !!withProfile,
+      }
    )
 
    const [findByTitle, setFindByTitle] = useState(true)
@@ -33,7 +37,7 @@ export const useBookSuggestions = ({
          const getSuggestions = setTimeout(
             () =>
                submit(async () => {
-                  const response = await defaultAxios.post<GetSuggestionsResponse>(
+                  const response = await axios.post<GetSuggestionsResponse>(
                      API.getSuggestions.url,
                      getValues()
                   )
@@ -49,6 +53,14 @@ export const useBookSuggestions = ({
          resetForm()
       }
    }, [title, author])
+
+   const error = errors.title?.message || errors.author?.message
+
+   useEffect(() => {
+      if (error) {
+         setBooks([])
+      }
+   }, [error])
 
    const resetForm = () => {
       setBooks([])
@@ -85,8 +97,6 @@ export const useBookSuggestions = ({
 
       resetForm()
    }
-
-   const error = errors.title?.message || errors.author?.message
 
    return {
       title,

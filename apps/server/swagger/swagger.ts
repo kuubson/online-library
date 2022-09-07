@@ -101,8 +101,7 @@ const doc = {
             PayerID: paypalPayerId,
          },
       },
-      getSuggestionsByTitle: getSuggestions('title'),
-      getSuggestionsByAuthor: getSuggestions('author'),
+      getSuggestions,
    },
    securityDefinitions: {
       token: {

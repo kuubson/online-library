@@ -1,5 +1,3 @@
-import { capitalize } from 'lodash'
-
 export const book = {
    type: 'object',
    properties: {
@@ -39,14 +37,20 @@ export const book = {
    },
 }
 
-export const getSuggestions = (key: 'title' | 'author') => ({
+export const getSuggestions = {
    type: 'object',
    properties: {
-      [key]: {
+      title: {
          type: 'string',
          required: true,
-         description: `${capitalize(key)} to search for`,
-         example: key === 'title' ? 'Let it Be' : 'Craig Nicolas',
+         description: 'Title to search for. It takes precedence over the author',
+         example: 'Let it Be',
+      },
+      author: {
+         type: 'string',
+         required: true,
+         description: 'Author to search for',
+         example: 'Craig Nicolas',
       },
       withProfile: {
          type: 'boolean',
@@ -55,7 +59,7 @@ export const getSuggestions = (key: 'title' | 'author') => ({
             'If true, it searches books assigned to the user. Otherwise searches in the whole store',
       },
    },
-})
+}
 
 export const jwt = {
    type: 'string',

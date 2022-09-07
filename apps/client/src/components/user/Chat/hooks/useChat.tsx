@@ -178,7 +178,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
          }, 0)
 
          try {
-            await defaultAxios.post(API.sendMessage.url, { content: message })
+            await defaultAxios.post(API.sendMessage.url, { content: message.trim() })
             socket?.emit('sendMessage', _message)
          } catch (error) {
             const conversation = messages

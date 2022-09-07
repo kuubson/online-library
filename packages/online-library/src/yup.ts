@@ -1,5 +1,4 @@
 import { lowerCase } from 'lodash'
-import sanitize from 'sanitize-html'
 import validator from 'validator'
 import * as _yup from 'yup'
 import type Lazy from 'yup/lib/Lazy'
@@ -39,10 +38,6 @@ _yup.addMethod(_yup.string, 'password', function () {
    )
 })
 
-_yup.addMethod(_yup.string, 'uncheckedPassword', function () {
-   return this.required()
-})
-
 _yup.addMethod(_yup.string, 'repeatedPassword', function (key = 'password') {
    return this.required().test(
       'test-repeatedPassword',
@@ -51,10 +46,12 @@ _yup.addMethod(_yup.string, 'repeatedPassword', function (key = 'password') {
    )
 })
 
-_yup.addMethod(_yup.string, 'sanitized', function () {
-   return this.trim().test('test-sanitized', 'Remove special characters', value =>
-      value || value === '' ? value === sanitize(value) : false
-   )
+_yup.addMethod(_yup.string, 'noSpecialChars', function () {
+   return this.defined().matches(/(^$)|(^[a-zA-Z0-9 ]+$)/, 'Remove special characters')
+})
+
+_yup.addMethod(_yup.string, 'plain', function () {
+   return this.required().trim()
 })
 
 /** ARRAY */
@@ -86,8 +83,8 @@ declare module 'yup' {
       emailAddress(): RequiredStringSchema<TType, TContext>
       password(): RequiredStringSchema<TType, TContext>
       repeatedPassword(key?: string): RequiredStringSchema<TType, TContext>
-      uncheckedPassword(): RequiredStringSchema<TType, TContext>
-      sanitized(): RequiredStringSchema<TType, TContext>
+      noSpecialChars(): RequiredStringSchema<TType, TContext>
+      plain(): RequiredStringSchema<TType, TContext>
    }
    interface ArraySchema<
       T extends AnySchema | Lazy<any, any>,

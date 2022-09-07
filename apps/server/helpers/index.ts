@@ -1,4 +1,3 @@
-export { checkSanitization } from './checkSanitization'
 export { deleteTemporaryFile } from './deleteTemporaryFile'
 export { getCookie } from './getCookie'
 export { reduceImageSize } from './reduceImageSize'

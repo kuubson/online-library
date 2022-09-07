@@ -12,12 +12,7 @@ Books.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: {
-            oneOf: [
-               { $ref: "#/definitions/getSuggestionsByTitle" },
-               { $ref: "#/definitions/getSuggestionsByAuthor" }
-            ],
-         }
+         schema: { $ref: "#/definitions/getSuggestions" }
       }
       #swagger.responses[200] = {
          description: 'Returns array of books that meet certain title or author',

@@ -28,7 +28,7 @@ class _API {
       validation: yup
          .object({
             email: yup.string().emailAddress(),
-            password: yup.string().uncheckedPassword(),
+            password: yup.string().required(),
          })
          .noOtherKeys(),
    }
@@ -38,9 +38,9 @@ class _API {
       ...getPathInfo('/api/user/auth/loginWithFacebook'),
       validation: yup
          .object({
-            name: yup.string().sanitized(),
+            name: yup.string().noSpecialChars(),
             email: yup.string().emailAddress(),
-            access_token: yup.string().sanitized(),
+            access_token: yup.string().plain(),
          })
          .noOtherKeys(),
    }
@@ -66,7 +66,7 @@ class _API {
       ...getPathInfo('/api/user/auth/register'),
       validation: yup
          .object({
-            name: yup.string().sanitized(),
+            name: yup.string().noSpecialChars(),
             email: yup.string().emailAddress(),
             password: yup.string().password(),
             repeatedPassword: yup.string().repeatedPassword(),
@@ -102,10 +102,10 @@ class _API {
       ...getPathInfo('/api/user/chat/subscribePushNotifications'),
       validation: yup
          .object({
-            endpoint: yup.string().sanitized(),
+            endpoint: yup.string().plain(),
             keys: yup.object({
-               auth: yup.string().sanitized(),
-               p256dh: yup.string().sanitized(),
+               auth: yup.string().plain(),
+               p256dh: yup.string().plain(),
             }),
          })
          .noOtherKeys(),
@@ -113,7 +113,7 @@ class _API {
 
    public sendMessage = {
       ...getPathInfo('/api/user/chat/sendMessage'),
-      validation: yup.object({ content: yup.string().sanitized() }).noOtherKeys(),
+      validation: yup.object({ content: yup.string().plain() }).noOtherKeys(),
    }
 
    public sendFile = {
@@ -126,8 +126,8 @@ class _API {
       ...getPathInfo('/api/user/cart/executePayPalPayment'),
       validation: yup
          .object({
-            paymentId: yup.string().sanitized(),
-            PayerID: yup.string().sanitized(),
+            paymentId: yup.string().plain(),
+            PayerID: yup.string().plain(),
          })
          .noOtherKeys(),
    }
@@ -143,7 +143,7 @@ class _API {
       ...getPathInfo('/api/user/cart/purchaseBooksWithStripe'),
       validation: yup
          .object({
-            paymentId: yup.string().sanitized(),
+            paymentId: yup.string().plain(),
             products: yup.array().products(),
          })
          .noOtherKeys(),
@@ -152,26 +152,11 @@ class _API {
    public getSuggestions = {
       ...getPathInfo('/api/user/books/getSuggestions'),
       validation: yup
-         .object({})
-         .shape(
-            {
-               title: yup.string().when('author', {
-                  is: (author: string) => !!author,
-                  then: yup.string().test(title => !title),
-                  otherwise: yup.string().sanitized(),
-               }),
-               author: yup.string().when('title', {
-                  is: (title: string) => !!title,
-                  then: yup.string().test(author => !author),
-                  otherwise: yup.string().sanitized(),
-               }),
-               withProfile: yup.bool().required(),
-            },
-            [
-               ['title', 'author'],
-               ['author', 'title'],
-            ]
-         )
+         .object({
+            title: yup.string().noSpecialChars(),
+            author: yup.string().noSpecialChars(),
+            withProfile: yup.bool().required(),
+         })
          .noOtherKeys(),
    }
 
