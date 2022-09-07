@@ -1,16 +1,13 @@
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { useState } from 'react'
-import styled from 'styled-components/macro'
 
 import { REACT_APP_STRIPE_PUBLISHABLE_KEY } from 'config'
 
 import * as Styled from './styled'
+import { Header, HeaderContainer, Submit, UserContent } from 'components/shared/styled'
 
-import * as StyledRegistration from 'components/guest/Registration/styled'
-import { StoreContainer } from 'components/user/Store/Store'
-import { Books } from 'components/user/Store/modules'
-import * as StyledStore from 'components/user/Store/styled'
+import { Books } from 'components/shared'
 
 import { useCart } from './hooks'
 
@@ -31,7 +28,7 @@ export const Cart = ({ shouldMenuExpand }: CarsProps) => {
 
    return (
       <Elements stripe={stripePromise} options={{ locale: 'en' }}>
-         <CartContainer shouldMenuExpand={shouldMenuExpand} empty={!areThereBooks}>
+         <UserContent shouldMenuExpand={shouldMenuExpand}>
             {shouldStripePopupAppear && (
                <StripePopup price={price} setShouldStripePopupAppear={setShouldStripePopupAppear} />
             )}
@@ -46,9 +43,9 @@ export const Cart = ({ shouldMenuExpand }: CarsProps) => {
             />
             {areThereBooks && (
                <Styled.SummaryContainer>
-                  <StyledStore.HeaderContainer withoutInput>
-                     <StyledStore.Header>Summary</StyledStore.Header>
-                  </StyledStore.HeaderContainer>
+                  <HeaderContainer withoutInput>
+                     <Header>Summary</Header>
+                  </HeaderContainer>
                   <Styled.Summary>
                      {books.map(({ id, title, price }) => (
                         <Styled.Book key={id}>
@@ -56,24 +53,15 @@ export const Cart = ({ shouldMenuExpand }: CarsProps) => {
                         </Styled.Book>
                      ))}
                   </Styled.Summary>
-                  <StyledRegistration.Submit
-                     onClick={() => setShouldStripePopupAppear(true)}
-                     withLessMarginTop
-                  >
+                  <Submit onClick={() => setShouldStripePopupAppear(true)} withLessMarginTop>
                      Pay ${price}
-                  </StyledRegistration.Submit>
+                  </Submit>
                   <Styled.PayPalButton onClick={createPayPalPayment}>
                      Pay with PayPal
                   </Styled.PayPalButton>
                </Styled.SummaryContainer>
             )}
-         </CartContainer>
+         </UserContent>
       </Elements>
    )
 }
-
-type CartContainerProps = {
-   empty?: boolean
-}
-
-const CartContainer = styled(StoreContainer)<CartContainerProps>``

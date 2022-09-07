@@ -54,7 +54,7 @@ export const register: Route<Body<typeof schema>> = [
                      `${header} in the Online Library`,
                      `To activate your account click the button`,
                      'Activate account',
-                     `${baseUrl(req)}/activation/${activationToken}`
+                     `${baseUrl(req)}/home/?activationToken=${activationToken}`
                   ),
                })
             } catch {

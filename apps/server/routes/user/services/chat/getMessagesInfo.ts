@@ -9,28 +9,19 @@ export const getMessagesInfo: ProtectedRoute<InitialBody, InitialCookies, false>
 
          const messages = await Message.findAll()
 
-         const countUnreadMessagesInfo = () => {
-            let lastUnreadMessageIndex: number | undefined
+         let lastUnreadMessageIndex: number | undefined
 
-            let unreadMessagesAmount = 0
+         let unreadMessagesAmount = 0
 
-            messages.map(({ readBy }, index) => {
-               const readByIds = readBy.split(',').filter(id => id)
-               if (!readByIds.includes(id.toString())) {
-                  unreadMessagesAmount++
-                  if (!lastUnreadMessageIndex) {
-                     lastUnreadMessageIndex = messages.length - index
-                  }
+         messages.map(({ readBy }, index) => {
+            const readByIds = readBy.split(',').filter(id => id)
+            if (!readByIds.includes(id.toString())) {
+               unreadMessagesAmount++
+               if (!lastUnreadMessageIndex) {
+                  lastUnreadMessageIndex = messages.length - index
                }
-            })
-
-            return {
-               lastUnreadMessageIndex,
-               unreadMessagesAmount,
             }
-         }
-
-         const { lastUnreadMessageIndex, unreadMessagesAmount } = countUnreadMessagesInfo()
+         })
 
          res.send({
             lastUnreadMessageIndex,

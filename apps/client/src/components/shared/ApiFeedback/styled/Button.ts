@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 
-import { Submit } from 'components/guest/Registration/styled'
+import { Submit } from 'components/shared/styled'
 
 export const Button = styled(Submit)`
    margin-top: 80px;

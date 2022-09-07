@@ -1,22 +1,21 @@
-import { capitalize } from 'lodash'
+import { messageTypes, roles } from 'online-library'
+
+const createdAt = {
+   type: 'string',
+   format: 'date-time',
+}
+
+const updatedAt = {
+   type: 'string',
+   format: 'date-time',
+}
 
 export const book = {
    type: 'object',
    properties: {
-      id: {
-         type: 'integer',
-         example: 13,
-      },
-      createdAt: {
-         type: 'string',
-         format: 'date-time',
-         example: '2022-08-28T19:41:46.422Z',
-      },
-      updatedAt: {
-         type: 'string',
-         format: 'date-time',
-         example: '2022-08-28T19:41:46.422Z',
-      },
+      id: { type: 'integer' },
+      createdAt,
+      updatedAt,
       title: {
          type: 'string',
          example: 'Hound Dog',
@@ -39,14 +38,98 @@ export const book = {
    },
 }
 
-export const getSuggestions = (key: 'title' | 'author') => ({
+export const file = {
+   type: 'string',
+   format: 'uri',
+   'qt-uri-protocols': ['https'],
+   'qt-uri-extensions': [
+      'jpg',
+      'jpeg',
+      'png',
+      'mp4',
+      'txt',
+      'rtf',
+      'doc',
+      'docx',
+      'xlsx',
+      'ppt',
+      'pptx',
+      'pdf',
+   ], // should match with filesInfo.ts,
+   description: 'Link to uploaded resource',
+   example:
+      'https://res.cloudinary.com/onlinelibrary-storage/raw/upload/v1662546764/111296ee27d2a82152225969d92eb660a16d16b041d3712e0ee860ae01ed78a8e01bc77f4b888fb0681cebba0ec619bb10012b3a3cfee8c_fbhuen.txt',
+}
+
+const fileType = {
+   type: 'string',
+   enum: messageTypes,
+}
+
+export const sendFileResponse = {
    type: 'object',
    properties: {
-      [key]: {
+      type: fileType,
+      content: file,
+   },
+}
+
+export const role = {
+   type: 'object',
+   properties: {
+      role: {
+         type: 'string',
+         enum: roles,
+      },
+   },
+}
+
+export const message = {
+   type: 'object',
+   properties: {
+      id: { type: 'integer' },
+      createdAt,
+      updatedAt,
+      type: fileType,
+      content: file,
+      filename: {
+         type: 'string',
+         description: 'Name of uploaded file',
+         example: 'text.txt',
+      },
+      readBy: {
+         type: 'string',
+         description: 'String as joined array of user ids that read certain message',
+         example: '1,51,62,6,23',
+      },
+      cloudinaryId: {
+         anyOf: [{ type: 'integer' }, { type: 'null' }],
+         description: 'Id of resource kept at cloudinary',
+         example:
+            '1c644911e2118030c4884278c6835ccd79e0062959dcaa15af09861ae82c2e7bb73b4d53cf7a865255f1d01d2c15653748986ec09ccfb61b0e0163ce_o8qd1l',
+      },
+      userId: { type: 'integer' },
+      user: {
+         type: 'object',
+         properties: { name: { type: 'string' } },
+      },
+   },
+}
+
+export const getSuggestions = {
+   type: 'object',
+   properties: {
+      title: {
          type: 'string',
          required: true,
-         description: `${capitalize(key)} to search for`,
-         example: key === 'title' ? 'Let it Be' : 'Craig Nicolas',
+         description: 'Title to search for. It takes precedence over the author',
+         example: 'Let it Be',
+      },
+      author: {
+         type: 'string',
+         required: true,
+         description: 'Author to search for',
+         example: 'Craig Nicolas',
       },
       withProfile: {
          type: 'boolean',
@@ -55,7 +138,85 @@ export const getSuggestions = (key: 'title' | 'author') => ({
             'If true, it searches books assigned to the user. Otherwise searches in the whole store',
       },
    },
-})
+}
+
+export const subscription = {
+   type: 'object',
+   properties: {
+      endpoint: {
+         type: 'string',
+         format: 'uri',
+         'qt-uri-protocols': ['https'],
+         description: 'Subscription details (check out https://www.npmjs.com/package/web-push)',
+         example:
+            'https://fcm.googleapis.com/fcm/send/d61c5u920dw:APA91bEmnw8utjDYCqSRplFMVCzQMg9e5XxpYajvh37mv2QIlISdasBFLbFca9ZZ4Uqcya0ck-SP84YJUEnWsVr3mwYfaDB7vGtsDQuEpfDdcIqOX_wrCRkBW2NDWRZ9qUz9hSgtI3sY',
+      },
+      keys: {
+         type: 'object',
+         additionalProperties: false,
+         properties: {
+            p256dh: {
+               type: 'string',
+               required: true,
+               example:
+                  'BL7ELU24fJTAlH5Kyl8N6BDCac8u8li_U5PIwG963MOvdYs9s7LSzj8x_7v7RFdLZ9Eap50PiiyF5K0TDAis7t0',
+            },
+            auth: {
+               type: 'string',
+               required: true,
+               example: 'juarI8x__VnHvsOgfeAPHg',
+            },
+         },
+      },
+   },
+}
+
+export const sendMessage = {
+   type: 'object',
+   properties: {
+      content: {
+         type: 'string',
+         required: true,
+         description: 'Message to others',
+      },
+   },
+}
+
+export const messagesInfo = {
+   type: 'object',
+   properties: {
+      lastUnreadMessageIndex: {
+         type: 'integer',
+         required: true,
+         description: 'Index of last unread message',
+      },
+      unreadMessagesAmount: {
+         type: 'integer',
+         required: true,
+         description: 'Amount of missed messages',
+      },
+      userId: {
+         type: 'integer',
+         required: true,
+         description: 'Id of logged in user',
+      },
+   },
+}
+
+export const sendFile = {
+   'multipart/form-data': {
+      schema: {
+         type: 'object',
+         properties: {
+            file: {
+               type: 'string',
+               format: 'binary',
+               required: true,
+            },
+         },
+      },
+   },
+}
 
 export const jwt = {
    type: 'string',
@@ -70,6 +231,12 @@ export const name = {
    required: true,
    example: 'John',
 }
+
+export const integer = (example?: number) => ({
+   type: 'integer',
+   required: true,
+   example: example ?? 13,
+})
 
 export const email = {
    type: 'string',

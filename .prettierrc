@@ -35,9 +35,7 @@
 
       "^assets(.*)",
 
-      "^components/shared/styled$",
-      "(.*)/styled/shared$",
-      "^./styled$",
+      "(.*)/styled$",
 
       "^components/shared$",
       "^components(.*)",

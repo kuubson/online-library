@@ -1,22 +1,24 @@
 import _axios from 'axios'
+import { debounce } from 'lodash'
 
 import { handleApiError, setLoading } from 'helpers'
 
 export const axios = _axios.create()
 
-let timeoutId: number | undefined
+const debounceLoader = debounce(() => setLoading(true), 1000)
+
+const resetLoader = () => {
+   setLoading(false)
+   debounceLoader.cancel()
+}
 
 axios.interceptors.request.use(
    request => {
-      if (!timeoutId) {
-         timeoutId = window.setTimeout(() => setLoading(true), 500)
-      }
+      debounceLoader()
       return request
    },
    error => {
-      setLoading(false)
-      clearTimeout(timeoutId)
-      timeoutId = undefined
+      resetLoader()
       handleApiError(error)
       throw error
    }
@@ -24,15 +26,11 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
    response => {
-      setLoading(false)
-      clearTimeout(timeoutId)
-      timeoutId = undefined
+      resetLoader()
       return response
    },
    error => {
-      setLoading(false)
-      clearTimeout(timeoutId)
-      timeoutId = undefined
+      resetLoader()
       handleApiError(error)
       throw error
    }

@@ -32,13 +32,8 @@ export const getMessages: ProtectedRoute<Body<typeof schema>> = [
 
          const { updatedMessages } = await updateReadByProperty(id, messages)
 
-         const messagesWithUserNames = updatedMessages.map(message => ({
-            ...message.get({ plain: true }),
-            userName: message.user?.name,
-         }))
-
          res.send({
-            messages: messagesWithUserNames,
+            messages: updatedMessages,
             userId: id,
             userName: name,
          })

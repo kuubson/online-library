@@ -1,9 +1,8 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
-import { ApiFeedback, Guest, Loader, Location, User } from 'components/shared'
+import { ApiFeedback, Loader, Location } from 'components/shared'
 
-import { Activation } from 'components/guest/Activation/Activation'
 import { Home } from 'components/guest/Home/Home'
 import { Login } from 'components/guest/Login/Login'
 import { PasswordRecovery } from 'components/guest/PasswordRecovery/PasswordRecovery'
@@ -17,6 +16,8 @@ import { Store } from 'components/user/Store/Store'
 import { useApiFeedback, useLoader } from 'hooks'
 
 import type { FBType } from 'types'
+
+import { Guest, User } from './common'
 
 declare global {
    interface Window {
@@ -35,7 +36,7 @@ export const App = () => {
          {showApiFeedback && <ApiFeedback />}
          <Routes>
             <Route
-               path="/"
+               path="/home"
                element={
                   <Guest>
                      <Home />
@@ -55,14 +56,6 @@ export const App = () => {
                element={
                   <Guest>
                      <Support />
-                  </Guest>
-               }
-            />
-            <Route
-               path="/activation/:token"
-               element={
-                  <Guest>
-                     <Activation />
                   </Guest>
                }
             />
@@ -122,7 +115,7 @@ export const App = () => {
                   </User>
                }
             />
-            <Route path="*" element={<Navigate to="/" />} />
+            <Route path="*" element={<Navigate to="/home" />} />
          </Routes>
          <Location data-testid="location" />
       </AppContainer>

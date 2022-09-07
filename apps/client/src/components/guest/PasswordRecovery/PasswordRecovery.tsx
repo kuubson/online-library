@@ -1,17 +1,15 @@
-import styled from 'styled-components/macro'
+import { Form, GuestContent, Submit } from 'components/shared/styled'
 
-import { RegistrationContainer } from 'components/guest/Registration/Registration'
-import { HomeButton, Input } from 'components/guest/Registration/modules'
-import * as StyledRegistration from 'components/guest/Registration/styled'
+import { HomeButton, Input } from 'components/shared'
 
 import { usePasswordRecovery } from './hooks'
 
 export const PasswordRecovery = () => {
    const { changePassword, control, errors } = usePasswordRecovery()
    return (
-      <UserPasswordRecoveryContainer>
+      <GuestContent>
          <HomeButton />
-         <StyledRegistration.Form onSubmit={changePassword}>
+         <Form onSubmit={changePassword}>
             <Input
                {...{ control }}
                id="password"
@@ -28,10 +26,8 @@ export const PasswordRecovery = () => {
                placeholder="Type your password again..."
                error={errors.repeatedPassword?.message}
             />
-            <StyledRegistration.Submit>Change password</StyledRegistration.Submit>
-         </StyledRegistration.Form>
-      </UserPasswordRecoveryContainer>
+            <Submit>Change password</Submit>
+         </Form>
+      </GuestContent>
    )
 }
-
-const UserPasswordRecoveryContainer = styled(RegistrationContainer)``

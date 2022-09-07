@@ -1,10 +1,7 @@
-import styled from 'styled-components/macro'
-
 import * as Styled from './styled'
+import { Form, GuestContent, Submit } from 'components/shared/styled'
 
-import { HomeContainer } from 'components/guest/Home/Home'
-
-import { HomeButton, Input } from './modules'
+import { HomeButton, Input } from 'components/shared'
 
 import { useRegistration } from './hooks'
 
@@ -13,9 +10,9 @@ import { history } from 'utils'
 export const Registration = () => {
    const { register, control, errors } = useRegistration()
    return (
-      <RegistrationContainer>
+      <GuestContent>
          <HomeButton />
-         <Styled.Form onSubmit={register}>
+         <Form onSubmit={register}>
             <Input
                {...{ control }}
                id="name"
@@ -48,7 +45,7 @@ export const Registration = () => {
                placeholder="Type your password again..."
                error={errors.repeatedPassword?.message}
             />
-            <Styled.Submit>Register</Styled.Submit>
+            <Submit>Register</Submit>
             <Styled.AnnotationsContainer>
                <Styled.Annotation onClick={() => history.push('/email-support')}>
                   {"I haven't received the e-mail / activation link has expired"}
@@ -57,13 +54,7 @@ export const Registration = () => {
                   I already have an account, go to login page
                </Styled.Annotation>
             </Styled.AnnotationsContainer>
-         </Styled.Form>
-      </RegistrationContainer>
+         </Form>
+      </GuestContent>
    )
 }
-
-export const RegistrationContainer = styled(HomeContainer)`
-   height: initial;
-   min-height: 100%;
-   padding: 96px 0px 35px 0px;
-`

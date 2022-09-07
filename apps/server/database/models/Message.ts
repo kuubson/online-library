@@ -11,6 +11,8 @@ import type {
 } from 'sequelize'
 import { DataTypes, Model } from 'sequelize'
 
+import type { messageTypes } from 'online-library'
+
 import { dbDefaultAttributes } from 'utils'
 
 import type { User } from './User'
@@ -20,7 +22,7 @@ export class Message extends Model<InferAttributes<Message>, InferCreationAttrib
    declare createdAt: CreationOptional<Date>
    declare updatedAt: CreationOptional<Date>
 
-   declare type: 'MESSAGE' | 'IMAGE' | 'VIDEO' | 'FILE'
+   declare type: typeof messageTypes[number]
    declare content: string
    declare filename: string | null
    declare readBy: string

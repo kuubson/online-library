@@ -16,7 +16,7 @@
         "tags": [
           "Auth (rate limited)"
         ],
-        "description": "   ✅ Checks if user already exist <br />   ✅ Generates an <b>activation token</b> <br />   ✅ Sends link with the <b>token</b> to allow user activate his account <br />   ",
+        "description": "  ✅ Checks if user already exist <br />  ✅ Generates an <b>activation token</b> <br />  ✅ Sends link with the <b>token</b> to allow user activate his account <br />  ",
         "parameters": [],
         "responses": {
           "200": {
@@ -27,6 +27,9 @@
           },
           "422": {
             "description": "Data validation failed"
+          },
+          "429": {
+            "description": "Too many requests"
           },
           "502": {
             "description": "There was a problem sending the activation link"
@@ -54,7 +57,7 @@
         "tags": [
           "Auth (rate limited)"
         ],
-        "description": "   ✅ Check if user already activated his account <br />   ✅ Toggles account as activated if it's not alread <br />   ",
+        "description": "  ✅ Check if user already activated his account <br />  ✅ Toggles account as activated if it's not alread <br />  ",
         "parameters": [],
         "responses": {
           "200": {
@@ -68,6 +71,9 @@
           },
           "422": {
             "description": "Data validation failed"
+          },
+          "429": {
+            "description": "Too many requests"
           }
         },
         "requestBody": {
@@ -92,7 +98,7 @@
         "tags": [
           "Auth (rate limited)"
         ],
-        "description": "   ✅ Ensures user with provided email address exists <br />   ✅ Rejects resending activation token if account is already activate <br />   ✅ Sends new activation token to the use <br />   ",
+        "description": "  ✅ Ensures user with provided email address exists <br />  ✅ Rejects resending activation token if account is already activate <br />  ✅ Sends new activation token to the use <br />  ",
         "parameters": [],
         "responses": {
           "200": {
@@ -106,6 +112,9 @@
           },
           "422": {
             "description": "Data validation failed"
+          },
+          "429": {
+            "description": "Too many requests"
           },
           "502": {
             "description": "There was a problem sending the activation link"
@@ -133,7 +142,7 @@
         "tags": [
           "Auth (rate limited)"
         ],
-        "description": "   ✅ Checks given email and password <br />   ✅ Check if account is activated <br />   ✅ Sends auth token, that expires in 24h, if credentials are ok<br />   ",
+        "description": "  ✅ Checks given email and password <br />  ✅ Check if account is activated <br />  ✅ Sends auth token, that expires in 24h, if credentials are ok<br />  ",
         "parameters": [],
         "responses": {
           "200": {
@@ -147,6 +156,9 @@
           },
           "422": {
             "description": "Data validation failed"
+          },
+          "429": {
+            "description": "Too many requests"
           }
         },
         "requestBody": {
@@ -171,7 +183,7 @@
         "tags": [
           "Auth (rate limited)"
         ],
-        "description": "   ✅ Verifies <b>access token</b> provided by FB auth <br />   ✅ Sends <b>auth token</b>, that expires in 24h, for either already existing user or newly created one <br />   ",
+        "description": "  ✅ Verifies <b>access token</b> provided by FB auth <br />  ✅ Sends <b>auth token</b>, that expires in 24h, for either already existing user or newly created one <br />  ",
         "parameters": [],
         "responses": {
           "200": {
@@ -182,6 +194,9 @@
           },
           "422": {
             "description": "Data validation failed"
+          },
+          "429": {
+            "description": "Too many requests"
           }
         },
         "requestBody": {
@@ -206,7 +221,7 @@
         "tags": [
           "Auth (rate limited)"
         ],
-        "description": "   ✅ Checks if any user belongs to provided email address <br />   ✅ Makes sure that user account is activated <br />   ✅ Generates <b>password token</b> to authorize changing password in the next step (password form) <br />   ",
+        "description": "  ✅ Checks if any user belongs to provided email address <br />  ✅ Makes sure that user account is activated <br />  ✅ Generates <b>password token</b> to authorize changing password in the next step (password form) <br />  ",
         "parameters": [],
         "responses": {
           "200": {
@@ -221,8 +236,11 @@
           "422": {
             "description": "Data validation failed"
           },
+          "429": {
+            "description": "Too many requests"
+          },
           "502": {
-            "description": "There was a problem sending the link allowing resetting password"
+            "description": "There was a problem sending the link to reset password"
           }
         },
         "requestBody": {
@@ -247,14 +265,20 @@
         "tags": [
           "Auth (rate limited)"
         ],
-        "description": "   ✅ Checks password token generated by <b>/api/user/auth/recoverPassword</b> <br />   ✅ Checks if there is a user with email address as kept in password token <br />   ",
+        "description": "  ✅ Checks password token generated by <b>/api/user/auth/recoverPassword</b> <br />  ✅ Checks if there is a user with email address as kept in password token <br />  ",
         "parameters": [],
         "responses": {
+          "200": {
+            "description": "Password token is valid"
+          },
           "400": {
             "description": "Link to reset the password is invalid"
           },
           "422": {
             "description": "Data validation failed"
+          },
+          "429": {
+            "description": "Too many requests"
           }
         },
         "requestBody": {
@@ -279,7 +303,7 @@
         "tags": [
           "Auth (rate limited)"
         ],
-        "description": "   ✅ Changes user password <br />   ",
+        "description": "  ✅ Changes user password <br />  ",
         "parameters": [],
         "responses": {
           "200": {
@@ -290,6 +314,9 @@
           },
           "422": {
             "description": "Data validation failed"
+          },
+          "429": {
+            "description": "Too many requests"
           }
         },
         "requestBody": {
@@ -314,7 +341,7 @@
         "tags": [
           "Books"
         ],
-        "description": "   ✅ Suggest books by author or title <br />   ✅ Searches either books assigned to the user or from the whole store <br />   ",
+        "description": "  ✅ Suggest books by author or title <br />  ✅ Searches either books assigned to the user or from the whole store <br />  ",
         "parameters": [],
         "responses": {
           "200": {
@@ -355,26 +382,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/getSuggestionsByTitle"
-                  },
-                  {
-                    "$ref": "#/components/schemas/getSuggestionsByAuthor"
-                  }
-                ]
+                "$ref": "#/components/schemas/getSuggestions"
               }
             },
             "application/xml": {
               "schema": {
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/getSuggestionsByTitle"
-                  },
-                  {
-                    "$ref": "#/components/schemas/getSuggestionsByAuthor"
-                  }
-                ]
+                "$ref": "#/components/schemas/getSuggestions"
               }
             }
           }
@@ -386,9 +399,12 @@
         "tags": [
           "Cart"
         ],
-        "description": "   ✅ Makes sure that user does not pay for already purchased books <br />   ✅ Checks if selected books are still available in the store <br />   ✅ Processes stripe payment with credit card <br />   ✅ Assigns purchased books to the user <br />   ",
+        "description": "  ✅ Makes sure that user does not pay for already purchased books <br />  ✅ Checks if selected books are still available in the store <br />  ✅ Processes stripe payment with credit card <br />  ✅ Assigns purchased books to the user <br />  ",
         "parameters": [],
         "responses": {
+          "200": {
+            "description": "Successfully purchased new book"
+          },
           "402": {
             "description": "Payment has failed"
           },
@@ -429,7 +445,7 @@
         "tags": [
           "Cart"
         ],
-        "description": "   ✅ Makes sure that user does not pay for already purchased books <br />   ✅ Checks if selected books are still available in the store <br />   ✅ Prepares paypal payment details <br />   ✅ Redirects user to paypal checkout <br />   ",
+        "description": "  ✅ Makes sure that user does not pay for already purchased books <br />  ✅ Checks if selected books are still available in the store <br />  ✅ Prepares paypal payment details <br />  ✅ Redirects user to paypal checkout <br />  ",
         "parameters": [],
         "responses": {
           "200": {
@@ -487,9 +503,12 @@
         "tags": [
           "Cart"
         ],
-        "description": "   ✅ Checks if user booked paymeny with certain id <br />   ✅ Checks if payment is still in progress <br />   ✅ Finalizes paypal payment and updates its status <br />   ✅ Assigns purchased books to the user <br />   ",
+        "description": "  ✅ Checks if user booked paymeny with certain id <br />  ✅ Checks if payment is still in progress <br />  ✅ Finalizes paypal payment and updates its status <br />  ✅ Assigns purchased books to the user <br />  ",
         "parameters": [],
         "responses": {
+          "200": {
+            "description": "Successfully purchased new book"
+          },
           "402": {
             "description": "Payment has failed"
           },
@@ -530,9 +549,36 @@
         "tags": [
           "Chat"
         ],
-        "description": "",
+        "description": "  ✅ Returns some of the previous messages (implements infinite scroll) <br />  ✅ Mark messages as read by user that requested this endpoint <br />  ",
         "parameters": [],
         "responses": {
+          "200": {
+            "description": "Return array of messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/message"
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/message"
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
           "422": {
             "description": "Data validation failed"
           }
@@ -541,7 +587,22 @@
           {
             "token": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/getMessages"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/getMessages"
+              }
+            }
+          }
+        }
       }
     },
     "/api/user/chat/sendMessage": {
@@ -549,9 +610,12 @@
         "tags": [
           "Chat"
         ],
-        "description": "",
+        "description": "  ✅ Sends text message to others <br />  ✅ Sends push notification <br />  ",
         "parameters": [],
         "responses": {
+          "200": {
+            "description": "Message has been sent"
+          },
           "422": {
             "description": "Data validation failed"
           }
@@ -560,7 +624,22 @@
           {
             "token": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/sendMessage"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/sendMessage"
+              }
+            }
+          }
+        }
       }
     },
     "/api/user/chat/sendFile": {
@@ -568,18 +647,45 @@
         "tags": [
           "Chat"
         ],
-        "description": "",
+        "description": "  ✅ If file is an image it reduces its size <br />  ✅ Validates size & extension of the file <br />  ✅ Uploads file to cloudinary <br />  ✅ Sends file / image / video to others <br />  ✅ Sends proper push notification <br />  ",
         "parameters": [],
         "responses": {
+          "200": {
+            "description": "File has been sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sendFileResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/sendFileResponse"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "File size too large"
+          },
+          "415": {
+            "description": "Such file is not supported"
+          },
           "422": {
-            "description": "Data validation failed"
+            "description": "File has not been attached"
           }
         },
         "security": [
           {
             "token": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "$ref": "#/components/schemas/sendFile"
+          }
+        }
       }
     },
     "/api/user/chat/subscribePushNotifications": {
@@ -587,9 +693,12 @@
         "tags": [
           "Chat"
         ],
-        "description": "",
+        "description": "  ✅ Stores web push subscription detail in the database <br />  ✅ Creates many subscriptions per user (user can use multiple devices) <br />  ",
         "parameters": [],
         "responses": {
+          "200": {
+            "description": "Subscription has been stored"
+          },
           "422": {
             "description": "Data validation failed"
           }
@@ -598,7 +707,22 @@
           {
             "token": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/subscription"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/subscription"
+              }
+            }
+          }
+        }
       }
     },
     "/api/user/chat/getMessagesInfo": {
@@ -606,9 +730,24 @@
         "tags": [
           "Chat"
         ],
-        "description": "",
+        "description": "  ✅ Returns info related to chatting <br />  ✅ Counts how many messages user missed since last view <br />  ✅ Returns index of last undread message so user can easily scroll to it <br />  ",
         "parameters": [],
         "responses": {
+          "200": {
+            "description": "Info returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messagesInfo"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/messagesInfo"
+                }
+              }
+            }
+          },
           "422": {
             "description": "Data validation failed"
           }
@@ -625,19 +764,24 @@
         "tags": [
           "Global"
         ],
-        "description": "   ✅ Checks existance of <b>auth token</b> in cookies and validates it <br />   ✅ Returns proper role to the end user <br />   ",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "cookies",
-            "description": "Auth token",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/jwt"
-            }
-          }
-        ],
+        "description": "  ✅ Checks existance of <b>auth token</b> in cookies and validates it <br />  ✅ Returns proper role to the end user <br />  ",
+        "parameters": [],
         "responses": {
+          "200": {
+            "description": "Return array of messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/role"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/role"
+                }
+              }
+            }
+          },
           "422": {
             "description": "Data validation failed"
           }
@@ -649,19 +793,24 @@
         "tags": [
           "Global"
         ],
-        "description": "   ✅ Logs user out <br />   ✅ Removes auth token from cookies <br />   ",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "cookies",
-            "description": "Auth token",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/jwt"
-            }
-          }
-        ],
+        "description": "  ✅ Logs user out <br />  ✅ Removes auth token from cookies <br />  ",
+        "parameters": [],
         "responses": {
+          "200": {
+            "description": "Return array of messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/role"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/role"
+                }
+              }
+            }
+          },
           "422": {
             "description": "Data validation failed"
           }
@@ -675,18 +824,15 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer",
-            "example": 13
+            "type": "integer"
           },
           "createdAt": {
             "type": "string",
-            "format": "date-time",
-            "example": "2022-08-28T19:41:46.422Z"
+            "format": "date-time"
           },
           "updatedAt": {
             "type": "string",
-            "format": "date-time",
-            "example": "2022-08-28T19:41:46.422Z"
+            "format": "date-time"
           },
           "title": {
             "type": "string",
@@ -723,6 +869,186 @@
         "required": true,
         "description": "Link to paypal checkout generated with /createPayPalPayment",
         "example": "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-27H754218P7505C"
+      },
+      "message": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "MESSAGE",
+              "IMAGE",
+              "VIDEO",
+              "FILE"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "format": "uri",
+            "qt-uri-protocols": [
+              "https"
+            ],
+            "qt-uri-extensions": [
+              "jpg",
+              "jpeg",
+              "png",
+              "mp4",
+              "txt",
+              "rtf",
+              "doc",
+              "docx",
+              "xlsx",
+              "ppt",
+              "pptx",
+              "pdf"
+            ],
+            "description": "Link to uploaded resource",
+            "example": "https://res.cloudinary.com/onlinelibrary-storage/raw/upload/v1662546764/111296ee27d2a82152225969d92eb660a16d16b041d3712e0ee860ae01ed78a8e01bc77f4b888fb0681cebba0ec619bb10012b3a3cfee8c_fbhuen.txt"
+          },
+          "filename": {
+            "type": "string",
+            "description": "Name of uploaded file",
+            "example": "text.txt"
+          },
+          "readBy": {
+            "type": "string",
+            "description": "String as joined array of user ids that read certain message",
+            "example": "1,51,62,6,23"
+          },
+          "cloudinaryId": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Id of resource kept at cloudinary",
+            "example": "1c644911e2118030c4884278c6835ccd79e0062959dcaa15af09861ae82c2e7bb73b4d53cf7a865255f1d01d2c15653748986ec09ccfb61b0e0163ce_o8qd1l"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "sendFileResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "MESSAGE",
+              "IMAGE",
+              "VIDEO",
+              "FILE"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "format": "uri",
+            "qt-uri-protocols": [
+              "https"
+            ],
+            "qt-uri-extensions": [
+              "jpg",
+              "jpeg",
+              "png",
+              "mp4",
+              "txt",
+              "rtf",
+              "doc",
+              "docx",
+              "xlsx",
+              "ppt",
+              "pptx",
+              "pdf"
+            ],
+            "description": "Link to uploaded resource",
+            "example": "https://res.cloudinary.com/onlinelibrary-storage/raw/upload/v1662546764/111296ee27d2a82152225969d92eb660a16d16b041d3712e0ee860ae01ed78a8e01bc77f4b888fb0681cebba0ec619bb10012b3a3cfee8c_fbhuen.txt"
+          }
+        }
+      },
+      "subscription": {
+        "type": "object",
+        "properties": {
+          "endpoint": {
+            "type": "string",
+            "format": "uri",
+            "qt-uri-protocols": [
+              "https"
+            ],
+            "description": "Subscription details (check out https://www.npmjs.com/package/web-push)",
+            "example": "https://fcm.googleapis.com/fcm/send/d61c5u920dw:APA91bEmnw8utjDYCqSRplFMVCzQMg9e5XxpYajvh37mv2QIlISdasBFLbFca9ZZ4Uqcya0ck-SP84YJUEnWsVr3mwYfaDB7vGtsDQuEpfDdcIqOX_wrCRkBW2NDWRZ9qUz9hSgtI3sY"
+          },
+          "keys": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "p256dh": {
+                "type": "string",
+                "required": true,
+                "example": "BL7ELU24fJTAlH5Kyl8N6BDCac8u8li_U5PIwG963MOvdYs9s7LSzj8x_7v7RFdLZ9Eap50PiiyF5K0TDAis7t0"
+              },
+              "auth": {
+                "type": "string",
+                "required": true,
+                "example": "juarI8x__VnHvsOgfeAPHg"
+              }
+            }
+          }
+        }
+      },
+      "messagesInfo": {
+        "type": "object",
+        "properties": {
+          "lastUnreadMessageIndex": {
+            "type": "integer",
+            "required": true,
+            "description": "Index of last unread message"
+          },
+          "unreadMessagesAmount": {
+            "type": "integer",
+            "required": true,
+            "description": "Amount of missed messages"
+          },
+          "userId": {
+            "type": "integer",
+            "required": true,
+            "description": "Id of logged in user"
+          }
+        }
+      },
+      "role": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "guest",
+              "user"
+            ]
+          }
+        }
       },
       "plain": {
         "type": "string",
@@ -930,25 +1256,15 @@
           }
         }
       },
-      "getSuggestionsByTitle": {
+      "getSuggestions": {
         "type": "object",
         "properties": {
           "title": {
             "type": "string",
             "required": true,
-            "description": "Title to search for",
+            "description": "Title to search for. It takes precedence over the author",
             "example": "Let it Be"
           },
-          "withProfile": {
-            "type": "boolean",
-            "required": true,
-            "description": "If true, it searches books assigned to the user. Otherwise searches in the whole store"
-          }
-        }
-      },
-      "getSuggestionsByAuthor": {
-        "type": "object",
-        "properties": {
           "author": {
             "type": "string",
             "required": true,
@@ -959,6 +1275,45 @@
             "type": "boolean",
             "required": true,
             "description": "If true, it searches books assigned to the user. Otherwise searches in the whole store"
+          }
+        }
+      },
+      "getMessages": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "required": true,
+            "example": 20
+          },
+          "offset": {
+            "type": "integer",
+            "required": true,
+            "example": 0
+          }
+        }
+      },
+      "sendMessage": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "required": true,
+            "description": "Message to others"
+          }
+        }
+      },
+      "sendFile": {
+        "multipart/form-data": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "file": {
+                "type": "string",
+                "format": "binary",
+                "required": true
+              }
+            }
           }
         }
       }

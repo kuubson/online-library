@@ -70,14 +70,14 @@ const handleError = onError(({ graphQLErrors, networkError }) => {
             extensions: { exception },
          },
       ] = graphQLErrors
-      setApiFeedback(exception.errorHeader, exception.errorMessage, 'Okey')
+      setApiFeedback(exception.errorHeader, exception.errorMessage)
    }
 
    if (networkError) {
       if ('statusCode' in networkError) {
          if (networkError.statusCode === 401) {
             defaultAxios.get(API.logout.url).then(() => {
-               setApiFeedback(AuthError.errorHeader, AuthError.errorMessage, 'Okey')
+               setApiFeedback(AuthError.errorHeader, AuthError.errorMessage)
                history.push('/login')
             })
          }

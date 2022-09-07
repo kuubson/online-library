@@ -4,8 +4,6 @@ import { useCart } from 'hooks'
 
 import { setApiFeedback } from 'helpers'
 
-import { history } from 'utils'
-
 import type { SetBookPopupDataFn } from 'types'
 
 type UseBookPopupProps = {
@@ -28,9 +26,7 @@ export const useBookPopup = ({ id, setBookPopupData }: UseBookPopupProps) => {
 
             setApiFeedback(
                'Borrowing a book',
-               `You have successfully borrowed a book "${title}" written by ${author}`,
-               'Check it out in your profile',
-               () => history.push('/profile')
+               `You've borrowed the "${title}" written by ${author}. Checkout your profile`
             )
          }
       } catch (error) {
@@ -41,14 +37,14 @@ export const useBookPopup = ({ id, setBookPopupData }: UseBookPopupProps) => {
    const handleAdddingToCart = async (id: number) => {
       if (cart.includes(id)) {
          setBookPopupData(undefined)
-         return setApiFeedback('Buying a book', 'This book is already in the cart', 'Okey')
+         return setApiFeedback('Buying a book', 'This book is already in the cart')
       }
 
       addToCart(id)
 
       setBookPopupData(undefined)
 
-      setApiFeedback('Buying a book', 'The book has been added to the cart', 'Okey')
+      setApiFeedback('Buying a book', 'The book has been added to the cart')
    }
 
    return {

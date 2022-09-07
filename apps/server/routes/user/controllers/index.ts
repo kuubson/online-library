@@ -16,6 +16,9 @@ UserController.use(
    #swagger.responses[422] = {
       description: 'Data validation failed',   
    } 
+   #swagger.responses[429] = {
+      description: 'Too many requests',   
+   } 
 */
    '/api/user/auth/',
    rateLimiter(),

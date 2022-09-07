@@ -10,12 +10,10 @@ Global.get(
          ✅ Checks existance of <b>auth token</b> in cookies and validates it <br />
          ✅ Returns proper role to the end user <br />
       `
-      #swagger.parameters['token'] = {
-         in: 'cookies',
-         description: 'Auth token',
-         required: 'false',
-         schema: { $ref: '#/definitions/jwt' }
-      } 
+      #swagger.responses[200] = {
+         description: 'Return array of messages',
+         schema: { $ref: '#/definitions/role' }
+      }  
 */
    '/checkToken',
    ...checkToken
@@ -27,12 +25,10 @@ Global.get(
          ✅ Logs user out <br />
          ✅ Removes auth token from cookies <br />
       `
-      #swagger.parameters['token'] = {
-         in: 'cookies',
-         description: 'Auth token',
-         required: 'false',
-         schema: { $ref: '#/definitions/jwt' }
-      } 
+      #swagger.responses[200] = {
+         description: 'Return array of messages',
+         schema: { $ref: '#/definitions/role' }
+      }  
 */
    '/logout',
    ...logout

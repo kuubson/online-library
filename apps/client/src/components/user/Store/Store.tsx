@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import styled from 'styled-components/macro'
 
 import type { Book } from 'gql'
 
-import { queries } from 'styles'
+import { UserContent } from 'components/shared/styled'
 
-import { BookPopup, BookSuggestions, Books } from './modules'
+import { BookSuggestions, Books } from 'components/shared'
+
+import { BookPopup } from './modules'
 
 import { useStore } from './hooks'
 
@@ -32,7 +33,7 @@ export const Store = ({ shouldMenuExpand }: StoreProps) => {
    const areTherePaidBooks = !!paidBooks.length
 
    return (
-      <StoreContainer shouldMenuExpand={shouldMenuExpand}>
+      <UserContent shouldMenuExpand={shouldMenuExpand}>
          {bookPopupData && <BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />}
          {!loading &&
             (!areThereFreeBooks && !areTherePaidBooks ? (
@@ -94,26 +95,6 @@ export const Store = ({ shouldMenuExpand }: StoreProps) => {
                   />
                </>
             ))}
-      </StoreContainer>
+      </UserContent>
    )
 }
-
-type StoreContainerProps = {
-   shouldMenuExpand?: boolean
-}
-
-export const StoreContainer = styled.section<StoreContainerProps>`
-   min-height: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: flex-start;
-   transition: padding 0.4s ease-in-out;
-   @media ${queries.minLargeTablet} {
-      padding: 130px 20px 20px 20px;
-   }
-   @media ${queries.largeTablet} {
-      flex-direction: column;
-      padding: ${({ shouldMenuExpand }) =>
-         shouldMenuExpand ? '330px 20px 20px 20px' : '120px 20px 20px 20px'};
-   }
-`

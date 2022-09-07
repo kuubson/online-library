@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import styled from 'styled-components/macro'
 
 import type { Book as BookType } from 'gql'
 
-import { StoreContainer } from 'components/user/Store/Store'
-import { BookSuggestions, Books } from 'components/user/Store/modules'
+import { UserContent } from 'components/shared/styled'
 
-import { BookPopup } from './modules'
+import { BookSuggestions, Books } from 'components/shared'
+
+import { BookPreview } from './modules'
 
 import { useProfile } from './hooks'
 
@@ -24,8 +24,8 @@ export const Profile = ({ shouldMenuExpand }: ProfileProps) => {
    const areThereBorrowedBooks = !!borrowedBooks.length
 
    return (
-      <ProfileContainer shouldMenuExpand={shouldMenuExpand}>
-         {bookPopupData && <BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />}
+      <UserContent shouldMenuExpand={shouldMenuExpand}>
+         {bookPopupData && <BookPreview {...bookPopupData} setBookPopupData={setBookPopupData} />}
          {!loading &&
             (!areThereBoughtBooks && !areThereBorrowedBooks ? (
                <Books books={[]} error="You don't have any books yet" />
@@ -84,8 +84,6 @@ export const Profile = ({ shouldMenuExpand }: ProfileProps) => {
                   />
                </>
             ))}
-      </ProfileContainer>
+      </UserContent>
    )
 }
-
-const ProfileContainer = styled(StoreContainer)``

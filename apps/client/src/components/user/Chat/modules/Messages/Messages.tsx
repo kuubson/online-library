@@ -6,12 +6,14 @@ import { queries } from 'styles'
 
 import { fadeIn } from 'assets/animations'
 
+import type { MessageType } from 'types'
+
 import { Message } from '../'
 
 type MessagesProps = {
    ref: React.RefObject<HTMLDivElement>
    endOfMessages: React.RefObject<HTMLDivElement>
-   messages: Message[]
+   messages: MessageType[]
    currentUserId: string | undefined
    onTouchStart: () => void
    onScroll: (event: React.UIEvent<HTMLDivElement>) => Promise<void>

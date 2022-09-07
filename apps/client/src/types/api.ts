@@ -1,13 +1,15 @@
-import type { Role } from 'online-library'
+import type { Role, messageTypes } from 'online-library'
 
 import type { Book } from 'gql'
+
+import type { MessageType } from 'types'
 
 export type CheckTokenResponse = {
    role: Role
 }
 
 export type GetMessagesResponse = {
-   messages: Message[]
+   messages: MessageType[]
    userId: string
    userName: string
 }
@@ -22,6 +24,6 @@ export type GetMessagesInfoResponse = {
 }
 
 export type SendFileResponse = {
-   type: string
+   type: typeof messageTypes[number]
    content: string
 }

@@ -1,13 +1,9 @@
 import { CardElement } from '@stripe/react-stripe-js'
 import { useState } from 'react'
-import styled from 'styled-components/macro'
 
 import * as Styled from './styled'
-
-import * as StyledRegistration from 'components/guest/Registration/styled'
-import { BookPopupContainer } from 'components/user/Store/modules/BookPopup/BookPopup'
+import { Button, Error, Header, PopupContainer } from 'components/shared/styled'
 import * as StyledBookPopup from 'components/user/Store/modules/BookPopup/styled'
-import * as StyledStore from 'components/user/Store/styled'
 
 import { useIsKeyboardOpened } from 'hooks'
 
@@ -28,10 +24,10 @@ export const StripePopup = ({ price, setShouldStripePopupAppear }: StripePopupPr
    const [error, setError] = useState('')
 
    return (
-      <StripePopupContainer>
+      <PopupContainer>
          <StyledBookPopup.ContentContainer withLessHeight isKeyboardOpened={isKeyboardOpened}>
             <StyledBookPopup.Content withoutMargin>
-               <StyledStore.Header black>Enter your details and submit payment</StyledStore.Header>
+               <Header black>Enter your details and submit payment</Header>
                <Styled.CardContainer>
                   <CardElement
                      options={cardElementOptions}
@@ -40,19 +36,17 @@ export const StripePopup = ({ price, setShouldStripePopupAppear }: StripePopupPr
                      }
                   />
                </Styled.CardContainer>
-               {error && <StyledRegistration.Error>{error}</StyledRegistration.Error>}
+               {error && <Error>{error}</Error>}
                <StyledBookPopup.ButtonsContainer>
-                  <StyledStore.Button onClick={() => setShouldStripePopupAppear(false)} notAbsolute>
+                  <Button onClick={() => setShouldStripePopupAppear(false)} notAbsolute>
                      Cancel
-                  </StyledStore.Button>
-                  <StyledStore.Button onClick={handlePaying} notAbsolute withoutFixedWidth>
+                  </Button>
+                  <Button onClick={handlePaying} notAbsolute withoutFixedWidth>
                      Submit ${price}
-                  </StyledStore.Button>
+                  </Button>
                </StyledBookPopup.ButtonsContainer>
             </StyledBookPopup.Content>
          </StyledBookPopup.ContentContainer>
-      </StripePopupContainer>
+      </PopupContainer>
    )
 }
-
-const StripePopupContainer = styled(BookPopupContainer)``

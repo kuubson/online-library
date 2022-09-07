@@ -9,7 +9,7 @@ import { handleApiError, setApiFeedback, subscribePushNotifications } from 'help
 
 import { axios, defaultAxios } from 'utils'
 
-import type { GetMessagesResponse, SendFileResponse } from 'types'
+import type { GetMessagesResponse, MessageType, SendFileResponse } from 'types'
 
 type UseChatProps = {
    setLoading: ReactDispatch<boolean>
@@ -27,10 +27,10 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
    const messagesRef = useRef<HTMLDivElement>(null)
    const endOfMessages = useRef<HTMLDivElement>(null)
 
-   const [currentUserId, setCurrentUserId] = useState<string | undefined>()
-   const [currentUserName, setCurrentUserName] = useState<string | undefined>()
+   const [currentUserId, setCurrentUserId] = useState<string>('')
+   const [currentUserName, setCurrentUserName] = useState<string>('')
 
-   const [messages, setMessages] = useState<Message[]>([])
+   const [messages, setMessages] = useState<MessageType[]>([])
    const [message, setMessage] = useState('')
    const [hasMoreMessages, setHasMoreMessages] = useState(true)
 
@@ -99,7 +99,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
    }, [])
 
    useEffect(() => {
-      const handleOnSendMessage = (message: Message) => {
+      const handleOnSendMessage = (message: MessageType) => {
          setMessages(messages => [...messages, message])
 
          if (message.type === 'MESSAGE' || message.type === 'FILE') {
@@ -160,16 +160,16 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
 
          const id = lastMessage ? lastMessage.id + 1 : 0
 
-         const _message = {
+         const _message: MessageType = {
             id,
             type: 'MESSAGE',
             content: message,
             userId: currentUserId,
-            userName: currentUserName,
-            createdAt: new Date(),
+            user: { name: currentUserName },
+            createdAt: new Date().toString(),
          }
 
-         setMessages(messages => [...messages, _message] as Message[])
+         setMessages(messages => [...messages, _message] as MessageType[])
 
          pushToLastMessage()
 
@@ -178,7 +178,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
          }, 0)
 
          try {
-            await defaultAxios.post(API.sendMessage.url, { content: message })
+            await defaultAxios.post(API.sendMessage.url, { content: message.trim() })
             socket?.emit('sendMessage', _message)
          } catch (error) {
             const conversation = messages
@@ -213,20 +213,12 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
          }
 
          const largeSizeError = () => {
-            return setApiFeedback(
-               'Sending a file',
-               'You cannot send file with such a large size',
-               'Okey'
-            )
+            return setApiFeedback(API.sendFile.header, API.sendFile.post[413])
          }
 
          if (!isImage && !isVideo && !isFile) {
             resetFileInput()
-            return setApiFeedback(
-               'Sending a file',
-               'You cannot send file with such an extension',
-               'Okey'
-            )
+            return setApiFeedback(API.sendFile.header, API.sendFile.post[415])
          }
 
          if (isImage) {
@@ -279,17 +271,17 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
 
                const id = lastMessage ? lastMessage.id + 1 : 0
 
-               const message = {
+               const message: MessageType = {
                   id,
                   type,
                   content,
                   filename: name,
                   userId: currentUserId,
-                  userName: currentUserName,
-                  createdAt: new Date(),
+                  user: { name: currentUserName },
+                  createdAt: new Date().toString(),
                }
 
-               setMessages([...messages, message] as Message[])
+               setMessages([...messages, message] as MessageType[])
 
                scrollToLastMessage(0)
 
