@@ -9,7 +9,7 @@ import { handleApiError } from 'helpers'
 
 import { defaultAxios, history } from 'utils'
 
-import type { CheckTokenResponse, GetMessagesInfoResponse } from 'types'
+import type { CheckTokenResponse, GetMessagesInfoResponse, MessageType } from 'types'
 
 export const useUser = (withChat: boolean | undefined) => {
    const { socket, setSocket } = useSocket()
@@ -62,7 +62,7 @@ export const useUser = (withChat: boolean | undefined) => {
       getMessagesInfo()
    }, [])
 
-   const handleOnSendMessage = (message: Message) => {
+   const handleOnSendMessage = (message: MessageType) => {
       if (!withChat && message.userId !== currentUserId) {
          setUnreadMessagesAmount(unreadMessagesAmount + 1)
          setLastUnreadMessageIndex(lastUnreadMessageIndex ? lastUnreadMessageIndex + 1 : 1)

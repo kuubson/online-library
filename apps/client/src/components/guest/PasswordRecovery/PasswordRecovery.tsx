@@ -1,4 +1,4 @@
-import * as SharedStyled from 'components/shared/styled'
+import { Form, GuestContent, Submit } from 'components/shared/styled'
 
 import { HomeButton, Input } from 'components/shared'
 
@@ -7,10 +7,9 @@ import { usePasswordRecovery } from './hooks'
 export const PasswordRecovery = () => {
    const { changePassword, control, errors } = usePasswordRecovery()
    return (
-      <SharedStyled.GuestContent>
+      <GuestContent>
          <HomeButton />
-         <SharedStyled.Form onSubmit={changePassword}>
-            SharedStyled.{' '}
+         <Form onSubmit={changePassword}>
             <Input
                {...{ control }}
                id="password"
@@ -27,8 +26,8 @@ export const PasswordRecovery = () => {
                placeholder="Type your password again..."
                error={errors.repeatedPassword?.message}
             />
-            <SharedStyled.Submit>Change password</SharedStyled.Submit>
-         </SharedStyled.Form>
-      </SharedStyled.GuestContent>
+            <Submit>Change password</Submit>
+         </Form>
+      </GuestContent>
    )
 }

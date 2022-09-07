@@ -14,7 +14,12 @@ import type { Asserts, TypeOf } from 'yup/lib/util/types'
 
 const errorForRequiredProperty = (path: string) => `${lowerCase(path)} is required`
 
-_yup.setLocale({ mixed: { required: ({ path }) => errorForRequiredProperty(path) } })
+_yup.setLocale({
+   mixed: {
+      required: ({ path }) => errorForRequiredProperty(path),
+      defined: ({ path }) => errorForRequiredProperty(path),
+   },
+})
 
 /** STRING */
 

@@ -1,7 +1,7 @@
 import type { Book as BookType } from 'gql'
 
 import * as Styled from './styled'
-import * as SharedStyled from 'components/shared/styled'
+import { Button, Header, PopupContainer } from 'components/shared/styled'
 
 import { Book } from 'components/shared'
 
@@ -26,27 +26,27 @@ export const BookPopup = ({
       setBookPopupData,
    })
    return (
-      <SharedStyled.PopupContainer>
+      <PopupContainer>
          <Styled.ContentContainer>
             <Book id={id} title={title} author={author} cover={cover} price={price} withPopup />
             <Styled.Content>
-               <SharedStyled.Header black>
+               <Header black>
                   Are you sure you want to
                   {price ? ' add this book to the cart' : ' borrow this book'}?
-               </SharedStyled.Header>
+               </Header>
                <Styled.ButtonsContainer>
-                  <SharedStyled.Button
+                  <Button
                      onClick={price ? () => handleAdddingToCart(id) : handleBorrowingBook}
                      notAbsolute
                   >
                      Yes
-                  </SharedStyled.Button>
-                  <SharedStyled.Button onClick={() => setBookPopupData(undefined)} notAbsolute>
+                  </Button>
+                  <Button onClick={() => setBookPopupData(undefined)} notAbsolute>
                      No
-                  </SharedStyled.Button>
+                  </Button>
                </Styled.ButtonsContainer>
             </Styled.Content>
          </Styled.ContentContainer>
-      </SharedStyled.PopupContainer>
+      </PopupContainer>
    )
 }

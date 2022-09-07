@@ -1,5 +1,5 @@
 import * as StyledRegistration from 'components/guest/Registration/styled'
-import * as SharedStyled from 'components/shared/styled'
+import { Form, GuestContent, Submit } from 'components/shared/styled'
 
 import { HomeButton, Input } from 'components/shared'
 
@@ -10,9 +10,9 @@ import { history } from 'utils'
 export const Login = () => {
    const { login, loginWithFacebook, control, errors } = useLogin()
    return (
-      <SharedStyled.GuestContent>
+      <GuestContent>
          <HomeButton />
-         <SharedStyled.Form onSubmit={login}>
+         <Form onSubmit={login}>
             <Input
                {...{ control }}
                id="email"
@@ -29,10 +29,10 @@ export const Login = () => {
                placeholder="Type your password..."
                error={errors.password?.message}
             />
-            <SharedStyled.Submit>Login</SharedStyled.Submit>
-            <SharedStyled.Submit onClick={loginWithFacebook} withFacebook>
+            <Submit>Login</Submit>
+            <Submit onClick={loginWithFacebook} withFacebook>
                Login with Facebook
-            </SharedStyled.Submit>
+            </Submit>
             <StyledRegistration.AnnotationsContainer>
                <StyledRegistration.Annotation onClick={() => history.push('/registration')}>
                   {"I don't have an account yet, go to registration page"}
@@ -41,7 +41,7 @@ export const Login = () => {
                   I forgot password
                </StyledRegistration.Annotation>
             </StyledRegistration.AnnotationsContainer>
-         </SharedStyled.Form>
-      </SharedStyled.GuestContent>
+         </Form>
+      </GuestContent>
    )
 }

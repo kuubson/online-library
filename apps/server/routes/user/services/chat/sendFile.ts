@@ -29,7 +29,7 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, false> = [
             const isFile = files.test(mimetype) || files.test(originalname)
 
             if (!isImage && !isVideo && !isFile) {
-               throw new ApiError(header, 'You cannot send a file with this extension', 500)
+               throw new ApiError(header, post[415], 415)
             }
 
             let sizeError = false
@@ -53,33 +53,21 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, false> = [
             }
 
             if (sizeError) {
-               throw new ApiError(header, 'You cannot send this large file', 500)
+               throw new ApiError(header, post[413], 413)
             }
 
             const { id, name } = req.user
 
-            let type: Message['type'],
-               content = '',
-               cloudinaryId = ''
+            const type: Message['type'] = isImage
+               ? 'IMAGE'
+               : isVideo
+               ? 'VIDEO'
+               : isFile
+               ? 'FILE'
+               : 'MESSAGE'
 
-            switch (true) {
-               case isImage:
-                  type = 'IMAGE'
-                  break
-               case isVideo:
-                  type = 'VIDEO'
-                  break
-               case isFile:
-                  type = 'FILE'
-                  break
-               default:
-                  throw new ApiError(
-                     header,
-                     'There was an unexpected problem when sending the file',
-                     500
-                  )
-            }
-
+            let content = ''
+            let cloudinaryId = ''
             let message = ''
 
             if (type === 'IMAGE') {

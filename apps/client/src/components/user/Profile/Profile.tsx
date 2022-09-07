@@ -6,7 +6,7 @@ import { UserContent } from 'components/shared/styled'
 
 import { BookSuggestions, Books } from 'components/shared'
 
-import { BookPopup } from './modules'
+import { BookPreview } from './modules'
 
 import { useProfile } from './hooks'
 
@@ -25,7 +25,7 @@ export const Profile = ({ shouldMenuExpand }: ProfileProps) => {
 
    return (
       <UserContent shouldMenuExpand={shouldMenuExpand}>
-         {bookPopupData && <BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />}
+         {bookPopupData && <BookPreview {...bookPopupData} setBookPopupData={setBookPopupData} />}
          {!loading &&
             (!areThereBoughtBooks && !areThereBorrowedBooks ? (
                <Books books={[]} error="You don't have any books yet" />

@@ -1,4 +1,4 @@
-import * as SharedStyled from 'components/shared/styled'
+import { Form, GuestContent, Submit } from 'components/shared/styled'
 
 import { HomeButton, Input } from 'components/shared'
 
@@ -11,9 +11,9 @@ type SupportProps = {
 export const Support = ({ withPasswordSupport }: SupportProps) => {
    const { handleSupport, control, errors } = useSupport(withPasswordSupport)
    return (
-      <SharedStyled.GuestContent>
+      <GuestContent>
          <HomeButton withReturnButton />
-         <SharedStyled.Form onSubmit={handleSupport}>
+         <Form onSubmit={handleSupport}>
             <Input
                {...{ control }}
                id="email"
@@ -22,10 +22,8 @@ export const Support = ({ withPasswordSupport }: SupportProps) => {
                placeholder="Type your email address..."
                error={errors.email?.message}
             />
-            <SharedStyled.Submit>
-               {withPasswordSupport ? 'Recover password' : 'Resend e-mail'}
-            </SharedStyled.Submit>
-         </SharedStyled.Form>
-      </SharedStyled.GuestContent>
+            <Submit>{withPasswordSupport ? 'Recover password' : 'Resend e-mail'}</Submit>
+         </Form>
+      </GuestContent>
    )
 }

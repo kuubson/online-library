@@ -2,7 +2,7 @@ import { CardElement } from '@stripe/react-stripe-js'
 import { useState } from 'react'
 
 import * as Styled from './styled'
-import * as SharedStyled from 'components/shared/styled'
+import { Button, Error, Header, PopupContainer } from 'components/shared/styled'
 import * as StyledBookPopup from 'components/user/Store/modules/BookPopup/styled'
 
 import { useIsKeyboardOpened } from 'hooks'
@@ -24,12 +24,10 @@ export const StripePopup = ({ price, setShouldStripePopupAppear }: StripePopupPr
    const [error, setError] = useState('')
 
    return (
-      <SharedStyled.PopupContainer>
+      <PopupContainer>
          <StyledBookPopup.ContentContainer withLessHeight isKeyboardOpened={isKeyboardOpened}>
             <StyledBookPopup.Content withoutMargin>
-               <SharedStyled.Header black>
-                  Enter your details and submit payment
-               </SharedStyled.Header>
+               <Header black>Enter your details and submit payment</Header>
                <Styled.CardContainer>
                   <CardElement
                      options={cardElementOptions}
@@ -38,20 +36,17 @@ export const StripePopup = ({ price, setShouldStripePopupAppear }: StripePopupPr
                      }
                   />
                </Styled.CardContainer>
-               {error && <SharedStyled.Error>{error}</SharedStyled.Error>}
+               {error && <Error>{error}</Error>}
                <StyledBookPopup.ButtonsContainer>
-                  <SharedStyled.Button
-                     onClick={() => setShouldStripePopupAppear(false)}
-                     notAbsolute
-                  >
+                  <Button onClick={() => setShouldStripePopupAppear(false)} notAbsolute>
                      Cancel
-                  </SharedStyled.Button>
-                  <SharedStyled.Button onClick={handlePaying} notAbsolute withoutFixedWidth>
+                  </Button>
+                  <Button onClick={handlePaying} notAbsolute withoutFixedWidth>
                      Submit ${price}
-                  </SharedStyled.Button>
+                  </Button>
                </StyledBookPopup.ButtonsContainer>
             </StyledBookPopup.Content>
          </StyledBookPopup.ContentContainer>
-      </SharedStyled.PopupContainer>
+      </PopupContainer>
    )
 }

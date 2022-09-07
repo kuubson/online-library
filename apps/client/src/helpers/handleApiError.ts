@@ -29,7 +29,7 @@ export const handleApiError = <T extends unknown>(error: T) => {
       }
 
       if (errorHeader && errorMessage) {
-         return setApiFeedback(errorHeader, errorMessage, 'Okey')
+         return setApiFeedback(errorHeader, errorMessage)
       }
 
       return setApiFeedback(

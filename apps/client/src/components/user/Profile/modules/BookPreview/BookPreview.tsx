@@ -10,18 +10,18 @@ import { Book } from 'components/shared'
 
 import type { SetBookPopupDataFn } from 'types'
 
-type BookPopupProps = BookType & {
+type BookPreviewProps = BookType & {
    setBookPopupData: SetBookPopupDataFn
 }
 
-export const BookPopup = ({
+export const BookPreview = ({
    id,
    title,
    author,
    cover,
    price,
    setBookPopupData,
-}: BookPopupProps) => {
+}: BookPreviewProps) => {
    const [pages] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
    const [currentPage, setCurrentPage] = useState(0)

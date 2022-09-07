@@ -42,9 +42,9 @@ export const useCart = () => {
                   })
                   .then(() => {
                      setApiFeedback(
-                        'Submitting the order',
-                        `You have successfully purchased new books`,
-                        'Check them out in your profile',
+                        API.executePayPalPayment.header,
+                        API.executePayPalPayment.post[200],
+                        'Check your profile',
                         () => {
                            resetCart()
                            history.push('/profile')

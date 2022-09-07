@@ -1,1 +1,1 @@
-export { BookPopup } from './BookPopup/BookPopup'
+export { BookPreview } from './BookPreview/BookPreview'

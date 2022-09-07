@@ -7,9 +7,7 @@
    "sideEffects": false,
    "scripts": {
       "build": "tsup src/index.tsx --format cjs --dts --external react",
-      "clean": "rm -rf dist",
-      "dev": "tsup src/index.tsx --format cjs --watch --dts --external react",
-      "lint": "eslint src/*.ts*"
+      "dev": "tsup src/index.tsx --format cjs --watch --dts --external react"
    },
    "dependencies": {
       "lodash": "^4.17.21",

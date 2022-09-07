@@ -1,5 +1,5 @@
 import * as Styled from './styled'
-import * as SharedStyled from 'components/shared/styled'
+import { Form, GuestContent, Submit } from 'components/shared/styled'
 
 import { HomeButton, Input } from 'components/shared'
 
@@ -10,9 +10,9 @@ import { history } from 'utils'
 export const Registration = () => {
    const { register, control, errors } = useRegistration()
    return (
-      <SharedStyled.GuestContent>
+      <GuestContent>
          <HomeButton />
-         <SharedStyled.Form onSubmit={register}>
+         <Form onSubmit={register}>
             <Input
                {...{ control }}
                id="name"
@@ -45,7 +45,7 @@ export const Registration = () => {
                placeholder="Type your password again..."
                error={errors.repeatedPassword?.message}
             />
-            <SharedStyled.Submit>Register</SharedStyled.Submit>
+            <Submit>Register</Submit>
             <Styled.AnnotationsContainer>
                <Styled.Annotation onClick={() => history.push('/email-support')}>
                   {"I haven't received the e-mail / activation link has expired"}
@@ -54,7 +54,7 @@ export const Registration = () => {
                   I already have an account, go to login page
                </Styled.Annotation>
             </Styled.AnnotationsContainer>
-         </SharedStyled.Form>
-      </SharedStyled.GuestContent>
+         </Form>
+      </GuestContent>
    )
 }

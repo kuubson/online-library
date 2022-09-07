@@ -1,12 +1,12 @@
 import * as Styled from './styled'
 import { HomeContainer } from 'components/shared/styled'
 
-import { useHome } from './hooks'
+import { useAccountActivation } from './hooks'
 
 import { history } from 'utils'
 
 export const Home = () => {
-   useHome()
+   useAccountActivation()
    return (
       <HomeContainer>
          <Styled.HeaderContainer>

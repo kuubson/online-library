@@ -4,9 +4,11 @@ import styled, { css } from 'styled-components/macro'
 
 import * as Styled from './styled'
 
+import type { MessageType } from 'types'
+
 type MessageProps = {
    currentUserId: string | undefined
-   nextMessage: Message
+   nextMessage: MessageType
    scrollToLastMessage: (delay: number) => void
    withLastMessage: boolean
 }
@@ -16,13 +18,13 @@ export const Message = ({
    content,
    filename,
    userId,
-   userName,
+   user: { name },
    createdAt,
    currentUserId,
    nextMessage,
    scrollToLastMessage,
    withLastMessage,
-}: Message & MessageProps) => {
+}: MessageType & MessageProps) => {
    const [shouldDetailsAppear, setShouldDetailsAppear] = useState(false)
    const [imageError, setImageError] = useState(false)
    const [videoError, setVideoError] = useState(false)
@@ -67,7 +69,7 @@ export const Message = ({
    )
 
    const showAvatar = () => (
-      <Styled.Avatar withCurrentUser={withCurrentUser}>{userName?.charAt(0)}</Styled.Avatar>
+      <Styled.Avatar withCurrentUser={withCurrentUser}>{name?.charAt(0)}</Styled.Avatar>
    )
 
    return (

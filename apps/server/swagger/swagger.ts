@@ -7,14 +7,22 @@ import {
    book,
    email,
    getSuggestions,
+   integer,
    jwt,
+   message,
+   messagesInfo,
    name,
    password,
    paypalApprovalLink,
    paypalPayerId,
    paypalPaymentId,
    products,
+   role,
+   sendFile,
+   sendFileResponse,
+   sendMessage,
    stripePaymentId,
+   subscription,
 } from './definitions'
 
 const doc = {
@@ -33,6 +41,11 @@ const doc = {
       '@schemas': {
          book,
          paypalApprovalLink,
+         message,
+         sendFileResponse,
+         subscription,
+         messagesInfo,
+         role,
       },
    },
    '@definitions': {
@@ -102,6 +115,15 @@ const doc = {
          },
       },
       getSuggestions,
+      getMessages: {
+         type: 'object',
+         properties: {
+            limit: integer(20),
+            offset: integer(0),
+         },
+      },
+      sendMessage,
+      sendFile,
    },
    securityDefinitions: {
       token: {
@@ -116,5 +138,5 @@ const doc = {
 const outputPath = path.resolve(__dirname, '../../../packages/online-library/src/swagger.json')
 
 swaggerAutogen({ openapi: '3.0.0' })(outputPath, ['./server.ts'], doc).then(() => {
-   console.log('📄 API docs has been created')
+   console.log('📄 API docs has been generated')
 })

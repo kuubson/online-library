@@ -7,7 +7,7 @@ import { queries } from 'styles'
 import { fadeIn } from 'assets/animations'
 
 import * as Styled from './styled'
-import * as SharedStyled from 'components/shared/styled'
+import { Button, Header, HeaderContainer, Warning } from 'components/shared/styled'
 
 import { Book } from 'components/shared'
 
@@ -48,17 +48,14 @@ export const Books = ({
          fullWidth={fullWidth}
       >
          {areThereBooks && (
-            <SharedStyled.HeaderContainer withoutInput={withoutInput}>
+            <HeaderContainer withoutInput={withoutInput}>
                {header && (
-                  <SharedStyled.Header
-                     withMoreMarginBottom={!!searchInput}
-                     withPaddingRight={!!searchInput}
-                  >
+                  <Header withMoreMarginBottom={!!searchInput} withPaddingRight={!!searchInput}>
                      {header}
-                  </SharedStyled.Header>
+                  </Header>
                )}
                {searchInput && searchInput()}
-            </SharedStyled.HeaderContainer>
+            </HeaderContainer>
          )}
          <Styled.Books empty={!areThereBooks}>
             {areThereBooks ? (
@@ -76,12 +73,12 @@ export const Books = ({
                   />
                ))
             ) : (
-               <SharedStyled.Warning>{error}</SharedStyled.Warning>
+               <Warning>{error}</Warning>
             )}
             {books.length >= 10 && hasMore && !withCart && (
-               <SharedStyled.Button onClick={loadMore} notAbsolute withLoadMore>
+               <Button onClick={loadMore} notAbsolute withLoadMore>
                   Load more
-               </SharedStyled.Button>
+               </Button>
             )}
          </Styled.Books>
       </BooksContainer>

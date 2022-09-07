@@ -8,6 +8,8 @@ import { setApiFeedback, setLoading } from 'helpers'
 
 import { axios, history } from 'utils'
 
+const { header, post } = API.purchaseBooksWithStripe
+
 export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean>) => {
    const stripe = useStripe()
 
@@ -34,15 +36,10 @@ export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean
                   })
                   .then(() => {
                      setShouldStripePopupAppear(false)
-                     setApiFeedback(
-                        'Submitting the order',
-                        `You have successfully purchased new books`,
-                        'Check them out in your profile',
-                        () => {
-                           resetCart()
-                           history.push('/profile')
-                        }
-                     )
+                     setApiFeedback(header, post[200], 'Check your profile', () => {
+                        resetCart()
+                        history.push('/profile')
+                     })
                   })
             } else {
                setLoading(false)

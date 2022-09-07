@@ -34,7 +34,7 @@ export const useLogin = () => {
                   }
                )
             } else {
-               setApiFeedback(API.loginWithFacebook.header, API.loginWithFacebook.post[400], 'Okey')
+               setApiFeedback(API.loginWithFacebook.header, API.loginWithFacebook.post[400])
             }
          },
          { scope: 'email,public_profile' }

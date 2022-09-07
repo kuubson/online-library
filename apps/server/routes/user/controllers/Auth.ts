@@ -160,7 +160,7 @@ Auth.post(
          description: 'Account must be firstly activated',
       } 
       #swagger.responses[502] = {
-         description: 'There was a problem sending the link allowing resetting password',
+         description: 'There was a problem sending the link to reset password',
       }  
 */
    '/recoverPassword',
@@ -176,6 +176,9 @@ Auth.post(
       #swagger.requestBody = {
          required: true,
          schema: { $ref: "#/definitions/checkPasswordToken" }
+      }  
+      #swagger.responses[200] = {
+         description: 'Password token is valid',
       }  
       #swagger.responses[400] = {
          description: 'Link to reset the password is invalid',

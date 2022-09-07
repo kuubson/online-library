@@ -1,1 +1,1 @@
-export { useHome } from './useHome'
+export { useAccountActivation } from './useAccountActivation'

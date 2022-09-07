@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { REACT_APP_STRIPE_PUBLISHABLE_KEY } from 'config'
 
 import * as Styled from './styled'
-import * as SharedStyled from 'components/shared/styled'
+import { Header, HeaderContainer, Submit, UserContent } from 'components/shared/styled'
 
 import { Books } from 'components/shared'
 
@@ -28,7 +28,7 @@ export const Cart = ({ shouldMenuExpand }: CarsProps) => {
 
    return (
       <Elements stripe={stripePromise} options={{ locale: 'en' }}>
-         <SharedStyled.UserContent shouldMenuExpand={shouldMenuExpand}>
+         <UserContent shouldMenuExpand={shouldMenuExpand}>
             {shouldStripePopupAppear && (
                <StripePopup price={price} setShouldStripePopupAppear={setShouldStripePopupAppear} />
             )}
@@ -43,9 +43,9 @@ export const Cart = ({ shouldMenuExpand }: CarsProps) => {
             />
             {areThereBooks && (
                <Styled.SummaryContainer>
-                  <SharedStyled.HeaderContainer withoutInput>
-                     <SharedStyled.Header>Summary</SharedStyled.Header>
-                  </SharedStyled.HeaderContainer>
+                  <HeaderContainer withoutInput>
+                     <Header>Summary</Header>
+                  </HeaderContainer>
                   <Styled.Summary>
                      {books.map(({ id, title, price }) => (
                         <Styled.Book key={id}>
@@ -53,18 +53,15 @@ export const Cart = ({ shouldMenuExpand }: CarsProps) => {
                         </Styled.Book>
                      ))}
                   </Styled.Summary>
-                  <SharedStyled.Submit
-                     onClick={() => setShouldStripePopupAppear(true)}
-                     withLessMarginTop
-                  >
+                  <Submit onClick={() => setShouldStripePopupAppear(true)} withLessMarginTop>
                      Pay ${price}
-                  </SharedStyled.Submit>
+                  </Submit>
                   <Styled.PayPalButton onClick={createPayPalPayment}>
                      Pay with PayPal
                   </Styled.PayPalButton>
                </Styled.SummaryContainer>
             )}
-         </SharedStyled.UserContent>
+         </UserContent>
       </Elements>
    )
 }
