@@ -2,63 +2,64 @@ import paypal from 'paypal-rest-sdk'
 
 import { Book } from 'database'
 
-import { validator } from 'helpers'
+import { API, string } from 'shared'
+
+import { yupValidation } from 'middlewares'
+
+import { yup } from 'helpers'
 
 import { ApiError } from 'utils'
 
-import { ProtectedRoute } from 'types/express'
+import type { Body, ProtectedRoute } from 'types/express'
 
-export const executePayPalPayment: ProtectedRoute = async (req, res, next) => {
-    try {
-        const { paymentId, PayerID } = req.body
-        const [payment] = await req.user.getPayments({
-            where: {
-                paymentId
-            }
-        })
-        if (!payment) {
+const ENDPOINT = API.CART.executePayPalPayment
+
+const schema = yup.object({
+   body: yup.object({
+      paymentId: string,
+      PayerID: string,
+   }),
+})
+
+export const executePayPalPayment: ProtectedRoute<Body<typeof schema>> = [
+   yupValidation({ schema }),
+   async (req, res, next) => {
+      try {
+         const { paymentId, PayerID } = req.body
+
+         const [payment] = await req.user.getPayments({ where: { paymentId } })
+
+         if (!payment) {
             throw new ApiError(
-                'Submitting the order',
-                'There was an unexpected problem when processing your payment',
-                402
+               'Submitting the order',
+               'There was an unexpected problem when processing your payment',
+               402
             )
-        }
-        if (payment.approved) {
-            throw new ApiError('Submitting the order', 'The order has been already approved', 409)
-        }
-        paypal.payment.execute(
-            paymentId,
-            {
-                payer_id: PayerID
-            },
-            async (error: any, executedPayment: any) => {
-                if (error || executedPayment.state !== 'approved') {
-                    throw new ApiError(
-                        'Submitting the order',
-                        'There was an unexpected problem when processing your payment',
-                        402
-                    )
-                }
-                const books = await Book.findAll({
-                    where: {
-                        id: payment.products.split(',')
-                    }
-                })
-                await Promise.all(books.map(async book => await req.user.addBook(book)))
-                await payment.update({
-                    approved: true
-                })
-                res.send({
-                    success: true
-                })
-            }
-        )
-    } catch (error) {
-        next(error)
-    }
-}
+         }
 
-export const validation = () => [
-    validator.validateProperty('paymentId'),
-    validator.validateProperty('PayerID')
+         if (payment.approved) {
+            throw new ApiError('Submitting the order', 'The order has been already approved', 409)
+         }
+
+         paypal.payment.execute(paymentId, { payer_id: PayerID }, async (error, { state }) => {
+            if (error || state !== 'approved') {
+               throw new ApiError(
+                  'Submitting the order',
+                  'There was an unexpected problem when processing your payment',
+                  402
+               )
+            }
+
+            const books = await Book.findAll({ where: { id: payment.products.split(',') } })
+
+            await Promise.all(books.map(async book => req.user.addBook(book)))
+
+            await payment.update({ approved: true })
+
+            res.send()
+         })
+      } catch (error) {
+         next(error)
+      }
+   },
 ]

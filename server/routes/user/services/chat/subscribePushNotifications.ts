@@ -1,41 +1,51 @@
 import { Connection } from 'database'
 
-import { validator } from 'helpers'
+import { string } from 'shared'
 
-import { ProtectedRoute } from 'types/express'
+import { yupValidation } from 'middlewares'
 
-export const subscribePushNotifications: ProtectedRoute = async (req, res, next) => {
-    try {
-        await Connection.transaction(async transaction => {
+import { yup } from 'helpers'
+
+import type { Body } from 'types/express'
+import { type ProtectedRoute } from 'types/express'
+
+const schema = yup.object({
+   body: yup.object({
+      endpoint: string,
+      keys: yup.object({
+         auth: string,
+         p256dh: string,
+      }),
+   }),
+})
+
+export const subscribePushNotifications: ProtectedRoute<Body<typeof schema>> = [
+   yupValidation({ schema }),
+   async (req, res, next) => {
+      try {
+         await Connection.transaction(async transaction => {
             const {
-                endpoint,
-                keys: { p256dh, auth }
+               endpoint,
+               keys: { p256dh, auth },
             } = req.body
-            await req.user.getSubscriptions().then(async subscriptions => {
-                if (!subscriptions.some(subscription => subscription.endpoint === endpoint)) {
-                    await req.user.createSubscription(
-                        {
-                            endpoint,
-                            p256dh,
-                            auth
-                        },
-                        {
-                            transaction
-                        }
-                    )
-                }
-            })
-            res.send({
-                success: true
-            })
-        })
-    } catch (error) {
-        next(error)
-    }
-}
 
-export const validation = () => [
-    validator.validateProperty('endpoint'),
-    validator.validateProperty('keys.p256dh'),
-    validator.validateProperty('keys.auth')
+            await req.user.getSubscriptions().then(async subscriptions => {
+               if (!subscriptions.some(subscription => subscription.endpoint === endpoint)) {
+                  await req.user.createSubscription(
+                     {
+                        endpoint,
+                        p256dh,
+                        auth,
+                     },
+                     { transaction }
+                  )
+               }
+            })
+
+            res.send()
+         })
+      } catch (error) {
+         next(error)
+      }
+   },
 ]

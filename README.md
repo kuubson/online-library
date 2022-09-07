@@ -2,12 +2,12 @@
 
 ## Technologies
 
--   HTML, CSS, JS, TS
--   React.js + Redux (Hooks, Styled Components, PWA, Web Push Notifications, PayPal, Stripe)
--   GraphQL + Apollo
--   Node.js + Express (passport.js, JWT, socket.io, multer, cloudinary)
--   MySQL (ORM Sequelize)
--   React Native ([online-library-native](https://github.com/toxxiczny/online-library-native))
+-  HTML, CSS, JS, TS
+-  React.js + Redux (Hooks, Styled Components, PWA, Web Push Notifications, PayPal, Stripe)
+-  GraphQL + Apollo
+-  Node.js + Express (passport.js, JWT, socket.io, multer, cloudinary)
+-  PostgreSQL (ORM Sequelize)
+-  React Native ([online-library-native](https://github.com/toxxiczny/online-library-native))
 
 ## Description
 
@@ -29,37 +29,32 @@ Create **.env** file and fill it based on **.env-example** file, then:
 
 #### Front-end:
 
-Make sure to enter **/client** folder
+Install dependencies on the root level (project uses **npm workspaces**)
 
 ```bash
-cd ./client
+nvm use && npm install
 ```
 
-```bash
-npm install
-```
+#### Front-end:
 
 ```bash
-npm start
+cd ./client && npm start
 ```
 
 #### Back-end:
 
-Make sure to enter **/server** folder
-
 ```bash
-cd ./server
+cd ./server && npm start
 ```
 
-```bash
-npm install
-```
+#### TIPS:
+
+-  Make sure to setup **PostgreSQL** database with credentials the same as in **.env**. Can be different db, just adjust dialect settings inside the **server/config/db.ts**
+-  When describing API with **swagger**, add the following property to the **nodemon.json**:
 
 ```bash
-npm start
+"exec": "npm run docs"
 ```
-
-Make sure to create **MySQL** database with credentials the same as in **.env** with the usage of e.g, [xampp](https://www.apachefriends.org/pl/index.html)
 
 ## Some screenshots
 

@@ -1,22 +1,24 @@
-import { Socket } from 'socket.io-client'
+import { socketActions } from 'redux/reducers/socket'
 
-import { useAppDispatch, useAppSelector } from 'redux/hooks'
+import { useSelector } from 'hooks'
 
-import { setSocket as setSocketAction } from 'redux/reducers/socket'
+import { useAction } from './useAction'
 
 export const useSocket = () => {
-    const dispatch = useAppDispatch()
-    const { socket } = useAppSelector(state => state.socket)
-    const setSocket = (socket: Socket | null) => dispatch(setSocketAction(socket))
-    const closeSocketConnection = () => {
-        if (socket) {
-            socket.disconnect()
-            setSocket(null)
-        }
-    }
-    return {
-        socket,
-        setSocket,
-        closeSocketConnection
-    }
+   const { socket } = useSelector(state => state.socket)
+
+   const setSocket = useAction(socketActions.setSocket)
+
+   const closeSocketConnection = () => {
+      if (socket) {
+         socket.disconnect()
+         setSocket(null)
+      }
+   }
+
+   return {
+      socket,
+      setSocket,
+      closeSocketConnection,
+   }
 }

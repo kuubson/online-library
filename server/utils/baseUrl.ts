@@ -1,6 +1,6 @@
-import { Request } from 'express'
+import type { Request } from 'express'
+
+import { NODE_ENV } from 'config'
 
 export const baseUrl = (req: Request) =>
-    process.env.NODE_ENV === 'production'
-        ? `${req.protocol}://${req.get('host')}`
-        : 'http://localhost:3000'
+   NODE_ENV === 'production' ? `${req.protocol}://${req.get('host')}` : 'http://localhost:3000'

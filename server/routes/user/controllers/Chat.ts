@@ -1,35 +1,44 @@
 import { Router } from 'express'
 
-import { jwtAuthorization, handleMulterFile, checkValidation } from 'middlewares'
+import { handleMulterFile } from 'middlewares'
 
-import { chat } from '../services'
+import {
+   getMessages,
+   getMessagesInfo,
+   sendFile,
+   sendMessage,
+   subscribePushNotifications,
+} from '../services/chat'
 
 export const Chat = Router()
 
 Chat.post(
-    '/getMessages',
-    jwtAuthorization,
-    chat.getMessages.validation(),
-    checkValidation,
-    chat.getMessages.getMessages as any
+   // #swagger.tags = ['Chat']
+   '/getMessages',
+   ...getMessages
 )
 
 Chat.post(
-    '/sendMessage',
-    jwtAuthorization,
-    chat.sendMessage.validation(),
-    checkValidation,
-    chat.sendMessage.sendMessage as any
+   // #swagger.tags = ['Chat']
+   '/sendMessage',
+   ...sendMessage
 )
-
-Chat.post('/sendFile', jwtAuthorization, handleMulterFile() as any, chat.sendFile.sendFile as any)
 
 Chat.post(
-    '/subscribePushNotifications',
-    jwtAuthorization,
-    chat.subscribePushNotifications.validation(),
-    checkValidation,
-    chat.subscribePushNotifications.subscribePushNotifications as any
+   // #swagger.tags = ['Chat']
+   '/sendFile',
+   handleMulterFile,
+   ...sendFile
 )
 
-Chat.get('/getMessagesInfo', jwtAuthorization, chat.getMessagesInfo.getMessagesInfo as any)
+Chat.post(
+   // #swagger.tags = ['Chat']
+   '/subscribePushNotifications',
+   ...subscribePushNotifications
+)
+
+Chat.get(
+   // #swagger.tags = ['Chat']
+   '/getMessagesInfo',
+   ...getMessagesInfo
+)

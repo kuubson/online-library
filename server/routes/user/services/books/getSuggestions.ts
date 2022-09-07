@@ -1,48 +1,48 @@
 import { Op } from 'sequelize'
-import { check } from 'express-validator'
 
 import { Book } from 'database'
-import { Book as BookClass } from 'database/models/Book'
+import type { Book as BookType } from 'database/models/Book'
 
-import { validator } from 'helpers'
+import { bool } from 'shared'
 
-import { ProtectedRoute } from 'types/express'
+import { yupValidation } from 'middlewares'
 
-export const getSuggestions: ProtectedRoute = async (req, res, next) => {
-    try {
-        const { title, author, withProfile } = req.body
-        const property = title ? 'title' : 'author'
-        const value = title ? title : author
-        let books: BookClass[] = []
-        if (value) {
-            if (!withProfile) {
-                books = await Book.findAll({
-                    where: {
-                        [property]: {
-                            [Op.like]: `%${value}%`
-                        }
-                    }
-                })
+import { yup } from 'helpers'
+
+import type { Body, ProtectedRoute } from 'types/express'
+
+const schema = yup.object({
+   body: yup.object({
+      title: yup.string().trim(),
+      author: yup.string().trim(),
+      withProfile: bool,
+   }),
+})
+
+export const getSuggestions: ProtectedRoute<Body<typeof schema>> = [
+   yupValidation({ schema }),
+   async (req, res, next) => {
+      try {
+         const { title, author, withProfile } = req.body
+
+         let books: BookType[] = []
+
+         const searchByKey = title ? 'title' : 'author'
+         const searchByValue = title ?? author
+
+         const query = { where: { [searchByKey]: { [Op.like]: `%${searchByValue}%` } } }
+
+         if (searchByValue) {
+            if (withProfile) {
+               books = await req.user.getBooks(query)
             } else {
-                books = await req.user.getBooks({
-                    where: {
-                        [property]: {
-                            [Op.like]: `%${value}%`
-                        }
-                    }
-                })
+               books = await Book.findAll(query)
             }
-        }
-        res.send({
-            books
-        })
-    } catch (error) {
-        next(error)
-    }
-}
+         }
 
-export const validation = () => [
-    check('title').trim().isString().bail().escape(),
-    check('author').trim().isString().bail().escape(),
-    validator.validateBoolean('withProfile')
+         res.send({ books })
+      } catch (error) {
+         next(error)
+      }
+   },
 ]

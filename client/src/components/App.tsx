@@ -1,59 +1,132 @@
+import { Navigate, Route, Routes } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import { unstable_HistoryRouter as HistoryRouter, Routes, Route, Navigate } from 'react-router-dom'
 
-import Loader from 'components/shared/Loader/Loader'
-import ApiFeedback from 'components/shared/ApiFeedback/ApiFeedback'
+import { ApiFeedback, Guest, Loader, Location, User } from 'components/shared'
 
-import {
-    HomeRoute,
-    RegistrationRoute,
-    EmailSupportRoute,
-    AuthenticationRoute,
-    LoginRoute,
-    PasswordSupportRoute,
-    PasswordRecoveryRoute,
-    StoreRoute,
-    ProfileRoute,
-    CartRoute,
-    ChatRoute
-} from './routes'
+import { Activation } from 'components/guest/Activation/Activation'
+import { Home } from 'components/guest/Home/Home'
+import { Login } from 'components/guest/Login/Login'
+import { PasswordRecovery } from 'components/guest/PasswordRecovery/PasswordRecovery'
+import { Registration } from 'components/guest/Registration/Registration'
+import { Support } from 'components/guest/Support/Support'
+import { Cart } from 'components/user/Cart/Cart'
+import { Chat } from 'components/user/Chat/Chat'
+import { Profile } from 'components/user/Profile/Profile'
+import { Store } from 'components/user/Store/Store'
 
-import { useLoader, useApiFeedback } from 'hooks'
+import { useApiFeedback, useLoader } from 'hooks'
 
-import { history } from 'utils'
-
-const AppContainer = styled.main`
-    height: 100%;
-`
-
-const App = () => {
-    const { loading } = useLoader()
-    const { showApiFeedback } = useApiFeedback()
-    return (
-        <AppContainer>
-            {loading && <Loader />}
-            {showApiFeedback && <ApiFeedback />}
-            <HistoryRouter history={history}>
-                <Routes>
-                    <Route path="/" element={<HomeRoute />} />
-                    <Route path="/registration" element={<RegistrationRoute />} />
-                    <Route path="/email-support" element={<EmailSupportRoute />} />
-                    <Route path="/authentication/:token" element={<AuthenticationRoute />} />
-                    <Route path="/login" element={<LoginRoute />} />
-                    <Route path="/password-support" element={<PasswordSupportRoute />} />
-                    <Route
-                        path="/password-recovery/:passwordToken"
-                        element={<PasswordRecoveryRoute />}
-                    />
-                    <Route path="/store" element={<StoreRoute />} />
-                    <Route path="/profile" element={<ProfileRoute />} />
-                    <Route path="/cart" element={<CartRoute />} />
-                    <Route path="/chat" element={<ChatRoute />} />
-                    <Route path="*" element={<Navigate to="/" />} />
-                </Routes>
-            </HistoryRouter>
-        </AppContainer>
-    )
+declare global {
+   interface Window {
+      FB: FBType
+   }
 }
 
-export default App
+export const App = () => {
+   const { loading } = useLoader()
+
+   const { showApiFeedback } = useApiFeedback()
+
+   return (
+      <AppContainer>
+         {loading && <Loader />}
+         {showApiFeedback && <ApiFeedback />}
+         <Routes>
+            <Route
+               path="/"
+               element={
+                  <Guest>
+                     <Home />
+                  </Guest>
+               }
+            />
+            <Route
+               path="/registration"
+               element={
+                  <Guest>
+                     <Registration />
+                  </Guest>
+               }
+            />
+            <Route
+               path="/email-support"
+               element={
+                  <Guest>
+                     <Support />
+                  </Guest>
+               }
+            />
+            <Route
+               path="/activation/:token"
+               element={
+                  <Guest>
+                     <Activation />
+                  </Guest>
+               }
+            />
+            <Route
+               path="/login"
+               element={
+                  <Guest>
+                     <Login />
+                  </Guest>
+               }
+            />
+            <Route
+               path="/password-support"
+               element={
+                  <Guest>
+                     <Support withPasswordSupport />
+                  </Guest>
+               }
+            />
+            <Route
+               path="/password-recovery/:passwordToken"
+               element={
+                  <Guest>
+                     <PasswordRecovery />
+                  </Guest>
+               }
+            />
+            <Route
+               path="/store"
+               element={
+                  <User>
+                     <Store />
+                  </User>
+               }
+            />
+            <Route
+               path="/profile"
+               element={
+                  <User>
+                     <Profile />
+                  </User>
+               }
+            />
+            <Route
+               path="/cart"
+               element={
+                  <User>
+                     <Cart />
+                  </User>
+               }
+            />
+            <Route
+               path="/chat"
+               element={
+                  <User>
+                     <Chat />
+                  </User>
+               }
+            />
+            <Route path="*" element={<Navigate to="/" />} />
+         </Routes>
+         <Location data-testid="location" />
+      </AppContainer>
+   )
+}
+
+const AppContainer = styled.main`
+   height: 100%;
+`

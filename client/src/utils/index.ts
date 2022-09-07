@@ -1,4 +1,3 @@
-export { default as axios } from './axios'
-
+export { axios } from './axios'
+export { baseUrl } from './baseUrl'
 export { history } from './history'
-export { filesInfo } from './filesInfo'

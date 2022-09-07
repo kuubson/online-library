@@ -1,8 +1,6 @@
-import { useAppSelector } from 'redux/hooks'
+import { useSelector } from 'hooks'
 
 export const useLoader = () => {
-    const { loading } = useAppSelector(state => state.loader)
-    return {
-        loading
-    }
+   const { loading } = useSelector(state => state.loader)
+   return { loading }
 }

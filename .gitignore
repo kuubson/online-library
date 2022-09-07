@@ -7,5 +7,9 @@ uploads/
 
 .env
 
+.DS_Store
+
+/server/database/generated
+
 # It prevents from crashing the heroku build
 /server/package-lock.json

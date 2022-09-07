@@ -1,12 +1,11 @@
-import { Middleware } from 'express-validator/src/base'
+import type { Middleware } from 'types/express'
 
-export const unless = (path: any, middleware: any) => {
-    const middlewareFunction: Middleware = (req, res, next) => {
-        if (path === req.path) {
-            return next()
-        } else {
-            return middleware(req, res, next)
-        }
-    }
-    return middlewareFunction
+export const unless = (path: string, middleware: Middleware) => {
+   const route: Middleware = (req, res, next) => {
+      if (path === req.path) {
+         return next()
+      }
+      return middleware(req, res, next)
+   }
+   return route
 }

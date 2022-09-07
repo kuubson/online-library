@@ -1,42 +1,51 @@
-import { Sequelize, Model, STRING, TEXT, FLOAT } from 'sequelize'
+import type {
+   Association,
+   CreationOptional,
+   InferAttributes,
+   InferCreationAttributes,
+   Sequelize,
+} from 'sequelize'
+import { DataTypes, Model } from 'sequelize'
 
-class BookValues extends Model {
-    id: number
-    title: string
-    author: string
-    cover: string
-    price: number
+import { dbDefaultAttributes } from 'utils'
+
+import type { User } from './User'
+
+export class Book extends Model<InferAttributes<Book>, InferCreationAttributes<Book>> {
+   declare id: CreationOptional<number>
+   declare createdAt: CreationOptional<Date>
+   declare updatedAt: CreationOptional<Date>
+
+   declare title: string
+   declare author: string
+   declare cover: string
+   declare price: number | null
+
+   declare static associations: {
+      user: Association<Book, User>
+   }
 }
 
-export class Book extends BookValues {
-    dataValues: BookValues
-}
-
-const BookModel = (sequelize: Sequelize) => {
-    Book.init(
-        {
-            title: {
-                type: STRING,
-                allowNull: false
-            },
-            author: {
-                type: STRING,
-                allowNull: false
-            },
-            cover: {
-                type: TEXT,
-                allowNull: false
-            },
-            price: {
-                type: FLOAT
-            }
-        },
-        {
-            sequelize,
-            modelName: 'book'
-        }
-    )
-    return Book
-}
-
-export default BookModel
+export const BookModel = (sequelize: Sequelize) =>
+   Book.init(
+      {
+         ...dbDefaultAttributes,
+         title: {
+            type: DataTypes.STRING,
+            allowNull: false,
+         },
+         author: {
+            type: DataTypes.STRING,
+            allowNull: false,
+         },
+         cover: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+         },
+         price: { type: DataTypes.FLOAT },
+      },
+      {
+         sequelize,
+         modelName: 'book',
+      }
+   )

@@ -1,8 +1,8 @@
 export const emailTemplate = (
-    header: string,
-    content: string,
-    buttontText: string,
-    href: string
+   header: string,
+   content: string,
+   buttontText: string,
+   href: string
 ) => `
     <table
         cellpadding="20"

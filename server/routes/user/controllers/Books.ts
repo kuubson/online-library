@@ -1,15 +1,11 @@
 import { Router } from 'express'
 
-import { jwtAuthorization, checkValidation } from 'middlewares'
-
-import { books } from '../services'
+import { getSuggestions } from '../services/books'
 
 export const Books = Router()
 
 Books.post(
-    '/getSuggestions',
-    jwtAuthorization,
-    books.getSuggestions.validation(),
-    checkValidation,
-    books.getSuggestions.getSuggestions as any
+   // #swagger.tags = ['Books']
+   '/getSuggestions',
+   ...getSuggestions
 )

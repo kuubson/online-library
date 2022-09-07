@@ -1,23 +1,20 @@
-import { useAppDispatch, useAppSelector } from 'redux/hooks'
+import { messagesInfoActions } from 'redux/reducers/messagesInfo'
 
-import {
-    setLastUnreadMessageIndex as setLastUnreadMessageIndexAction,
-    setUnreadMessagesAmount as setUnreadMessagesAmountAction
-} from 'redux/reducers/messagesInfo'
+import { useSelector } from 'hooks'
+
+import { useAction } from './useAction'
 
 export const useMessagesInfo = () => {
-    const dispatch = useAppDispatch()
-    const { lastUnreadMessageIndex, unreadMessagesAmount } = useAppSelector(
-        state => state.messagesInfo
-    )
-    const setLastUnreadMessageIndex = (payload: number) =>
-        dispatch(setLastUnreadMessageIndexAction(payload))
-    const setUnreadMessagesAmount = (payload: number) =>
-        dispatch(setUnreadMessagesAmountAction(payload))
-    return {
-        lastUnreadMessageIndex,
-        unreadMessagesAmount,
-        setLastUnreadMessageIndex,
-        setUnreadMessagesAmount
-    }
+   const { lastUnreadMessageIndex, unreadMessagesAmount } = useSelector(state => state.messagesInfo)
+
+   const setLastUnreadMessageIndex = useAction(messagesInfoActions.setLastUnreadMessageIndex)
+
+   const setUnreadMessagesAmount = useAction(messagesInfoActions.setUnreadMessagesAmount)
+
+   return {
+      lastUnreadMessageIndex,
+      unreadMessagesAmount,
+      setLastUnreadMessageIndex,
+      setUnreadMessagesAmount,
+   }
 }

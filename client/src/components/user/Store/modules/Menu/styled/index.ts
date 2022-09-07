@@ -1,5 +1,0 @@
-export { Logo } from './Logo'
-export { LinesContainer } from './LinesContainer'
-export { Line } from './Line'
-export { OptionsContainer } from './OptionsContainer'
-export { Option } from './Option'

@@ -1,0 +1,29 @@
+overwrite: true
+schema: 'http://localhost:3001/graphql'
+generates:
+   client/src/gql/index.ts:
+      documents: '**/*.gql'
+      plugins:
+         - 'typescript'
+         - 'typescript-operations'
+         - 'typescript-react-apollo'
+         - add:
+              content:
+                 - '/* eslint-disable object-curly-newline */'
+   server/types/graphql.ts:
+      plugins:
+         - 'typescript'
+         - 'typescript-resolvers'
+         - add:
+              content:
+                 - /* eslint-disable @typescript-eslint/ban-types */
+                 - /* eslint-disable @typescript-eslint/consistent-type-imports */
+      config:
+         contextType: ./#GraphqlContext
+config:
+   enumsAsTypes: true
+   scalars:
+      Email: string
+hooks:
+   afterAllFileWrite:
+      - prettier --write

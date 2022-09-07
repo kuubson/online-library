@@ -1,49 +1,54 @@
-import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
-import { User, Authentication } from 'database'
+import { JWT_KEY } from 'config'
 
-import { validator } from 'helpers'
+import { User } from 'database'
+
+import { API } from 'shared'
+
+import { yupValidation } from 'middlewares'
+
+import { yup } from 'helpers'
 
 import { ApiError, cookie } from 'utils'
 
-import { Route } from 'types/express'
+import type { Body, Route } from 'types/express'
 
-export const login: Route = async (req, res, next) => {
-    try {
-        const { email, password } = req.body
-        const user = await User.findOne({
-            where: {
-                email
+const ENDPOINT = API.AUTH.login
+
+const schema = yup.object({ body: ENDPOINT.schema })
+
+export const login: Route<Body<typeof schema>> = [
+   yupValidation({ schema }),
+   async (req, res, next) => {
+      try {
+         const { email, password } = req.body
+
+         const user = await User.findOne({
+            where: { email },
+            include: [User.associations.authentication],
+         })
+
+         if (!user || !bcrypt.compareSync(password, user.password)) {
+            throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses[401].description, 401)
+         }
+
+         if (!user.authentication?.authenticated) {
+            throw new ApiError(ENDPOINT.header, ENDPOINT.post.responses[403].description, 403)
+         }
+
+         const token = jwt.sign(
+            {
+               email,
+               role: 'user',
             },
-            include: [Authentication]
-        })
-        if (!user || !bcrypt.compareSync(password, user.password)) {
-            throw new ApiError(
-                'Logging to app',
-                'The email address or password provided are invalid',
-                404
-            )
-        }
-        if (!user.authentication.authenticated) {
-            throw new ApiError(
-                'Logging to app',
-                'An account assigned to email address provided must be firstly authenticated',
-                409
-            )
-        }
-        const token = jwt.sign({ email, role: 'user' }, process.env.JWT_KEY!)
-        res.cookie('token', token, {
-            secure: process.env.NODE_ENV === 'production',
-            httpOnly: true,
-            sameSite: true,
-            maxAge: cookie.maxAge
-        }).send({
-            success: true
-        })
-    } catch (error) {
-        next(error)
-    }
-}
+            JWT_KEY
+         )
 
-export const validation = () => [validator.validateEmail(), validator.validatePassword(true)]
+         res.cookie('token', token, cookie(true)).send()
+      } catch (error) {
+         next(error)
+      }
+   },
+]

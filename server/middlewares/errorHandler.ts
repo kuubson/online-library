@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Application, Request, Response, NextFunction } from 'express'
+import type { Application, NextFunction, Request, Response } from 'express'
 
 import { handleError } from 'helpers'
 
+import type { ExpressError } from 'types'
+
 export const errorHandler = (app: Application) =>
-    app.use((error: any, _: Request, res: Response, __: NextFunction) => handleError(res, error))
+   app.use((error: ExpressError, _: Request, res: Response, __: NextFunction) =>
+      handleError(res, error)
+   )

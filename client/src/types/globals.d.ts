@@ -1,5 +1,5 @@
 type ReactDispatch<T> = React.Dispatch<React.SetStateAction<T>>
 
-type CheckTokenResponse = {
-    role: Role
-}
+type Role = 'guest' | 'user'
+
+type SocketType = WritableDraft<Socket<DefaultEventsMap, DefaultEventsMap>>

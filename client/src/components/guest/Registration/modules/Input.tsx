@@ -1,67 +1,65 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
+import { Controller } from 'react-hook-form'
+import styled, { css } from 'styled-components/macro'
 
 import * as Styled from '../styled'
 
-type StyledProps = {
-    withBooksSuggestions?: boolean
+type InputProps = {
+   control: any
+   id: string
+   label?: string
+   type: string
+   placeholder: string
+   error?: string
+   withBooksSuggestions?: boolean
 }
 
-const InputContainer = styled.div<StyledProps>`
-    width: 550px;
-    margin: 0px auto 30px auto;
-    :last-of-type {
-        margin-bottom: 0px;
-    }
-    @media (max-width: 1000px) {
-        width: 70%;
-    }
-    ${({ withBooksSuggestions }) =>
-        withBooksSuggestions
-            ? css`
-                  @media (max-width: 1100px) {
-                      width: 100%;
-                  }
-              `
-            : null}
-`
-
-interface IInput {
-    id: string
-    label?: string
-    type: string
-    value: string
-    placeholder: string
-    error?: string
-    onChange: React.ChangeEventHandler<HTMLInputElement>
-    withBooksSuggestions?: boolean
-}
-
-const Input = ({
-    id,
-    label,
-    type,
-    value,
-    placeholder,
-    error,
-    onChange,
-    withBooksSuggestions
-}: IInput) => {
-    return (
-        <InputContainer withBooksSuggestions={withBooksSuggestions}>
-            {label && <Styled.Label htmlFor={id}>{label}</Styled.Label>}
+export const Input = ({
+   control,
+   id,
+   label,
+   type,
+   placeholder,
+   error,
+   withBooksSuggestions,
+}: InputProps) => (
+   <InputContainer withBooksSuggestions={withBooksSuggestions}>
+      {label && <Styled.Label htmlFor={id}>{label}</Styled.Label>}
+      <Controller
+         control={control}
+         name={id}
+         render={({ field }) => (
             <Styled.Input
-                id={id}
-                name={id}
-                type={type}
-                value={value}
-                placeholder={placeholder}
-                onChange={onChange}
-                withBooksSuggestions={withBooksSuggestions}
+               {...field}
+               id={id}
+               type={type}
+               placeholder={placeholder}
+               withBooksSuggestions={withBooksSuggestions}
             />
-            {error && <Styled.Error>{error}</Styled.Error>}
-        </InputContainer>
-    )
+         )}
+      />
+      {error && <Styled.Error>{error}</Styled.Error>}
+   </InputContainer>
+)
+
+type InputContainerProps = {
+   withBooksSuggestions?: boolean
 }
 
-export default Input
+const InputContainer = styled.div<InputContainerProps>`
+   width: 550px;
+   margin: 0px auto 30px auto;
+   :last-of-type {
+      margin-bottom: 0px;
+   }
+   @media (max-width: 1000px) {
+      width: 70%;
+   }
+   ${({ withBooksSuggestions }) =>
+      withBooksSuggestions
+         ? css`
+              @media (max-width: 1100px) {
+                 width: 100%;
+              }
+           `
+         : null}
+`

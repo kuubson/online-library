@@ -1,52 +1,55 @@
-import { PassportStatic } from 'passport'
-import passportJwt from 'passport-jwt'
+import type { PassportStatic } from 'passport'
 import FacebookTokenStrategy from 'passport-facebook-token'
+import passportJwt from 'passport-jwt'
+
+import { FACEBOOK_APP_SECRET, JWT_KEY, REACT_APP_FACEBOOK_APP_ID } from 'config'
 
 import { User } from 'database'
 
-const JwtStrategy = passportJwt.Strategy
-const ExtractJwt = passportJwt.ExtractJwt
+const { Strategy, ExtractJwt } = passportJwt
 
 type Cookies = {
-    cookies: {
-        token: string
-    }
+   cookies: {
+      token: string
+   }
 }
 
+const extractJwtFromCookies = ({ cookies }: Cookies) => cookies.token
+
 export const initializePassport = (passport: PassportStatic) => {
-    const extractJwtFromCookies = ({ cookies }: Cookies) => cookies.token
-    passport.use(
-        new JwtStrategy(
-            {
-                jwtFromRequest: ExtractJwt.fromExtractors([extractJwtFromCookies]),
-                secretOrKey: process.env.JWT_KEY
-            },
-            async (data, done) => {
-                const { email, role } = data
-                if (role === 'user') {
-                    const user = await User.findOne({
-                        where: {
-                            email
-                        }
-                    })
-                    return user
-                        ? done(false, {
-                              user,
-                              role
-                          })
-                        : done(false, {})
-                }
-                done(false, {})
+   passport.use(
+      new Strategy(
+         {
+            jwtFromRequest: ExtractJwt.fromExtractors([extractJwtFromCookies]),
+            secretOrKey: JWT_KEY,
+         },
+         async (data, done) => {
+            const { email, role } = data
+
+            if (role === 'user') {
+               const user = await User.findOne({ where: { email } })
+
+               if (!user) {
+                  return done(false, {})
+               }
+
+               return done(false, {
+                  user,
+                  role,
+               })
             }
-        )
-    )
-    passport.use(
-        new FacebookTokenStrategy(
-            {
-                clientID: process.env.REACT_APP_FACEBOOK_APP_ID!,
-                clientSecret: process.env.FACEBOOK_APP_SECRET!
-            },
-            (_, __, profile, done) => (profile ? done(false, true) : done(false, false))
-        )
-    )
+
+            done(false, {})
+         }
+      )
+   )
+   passport.use(
+      new FacebookTokenStrategy(
+         {
+            clientID: REACT_APP_FACEBOOK_APP_ID,
+            clientSecret: FACEBOOK_APP_SECRET,
+         },
+         (_, __, profile, done) => (profile ? done(false, true) : done(false, false))
+      )
+   )
 }

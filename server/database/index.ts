@@ -1,22 +1,16 @@
 import { Sequelize } from 'sequelize'
 
-const { DATABASE_HOST, DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD } = process.env
+import { NODE_ENV, SEED_BOOKS, SEQUELIZE_AUTO, db, generateDbTypes } from 'config'
 
-const connection = new Sequelize(DATABASE_NAME!, DATABASE_USERNAME!, DATABASE_PASSWORD, {
-    host: DATABASE_HOST,
-    dialect: 'mysql',
-    define: {
-        charset: 'utf8mb4',
-        collate: 'utf8mb4_unicode_ci'
-    }
-})
+import { AuthenticationModel } from './models/Authentication'
+import { BookModel } from './models/Book'
+import { MessageModel } from './models/Message'
+import { PaymentModel } from './models/Payment'
+import { SubscriptionModel } from './models/Subscription'
+import { UserModel } from './models/User'
+import { seedBooks } from './seeds'
 
-import UserModel from './models/User'
-import AuthenticationModel from './models/Authentication'
-import BookModel from './models/Book'
-import MessageModel from './models/Message'
-import PaymentModel from './models/Payment'
-import SubscriptionModel from './models/Subscription'
+const connection = new Sequelize(...db)
 
 export const User = UserModel(connection)
 export const Authentication = AuthenticationModel(connection)
@@ -41,17 +35,27 @@ User.hasMany(Subscription)
 Subscription.belongsTo(User)
 
 const initializeDatabase = async () => {
-    try {
-        // await connection.sync({ force: true })
-        // await connection.sync({ alter: true })
-        await connection.sync()
-        console.log('The database connection has been established')
-    } catch (error) {
-        console.log({
-            error,
-            message: 'There was a problem connecting to the database'
-        })
-    }
+   try {
+      // await connection.sync({ force: true })
+      // await connection.sync({ alter: true })
+      await connection.sync()
+
+      console.log('📁 Database connected')
+
+      if (NODE_ENV === 'development') {
+         if (SEED_BOOKS === 'true') {
+            seedBooks(100)
+         }
+         if (SEQUELIZE_AUTO === 'true') {
+            generateDbTypes(connection)
+         }
+      }
+   } catch (error) {
+      console.log({
+         error,
+         message: 'There was a problem connecting to the database',
+      })
+   }
 }
 initializeDatabase()
 

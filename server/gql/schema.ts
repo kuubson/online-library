@@ -1,20 +1,19 @@
-import { gql } from 'apollo-server-express'
 import { makeExecutableSchema } from '@graphql-tools/schema'
+import { gql } from 'apollo-server-express'
+import { applyMiddleware } from 'graphql-middleware'
 
-import { userTypeDefs } from 'gql/user/typeDefs'
-import { userResolvers } from 'gql/user/resolvers'
+import { resolvers, typeDefs } from './api'
 
-const typeDefs = [...userTypeDefs]
-
-const resolvers = [userResolvers]
-
-export const schema = makeExecutableSchema({
-    typeDefs: [
-        gql`
+export const schema = applyMiddleware(
+   makeExecutableSchema({
+      typeDefs: [
+         gql`
             type Query
             type Mutation
-        `,
-        typeDefs
-    ],
-    resolvers
-})
+            type Subscription
+         `,
+         typeDefs,
+      ],
+      resolvers,
+   })
+)

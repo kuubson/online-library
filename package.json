@@ -1,8 +1,31 @@
 {
-    "name": "online-library",
-    "private": true,
-    "scripts": {
-        "heroku-prebuild": "cd server && npm install && npm run build",
-        "heroku-postbuild": "cd client && npm install && npm run build"
-    }
+   "name": "online-library",
+   "private": true,
+   "scripts": {
+      "postinstall": "husky install",
+      "heroku-postbuild": "npm run build --ws",
+      "gql": "graphql-codegen"
+   },
+   "workspaces": [
+      "client",
+      "server"
+   ],
+   "devDependencies": {
+      "@graphql-codegen/add": "^3.1.1",
+      "@graphql-codegen/cli": "^2.6.2",
+      "@graphql-codegen/typescript": "^2.5.1",
+      "@graphql-codegen/typescript-operations": "^2.4.2",
+      "@graphql-codegen/typescript-react-apollo": "^3.2.16",
+      "@graphql-codegen/typescript-resolvers": "^2.6.6",
+      "@trivago/prettier-plugin-sort-imports": "^3.2.0",
+      "@typescript-eslint/eslint-plugin": "^5.21.0",
+      "@typescript-eslint/parser": "^5.21.0",
+      "eslint": "^8.14.0",
+      "eslint-config-prettier": "^8.5.0",
+      "eslint-plugin-prettier": "^4.0.0",
+      "eslint-plugin-unused-imports": "^2.0.0",
+      "husky": "^7.0.4",
+      "prettier": "^2.6.2",
+      "typescript": "^4.6.4"
+   }
 }

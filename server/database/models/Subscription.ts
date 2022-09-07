@@ -1,38 +1,61 @@
-import { Sequelize, Model, STRING } from 'sequelize'
+import type {
+   Association,
+   BelongsToCreateAssociationMixin,
+   BelongsToGetAssociationMixin,
+   BelongsToSetAssociationMixin,
+   CreationOptional,
+   InferAttributes,
+   InferCreationAttributes,
+   NonAttribute,
+   Sequelize,
+} from 'sequelize'
+import { DataTypes, Model } from 'sequelize'
 
-class SubscriptionValues extends Model {
-    id: number
-    endpoint: string
-    p256dh: string
-    auth: string
+import { dbDefaultAttributes } from 'utils'
+
+import type { User } from './User'
+
+export class Subscription extends Model<
+   InferAttributes<Subscription>,
+   InferCreationAttributes<Subscription>
+> {
+   declare id: CreationOptional<number>
+   declare createdAt: CreationOptional<Date>
+   declare updatedAt: CreationOptional<Date>
+
+   declare endpoint: string
+   declare p256dh: string
+   declare auth: string
+
+   declare user?: NonAttribute<User>
+   declare getUser: BelongsToGetAssociationMixin<User>
+   declare setUser: BelongsToSetAssociationMixin<User, User['id']>
+   declare createUser: BelongsToCreateAssociationMixin<User>
+
+   declare static associations: {
+      user: Association<Subscription, User>
+   }
 }
 
-export class Subscription extends SubscriptionValues {
-    dataValues: SubscriptionValues
-}
-
-const SubscriptionModel = (sequelize: Sequelize) => {
-    Subscription.init(
-        {
-            endpoint: {
-                type: STRING,
-                allowNull: false
-            },
-            p256dh: {
-                type: STRING,
-                allowNull: false
-            },
-            auth: {
-                type: STRING,
-                allowNull: false
-            }
-        },
-        {
-            sequelize,
-            modelName: 'subscription'
-        }
-    )
-    return Subscription
-}
-
-export default SubscriptionModel
+export const SubscriptionModel = (sequelize: Sequelize) =>
+   Subscription.init(
+      {
+         ...dbDefaultAttributes,
+         endpoint: {
+            type: DataTypes.STRING,
+            allowNull: false,
+         },
+         p256dh: {
+            type: DataTypes.STRING,
+            allowNull: false,
+         },
+         auth: {
+            type: DataTypes.STRING,
+            allowNull: false,
+         },
+      },
+      {
+         sequelize,
+         modelName: 'subscription',
+      }
+   )
