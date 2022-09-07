@@ -53,7 +53,9 @@ cd ./server && npm start
 -  When describing API with **swagger**, add the following property to the **nodemon.json**:
 
 ```bash
-"exec": "npm run docs"
+"events": {
+    "restart": "npm run docs"
+}
 ```
 
 ## Some screenshots
