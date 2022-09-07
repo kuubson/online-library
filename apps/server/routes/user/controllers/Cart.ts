@@ -21,7 +21,7 @@ Cart.post(
          schema: { $ref: "#/definitions/purchaseBooksWithStripe" }
       } 
       #swagger.responses[200] = {
-         description: 'Successfully purchased new book',
+         description: 'Successfully purchased new books',
       }  
       #swagger.responses[404] = {
          description: 'Selected books are not available anymore',
@@ -80,7 +80,7 @@ Cart.post(
          schema: { $ref: "#/definitions/executePayPalPayment" }
       }
       #swagger.responses[200] = {
-         description: 'Successfully purchased new book',
+         description: 'Successfully purchased new books',
       }  
       #swagger.responses[409] = {
          description: 'The order has been already approved',

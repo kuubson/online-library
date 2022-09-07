@@ -12,7 +12,7 @@ export const Login = () => {
    return (
       <GuestContent>
          <HomeButton />
-         <Form onSubmit={login}>
+         <Form onSubmit={event => event.preventDefault()}>
             <Input
                {...{ control }}
                id="email"
@@ -29,7 +29,7 @@ export const Login = () => {
                placeholder="Type your password..."
                error={errors.password?.message}
             />
-            <Submit>Login</Submit>
+            <Submit onClick={login}>Login</Submit>
             <Submit onClick={loginWithFacebook} withFacebook>
                Login with Facebook
             </Submit>

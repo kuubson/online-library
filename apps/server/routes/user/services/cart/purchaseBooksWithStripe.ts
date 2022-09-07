@@ -12,7 +12,7 @@ import { totalBooksPrice, verifyPurchasingBooks } from 'helpers'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
-const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: '2020-08-27' })
+const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: '2022-08-01' })
 
 const { header, post, validation } = API.purchaseBooksWithStripe
 

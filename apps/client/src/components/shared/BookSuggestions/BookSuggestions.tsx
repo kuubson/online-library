@@ -51,7 +51,7 @@ export const BookSuggestions = ({
             {error && <Styled.Suggestion>{error}</Styled.Suggestion>}
             {books.map(({ id, title, author, price }) => (
                <Styled.Suggestion key={id} onClick={() => handleSort(id, price)}>
-                  {`"{${title}}" written by ${author}`}
+                  {`"${title}" written by ${author}`}
                </Styled.Suggestion>
             ))}
          </Styled.SuggestionsContainer>

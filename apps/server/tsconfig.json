@@ -2,7 +2,6 @@
    "compilerOptions": {
       "baseUrl": ".",
       "target": "es6",
-      "allowJs": true,
       "module": "commonjs",
       "rootDir": ".",
       "outDir": "./dist",

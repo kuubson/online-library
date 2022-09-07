@@ -131,7 +131,7 @@ Auth.post(
          description: 'Auth token was set in cookies',
       }  
       #swagger.responses[400] = {
-         description: 'There was an unexpected problem with FB authentication',
+         description: 'FB authentication has failed',
       }  
 */
    '/loginWithFacebook',

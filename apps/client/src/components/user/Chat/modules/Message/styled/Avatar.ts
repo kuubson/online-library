@@ -19,7 +19,7 @@ export const Avatar = styled.div<StyledProps>`
    justify-content: center;
    align-items: center;
    position: absolute;
-   bottom: -2px;
+   bottom: -8px;
    right: -50px;
    @media ${queries.largeTablet} {
       width: 30px;
