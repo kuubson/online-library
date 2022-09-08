@@ -17,8 +17,8 @@ type BooksProps = {
    header?: string
    hasMore?: boolean
    setBookPopupData?: ReactDispatch<BookType | undefined>
-   searchInput?: () => JSX.Element
    loadMore?: () => void
+   searchBar?: JSX.Element
    withCart?: boolean
    withProfile?: boolean
    withMarginRight?: boolean
@@ -32,8 +32,8 @@ export const Books = ({
    header,
    hasMore,
    setBookPopupData,
-   searchInput,
    loadMore,
+   searchBar,
    withCart,
    withProfile,
    withMarginRight,
@@ -50,11 +50,11 @@ export const Books = ({
          {areThereBooks && (
             <HeaderContainer withoutInput={withoutInput}>
                {header && (
-                  <Header withMoreMarginBottom={!!searchInput} withPaddingRight={!!searchInput}>
+                  <Header withMoreMarginBottom={!!searchBar} withPaddingRight={!!searchBar}>
                      {header}
                   </Header>
                )}
-               {searchInput && searchInput()}
+               {searchBar}
             </HeaderContainer>
          )}
          <Styled.Books empty={!areThereBooks}>
@@ -115,8 +115,14 @@ const BooksContainer = styled.div<BooksContainerProps>`
       empty
          ? css`
               margin-top: 0px !important;
+              order: 2;
            `
-         : null}
+         : css`
+              margin-right: 20px;
+              &:last-child {
+                 margin-right: 0px;
+              }
+           `}
     ${({ fullWidth }) =>
       fullWidth
          ? css`

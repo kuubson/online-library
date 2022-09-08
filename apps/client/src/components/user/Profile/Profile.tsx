@@ -19,8 +19,15 @@ export const Profile = ({ shouldMenuExpand }: ProfileProps) => {
 
    const [bookPopupData, setBookPopupData] = useState<BookType>()
 
-   const areThereBoughtBooks = !!boughtBooks.length
+   const books = {
+      freeBooks: borrowedBooks,
+      setFreeBooks: setBorrowedBooks,
+      paidBooks: boughtBooks,
+      setPaidBooks: setBoughtBooks,
+      withProfile: true,
+   }
 
+   const areThereBoughtBooks = !!boughtBooks.length
    const areThereBorrowedBooks = !!borrowedBooks.length
 
    return (
@@ -28,59 +35,24 @@ export const Profile = ({ shouldMenuExpand }: ProfileProps) => {
          {bookPopupData && <BookPreview {...bookPopupData} setBookPopupData={setBookPopupData} />}
          {!loading &&
             (!areThereBoughtBooks && !areThereBorrowedBooks ? (
-               <Books books={[]} error="You don't have any books yet" />
-            ) : areThereBoughtBooks ? (
-               <>
-                  <Books
-                     books={boughtBooks}
-                     header="Your purchased books"
-                     error="You haven't purchased any books yet"
-                     setBookPopupData={setBookPopupData}
-                     searchInput={() => (
-                        <BookSuggestions
-                           freeBooks={borrowedBooks}
-                           setFreeBooks={setBorrowedBooks}
-                           paidBooks={boughtBooks}
-                           setPaidBooks={setBoughtBooks}
-                           withProfile
-                        />
-                     )}
-                     withProfile
-                     withMarginRight
-                  />
-                  <Books
-                     books={borrowedBooks}
-                     header="Enjoy borrowed books"
-                     error="You haven't borrowed any books yet"
-                     setBookPopupData={setBookPopupData}
-                     withProfile
-                  />
-               </>
+               <Books books={[]} error="Go to store to get free books or just buy some" />
             ) : (
                <>
                   <Books
-                     books={borrowedBooks}
-                     header="Enjoy borrowed books"
-                     error="You haven't borrowed any books yet"
-                     setBookPopupData={setBookPopupData}
-                     searchInput={() => (
-                        <BookSuggestions
-                           freeBooks={borrowedBooks}
-                           setFreeBooks={setBorrowedBooks}
-                           paidBooks={boughtBooks}
-                           setPaidBooks={setBoughtBooks}
-                           withProfile
-                        />
-                     )}
-                     withProfile
-                     withMarginRight
-                  />
-                  <Books
                      books={boughtBooks}
                      header="Your purchased books"
                      error="You haven't purchased any books yet"
                      setBookPopupData={setBookPopupData}
                      withProfile
+                     {...(!areThereBorrowedBooks && { searchBar: <BookSuggestions {...books} /> })}
+                  />
+                  <Books
+                     books={borrowedBooks}
+                     header="Enjoy borrowed books"
+                     error="You haven't borrowed any books yet"
+                     setBookPopupData={setBookPopupData}
+                     withProfile
+                     {...(!areThereBoughtBooks && { searchBar: <BookSuggestions {...books} /> })}
                   />
                </>
             ))}
