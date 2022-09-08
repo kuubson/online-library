@@ -54,7 +54,7 @@ cd ./server && npm start
 
 ```bash
 "events": {
-    "restart": "npm run docs"
+    "restart": "yarn docs"
 }
 ```
 

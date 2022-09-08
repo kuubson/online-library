@@ -103,6 +103,7 @@ class _API {
       validation: yup
          .object({
             endpoint: yup.string().plain(),
+            expirationTime: yup.string().nullable(),
             keys: yup.object({
                auth: yup.string().plain(),
                p256dh: yup.string().plain(),

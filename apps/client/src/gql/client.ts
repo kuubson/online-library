@@ -12,6 +12,8 @@ import { setApiFeedback, setLoading } from 'helpers'
 
 import { defaultAxios, history, websocketUrl } from 'utils'
 
+import type { GraphqlError } from 'types'
+
 let timeoutId: NodeJS.Timeout | undefined
 
 const handleOnClosed = (event: any) => {
@@ -65,11 +67,10 @@ const handleError = onError(({ graphQLErrors, networkError }) => {
    timeoutId = undefined
 
    if (graphQLErrors) {
-      const [
-         {
-            extensions: { exception },
-         },
-      ] = graphQLErrors
+      const [{ extensions }] = graphQLErrors
+
+      const exception = extensions.exception as GraphqlError['exception']
+
       setApiFeedback(exception.errorHeader, exception.errorMessage)
    }
 

@@ -2,6 +2,6 @@
    "ext": "ts,gql",
    "ignore": ["./database/generated/"],
    "events": {
-      "restart": "npm run docs"
+      "restart": "yarn docs"
    }
 }

@@ -8,11 +8,9 @@ tsconfig.tsbuildinfo
 
 server/database/generated
 
-# It prevents from crashing the heroku build
-server/package-lock.json
-
 .env
 .turbo
 .DS_Store
 
 node_modules/
+yarn-error.log

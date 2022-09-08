@@ -2,13 +2,13 @@
    "name": "online-library",
    "version": "1.0.0",
    "private": true,
+   "sideEffects": false,
    "main": "./dist/index.js",
    "types": "./dist/index.d.ts",
-   "sideEffects": false,
    "scripts": {
-      "build": "tsup src/index.tsx --format cjs --dts --external react",
       "dev": "tsup src/index.tsx --format cjs --watch --dts --external react",
-      "check": "eslint . && tsc --noEmit"
+      "lint": "eslint . && tsc --noEmit",
+      "build": "tsup src/index.tsx --format cjs --dts --external react"
    },
    "dependencies": {
       "lodash": "^4.17.21",

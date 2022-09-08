@@ -4,7 +4,6 @@ import type { Application } from 'express'
 import express from 'express'
 import type { Server } from 'http'
 import passport from 'passport'
-import path from 'path'
 import paypal from 'paypal-rest-sdk'
 import { Server as SocketServer } from 'socket.io'
 import { initializeSocketIO } from 'socketio/socketio'
@@ -24,9 +23,8 @@ import {
 
 import { initializeGraphQL } from 'gql/server'
 
-import { initializeApiDocs } from './apiDocs'
-import { initializeCsrf } from './csrf'
 import { initializePassport } from './passport'
+import { serveApiDocs } from './serveApiDocs'
 
 export { facebookAuthorization } from './facebookAuthorization'
 export { formatErrors } from './formatErrors'
@@ -35,6 +33,7 @@ export { handleMulterFile } from './handleMulterFile'
 export { jwtAuthorization } from './jwtAuthorization'
 export { multerFile } from './multerFile'
 export { rateLimiter } from './rateLimiter'
+export { serveClient } from './serveClient'
 export { unless } from './unless'
 export { yupValidation } from './yupValidation'
 
@@ -77,16 +76,6 @@ export const initializeMiddlewares = (app: Application, server: Server) => {
    initializeGraphQL(app, server, passport)
 
    if (NODE_ENV === 'development') {
-      initializeApiDocs(app)
-   }
-
-   if (NODE_ENV === 'production') {
-      initializeCsrf(app)
-
-      const buildPath = '../../../../client/build'
-
-      app.use(express.static(path.resolve(__dirname, buildPath)))
-
-      app.get('*', (_, res) => res.sendFile(path.resolve(__dirname, buildPath, 'index.html')))
+      serveApiDocs(app)
    }
 }

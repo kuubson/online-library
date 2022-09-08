@@ -4,7 +4,7 @@
       "dev": {
          "outputs": []
       },
-      "check": {
+      "lint": {
          "outputs": []
       },
       "test": {
@@ -12,15 +12,11 @@
          "outputs": []
       },
       "build": {
-         "dependsOn": ["^build", "check", "test"],
+         "dependsOn": ["^build", "lint", "test"],
          "outputs": ["build", "dist"]
       },
       "docs": {
          "dependsOn": [],
-         "outputs": []
-      },
-      "deploy": {
-         "dependsOn": ["build", "check", "test"],
          "outputs": []
       }
    }

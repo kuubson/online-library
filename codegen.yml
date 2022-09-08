@@ -9,6 +9,8 @@ generates:
          - 'typescript-react-apollo'
          - add:
               content:
+                 - '/* eslint-disable @typescript-eslint/ban-ts-comment */'
+                 - '// @ts-nocheck'
                  - '/* eslint-disable object-curly-newline */'
    apps/server/types/graphql.ts:
       plugins:

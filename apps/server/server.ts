@@ -5,11 +5,11 @@ import 'dotenv/config'
 
 import './config/aliases'
 
-import { PORT } from 'config'
+import { NODE_ENV, PORT } from 'config'
 
 import 'database'
 
-import { formatErrors, initializeMiddlewares } from 'middlewares'
+import { formatErrors, initializeMiddlewares, serveClient } from 'middlewares'
 
 import { router } from 'routes'
 
@@ -22,5 +22,9 @@ initializeMiddlewares(app, server)
 app.use(router)
 
 formatErrors(app)
+
+if (NODE_ENV === 'production') {
+   serveClient(app)
+}
 
 server.listen(PORT || 3001, () => console.log(`🚀 Server has launched`))

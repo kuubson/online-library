@@ -18,4 +18,4 @@ export const schema = applyMiddleware(
       resolvers,
    }),
    shield
-)
+) as any

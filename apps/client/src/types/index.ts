@@ -6,7 +6,7 @@ import type { Book } from 'gql'
 
 export * from './api'
 
-type GraphqlError = GraphQLError & {
+export type GraphqlError = GraphQLError & {
    exception: {
       errorHeader: string
       errorMessage: string

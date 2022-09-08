@@ -8,6 +8,11 @@ export const messageTypes = ['MESSAGE', 'IMAGE', 'VIDEO', 'FILE'] as const
 
 export type Paths = typeof swagger.paths
 
+export type SwaggerAutogenFeedback = {
+   success: boolean
+   data: object | null
+}
+
 export type Errors = {
    [Method in keyof Paths]: {
       [Property in keyof Paths[Method]]: Paths[Method][Property] extends { responses: object }

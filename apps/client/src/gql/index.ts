@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
+
 /* eslint-disable object-curly-newline */
 import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'

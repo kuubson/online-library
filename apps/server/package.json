@@ -4,9 +4,8 @@
    "version": "1.0.0",
    "scripts": {
       "dev": "cross-env NODE_ENV=development nodemon server.ts",
-      "check": "eslint . && tsc --noEmit",
-      "test": "",
-      "build": "tsc && copyfiles gql/**/**/*.gql dist/server",
+      "lint": "eslint . && tsc --noEmit",
+      "build": "tsc && copyfiles gql/**/**/*.gql dist",
       "docs": "npx ts-node swagger/swagger.ts"
    },
    "dependencies": {

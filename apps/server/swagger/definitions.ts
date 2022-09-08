@@ -151,6 +151,7 @@ export const subscription = {
          example:
             'https://fcm.googleapis.com/fcm/send/d61c5u920dw:APA91bEmnw8utjDYCqSRplFMVCzQMg9e5XxpYajvh37mv2QIlISdasBFLbFca9ZZ4Uqcya0ck-SP84YJUEnWsVr3mwYfaDB7vGtsDQuEpfDdcIqOX_wrCRkBW2NDWRZ9qUz9hSgtI3sY',
       },
+      expirationTime: { anyOf: [{ type: 'integer' }, { type: 'null' }] },
       keys: {
          type: 'object',
          additionalProperties: false,

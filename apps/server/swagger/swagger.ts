@@ -1,6 +1,8 @@
 import path from 'path'
 import swaggerAutogen from 'swagger-autogen'
 
+import type { SwaggerAutogenFeedback } from 'online-library'
+
 import { version } from '../package.json'
 import {
    access_token,
@@ -137,6 +139,12 @@ const doc = {
 
 const outputPath = path.resolve(__dirname, '../../../packages/online-library/src/swagger.json')
 
-swaggerAutogen({ openapi: '3.0.0' })(outputPath, ['./server.ts'], doc).then(() => {
-   console.log('📄 API docs has been generated')
-})
+swaggerAutogen({ openapi: '3.0.0' })(outputPath, ['./server.ts'], doc).then(
+   ({ success }: SwaggerAutogenFeedback) => {
+      if (success) {
+         console.log('📄✅ API docs has been generated')
+      } else {
+         console.log('📄❌ Generating API docs has failed')
+      }
+   }
+)
