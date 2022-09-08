@@ -38,6 +38,8 @@ export const Store = ({ shouldMenuExpand }: StoreProps) => {
    const areThereFreeBooks = !!freeBooks.length
    const areTherePaidBooks = !!paidBooks.length
 
+   const shouldShowSearchBar = areThereFreeBooks && areTherePaidBooks
+
    return (
       <UserContent shouldMenuExpand={shouldMenuExpand}>
          {bookPopupData && <BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />}
@@ -53,7 +55,9 @@ export const Store = ({ shouldMenuExpand }: StoreProps) => {
                      hasMore={hasMoreFreeBooks}
                      setBookPopupData={setBookPopupData}
                      loadMore={() => getMoreBooks(freeBooks.length, 0)}
-                     {...(!areTherePaidBooks && { searchBar: <BookSuggestions {...books} /> })}
+                     {...((!areTherePaidBooks || shouldShowSearchBar) && {
+                        searchBar: <BookSuggestions {...books} />,
+                     })}
                   />
                   <Books
                      books={paidBooks}

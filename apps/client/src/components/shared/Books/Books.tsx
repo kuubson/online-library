@@ -106,11 +106,7 @@ const BooksContainer = styled.div<BooksContainerProps>`
                  margin-right: 0px;
               }
            `
-         : css`
-              @media ${queries.largeTablet} {
-                 margin-top: 35px;
-              }
-           `}
+         : null}
    ${({ empty }) =>
       empty
          ? css`

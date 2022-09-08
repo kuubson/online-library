@@ -28,6 +28,5 @@ export const User = ({ children, withChat }: UserProps) => {
 }
 
 const UserContent = styled(RoleContainer)`
-   height: auto;
-   min-height: 100%;
+   display: block;
 `

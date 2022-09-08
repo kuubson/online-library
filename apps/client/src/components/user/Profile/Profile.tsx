@@ -30,12 +30,14 @@ export const Profile = ({ shouldMenuExpand }: ProfileProps) => {
    const areThereBoughtBooks = !!boughtBooks.length
    const areThereBorrowedBooks = !!borrowedBooks.length
 
+   const shouldShowSearchBar = areThereBoughtBooks && areThereBorrowedBooks
+
    return (
       <UserContent shouldMenuExpand={shouldMenuExpand}>
          {bookPopupData && <BookPreview {...bookPopupData} setBookPopupData={setBookPopupData} />}
          {!loading &&
             (!areThereBoughtBooks && !areThereBorrowedBooks ? (
-               <Books books={[]} error="Go to store to get free books or just buy some" />
+               <Books books={[]} error="Go to store to get free books or buy some" />
             ) : (
                <>
                   <Books
@@ -44,7 +46,9 @@ export const Profile = ({ shouldMenuExpand }: ProfileProps) => {
                      error="You haven't purchased any books yet"
                      setBookPopupData={setBookPopupData}
                      withProfile
-                     {...(!areThereBorrowedBooks && { searchBar: <BookSuggestions {...books} /> })}
+                     {...((!areThereBorrowedBooks || shouldShowSearchBar) && {
+                        searchBar: <BookSuggestions {...books} />,
+                     })}
                   />
                   <Books
                      books={borrowedBooks}
