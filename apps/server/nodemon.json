@@ -1,7 +1,4 @@
 {
    "ext": "ts,gql",
-   "ignore": ["./database/generated/"],
-   "events": {
-      "restart": "yarn docs"
-   }
+   "ignore": ["./database/generated/"]
 }

@@ -1,9 +1,6 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
-
 /* eslint-disable object-curly-newline */
-import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
+import { gql } from '@apollo/client'
 
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
