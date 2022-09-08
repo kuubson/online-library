@@ -71,7 +71,7 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, false> = [
             let message = ''
 
             if (type === 'IMAGE') {
-               message = `${name} has sent a new image`
+               message = `${name} sent an image`
 
                const { public_id, secure_url } = await cloudinary.v2.uploader.upload(path, {
                   use_filename: true,
@@ -82,7 +82,7 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, false> = [
             }
 
             if (type === 'VIDEO') {
-               message = `${name} has sent a new video`
+               message = `${name} sent a video`
 
                const { public_id, secure_url } = await cloudinary.v2.uploader.upload(path, {
                   resource_type: 'video',
@@ -94,7 +94,7 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, false> = [
             }
 
             if (type === 'FILE') {
-               message = `${name} has sent a new file`
+               message = `${name} sent a file`
 
                const { public_id, secure_url } = await cloudinary.v2.uploader.upload(path, {
                   resource_type: 'raw',

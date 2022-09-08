@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize'
 
-import { NODE_ENV, SEED_BOOKS, SEQUELIZE_AUTO, db, generateDbTypes } from 'config'
+import { NODE_ENV, SEED_BOOKS, SEED_USER, SEQUELIZE_AUTO, db, generateDbTypes } from 'config'
 
 import { AuthenticationModel } from './models/Authentication'
 import { BookModel } from './models/Book'
@@ -8,7 +8,7 @@ import { MessageModel } from './models/Message'
 import { PaymentModel } from './models/Payment'
 import { SubscriptionModel } from './models/Subscription'
 import { UserModel } from './models/User'
-import { seedBooks } from './seeds'
+import { seedBooks, seedUser } from './seeds'
 
 const connection = new Sequelize(...db)
 
@@ -45,6 +45,9 @@ const initializeDatabase = async () => {
       if (NODE_ENV === 'development') {
          if (SEED_BOOKS === 'true') {
             seedBooks(100)
+         }
+         if (SEED_USER === 'true') {
+            seedUser()
          }
          if (SEQUELIZE_AUTO === 'true') {
             generateDbTypes(connection)

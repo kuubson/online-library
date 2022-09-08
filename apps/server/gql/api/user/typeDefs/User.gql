@@ -7,17 +7,44 @@ type Book {
 }
 
 extend type Query {
+   """
+   Fetches books based on ids of books that user put in the cart.
+   """
    books(ids: [Int!]!): [Book!]!
+   """
+   Fetches free books availabe in the store.
+
+   Implements lazy loading (on button click).
+   """
    freeBooks(freeBooksOffset: Int!, paidBooksOffset: Int!): [Book!]!
+   """
+   Fetches paid books availabe in the store.
+
+   Implements lazy loading (on button click).
+   """
    paidBooks(paidBooksOffset: Int!, freeBooksOffset: Int!): [Book!]!
+   """
+   Fetches books that user has bought.
+   """
    boughtBooks: [Book!]!
+   """
+   Fetches books that user has borrowed.
+   """
    borrowedBooks: [Book!]!
 }
 
 extend type Mutation {
+   """
+   Assigns certain book to the user.
+
+   Checks if user has already borrowed certain book.
+   """
    borrowBook(bookId: Int!): Book!
 }
 
 extend type Subscription {
+   """
+   Just a temporary subscription.
+   """
    user: String!
 }

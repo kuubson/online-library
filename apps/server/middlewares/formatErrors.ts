@@ -21,15 +21,15 @@ export const formatErrors = (app: Application) =>
       const { status, errorHeader, errorMessage } = error
 
       if (status === 403 && error.code === 'EBADCSRFTOKEN') {
-         res.clearCookie('token', cookie()).status(status).send(CSRFError)
+         return res.clearCookie('token', cookie()).status(status).send(CSRFError)
       }
 
       if (error instanceof AuthErrorBase) {
-         res.clearCookie('token', cookie()).status(status).send(AuthError)
+         return res.clearCookie('token', cookie()).status(status).send(AuthError)
       }
 
       if ((error as ApiError).message === 'Empty file') {
-         res.status(422).send({
+         return res.status(422).send({
             errorHeader: 'Sending a file',
             errorMessage: 'The selected text file is empty',
          })

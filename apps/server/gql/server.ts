@@ -1,4 +1,8 @@
-import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core'
+import {
+   ApolloServerPluginDrainHttpServer,
+   ApolloServerPluginLandingPageDisabled,
+   ApolloServerPluginLandingPageLocalDefault,
+} from 'apollo-server-core'
 import { ApolloServer } from 'apollo-server-express'
 import type { Application } from 'express'
 import { PubSub } from 'graphql-subscriptions'
@@ -8,7 +12,7 @@ import { verify } from 'jsonwebtoken'
 import type { PassportStatic } from 'passport'
 import { WebSocketServer } from 'ws'
 
-import { CODEGEN, JWT_KEY } from 'config'
+import { CODEGEN, JWT_KEY, NODE_ENV } from 'config'
 
 import { schema } from 'gql/schema'
 
@@ -54,6 +58,9 @@ export const initializeGraphQL = async (
       schema,
       plugins: [
          ApolloServerPluginDrainHttpServer({ httpServer: server }),
+         NODE_ENV !== 'production'
+            ? ApolloServerPluginLandingPageLocalDefault({ embed: true })
+            : ApolloServerPluginLandingPageDisabled(),
          {
             async serverWillStart() {
                return {

@@ -27,6 +27,7 @@ type Env = {
    CODEGEN: 'true' | undefined
    SEQUELIZE_AUTO: 'true' | undefined
    SEED_BOOKS: 'true' | undefined
+   SEED_USER: 'true' | undefined
 
    PORT: string | undefined
 
@@ -54,6 +55,7 @@ export const {
    CODEGEN,
    SEQUELIZE_AUTO,
    SEED_BOOKS,
+   SEED_USER,
    PORT,
    NODE_ENV,
 } = process.env as unknown as Env

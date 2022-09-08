@@ -209,7 +209,9 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
 
          const resetFileInput = () => {
             setShowFileInput(false)
-            setShowFileInput(true)
+            setTimeout(() => {
+               setShowFileInput(true)
+            }, 500)
          }
 
          const largeSizeError = () => {
