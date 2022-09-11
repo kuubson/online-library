@@ -1,14 +1,14 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 
-import { API } from 'online-library'
+import { API } from '@online-library/tools'
 
 import { useCart } from 'hooks'
 
 import { setApiFeedback, setLoading } from 'helpers'
 
-import { axios, history } from 'utils'
+import { apiAxios, history } from 'utils'
 
-const { header, post } = API.purchaseBooksWithStripe
+const { post } = API['/api/user/cart/stripe/payment']
 
 export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean>) => {
    const stripe = useStripe()
@@ -29,18 +29,16 @@ export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean
             })
 
             if (paymentMethod) {
-               await axios
-                  .post(API.purchaseBooksWithStripe.url, {
-                     paymentId: paymentMethod.id,
-                     products: cart,
+               await apiAxios(post, {
+                  paymentId: paymentMethod.id,
+                  products: cart,
+               }).then(() => {
+                  setShouldStripePopupAppear(false)
+                  setApiFeedback(post.header, post.errors[200], 'Check your profile', () => {
+                     resetCart()
+                     history.push('/profile')
                   })
-                  .then(() => {
-                     setShouldStripePopupAppear(false)
-                     setApiFeedback(header, post[200], 'Check your profile', () => {
-                        resetCart()
-                        history.push('/profile')
-                     })
-                  })
+               })
             } else {
                setLoading(false)
             }

@@ -1,6 +1,6 @@
 import type { GraphQLError } from 'graphql'
 
-import type { messageTypes } from 'online-library'
+import type { messageTypes } from '@online-library/tools'
 
 import type { Book } from 'gql'
 
@@ -22,6 +22,10 @@ export type ApiError = {
 }
 
 export type FBType = any
+
+export type FBStatus = {
+   status: string
+}
 
 export type FBLoginRequest = {
    authResponse: {

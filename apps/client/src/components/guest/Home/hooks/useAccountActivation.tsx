@@ -1,22 +1,22 @@
 import { useEffect } from 'react'
 
-import { API } from 'online-library'
+import { API } from '@online-library/tools'
 
 import { useQueryParams } from 'hooks'
 
 import { setApiFeedback } from 'helpers'
 
-import { axios, history } from 'utils'
+import { apiAxios, history } from 'utils'
 
-const { header, url, post } = API.activateAccount
+const { post } = API['/api/user/auth/activate-account']
 
 export const useAccountActivation = () => {
    const { activationToken } = useQueryParams()
 
    const activateAccount = async () => {
       try {
-         await axios.post(url, { activationToken }).then(() => {
-            setApiFeedback(header, post[200], 'Okey', () => history.push('/login'))
+         await apiAxios(post, { activationToken }).then(() => {
+            setApiFeedback(post.header, post.errors[200], 'Okey', () => history.push('/login'))
          })
       } catch (error) {
          history.push('/login')

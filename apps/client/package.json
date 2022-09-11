@@ -1,5 +1,5 @@
 {
-   "name": "client",
+   "name": "@online-library/client",
    "private": true,
    "version": "1.0.0",
    "scripts": {
@@ -27,7 +27,7 @@
       "graphql": "^16.6.0",
       "graphql-ws": "^5.10.1",
       "lodash": "^4.17.21",
-      "online-library": "*",
+      "@online-library/tools": "*",
       "query-string": "^7.1.1",
       "react": "^18.2.0",
       "react-dom": "^18.2.0",
@@ -58,8 +58,7 @@
       "postcss-scss": "^4.0.4",
       "stylelint": "^14.11.0",
       "stylelint-config-styled-components": "^0.1.1",
-      "stylelint-processor-styled-components": "^1.10.0",
-      "tsconfig": "*"
+      "stylelint-processor-styled-components": "^1.10.0"
    },
    "browserslist": {
       "production": [

@@ -1,5 +1,5 @@
-import type { Role } from 'online-library'
-import { yup } from 'online-library'
+import type { Role } from '@online-library/tools'
+import { yup } from '@online-library/tools'
 
 import { yupValidation } from 'middlewares'
 

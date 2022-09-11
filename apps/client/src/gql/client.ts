@@ -4,7 +4,7 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { createClient } from 'graphql-ws'
 
-import { API, AuthError, ConnectivityError } from 'online-library'
+import { API, AuthError, ConnectivityError } from '@online-library/tools'
 
 import { NODE_ENV } from 'config'
 
@@ -77,7 +77,7 @@ const handleError = onError(({ graphQLErrors, networkError }) => {
    if (networkError) {
       if ('statusCode' in networkError) {
          if (networkError.statusCode === 401) {
-            defaultAxios.get(API.logout.url).then(() => {
+            defaultAxios(API['/api/user/global/logout'].get).then(() => {
                setApiFeedback(AuthError.errorHeader, AuthError.errorMessage)
                history.push('/login')
             })

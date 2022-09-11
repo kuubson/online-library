@@ -1,4 +1,4 @@
-import type { Role, messageTypes } from 'online-library'
+import type { Role, messageTypes } from '@online-library/tools'
 
 import type { Book } from 'gql'
 
@@ -26,4 +26,8 @@ export type GetMessagesInfoResponse = {
 export type SendFileResponse = {
    type: typeof messageTypes[number]
    content: string
+}
+
+export type CreatePayPalPaymentResponse = {
+   link: Location
 }

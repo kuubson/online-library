@@ -1,11 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import type { DeepPartial } from 'react-hook-form'
 import { useForm as _useForm } from 'react-hook-form'
-import type { AssertsShape, ObjectShape, OptionalObjectSchema, TypeOfShape } from 'yup/lib/object'
+import type { InferType } from 'yup'
+import type { ObjectShape } from 'yup/lib/object'
 
 export const useForm = <T extends ObjectShape>(
-   validation: OptionalObjectSchema<T>,
-   defaultValues?: DeepPartial<AssertsShape<T>> | DeepPartial<Extract<TypeOfShape<T>, null>>
+   // validation: OptionalObjectSchema<T>,
+   validation: any, // TODO: fix type
+   // defaultValues?: DeepPartial<AssertsShape<T>> | DeepPartial<Extract<TypeOfShape<T>, null>>
+   defaultValues?: any // TODO: fix type
 ) => {
    const {
       handleSubmit: submit,
@@ -15,7 +17,7 @@ export const useForm = <T extends ObjectShape>(
       setValue,
       getValues,
       reset,
-   } = _useForm({
+   } = _useForm<InferType<typeof validation>>({
       resolver: yupResolver(validation),
       defaultValues,
    })

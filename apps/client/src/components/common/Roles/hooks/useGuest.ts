@@ -1,4 +1,4 @@
-import { API } from 'online-library'
+import { API } from '@online-library/tools'
 
 import { useSocket } from 'hooks'
 
@@ -13,7 +13,9 @@ export const useGuest = () => {
 
    const checkToken = async () => {
       try {
-         const response = await defaultAxios.get<CheckTokenResponse>(API.checkToken.url)
+         const response = await defaultAxios<CheckTokenResponse>(
+            API['/api/user/global/token-check'].get
+         )
 
          if (response) {
             const { role } = response.data

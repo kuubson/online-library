@@ -1,15 +1,15 @@
 {
-   "name": "root",
+   "name": "@online-library/root",
    "private": true,
    "scripts": {
       "dev": "turbo run dev",
       "lint": "turbo run lint",
       "test": "turbo run test",
-      "build": "turbo run build --filter=./apps/*",
-      "docs": "turbo run docs --force",
+      "docs": "yarn workspace @online-library/server docs",
+      "prebuild": "yarn docs",
+      "build": "turbo run build",
       "codegen": "graphql-codegen",
-      "prepare": "husky install",
-      "postinstall": "turbo run build --filter=online-library"
+      "prepare": "husky install"
    },
    "workspaces": [
       "apps/*",

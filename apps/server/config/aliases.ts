@@ -2,6 +2,7 @@ import moduleAlias from 'module-alias'
 import path from 'path'
 
 moduleAlias.addAlias('config', path.resolve(__dirname, '../config'))
+moduleAlias.addAlias('swagger', path.resolve(__dirname, '../swagger'))
 moduleAlias.addAlias('database', path.resolve(__dirname, '../database'))
 moduleAlias.addAlias('middlewares', path.resolve(__dirname, '../middlewares'))
 moduleAlias.addAlias('gql', path.resolve(__dirname, '../gql'))

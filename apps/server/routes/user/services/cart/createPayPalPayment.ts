@@ -1,7 +1,7 @@
 import type { Payment } from 'paypal-rest-sdk'
 import paypal from 'paypal-rest-sdk'
 
-import { API, ApiError, yup } from 'online-library'
+import { API, ApiError, yup } from '@online-library/tools'
 
 import { yupValidation } from 'middlewares'
 
@@ -11,7 +11,7 @@ import { baseUrl } from 'utils'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
-const { header, post, validation } = API.createPayPalPayment
+const { validation, header, errors } = API['/api/user/cart/paypal/checkout'].post
 
 const schema = yup.object({ body: validation })
 
@@ -24,7 +24,8 @@ export const createPayPalPayment: ProtectedRoute<Body<typeof schema>> = [
          const { books } = await verifyPurchasingBooks({
             user: req.user,
             products,
-            path: API.createPayPalPayment,
+            header,
+            errors,
          })
 
          const description = books.map(({ title }) => title).join(', ')
@@ -61,13 +62,13 @@ export const createPayPalPayment: ProtectedRoute<Body<typeof schema>> = [
          paypal.payment.create(payment, async (error, payment) => {
             try {
                if (error || !payment.id || !payment.links) {
-                  throw new ApiError(header, post[402], 402)
+                  throw new ApiError(header, errors[402], 402)
                }
 
                const approvalLink = payment.links.find(({ rel }) => rel === 'approval_url')
 
                if (!approvalLink) {
-                  throw new ApiError(header, post[402], 402)
+                  throw new ApiError(header, errors[402], 402)
                }
 
                await req.user.createPayment({

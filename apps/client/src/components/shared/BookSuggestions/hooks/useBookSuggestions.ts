@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react'
 
-import { API } from 'online-library'
+import { API } from '@online-library/tools'
 
 import type { Book } from 'gql'
 
 import { useForm } from 'hooks'
 
-import { axios } from 'utils'
+import { apiAxios } from 'utils'
 
 import type { BookSuggestionsProps, GetSuggestionsResponse } from 'types'
+
+const { post } = API['/api/user/books/suggestions']
 
 export const useBookSuggestions = ({
    freeBooks,
@@ -17,14 +19,11 @@ export const useBookSuggestions = ({
    setPaidBooks,
    withProfile,
 }: BookSuggestionsProps) => {
-   const { submit, control, getValues, setValue, watch, errors } = useForm(
-      API.getSuggestions.validation,
-      {
-         title: '',
-         author: '',
-         withProfile: !!withProfile,
-      }
-   )
+   const { submit, control, getValues, setValue, watch, errors } = useForm(post.validation, {
+      title: '',
+      author: '',
+      withProfile: !!withProfile,
+   })
 
    const [findByTitle, setFindByTitle] = useState(true)
 
@@ -37,10 +36,7 @@ export const useBookSuggestions = ({
          const getSuggestions = setTimeout(
             () =>
                submit(async () => {
-                  const response = await axios.post<GetSuggestionsResponse>(
-                     API.getSuggestions.url,
-                     getValues()
-                  )
+                  const response = await apiAxios<GetSuggestionsResponse>(post, getValues())
                   if (response) {
                      const { books } = response.data
                      setBooks(books)
@@ -54,7 +50,7 @@ export const useBookSuggestions = ({
       }
    }, [title, author])
 
-   const error = errors.title?.message || errors.author?.message
+   const error = (errors.title?.message || errors.author?.message) as string // TODO: remove as string
 
    useEffect(() => {
       if (error) {

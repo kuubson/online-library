@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-import type { Role } from 'online-library'
-import { API, yup } from 'online-library'
+import type { Role } from '@online-library/tools'
+import { API, yup } from '@online-library/tools'
 
 import { JWT_KEY, TokenExpiration } from 'config'
 
@@ -14,7 +14,9 @@ import { cookie } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
-const schema = yup.object({ body: API.loginWithFacebook.validation })
+const { validation } = API['/api/user/auth/login/fb'].post
+
+const schema = yup.object({ body: validation })
 
 export const loginWithFacebook: Route<Body<typeof schema>> = [
    yupValidation({ schema }),

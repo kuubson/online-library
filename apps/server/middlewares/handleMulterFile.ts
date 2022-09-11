@@ -1,4 +1,4 @@
-import { API, ApiError, filesInfo } from 'online-library'
+import { API, ApiError, filesInfo } from '@online-library/tools'
 
 import { multerFile } from 'middlewares'
 
@@ -6,7 +6,7 @@ import { reduceImageSize } from 'helpers'
 
 import type { InitialBody, InitialCookies, Middleware } from 'types/express'
 
-const { header, post } = API.sendFile
+const { header, errors } = API['/api/user/chat/file'].post
 
 export const handleMulterFile: Middleware<InitialBody, InitialCookies, 'protected'> = (
    req,
@@ -16,7 +16,7 @@ export const handleMulterFile: Middleware<InitialBody, InitialCookies, 'protecte
    multerFile.single('file')(req, res, () => {
       try {
          if (!req.file) {
-            throw new ApiError(header, post[422], 422)
+            throw new ApiError(header, errors[422], 422)
          }
 
          const { images } = filesInfo.regex

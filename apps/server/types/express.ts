@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express'
 import type { InferType } from 'yup'
 
-import type { Role } from 'online-library'
+import type { Role } from '@online-library/tools'
 
 import type { User } from 'database/models/User'
 

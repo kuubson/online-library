@@ -1,6 +1,6 @@
 import { verify } from 'jsonwebtoken'
 
-import { API, ApiError, yup } from 'online-library'
+import { API, ApiError, yup } from '@online-library/tools'
 
 import { JWT_KEY } from 'config'
 
@@ -13,7 +13,7 @@ import { jwt } from 'utils'
 import type { PasswordTokenData } from 'types'
 import type { Body, Route } from 'types/express'
 
-const { header, post } = API.checkPasswordToken
+const { header, errors } = API['/api/user/auth/password-token-check'].post
 
 const schema = yup.object({ body: yup.object({ passwordToken: jwt }) })
 
@@ -33,7 +33,7 @@ export const checkPasswordToken: Route<Body<typeof schema>> = [
          })
 
          if (!user) {
-            throw new ApiError(header, post[400], 400)
+            throw new ApiError(header, errors[400], 400)
          }
 
          res.send()

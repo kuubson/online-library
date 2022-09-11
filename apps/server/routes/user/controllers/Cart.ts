@@ -1,15 +1,12 @@
 import { Router } from 'express'
 
-import {
-   createPayPalPayment,
-   executePayPalPayment,
-   purchaseBooksWithStripe,
-} from '../services/cart'
+import { createPayPalPayment, executePayPalPayment, stripePayment } from '../services/cart'
 
 export const Cart = Router()
 
 Cart.post(
    /**
+      #swagger.summary = "Finalizing purchase"
       #swagger.description = `
          ✅ Makes sure that user does not pay for already purchased books <br />
          ✅ Checks if selected books are still available in the store <br />
@@ -18,7 +15,7 @@ Cart.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/purchaseBooksWithStripe" }
+         schema: { $ref: "#/definitions/stripePayment" }
       } 
       #swagger.responses[200] = {
          description: 'Successfully purchased new books',
@@ -33,12 +30,13 @@ Cart.post(
          description: 'Payment has failed',
       } 
 */
-   '/purchaseBooksWithStripe',
-   ...purchaseBooksWithStripe
+   '/stripe/payment',
+   ...stripePayment
 )
 
 Cart.post(
    /**
+      #swagger.summary = "Finalizing purchase"
       #swagger.description = `
          ✅ Makes sure that user does not pay for already purchased books <br />
          ✅ Checks if selected books are still available in the store <br />
@@ -63,12 +61,13 @@ Cart.post(
          description: 'There was a problem preparing the payment, try again',
       }  
 */
-   '/createPayPalPayment',
+   '/paypal/checkout',
    ...createPayPalPayment
 )
 
 Cart.post(
    /**
+      #swagger.summary = "Finalizing purchase"
       #swagger.description = `
          ✅ Checks if user booked paymeny with certain id <br />
          ✅ Checks if payment is still in progress <br />
@@ -92,6 +91,6 @@ Cart.post(
          description: 'Bad payment id',
       }  
 */
-   '/executePayPalPayment',
+   '/paypal/payment',
    ...executePayPalPayment
 )

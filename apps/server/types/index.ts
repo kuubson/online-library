@@ -1,6 +1,6 @@
 import type { Response } from 'express'
 
-import type { Role } from 'online-library'
+import type { Role } from '@online-library/tools'
 
 import type { CustomRequest } from 'types/express'
 

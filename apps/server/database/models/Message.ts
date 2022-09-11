@@ -11,7 +11,7 @@ import type {
 } from 'sequelize'
 import { DataTypes, Model } from 'sequelize'
 
-import type { messageTypes } from 'online-library'
+import type { messageTypes } from '@online-library/tools'
 
 import { dbDefaultAttributes } from 'utils'
 

@@ -1,6 +1,6 @@
 import limiter from 'express-rate-limit'
 
-import { RateLimitError } from 'online-library'
+import { RateLimitError } from '@online-library/tools'
 
 export const rateLimiter = () =>
    limiter({

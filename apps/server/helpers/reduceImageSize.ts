@@ -2,7 +2,7 @@ import type { NextFunction } from 'express'
 import fs from 'fs'
 import sharp from 'sharp'
 
-import { ApiError } from 'online-library'
+import { ApiError } from '@online-library/tools'
 
 import { deleteTemporaryFile } from 'helpers'
 

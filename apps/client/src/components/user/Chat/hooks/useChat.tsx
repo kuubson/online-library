@@ -1,13 +1,13 @@
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 
-import { API, filesInfo } from 'online-library'
+import { API, filesInfo } from '@online-library/tools'
 
 import { useMessagesInfo, useSocket } from 'hooks'
 
 import { handleApiError, setApiFeedback, subscribePushNotifications } from 'helpers'
 
-import { axios, defaultAxios } from 'utils'
+import { apiAxios, defaultAxios } from 'utils'
 
 import type { GetMessagesResponse, MessageType, SendFileResponse } from 'types'
 
@@ -42,10 +42,13 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
       if (event) {
          const target = event.target as HTMLDivElement
          if (target.scrollTop <= 0 && hasMoreMessages) {
-            const response = await axios.post<GetMessagesResponse>(API.getMessages.url, {
-               limit,
-               offset,
-            })
+            const response = await apiAxios<GetMessagesResponse>(
+               API['/api/user/chat/messages'].post,
+               {
+                  limit,
+                  offset,
+               }
+            )
 
             if (response) {
                const { messages: loadedMessages } = response.data
@@ -66,7 +69,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
             }
          }
       } else {
-         const response = await axios.post<GetMessagesResponse>(API.getMessages.url, {
+         const response = await apiAxios<GetMessagesResponse>(API['/api/user/chat/messages'].post, {
             limit,
             offset,
          })
@@ -94,7 +97,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
    useEffect(() => {
       getMessages(20, 0, undefined)
       setTimeout(() => {
-         subscribePushNotifications(API.subscribePushNotifications.url)
+         subscribePushNotifications()
       }, 2000)
    }, [])
 
@@ -121,7 +124,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
    }, [socket])
 
    const getUnreadMessages = async () => {
-      const response = await axios.post<GetMessagesResponse>(API.getMessages.url, {
+      const response = await apiAxios<GetMessagesResponse>(API['/api/user/chat/messages'].post, {
          limit: lastUnreadMessageIndex,
          offset: 0,
       })
@@ -178,7 +181,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
          }, 0)
 
          try {
-            await defaultAxios.post(API.sendMessage.url, { content: message.trim() })
+            await defaultAxios(API['/api/user/chat/message'].post, { content: message.trim() })
             socket?.emit('sendMessage', _message)
          } catch (error) {
             const conversation = messages
@@ -191,6 +194,8 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
    }
 
    const sendFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { post } = API['/api/user/chat/file']
+
       let percentage = 0
 
       const file = event.currentTarget.files?.[0]
@@ -215,12 +220,12 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
          }
 
          const largeSizeError = () => {
-            return setApiFeedback(API.sendFile.header, API.sendFile.post[413])
+            return setApiFeedback(post.header, post.errors[413])
          }
 
          if (!isImage && !isVideo && !isFile) {
             resetFileInput()
-            return setApiFeedback(API.sendFile.header, API.sendFile.post[415])
+            return setApiFeedback(post.header, post.errors[415])
          }
 
          if (isImage) {
@@ -256,7 +261,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
                }
             }, 500)
 
-            const response = await defaultAxios.post<SendFileResponse>(API.sendFile.url, form)
+            const response = await defaultAxios<SendFileResponse>(post, form)
 
             if (response) {
                setPercentage(100)

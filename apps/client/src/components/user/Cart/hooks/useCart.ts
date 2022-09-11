@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { API } from 'online-library'
+import { API } from '@online-library/tools'
 
 import { useGetBooksQuery } from 'gql'
 
@@ -8,9 +8,9 @@ import { useCart as useCartHook, useQueryParams } from 'hooks'
 
 import { setApiFeedback } from 'helpers'
 
-import { axios, history } from 'utils'
+import { apiAxios, history } from 'utils'
 
-import type { ApiError } from 'types'
+import type { ApiError, CreatePayPalPaymentResponse } from 'types'
 
 export const useCart = () => {
    const { paymentId, PayerID } = useQueryParams()
@@ -32,25 +32,19 @@ export const useCart = () => {
    }, [books])
 
    useEffect(() => {
-      const executePayPalPayment = async () => {
+      ;async () => {
+         const { post } = API['/api/user/cart/paypal/payment']
          try {
             if (paymentId && PayerID) {
-               await axios
-                  .post(API.executePayPalPayment.url, {
-                     paymentId,
-                     PayerID,
+               await apiAxios(post, {
+                  paymentId,
+                  PayerID,
+               }).then(() => {
+                  setApiFeedback(post.header, post.errors[200], 'Check your profile', () => {
+                     resetCart()
+                     history.push('/profile')
                   })
-                  .then(() => {
-                     setApiFeedback(
-                        API.executePayPalPayment.header,
-                        API.executePayPalPayment.post[200],
-                        'Check your profile',
-                        () => {
-                           resetCart()
-                           history.push('/profile')
-                        }
-                     )
-                  })
+               })
             }
          } catch (error) {
             if ((error as ApiError).response?.status === 409) {
@@ -59,14 +53,14 @@ export const useCart = () => {
             }
          }
       }
-      executePayPalPayment()
    }, [paymentId, PayerID])
 
    const createPayPalPayment = async () => {
-      const response = await axios.post(API.createPayPalPayment.url, { products: cart })
-      if (response) {
+      await apiAxios<CreatePayPalPaymentResponse>(API['/api/user/cart/paypal/checkout'].post, {
+         products: cart,
+      }).then(response => {
          window.location = response.data.link
-      }
+      })
    }
 
    return {

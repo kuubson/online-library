@@ -1,7 +1,7 @@
 import { verify } from 'jsonwebtoken'
 
-import type { Role } from 'online-library'
-import { AuthError, yup } from 'online-library'
+import type { Role } from '@online-library/tools'
+import { AuthError, yup } from '@online-library/tools'
 
 import { JWT_KEY } from 'config'
 
@@ -12,7 +12,7 @@ import { cookie, jwt } from 'utils'
 import type { AuthTokenData } from 'types'
 import type { Cookies, InitialBody, Route } from 'types/express'
 
-const schema = yup.object({ cookies: yup.object({ token: jwt.optional() }) })
+const schema = yup.object({ cookies: yup.object({ token: jwt.optional() }) }) // try to move this validation to API.ts
 
 export const checkToken: Route<InitialBody, Cookies<typeof schema>> = [
    yupValidation({ schema }),

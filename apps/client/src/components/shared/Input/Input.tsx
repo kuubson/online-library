@@ -12,7 +12,8 @@ type InputProps = {
    label?: string
    type: string
    placeholder: string
-   error?: string
+   // error?: string
+   error?: any // TODO: fix type
    withBooksSuggestions?: boolean
 }
 

@@ -1,10 +1,12 @@
+import { API } from '@online-library/tools'
+
 import { REACT_APP_PUBLIC_VAPID_KEY } from 'config'
 
 import { urlBase64ToUint8Array } from 'helpers'
 
 import { defaultAxios } from 'utils'
 
-export const subscribePushNotifications = async (url: string) => {
+export const subscribePushNotifications = async () => {
    try {
       const { permissions, serviceWorker } = navigator
 
@@ -16,7 +18,7 @@ export const subscribePushNotifications = async (url: string) => {
                   userVisibleOnly: true,
                   applicationServerKey: urlBase64ToUint8Array(REACT_APP_PUBLIC_VAPID_KEY),
                })
-               await defaultAxios.post(url, subscription)
+               await defaultAxios(API['/api/user/chat/push-notifications'].post, subscription)
             }
          }
       }

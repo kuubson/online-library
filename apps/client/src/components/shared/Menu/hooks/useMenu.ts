@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 
-import { API } from 'online-library'
+import { API } from '@online-library/tools'
 
 import { useCart, useSocket, useTopOffset } from 'hooks'
 
-import { axios, history } from 'utils'
+import { apiAxios, history } from 'utils'
+
+import type { FBStatus } from 'types'
 
 export const useMenu = (_setShouldMenuExpand: ReactDispatch<boolean>) => {
    const { closeSocketConnection } = useSocket()
@@ -16,8 +18,9 @@ export const useMenu = (_setShouldMenuExpand: ReactDispatch<boolean>) => {
    useEffect(() => _setShouldMenuExpand(shouldMenuExpand), [shouldMenuExpand])
 
    const logout = async () => {
-      await axios.get(API.logout.url).then(() => {
-         window.FB.getLoginStatus((response: any) => {
+      const response = await apiAxios(API['/api/user/global/logout'].get)
+      if (response) {
+         window.FB.getLoginStatus((response: FBStatus) => {
             if (response.status === 'connected') {
                window.FB.logout(() => null)
             }
@@ -28,7 +31,7 @@ export const useMenu = (_setShouldMenuExpand: ReactDispatch<boolean>) => {
          resetCart()
 
          history.push('/login')
-      })
+      }
    }
 
    const shouldMenuStick = useTopOffset() > 20

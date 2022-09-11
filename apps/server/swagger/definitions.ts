@@ -1,4 +1,4 @@
-import { messageTypes, roles } from 'online-library'
+import { messageTypes, roles } from '@online-library/tools'
 
 const createdAt = {
    type: 'string',

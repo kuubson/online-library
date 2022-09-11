@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { API, ApiError, yup } from 'online-library'
+import { API, ApiError, yup } from '@online-library/tools'
 
 import { JWT_KEY, TokenExpiration } from 'config'
 
@@ -14,7 +14,7 @@ import { baseUrl, emailTemplate } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
-const { header, post, validation } = API.register
+const { validation, header, errors } = API['/api/user/auth/register'].post
 
 const schema = yup.object({ body: validation })
 
@@ -28,7 +28,7 @@ export const register: Route<Body<typeof schema>> = [
             const user = await User.findOne({ where: { email } })
 
             if (user) {
-               throw new ApiError(header, post[409], 409)
+               throw new ApiError(header, errors[409], 409)
             }
 
             const activationToken = jwt.sign({ email }, JWT_KEY, {
@@ -58,7 +58,7 @@ export const register: Route<Body<typeof schema>> = [
                   ),
                })
             } catch {
-               throw new ApiError(header, post[502], 502)
+               throw new ApiError(header, errors[502], 502)
             }
 
             res.send()

@@ -1,5 +1,5 @@
 {
-   "name": "online-library",
+   "name": "@online-library/tools",
    "version": "1.0.0",
    "private": true,
    "sideEffects": false,
@@ -21,7 +21,6 @@
       "@types/react-dom": "^17.0.8",
       "@types/sanitize-html": "^2.6.2",
       "@types/validator": "^13.7.6",
-      "tsconfig": "*",
       "tsup": "^5.10.1",
       "typescript": "^4.5.3"
    }

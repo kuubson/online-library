@@ -1,40 +1,35 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { API } from 'online-library'
+import { API } from '@online-library/tools'
 
 import { useForm } from 'hooks'
 
 import { setApiFeedback } from 'helpers'
 
-import { axios, history } from 'utils'
+import { apiAxios, history } from 'utils'
 
-const { header, url, post, validation } = API.changePassword
+const { put } = API['/api/user/auth/password-change']
 
 export const usePasswordRecovery = () => {
    const { passwordToken } = useParams()
 
-   const { submit, control, errors, getValues } = useForm(validation)
+   const { submit, control, errors, getValues } = useForm(put.validation)
 
    useEffect(() => {
-      const checkPasswordToken = async () => {
-         try {
-            await axios.post(API.checkPasswordToken.url, { passwordToken })
-         } catch (error) {
+      ;async () =>
+         apiAxios(API['/api/user/auth/password-token-check'].post, { passwordToken }).catch(() =>
             history.push('/login')
-         }
-      }
-      checkPasswordToken()
+         )
    }, [])
 
-   const changePassword = async () => {
-      await axios
-         .post(url, {
-            ...getValues(),
-            passwordToken,
-         })
-         .then(() => setApiFeedback(header, post[200], 'Okey', () => history.push('/login')))
-   }
+   const changePassword = async () =>
+      apiAxios(put, {
+         ...getValues(),
+         passwordToken,
+      }).then(() =>
+         setApiFeedback(put.header, put.errors[200], 'Okey', () => history.push('/login'))
+      )
 
    return {
       changePassword: submit(changePassword),

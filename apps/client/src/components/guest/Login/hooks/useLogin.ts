@@ -1,40 +1,37 @@
-import { API } from 'online-library'
+import { API } from '@online-library/tools'
 
 import { useForm } from 'hooks'
 
 import { setApiFeedback } from 'helpers'
 
-import { axios, history } from 'utils'
+import { apiAxios, history } from 'utils'
 
 import type { FBLoginRequest, FBMeRespose } from 'types'
 
-export const useLogin = () => {
-   const { submit, control, errors, getValues } = useForm(
-      API.login.validation || API.loginWithFacebook.validation
-   )
+const { post } = API['/api/user/auth/login']
 
-   const login = async () => {
-      await axios.post(API.login.url, getValues()).then(() => history.push('/store'))
-   }
+export const useLogin = () => {
+   const { submit, control, errors, getValues } = useForm(post.validation)
+
+   const login = async () => apiAxios(post, getValues()).then(() => history.push('/store')) // TODO: verify if can skip await
 
    const loginWithFacebook = async () => {
+      const { post } = API['/api/user/auth/login/fb']
       window.FB.login(
          ({ authResponse, status }: FBLoginRequest) => {
             if (authResponse && status === 'connected') {
                window.FB.api(
                   '/me?fields=id,first_name,email',
                   async ({ first_name, email }: FBMeRespose) => {
-                     await axios
-                        .post(API.loginWithFacebook.url, {
-                           name: first_name,
-                           email,
-                           access_token: authResponse.accessToken,
-                        })
-                        .then(() => history.push('/store'))
+                     await apiAxios(post, {
+                        name: first_name,
+                        email,
+                        access_token: authResponse.accessToken,
+                     }).then(() => history.push('/store'))
                   }
                )
             } else {
-               setApiFeedback(API.loginWithFacebook.header, API.loginWithFacebook.post[400])
+               setApiFeedback(post.header, post.errors[400])
             }
          },
          { scope: 'email,public_profile' }

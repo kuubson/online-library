@@ -15,7 +15,7 @@ Global.get(
          schema: { $ref: '#/definitions/role' }
       }  
 */
-   '/checkToken',
+   '/token-check',
    ...checkToken
 )
 
