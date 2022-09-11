@@ -50,7 +50,7 @@ export const useBookSuggestions = ({
       }
    }, [title, author])
 
-   const error = (errors.title?.message || errors.author?.message) as string // TODO: remove as string
+   const error = errors.title?.message || errors.author?.message
 
    useEffect(() => {
       if (error) {

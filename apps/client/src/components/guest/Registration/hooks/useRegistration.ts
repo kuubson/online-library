@@ -11,12 +11,10 @@ const { post } = API['/api/user/auth/register']
 export const useRegistration = () => {
    const { submit, control, errors, getValues } = useForm(post.validation)
 
-   const register = async () => {
-      await apiAxios(post, getValues()).then(() =>
-         // TODO: check useLogin.ts
+   const register = async () =>
+      apiAxios(post, getValues()).then(() =>
          setApiFeedback(post.header, post.errors[200], 'Okey', () => history.push('/login'))
       )
-   }
 
    return {
       register: submit(register),

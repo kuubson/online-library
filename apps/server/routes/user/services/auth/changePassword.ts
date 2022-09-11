@@ -9,13 +9,14 @@ import { Connection, User } from 'database'
 
 import { yupValidation } from 'middlewares'
 
+import { jwt } from 'utils'
+
 import type { PasswordTokenData } from 'types'
 import type { Body, Route } from 'types/express'
 
 const { validation, header, errors } = API['/api/user/auth/password-change'].put
 
-// const schema = yup.object({ body: validation.shape({ passwordToken: jwt }) })
-const schema = yup.object({ body: validation }) // TODO: revert proper validation
+const schema = yup.object({ body: validation.shape({ passwordToken: jwt }) })
 
 export const changePassword: Route<Body<typeof schema>> = [
    yupValidation({ schema }),

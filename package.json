@@ -3,13 +3,15 @@
    "private": true,
    "scripts": {
       "dev": "turbo run dev",
+      "predev": "yarn docs",
       "lint": "turbo run lint",
       "test": "turbo run test",
       "docs": "yarn workspace @online-library/server docs",
       "prebuild": "yarn docs",
       "build": "turbo run build",
       "codegen": "graphql-codegen",
-      "prepare": "husky install"
+      "prepare": "husky install",
+      "postinstall": "turbo run build --filter=./packages/*"
    },
    "workspaces": [
       "apps/*",

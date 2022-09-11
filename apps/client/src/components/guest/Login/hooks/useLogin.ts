@@ -13,7 +13,7 @@ const { post } = API['/api/user/auth/login']
 export const useLogin = () => {
    const { submit, control, errors, getValues } = useForm(post.validation)
 
-   const login = async () => apiAxios(post, getValues()).then(() => history.push('/store')) // TODO: verify if can skip await
+   const login = async () => apiAxios(post, getValues()).then(() => history.push('/store'))
 
    const loginWithFacebook = async () => {
       const { post } = API['/api/user/auth/login/fb']

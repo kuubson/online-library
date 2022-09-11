@@ -37,7 +37,7 @@ Auth.post(
          description: 'There was a problem sending the activation link',
       }  
 */
-   '/register', // TODO: get urls from API[...]
+   '/register',
    ...register
 )
 

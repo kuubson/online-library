@@ -2,14 +2,13 @@ import type { AxiosResponse } from 'axios'
 import axios from 'axios'
 import { debounce } from 'lodash'
 import type { AnySchema, InferType } from 'yup'
+import type { ObjectShape, OptionalObjectSchema } from 'yup/lib/object'
 
-import type { PathMethod } from '@online-library/tools'
+import type { Method } from '@online-library/tools'
 
 import { handleApiError, setLoading } from 'helpers'
 
-import type { TypedSchema } from 'yup/lib/util/types'
-
-const debounceLoader = debounce(() => setLoading(true), 1000)
+const debounceLoader = debounce(() => setLoading(true), 800)
 
 const resetLoader = () => {
    setLoading(false)
@@ -43,28 +42,27 @@ customAxios.interceptors.response.use(
 )
 
 type AxiosOverload = {
-   <D>(props: PathMethod<string, 'get', AnySchema>): Promise<AxiosResponse<D, unknown>> // TODO: remove AnySchema
+   <D>(props: Method<'get', string, null>): Promise<AxiosResponse<D, unknown>>
    <D>(
-      props: PathMethod<string, 'post' | 'put' | 'delete', AnySchema>, // TODO: remove AnySchema
-      data?: D extends { validation: TypedSchema } ? InferType<D['validation']> : unknown // TODO: fix TypedSchema
+      props: Method<'post' | 'put' | 'delete', string, AnySchema | null>,
+      data?: D extends { validation: OptionalObjectSchema<ObjectShape> } // TODO: shape of data should equal to shape of yup validation
+         ? InferType<D['validation']>
+         : unknown
    ): Promise<AxiosResponse<D, unknown>>
 }
 
-type AxiosOverloadArgs = (
-   props: PathMethod<string, 'post' | 'get' | 'put' | 'delete', AnySchema>, // TODO: remove AnySchema
-   data?: unknown
-) => ReturnType<AxiosOverload>
+type AxiosOverloadArgs = (props: any, data?: unknown) => ReturnType<AxiosOverload>
 
 export const apiAxios: AxiosOverload = (...[props, data]: Parameters<AxiosOverloadArgs>) =>
-   axios.request({
+   customAxios.request({
       url: props.url,
-      method: props._method,
+      method: props.method,
       data,
    })
 
 export const defaultAxios: AxiosOverload = (...[props, data]: Parameters<AxiosOverloadArgs>) =>
    axios.request({
       url: props.url,
-      method: props._method,
+      method: props.method,
       data,
    })

@@ -10,6 +10,7 @@ export const Date = styled.div<StyledProps>`
    width: 100%;
    font-size: 11px;
    text-align: left;
+   margin-top: 5px;
    font-weight: bold;
    white-space: nowrap;
    ${({ withCurrentUser }) =>
