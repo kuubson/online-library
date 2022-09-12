@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { mapValues } from 'lodash'
-import type { ObjectShape, OptionalObjectSchema } from 'yup/lib/object'
+import type { OptionalObjectSchema } from 'yup/lib/object'
 
 import type { Method } from '../types'
 
@@ -8,158 +8,119 @@ import { default as swagger } from '../../../apps/server/swagger/swagger.json'
 import { yup } from './yup'
 
 const addValidation = <
-   Path extends typeof swagger.paths[keyof typeof swagger.paths],
-   Validation extends ObjectShape
+   Path extends keyof typeof swagger.paths,
+   Validation extends Record<keyof typeof swagger.paths[Path], OptionalObjectSchema<any>>
 >(
    path: Path,
-   validation: OptionalObjectSchema<Validation>,
-   method: keyof Path
-) =>
-   ({
-      [method]: {
-         ...path[method],
-         validation,
-      },
-   } as unknown as {
-      [key in keyof Path]: Path[key] & {
-         validation: OptionalObjectSchema<Validation>
+   payload: Validation
+) => {
+   const methods = mapValues(payload, (validation, method: keyof typeof swagger.paths[Path]) => ({
+      ...swagger.paths[path][method],
+      validation,
+   }))
+   return { [path]: methods } as {
+      [key in Path]: {
+         [method in keyof typeof swagger.paths[Path]]: typeof swagger.paths[Path][method] & {
+            validation: Validation[method]
+         }
       }
-   })
+   }
+}
 
 const API_PATHS = {
    ...swagger.paths,
-   '/api/user/auth/login': {
-      post: {
-         ...swagger.paths['/api/user/auth/login'].post,
-         validation: yup
-            .object({
-               email: yup.string().emailAddress(),
-               password: yup.string().required(),
-            })
-            .noOtherKeys(),
-      },
-   },
-   '/api/user/auth/login/fb': {
-      post: {
-         ...swagger.paths['/api/user/auth/login/fb'].post,
-         validation: yup
-            .object({
-               name: yup.string().noSpecialChars(),
-               email: yup.string().emailAddress(),
-               access_token: yup.string().plain(),
-            })
-            .noOtherKeys(),
-      },
-   },
-   '/api/user/auth/password-change': {
-      put: {
-         ...swagger.paths['/api/user/auth/password-change'].put,
-         validation: yup
-            .object({
-               password: yup.string().password(),
-               repeatedPassword: yup.string().repeatedPassword(),
-            })
-            .noOtherKeys(),
-      },
-   },
-   '/api/user/auth/register': {
-      post: {
-         ...swagger.paths['/api/user/auth/register'].post,
-         validation: yup
-            .object({
-               name: yup.string().noSpecialChars(),
-               email: yup.string().emailAddress(),
-               password: yup.string().password(),
-               repeatedPassword: yup.string().repeatedPassword(),
-            })
-            .noOtherKeys(),
-      },
-   },
-   '/api/user/auth/password-recovery': {
-      post: {
-         ...swagger.paths['/api/user/auth/password-recovery'].post,
-         validation: yup.object({ email: yup.string().emailAddress() }).noOtherKeys(),
-      },
-   },
-   '/api/user/auth/activation-token-resend': {
-      post: {
-         ...swagger.paths['/api/user/auth/activation-token-resend'].post,
-         validation: yup.object({ email: yup.string().emailAddress() }).noOtherKeys(),
-      },
-   },
-   '/api/user/chat/messages': {
-      post: {
-         ...swagger.paths['/api/user/chat/messages'].post,
-         validation: yup
-            .object({
-               limit: yup.number().required(),
-               offset: yup.number().required(),
-            })
-            .noOtherKeys(),
-      },
-   },
-   '/api/user/chat/push-notifications': {
-      post: {
-         ...swagger.paths['/api/user/chat/push-notifications'].post,
-         validation: yup
-            .object({
-               endpoint: yup.string().plain(),
-               expirationTime: yup.string().nullable(),
-               keys: yup.object({
-                  auth: yup.string().plain(),
-                  p256dh: yup.string().plain(),
-               }),
-            })
-            .noOtherKeys(),
-      },
-   },
-   '/api/user/chat/message': {
-      post: {
-         ...swagger.paths['/api/user/chat/message'].post,
-         validation: yup.object({ content: yup.string().plain() }).noOtherKeys(),
-      },
-   },
-   '/api/user/cart/paypal/payment': {
-      post: {
-         ...swagger.paths['/api/user/cart/paypal/payment'].post,
-         validation: yup
-            .object({
-               paymentId: yup.string().plain(),
-               PayerID: yup.string().plain(),
-            })
-            .noOtherKeys(),
-      },
-   },
-   '/api/user/cart/paypal/checkout': {
-      post: {
-         ...swagger.paths['/api/user/cart/paypal/checkout'].post,
-         validation: yup.object({ products: yup.array().products() }).noOtherKeys(),
-      },
-   },
-   '/api/user/cart/stripe/payment': {
-      post: {
-         ...swagger.paths['/api/user/cart/stripe/payment'].post,
-         validation: yup
-            .object({
-               paymentId: yup.string().plain(),
-               products: yup.array().products(),
-            })
-            .noOtherKeys(),
-      },
-   },
-   '/api/user/books/suggestions': {
-      ...addValidation(
-         swagger.paths['/api/user/books/suggestions'],
-         yup
-            .object({
-               title: yup.string().noSpecialChars(),
-               author: yup.string().noSpecialChars(),
-               withProfile: yup.bool().required(),
-            })
-            .noOtherKeys(),
-         'post'
-      ),
-   },
+   ...addValidation('/api/user/auth/login', {
+      post: yup
+         .object({
+            email: yup.string().emailAddress(),
+            password: yup.string().required(),
+         })
+         .noOtherKeys(),
+   }),
+   ...addValidation('/api/user/auth/login/fb', {
+      post: yup
+         .object({
+            name: yup.string().noSpecialChars(),
+            email: yup.string().emailAddress(),
+            access_token: yup.string().plain(),
+         })
+         .noOtherKeys(),
+   }),
+   ...addValidation('/api/user/auth/password-change', {
+      put: yup
+         .object({
+            password: yup.string().password(),
+            repeatedPassword: yup.string().repeatedPassword(),
+         })
+         .noOtherKeys(),
+   }),
+   ...addValidation('/api/user/auth/register', {
+      post: yup
+         .object({
+            name: yup.string().noSpecialChars(),
+            email: yup.string().emailAddress(),
+            password: yup.string().password(),
+            repeatedPassword: yup.string().repeatedPassword(),
+         })
+         .noOtherKeys(),
+   }),
+   ...addValidation('/api/user/auth/password-recovery', {
+      post: yup.object({ email: yup.string().emailAddress() }).noOtherKeys(),
+   }),
+   ...addValidation('/api/user/auth/activation-token-resend', {
+      post: yup.object({ email: yup.string().emailAddress() }).noOtherKeys(),
+   }),
+   ...addValidation('/api/user/chat/messages', {
+      post: yup
+         .object({
+            limit: yup.number().required(),
+            offset: yup.number().required(),
+         })
+         .noOtherKeys(),
+   }),
+   ...addValidation('/api/user/chat/push-notifications', {
+      post: yup
+         .object({
+            endpoint: yup.string().plain(),
+            expirationTime: yup.string().nullable(),
+            keys: yup.object({
+               auth: yup.string().plain(),
+               p256dh: yup.string().plain(),
+            }),
+         })
+         .noOtherKeys(),
+   }),
+   ...addValidation('/api/user/chat/message', {
+      post: yup.object({ content: yup.string().plain() }).noOtherKeys(),
+   }),
+   ...addValidation('/api/user/cart/paypal/payment', {
+      post: yup
+         .object({
+            paymentId: yup.string().plain(),
+            PayerID: yup.string().plain(),
+         })
+         .noOtherKeys(),
+   }),
+   ...addValidation('/api/user/cart/paypal/checkout', {
+      post: yup.object({ products: yup.array().products() }).noOtherKeys(),
+   }),
+   ...addValidation('/api/user/cart/stripe/payment', {
+      post: yup
+         .object({
+            paymentId: yup.string().plain(),
+            products: yup.array().products(),
+         })
+         .noOtherKeys(),
+   }),
+   ...addValidation('/api/user/books/suggestions', {
+      post: yup
+         .object({
+            title: yup.string().noSpecialChars(),
+            author: yup.string().noSpecialChars(),
+            withProfile: yup.bool().required(),
+         })
+         .noOtherKeys(),
+   }),
 }
 
 type API = typeof API_PATHS
@@ -200,6 +161,8 @@ type API_PATHS_WITH_VALIDATION = {
       }
    }
 }
+
+// if it glow red, it means that keys that you put manually into API_PATHS are not matched with what backend API exposes
 
 declare function _(api: API): api is {
    [key in keyof typeof swagger.paths]: API_PATHS_WITH_VALIDATION[key]
