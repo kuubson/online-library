@@ -1,12 +1,32 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { mapValues } from 'lodash'
+import type { ObjectShape, OptionalObjectSchema } from 'yup/lib/object'
 
 import type { Method } from '../types'
 
 import { default as swagger } from '../../../apps/server/swagger/swagger.json'
 import { yup } from './yup'
 
-// TODO: apply type guard to make sure keys of object match the API
-const paths = {
+const addValidation = <
+   Path extends typeof swagger.paths[keyof typeof swagger.paths],
+   Validation extends ObjectShape
+>(
+   path: Path,
+   validation: OptionalObjectSchema<Validation>,
+   method: keyof Path
+) =>
+   ({
+      [method]: {
+         ...path[method],
+         validation,
+      },
+   } as unknown as {
+      [key in keyof Path]: Path[key] & {
+         validation: OptionalObjectSchema<Validation>
+      }
+   })
+
+const API_PATHS = {
    ...swagger.paths,
    '/api/user/auth/login': {
       post: {
@@ -128,22 +148,23 @@ const paths = {
       },
    },
    '/api/user/books/suggestions': {
-      post: {
-         ...swagger.paths['/api/user/books/suggestions'].post,
-         validation: yup
+      ...addValidation(
+         swagger.paths['/api/user/books/suggestions'],
+         yup
             .object({
                title: yup.string().noSpecialChars(),
                author: yup.string().noSpecialChars(),
                withProfile: yup.bool().required(),
             })
             .noOtherKeys(),
-      },
+         'post'
+      ),
    },
 }
 
-type API = typeof paths
+type API = typeof API_PATHS
 
-export const API = mapValues(paths, (methods, path) => ({
+export const API = mapValues(API_PATHS, (methods, path) => ({
    ...mapValues(methods, ({ responses, summary, validation }, method) => ({
       method,
       url: path,
@@ -164,4 +185,22 @@ export const API = mapValues(paths, (methods, path) => ({
          ? Method<method, keyof API[path][method]['responses'], null>
          : API[path][method]
    }
+}
+
+/**
+ * API type guard = makes sure that keys of "paths" match keys of "swagger.paths" ~~~> API.ts stays more refactorproof
+ */
+
+type SWAGGER = typeof swagger.paths
+
+type API_PATHS_WITH_VALIDATION = {
+   [path in keyof SWAGGER]: {
+      [method in keyof SWAGGER[path]]: SWAGGER[path][method] & {
+         validation: OptionalObjectSchema<any>
+      }
+   }
+}
+
+declare function _(api: API): api is {
+   [key in keyof typeof swagger.paths]: API_PATHS_WITH_VALIDATION[key]
 }

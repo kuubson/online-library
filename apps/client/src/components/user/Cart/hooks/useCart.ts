@@ -33,7 +33,7 @@ export const useCart = () => {
 
    useEffect(() => {
       ;async () => {
-         const { post } = API['/api/user/cart/paypal/payment']
+         const { post } = API['/api/user/cart/paypal/payment'] // TODO: decide whether to add request config at API level
          try {
             if (paymentId && PayerID) {
                await apiAxios(post, {
