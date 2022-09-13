@@ -13,12 +13,8 @@ export const UserController = Router()
 UserController.use(
    /*
    #swagger.tags = ['Auth (rate limited)']
-   #swagger.responses[422] = {
-      description: 'Data validation failed',   
-   } 
-   #swagger.responses[429] = {
-      description: 'Too many requests',   
-   } 
+   #swagger.responses[422] = { $ref: "#/definitions/422" }
+   #swagger.responses[429] = { $ref: "#/definitions/429" }
 */
    '/api/user/auth',
    rateLimiter(),
@@ -37,9 +33,7 @@ UserController.use(
 UserController.use(
    /*
    #swagger.tags = ['Cart']
-   #swagger.responses[422] = {
-      description: 'Data validation failed',   
-   } 
+   #swagger.responses[422] = { $ref: "#/definitions/422" }
    #swagger.security = [{ "token": [] }]    
 */
    '/api/user/cart',
@@ -49,9 +43,7 @@ UserController.use(
 UserController.use(
    /*
    #swagger.tags = ['Chat']
-   #swagger.responses[422] = {
-      description: 'Data validation failed',   
-   } 
+   #swagger.responses[422] = { $ref: "#/definitions/422" }
    #swagger.security = [{ "token": [] }]    
 */
    '/api/user/chat',
@@ -61,9 +53,7 @@ UserController.use(
 UserController.use(
    /*
    #swagger.tags = ['Global']
-   #swagger.responses[422] = {
-      description: 'Data validation failed',   
-   }
+   #swagger.responses[422] = { $ref: "#/definitions/422" }
 */
    '/api/user/global',
    Global

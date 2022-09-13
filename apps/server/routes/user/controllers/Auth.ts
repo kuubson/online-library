@@ -32,9 +32,7 @@ Auth.post(
       #swagger.responses[409] = {
          description: 'Email address already taken',
       }  
-      #swagger.responses[502] = {
-         description: 'There was a problem sending the activation link',
-      }  
+      #swagger.responses[502] = { $ref: "$/definitions/502-activation-link" }  
 */
    '/register',
    ...register
@@ -57,9 +55,7 @@ Auth.patch(
       #swagger.responses[409] = {
          description: 'No authentication associated with this link',
       }  
-      #swagger.responses[403] = {
-         description: 'Account already activated',
-      }  
+      #swagger.responses[403] = { $ref: "#/definitions/503-account-activated" }  
 */
    '/account',
    ...activateAccount
@@ -67,7 +63,7 @@ Auth.patch(
 
 Auth.post(
    /**
-      #swagger.summary = "Account activation"
+      #swagger.summary = "Account activation token"
       #swagger.description = `
          ✅ Ensures user with provided email address exists <br />
          ✅ Rejects resending activation token if account is already activate <br />
@@ -80,15 +76,9 @@ Auth.post(
       #swagger.responses[200] = {
          description: 'Link with new activation token has been sent',
       }  
-      #swagger.responses[404] = {
-         description: 'Provided email address is invalid',
-      }  
-      #swagger.responses[403] = {
-         description: 'Account already activated',
-      }  
-      #swagger.responses[502] = {
-         description: 'There was a problem sending the activation link',
-      }  
+      #swagger.responses[404] = { $ref: "#/definitions/404-incorrect-email-address" }  
+      #swagger.responses[403] = { $ref: "#/definitions/503-account-activated" }  
+      #swagger.responses[502] = { $ref: "$/definitions/502-activation-link" }  
 */
    '/activation-token',
    ...resendActivationToken
@@ -106,9 +96,7 @@ Auth.post(
          required: true,
          schema: { $ref: "#/definitions/post-login-credentials" }
       }  
-      #swagger.responses[200] = {
-         description: 'Auth token was set in cookies',
-      }  
+      #swagger.responses[200] = { $ref: "#/definitions/200-auth-token" }  
       #swagger.responses[401] = {
          description: 'The given credentials are wrong',
       }  
@@ -131,9 +119,7 @@ Auth.post(
          required: true,
          schema: { $ref: "#/definitions/post-login-fb" }
       }  
-      #swagger.responses[200] = {
-         description: 'Auth token was set in cookies',
-      }  
+      #swagger.responses[200] = { $ref: "#/definitions/200-auth-token" }  
       #swagger.responses[400] = {
          description: 'FB authentication has failed',
       }  
@@ -143,10 +129,10 @@ Auth.post(
    ...loginWithFb
 )
 
-Auth.route('/password-change')
+Auth.route('/password')
    .post(
       /**
-      #swagger.summary = "Password recovery"
+      #swagger.summary = "Password reset request"
       #swagger.description = `
          ✅ Checks if any user belongs to provided email address <br />
          ✅ Makes sure that user account is activated <br />
@@ -159,9 +145,7 @@ Auth.route('/password-change')
       #swagger.responses[200] = {
          description: 'Link to reset the password has been sent',
       }  
-      #swagger.responses[404] = {
-         description: 'An incorrect email address was provided',
-      }  
+      #swagger.responses[404] = { $ref: "#/definitions/404-incorrect-email-address" }  
       #swagger.responses[409] = {
          description: 'Account must be firstly activated',
       } 

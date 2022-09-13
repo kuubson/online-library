@@ -8,9 +8,9 @@ import { setApiFeedback } from 'helpers'
 
 import { apiAxios, history } from 'utils'
 
-const { request, validation, header, errors } = API['/api/user/auth/password-change'].patch
+const { request, validation, header, errors } = API['/api/user/auth/password'].patch
 
-export const usePasswordRecovery = () => {
+export const usePasswordReset = () => {
    const { passwordToken } = useParams()
 
    const { submit, control, errors: formErrors, getValues } = useForm(validation)

@@ -6,7 +6,7 @@ export const Cart = Router()
 
 Cart.post(
    /**
-      #swagger.summary = "Finalizing purchase"
+      #swagger.summary = "Stripe payment processing"
       #swagger.description = `
          ✅ Makes sure that user does not pay for already purchased books <br />
          ✅ Checks if selected books are still available in the store <br />
@@ -17,18 +17,10 @@ Cart.post(
          required: true,
          schema: { $ref: "#/definitions/post-stripe-payment" }
       } 
-      #swagger.responses[200] = {
-         description: 'Successfully purchased new books',
-      }  
-      #swagger.responses[404] = {
-         description: 'Selected books are not available anymore',
-      }  
-      #swagger.responses[409] = {
-         description: 'You have already purchased selected books before',
-      }  
-      #swagger.responses[402] = {
-         description: 'Payment has failed',
-      } 
+      #swagger.responses[200] = { $ref: "#/definitions/200-purchased-books" }  
+      #swagger.responses[404] = { $ref: '#/definitions/404-books-not-available' }  
+      #swagger.responses[409] = { $ref: '#/definitions/409-books-already-purchased' }  
+      #swagger.responses[402] = { $ref: '#/definitions/402-payment-failed' } 
 */
    '/stripe/payment',
    ...stripePayment
@@ -36,7 +28,7 @@ Cart.post(
 
 Cart.post(
    /**
-      #swagger.summary = "Finalizing purchase"
+      #swagger.summary = "Paypal checkout"
       #swagger.description = `
          ✅ Makes sure that user does not pay for already purchased books <br />
          ✅ Checks if selected books are still available in the store <br />
@@ -51,12 +43,8 @@ Cart.post(
          description: 'Returns paypal checkout link',
          schema: { $ref: '#/definitions/post-paypal-checkout-200' }
       }  
-      #swagger.responses[404] = {
-         description: 'Selected books are not available anymore',
-      }  
-      #swagger.responses[409] = {
-         description: 'You have already purchased selected books before',
-      }  
+      #swagger.responses[404] = { $ref: '#/definitions/404-books-not-available' }  
+      #swagger.responses[409] = { $ref: '#/definitions/409-books-already-purchased' }  
       #swagger.responses[402] = {
          description: 'There was a problem preparing the payment, try again',
       }  
@@ -67,7 +55,7 @@ Cart.post(
 
 Cart.post(
    /**
-      #swagger.summary = "Finalizing purchase"
+      #swagger.summary = "Paypal payment processing"
       #swagger.description = `
          ✅ Checks if user booked paymeny with certain id <br />
          ✅ Checks if payment is still in progress <br />
@@ -78,15 +66,11 @@ Cart.post(
          required: true,
          schema: { $ref: "#/definitions/post-paypal-payment" }
       }
-      #swagger.responses[200] = {
-         description: 'Successfully purchased new books',
-      }  
+      #swagger.responses[200] = { $ref: "#/definitions/200-purchased-books" }  
       #swagger.responses[409] = {
          description: 'The order has been already approved',
       }  
-      #swagger.responses[402] = {
-         description: 'Payment has failed',
-      }  
+      #swagger.responses[402] = { $ref: '#/definitions/402-payment-failed' }  
       #swagger.responses[404] = {
          description: 'Bad payment id',
       }  

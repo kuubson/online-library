@@ -26,6 +26,7 @@ import {
    token,
    withProfile,
 } from './definitions'
+import { errors } from './errors'
 
 const doc = {
    info: {
@@ -36,6 +37,7 @@ const doc = {
    host: 'localhost:3001',
    components: { '@schemas': { ...schemas } },
    '@definitions': {
+      ...errors,
       register: {
          type: 'object',
          properties: {
@@ -68,11 +70,11 @@ const doc = {
             access_token,
          },
       },
-      'post-password-change': {
+      'post-password': {
          type: 'object',
          properties: { email },
       },
-      'patch-password-change': {
+      'patch-password': {
          type: 'object',
          properties: {
             password,

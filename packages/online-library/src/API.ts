@@ -46,7 +46,7 @@ const API_PATHS = {
          })
          .noOtherKeys(),
    }),
-   ...addValidation('/api/user/auth/password-change', {
+   ...addValidation('/api/user/auth/password', {
       patch: yup
          .object({
             password: yup.string().password(),

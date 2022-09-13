@@ -8,7 +8,7 @@ import { apiAxios, history } from 'utils'
 
 export const useSupport = (withPasswordSupport: boolean | undefined) => {
    const { request, validation, header, errors } = withPasswordSupport
-      ? API['/api/user/auth/password-change'].post
+      ? API['/api/user/auth/password'].post
       : API['/api/user/auth/activation-token'].post
 
    const { submit, control, errors: formErrors, getValues } = useForm(validation)

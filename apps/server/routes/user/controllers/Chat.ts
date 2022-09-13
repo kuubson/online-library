@@ -15,6 +15,7 @@ export const Chat = Router()
 Chat.route('/messages')
    .get(
       /**
+      #swagger.summary = "Chat messages"
       #swagger.description = `
          ✅ Returns some of the previous messages (implements infinite scroll) <br />
          ✅ Mark messages as read by user that requested this endpoint <br />
@@ -33,6 +34,7 @@ Chat.route('/messages')
    )
    .post(
       /**
+      #swagger.summary = "Sending message"
       #swagger.description = `
          ✅ Sends text message to others <br />
          ✅ Sends push notification <br />
@@ -83,6 +85,7 @@ Chat.post(
 
 Chat.post(
    /**
+      #swagger.summary = "Push notifications"
       #swagger.description = `
          ✅ Stores web push subscription detail in the database <br />
          ✅ Creates many subscriptions per user (user can use multiple devices) <br />
@@ -92,7 +95,7 @@ Chat.post(
          schema: { $ref: "#/definitions/post-notifications" }
       } 
       #swagger.responses[200] = {
-         description: 'Subscription has been stored',
+         description: 'Subscription has been saved',
       } 
 */
    '/notifications',
@@ -101,6 +104,7 @@ Chat.post(
 
 Chat.get(
    /**
+      #swagger.summary = "Chat details"
       #swagger.description = `
          ✅ Returns info related to chatting <br />
          ✅ Counts how many messages user missed since last view <br />

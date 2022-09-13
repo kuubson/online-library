@@ -13,7 +13,7 @@ export const useGuest = () => {
 
    const checkAuth = async () => {
       try {
-         const { request } = API['/api/user/global/auth/token'].get
+         const { request } = API['/api/user/global/auth'].get
 
          const response = await defaultAxios<TokenCheckResponse>(request)
 
