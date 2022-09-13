@@ -1,5 +1,6 @@
 export * from '../types'
 export { API } from './API'
+export * from './constants'
 export * from './errors'
 export { filesInfo } from './filesInfo'
 export * from './yup'

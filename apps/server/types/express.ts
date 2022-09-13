@@ -46,7 +46,7 @@ export type Route<
    RT = RouteTypeBase,
    V = ValidationBase
 > = V extends true
-   ? [Middleware, Middleware<B, C, RT>] // requires validation middleware
+   ? [Middleware, Middleware<B, C, RT>] // requires validation middleware to be applied when creating a route
    : [Middleware<B, C, RT>]
 
 export type ProtectedRoute<B = BodyBase, C = CookiesBase, V = ValidationBase> = Route<

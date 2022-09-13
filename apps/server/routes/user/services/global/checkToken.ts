@@ -12,7 +12,7 @@ import { cookie, jwt } from 'utils'
 import type { AuthTokenData } from 'types'
 import type { Cookies, InitialBody, Route } from 'types/express'
 
-const schema = yup.object({ cookies: yup.object({ token: jwt.optional() }) }) // try to move this validation to API.ts
+const schema = yup.object({ cookies: yup.object({ token: jwt.optional() }) })
 
 export const checkToken: Route<InitialBody, Cookies<typeof schema>> = [
    yupValidation({ schema }),

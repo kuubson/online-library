@@ -68,6 +68,3 @@ UserController.use(
    '/api/user/global/',
    Global
 )
-
-// TODO: rename all files to match their routes
-// TODO: rename json schema definitions

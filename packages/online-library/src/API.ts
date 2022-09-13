@@ -164,7 +164,7 @@ type API_PATHS_WITH_VALIDATION = {
    }
 }
 
-// if it glow red, it means that keys that you put manually into API_PATHS are not matched with what backend API exposes
+// if it is red, it means that keys that you put manually into API_PATHS are not matched with what backend API exposes
 
 declare function _(api: API): api is {
    [key in keyof typeof swagger.paths]: API_PATHS_WITH_VALIDATION[key]
