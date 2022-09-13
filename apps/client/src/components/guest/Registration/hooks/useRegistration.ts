@@ -12,7 +12,7 @@ export const useRegistration = () => {
    const { submit, control, errors: formErrors, getValues } = useForm(validation)
 
    const register = async () => {
-      const response = await apiAxios(request, getValues())
+      const response = await apiAxios<typeof validation>(request, getValues())
       if (response) {
          setApiFeedback(header, errors[200], 'Okey', () => history.push('/login'))
       }

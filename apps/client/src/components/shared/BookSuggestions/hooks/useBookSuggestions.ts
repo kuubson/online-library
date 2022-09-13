@@ -35,7 +35,10 @@ export const useBookSuggestions = ({
       if (title || author) {
          const getBookSuggestions = setTimeout(() => {
             submit(async () => {
-               const response = await apiAxios<BookSuggestionsResponse>(request, getValues())
+               const response = await apiAxios<typeof validation, BookSuggestionsResponse>(
+                  request,
+                  getValues()
+               )
                if (response) {
                   const { books } = response.data
                   setBooks(books)

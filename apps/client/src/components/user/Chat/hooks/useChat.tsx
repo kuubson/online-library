@@ -11,7 +11,7 @@ import { apiAxios, defaultAxios } from 'utils'
 
 import type { ChatFileResponse, MessageType, MessagesResponse } from 'types'
 
-const { request } = API['/api/user/chat/messages'].post
+const { request, validation } = API['/api/user/chat/messages'].post
 
 let uploadProgressInterval: ReturnType<typeof setInterval>
 
@@ -44,7 +44,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
       if (event) {
          const target = event.target as HTMLDivElement
          if (target.scrollTop <= 0 && hasMoreMessages) {
-            const response = await apiAxios<MessagesResponse>(request, {
+            const response = await apiAxios<typeof validation, MessagesResponse>(request, {
                limit,
                offset,
             })
@@ -68,7 +68,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
             }
          }
       } else {
-         const response = await apiAxios<MessagesResponse>(request, {
+         const response = await apiAxios<typeof validation, MessagesResponse>(request, {
             limit,
             offset,
          })
@@ -123,23 +123,25 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
    }, [socket])
 
    const getUnreadMessages = async () => {
-      const response = await apiAxios<MessagesResponse>(request, {
-         limit: lastUnreadMessageIndex,
-         offset: 0,
-      })
+      if (lastUnreadMessageIndex) {
+         const response = await apiAxios<typeof validation, MessagesResponse>(request, {
+            limit: lastUnreadMessageIndex,
+            offset: 0,
+         })
 
-      if (response) {
-         const { messages } = response.data
+         if (response) {
+            const { messages } = response.data
 
-         setMessages(messages)
+            setMessages(messages)
 
-         setTimeout(() => {
-            if (messagesRef.current) {
-               messagesRef.current.scrollTop = 1
-            }
-         }, 0)
+            setTimeout(() => {
+               if (messagesRef.current) {
+                  messagesRef.current.scrollTop = 1
+               }
+            }, 0)
 
-         setUnreadMessagesAmount(0)
+            setUnreadMessagesAmount(0)
+         }
       }
    }
 
@@ -178,9 +180,11 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
 
             setTimeout(() => setMessage(''), 0)
 
-            const { request } = API['/api/user/chat/message'].post
+            const { request, validation } = API['/api/user/chat/message'].post
 
-            const response = await defaultAxios(request, { content: message.trim() })
+            const response = await defaultAxios<typeof validation>(request, {
+               content: message.trim(),
+            })
 
             if (response) {
                socket?.emit('sendMessage', _message)
@@ -263,7 +267,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
                }
             }, 500)
 
-            const response = await defaultAxios<ChatFileResponse>(request, form)
+            const response = await defaultAxios<FormData, ChatFileResponse>(request, form)
 
             if (response) {
                setPercentage(100)

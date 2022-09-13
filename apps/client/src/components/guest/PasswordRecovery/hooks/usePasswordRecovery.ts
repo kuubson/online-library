@@ -29,7 +29,7 @@ export const usePasswordRecovery = () => {
    }, [])
 
    const changePassword = async () => {
-      const response = await apiAxios(request, {
+      const response = await apiAxios<typeof validation>(request, {
          ...getValues(),
          passwordToken,
       })

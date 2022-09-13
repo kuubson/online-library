@@ -14,33 +14,34 @@ export const useLogin = () => {
    const { submit, control, errors, getValues } = useForm(validation)
 
    const login = async () => {
-      const response = await apiAxios(request, getValues())
+      const response = await apiAxios<typeof validation>(request, getValues())
       if (response) {
          history.push('/store')
       }
    }
 
    const loginWithFacebook = async () => {
-      const { request, header, errors } = API['/api/user/auth/login/fb'].post
-
       const handleFBlogin = ({ authResponse, status }: FBLoginRequest) => {
+         const { request, validation, header, errors } = API['/api/user/auth/login/fb'].post
+
          if (authResponse && status === 'connected') {
-            const meUrl = '/me?fields=id,first_name,email'
+            return window.FB.api(
+               '/me?fields=id,first_name,email',
+               async ({ first_name, email }: FBMeRespose) => {
+                  const response = await apiAxios<typeof validation>(request, {
+                     name: first_name,
+                     email,
+                     access_token: authResponse.accessToken,
+                  })
 
-            window.FB.api(meUrl, async ({ first_name, email }: FBMeRespose) => {
-               const response = await apiAxios(request, {
-                  name: first_name,
-                  email,
-                  access_token: authResponse.accessToken,
-               })
-
-               if (response) {
-                  history.push('/store')
+                  if (response) {
+                     history.push('/store')
+                  }
                }
-            })
-         } else {
-            setApiFeedback(header, errors[400])
+            )
          }
+
+         setApiFeedback(header, errors[400])
       }
 
       window.FB.login(handleFBlogin, { scope: 'email,public_profile' })

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import type { InferType } from 'yup'
 
 import { API } from '@online-library/tools'
 
@@ -12,8 +13,10 @@ import { apiAxios, history } from 'utils'
 
 import type { ApiError, PaypalCheckoutResponse } from 'types'
 
+const { request, validation, header, errors } = API['/api/user/cart/paypal/payment'].post
+
 export const useCart = () => {
-   const { paymentId, PayerID } = useQueryParams()
+   const { paymentId, PayerID } = useQueryParams() as InferType<typeof validation>
 
    const { cart, resetCart } = useCartHook()
 
@@ -34,9 +37,8 @@ export const useCart = () => {
    useEffect(() => {
       const handlePaypalPayment = async () => {
          try {
-            const { request, header, errors } = API['/api/user/cart/paypal/payment'].post
             if (paymentId && PayerID) {
-               const response = await apiAxios(request, {
+               const response = await apiAxios<typeof validation>(request, {
                   paymentId,
                   PayerID,
                })
@@ -58,9 +60,11 @@ export const useCart = () => {
    }, [paymentId, PayerID])
 
    const createPayPalPayment = async () => {
-      const { request } = API['/api/user/cart/paypal/checkout'].post
+      const { validation, request } = API['/api/user/cart/paypal/checkout'].post
 
-      const response = await apiAxios<PaypalCheckoutResponse>(request, { products: cart })
+      const response = await apiAxios<typeof validation, PaypalCheckoutResponse>(request, {
+         products: cart,
+      })
 
       if (response) {
          window.location.href = response.data.link

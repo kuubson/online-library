@@ -62,7 +62,7 @@ Auth.post(
          description: 'Account already activated',
       }  
 */
-   '/activate-account',
+   '/account-activation',
    ...activateAccount
 )
 

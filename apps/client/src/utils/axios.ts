@@ -1,8 +1,11 @@
 import type { AxiosResponse } from 'axios'
 import axios from 'axios'
 import { debounce } from 'lodash'
+import type { InferType } from 'yup'
 
 import { handleApiError, setLoading } from 'helpers'
+
+import type { TypedSchema } from 'yup/lib/util/types'
 
 const debounceLoader = debounce(() => setLoading(true), 800)
 
@@ -44,9 +47,10 @@ type Request<M = 'get'> = {
 
 type AxiosOverload = {
    <D>(request: Request): Promise<AxiosResponse<D, unknown>>
-   <D>(request: Request<'post' | 'put' | 'delete'>, data?: unknown): Promise<
-      AxiosResponse<D, unknown>
-   >
+   <V extends TypedSchema | any, D = any>(
+      request: Request<'post' | 'put' | 'delete'>,
+      data?: V extends TypedSchema ? InferType<V> : V
+   ): Promise<AxiosResponse<D, unknown>>
 }
 
 type AxiosOverloadArgs = (

@@ -51,6 +51,7 @@ const API_PATHS = {
          .object({
             password: yup.string().password(),
             repeatedPassword: yup.string().repeatedPassword(),
+            passwordToken: yup.string().optional(),
          })
          .noOtherKeys(),
    }),
@@ -120,6 +121,9 @@ const API_PATHS = {
             withProfile: yup.bool().required(),
          })
          .noOtherKeys(),
+   }),
+   ...addValidation('/api/user/auth/account-activation', {
+      post: yup.object({ activationToken: yup.string().plain() }).noOtherKeys(),
    }),
 }
 

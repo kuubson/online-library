@@ -28,9 +28,10 @@ export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean
             })
 
             if (paymentMethod) {
-               const { request, header, errors } = API['/api/user/cart/stripe/payment'].post
+               const { request, validation, header, errors } =
+                  API['/api/user/cart/stripe/payment'].post
 
-               const response = await apiAxios(request, {
+               const response = await apiAxios<typeof validation>(request, {
                   paymentId: paymentMethod.id,
                   products: cart,
                })

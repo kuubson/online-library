@@ -12,9 +12,9 @@ import { jwt } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
-const { header, errors } = API['/api/user/auth/activate-account'].post
+const { validation, header, errors } = API['/api/user/auth/account-activation'].post
 
-const schema = yup.object({ body: yup.object({ activationToken: jwt }) })
+const schema = yup.object({ body: validation.shape({ activationToken: jwt }) })
 
 export const activateAccount: Route<Body<typeof schema>> = [
    yupValidation({ schema }),
