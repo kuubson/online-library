@@ -17,6 +17,8 @@
       "^./config/aliases$",
       "^config$",
 
+      "^swagger$",
+
       "^database(.*)",
 
       "^shared$",

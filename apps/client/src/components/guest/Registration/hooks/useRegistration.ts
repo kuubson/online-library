@@ -1,25 +1,26 @@
-import { API } from 'online-library'
+import { API } from '@online-library/tools'
 
 import { useForm } from 'hooks'
 
 import { setApiFeedback } from 'helpers'
 
-import { axios, history } from 'utils'
+import { apiAxios, history } from 'utils'
 
-const { header, url, post, validation } = API.register
+const { request, validation, header, errors } = API['/api/user/auth/register'].post
 
 export const useRegistration = () => {
-   const { submit, control, errors, getValues } = useForm(validation)
+   const { submit, control, errors: formErrors, getValues } = useForm(validation)
 
    const register = async () => {
-      await axios
-         .post(url, getValues())
-         .then(() => setApiFeedback(header, post[200], 'Okey', () => history.push('/login')))
+      const response = await apiAxios<typeof validation>(request, getValues())
+      if (response) {
+         setApiFeedback(header, errors[200], 'Okey', () => history.push('/login'))
+      }
    }
 
    return {
       register: submit(register),
       control,
-      errors,
+      errors: formErrors,
    }
 }

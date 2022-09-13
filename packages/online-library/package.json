@@ -1,14 +1,14 @@
 {
-   "name": "online-library",
+   "name": "@online-library/tools",
    "version": "1.0.0",
    "private": true,
    "sideEffects": false,
    "main": "./dist/index.js",
    "types": "./dist/index.d.ts",
    "scripts": {
-      "dev": "tsup src/index.tsx --format cjs --watch --dts --external react",
+      "dev": "tsup src/index.ts --format cjs --watch --dts --external react",
       "lint": "eslint . && tsc --noEmit",
-      "build": "tsup src/index.tsx --format cjs --dts --external react"
+      "build": "tsup src/index.ts --format cjs --dts --external react"
    },
    "dependencies": {
       "lodash": "^4.17.21",
@@ -21,7 +21,6 @@
       "@types/react-dom": "^17.0.8",
       "@types/sanitize-html": "^2.6.2",
       "@types/validator": "^13.7.6",
-      "tsconfig": "*",
       "tsup": "^5.10.1",
       "typescript": "^4.5.3"
    }

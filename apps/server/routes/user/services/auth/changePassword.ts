@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import { verify } from 'jsonwebtoken'
 
-import { API, ApiError, yup } from 'online-library'
+import { API, ApiError, yup } from '@online-library/tools'
 
 import { JWT_KEY } from 'config'
 
@@ -14,7 +14,7 @@ import { jwt } from 'utils'
 import type { PasswordTokenData } from 'types'
 import type { Body, Route } from 'types/express'
 
-const { header, post, validation } = API.changePassword
+const { validation, header, errors } = API['/api/user/auth/password-change'].put
 
 const schema = yup.object({ body: validation.shape({ passwordToken: jwt }) })
 
@@ -35,7 +35,7 @@ export const changePassword: Route<Body<typeof schema>> = [
             })
 
             if (!user) {
-               throw new ApiError(header, post[400], 400)
+               throw new ApiError(header, errors[400], 400)
             }
 
             await user.update(

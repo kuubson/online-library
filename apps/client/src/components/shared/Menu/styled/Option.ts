@@ -54,12 +54,12 @@ export const Option = styled.li<StyledProps>`
          ? css`
               ::after {
                  width: 18px;
+                 letter-spacing: 0px;
                  height: 18px;
                  cursor: initial;
                  content: '${counter}';
-                 padding-top: 0.5px;
-                 padding-left: 1.5px;
                  font-size: 11px;
+                 padding-top: 1px;
                  font-weight: bold;
                  color: black;
                  background: white;

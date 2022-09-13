@@ -1,10 +1,10 @@
-import { NODE_ENV } from 'config'
+import { COOKIE_MAX_AGE } from '@online-library/tools'
 
-const cookieMaxAge = 7 * 24 * 60 * 60 * 1000 // 7 days
+import { NODE_ENV } from 'config'
 
 export const cookie = (setMaxAge?: boolean) => ({
    secure: NODE_ENV === 'production',
    httpOnly: true,
    sameSite: true,
-   ...(setMaxAge && { maxAge: cookieMaxAge }),
+   ...(setMaxAge && { maxAge: COOKIE_MAX_AGE }),
 })

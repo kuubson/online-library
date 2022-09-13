@@ -1,4 +1,4 @@
-import { API, yup } from 'online-library'
+import { API, yup } from '@online-library/tools'
 
 import { Message, User } from 'database'
 
@@ -8,7 +8,9 @@ import { updateReadByProperty } from 'helpers'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
-const schema = yup.object({ body: API.getMessages.validation })
+const { validation } = API['/api/user/chat/messages'].post
+
+const schema = yup.object({ body: validation })
 
 export const getMessages: ProtectedRoute<Body<typeof schema>> = [
    yupValidation({ schema }),

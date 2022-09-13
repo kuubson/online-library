@@ -1,15 +1,16 @@
 import type { RenderOptions } from '@testing-library/react'
 import { render as _render } from '@testing-library/react'
+import axios from 'axios'
 import type { ReactElement } from 'react'
 
 import { Providers } from 'components/shared'
 
-import { baseUrl, defaultAxios } from 'utils'
+import { baseUrl } from 'utils'
 
 export * from '@testing-library/react'
 export { default as userEvent } from '@testing-library/user-event'
 
-defaultAxios.defaults.baseURL = baseUrl
+axios.defaults.baseURL = baseUrl
 
 type Options = Omit<RenderOptions, 'wrapper'>
 

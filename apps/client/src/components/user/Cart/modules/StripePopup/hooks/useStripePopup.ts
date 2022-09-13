@@ -1,14 +1,12 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 
-import { API } from 'online-library'
+import { API } from '@online-library/tools'
 
 import { useCart } from 'hooks'
 
 import { setApiFeedback, setLoading } from 'helpers'
 
-import { axios, history } from 'utils'
-
-const { header, post } = API.purchaseBooksWithStripe
+import { apiAxios, history } from 'utils'
 
 export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean>) => {
    const stripe = useStripe()
@@ -20,6 +18,7 @@ export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean
    const handlePaying = async () => {
       try {
          const card = elements && elements.getElement(CardElement)
+
          if (stripe && card) {
             setLoading(true)
 
@@ -29,18 +28,21 @@ export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean
             })
 
             if (paymentMethod) {
-               await axios
-                  .post(API.purchaseBooksWithStripe.url, {
-                     paymentId: paymentMethod.id,
-                     products: cart,
+               const { request, validation, header, errors } =
+                  API['/api/user/cart/stripe/payment'].post
+
+               const response = await apiAxios<typeof validation>(request, {
+                  paymentId: paymentMethod.id,
+                  products: cart,
+               })
+
+               if (response) {
+                  setShouldStripePopupAppear(false)
+                  setApiFeedback(header, errors[200], 'Check your profile', () => {
+                     resetCart()
+                     history.push('/profile')
                   })
-                  .then(() => {
-                     setShouldStripePopupAppear(false)
-                     setApiFeedback(header, post[200], 'Check your profile', () => {
-                        resetCart()
-                        history.push('/profile')
-                     })
-                  })
+               }
             } else {
                setLoading(false)
             }

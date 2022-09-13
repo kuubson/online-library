@@ -1,23 +1,26 @@
 import { useEffect } from 'react'
+import type { InferType } from 'yup'
 
-import { API } from 'online-library'
+import { API } from '@online-library/tools'
 
 import { useQueryParams } from 'hooks'
 
 import { setApiFeedback } from 'helpers'
 
-import { axios, history } from 'utils'
+import { apiAxios, history } from 'utils'
 
-const { header, url, post } = API.activateAccount
+const { request, validation, header, errors } = API['/api/user/auth/account-activation'].post
 
 export const useAccountActivation = () => {
-   const { activationToken } = useQueryParams()
+   const { activationToken } = useQueryParams() as InferType<typeof validation>
 
    const activateAccount = async () => {
       try {
-         await axios.post(url, { activationToken }).then(() => {
-            setApiFeedback(header, post[200], 'Okey', () => history.push('/login'))
-         })
+         const response = await apiAxios<typeof validation>(request, { activationToken })
+
+         if (response) {
+            setApiFeedback(header, errors[200], 'Okey', () => history.push('/login'))
+         }
       } catch (error) {
          history.push('/login')
       }

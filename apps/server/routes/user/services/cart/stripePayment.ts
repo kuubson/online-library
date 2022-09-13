@@ -1,6 +1,6 @@
 import Stripe from 'stripe'
 
-import { API, ApiError, yup } from 'online-library'
+import { API, ApiError, yup } from '@online-library/tools'
 
 import { STRIPE_SECRET_KEY } from 'config'
 
@@ -14,11 +14,11 @@ import type { Body, ProtectedRoute } from 'types/express'
 
 const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: '2022-08-01' })
 
-const { header, post, validation } = API.purchaseBooksWithStripe
+const { validation, header, errors } = API['/api/user/cart/stripe/payment'].post
 
 const schema = yup.object({ body: validation })
 
-export const purchaseBooksWithStripe: ProtectedRoute<Body<typeof schema>> = [
+export const stripePayment: ProtectedRoute<Body<typeof schema>> = [
    yupValidation({ schema }),
    async (req, res, next) => {
       try {
@@ -28,7 +28,8 @@ export const purchaseBooksWithStripe: ProtectedRoute<Body<typeof schema>> = [
             const { books } = await verifyPurchasingBooks({
                user: req.user,
                products,
-               path: API.purchaseBooksWithStripe,
+               header,
+               errors,
             })
 
             const description = books.map(({ title }) => title).join(', ')
@@ -51,14 +52,14 @@ export const purchaseBooksWithStripe: ProtectedRoute<Body<typeof schema>> = [
                })
 
                if (payment.status !== 'succeeded') {
-                  throw new ApiError(header, post[402], 402)
+                  throw new ApiError(header, errors[402], 402)
                }
 
                await Promise.all(books.map(async book => req.user.addBook(book, { transaction })))
 
                res.send()
             } catch (error) {
-               throw new ApiError(header, post[402], 402)
+               throw new ApiError(header, errors[402], 402)
             }
          })
       } catch (error) {

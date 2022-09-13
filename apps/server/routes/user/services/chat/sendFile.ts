@@ -1,6 +1,6 @@
 import cloudinary from 'cloudinary'
 
-import { API, ApiError, filesInfo } from 'online-library'
+import { API, ApiError, filesInfo } from '@online-library/tools'
 
 import { Connection } from 'database'
 import type { Message } from 'database/models/Message'
@@ -11,7 +11,7 @@ import { baseUrl } from 'utils'
 
 import type { InitialBody, InitialCookies, ProtectedRoute } from 'types/express'
 
-const { header, post } = API.sendFile
+const { header, errors } = API['/api/user/chat/file'].post
 
 export const sendFile: ProtectedRoute<InitialBody, InitialCookies, false> = [
    async (req, res, next) => {
@@ -29,7 +29,7 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, false> = [
             const isFile = files.test(mimetype) || files.test(originalname)
 
             if (!isImage && !isVideo && !isFile) {
-               throw new ApiError(header, post[415], 415)
+               throw new ApiError(header, errors[415], 415)
             }
 
             let sizeError = false
@@ -53,7 +53,7 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, false> = [
             }
 
             if (sizeError) {
-               throw new ApiError(header, post[413], 413)
+               throw new ApiError(header, errors[413], 413)
             }
 
             const { id, name } = req.user

@@ -3,9 +3,9 @@ import { faker } from '@faker-js/faker'
 import { Book } from 'database'
 
 export const seedBooks = async (amount: number) => {
-   await Book.findAll().then(async books => {
-      await Promise.all(books.map(book => book.destroy()))
-   })
+   const books = await Book.findAll()
+
+   await Promise.all(books.map(book => book.destroy()))
 
    console.log('✅ Old books wiped out')
 

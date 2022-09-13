@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { API, ApiError, yup } from 'online-library'
+import { API, ApiError, yup } from '@online-library/tools'
 
 import { JWT_KEY, TokenExpiration } from 'config'
 
@@ -14,7 +14,7 @@ import { baseUrl, emailTemplate } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
-const { header, post, validation } = API.recoverPassword
+const { validation, header, errors } = API['/api/user/auth/password-recovery'].post
 
 const schema = yup.object({ body: validation })
 
@@ -31,11 +31,11 @@ export const recoverPassword: Route<Body<typeof schema>> = [
             })
 
             if (!user || !user.authentication) {
-               throw new ApiError(header, post[404], 404)
+               throw new ApiError(header, errors[404], 404)
             }
 
             if (!user.authentication.authenticated) {
-               throw new ApiError(header, post[409], 409)
+               throw new ApiError(header, errors[409], 409)
             }
 
             const passwordToken = jwt.sign({ email }, JWT_KEY, { expiresIn: TokenExpiration['1h'] })
@@ -54,7 +54,7 @@ export const recoverPassword: Route<Body<typeof schema>> = [
                   ),
                })
             } catch (error) {
-               throw new ApiError(header, post[502], 502)
+               throw new ApiError(header, errors[502], 502)
             }
 
             res.send()

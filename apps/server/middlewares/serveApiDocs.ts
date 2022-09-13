@@ -1,8 +1,15 @@
 import type { Application } from 'express'
 import { serve, setup } from 'swagger-ui-express'
 
-import { swagger } from 'online-library'
+import { swaggerJson } from 'swagger'
 
 export const serveApiDocs = async (app: Application) => {
-   app.use('/api-docs', serve, setup(swagger, { swaggerOptions: { persistAuthorization: true } }))
+   app.use(
+      '/api-docs',
+      serve,
+      setup(swaggerJson, {
+         explorer: true,
+         swaggerOptions: { persistAuthorization: true },
+      })
+   )
 }

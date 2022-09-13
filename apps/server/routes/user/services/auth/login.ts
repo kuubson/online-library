@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-import type { Role } from 'online-library'
-import { API, ApiError, yup } from 'online-library'
+import type { Role } from '@online-library/tools'
+import { API, ApiError, yup } from '@online-library/tools'
 
 import { JWT_KEY, TokenExpiration } from 'config'
 
@@ -14,7 +14,7 @@ import { cookie } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
-const { header, post, validation } = API.login
+const { validation, header, errors } = API['/api/user/auth/login'].post
 
 const schema = yup.object({ body: validation })
 
@@ -30,11 +30,11 @@ export const login: Route<Body<typeof schema>> = [
          })
 
          if (!user || !bcrypt.compareSync(password, user.password)) {
-            throw new ApiError(header, post[401], 401)
+            throw new ApiError(header, errors[401], 401)
          }
 
          if (!user.authentication?.authenticated) {
-            throw new ApiError(header, post[403], 403)
+            throw new ApiError(header, errors[403], 403)
          }
 
          const token = jwt.sign(

@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react'
 
-import { API } from 'online-library'
+import { API } from '@online-library/tools'
 
 import type { Book } from 'gql'
 
 import { useForm } from 'hooks'
 
-import { axios } from 'utils'
+import { apiAxios } from 'utils'
 
-import type { BookSuggestionsProps, GetSuggestionsResponse } from 'types'
+import type { BookSuggestionsProps, BookSuggestionsResponse } from 'types'
+
+const { request, validation } = API['/api/user/books/suggestions'].post
 
 export const useBookSuggestions = ({
    freeBooks,
@@ -17,14 +19,11 @@ export const useBookSuggestions = ({
    setPaidBooks,
    withProfile,
 }: BookSuggestionsProps) => {
-   const { submit, control, getValues, setValue, watch, errors } = useForm(
-      API.getSuggestions.validation,
-      {
-         title: '',
-         author: '',
-         withProfile: !!withProfile,
-      }
-   )
+   const { submit, control, getValues, setValue, watch, errors } = useForm(validation, {
+      title: '',
+      author: '',
+      withProfile: !!withProfile,
+   })
 
    const [findByTitle, setFindByTitle] = useState(true)
 
@@ -34,21 +33,19 @@ export const useBookSuggestions = ({
 
    useEffect(() => {
       if (title || author) {
-         const getSuggestions = setTimeout(
-            () =>
-               submit(async () => {
-                  const response = await axios.post<GetSuggestionsResponse>(
-                     API.getSuggestions.url,
-                     getValues()
-                  )
-                  if (response) {
-                     const { books } = response.data
-                     setBooks(books)
-                  }
-               })(),
-            500
-         )
-         return () => clearTimeout(getSuggestions)
+         const getBookSuggestions = setTimeout(() => {
+            submit(async () => {
+               const response = await apiAxios<typeof validation, BookSuggestionsResponse>(
+                  request,
+                  getValues()
+               )
+               if (response) {
+                  const { books } = response.data
+                  setBooks(books)
+               }
+            })()
+         }, 500)
+         return () => clearTimeout(getBookSuggestions)
       } else {
          resetForm()
       }

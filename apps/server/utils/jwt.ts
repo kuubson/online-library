@@ -1,6 +1,6 @@
 import { JsonWebTokenError, TokenExpiredError, verify } from 'jsonwebtoken'
 
-import { ExpiredToken, InvalidToken, yup } from 'online-library'
+import { ExpiredToken, InvalidToken, yup } from '@online-library/tools'
 
 import { JWT_KEY } from 'config'
 

@@ -1,41 +1,28 @@
-import { API } from 'online-library'
+import { API } from '@online-library/tools'
 
 import { useForm } from 'hooks'
 
 import { setApiFeedback } from 'helpers'
 
-import { axios, history } from 'utils'
+import { apiAxios, history } from 'utils'
 
 export const useSupport = (withPasswordSupport: boolean | undefined) => {
-   const { submit, control, errors, getValues } = useForm(API.recoverPassword.validation)
+   const { request, validation, header, errors } = withPasswordSupport
+      ? API['/api/user/auth/password-recovery'].post
+      : API['/api/user/auth/activation-token-resend'].post
+
+   const { submit, control, errors: formErrors, getValues } = useForm(validation)
 
    const handleSupport = async () => {
-      if (withPasswordSupport) {
-         await axios
-            .post(API.recoverPassword.url, getValues())
-            .then(() =>
-               setApiFeedback(
-                  API.recoverPassword.header,
-                  API.recoverPassword.post[200],
-                  'Okey',
-                  () => history.push('/login')
-               )
-            )
-      } else {
-         await axios.post(API.resendActivationToken.url, getValues()).then(() => {
-            setApiFeedback(
-               API.resendActivationToken.header,
-               API.resendActivationToken.post[200],
-               'Okey',
-               () => history.push('/login')
-            )
-         })
+      const response = await apiAxios<typeof validation>(request, getValues())
+      if (response) {
+         setApiFeedback(header, errors[200], 'Okey', () => history.push('/login'))
       }
    }
 
    return {
       handleSupport: submit(handleSupport),
       control,
-      errors,
+      errors: formErrors,
    }
 }

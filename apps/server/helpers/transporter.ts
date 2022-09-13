@@ -13,14 +13,11 @@ export const transporter = nodemailer.createTransport(
    { from: `"Online Library" <${NODEMAILER_USERNAME}>` }
 )
 
-// transporter.verify((error, success) => {
-//    if (error) {
-//       console.log({
-//          error,
-//          message: 'There was a problem connecting to email serivce',
-//       })
-//    }
-//    if (success) {
-//       console.log('📧 SMTP host connected')
-//    }
-// })
+transporter.verify((error, success) => {
+   if (error) {
+      console.log('❌ SMTP connection failed')
+   }
+   if (success) {
+      console.log('📧 SMTP host connected')
+   }
+})

@@ -19,6 +19,6 @@ Books.post(
          schema: [{ $ref: '#/definitions/book' }]
       }  
 */
-   '/getSuggestions',
+   '/suggestions',
    ...getSuggestions
 )

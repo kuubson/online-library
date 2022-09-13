@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import io from 'socket.io-client'
 
-import { API } from 'online-library'
+import { API } from '@online-library/tools'
 
 import { useCart, useMessagesInfo, useSocket } from 'hooks'
 
@@ -9,7 +9,7 @@ import { handleApiError } from 'helpers'
 
 import { defaultAxios, history } from 'utils'
 
-import type { CheckTokenResponse, GetMessagesInfoResponse, MessageType } from 'types'
+import type { MessageType, MessagesInfoResponse, TokenCheckResponse } from 'types'
 
 export const useUser = (withChat: boolean | undefined) => {
    const { socket, setSocket } = useSocket()
@@ -32,7 +32,10 @@ export const useUser = (withChat: boolean | undefined) => {
 
       const checkToken = async () => {
          try {
-            const response = await defaultAxios.get<CheckTokenResponse>(API.checkToken.url)
+            const { request } = API['/api/user/global/token-check'].get
+
+            const response = await defaultAxios<TokenCheckResponse>(request)
+
             if (response) {
                const { role } = response.data
                if (role !== 'user') {
@@ -45,7 +48,9 @@ export const useUser = (withChat: boolean | undefined) => {
       }
 
       const getMessagesInfo = async () => {
-         const response = await defaultAxios.get<GetMessagesInfoResponse>(API.getMessagesInfo.url)
+         const { request } = API['/api/user/chat/messages/info'].get
+
+         const response = await defaultAxios<MessagesInfoResponse>(request)
 
          if (response) {
             const { lastUnreadMessageIndex, unreadMessagesAmount, userId } = response.data
@@ -58,7 +63,6 @@ export const useUser = (withChat: boolean | undefined) => {
       }
 
       checkToken()
-
       getMessagesInfo()
    }, [])
 

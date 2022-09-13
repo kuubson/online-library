@@ -1,10 +1,10 @@
 import limiter from 'express-rate-limit'
 
-import { RateLimitError } from 'online-library'
+import { RATE_LIMITER_WINDOW_MS, RateLimitError } from '@online-library/tools'
 
 export const rateLimiter = () =>
    limiter({
-      windowMs: 5 * 60 * 1000, // 5 min
+      windowMs: RATE_LIMITER_WINDOW_MS,
       max: 10,
       handler: (_, res) => res.status(RateLimitError.status).send(RateLimitError),
    })

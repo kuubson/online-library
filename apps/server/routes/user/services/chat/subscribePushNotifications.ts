@@ -1,4 +1,4 @@
-import { API, yup } from 'online-library'
+import { API, yup } from '@online-library/tools'
 
 import { Connection } from 'database'
 
@@ -6,7 +6,9 @@ import { yupValidation } from 'middlewares'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
-const schema = yup.object({ body: API.subscribePushNotifications.validation })
+const { validation } = API['/api/user/chat/push-notifications'].post
+
+const schema = yup.object({ body: validation })
 
 export const subscribePushNotifications: ProtectedRoute<Body<typeof schema>> = [
    yupValidation({ schema }),
@@ -18,18 +20,18 @@ export const subscribePushNotifications: ProtectedRoute<Body<typeof schema>> = [
                keys: { p256dh, auth },
             } = req.body
 
-            await req.user.getSubscriptions().then(async subscriptions => {
-               if (!subscriptions.some(subscription => subscription.endpoint === endpoint)) {
-                  await req.user.createSubscription(
-                     {
-                        endpoint,
-                        p256dh,
-                        auth,
-                     },
-                     { transaction }
-                  )
-               }
-            })
+            const subscriptions = await req.user.getSubscriptions()
+
+            if (!subscriptions.some(subscription => subscription.endpoint === endpoint)) {
+               await req.user.createSubscription(
+                  {
+                     endpoint,
+                     p256dh,
+                     auth,
+                  },
+                  { transaction }
+               )
+            }
 
             res.send()
          })

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
-import { ConnectivityError, RequestError } from 'online-library'
+import { ConnectivityError, RequestError } from '@online-library/tools'
 
 import { NODE_ENV } from 'config'
 

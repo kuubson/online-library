@@ -1,4 +1,11 @@
-import { messageTypes, roles } from 'online-library'
+import { messageTypes, roles } from '@online-library/tools'
+
+export const token = {
+   in: 'cookie',
+   name: 'token',
+   type: 'apiKey',
+   description: 'Auth token (jwt) generated with /login or /loginWithFacebook',
+}
 
 const createdAt = {
    type: 'string',
@@ -10,35 +17,7 @@ const updatedAt = {
    format: 'date-time',
 }
 
-export const book = {
-   type: 'object',
-   properties: {
-      id: { type: 'integer' },
-      createdAt,
-      updatedAt,
-      title: {
-         type: 'string',
-         example: 'Hound Dog',
-      },
-      author: {
-         type: 'string',
-         example: 'Nina Barton',
-      },
-      cover: {
-         type: 'string',
-         format: 'uri',
-         'qt-uri-protocols': ['https'],
-         example: 'https://loremflickr.com/640/480/nature?78445',
-      },
-      price: {
-         anyOf: [{ type: 'integer' }, { type: 'null' }],
-         description: 'Price in $',
-         example: 14,
-      },
-   },
-}
-
-export const file = {
+export const contentFile = {
    type: 'string',
    format: 'uri',
    'qt-uri-protocols': ['https'],
@@ -66,157 +45,55 @@ const fileType = {
    enum: messageTypes,
 }
 
-export const sendFileResponse = {
-   type: 'object',
-   properties: {
-      type: fileType,
-      content: file,
-   },
+export const title = {
+   type: 'string',
+   required: true,
+   description: 'Title to search for. It takes precedence over the author',
+   example: 'Let it Be',
 }
 
-export const role = {
-   type: 'object',
-   properties: {
-      role: {
-         type: 'string',
-         enum: roles,
-      },
-   },
+export const author = {
+   type: 'string',
+   required: true,
+   description: 'Author to search for',
+   example: 'Craig Nicolas',
 }
 
-export const message = {
-   type: 'object',
-   properties: {
-      id: { type: 'integer' },
-      createdAt,
-      updatedAt,
-      type: fileType,
-      content: file,
-      filename: {
-         type: 'string',
-         description: 'Name of uploaded file',
-         example: 'text.txt',
-      },
-      readBy: {
-         type: 'string',
-         description: 'String as joined array of user ids that read certain message',
-         example: '1,51,62,6,23',
-      },
-      cloudinaryId: {
-         anyOf: [{ type: 'integer' }, { type: 'null' }],
-         description: 'Id of resource kept at cloudinary',
-         example:
-            '1c644911e2118030c4884278c6835ccd79e0062959dcaa15af09861ae82c2e7bb73b4d53cf7a865255f1d01d2c15653748986ec09ccfb61b0e0163ce_o8qd1l',
-      },
-      userId: { type: 'integer' },
-      user: {
-         type: 'object',
-         properties: { name: { type: 'string' } },
-      },
-   },
+export const withProfile = {
+   type: 'boolean',
+   required: true,
+   description:
+      'If true, it searches books assigned to the user. Otherwise searches in the whole store',
 }
 
-export const getSuggestions = {
-   type: 'object',
-   properties: {
-      title: {
-         type: 'string',
-         required: true,
-         description: 'Title to search for. It takes precedence over the author',
-         example: 'Let it Be',
-      },
-      author: {
-         type: 'string',
-         required: true,
-         description: 'Author to search for',
-         example: 'Craig Nicolas',
-      },
-      withProfile: {
-         type: 'boolean',
-         required: true,
-         description:
-            'If true, it searches books assigned to the user. Otherwise searches in the whole store',
-      },
-   },
+export const content = {
+   type: 'string',
+   required: true,
+   description: 'Message to others',
 }
 
-export const subscription = {
-   type: 'object',
-   properties: {
-      endpoint: {
-         type: 'string',
-         format: 'uri',
-         'qt-uri-protocols': ['https'],
-         description: 'Subscription details (check out https://www.npmjs.com/package/web-push)',
-         example:
-            'https://fcm.googleapis.com/fcm/send/d61c5u920dw:APA91bEmnw8utjDYCqSRplFMVCzQMg9e5XxpYajvh37mv2QIlISdasBFLbFca9ZZ4Uqcya0ck-SP84YJUEnWsVr3mwYfaDB7vGtsDQuEpfDdcIqOX_wrCRkBW2NDWRZ9qUz9hSgtI3sY',
-      },
-      expirationTime: { anyOf: [{ type: 'integer' }, { type: 'null' }] },
-      keys: {
-         type: 'object',
-         additionalProperties: false,
-         properties: {
-            p256dh: {
-               type: 'string',
-               required: true,
-               example:
-                  'BL7ELU24fJTAlH5Kyl8N6BDCac8u8li_U5PIwG963MOvdYs9s7LSzj8x_7v7RFdLZ9Eap50PiiyF5K0TDAis7t0',
-            },
-            auth: {
-               type: 'string',
-               required: true,
-               example: 'juarI8x__VnHvsOgfeAPHg',
-            },
-         },
-      },
-   },
+export const lastUnreadMessageIndex = {
+   type: 'integer',
+   required: true,
+   description: 'Index of last unread message',
 }
 
-export const sendMessage = {
-   type: 'object',
-   properties: {
-      content: {
-         type: 'string',
-         required: true,
-         description: 'Message to others',
-      },
-   },
+export const unreadMessagesAmount = {
+   type: 'integer',
+   required: true,
+   description: 'Amount of missed messages',
 }
 
-export const messagesInfo = {
-   type: 'object',
-   properties: {
-      lastUnreadMessageIndex: {
-         type: 'integer',
-         required: true,
-         description: 'Index of last unread message',
-      },
-      unreadMessagesAmount: {
-         type: 'integer',
-         required: true,
-         description: 'Amount of missed messages',
-      },
-      userId: {
-         type: 'integer',
-         required: true,
-         description: 'Id of logged in user',
-      },
-   },
+export const userId = {
+   type: 'integer',
+   required: true,
+   description: 'Id of logged in user',
 }
 
-export const sendFile = {
-   'multipart/form-data': {
-      schema: {
-         type: 'object',
-         properties: {
-            file: {
-               type: 'string',
-               format: 'binary',
-               required: true,
-            },
-         },
-      },
-   },
+export const file = {
+   type: 'string',
+   format: 'binary',
+   required: true,
 }
 
 export const jwt = {
@@ -288,10 +165,147 @@ export const paypalPayerId = {
    example: 'KVYVDZAMZGRRA',
 }
 
-export const paypalApprovalLink = {
+export const endpoint = {
+   type: 'string',
+   format: 'uri',
+   'qt-uri-protocols': ['https'],
+   description: 'Subscription details (check out https://www.npmjs.com/package/web-push)',
+   example:
+      'https://fcm.googleapis.com/fcm/send/d61c5u920dw:APA91bEmnw8utjDYCqSRplFMVCzQMg9e5XxpYajvh37mv2QIlISdasBFLbFca9ZZ4Uqcya0ck-SP84YJUEnWsVr3mwYfaDB7vGtsDQuEpfDdcIqOX_wrCRkBW2NDWRZ9qUz9hSgtI3sY',
+}
+
+export const expirationTime = { anyOf: [{ type: 'integer' }, { type: 'null' }] }
+
+export const p256dh = {
    type: 'string',
    required: true,
-   description: 'Link to paypal checkout generated with /createPayPalPayment',
    example:
-      'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-27H754218P7505C',
+      'BL7ELU24fJTAlH5Kyl8N6BDCac8u8li_U5PIwG963MOvdYs9s7LSzj8x_7v7RFdLZ9Eap50PiiyF5K0TDAis7t0',
+}
+
+export const keys = {
+   type: 'object',
+   additionalProperties: false,
+   properties: {
+      p256dh,
+      auth: {
+         type: 'string',
+         required: true,
+         example: 'juarI8x__VnHvsOgfeAPHg',
+      },
+   },
+}
+
+export const id = { type: 'integer' }
+
+export const filename = {
+   type: 'string',
+   description: 'Name of uploaded file',
+   example: 'text.txt',
+}
+
+export const readBy = {
+   type: 'string',
+   description: 'String as joined array of user ids that read certain message',
+   example: '1,51,62,6,23',
+}
+
+export const cloudinaryId = {
+   anyOf: [{ type: 'integer' }, { type: 'null' }],
+   description: 'Id of resource kept at cloudinary',
+   example:
+      '1c644911e2118030c4884278c6835ccd79e0062959dcaa15af09861ae82c2e7bb73b4d53cf7a865255f1d01d2c15653748986ec09ccfb61b0e0163ce_o8qd1l',
+}
+
+export const user = {
+   type: 'object',
+   properties: { name: { type: 'string' } },
+}
+
+export const price = {
+   anyOf: [{ type: 'integer' }, { type: 'null' }],
+   description: 'Price in $',
+   example: 14,
+}
+
+export const cover = {
+   type: 'string',
+   format: 'uri',
+   'qt-uri-protocols': ['https'],
+   example: 'https://loremflickr.com/640/480/nature?78445',
+}
+
+export const schemas = {
+   book: {
+      type: 'object',
+      properties: {
+         id,
+         createdAt,
+         updatedAt,
+         title: {
+            type: 'string',
+            example: 'Hound Dog',
+         },
+         author: {
+            type: 'string',
+            example: 'Nina Barton',
+         },
+         cover,
+         price,
+      },
+   },
+   messagesInfo: {
+      type: 'object',
+      properties: {
+         lastUnreadMessageIndex,
+         unreadMessagesAmount,
+         userId,
+      },
+   },
+   sendFileResponse: {
+      type: 'object',
+      properties: {
+         type: fileType,
+         content: contentFile,
+      },
+   },
+   subscription: {
+      type: 'object',
+      properties: {
+         endpoint,
+         expirationTime,
+         keys,
+      },
+   },
+   message: {
+      type: 'object',
+      properties: {
+         id,
+         createdAt,
+         updatedAt,
+         type: fileType,
+         content: contentFile,
+         filename,
+         readBy,
+         cloudinaryId,
+         userId: id,
+         user,
+      },
+   },
+   paypalApprovalLink: {
+      type: 'string',
+      required: true,
+      description: 'Link to paypal checkout generated with /createPayPalPayment',
+      example:
+         'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-27H754218P7505C',
+   },
+   role: {
+      type: 'object',
+      properties: {
+         role: {
+            type: 'string',
+            enum: roles,
+         },
+      },
+   },
 }

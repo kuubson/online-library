@@ -27,7 +27,7 @@ Chat.post(
          schema: [{ $ref: '#/definitions/message' }]
       }  
 */
-   '/getMessages',
+   '/messages',
    ...getMessages
 )
 
@@ -45,12 +45,13 @@ Chat.post(
          description: 'Message has been sent',
       }  
 */
-   '/sendMessage',
+   '/message',
    ...sendMessage
 )
 
 Chat.post(
    /**
+      #swagger.summary = "Sending file"
       #swagger.description = `
          ✅ If file is an image it reduces its size <br />
          ✅ Validates size & extension of the file <br />
@@ -76,7 +77,7 @@ Chat.post(
          description: 'File size too large',
       }  
 */
-   '/sendFile',
+   '/file',
    handleMulterFile,
    ...sendFile
 )
@@ -95,7 +96,7 @@ Chat.post(
          description: 'Subscription has been stored',
       } 
 */
-   '/subscribePushNotifications',
+   '/push-notifications',
    ...subscribePushNotifications
 )
 
@@ -111,6 +112,6 @@ Chat.get(
          schema: { $ref: "#/definitions/messagesInfo" }
       } 
 */
-   '/getMessagesInfo',
+   '/messages/info',
    ...getMessagesInfo
 )

@@ -2,11 +2,10 @@ import { NODE_ENV } from 'config'
 
 const protocol = NODE_ENV !== 'production' ? 'http://' : 'https://'
 
-export const baseUrl = `${protocol}${window.location.host}${
-   NODE_ENV !== 'production' ? ':3001' : ''
-}`
+const port = NODE_ENV !== 'production' ? ':3001' : ''
 
-export const websocketUrl =
-   NODE_ENV === 'production'
-      ? `wss://${window.location.host}/graphql`
-      : 'ws://localhost:3001/graphql'
+const wsPrefix = NODE_ENV !== 'production' ? ':ws' : 'wss'
+
+export const baseUrl = `${protocol}${window.location.host}${port}`
+
+export const websocketUrl = `${wsPrefix}://${window.location.host}${port}/graphql`

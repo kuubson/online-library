@@ -4,17 +4,15 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { createClient } from 'graphql-ws'
 
-import { API, AuthError, ConnectivityError } from 'online-library'
+import { API, AuthError, ConnectivityError } from '@online-library/tools'
 
 import { NODE_ENV } from 'config'
 
-import { setApiFeedback, setLoading } from 'helpers'
+import { setApiFeedback } from 'helpers'
 
-import { defaultAxios, history, websocketUrl } from 'utils'
+import { debounceLoader, defaultAxios, history, resetLoader, websocketUrl } from 'utils'
 
 import type { GraphqlError } from 'types'
-
-let timeoutId: NodeJS.Timeout | undefined
 
 const handleOnClosed = (event: any) => {
    if (event.code === 4401) {
@@ -30,9 +28,7 @@ const webSocketLink = new GraphQLWsLink(
 )
 
 const customFetch = (uri: RequestInfo | URL, options: RequestInit) => {
-   if (!timeoutId) {
-      timeoutId = setTimeout(() => setLoading(true), 500)
-   }
+   debounceLoader()
    return fetch(uri, options)
 }
 
@@ -52,19 +48,13 @@ const splitLink = split(
 
 const handleLoader = new ApolloLink((operation, forward) => {
    return forward(operation).map(response => {
-      setLoading(false)
-      clearTimeout(timeoutId)
-      timeoutId = undefined
+      resetLoader()
       return response
    })
 })
 
 const handleError = onError(({ graphQLErrors, networkError }) => {
-   setLoading(false)
-
-   clearTimeout(timeoutId)
-
-   timeoutId = undefined
+   resetLoader()
 
    if (graphQLErrors) {
       const [{ extensions }] = graphQLErrors
@@ -77,7 +67,8 @@ const handleError = onError(({ graphQLErrors, networkError }) => {
    if (networkError) {
       if ('statusCode' in networkError) {
          if (networkError.statusCode === 401) {
-            defaultAxios.get(API.logout.url).then(() => {
+            const { request } = API['/api/user/global/logout'].get
+            defaultAxios(request).then(() => {
                setApiFeedback(AuthError.errorHeader, AuthError.errorMessage)
                history.push('/login')
             })
