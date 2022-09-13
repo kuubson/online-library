@@ -35,7 +35,7 @@
             "description": "Too Many Requests"
           },
           "502": {
-            "$ref": "$/definitions/502-activation-link",
+            "$ref": "#/components/schemas/502@activation-link",
             "description": "Bad Gateway"
           }
         },
@@ -44,12 +44,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/register"
+                "$ref": "#/components/schemas/post@register"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/register"
+                "$ref": "#/components/schemas/post@register"
               }
             }
           }
@@ -69,7 +69,7 @@
             "description": "Account activated, you can login now"
           },
           "403": {
-            "$ref": "#/components/schemas/503-account-activated",
+            "$ref": "#/components/schemas/503@account-activated",
             "description": "Forbidden"
           },
           "409": {
@@ -89,12 +89,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/patch-account"
+                "$ref": "#/components/schemas/patch@account"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/patch-account"
+                "$ref": "#/components/schemas/patch@account"
               }
             }
           }
@@ -114,11 +114,11 @@
             "description": "Link with new activation token has been sent"
           },
           "403": {
-            "$ref": "#/components/schemas/503-account-activated",
+            "$ref": "#/components/schemas/503@account-activated",
             "description": "Forbidden"
           },
           "404": {
-            "$ref": "#/components/schemas/404-incorrect-email-address",
+            "$ref": "#/components/schemas/404@incorrect-email-address",
             "description": "Not Found"
           },
           "422": {
@@ -130,7 +130,7 @@
             "description": "Too Many Requests"
           },
           "502": {
-            "$ref": "$/definitions/502-activation-link",
+            "$ref": "$/definitions/502@activation-link",
             "description": "Bad Gateway"
           }
         },
@@ -139,12 +139,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/post-activation-token"
+                "$ref": "#/components/schemas/post@activation-token"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/post-activation-token"
+                "$ref": "#/components/schemas/post@activation-token"
               }
             }
           }
@@ -161,7 +161,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "$ref": "#/components/schemas/200-auth-token",
+            "$ref": "#/components/schemas/200@auth-token",
             "description": "OK"
           },
           "401": {
@@ -184,12 +184,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/post-login-credentials"
+                "$ref": "#/components/schemas/post@login-credentials"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/post-login-credentials"
+                "$ref": "#/components/schemas/post@login-credentials"
               }
             }
           }
@@ -206,7 +206,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "$ref": "#/components/schemas/200-auth-token",
+            "$ref": "#/components/schemas/200@auth-token",
             "description": "OK"
           },
           "400": {
@@ -226,12 +226,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/post-login-fb"
+                "$ref": "#/components/schemas/post@login-fb"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/post-login-fb"
+                "$ref": "#/components/schemas/post@login-fb"
               }
             }
           }
@@ -251,7 +251,7 @@
             "description": "Link to reset the password has been sent"
           },
           "404": {
-            "$ref": "#/components/schemas/404-incorrect-email-address",
+            "$ref": "#/components/schemas/404@incorrect-email-address",
             "description": "Not Found"
           },
           "409": {
@@ -274,12 +274,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/post-password-change"
+                "$ref": "#/components/schemas/post@password"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/post-password-change"
+                "$ref": "#/components/schemas/post@password"
               }
             }
           }
@@ -313,12 +313,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/patch-password-change"
+                "$ref": "#/components/schemas/patch@password"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/patch-password-change"
+                "$ref": "#/components/schemas/patch@password"
               }
             }
           }
@@ -338,7 +338,7 @@
             "in": "query",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/get-books"
+              "$ref": "#/components/schemas/get@books"
             }
           }
         ],
@@ -350,7 +350,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/get-books-200"
+                    "$ref": "#/components/schemas/schema@book"
                   },
                   "xml": {
                     "name": "main"
@@ -361,7 +361,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/get-books-200"
+                    "$ref": "#/components/schemas/schema@book"
                   },
                   "xml": {
                     "name": "main"
@@ -369,6 +369,10 @@
                 }
               }
             }
+          },
+          "422": {
+            "$ref": "#/components/schemas/422",
+            "description": "Unprocessable Entity"
           }
         },
         "security": [
@@ -388,19 +392,19 @@
         "parameters": [],
         "responses": {
           "200": {
-            "$ref": "#/components/schemas/200-purchased-books",
+            "$ref": "#/components/schemas/200@purchased-books",
             "description": "OK"
           },
           "402": {
-            "$ref": "#/components/schemas/402-payment-failed",
+            "$ref": "#/components/schemas/402@payment-failed",
             "description": "Payment Required"
           },
           "404": {
-            "$ref": "#/components/schemas/404-books-not-available",
+            "$ref": "#/components/schemas/404@books-not-available",
             "description": "Not Found"
           },
           "409": {
-            "$ref": "#/components/schemas/409-books-already-purchased",
+            "$ref": "#/components/schemas/409@books-already-purchased",
             "description": "Conflict"
           },
           "422": {
@@ -418,12 +422,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/post-stripe-payment"
+                "$ref": "#/components/schemas/post@stripe-payment"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/post-stripe-payment"
+                "$ref": "#/components/schemas/post@stripe-payment"
               }
             }
           }
@@ -444,12 +448,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/post-paypal-checkout-200"
+                  "$ref": "#/components/schemas/schema@paypal-link"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/post-paypal-checkout-200"
+                  "$ref": "#/components/schemas/schema@paypal-link"
                 }
               }
             }
@@ -458,11 +462,11 @@
             "description": "There was a problem preparing the payment, try again"
           },
           "404": {
-            "$ref": "#/components/schemas/404-books-not-available",
+            "$ref": "#/components/schemas/404@books-not-available",
             "description": "Not Found"
           },
           "409": {
-            "$ref": "#/components/schemas/409-books-already-purchased",
+            "$ref": "#/components/schemas/409@books-already-purchased",
             "description": "Conflict"
           },
           "422": {
@@ -480,12 +484,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/post-paypal-checkout"
+                "$ref": "#/components/schemas/post@paypal-checkout"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/post-paypal-checkout"
+                "$ref": "#/components/schemas/post@paypal-checkout"
               }
             }
           }
@@ -502,11 +506,11 @@
         "parameters": [],
         "responses": {
           "200": {
-            "$ref": "#/components/schemas/200-purchased-books",
+            "$ref": "#/components/schemas/200@purchased-books",
             "description": "OK"
           },
           "402": {
-            "$ref": "#/components/schemas/402-payment-failed",
+            "$ref": "#/components/schemas/402@payment-failed",
             "description": "Payment Required"
           },
           "404": {
@@ -530,12 +534,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/post-paypal-payment"
+                "$ref": "#/components/schemas/post@paypal-payment"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/post-paypal-payment"
+                "$ref": "#/components/schemas/post@paypal-payment"
               }
             }
           }
@@ -555,7 +559,7 @@
             "in": "query",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/get-messages"
+              "$ref": "#/components/schemas/get@messages"
             }
           }
         ],
@@ -567,7 +571,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/get-messages-200"
+                    "$ref": "#/components/schemas/schema@message"
                   },
                   "xml": {
                     "name": "main"
@@ -578,7 +582,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/get-messages-200"
+                    "$ref": "#/components/schemas/schema@message"
                   },
                   "xml": {
                     "name": "main"
@@ -624,12 +628,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/post-messages"
+                "$ref": "#/components/schemas/post@messages"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/post-messages"
+                "$ref": "#/components/schemas/post@messages"
               }
             }
           }
@@ -650,12 +654,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/post-files-200"
+                  "$ref": "#/components/schemas/schema@file"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/post-files-200"
+                  "$ref": "#/components/schemas/schema@file"
                 }
               }
             }
@@ -678,7 +682,7 @@
         "requestBody": {
           "required": true,
           "content": {
-            "$ref": "#/components/schemas/post-files"
+            "$ref": "#/components/schemas/post@files"
           }
         }
       }
@@ -710,19 +714,19 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/post-notifications"
+                "$ref": "#/components/schemas/post@notifications"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/post-notifications"
+                "$ref": "#/components/schemas/post@notifications"
               }
             }
           }
         }
       }
     },
-    "/api/user/chat/messages/info": {
+    "/api/user/chat/details": {
       "get": {
         "tags": [
           "Chat"
@@ -732,16 +736,16 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Info returned",
+            "description": "Details returned",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/get-messages-info-200"
+                  "$ref": "#/components/schemas/schema@chat-details"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/get-messages-info-200"
+                  "$ref": "#/components/schemas/schema@chat-details"
                 }
               }
             }
@@ -772,12 +776,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/role"
+                  "$ref": "#/components/schemas/schema@role"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/role"
+                  "$ref": "#/components/schemas/schema@role"
                 }
               }
             }
@@ -799,16 +803,16 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Return guest role",
+            "description": "Returns current role",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/role"
+                  "$ref": "#/components/schemas/schema@role"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/role"
+                  "$ref": "#/components/schemas/schema@role"
                 }
               }
             }
@@ -829,7 +833,7 @@
       "429": {
         "description": "Too many requests"
       },
-      "role": {
+      "schema@role": {
         "type": "object",
         "properties": {
           "role": {
@@ -841,7 +845,7 @@
           }
         }
       },
-      "get-books-200": {
+      "schema@book": {
         "type": "object",
         "properties": {
           "id": {
@@ -885,7 +889,7 @@
           }
         }
       },
-      "get-messages-info-200": {
+      "schema@chat-details": {
         "type": "object",
         "properties": {
           "lastUnreadMessageIndex": {
@@ -905,7 +909,7 @@
           }
         }
       },
-      "post-files-200": {
+      "schema@file": {
         "type": "object",
         "properties": {
           "type": {
@@ -942,7 +946,7 @@
           }
         }
       },
-      "get-messages-200": {
+      "schema@message": {
         "type": "object",
         "properties": {
           "id": {
@@ -1023,37 +1027,13 @@
           }
         }
       },
-      "post-paypal-checkout-200": {
+      "schema@paypal-link": {
         "type": "string",
         "required": true,
         "description": "Link to paypal checkout generated with /paypalCheckout",
         "example": "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-27H754218P7505C"
       },
-      "502-activation-link": {
-        "description": "There was a problem sending the activation link"
-      },
-      "503-account-activated": {
-        "description": "Account already activated"
-      },
-      "200-auth-token": {
-        "description": "Auth token was set in cookies"
-      },
-      "404-incorrect-email-address": {
-        "description": "Provided email address is incorrect"
-      },
-      "200-purchased-books": {
-        "description": "Successfully purchased new books"
-      },
-      "404-books-not-available": {
-        "description": "Selected books are not available anymore"
-      },
-      "409-books-already-purchased": {
-        "description": "You have already purchased selected books before"
-      },
-      "402-payment-failed": {
-        "description": "Payment has failed"
-      },
-      "register": {
+      "post@register": {
         "type": "object",
         "properties": {
           "name": {
@@ -1079,7 +1059,7 @@
           }
         }
       },
-      "patch-account": {
+      "patch@account": {
         "type": "object",
         "properties": {
           "activationToken": {
@@ -1090,7 +1070,7 @@
           }
         }
       },
-      "post-activation-token": {
+      "post@activation-token": {
         "type": "object",
         "properties": {
           "email": {
@@ -1101,7 +1081,7 @@
           }
         }
       },
-      "post-login-credentials": {
+      "post@login-credentials": {
         "type": "object",
         "properties": {
           "email": {
@@ -1117,7 +1097,7 @@
           }
         }
       },
-      "post-login-fb": {
+      "post@login-fb": {
         "type": "object",
         "properties": {
           "name": {
@@ -1139,7 +1119,7 @@
           }
         }
       },
-      "post-password": {
+      "post@password": {
         "type": "object",
         "properties": {
           "email": {
@@ -1150,7 +1130,7 @@
           }
         }
       },
-      "patch-password": {
+      "patch@password": {
         "type": "object",
         "properties": {
           "password": {
@@ -1166,7 +1146,7 @@
           }
         }
       },
-      "post-stripe-payment": {
+      "post@stripe-payment": {
         "type": "object",
         "properties": {
           "paymentId": {
@@ -1191,7 +1171,7 @@
           }
         }
       },
-      "post-paypal-checkout": {
+      "post@paypal-checkout": {
         "type": "object",
         "properties": {
           "products": {
@@ -1210,7 +1190,7 @@
           }
         }
       },
-      "post-paypal-payment": {
+      "post@paypal-payment": {
         "type": "object",
         "properties": {
           "paymentId": {
@@ -1227,7 +1207,7 @@
           }
         }
       },
-      "post-notifications": {
+      "post@notifications": {
         "type": "object",
         "properties": {
           "endpoint": {
@@ -1267,7 +1247,7 @@
           }
         }
       },
-      "get-books": {
+      "get@books": {
         "type": "object",
         "properties": {
           "title": {
@@ -1307,7 +1287,7 @@
           }
         }
       },
-      "get-messages": {
+      "get@messages": {
         "type": "object",
         "properties": {
           "limit": {
@@ -1322,7 +1302,7 @@
           }
         }
       },
-      "post-messages": {
+      "post@messages": {
         "type": "object",
         "properties": {
           "content": {
@@ -1332,7 +1312,7 @@
           }
         }
       },
-      "post-files": {
+      "post@files": {
         "multipart/form-data": {
           "schema": {
             "type": "object",
@@ -1345,6 +1325,30 @@
             }
           }
         }
+      },
+      "502@activation-link": {
+        "description": "There was a problem sending the activation link"
+      },
+      "503@account-activated": {
+        "description": "Account already activated"
+      },
+      "200@auth-token": {
+        "description": "Auth token was set in cookies"
+      },
+      "404@incorrect-email-address": {
+        "description": "Provided email address is incorrect"
+      },
+      "200@purchased-books": {
+        "description": "Successfully purchased new books"
+      },
+      "404@books-not-available": {
+        "description": "Selected books are not available anymore"
+      },
+      "409@books-already-purchased": {
+        "description": "You have already purchased selected books before"
+      },
+      "402@payment-failed": {
+        "description": "Payment has failed"
       }
     },
     "securitySchemes": {

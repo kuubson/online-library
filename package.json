@@ -10,7 +10,7 @@
       "prebuild": "yarn docs",
       "build": "turbo run build",
       "codegen": "graphql-codegen",
-      "postinstall": "turbo run build --filter=./packages/* && yarn docs",
+      "postinstall": "yarn docs && turbo run build --filter=./packages/* --force",
       "prepare": "husky install"
    },
    "workspaces": [

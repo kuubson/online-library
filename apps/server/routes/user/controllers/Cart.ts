@@ -15,12 +15,12 @@ Cart.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/post-stripe-payment" }
+         schema: { $ref: "#/definitions/post@stripe-payment" }
       } 
-      #swagger.responses[200] = { $ref: "#/definitions/200-purchased-books" }  
-      #swagger.responses[404] = { $ref: '#/definitions/404-books-not-available' }  
-      #swagger.responses[409] = { $ref: '#/definitions/409-books-already-purchased' }  
-      #swagger.responses[402] = { $ref: '#/definitions/402-payment-failed' } 
+      #swagger.responses[200] = { $ref: "#/definitions/200@purchased-books" }  
+      #swagger.responses[404] = { $ref: '#/definitions/404@books-not-available' }  
+      #swagger.responses[409] = { $ref: '#/definitions/409@books-already-purchased' }  
+      #swagger.responses[402] = { $ref: '#/definitions/402@payment-failed' } 
 */
    '/stripe/payment',
    ...stripePayment
@@ -37,17 +37,15 @@ Cart.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/post-paypal-checkout" }
+         schema: { $ref: "#/definitions/post@paypal-checkout" }
       }
-      #swagger.responses[200] = {
+      #swagger.responses[200] = { 
          description: 'Returns paypal checkout link',
-         schema: { $ref: '#/definitions/post-paypal-checkout-200' }
+         schema: { $ref: '#/definitions/schema@paypal-link' },
       }  
-      #swagger.responses[404] = { $ref: '#/definitions/404-books-not-available' }  
-      #swagger.responses[409] = { $ref: '#/definitions/409-books-already-purchased' }  
-      #swagger.responses[402] = {
-         description: 'There was a problem preparing the payment, try again',
-      }  
+      #swagger.responses[404] = { $ref: '#/definitions/404@books-not-available' }  
+      #swagger.responses[409] = { $ref: '#/definitions/409@books-already-purchased' }  
+      #swagger.responses[402] = { description: 'There was a problem preparing the payment, try again' }  
 */
    '/paypal/checkout',
    ...paypalCheckout
@@ -64,16 +62,12 @@ Cart.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/post-paypal-payment" }
+         schema: { $ref: "#/definitions/post@paypal-payment" }
       }
-      #swagger.responses[200] = { $ref: "#/definitions/200-purchased-books" }  
-      #swagger.responses[409] = {
-         description: 'The order has been already approved',
-      }  
-      #swagger.responses[402] = { $ref: '#/definitions/402-payment-failed' }  
-      #swagger.responses[404] = {
-         description: 'Bad payment id',
-      }  
+      #swagger.responses[200] = { $ref: "#/definitions/200@purchased-books" }  
+      #swagger.responses[409] = { description: 'The order has been already approved' }  
+      #swagger.responses[402] = { $ref: '#/definitions/402@payment-failed' }  
+      #swagger.responses[404] = { description: 'Bad payment id' }  
 */
    '/paypal/payment',
    ...paypalPayment

@@ -47,8 +47,8 @@ export const useUser = (withChat: boolean | undefined) => {
          }
       }
 
-      const getMessagesInfo = async () => {
-         const { request } = API['/api/user/chat/messages/info'].get
+      const getChatDetails = async () => {
+         const { request } = API['/api/user/chat/details'].get
 
          const response = await defaultAxios<MessagesInfoResponse>(request)
 
@@ -63,7 +63,7 @@ export const useUser = (withChat: boolean | undefined) => {
       }
 
       checkAuth()
-      getMessagesInfo()
+      getChatDetails()
    }, [])
 
    const handleOnSendMessage = (message: MessageType) => {

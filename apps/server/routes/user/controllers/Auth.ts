@@ -24,15 +24,11 @@ Auth.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/register" }
+         schema: { $ref: "#/definitions/post@register" }
       }      
-      #swagger.responses[200] = {
-         description: 'Activate account by clicking the link that has been sent to you',
-      }  
-      #swagger.responses[409] = {
-         description: 'Email address already taken',
-      }  
-      #swagger.responses[502] = { $ref: "$/definitions/502-activation-link" }  
+      #swagger.responses[200] = { description: 'Activate account by clicking the link that has been sent to you' }  
+      #swagger.responses[409] = { description: 'Email address already taken' }  
+      #swagger.responses[502] = { $ref: "#/definitions/502@activation-link" }  
 */
    '/register',
    ...register
@@ -47,15 +43,11 @@ Auth.patch(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/patch-account" }
+         schema: { $ref: "#/definitions/patch@account" }
       }  
-      #swagger.responses[200] = {
-         description: 'Account activated, you can login now',
-      }  
-      #swagger.responses[409] = {
-         description: 'No authentication associated with this link',
-      }  
-      #swagger.responses[403] = { $ref: "#/definitions/503-account-activated" }  
+      #swagger.responses[200] = { description: 'Account activated, you can login now' }  
+      #swagger.responses[409] = { description: 'No authentication associated with this link' }  
+      #swagger.responses[403] = { $ref: "#/definitions/503@account-activated" }  
 */
    '/account',
    ...activateAccount
@@ -71,14 +63,12 @@ Auth.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/post-activation-token" }
+         schema: { $ref: "#/definitions/post@activation-token" }
       }  
-      #swagger.responses[200] = {
-         description: 'Link with new activation token has been sent',
-      }  
-      #swagger.responses[404] = { $ref: "#/definitions/404-incorrect-email-address" }  
-      #swagger.responses[403] = { $ref: "#/definitions/503-account-activated" }  
-      #swagger.responses[502] = { $ref: "$/definitions/502-activation-link" }  
+      #swagger.responses[200] = { description: 'Link with new activation token has been sent' }  
+      #swagger.responses[404] = { $ref: "#/definitions/404@incorrect-email-address" }  
+      #swagger.responses[403] = { $ref: "#/definitions/503@account-activated" }  
+      #swagger.responses[502] = { $ref: "$/definitions/502@activation-link" }  
 */
    '/activation-token',
    ...resendActivationToken
@@ -94,15 +84,11 @@ Auth.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/post-login-credentials" }
+         schema: { $ref: "#/definitions/post@login-credentials" }
       }  
-      #swagger.responses[200] = { $ref: "#/definitions/200-auth-token" }  
-      #swagger.responses[401] = {
-         description: 'The given credentials are wrong',
-      }  
-      #swagger.responses[403] = {
-         description: 'Account not activated',
-      }  
+      #swagger.responses[200] = { $ref: "#/definitions/200@auth-token" }  
+      #swagger.responses[401] = { description: 'The given credentials are wrong' }  
+      #swagger.responses[403] = { description: 'Account not activated' }  
 */
    '/login/credentials',
    ...loginWithCredentials
@@ -117,12 +103,10 @@ Auth.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/post-login-fb" }
+         schema: { $ref: "#/definitions/post@login-fb" }
       }  
-      #swagger.responses[200] = { $ref: "#/definitions/200-auth-token" }  
-      #swagger.responses[400] = {
-         description: 'FB authentication has failed',
-      }  
+      #swagger.responses[200] = { $ref: "#/definitions/200@auth-token" }  
+      #swagger.responses[400] = { description: 'FB authentication has failed' }  
 */
    '/login/fb',
    facebookAuthorization,
@@ -140,18 +124,12 @@ Auth.route('/password')
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/post-password-change" }
+         schema: { $ref: "#/definitions/post@password" }
       }  
-      #swagger.responses[200] = {
-         description: 'Link to reset the password has been sent',
-      }  
-      #swagger.responses[404] = { $ref: "#/definitions/404-incorrect-email-address" }  
-      #swagger.responses[409] = {
-         description: 'Account must be firstly activated',
-      } 
-      #swagger.responses[502] = {
-         description: 'There was a problem sending the link to reset password',
-      }  
+      #swagger.responses[200] = { description: 'Link to reset the password has been sent' }  
+      #swagger.responses[404] = { $ref: "#/definitions/404@incorrect-email-address" }  
+      #swagger.responses[409] = { description: 'Account must be firstly activated' } 
+      #swagger.responses[502] = { description: 'There was a problem sending the link to reset password' }  
 */
       ...requestPasswordChange
    )
@@ -163,14 +141,10 @@ Auth.route('/password')
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/patch-password-change" }
+         schema: { $ref: "#/definitions/patch@password" }
       } 
-      #swagger.responses[200] = {
-         description: 'Password has been changed',
-      }
-      #swagger.responses[400] = {
-         description: 'Link to reset the password is invalid',
-      }
+      #swagger.responses[200] = { description: 'Password has been changed' }
+      #swagger.responses[400] = { description: 'Link to reset the password is invalid' }
 */
       ...changePassword
    )

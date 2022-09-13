@@ -11,9 +11,9 @@ Global.get(
          ✅ Checks existance of <b>auth token</b> in cookies and validates it <br />
          ✅ Returns proper role to the end user <br />
       `
-      #swagger.responses[200] = {
-         description: 'Returns current role',
-         schema: { $ref: '#/definitions/role' }
+      #swagger.responses[200] = { 
+         description: 'Returns current role',   
+         schema: { $ref: '#/definitions/schema@role' },   
       }  
 */
    '/auth',
@@ -27,9 +27,9 @@ Global.get(
          ✅ Logs user out <br />
          ✅ Removes auth token from cookies <br />
       `
-      #swagger.responses[200] = {
-         description: 'Return guest role',
-         schema: { $ref: '#/definitions/role' }
+      #swagger.responses[200] = { 
+         description: 'Returns current role',   
+         schema: { $ref: '#/definitions/schema@role' },   
       }  
 */
    '/logout',

@@ -1,4 +1,4 @@
-import { messageTypes, roles } from '@online-library/tools'
+import { messageTypes } from '@online-library/tools'
 
 export const token = {
    in: 'cookie',
@@ -7,12 +7,12 @@ export const token = {
    description: 'Auth token (jwt) generated with /login or /loginWithFb',
 }
 
-const createdAt = {
+export const createdAt = {
    type: 'string',
    format: 'date-time',
 }
 
-const updatedAt = {
+export const updatedAt = {
    type: 'string',
    format: 'date-time',
 }
@@ -40,7 +40,7 @@ export const contentFile = {
       'https://res.cloudinary.com/onlinelibrary-storage/raw/upload/v1662546764/111296ee27d2a82152225969d92eb660a16d16b041d3712e0ee860ae01ed78a8e01bc77f4b888fb0681cebba0ec619bb10012b3a3cfee8c_fbhuen.txt',
 }
 
-const fileType = {
+export const fileType = {
    type: 'string',
    enum: messageTypes,
 }
@@ -245,69 +245,10 @@ export const cover = {
    example: 'https://loremflickr.com/640/480/nature?78445',
 }
 
-export const schemas = {
-   role: {
-      type: 'object',
-      properties: {
-         role: {
-            type: 'string',
-            enum: roles,
-         },
-      },
-   },
-   'get-books-200': {
-      type: 'object',
-      properties: {
-         id,
-         createdAt,
-         updatedAt,
-         title: {
-            type: 'string',
-            example: 'Hound Dog',
-         },
-         author: {
-            type: 'string',
-            example: 'Nina Barton',
-         },
-         cover,
-         price,
-      },
-   },
-   'get-messages-info-200': {
-      type: 'object',
-      properties: {
-         lastUnreadMessageIndex,
-         unreadMessagesAmount,
-         userId,
-      },
-   },
-   'post-files-200': {
-      type: 'object',
-      properties: {
-         type: fileType,
-         content: contentFile,
-      },
-   },
-   'get-messages-200': {
-      type: 'object',
-      properties: {
-         id,
-         createdAt,
-         updatedAt,
-         type: fileType,
-         content: contentFile,
-         filename,
-         readBy,
-         cloudinaryId,
-         userId: id,
-         user,
-      },
-   },
-   'post-paypal-checkout-200': {
-      type: 'string',
-      required: true,
-      description: 'Link to paypal checkout generated with /paypalCheckout',
-      example:
-         'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-27H754218P7505C',
-   },
+export const paypalLink = {
+   type: 'string',
+   required: true,
+   description: 'Link to paypal checkout generated with /paypalCheckout',
+   example:
+      'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-27H754218P7505C',
 }

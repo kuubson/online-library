@@ -13,6 +13,8 @@ const initialState: SliceState = {
    unreadMessagesAmount: 0,
 }
 
+//TODO: rename
+
 const messagesInfoSlice = createSlice({
    name: 'messagesInfo',
    initialState,

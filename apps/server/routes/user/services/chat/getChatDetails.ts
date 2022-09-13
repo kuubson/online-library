@@ -2,7 +2,7 @@ import { Message } from 'database'
 
 import type { InitialBody, InitialCookies, InitialQuery, ProtectedRoute } from 'types/express'
 
-export const getMessagesInfo: ProtectedRoute<InitialBody, InitialCookies, InitialQuery, false> = [
+export const getChatDetails: ProtectedRoute<InitialBody, InitialCookies, InitialQuery, false> = [
    async (req, res, next) => {
       try {
          const { id } = req.user

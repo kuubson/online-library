@@ -1,5 +1,5 @@
+export { getChatDetails } from './getChatDetails'
 export { getMessages } from './getMessages'
-export { getMessagesInfo } from './getMessagesInfo'
 export { sendFile } from './sendFile'
 export { sendMessage } from './sendMessage'
 export { subscribeNotifications } from './subscribeNotifications'

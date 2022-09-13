@@ -24,6 +24,7 @@ UserController.use(
 UserController.use(
    /*
    #swagger.tags = ['Books']
+   #swagger.responses[422] = { $ref: "#/definitions/422" }
    #swagger.security = [{ "token": [] }]    
 */
    '/api/user/books',

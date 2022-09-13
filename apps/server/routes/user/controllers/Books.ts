@@ -14,11 +14,11 @@ Books.get(
       #swagger.parameters['obj'] = {
          in: 'query',
          required: true,
-         schema: { $ref: "#/definitions/get-books" }
+         schema: { $ref: "#/definitions/get@books" }
       } 
-      #swagger.responses[200] = {
+      #swagger.responses[200] = { 
          description: 'Returns array of books that meet certain title or author',
-         schema: [{ $ref: '#/definitions/get-books-200' }]
+         schema: [{ $ref: '#/definitions/schema@book' }],
       }  
 */
    '',

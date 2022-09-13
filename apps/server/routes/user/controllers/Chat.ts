@@ -3,8 +3,8 @@ import { Router } from 'express'
 import { handleMulterFile } from 'middlewares'
 
 import {
+   getChatDetails,
    getMessages,
-   getMessagesInfo,
    sendFile,
    sendMessage,
    subscribeNotifications,
@@ -23,11 +23,11 @@ Chat.route('/messages')
       #swagger.parameters['obj'] = {
          in: 'query',
          required: true,
-         schema: { $ref: "#/definitions/get-messages" }
+         schema: { $ref: "#/definitions/get@messages" }
       } 
       #swagger.responses[200] = {
          description: 'Return array of messages',
-         schema: [{ $ref: '#/definitions/get-messages-200' }]
+         schema: [{ $ref: '#/definitions/schema@message' }],
       }  
 */
       ...getMessages
@@ -41,11 +41,9 @@ Chat.route('/messages')
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/post-messages" }
+         schema: { $ref: "#/definitions/post@messages" }
       } 
-      #swagger.responses[200] = {
-         description: 'Message has been sent',
-      }  
+      #swagger.responses[200] = { description: 'Message has been sent' }  
 */
       ...sendMessage
    )
@@ -62,21 +60,15 @@ Chat.post(
       `
       #swagger.requestBody = {
          required: true,
-         content: { $ref: "#/definitions/post-files" }
+         content: { $ref: "#/definitions/post@files" }
       } 
-      #swagger.responses[200] = {
+      #swagger.responses[200] = { 
          description: 'File has been sent',
-         schema: { $ref: '#/definitions/post-files-200' }
-      }  
-      #swagger.responses[422] = {
-         description: 'File has not been attached',
-      }  
-      #swagger.responses[415] = {
-         description: 'Such file is not supported',
-      }  
-      #swagger.responses[413] = {
-         description: 'File size too large',
-      }  
+         schema: { $ref: '#/definitions/schema@file' },
+      } 
+      #swagger.responses[422] = { description: 'File has not been attached' }  
+      #swagger.responses[415] = { description: 'Such file is not supported' }  
+      #swagger.responses[413] = { description: 'File size too large' }  
 */
    '/files',
    handleMulterFile,
@@ -92,11 +84,9 @@ Chat.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/post-notifications" }
+         schema: { $ref: "#/definitions/post@notifications" }
       } 
-      #swagger.responses[200] = {
-         description: 'Subscription has been saved',
-      } 
+      #swagger.responses[200] = { description: 'Subscription has been saved' } 
 */
    '/notifications',
    ...subscribeNotifications
@@ -110,11 +100,11 @@ Chat.get(
          ✅ Counts how many messages user missed since last view <br />
          ✅ Returns index of last undread message so user can easily scroll to it <br />
       `
-      #swagger.responses[200] = {
-         description: 'Info returned',
-         schema: { $ref: "#/definitions/get-messages-info-200" }
+      #swagger.responses[200] = { 
+         description: 'Details returned',
+         schema: { $ref: '#/definitions/schema@chat-details' },
       } 
 */
-   '/messages/info',
-   ...getMessagesInfo
+   '/details',
+   ...getChatDetails
 )
