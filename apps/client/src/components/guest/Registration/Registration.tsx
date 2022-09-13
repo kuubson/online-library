@@ -18,7 +18,7 @@ export const Registration = () => {
                id="name"
                label="Name"
                type="text"
-               placeholder="Type your name..."
+               placeholder="Enter name..."
                error={errors.name?.message}
             />
             <Input
@@ -26,7 +26,7 @@ export const Registration = () => {
                id="email"
                label="Email"
                type="text"
-               placeholder="Type your email address..."
+               placeholder="Enter email address..."
                error={errors.email?.message}
             />
             <Input
@@ -34,7 +34,7 @@ export const Registration = () => {
                id="password"
                label="Password"
                type="password"
-               placeholder="Type your password..."
+               placeholder="Enter password..."
                error={errors.password?.message}
             />
             <Input
@@ -42,7 +42,7 @@ export const Registration = () => {
                id="repeatedPassword"
                label="Repeat Password"
                type="password"
-               placeholder="Type your password again..."
+               placeholder="Enter password again..."
                error={errors.repeatedPassword?.message}
             />
             <Submit>Register</Submit>

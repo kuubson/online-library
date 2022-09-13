@@ -26,7 +26,7 @@ Auth.post(
          required: true,
          schema: { $ref: "#/definitions/post@register" }
       }      
-      #swagger.responses[200] = { description: 'Activate account by clicking the link that has been sent to you' }  
+      #swagger.responses[200] = { description: 'Check inbox for an e-mail with the activation link' }  
       #swagger.responses[409] = { description: 'Email address already taken' }  
       #swagger.responses[502] = { $ref: "#/definitions/502@activation-link" }  
 */
@@ -45,7 +45,7 @@ Auth.patch(
          required: true,
          schema: { $ref: "#/definitions/patch@account" }
       }  
-      #swagger.responses[200] = { description: 'Account activated, you can login now' }  
+      #swagger.responses[200] = { description: 'Account has been activated' }  
       #swagger.responses[409] = { description: 'No authentication associated with this link' }  
       #swagger.responses[403] = { $ref: "#/definitions/503@account-activated" }  
 */

@@ -8,7 +8,7 @@ export const responses = {
    '200@purchased-books': { description: 'Successfully purchased new books' },
    '404@books-not-available': { description: 'Selected books are not available anymore' },
    '409@books-already-purchased': {
-      description: 'You have already purchased selected books before',
+      description: 'Selected books has been already purchased before',
    },
    '402@payment-failed': { description: 'Payment has failed' },
 }

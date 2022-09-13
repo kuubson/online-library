@@ -17,7 +17,7 @@ export type BookSuggestionsResponse = {
    books: Book[]
 }
 
-export type MessagesInfoResponse = {
+export type ChatDetailsResponse = {
    lastUnreadMessageIndex: number
    unreadMessagesAmount: number
    userId: string

@@ -48,7 +48,7 @@ export const requestPasswordChange: Route<Body<typeof schema>> = [
                   subject: `${header} in the Online Library`,
                   html: emailTemplate(
                      `${header} in the Online Library`,
-                     `To change your password click the button`,
+                     `To change the password click the button`,
                      'Change password',
                      `${baseUrl(req)}/password-recovery/${passwordToken}`
                   ),

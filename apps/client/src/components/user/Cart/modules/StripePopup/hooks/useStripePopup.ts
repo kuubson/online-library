@@ -38,7 +38,7 @@ export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean
 
                if (response) {
                   setShouldStripePopupAppear(false)
-                  setApiFeedback(header, errors[200], 'Check your profile', () => {
+                  setApiFeedback(header, errors[200], 'Check profile tab', () => {
                      resetCart()
                      history.push('/profile')
                   })

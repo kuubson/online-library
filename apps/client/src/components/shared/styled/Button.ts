@@ -51,7 +51,6 @@ export const Button = styled.button<StyledProps>`
    ${({ notAbsolute }) =>
       notAbsolute
          ? css`
-              width: 70px;
               position: static;
               transform: translate(0px, 0px);
               :hover {

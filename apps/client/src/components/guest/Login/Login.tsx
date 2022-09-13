@@ -18,7 +18,7 @@ export const Login = () => {
                id="email"
                label="Email"
                type="text"
-               placeholder="Type your email address..."
+               placeholder="Enter email address..."
                error={errors.email?.message}
             />
             <Input
@@ -26,7 +26,7 @@ export const Login = () => {
                id="password"
                label="Password"
                type="password"
-               placeholder="Type your password..."
+               placeholder="Enter password..."
                error={errors.password?.message}
             />
             <Submit onClick={loginWithCredentials}>Login</Submit>

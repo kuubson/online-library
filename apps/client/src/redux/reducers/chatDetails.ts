@@ -13,10 +13,8 @@ const initialState: SliceState = {
    unreadMessagesAmount: 0,
 }
 
-//TODO: rename
-
-const messagesInfoSlice = createSlice({
-   name: 'messagesInfo',
+const chatDetailsSlice = createSlice({
+   name: 'chatDetails',
    initialState,
    reducers: {
       setLastUnreadMessageIndex: (state, { payload }: Payload) => {
@@ -28,6 +26,6 @@ const messagesInfoSlice = createSlice({
    },
 })
 
-export const messagesInfoActions = messagesInfoSlice.actions
+export const chatDetailsActions = chatDetailsSlice.actions
 
-export const messagesInfo = messagesInfoSlice.reducer
+export const chatDetails = chatDetailsSlice.reducer

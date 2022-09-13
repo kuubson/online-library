@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 
 import { fadeIn } from 'assets/animations'
 
-export const MessagesInfo = styled.div`
+export const Details = styled.div`
    padding: 10px;
    background: rgba(0, 136, 255, 0.4);
    font-size: 10px;

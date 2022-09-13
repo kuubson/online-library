@@ -34,7 +34,7 @@ export const Cart = ({ shouldMenuExpand }: CarsProps) => {
             )}
             <Books
                books={books}
-               header="Your chosen books"
+               header="List of books"
                error="The cart is empty"
                withCart
                withMarginRight={areThereBooks}

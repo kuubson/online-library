@@ -12,7 +12,7 @@ export const borrowBook: MutationResolvers['borrowBook'] = async (_, { bookId },
    }
 
    if (await req.user.user.hasBook(book)) {
-      throw new ApiError('Borrowing a book', 'You have already borrowed this book', 409)
+      throw new ApiError('Borrowing a book', 'Selected book has been already borrowed', 409)
    }
 
    await req.user.user.addBook(book)

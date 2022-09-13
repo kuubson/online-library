@@ -50,7 +50,7 @@ export const resendActivationToken: Route<Body<typeof schema>> = [
                   subject: `${header} in the Online Library`,
                   html: emailTemplate(
                      `${header} in the Online Library`,
-                     `To activate your account click the button`,
+                     `To activate the account click the button`,
                      'Activate account',
                      `${baseUrl(req)}/home/?activationToken=${activationToken}`
                   ),

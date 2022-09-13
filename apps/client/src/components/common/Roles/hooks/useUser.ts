@@ -3,13 +3,13 @@ import io from 'socket.io-client'
 
 import { API } from '@online-library/tools'
 
-import { useCart, useMessagesInfo, useSocket } from 'hooks'
+import { useCart, useChatDetails, useSocket } from 'hooks'
 
 import { handleApiError } from 'helpers'
 
 import { defaultAxios, history } from 'utils'
 
-import type { MessageType, MessagesInfoResponse, TokenCheckResponse } from 'types'
+import type { ChatDetailsResponse, MessageType, TokenCheckResponse } from 'types'
 
 export const useUser = (withChat: boolean | undefined) => {
    const { socket, setSocket } = useSocket()
@@ -21,7 +21,7 @@ export const useUser = (withChat: boolean | undefined) => {
       unreadMessagesAmount,
       setLastUnreadMessageIndex,
       setUnreadMessagesAmount,
-   } = useMessagesInfo()
+   } = useChatDetails()
 
    const [currentUserId, setCurrentUserId] = useState<string | null>(null)
 
@@ -50,7 +50,7 @@ export const useUser = (withChat: boolean | undefined) => {
       const getChatDetails = async () => {
          const { request } = API['/api/user/chat/details'].get
 
-         const response = await defaultAxios<MessagesInfoResponse>(request)
+         const response = await defaultAxios<ChatDetailsResponse>(request)
 
          if (response) {
             const { lastUnreadMessageIndex, unreadMessagesAmount, userId } = response.data

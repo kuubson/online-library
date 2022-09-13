@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { API, filesInfo } from '@online-library/tools'
 
-import { useMessagesInfo, useSocket } from 'hooks'
+import { useChatDetails, useSocket } from 'hooks'
 
 import { handleApiError, setApiFeedback, subscribePushNotifications } from 'helpers'
 
@@ -24,7 +24,7 @@ type UseChatProps = {
 export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChatProps) => {
    const { socket } = useSocket()
 
-   const { lastUnreadMessageIndex, setUnreadMessagesAmount } = useMessagesInfo()
+   const { lastUnreadMessageIndex, setUnreadMessagesAmount } = useChatDetails()
 
    const messagesRef = useRef<HTMLDivElement>(null)
    const endOfMessages = useRef<HTMLDivElement>(null)

@@ -43,7 +43,7 @@ export const useCart = () => {
                   PayerID,
                })
                if (response) {
-                  setApiFeedback(header, errors[200], 'Check your profile', () => {
+                  setApiFeedback(header, errors[200], 'Check profile tab', () => {
                      resetCart()
                      history.push('/profile')
                   })

@@ -15,7 +15,7 @@ export const PasswordReset = () => {
                id="password"
                label="Password"
                type="password"
-               placeholder="Type your password..."
+               placeholder="Enter password..."
                error={errors.password?.message}
             />
             <Input
@@ -23,7 +23,7 @@ export const PasswordReset = () => {
                id="repeatedPassword"
                label="Repeat Password"
                type="password"
-               placeholder="Type your password again..."
+               placeholder="Enter password again..."
                error={errors.repeatedPassword?.message}
             />
             <Submit>Change password</Submit>
