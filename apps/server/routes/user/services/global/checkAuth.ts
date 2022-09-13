@@ -14,7 +14,7 @@ import type { Cookies, InitialBody, Route } from 'types/express'
 
 const schema = yup.object({ cookies: yup.object({ token: jwt.optional() }) })
 
-export const checkToken: Route<InitialBody, Cookies<typeof schema>> = [
+export const checkAuth: Route<InitialBody, Cookies<typeof schema>> = [
    yupValidation({ schema }),
    async (req, res, next) => {
       try {

@@ -14,7 +14,7 @@ import { baseUrl, emailTemplate } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
-const { validation, header, errors } = API['/api/user/auth/activation-token-resend'].post
+const { validation, header, errors } = API['/api/user/auth/activation-token'].post
 
 const schema = yup.object({ body: validation })
 

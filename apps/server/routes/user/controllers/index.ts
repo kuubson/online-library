@@ -20,7 +20,7 @@ UserController.use(
       description: 'Too many requests',   
    } 
 */
-   '/api/user/auth/',
+   '/api/user/auth',
    rateLimiter(),
    Auth
 )
@@ -30,7 +30,7 @@ UserController.use(
    #swagger.tags = ['Books']
    #swagger.security = [{ "token": [] }]    
 */
-   '/api/user/books/',
+   '/api/user/books',
    jwtAuthorization,
    Books
 )
@@ -42,7 +42,7 @@ UserController.use(
    } 
    #swagger.security = [{ "token": [] }]    
 */
-   '/api/user/cart/',
+   '/api/user/cart',
    jwtAuthorization,
    Cart
 )
@@ -54,7 +54,7 @@ UserController.use(
    } 
    #swagger.security = [{ "token": [] }]    
 */
-   '/api/user/chat/',
+   '/api/user/chat',
    jwtAuthorization,
    Chat
 )
@@ -65,6 +65,6 @@ UserController.use(
       description: 'Data validation failed',   
    }
 */
-   '/api/user/global/',
+   '/api/user/global',
    Global
 )

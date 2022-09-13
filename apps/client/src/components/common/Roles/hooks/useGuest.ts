@@ -11,9 +11,9 @@ import type { TokenCheckResponse } from 'types'
 export const useGuest = () => {
    const { closeSocketConnection } = useSocket()
 
-   const checkToken = async () => {
+   const checkAuth = async () => {
       try {
-         const { request } = API['/api/user/global/token-check'].get
+         const { request } = API['/api/user/global/auth/token'].get
 
          const response = await defaultAxios<TokenCheckResponse>(request)
 
@@ -31,5 +31,5 @@ export const useGuest = () => {
       }
    }
 
-   return { checkToken }
+   return { checkAuth }
 }

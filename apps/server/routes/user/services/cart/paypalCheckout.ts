@@ -15,7 +15,7 @@ const { validation, header, errors } = API['/api/user/cart/paypal/checkout'].pos
 
 const schema = yup.object({ body: validation })
 
-export const createPayPalPayment: ProtectedRoute<Body<typeof schema>> = [
+export const paypalCheckout: ProtectedRoute<Body<typeof schema>> = [
    yupValidation({ schema }),
    async (req, res, next) => {
       try {

@@ -59,6 +59,10 @@ _yup.addMethod(_yup.string, 'plain', function () {
    return this.required().trim()
 })
 
+_yup.addMethod(_yup.string, 'booleanAsString', function () {
+   return this.required().oneOf(['true', 'false'])
+})
+
 /** ARRAY */
 
 _yup.addMethod(_yup.array, 'unique', function () {
@@ -90,6 +94,7 @@ declare module 'yup' {
       repeatedPassword(key?: string): RequiredStringSchema<TType, TContext>
       noSpecialChars(): RequiredStringSchema<TType, TContext>
       plain(): RequiredStringSchema<TType, TContext>
+      booleanAsString(): RequiredStringSchema<TType, TContext>
    }
    interface ArraySchema<
       T extends AnySchema | Lazy<any, any>,

@@ -30,9 +30,9 @@ export const useUser = (withChat: boolean | undefined) => {
          setSocket(io('/user'))
       }
 
-      const checkToken = async () => {
+      const checkAuth = async () => {
          try {
-            const { request } = API['/api/user/global/token-check'].get
+            const { request } = API['/api/user/global/auth/token'].get
 
             const response = await defaultAxios<TokenCheckResponse>(request)
 
@@ -62,7 +62,7 @@ export const useUser = (withChat: boolean | undefined) => {
          }
       }
 
-      checkToken()
+      checkAuth()
       getMessagesInfo()
    }, [])
 

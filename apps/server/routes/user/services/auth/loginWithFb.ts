@@ -18,7 +18,7 @@ const { validation } = API['/api/user/auth/login/fb'].post
 
 const schema = yup.object({ body: validation })
 
-export const loginWithFacebook: Route<Body<typeof schema>> = [
+export const loginWithFb: Route<Body<typeof schema>> = [
    yupValidation({ schema }),
    async (req, res, next) => {
       try {

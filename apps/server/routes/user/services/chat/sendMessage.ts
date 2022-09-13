@@ -10,7 +10,7 @@ import { baseUrl } from 'utils'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
-const { validation } = API['/api/user/chat/message'].post
+const { validation } = API['/api/user/chat/messages'].post
 
 const schema = yup.object({ body: validation })
 

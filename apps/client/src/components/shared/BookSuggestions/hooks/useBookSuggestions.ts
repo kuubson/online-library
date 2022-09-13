@@ -10,7 +10,7 @@ import { apiAxios } from 'utils'
 
 import type { BookSuggestionsProps, BookSuggestionsResponse } from 'types'
 
-const { request, validation } = API['/api/user/books/suggestions'].post
+const { request, validation } = API['/api/user/books'].get
 
 export const useBookSuggestions = ({
    freeBooks,
@@ -22,7 +22,7 @@ export const useBookSuggestions = ({
    const { submit, control, getValues, setValue, watch, errors } = useForm(validation, {
       title: '',
       author: '',
-      withProfile: !!withProfile,
+      withProfile: withProfile ? 'true' : 'false',
    })
 
    const [findByTitle, setFindByTitle] = useState(true)

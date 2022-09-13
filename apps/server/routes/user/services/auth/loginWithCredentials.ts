@@ -14,11 +14,11 @@ import { cookie } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
-const { validation, header, errors } = API['/api/user/auth/login'].post
+const { validation, header, errors } = API['/api/user/auth/login/credentials'].post
 
 const schema = yup.object({ body: validation })
 
-export const login: Route<Body<typeof schema>> = [
+export const loginWithCredentials: Route<Body<typeof schema>> = [
    yupValidation({ schema }),
    async (req, res, next) => {
       try {

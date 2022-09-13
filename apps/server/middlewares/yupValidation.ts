@@ -15,6 +15,7 @@ export const yupValidation =
          await schema.validate({
             body: req.body,
             cookies: req.cookies,
+            query: req.query,
          })
          next()
       } catch (error) {

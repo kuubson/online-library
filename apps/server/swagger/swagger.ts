@@ -9,9 +9,12 @@ import {
    author,
    content,
    email,
+   endpoint,
+   expirationTime,
    file,
    integer,
    jwt,
+   keys,
    name,
    password,
    paypalPayerId,
@@ -31,17 +34,7 @@ const doc = {
       description: 'API for Online Library',
    },
    host: 'localhost:3001',
-   components: {
-      '@schemas': {
-         book: schemas.book,
-         paypalApprovalLink: schemas.paypalApprovalLink,
-         message: schemas.message,
-         sendFileResponse: schemas.sendFileResponse,
-         subscription: schemas.subscription,
-         messagesInfo: schemas.messagesInfo,
-         role: schemas.role,
-      },
-   },
+   components: { '@schemas': { ...schemas } },
    '@definitions': {
       register: {
          type: 'object',
@@ -52,22 +45,22 @@ const doc = {
             repeatedPassword: password,
          },
       },
-      activateAccount: {
+      'patch-account': {
          type: 'object',
          properties: { activationToken: jwt },
       },
-      resendActivationToken: {
+      'post-activation-token': {
          type: 'object',
          properties: { email },
       },
-      login: {
+      'post-login-credentials': {
          type: 'object',
          properties: {
             email,
             password,
          },
       },
-      loginWithFacebook: {
+      'post-login-fb': {
          type: 'object',
          properties: {
             name,
@@ -75,40 +68,44 @@ const doc = {
             access_token,
          },
       },
-      recoverPassword: {
+      'post-password-change': {
          type: 'object',
          properties: { email },
       },
-      checkPasswordToken: {
-         type: 'object',
-         properties: { passwordToken: jwt },
-      },
-      changePassword: {
+      'patch-password-change': {
          type: 'object',
          properties: {
             password,
             passwordToken: jwt,
          },
       },
-      purchaseBooksWithStripe: {
+      'post-stripe-payment': {
          type: 'object',
          properties: {
             paymentId: stripePaymentId,
             products,
          },
       },
-      createPayPalPayment: {
+      'post-paypal-checkout': {
          type: 'object',
          properties: { products },
       },
-      executePayPalPayment: {
+      'post-paypal-payment': {
          type: 'object',
          properties: {
             paymentId: paypalPaymentId,
             PayerID: paypalPayerId,
          },
       },
-      getSuggestions: {
+      'post-notifications': {
+         type: 'object',
+         properties: {
+            endpoint,
+            expirationTime,
+            keys,
+         },
+      },
+      'get-books': {
          type: 'object',
          properties: {
             title,
@@ -116,18 +113,18 @@ const doc = {
             withProfile,
          },
       },
-      getMessages: {
+      'get-messages': {
          type: 'object',
          properties: {
             limit: integer(20),
             offset: integer(0),
          },
       },
-      sendMessage: {
+      'post-messages': {
          type: 'object',
          properties: { content },
       },
-      sendFile: {
+      'post-files': {
          'multipart/form-data': {
             schema: {
                type: 'object',

@@ -6,11 +6,11 @@ import { yupValidation } from 'middlewares'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
-const { validation } = API['/api/user/chat/push-notifications'].post
+const { validation } = API['/api/user/chat/notifications'].post
 
 const schema = yup.object({ body: validation })
 
-export const subscribePushNotifications: ProtectedRoute<Body<typeof schema>> = [
+export const subscribeNotifications: ProtectedRoute<Body<typeof schema>> = [
    yupValidation({ schema }),
    async (req, res, next) => {
       try {

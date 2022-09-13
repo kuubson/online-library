@@ -4,7 +4,7 @@ export const token = {
    in: 'cookie',
    name: 'token',
    type: 'apiKey',
-   description: 'Auth token (jwt) generated with /login or /loginWithFacebook',
+   description: 'Auth token (jwt) generated with /login or /loginWithFb',
 }
 
 const createdAt = {
@@ -45,19 +45,29 @@ const fileType = {
    enum: messageTypes,
 }
 
-export const title = {
+const emptyString = {
+   type: 'string',
+   maxLength: 0,
+   required: true,
+}
+
+const _title = {
    type: 'string',
    required: true,
    description: 'Title to search for. It takes precedence over the author',
    example: 'Let it Be',
 }
 
-export const author = {
+export const title = { anyOf: [_title, emptyString] }
+
+const _author = {
    type: 'string',
    required: true,
    description: 'Author to search for',
    example: 'Craig Nicolas',
 }
+
+export const author = { anyOf: [_author, emptyString] }
 
 export const withProfile = {
    type: 'boolean',
@@ -236,7 +246,16 @@ export const cover = {
 }
 
 export const schemas = {
-   book: {
+   role: {
+      type: 'object',
+      properties: {
+         role: {
+            type: 'string',
+            enum: roles,
+         },
+      },
+   },
+   'get-books-200': {
       type: 'object',
       properties: {
          id,
@@ -254,7 +273,7 @@ export const schemas = {
          price,
       },
    },
-   messagesInfo: {
+   'get-messages-info-200': {
       type: 'object',
       properties: {
          lastUnreadMessageIndex,
@@ -262,22 +281,14 @@ export const schemas = {
          userId,
       },
    },
-   sendFileResponse: {
+   'post-files-200': {
       type: 'object',
       properties: {
          type: fileType,
          content: contentFile,
       },
    },
-   subscription: {
-      type: 'object',
-      properties: {
-         endpoint,
-         expirationTime,
-         keys,
-      },
-   },
-   message: {
+   'get-messages-200': {
       type: 'object',
       properties: {
          id,
@@ -292,20 +303,11 @@ export const schemas = {
          user,
       },
    },
-   paypalApprovalLink: {
+   'post-paypal-checkout-200': {
       type: 'string',
       required: true,
-      description: 'Link to paypal checkout generated with /createPayPalPayment',
+      description: 'Link to paypal checkout generated with /paypalCheckout',
       example:
          'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-27H754218P7505C',
-   },
-   role: {
-      type: 'object',
-      properties: {
-         role: {
-            type: 'string',
-            enum: roles,
-         },
-      },
    },
 }

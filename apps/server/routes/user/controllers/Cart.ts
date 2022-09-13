@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { createPayPalPayment, executePayPalPayment, stripePayment } from '../services/cart'
+import { paypalCheckout, paypalPayment, stripePayment } from '../services/cart'
 
 export const Cart = Router()
 
@@ -15,7 +15,7 @@ Cart.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/stripePayment" }
+         schema: { $ref: "#/definitions/post-stripe-payment" }
       } 
       #swagger.responses[200] = {
          description: 'Successfully purchased new books',
@@ -45,11 +45,11 @@ Cart.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/createPayPalPayment" }
+         schema: { $ref: "#/definitions/post-paypal-checkout" }
       }
       #swagger.responses[200] = {
          description: 'Returns paypal checkout link',
-         schema: { $ref: '#/definitions/paypalApprovalLink' }
+         schema: { $ref: '#/definitions/post-paypal-checkout-200' }
       }  
       #swagger.responses[404] = {
          description: 'Selected books are not available anymore',
@@ -62,7 +62,7 @@ Cart.post(
       }  
 */
    '/paypal/checkout',
-   ...createPayPalPayment
+   ...paypalCheckout
 )
 
 Cart.post(
@@ -76,7 +76,7 @@ Cart.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/executePayPalPayment" }
+         schema: { $ref: "#/definitions/post-paypal-payment" }
       }
       #swagger.responses[200] = {
          description: 'Successfully purchased new books',
@@ -92,5 +92,5 @@ Cart.post(
       }  
 */
    '/paypal/payment',
-   ...executePayPalPayment
+   ...paypalPayment
 )

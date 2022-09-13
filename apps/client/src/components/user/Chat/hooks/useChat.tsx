@@ -11,7 +11,7 @@ import { apiAxios, defaultAxios } from 'utils'
 
 import type { ChatFileResponse, MessageType, MessagesResponse } from 'types'
 
-const { request, validation } = API['/api/user/chat/messages'].post
+const { request, validation } = API['/api/user/chat/messages'].get
 
 let uploadProgressInterval: ReturnType<typeof setInterval>
 
@@ -45,8 +45,8 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
          const target = event.target as HTMLDivElement
          if (target.scrollTop <= 0 && hasMoreMessages) {
             const response = await apiAxios<typeof validation, MessagesResponse>(request, {
-               limit,
-               offset,
+               limit: limit.toString(),
+               offset: offset.toString(),
             })
 
             if (response) {
@@ -69,8 +69,8 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
          }
       } else {
          const response = await apiAxios<typeof validation, MessagesResponse>(request, {
-            limit,
-            offset,
+            limit: limit.toString(),
+            offset: offset.toString(),
          })
          if (response) {
             setLoading(false)
@@ -125,8 +125,8 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
    const getUnreadMessages = async () => {
       if (lastUnreadMessageIndex) {
          const response = await apiAxios<typeof validation, MessagesResponse>(request, {
-            limit: lastUnreadMessageIndex,
-            offset: 0,
+            limit: lastUnreadMessageIndex.toString(),
+            offset: '0',
          })
 
          if (response) {
@@ -180,7 +180,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
 
             setTimeout(() => setMessage(''), 0)
 
-            const { request, validation } = API['/api/user/chat/message'].post
+            const { request, validation } = API['/api/user/chat/messages'].post
 
             const response = await defaultAxios<typeof validation>(request, {
                content: message.trim(),
@@ -200,7 +200,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
    }
 
    const sendFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { request, header, errors } = API['/api/user/chat/file'].post
+      const { request, header, errors } = API['/api/user/chat/files'].post
 
       let percentage = 0
 

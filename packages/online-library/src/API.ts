@@ -9,7 +9,7 @@ import { yup } from './yup'
 
 const addValidation = <
    Path extends keyof typeof swagger.paths,
-   Validation extends Record<keyof typeof swagger.paths[Path], OptionalObjectSchema<any>>
+   Validation extends Partial<Record<keyof typeof swagger.paths[Path], OptionalObjectSchema<any>>>
 >(
    path: Path,
    payload: Validation
@@ -29,7 +29,7 @@ const addValidation = <
 
 const API_PATHS = {
    ...swagger.paths,
-   ...addValidation('/api/user/auth/login', {
+   ...addValidation('/api/user/auth/login/credentials', {
       post: yup
          .object({
             email: yup.string().emailAddress(),
@@ -47,13 +47,14 @@ const API_PATHS = {
          .noOtherKeys(),
    }),
    ...addValidation('/api/user/auth/password-change', {
-      put: yup
+      patch: yup
          .object({
             password: yup.string().password(),
             repeatedPassword: yup.string().repeatedPassword(),
             passwordToken: yup.string().optional(),
          })
          .noOtherKeys(),
+      post: yup.object({ email: yup.string().emailAddress() }).noOtherKeys(),
    }),
    ...addValidation('/api/user/auth/register', {
       post: yup
@@ -65,21 +66,19 @@ const API_PATHS = {
          })
          .noOtherKeys(),
    }),
-   ...addValidation('/api/user/auth/password-recovery', {
-      post: yup.object({ email: yup.string().emailAddress() }).noOtherKeys(),
-   }),
-   ...addValidation('/api/user/auth/activation-token-resend', {
+   ...addValidation('/api/user/auth/activation-token', {
       post: yup.object({ email: yup.string().emailAddress() }).noOtherKeys(),
    }),
    ...addValidation('/api/user/chat/messages', {
-      post: yup
+      get: yup
          .object({
-            limit: yup.number().required(),
-            offset: yup.number().required(),
+            limit: yup.string().noSpecialChars(),
+            offset: yup.string().noSpecialChars(),
          })
          .noOtherKeys(),
+      post: yup.object({ content: yup.string().plain() }).noOtherKeys(),
    }),
-   ...addValidation('/api/user/chat/push-notifications', {
+   ...addValidation('/api/user/chat/notifications', {
       post: yup
          .object({
             endpoint: yup.string().plain(),
@@ -90,9 +89,6 @@ const API_PATHS = {
             }),
          })
          .noOtherKeys(),
-   }),
-   ...addValidation('/api/user/chat/message', {
-      post: yup.object({ content: yup.string().plain() }).noOtherKeys(),
    }),
    ...addValidation('/api/user/cart/paypal/payment', {
       post: yup
@@ -113,17 +109,17 @@ const API_PATHS = {
          })
          .noOtherKeys(),
    }),
-   ...addValidation('/api/user/books/suggestions', {
-      post: yup
+   ...addValidation('/api/user/books', {
+      get: yup
          .object({
             title: yup.string().noSpecialChars(),
             author: yup.string().noSpecialChars(),
-            withProfile: yup.bool().required(),
+            withProfile: yup.string().booleanAsString(),
          })
          .noOtherKeys(),
    }),
-   ...addValidation('/api/user/auth/account-activation', {
-      post: yup.object({ activationToken: yup.string().plain() }).noOtherKeys(),
+   ...addValidation('/api/user/auth/account', {
+      patch: yup.object({ activationToken: yup.string().plain() }).noOtherKeys(),
    }),
 }
 

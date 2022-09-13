@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { checkToken, logout } from '../services/global'
+import { checkAuth, logout } from '../services/global'
 
 export const Global = Router()
 
@@ -15,8 +15,8 @@ Global.get(
          schema: { $ref: '#/definitions/role' }
       }  
 */
-   '/token-check',
-   ...checkToken
+   '/auth',
+   ...checkAuth
 )
 
 Global.get(

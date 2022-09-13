@@ -8,7 +8,7 @@ import { useLogin } from './hooks'
 import { history } from 'utils'
 
 export const Login = () => {
-   const { login, loginWithFacebook, control, errors } = useLogin()
+   const { loginWithCredentials, loginWithFb, control, errors } = useLogin()
    return (
       <GuestContent>
          <HomeButton />
@@ -29,8 +29,8 @@ export const Login = () => {
                placeholder="Type your password..."
                error={errors.password?.message}
             />
-            <Submit onClick={login}>Login</Submit>
-            <Submit onClick={loginWithFacebook} withFacebook>
+            <Submit onClick={loginWithCredentials}>Login</Submit>
+            <Submit onClick={loginWithFb} withFacebook>
                Login with Facebook
             </Submit>
             <StyledRegistration.AnnotationsContainer>

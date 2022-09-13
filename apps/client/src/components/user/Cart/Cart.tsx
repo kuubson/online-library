@@ -20,7 +20,7 @@ type CarsProps = {
 }
 
 export const Cart = ({ shouldMenuExpand }: CarsProps) => {
-   const { books, price, createPayPalPayment } = useCart()
+   const { books, price, paypalCheckout } = useCart()
 
    const [shouldStripePopupAppear, setShouldStripePopupAppear] = useState(false)
 
@@ -56,7 +56,7 @@ export const Cart = ({ shouldMenuExpand }: CarsProps) => {
                   <Submit onClick={() => setShouldStripePopupAppear(true)} withLessMarginTop>
                      Pay ${price}
                   </Submit>
-                  <Styled.PayPalButton onClick={createPayPalPayment}>
+                  <Styled.PayPalButton onClick={paypalCheckout}>
                      Pay with PayPal
                   </Styled.PayPalButton>
                </Styled.SummaryContainer>

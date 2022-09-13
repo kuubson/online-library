@@ -14,7 +14,7 @@ import { jwt } from 'utils'
 import type { PasswordTokenData } from 'types'
 import type { Body, Route } from 'types/express'
 
-const { validation, header, errors } = API['/api/user/auth/password-change'].put
+const { validation, header, errors } = API['/api/user/auth/password-change'].patch
 
 const schema = yup.object({ body: validation.shape({ passwordToken: jwt }) })
 

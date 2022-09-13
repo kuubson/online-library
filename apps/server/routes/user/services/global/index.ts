@@ -1,2 +1,2 @@
-export { checkToken } from './checkToken'
+export { checkAuth } from './checkAuth'
 export { logout } from './logout'

@@ -14,11 +14,11 @@ import { baseUrl, emailTemplate } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
-const { validation, header, errors } = API['/api/user/auth/password-recovery'].post
+const { validation, header, errors } = API['/api/user/auth/password-change'].post
 
 const schema = yup.object({ body: validation })
 
-export const recoverPassword: Route<Body<typeof schema>> = [
+export const requestPasswordChange: Route<Body<typeof schema>> = [
    yupValidation({ schema }),
    async (req, res, next) => {
       try {

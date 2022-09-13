@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { API } from '@online-library/tools'
@@ -9,24 +8,12 @@ import { setApiFeedback } from 'helpers'
 
 import { apiAxios, history } from 'utils'
 
-const { request, validation, header, errors } = API['/api/user/auth/password-change'].put
+const { request, validation, header, errors } = API['/api/user/auth/password-change'].patch
 
 export const usePasswordRecovery = () => {
    const { passwordToken } = useParams()
 
    const { submit, control, errors: formErrors, getValues } = useForm(validation)
-
-   useEffect(() => {
-      const checkPasswordToken = () => {
-         try {
-            const { request } = API['/api/user/auth/password-token-check'].post
-            apiAxios(request, { passwordToken })
-         } catch (error) {
-            history.push('/login')
-         }
-      }
-      checkPasswordToken()
-   }, [])
 
    const changePassword = async () => {
       const response = await apiAxios<typeof validation>(request, {
