@@ -8,16 +8,18 @@ import { setApiFeedback } from 'helpers'
 
 import { apiAxios, history } from 'utils'
 
-const { post } = API['/api/user/auth/activate-account']
-
 export const useAccountActivation = () => {
    const { activationToken } = useQueryParams()
 
    const activateAccount = async () => {
       try {
-         await apiAxios(post, { activationToken }).then(() => {
-            setApiFeedback(post.header, post.errors[200], 'Okey', () => history.push('/login'))
-         })
+         const { request, header, errors } = API['/api/user/auth/activate-account'].post
+
+         const response = await apiAxios(request, { activationToken })
+
+         if (response) {
+            setApiFeedback(header, errors[200], 'Okey', () => history.push('/login'))
+         }
       } catch (error) {
          history.push('/login')
       }

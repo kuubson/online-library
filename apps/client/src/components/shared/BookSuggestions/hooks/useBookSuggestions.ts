@@ -8,9 +8,9 @@ import { useForm } from 'hooks'
 
 import { apiAxios } from 'utils'
 
-import type { BookSuggestionsProps, GetSuggestionsResponse } from 'types'
+import type { BookSuggestionsProps, BookSuggestionsResponse } from 'types'
 
-const { post } = API['/api/user/books/suggestions']
+const { request, validation } = API['/api/user/books/suggestions'].post
 
 export const useBookSuggestions = ({
    freeBooks,
@@ -19,7 +19,7 @@ export const useBookSuggestions = ({
    setPaidBooks,
    withProfile,
 }: BookSuggestionsProps) => {
-   const { submit, control, getValues, setValue, watch, errors } = useForm(post.validation, {
+   const { submit, control, getValues, setValue, watch, errors } = useForm(validation, {
       title: '',
       author: '',
       withProfile: !!withProfile,
@@ -33,18 +33,16 @@ export const useBookSuggestions = ({
 
    useEffect(() => {
       if (title || author) {
-         const getSuggestions = setTimeout(
-            () =>
-               submit(async () => {
-                  const response = await apiAxios<GetSuggestionsResponse>(post, getValues())
-                  if (response) {
-                     const { books } = response.data
-                     setBooks(books)
-                  }
-               })(),
-            500
-         )
-         return () => clearTimeout(getSuggestions)
+         const getBookSuggestions = setTimeout(() => {
+            submit(async () => {
+               const response = await apiAxios<BookSuggestionsResponse>(request, getValues())
+               if (response) {
+                  const { books } = response.data
+                  setBooks(books)
+               }
+            })()
+         }, 500)
+         return () => clearTimeout(getBookSuggestions)
       } else {
          resetForm()
       }

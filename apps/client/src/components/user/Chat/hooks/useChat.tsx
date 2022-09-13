@@ -9,15 +9,17 @@ import { handleApiError, setApiFeedback, subscribePushNotifications } from 'help
 
 import { apiAxios, defaultAxios } from 'utils'
 
-import type { GetMessagesResponse, MessageType, SendFileResponse } from 'types'
+import type { ChatFileResponse, MessageType, MessagesResponse } from 'types'
+
+const { request } = API['/api/user/chat/messages'].post
+
+let uploadProgressInterval: ReturnType<typeof setInterval>
 
 type UseChatProps = {
    setLoading: ReactDispatch<boolean>
    setShowFileInput: ReactDispatch<boolean>
    setPercentage: ReactDispatch<number>
 }
-
-let intervalId: ReturnType<typeof setInterval>
 
 export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChatProps) => {
    const { socket } = useSocket()
@@ -42,13 +44,10 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
       if (event) {
          const target = event.target as HTMLDivElement
          if (target.scrollTop <= 0 && hasMoreMessages) {
-            const response = await apiAxios<GetMessagesResponse>(
-               API['/api/user/chat/messages'].post,
-               {
-                  limit,
-                  offset,
-               }
-            )
+            const response = await apiAxios<MessagesResponse>(request, {
+               limit,
+               offset,
+            })
 
             if (response) {
                const { messages: loadedMessages } = response.data
@@ -69,7 +68,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
             }
          }
       } else {
-         const response = await apiAxios<GetMessagesResponse>(API['/api/user/chat/messages'].post, {
+         const response = await apiAxios<MessagesResponse>(request, {
             limit,
             offset,
          })
@@ -124,7 +123,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
    }, [socket])
 
    const getUnreadMessages = async () => {
-      const response = await apiAxios<GetMessagesResponse>(API['/api/user/chat/messages'].post, {
+      const response = await apiAxios<MessagesResponse>(request, {
          limit: lastUnreadMessageIndex,
          offset: 0,
       })
@@ -159,30 +158,33 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
 
    const sendMessage = async () => {
       if (message.trim()) {
-         const lastMessage = messages[messages.length - 1]
-
-         const id = lastMessage ? lastMessage.id + 1 : 0
-
-         const _message: MessageType = {
-            id,
-            type: 'MESSAGE',
-            content: message,
-            userId: currentUserId,
-            user: { name: currentUserName },
-            createdAt: new Date().toString(),
-         }
-
-         setMessages(messages => [...messages, _message] as MessageType[])
-
-         pushToLastMessage()
-
-         setTimeout(() => {
-            setMessage('')
-         }, 0)
-
          try {
-            await defaultAxios(API['/api/user/chat/message'].post, { content: message.trim() })
-            socket?.emit('sendMessage', _message)
+            const lastMessage = messages[messages.length - 1]
+
+            const id = lastMessage ? lastMessage.id + 1 : 0
+
+            const _message: MessageType = {
+               id,
+               type: 'MESSAGE',
+               content: message,
+               userId: currentUserId,
+               user: { name: currentUserName },
+               createdAt: new Date().toString(),
+            }
+
+            setMessages(messages => [...messages, _message] as MessageType[])
+
+            pushToLastMessage()
+
+            setTimeout(() => setMessage(''), 0)
+
+            const { request } = API['/api/user/chat/message'].post
+
+            const response = await defaultAxios(request, { content: message.trim() })
+
+            if (response) {
+               socket?.emit('sendMessage', _message)
+            }
          } catch (error) {
             const conversation = messages
 
@@ -194,7 +196,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
    }
 
    const sendFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { post } = API['/api/user/chat/file']
+      const { request, header, errors } = API['/api/user/chat/file'].post
 
       let percentage = 0
 
@@ -220,12 +222,12 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
          }
 
          const largeSizeError = () => {
-            return setApiFeedback(post.header, post.errors[413])
+            return setApiFeedback(header, errors[413])
          }
 
          if (!isImage && !isVideo && !isFile) {
             resetFileInput()
-            return setApiFeedback(post.header, post.errors[415])
+            return setApiFeedback(header, errors[415])
          }
 
          if (isImage) {
@@ -254,19 +256,19 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
          form.append('file', file)
 
          try {
-            intervalId = setInterval(() => {
+            uploadProgressInterval = setInterval(() => {
                if (percentage < 100) {
                   percentage++
                   setPercentage(percentage => percentage + 1)
                }
             }, 500)
 
-            const response = await defaultAxios<SendFileResponse>(post, form)
+            const response = await defaultAxios<ChatFileResponse>(request, form)
 
             if (response) {
                setPercentage(100)
 
-               clearInterval(intervalId)
+               clearInterval(uploadProgressInterval)
 
                setTimeout(() => {
                   setPercentage(0)
@@ -301,7 +303,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
 
             resetFileInput()
 
-            clearInterval(intervalId)
+            clearInterval(uploadProgressInterval)
 
             setPercentage(0)
          }

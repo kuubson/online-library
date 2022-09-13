@@ -1,10 +1,6 @@
 import type { AxiosResponse } from 'axios'
 import axios from 'axios'
 import { debounce } from 'lodash'
-import type { AnySchema, InferType } from 'yup'
-import type { ObjectShape, OptionalObjectSchema } from 'yup/lib/object'
-
-import type { Method } from '@online-library/tools'
 
 import { handleApiError, setLoading } from 'helpers'
 
@@ -41,28 +37,31 @@ customAxios.interceptors.response.use(
    }
 )
 
-type AxiosOverload = {
-   <D>(props: Method<'get', string, null>): Promise<AxiosResponse<D, unknown>>
-   <D>(
-      props: Method<'post' | 'put' | 'delete', string, AnySchema | null>,
-      data?: D extends { validation: OptionalObjectSchema<ObjectShape> } // TODO: shape of data should equal to shape of yup validation
-         ? InferType<D['validation']>
-         : unknown
-   ): Promise<AxiosResponse<D, unknown>>
+type Request<M = 'get'> = {
+   method: M
+   url: string
 }
 
-type AxiosOverloadArgs = (props: any, data?: unknown) => ReturnType<AxiosOverload>
+type AxiosOverload = {
+   <D>(request: Request): Promise<AxiosResponse<D, unknown>>
+   <D>(request: Request<'post' | 'put' | 'delete'>, data?: unknown): Promise<
+      AxiosResponse<D, unknown>
+   >
+}
 
-export const apiAxios: AxiosOverload = (...[props, data]: Parameters<AxiosOverloadArgs>) =>
+type AxiosOverloadArgs = (
+   request: Request<'get' | 'post' | 'put' | 'delete'>,
+   data?: unknown
+) => ReturnType<AxiosOverload>
+
+export const apiAxios: AxiosOverload = (...[request, data]: Parameters<AxiosOverloadArgs>) =>
    customAxios.request({
-      url: props.url,
-      method: props.method,
+      ...request,
       data,
    })
 
-export const defaultAxios: AxiosOverload = (...[props, data]: Parameters<AxiosOverloadArgs>) =>
+export const defaultAxios: AxiosOverload = (...[request, data]: Parameters<AxiosOverloadArgs>) =>
    axios.request({
-      url: props.url,
-      method: props.method,
+      ...request,
       data,
    })

@@ -9,31 +9,38 @@ import { setApiFeedback } from 'helpers'
 
 import { apiAxios, history } from 'utils'
 
-const { put } = API['/api/user/auth/password-change']
+const { request, validation, header, errors } = API['/api/user/auth/password-change'].put
 
 export const usePasswordRecovery = () => {
    const { passwordToken } = useParams()
 
-   const { submit, control, errors, getValues } = useForm(put.validation)
+   const { submit, control, errors: formErrors, getValues } = useForm(validation)
 
    useEffect(() => {
-      ;async () =>
-         apiAxios(API['/api/user/auth/password-token-check'].post, { passwordToken }).catch(() =>
+      const checkPasswordToken = () => {
+         try {
+            const { request } = API['/api/user/auth/password-token-check'].post
+            apiAxios(request, { passwordToken })
+         } catch (error) {
             history.push('/login')
-         )
+         }
+      }
+      checkPasswordToken()
    }, [])
 
-   const changePassword = async () =>
-      apiAxios(put, {
+   const changePassword = async () => {
+      const response = await apiAxios(request, {
          ...getValues(),
          passwordToken,
-      }).then(() =>
-         setApiFeedback(put.header, put.errors[200], 'Okey', () => history.push('/login'))
-      )
+      })
+      if (response) {
+         setApiFeedback(header, errors[200], 'Okey', () => history.push('/login'))
+      }
+   }
 
    return {
       changePassword: submit(changePassword),
       control,
-      errors,
+      errors: formErrors,
    }
 }

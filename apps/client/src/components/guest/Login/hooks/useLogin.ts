@@ -8,34 +8,42 @@ import { apiAxios, history } from 'utils'
 
 import type { FBLoginRequest, FBMeRespose } from 'types'
 
-const { post } = API['/api/user/auth/login']
+const { request, validation } = API['/api/user/auth/login'].post
 
 export const useLogin = () => {
-   const { submit, control, errors, getValues } = useForm(post.validation)
+   const { submit, control, errors, getValues } = useForm(validation)
 
-   const login = async () => apiAxios(post, getValues()).then(() => history.push('/store'))
+   const login = async () => {
+      const response = await apiAxios(request, getValues())
+      if (response) {
+         history.push('/store')
+      }
+   }
 
    const loginWithFacebook = async () => {
-      const { post } = API['/api/user/auth/login/fb']
-      window.FB.login(
-         ({ authResponse, status }: FBLoginRequest) => {
-            if (authResponse && status === 'connected') {
-               window.FB.api(
-                  '/me?fields=id,first_name,email',
-                  async ({ first_name, email }: FBMeRespose) => {
-                     await apiAxios(post, {
-                        name: first_name,
-                        email,
-                        access_token: authResponse.accessToken,
-                     }).then(() => history.push('/store'))
-                  }
-               )
-            } else {
-               setApiFeedback(post.header, post.errors[400])
-            }
-         },
-         { scope: 'email,public_profile' }
-      )
+      const { request, header, errors } = API['/api/user/auth/login/fb'].post
+
+      const handleFBlogin = ({ authResponse, status }: FBLoginRequest) => {
+         if (authResponse && status === 'connected') {
+            const meUrl = '/me?fields=id,first_name,email'
+
+            window.FB.api(meUrl, async ({ first_name, email }: FBMeRespose) => {
+               const response = await apiAxios(request, {
+                  name: first_name,
+                  email,
+                  access_token: authResponse.accessToken,
+               })
+
+               if (response) {
+                  history.push('/store')
+               }
+            })
+         } else {
+            setApiFeedback(header, errors[400])
+         }
+      }
+
+      window.FB.login(handleFBlogin, { scope: 'email,public_profile' })
    }
 
    return {

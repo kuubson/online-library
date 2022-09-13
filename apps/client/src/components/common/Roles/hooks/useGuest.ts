@@ -6,16 +6,16 @@ import { handleApiError } from 'helpers'
 
 import { defaultAxios, history } from 'utils'
 
-import type { CheckTokenResponse } from 'types'
+import type { TokenCheckResponse } from 'types'
 
 export const useGuest = () => {
    const { closeSocketConnection } = useSocket()
 
    const checkToken = async () => {
       try {
-         const response = await defaultAxios<CheckTokenResponse>(
-            API['/api/user/global/token-check'].get
-         )
+         const { request } = API['/api/user/global/token-check'].get
+
+         const response = await defaultAxios<TokenCheckResponse>(request)
 
          if (response) {
             const { role } = response.data

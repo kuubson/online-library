@@ -7,21 +7,22 @@ import { setApiFeedback } from 'helpers'
 import { apiAxios, history } from 'utils'
 
 export const useSupport = (withPasswordSupport: boolean | undefined) => {
-   const post = withPasswordSupport
+   const { request, validation, header, errors } = withPasswordSupport
       ? API['/api/user/auth/password-recovery'].post
       : API['/api/user/auth/activation-token-resend'].post
 
-   const { submit, control, errors, getValues } = useForm(post.validation)
+   const { submit, control, errors: formErrors, getValues } = useForm(validation)
 
    const handleSupport = async () => {
-      await apiAxios(post, getValues()).then(() =>
-         setApiFeedback(post.header, post.errors[200], 'Okey', () => history.push('/login'))
-      )
+      const response = await apiAxios(request, getValues())
+      if (response) {
+         setApiFeedback(header, errors[200], 'Okey', () => history.push('/login'))
+      }
    }
 
    return {
       handleSupport: submit(handleSupport),
       control,
-      errors,
+      errors: formErrors,
    }
 }

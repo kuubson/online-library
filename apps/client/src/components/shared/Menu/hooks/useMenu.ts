@@ -18,13 +18,18 @@ export const useMenu = (_setShouldMenuExpand: ReactDispatch<boolean>) => {
    useEffect(() => _setShouldMenuExpand(shouldMenuExpand), [shouldMenuExpand])
 
    const logout = async () => {
-      const response = await apiAxios(API['/api/user/global/logout'].get)
+      const { request } = API['/api/user/global/logout'].get
+
+      const response = await apiAxios(request)
+
       if (response) {
-         window.FB.getLoginStatus((response: FBStatus) => {
+         const handleGetLoginStatus = (response: FBStatus) => {
             if (response.status === 'connected') {
                window.FB.logout(() => null)
             }
-         })
+         }
+
+         window.FB.getLoginStatus(handleGetLoginStatus)
 
          closeSocketConnection()
 

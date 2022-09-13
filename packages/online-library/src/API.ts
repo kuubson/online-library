@@ -126,9 +126,11 @@ const API_PATHS = {
 type API = typeof API_PATHS
 
 export const API = mapValues(API_PATHS, (methods, path) => ({
-   ...mapValues(methods, ({ responses, summary, validation }, method) => ({
-      method,
-      url: path,
+   ...mapValues(methods, ({ responses, validation, summary }, method) => ({
+      request: {
+         method,
+         url: path,
+      },
       validation,
       header: summary,
       errors: mapValues(responses, ({ description }: { description: string }) => description),

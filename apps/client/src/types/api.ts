@@ -4,30 +4,30 @@ import type { Book } from 'gql'
 
 import type { MessageType } from 'types'
 
-export type CheckTokenResponse = {
+export type TokenCheckResponse = {
    role: Role
 }
 
-export type GetMessagesResponse = {
+export type MessagesResponse = {
    messages: MessageType[]
    userId: string
    userName: string
 }
-export type GetSuggestionsResponse = {
+export type BookSuggestionsResponse = {
    books: Book[]
 }
 
-export type GetMessagesInfoResponse = {
+export type MessagesInfoResponse = {
    lastUnreadMessageIndex: number
    unreadMessagesAmount: number
    userId: string
 }
 
-export type SendFileResponse = {
+export type ChatFileResponse = {
    type: typeof messageTypes[number]
    content: string
 }
 
-export type CreatePayPalPaymentResponse = {
-   link: Location
+export type PaypalCheckoutResponse = {
+   link: string
 }

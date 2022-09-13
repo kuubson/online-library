@@ -8,8 +8,6 @@ import { setApiFeedback, setLoading } from 'helpers'
 
 import { apiAxios, history } from 'utils'
 
-const { post } = API['/api/user/cart/stripe/payment']
-
 export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean>) => {
    const stripe = useStripe()
 
@@ -20,6 +18,7 @@ export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean
    const handlePaying = async () => {
       try {
          const card = elements && elements.getElement(CardElement)
+
          if (stripe && card) {
             setLoading(true)
 
@@ -29,16 +28,20 @@ export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean
             })
 
             if (paymentMethod) {
-               await apiAxios(post, {
+               const { request, header, errors } = API['/api/user/cart/stripe/payment'].post
+
+               const response = await apiAxios(request, {
                   paymentId: paymentMethod.id,
                   products: cart,
-               }).then(() => {
+               })
+
+               if (response) {
                   setShouldStripePopupAppear(false)
-                  setApiFeedback(post.header, post.errors[200], 'Check your profile', () => {
+                  setApiFeedback(header, errors[200], 'Check your profile', () => {
                      resetCart()
                      history.push('/profile')
                   })
-               })
+               }
             } else {
                setLoading(false)
             }

@@ -13,12 +13,16 @@ export const subscribePushNotifications = async () => {
       const handlePushNotifications = async () => {
          if (serviceWorker) {
             const { pushManager } = await serviceWorker.ready
+
             if (pushManager) {
                const subscription = await pushManager.subscribe({
                   userVisibleOnly: true,
                   applicationServerKey: urlBase64ToUint8Array(REACT_APP_PUBLIC_VAPID_KEY),
                })
-               await defaultAxios(API['/api/user/chat/push-notifications'].post, subscription)
+
+               const { request } = API['/api/user/chat/push-notifications'].post
+
+               defaultAxios(request, subscription)
             }
          }
       }

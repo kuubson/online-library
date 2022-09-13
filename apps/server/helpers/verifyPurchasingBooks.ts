@@ -19,7 +19,7 @@ export const verifyPurchasingBooks = async ({
    header,
    errors,
 }: VerifyPurchasingBooksProps) => {
-   const userBooks = await user
+   const bookIds = await user
       .getBooks({ where: { id: products } })
       .then(books => books.map(({ id }) => id))
 
@@ -29,7 +29,7 @@ export const verifyPurchasingBooks = async ({
       throw new ApiError(header, errors[404], 404)
    }
 
-   const books = availableBooks.filter(({ id }) => !userBooks.includes(id))
+   const books = availableBooks.filter(({ id }) => !bookIds.includes(id))
 
    if (!books.length) {
       throw new ApiError(header, errors[409], 409)

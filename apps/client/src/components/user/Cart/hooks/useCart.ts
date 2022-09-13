@@ -10,7 +10,7 @@ import { setApiFeedback } from 'helpers'
 
 import { apiAxios, history } from 'utils'
 
-import type { ApiError, CreatePayPalPaymentResponse } from 'types'
+import type { ApiError, PaypalCheckoutResponse } from 'types'
 
 export const useCart = () => {
    const { paymentId, PayerID } = useQueryParams()
@@ -32,19 +32,20 @@ export const useCart = () => {
    }, [books])
 
    useEffect(() => {
-      ;async () => {
-         const { post } = API['/api/user/cart/paypal/payment'] // TODO: decide whether to add request config at API level
+      const handlePaypalPayment = async () => {
          try {
+            const { request, header, errors } = API['/api/user/cart/paypal/payment'].post
             if (paymentId && PayerID) {
-               await apiAxios(post, {
+               const response = await apiAxios(request, {
                   paymentId,
                   PayerID,
-               }).then(() => {
-                  setApiFeedback(post.header, post.errors[200], 'Check your profile', () => {
+               })
+               if (response) {
+                  setApiFeedback(header, errors[200], 'Check your profile', () => {
                      resetCart()
                      history.push('/profile')
                   })
-               })
+               }
             }
          } catch (error) {
             if ((error as ApiError).response?.status === 409) {
@@ -53,14 +54,17 @@ export const useCart = () => {
             }
          }
       }
+      handlePaypalPayment()
    }, [paymentId, PayerID])
 
    const createPayPalPayment = async () => {
-      await apiAxios<CreatePayPalPaymentResponse>(API['/api/user/cart/paypal/checkout'].post, {
-         products: cart,
-      }).then(response => {
-         window.location = response.data.link
-      })
+      const { request } = API['/api/user/cart/paypal/checkout'].post
+
+      const response = await apiAxios<PaypalCheckoutResponse>(request, { products: cart })
+
+      if (response) {
+         window.location.href = response.data.link
+      }
    }
 
    return {

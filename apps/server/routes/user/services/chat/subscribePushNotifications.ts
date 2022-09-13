@@ -20,18 +20,18 @@ export const subscribePushNotifications: ProtectedRoute<Body<typeof schema>> = [
                keys: { p256dh, auth },
             } = req.body
 
-            await req.user.getSubscriptions().then(async subscriptions => {
-               if (!subscriptions.some(subscription => subscription.endpoint === endpoint)) {
-                  await req.user.createSubscription(
-                     {
-                        endpoint,
-                        p256dh,
-                        auth,
-                     },
-                     { transaction }
-                  )
-               }
-            })
+            const subscriptions = await req.user.getSubscriptions()
+
+            if (!subscriptions.some(subscription => subscription.endpoint === endpoint)) {
+               await req.user.createSubscription(
+                  {
+                     endpoint,
+                     p256dh,
+                     auth,
+                  },
+                  { transaction }
+               )
+            }
 
             res.send()
          })
