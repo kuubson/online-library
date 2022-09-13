@@ -6,25 +6,22 @@ import type { SwaggerAutogenPromise } from './types'
 import { version } from '../package.json'
 import {
    access_token,
-   book,
+   author,
+   content,
    email,
-   getSuggestions,
+   file,
    integer,
    jwt,
-   message,
-   messagesInfo,
    name,
    password,
-   paypalApprovalLink,
    paypalPayerId,
    paypalPaymentId,
    products,
-   role,
-   sendFile,
-   sendFileResponse,
-   sendMessage,
+   schemas,
    stripePaymentId,
-   subscription,
+   title,
+   token,
+   withProfile,
 } from './definitions'
 
 const doc = {
@@ -34,20 +31,15 @@ const doc = {
       description: 'API for Online Library',
    },
    host: 'localhost:3001',
-   definitions: {
-      plain: 'plain text',
-      paypalPaymentId: '',
-      paypalPayerID: '',
-   },
    components: {
       '@schemas': {
-         book,
-         paypalApprovalLink,
-         message,
-         sendFileResponse,
-         subscription,
-         messagesInfo,
-         role,
+         book: schemas.book,
+         paypalApprovalLink: schemas.paypalApprovalLink,
+         message: schemas.message,
+         sendFileResponse: schemas.sendFileResponse,
+         subscription: schemas.subscription,
+         messagesInfo: schemas.messagesInfo,
+         role: schemas.role,
       },
    },
    '@definitions': {
@@ -116,7 +108,14 @@ const doc = {
             PayerID: paypalPayerId,
          },
       },
-      getSuggestions,
+      getSuggestions: {
+         type: 'object',
+         properties: {
+            title,
+            author,
+            withProfile,
+         },
+      },
       getMessages: {
          type: 'object',
          properties: {
@@ -124,17 +123,20 @@ const doc = {
             offset: integer(0),
          },
       },
-      sendMessage,
-      sendFile,
-   },
-   securityDefinitions: {
-      token: {
-         in: 'cookie',
-         name: 'token',
-         type: 'apiKey',
-         description: 'Auth token (jwt) generated with /login or /loginWithFacebook',
+      sendMessage: {
+         type: 'object',
+         properties: { content },
+      },
+      sendFile: {
+         'multipart/form-data': {
+            schema: {
+               type: 'object',
+               properties: { file },
+            },
+         },
       },
    },
+   securityDefinitions: { token },
 }
 
 swaggerAutogen({ openapi: '3.0.0' })(

@@ -8,13 +8,11 @@ import { API, AuthError, ConnectivityError } from '@online-library/tools'
 
 import { NODE_ENV } from 'config'
 
-import { setApiFeedback, setLoading } from 'helpers'
+import { setApiFeedback } from 'helpers'
 
-import { defaultAxios, history, websocketUrl } from 'utils'
+import { debounceLoader, defaultAxios, history, resetLoader, websocketUrl } from 'utils'
 
 import type { GraphqlError } from 'types'
-
-let timeoutId: NodeJS.Timeout | undefined
 
 const handleOnClosed = (event: any) => {
    if (event.code === 4401) {
@@ -30,9 +28,7 @@ const webSocketLink = new GraphQLWsLink(
 )
 
 const customFetch = (uri: RequestInfo | URL, options: RequestInit) => {
-   if (!timeoutId) {
-      timeoutId = setTimeout(() => setLoading(true), 500)
-   }
+   debounceLoader()
    return fetch(uri, options)
 }
 
@@ -52,19 +48,13 @@ const splitLink = split(
 
 const handleLoader = new ApolloLink((operation, forward) => {
    return forward(operation).map(response => {
-      setLoading(false)
-      clearTimeout(timeoutId)
-      timeoutId = undefined
+      resetLoader()
       return response
    })
 })
 
 const handleError = onError(({ graphQLErrors, networkError }) => {
-   setLoading(false)
-
-   clearTimeout(timeoutId)
-
-   timeoutId = undefined
+   resetLoader()
 
    if (graphQLErrors) {
       const [{ extensions }] = graphQLErrors

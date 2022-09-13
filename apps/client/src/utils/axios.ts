@@ -1,18 +1,12 @@
 import type { AxiosResponse } from 'axios'
 import axios from 'axios'
-import { debounce } from 'lodash'
 import type { InferType } from 'yup'
 
-import { handleApiError, setLoading } from 'helpers'
+import { handleApiError } from 'helpers'
 
 import type { TypedSchema } from 'yup/lib/util/types'
 
-const debounceLoader = debounce(() => setLoading(true), 800)
-
-const resetLoader = () => {
-   setLoading(false)
-   debounceLoader.cancel()
-}
+import { debounceLoader, resetLoader } from './loader'
 
 const customAxios = axios.create()
 
