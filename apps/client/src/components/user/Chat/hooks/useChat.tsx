@@ -9,7 +9,7 @@ import { handleApiError, setApiFeedback, subscribePushNotifications } from 'help
 
 import { apiAxios, defaultAxios } from 'utils'
 
-import type { ChatFileResponse, MessageType, MessagesResponse } from 'types'
+import type { MessageType, MessagesResponse, SendFileResponse } from 'types'
 
 const { request, validation } = API['/api/user/chat/messages'].get
 
@@ -267,7 +267,7 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
                }
             }, 500)
 
-            const response = await defaultAxios<FormData, ChatFileResponse>(request, form)
+            const response = await defaultAxios<FormData, SendFileResponse>(request, form)
 
             if (response) {
                setPercentage(100)

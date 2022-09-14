@@ -13,7 +13,7 @@ export type MessagesResponse = {
    userId: string
    userName: string
 }
-export type BookSuggestionsResponse = {
+export type BooksResponse = {
    books: Book[]
 }
 
@@ -23,7 +23,7 @@ export type ChatDetailsResponse = {
    userId: string
 }
 
-export type ChatFileResponse = {
+export type SendFileResponse = {
    type: typeof messageTypes[number]
    content: string
 }

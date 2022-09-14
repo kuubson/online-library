@@ -32,7 +32,7 @@ export const useUser = (withChat: boolean | undefined) => {
 
       const checkAuth = async () => {
          try {
-            const { request } = API['/api/user/global/auth'].get
+            const { request } = API['/api/auth-check'].get
 
             const response = await defaultAxios<TokenCheckResponse>(request)
 

@@ -8,7 +8,7 @@ import { useForm } from 'hooks'
 
 import { apiAxios } from 'utils'
 
-import type { BookSuggestionsProps, BookSuggestionsResponse } from 'types'
+import type { BookSuggestionsProps, BooksResponse } from 'types'
 
 const { request, validation } = API['/api/user/books'].get
 
@@ -33,9 +33,9 @@ export const useBookSuggestions = ({
 
    useEffect(() => {
       if (title || author) {
-         const getBookSuggestions = setTimeout(() => {
+         const getBooks = setTimeout(() => {
             submit(async () => {
-               const response = await apiAxios<typeof validation, BookSuggestionsResponse>(
+               const response = await apiAxios<typeof validation, BooksResponse>(
                   request,
                   getValues()
                )
@@ -45,7 +45,7 @@ export const useBookSuggestions = ({
                }
             })()
          }, 500)
-         return () => clearTimeout(getBookSuggestions)
+         return () => clearTimeout(getBooks)
       } else {
          resetForm()
       }

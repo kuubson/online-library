@@ -11,6 +11,68 @@
     }
   ],
   "paths": {
+    "/api/auth-check": {
+      "get": {
+        "tags": [
+          "Root"
+        ],
+        "summary": "Auth check",
+        "description": "   ✅ Checks existance of <b>auth token</b> in cookies and validates it <br />   ✅ Returns proper role to the end user <br />   ",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Returns current role",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/schema@role"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/schema@role"
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/schemas/422@data-validation",
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/logout": {
+      "get": {
+        "tags": [
+          "Root"
+        ],
+        "summary": "Logout",
+        "description": "   ✅ Logs user out <br />   ✅ Removes auth token from cookies <br />   ",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Returns current role",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/schema@role"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/schema@role"
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/schemas/422@data-validation",
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
     "/api/user/auth/register": {
       "post": {
         "tags": [
@@ -760,68 +822,6 @@
             "authToken": []
           }
         ]
-      }
-    },
-    "/api/user/global/auth": {
-      "get": {
-        "tags": [
-          "Global"
-        ],
-        "summary": "Auth check",
-        "description": "   ✅ Checks existance of <b>auth token</b> in cookies and validates it <br />   ✅ Returns proper role to the end user <br />   ",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Returns current role",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/schema@role"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/schema@role"
-                }
-              }
-            }
-          },
-          "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
-          }
-        }
-      }
-    },
-    "/api/user/global/logout": {
-      "get": {
-        "tags": [
-          "Global"
-        ],
-        "summary": "Logout",
-        "description": "   ✅ Logs user out <br />   ✅ Removes auth token from cookies <br />   ",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Returns current role",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/schema@role"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/schema@role"
-                }
-              }
-            }
-          },
-          "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
-          }
-        }
       }
     }
   },

@@ -1,10 +1,10 @@
 import { Router } from 'express'
 
-import { checkAuth, logout } from '../services/global'
+import { checkAuth, logout } from '../services'
 
-export const Global = Router()
+export const Root = Router()
 
-Global.get(
+Root.get(
    /**
       #swagger.summary = "Auth check"
       #swagger.description = `
@@ -16,11 +16,11 @@ Global.get(
          schema: { $ref: '#/definitions/schema@role' },   
       }  
 */
-   '/auth',
+   '/auth-check',
    ...checkAuth
 )
 
-Global.get(
+Root.get(
    /**
       #swagger.summary = "Logout"
       #swagger.description = `

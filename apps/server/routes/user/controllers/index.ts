@@ -6,7 +6,6 @@ import { Auth } from './Auth'
 import { Books } from './Books'
 import { Cart } from './Cart'
 import { Chat } from './Chat'
-import { Global } from './Global'
 
 export const UserController = Router()
 
@@ -31,6 +30,7 @@ UserController.use(
    jwtAuthorization,
    Books
 )
+
 UserController.use(
    /*
    #swagger.tags = ['Cart']
@@ -41,6 +41,7 @@ UserController.use(
    jwtAuthorization,
    Cart
 )
+
 UserController.use(
    /*
    #swagger.tags = ['Chat']
@@ -50,12 +51,4 @@ UserController.use(
    '/api/user/chat',
    jwtAuthorization,
    Chat
-)
-UserController.use(
-   /*
-   #swagger.tags = ['Global']
-   #swagger.responses[422] = { $ref: "#/definitions/422@data-validation" }
-*/
-   '/api/user/global',
-   Global
 )
