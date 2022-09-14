@@ -1,10 +1,10 @@
 import path from 'path'
 import swaggerAutogen from 'swagger-autogen'
 
-import type { SwaggerAutogenPromise } from './types'
+import type { SwaggerAutogenPromise } from 'types'
 
 import { version } from '../package.json'
-import { token } from './definitions'
+import { authToken } from './definitions'
 import { requests } from './requests'
 import { responses } from './responses'
 import { schemas } from './schemas'
@@ -21,7 +21,7 @@ const doc = {
       ...requests,
       ...responses,
    },
-   securityDefinitions: { token },
+   securityDefinitions: { authToken },
 }
 
 swaggerAutogen({ openapi: '3.0.0' })(

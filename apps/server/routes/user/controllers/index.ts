@@ -13,8 +13,8 @@ export const UserController = Router()
 UserController.use(
    /*
    #swagger.tags = ['Auth (rate limited)']
-   #swagger.responses[422] = { $ref: "#/definitions/422" }
-   #swagger.responses[429] = { $ref: "#/definitions/429" }
+   #swagger.responses[422] = { $ref: "#/definitions/422@data-validation" }
+   #swagger.responses[429] = { $ref: "#/definitions/429@rate-limit" }
 */
    '/api/user/auth',
    rateLimiter(),
@@ -24,8 +24,8 @@ UserController.use(
 UserController.use(
    /*
    #swagger.tags = ['Books']
-   #swagger.responses[422] = { $ref: "#/definitions/422" }
-   #swagger.security = [{ "token": [] }]    
+   #swagger.responses[422] = { $ref: "#/definitions/422@data-validation" }
+   #swagger.security = [{ "authToken": [] }]    
 */
    '/api/user/books',
    jwtAuthorization,
@@ -34,8 +34,8 @@ UserController.use(
 UserController.use(
    /*
    #swagger.tags = ['Cart']
-   #swagger.responses[422] = { $ref: "#/definitions/422" }
-   #swagger.security = [{ "token": [] }]    
+   #swagger.responses[422] = { $ref: "#/definitions/422@data-validation" }
+   #swagger.security = [{ "authToken": [] }]    
 */
    '/api/user/cart',
    jwtAuthorization,
@@ -44,8 +44,8 @@ UserController.use(
 UserController.use(
    /*
    #swagger.tags = ['Chat']
-   #swagger.responses[422] = { $ref: "#/definitions/422" }
-   #swagger.security = [{ "token": [] }]    
+   #swagger.responses[422] = { $ref: "#/definitions/422@data-validation" }
+   #swagger.security = [{ "authToken": [] }]    
 */
    '/api/user/chat',
    jwtAuthorization,
@@ -54,7 +54,7 @@ UserController.use(
 UserController.use(
    /*
    #swagger.tags = ['Global']
-   #swagger.responses[422] = { $ref: "#/definitions/422" }
+   #swagger.responses[422] = { $ref: "#/definitions/422@data-validation" }
 */
    '/api/user/global',
    Global

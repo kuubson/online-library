@@ -1,12 +1,17 @@
 import type { Response } from 'express'
+import type { PubSub } from 'graphql-subscriptions'
 
 import type { Role } from '@online-library/tools'
 
+import type { AnySwaggerData } from 'types'
 import type { CustomRequest } from 'types/express'
+
+export * from './any'
 
 export type GraphqlContext = {
    req: CustomRequest
    res: Response
+   pubsub: PubSub
 }
 
 export type AuthTokenData = {
@@ -15,3 +20,8 @@ export type AuthTokenData = {
 }
 
 export type PasswordTokenData = Pick<AuthTokenData, 'email'>
+
+export type SwaggerAutogenPromise = {
+   success: string
+   data: AnySwaggerData
+}

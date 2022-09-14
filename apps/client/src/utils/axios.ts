@@ -6,6 +6,8 @@ import type { Methods } from '@online-library/tools'
 
 import { handleApiError } from 'helpers'
 
+import type { AnyAxiosOverloadData, AnyAxiosOverloadPayload } from 'types'
+
 import type { TypedSchema } from 'yup/lib/util/types'
 
 import { debounceLoader, resetLoader } from './loader'
@@ -42,9 +44,9 @@ type Request<M extends Methods> = {
 }
 
 type AxiosOverload = {
-   <V extends TypedSchema | any, D = any>(
+   <P extends TypedSchema | AnyAxiosOverloadPayload, D = AnyAxiosOverloadData>(
       request: Request<Methods>,
-      params?: V extends TypedSchema ? InferType<V> : V
+      data?: P extends TypedSchema ? InferType<P> : P
    ): Promise<AxiosResponse<D, unknown>>
 }
 

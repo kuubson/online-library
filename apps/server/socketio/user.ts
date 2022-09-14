@@ -20,13 +20,13 @@ export const user = (io: Server) => {
 
    userIo.use(async (socket: Socket, next) => {
       try {
-         const token = getCookie(socket.request.headers.cookie, 'token')
+         const authToken = getCookie(socket.request.headers.cookie, 'authToken')
 
-         if (!token) {
+         if (!authToken) {
             throw new Error()
          }
 
-         const { email } = verify(token, JWT_KEY) as AuthTokenData
+         const { email } = verify(authToken, JWT_KEY) as AuthTokenData
 
          const user = await User.findOne({ where: { email } })
 

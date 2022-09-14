@@ -27,7 +27,7 @@ export const loginWithFb: Route<Body<typeof schema>> = [
 
             const user = await User.findOne({ where: { email } })
 
-            const token = jwt.sign(
+            const authToken = jwt.sign(
                {
                   email,
                   role: 'user' as Role,
@@ -37,7 +37,7 @@ export const loginWithFb: Route<Body<typeof schema>> = [
             )
 
             if (user) {
-               return res.cookie('token', token, cookie(true)).send()
+               return res.cookie('authToken', authToken, cookie(true)).send()
             }
 
             await User.create(
@@ -49,7 +49,7 @@ export const loginWithFb: Route<Body<typeof schema>> = [
                { transaction }
             )
 
-            res.cookie('token', token, cookie(true)).send()
+            res.cookie('authToken', authToken, cookie(true)).send()
          })
       } catch (error) {
          next(error)

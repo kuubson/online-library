@@ -31,6 +31,11 @@ export type Book = {
 
 export type Mutation = {
    __typename?: 'Mutation'
+   /**
+    * Assigns certain book to the user.
+    *
+    * Checks if user has already borrowed certain book.
+    */
    borrowBook: Book
 }
 
@@ -40,10 +45,23 @@ export type MutationBorrowBookArgs = {
 
 export type Query = {
    __typename?: 'Query'
+   /** Fetches books based on ids of books that user put in the cart. */
    books: Array<Book>
+   /** Fetches books that user has borrowed. */
    borrowedBooks: Array<Book>
+   /** Fetches books that user has bought. */
    boughtBooks: Array<Book>
+   /**
+    * Fetches free books availabe in the store.
+    *
+    * Implements lazy loading (on button click).
+    */
    freeBooks: Array<Book>
+   /**
+    * Fetches paid books availabe in the store.
+    *
+    * Implements lazy loading (on button click).
+    */
    paidBooks: Array<Book>
 }
 
@@ -63,7 +81,13 @@ export type QueryPaidBooksArgs = {
 
 export type Subscription = {
    __typename?: 'Subscription'
-   user: Scalars['String']
+   /** Just a temporary subscription. */
+   user: User
+}
+
+export type User = {
+   __typename?: 'User'
+   name: Scalars['String']
 }
 
 export type ResolverTypeWrapper<T> = Promise<T> | T
@@ -158,6 +182,7 @@ export type ResolversTypes = {
    Query: ResolverTypeWrapper<{}>
    String: ResolverTypeWrapper<Scalars['String']>
    Subscription: ResolverTypeWrapper<{}>
+   User: ResolverTypeWrapper<User>
 }
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -170,6 +195,7 @@ export type ResolversParentTypes = {
    Query: {}
    String: Scalars['String']
    Subscription: {}
+   User: User
 }
 
 export type BookResolvers<
@@ -226,7 +252,15 @@ export type SubscriptionResolvers<
    ContextType = GraphqlContext,
    ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']
 > = {
-   user?: SubscriptionResolver<ResolversTypes['String'], 'user', ParentType, ContextType>
+   user?: SubscriptionResolver<ResolversTypes['User'], 'user', ParentType, ContextType>
+}
+
+export type UserResolvers<
+   ContextType = GraphqlContext,
+   ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
+> = {
+   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
+   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>
 }
 
 export type Resolvers<ContextType = GraphqlContext> = {
@@ -234,4 +268,5 @@ export type Resolvers<ContextType = GraphqlContext> = {
    Mutation?: MutationResolvers<ContextType>
    Query?: QueryResolvers<ContextType>
    Subscription?: SubscriptionResolvers<ContextType>
+   User?: UserResolvers<ContextType>
 }

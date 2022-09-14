@@ -37,7 +37,7 @@ export const loginWithCredentials: Route<Body<typeof schema>> = [
             throw new ApiError(header, errors[403], 403)
          }
 
-         const token = jwt.sign(
+         const authToken = jwt.sign(
             {
                email,
                role: 'user' as Role,
@@ -46,7 +46,7 @@ export const loginWithCredentials: Route<Body<typeof schema>> = [
             { expiresIn: TokenExpiration['24h'] }
          )
 
-         res.cookie('token', token, cookie(true)).send()
+         res.cookie('authToken', authToken, cookie(true)).send()
       } catch (error) {
          next(error)
       }

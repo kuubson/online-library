@@ -1,10 +1,10 @@
 import { messageTypes } from '@online-library/tools'
 
-export const token = {
+export const authToken = {
    in: 'cookie',
-   name: 'token',
+   name: 'authToken',
    type: 'apiKey',
-   description: 'Auth token (jwt) generated with /login or /loginWithFb',
+   description: 'Auth token (jwt) generated with /login or /login/fb',
 }
 
 export const createdAt = {

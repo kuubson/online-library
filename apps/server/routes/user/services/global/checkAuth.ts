@@ -12,19 +12,19 @@ import { cookie, jwt } from 'utils'
 import type { AuthTokenData } from 'types'
 import type { Cookies, InitialBody, Route } from 'types/express'
 
-const schema = yup.object({ cookies: yup.object({ token: jwt.optional() }) })
+const schema = yup.object({ cookies: yup.object({ authToken: jwt.optional() }) })
 
 export const checkAuth: Route<InitialBody, Cookies<typeof schema>> = [
    yupValidation({ schema }),
    async (req, res, next) => {
       try {
-         const { token } = req.cookies
+         const { authToken } = req.cookies
 
-         if (!token) {
-            return res.clearCookie('token', cookie()).send({ role: 'guest' as Role })
+         if (!authToken) {
+            return res.clearCookie('authToken', cookie()).send({ role: 'guest' as Role })
          }
 
-         const { role } = verify(token, JWT_KEY) as AuthTokenData
+         const { role } = verify(authToken, JWT_KEY) as AuthTokenData
 
          if (role === 'user') {
             return res.send({ role: 'user' as Role })

@@ -32,7 +32,7 @@ export const BookPopup = ({
             <Styled.Content>
                <Header black>
                   Confirm
-                  {price ? ' adding this book to the cart' : ' borrowing this book'}?
+                  {price ? ' adding this book to the cart' : ' borrowing this book'}
                </Header>
                <Styled.ButtonsContainer>
                   <Button

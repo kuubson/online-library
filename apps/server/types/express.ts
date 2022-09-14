@@ -8,10 +8,12 @@ import type { User } from 'database/models/User'
 
 import type { TypedSchema } from 'yup/lib/util/types'
 
+import type { AnyFile, AnyUser } from './any'
+
 declare module 'express-serve-static-core' {
    interface Request {
-      user: User | undefined | any
-      file: Express.Multer.File | undefined | any
+      user: User | undefined | AnyUser
+      file: Express.Multer.File | undefined | AnyFile
       allowedExtenstionsError?: boolean
       sizeLimit?: boolean
    }

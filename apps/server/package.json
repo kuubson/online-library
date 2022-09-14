@@ -70,6 +70,7 @@
       "dotenv": "^16.0.2",
       "eslint-config-custom": "*",
       "nodemon": "^2.0.19",
-      "sequelize-auto": "^0.8.8"
+      "sequelize-auto": "^0.8.8",
+      "ts-node": "^10.9.1"
    }
 }
