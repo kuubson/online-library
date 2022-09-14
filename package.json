@@ -7,7 +7,6 @@
       "predev": "yarn docs",
       "lint": "turbo run lint",
       "test": "turbo run test",
-      "prebuild": "yarn docs",
       "build": "turbo run build",
       "codegen": "graphql-codegen",
       "packages": "turbo run build --filter=./packages/* --force",
