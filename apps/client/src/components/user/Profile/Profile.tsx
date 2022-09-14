@@ -42,8 +42,8 @@ export const Profile = ({ shouldMenuExpand }: ProfileProps) => {
                <>
                   <Books
                      books={boughtBooks}
-                     header="Your purchased books"
-                     error="You haven't purchased any books yet"
+                     header="Premium books"
+                     error="No premium books"
                      setBookPopupData={setBookPopupData}
                      withProfile
                      {...((!areThereBorrowedBooks || shouldShowSearchBar) && {
@@ -53,7 +53,7 @@ export const Profile = ({ shouldMenuExpand }: ProfileProps) => {
                   <Books
                      books={borrowedBooks}
                      header="Enjoy borrowed books"
-                     error="You haven't borrowed any books yet"
+                     error="No borrowed books"
                      setBookPopupData={setBookPopupData}
                      withProfile
                      {...(!areThereBoughtBooks && { searchBar: <BookSuggestions {...books} /> })}

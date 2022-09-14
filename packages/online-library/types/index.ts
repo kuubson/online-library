@@ -4,6 +4,8 @@ export type Role = typeof roles[number]
 
 export const messageTypes = ['MESSAGE', 'IMAGE', 'VIDEO', 'FILE'] as const
 
+export type Methods = 'get' | 'post' | 'put' | 'patch' | 'delete'
+
 export type Method<M, E extends keyof any, V> = {
    readonly request: {
       readonly method: M

@@ -42,9 +42,13 @@ extend type Mutation {
    borrowBook(bookId: Int!): Book!
 }
 
+type User {
+   name: String!
+}
+
 extend type Subscription {
    """
    Just a temporary subscription.
    """
-   user: String!
+   user: User!
 }

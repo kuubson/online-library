@@ -21,11 +21,11 @@ export const formatErrors = (app: Application) =>
       const { status, errorHeader, errorMessage } = error
 
       if (status === 403 && error.code === 'EBADCSRFTOKEN') {
-         return res.clearCookie('token', cookie()).status(status).send(CSRFError)
+         return res.clearCookie('authToken', cookie()).status(status).send(CSRFError)
       }
 
       if (error instanceof AuthErrorBase) {
-         return res.clearCookie('token', cookie()).status(status).send(AuthError)
+         return res.clearCookie('authToken', cookie()).status(status).send(AuthError)
       }
 
       if ((error as ApiError).message === 'Empty file') {

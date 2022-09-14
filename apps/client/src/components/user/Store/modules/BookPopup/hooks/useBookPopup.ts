@@ -26,7 +26,7 @@ export const useBookPopup = ({ id, setBookPopupData }: UseBookPopupProps) => {
 
             setApiFeedback(
                'Borrowing a book',
-               `Successfully borrowed the "${title}" written by ${author}. Check your profile`
+               `Successfully borrowed the "${title}" written by ${author}. Check profile tab`
             )
          }
       } catch (error) {

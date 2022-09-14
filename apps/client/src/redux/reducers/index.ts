@@ -4,8 +4,8 @@ import storage from 'redux-persist/lib/storage'
 
 import { apiFeedback } from './apiFeedback'
 import { cart } from './cart'
+import { chatDetails } from './chatDetails'
 import { loader } from './loader'
-import { messagesInfo } from './messagesInfo'
 import { socket } from './socket'
 
 const cartConfig = {
@@ -13,8 +13,8 @@ const cartConfig = {
    storage,
 }
 
-const messagesInfoConfig = {
-   key: 'messagesInfo',
+const chatDetailsConfig = {
+   key: 'chatDetails',
    storage,
 }
 
@@ -23,5 +23,5 @@ export const rootReducer = combineReducers({
    loader,
    apiFeedback,
    cart: persistReducer(cartConfig, cart),
-   messagesInfo: persistReducer(messagesInfoConfig, messagesInfo),
+   chatDetails: persistReducer(chatDetailsConfig, chatDetails),
 })

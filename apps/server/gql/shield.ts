@@ -11,7 +11,6 @@ type Rule = Record<string, LogicRule>
 
 const userMutations: Rule = {}
 const userQueries: Rule = {}
-const userSubscriptions: Rule = {}
 
 load(`api/user/mutations/**`).map(resolver => {
    const [mutation] = Object.keys(resolver)
@@ -23,16 +22,10 @@ load(`api/user/queries`).map(resolver => {
    return (userQueries[query] = and(isUser))
 })
 
-load(`api/user/subscriptions`).map(resolver => {
-   const [subscription] = Object.keys(resolver)
-   return (userSubscriptions[subscription] = and(isUser))
-})
-
 export const shield = _shield(
    {
       Query: { ...userQueries },
       Mutation: { ...userMutations },
-      Subscription: { ...userSubscriptions },
    },
    {
       allowExternalErrors: true,

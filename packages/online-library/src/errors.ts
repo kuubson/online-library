@@ -34,7 +34,7 @@ export const ConnectivityError = new ApiError(
 
 export const RequestError = new ApiError(
    'Request processing',
-   'The server cannot temporarily process your request',
+   'The server cannot temporarily process the request',
    500
 )
 
@@ -46,7 +46,7 @@ export const DataValidationError = new ApiError(
 
 export const RateLimitError = new ApiError(
    'Too many requests',
-   'You have exceeded max amount of requests, try again later',
+   'Max amount of requests has been exceeded, try again later',
    429
 )
 

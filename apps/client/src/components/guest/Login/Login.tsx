@@ -8,7 +8,7 @@ import { useLogin } from './hooks'
 import { history } from 'utils'
 
 export const Login = () => {
-   const { login, loginWithFacebook, control, errors } = useLogin()
+   const { loginWithCredentials, loginWithFb, control, errors } = useLogin()
    return (
       <GuestContent>
          <HomeButton />
@@ -18,7 +18,7 @@ export const Login = () => {
                id="email"
                label="Email"
                type="text"
-               placeholder="Type your email address..."
+               placeholder="Enter email address..."
                error={errors.email?.message}
             />
             <Input
@@ -26,11 +26,11 @@ export const Login = () => {
                id="password"
                label="Password"
                type="password"
-               placeholder="Type your password..."
+               placeholder="Enter password..."
                error={errors.password?.message}
             />
-            <Submit onClick={login}>Login</Submit>
-            <Submit onClick={loginWithFacebook} withFacebook>
+            <Submit onClick={loginWithCredentials}>Login</Submit>
+            <Submit onClick={loginWithFb} withFacebook>
                Login with Facebook
             </Submit>
             <StyledRegistration.AnnotationsContainer>

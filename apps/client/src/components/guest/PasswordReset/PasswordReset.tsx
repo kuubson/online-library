@@ -2,10 +2,10 @@ import { Form, GuestContent, Submit } from 'components/shared/styled'
 
 import { HomeButton, Input } from 'components/shared'
 
-import { usePasswordRecovery } from './hooks'
+import { usePasswordReset } from './hooks'
 
-export const PasswordRecovery = () => {
-   const { changePassword, control, errors } = usePasswordRecovery()
+export const PasswordReset = () => {
+   const { changePassword, control, errors } = usePasswordReset()
    return (
       <GuestContent>
          <HomeButton />
@@ -15,7 +15,7 @@ export const PasswordRecovery = () => {
                id="password"
                label="Password"
                type="password"
-               placeholder="Type your password..."
+               placeholder="Enter password..."
                error={errors.password?.message}
             />
             <Input
@@ -23,7 +23,7 @@ export const PasswordRecovery = () => {
                id="repeatedPassword"
                label="Repeat Password"
                type="password"
-               placeholder="Type your password again..."
+               placeholder="Enter password again..."
                error={errors.repeatedPassword?.message}
             />
             <Submit>Change password</Submit>

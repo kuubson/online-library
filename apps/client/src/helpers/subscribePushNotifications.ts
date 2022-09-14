@@ -20,7 +20,7 @@ export const subscribePushNotifications = async () => {
                   applicationServerKey: urlBase64ToUint8Array(REACT_APP_PUBLIC_VAPID_KEY),
                })
 
-               const { request } = API['/api/user/chat/push-notifications'].post
+               const { request } = API['/api/user/chat/notifications'].post
 
                defaultAxios(request, subscription)
             }

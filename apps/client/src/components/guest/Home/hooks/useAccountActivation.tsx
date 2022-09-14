@@ -9,7 +9,7 @@ import { setApiFeedback } from 'helpers'
 
 import { apiAxios, history } from 'utils'
 
-const { request, validation, header, errors } = API['/api/user/auth/account-activation'].post
+const { request, validation, header, errors } = API['/api/user/auth/account'].patch
 
 export const useAccountActivation = () => {
    const { activationToken } = useQueryParams() as InferType<typeof validation>

@@ -9,11 +9,11 @@ import { deleteTemporaryFile, sendNotificationsForOtherUsers } from 'helpers'
 
 import { baseUrl } from 'utils'
 
-import type { InitialBody, InitialCookies, ProtectedRoute } from 'types/express'
+import type { InitialBody, InitialCookies, InitialQuery, ProtectedRoute } from 'types/express'
 
-const { header, errors } = API['/api/user/chat/file'].post
+const { header, errors } = API['/api/user/chat/files'].post
 
-export const sendFile: ProtectedRoute<InitialBody, InitialCookies, false> = [
+export const sendFile: ProtectedRoute<InitialBody, InitialCookies, InitialQuery, false> = [
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {

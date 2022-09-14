@@ -19,7 +19,7 @@ export const Support = ({ withPasswordSupport }: SupportProps) => {
                id="email"
                label="Email"
                type="text"
-               placeholder="Type your email address..."
+               placeholder="Enter email address..."
                error={errors.email?.message}
             />
             <Submit>{withPasswordSupport ? 'Recover password' : 'Resend e-mail'}</Submit>

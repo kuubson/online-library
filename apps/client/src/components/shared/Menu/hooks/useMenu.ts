@@ -18,7 +18,7 @@ export const useMenu = (_setShouldMenuExpand: ReactDispatch<boolean>) => {
    useEffect(() => _setShouldMenuExpand(shouldMenuExpand), [shouldMenuExpand])
 
    const logout = async () => {
-      const { request } = API['/api/user/global/logout'].get
+      const { request } = API['/api/logout'].get
 
       const response = await apiAxios(request)
 

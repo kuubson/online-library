@@ -1,1 +1,1 @@
-export { getSuggestions } from './getSuggestions'
+export { getBooks } from './getBooks'

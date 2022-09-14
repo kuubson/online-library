@@ -43,7 +43,7 @@ export const useCart = () => {
                   PayerID,
                })
                if (response) {
-                  setApiFeedback(header, errors[200], 'Check your profile', () => {
+                  setApiFeedback(header, errors[200], 'Check profile tab', () => {
                      resetCart()
                      history.push('/profile')
                   })
@@ -59,7 +59,7 @@ export const useCart = () => {
       handlePaypalPayment()
    }, [paymentId, PayerID])
 
-   const createPayPalPayment = async () => {
+   const paypalCheckout = async () => {
       const { validation, request } = API['/api/user/cart/paypal/checkout'].post
 
       const response = await apiAxios<typeof validation, PaypalCheckoutResponse>(request, {
@@ -74,6 +74,6 @@ export const useCart = () => {
    return {
       books,
       price,
-      createPayPalPayment,
+      paypalCheckout,
    }
 }

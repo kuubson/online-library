@@ -4,6 +4,7 @@ import { queries } from 'styles'
 
 export const Book = styled.li`
    font-size: 15px;
+   text-align: center;
    margin-bottom: 25px;
    :last-of-type {
       margin-bottom: 0px;

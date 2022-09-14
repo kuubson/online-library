@@ -12,11 +12,11 @@ const { Strategy, ExtractJwt } = passportJwt
 
 type Cookies = {
    cookies: {
-      token: string
+      authToken: string
    }
 }
 
-const extractJwtFromCookies = ({ cookies }: Cookies) => cookies.token
+const extractJwtFromCookies = ({ cookies }: Cookies) => cookies.authToken
 
 export const initializePassport = (passport: PassportStatic) => {
    passport.use(

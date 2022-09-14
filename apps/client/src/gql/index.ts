@@ -1,6 +1,6 @@
 /* eslint-disable object-curly-newline */
-import * as Apollo from '@apollo/client'
 import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
 
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
@@ -28,6 +28,11 @@ export type Book = {
 
 export type Mutation = {
    __typename?: 'Mutation'
+   /**
+    * Assigns certain book to the user.
+    *
+    * Checks if user has already borrowed certain book.
+    */
    borrowBook: Book
 }
 
@@ -37,10 +42,23 @@ export type MutationBorrowBookArgs = {
 
 export type Query = {
    __typename?: 'Query'
+   /** Fetches books based on ids of books that user put in the cart. */
    books: Array<Book>
+   /** Fetches books that user has borrowed. */
    borrowedBooks: Array<Book>
+   /** Fetches books that user has bought. */
    boughtBooks: Array<Book>
+   /**
+    * Fetches free books availabe in the store.
+    *
+    * Implements lazy loading (on button click).
+    */
    freeBooks: Array<Book>
+   /**
+    * Fetches paid books availabe in the store.
+    *
+    * Implements lazy loading (on button click).
+    */
    paidBooks: Array<Book>
 }
 
@@ -60,7 +78,13 @@ export type QueryPaidBooksArgs = {
 
 export type Subscription = {
    __typename?: 'Subscription'
-   user: Scalars['String']
+   /** Just a temporary subscription. */
+   user: User
+}
+
+export type User = {
+   __typename?: 'User'
+   name: Scalars['String']
 }
 
 export type GetBooksQueryVariables = Exact<{
@@ -121,6 +145,13 @@ export type GetFreeAndPaidBooksQuery = {
       cover: string
       price?: number | null
    }>
+}
+
+export type UserSubscriptionVariables = Exact<{ [key: string]: never }>
+
+export type UserSubscription = {
+   __typename?: 'Subscription'
+   user: { __typename?: 'User'; name: string }
 }
 
 export type BorrowBookMutationVariables = Exact<{
@@ -295,6 +326,37 @@ export type GetFreeAndPaidBooksQueryResult = Apollo.QueryResult<
    GetFreeAndPaidBooksQuery,
    GetFreeAndPaidBooksQueryVariables
 >
+export const UserDocument = gql`
+   subscription User {
+      user {
+         name
+      }
+   }
+`
+
+/**
+ * __useUserSubscription__
+ *
+ * To run a query within a React component, call `useUserSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useUserSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUserSubscription(
+   baseOptions?: Apollo.SubscriptionHookOptions<UserSubscription, UserSubscriptionVariables>
+) {
+   const options = { ...defaultOptions, ...baseOptions }
+   return Apollo.useSubscription<UserSubscription, UserSubscriptionVariables>(UserDocument, options)
+}
+export type UserSubscriptionHookResult = ReturnType<typeof useUserSubscription>
+export type UserSubscriptionResult = Apollo.SubscriptionResult<UserSubscription>
 export const BorrowBookDocument = gql`
    mutation borrowBook($bookId: Int!) {
       borrowBook(bookId: $bookId) {

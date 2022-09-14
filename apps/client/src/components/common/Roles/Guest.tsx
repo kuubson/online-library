@@ -9,10 +9,10 @@ type GuestProps = {
 }
 
 export const Guest = ({ children }: GuestProps) => {
-   const { checkToken } = useGuest()
+   const { checkAuth } = useGuest()
 
    useEffect(() => {
-      checkToken()
+      checkAuth()
    }, [])
 
    return <RoleContainer>{children}</RoleContainer>

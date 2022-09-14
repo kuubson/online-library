@@ -5,11 +5,10 @@ import { facebookAuthorization } from 'middlewares'
 import {
    activateAccount,
    changePassword,
-   checkPasswordToken,
-   login,
-   loginWithFacebook,
-   recoverPassword,
+   loginWithCredentials,
+   loginWithFb,
    register,
+   requestPasswordChange,
    resendActivationToken,
 } from '../services/auth'
 
@@ -25,23 +24,17 @@ Auth.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/register" }
+         schema: { $ref: "#/definitions/post@register" }
       }      
-      #swagger.responses[200] = {
-         description: 'Activate account by clicking the link that has been sent to you',
-      }  
-      #swagger.responses[409] = {
-         description: 'Email address already taken',
-      }  
-      #swagger.responses[502] = {
-         description: 'There was a problem sending the activation link',
-      }  
+      #swagger.responses[200] = { description: 'Check inbox for an e-mail with the activation link' }  
+      #swagger.responses[409] = { description: 'Email address already taken' }  
+      #swagger.responses[502] = { $ref: "#/definitions/502@activation-link" }  
 */
    '/register',
    ...register
 )
 
-Auth.post(
+Auth.patch(
    /**
       #swagger.summary = "Account activation"
       #swagger.description = `
@@ -50,25 +43,19 @@ Auth.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/activateAccount" }
+         schema: { $ref: "#/definitions/patch@account" }
       }  
-      #swagger.responses[200] = {
-         description: 'Account activated, you can login now',
-      }  
-      #swagger.responses[409] = {
-         description: 'No authentication associated with this link',
-      }  
-      #swagger.responses[403] = {
-         description: 'Account already activated',
-      }  
+      #swagger.responses[200] = { description: 'Account has been activated' }  
+      #swagger.responses[409] = { description: 'No authentication associated with this link' }  
+      #swagger.responses[403] = { $ref: "#/definitions/503@account-activated" }  
 */
-   '/account-activation',
+   '/account',
    ...activateAccount
 )
 
 Auth.post(
    /**
-      #swagger.summary = "Account activation"
+      #swagger.summary = "Account activation token"
       #swagger.description = `
          ✅ Ensures user with provided email address exists <br />
          ✅ Rejects resending activation token if account is already activate <br />
@@ -76,22 +63,14 @@ Auth.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/resendActivationToken" }
+         schema: { $ref: "#/definitions/post@activation-token" }
       }  
-      #swagger.responses[200] = {
-         description: 'Link with new activation token has been sent',
-      }  
-      #swagger.responses[404] = {
-         description: 'Provided email address is invalid',
-      }  
-      #swagger.responses[403] = {
-         description: 'Account already activated',
-      }  
-      #swagger.responses[502] = {
-         description: 'There was a problem sending the activation link',
-      }  
+      #swagger.responses[200] = { description: 'Link with new activation token has been sent' }  
+      #swagger.responses[404] = { $ref: "#/definitions/404@incorrect-email-address" }  
+      #swagger.responses[403] = { $ref: "#/definitions/503@account-activated" }  
+      #swagger.responses[502] = { $ref: "$/definitions/502@activation-link" }  
 */
-   '/activation-token-resend',
+   '/activation-token',
    ...resendActivationToken
 )
 
@@ -105,20 +84,14 @@ Auth.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/login" }
+         schema: { $ref: "#/definitions/post@login-credentials" }
       }  
-      #swagger.responses[200] = {
-         description: 'Auth token was set in cookies',
-      }  
-      #swagger.responses[401] = {
-         description: 'The given credentials are wrong',
-      }  
-      #swagger.responses[403] = {
-         description: 'Account not activated',
-      }  
+      #swagger.responses[200] = { $ref: "#/definitions/200@auth-token" }  
+      #swagger.responses[401] = { description: 'The given credentials are wrong' }  
+      #swagger.responses[403] = { description: 'Account not activated' }  
 */
-   '/login',
-   ...login
+   '/login/credentials',
+   ...loginWithCredentials
 )
 
 Auth.post(
@@ -130,23 +103,20 @@ Auth.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/loginWithFacebook" }
+         schema: { $ref: "#/definitions/post@login-fb" }
       }  
-      #swagger.responses[200] = {
-         description: 'Auth token was set in cookies',
-      }  
-      #swagger.responses[400] = {
-         description: 'FB authentication has failed',
-      }  
+      #swagger.responses[200] = { $ref: "#/definitions/200@auth-token" }  
+      #swagger.responses[400] = { description: 'FB authentication has failed' }  
 */
    '/login/fb',
    facebookAuthorization,
-   ...loginWithFacebook
+   ...loginWithFb
 )
 
-Auth.post(
-   /**
-      #swagger.summary = "Password recovery"
+Auth.route('/password')
+   .post(
+      /**
+      #swagger.summary = "Password reset request"
       #swagger.description = `
          ✅ Checks if any user belongs to provided email address <br />
          ✅ Makes sure that user account is activated <br />
@@ -154,64 +124,27 @@ Auth.post(
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/recoverPassword" }
+         schema: { $ref: "#/definitions/post@password" }
       }  
-      #swagger.responses[200] = {
-         description: 'Link to reset the password has been sent',
-      }  
-      #swagger.responses[404] = {
-         description: 'An incorrect email address was provided',
-      }  
-      #swagger.responses[409] = {
-         description: 'Account must be firstly activated',
-      } 
-      #swagger.responses[502] = {
-         description: 'There was a problem sending the link to reset password',
-      }  
+      #swagger.responses[200] = { description: 'Link to reset the password has been sent' }  
+      #swagger.responses[404] = { $ref: "#/definitions/404@incorrect-email-address" }  
+      #swagger.responses[409] = { description: 'Account must be firstly activated' } 
+      #swagger.responses[502] = { description: 'There was a problem sending the link to reset password' }  
 */
-   '/password-recovery',
-   ...recoverPassword
-)
-
-Auth.post(
-   /**
-      #swagger.summary = "Password recovery"
-      #swagger.description = `
-         ✅ Checks password token generated by <b>/api/user/auth/recoverPassword</b> <br />
-         ✅ Checks if there is a user with email address as kept in password token <br />
-      `
-      #swagger.requestBody = {
-         required: true,
-         schema: { $ref: "#/definitions/checkPasswordToken" }
-      }  
-      #swagger.responses[200] = {
-         description: 'Password token is valid',
-      }  
-      #swagger.responses[400] = {
-         description: 'Link to reset the password is invalid',
-      }  
-*/
-   '/password-token-check',
-   ...checkPasswordToken
-)
-
-Auth.put(
-   /**
+      ...requestPasswordChange
+   )
+   .patch(
+      /**
       #swagger.summary = "Password change"
       #swagger.description = `
          ✅ Changes user password <br />
       `
       #swagger.requestBody = {
          required: true,
-         schema: { $ref: "#/definitions/changePassword" }
+         schema: { $ref: "#/definitions/patch@password" }
       } 
-      #swagger.responses[200] = {
-         description: 'Password has been changed',
-      }
-      #swagger.responses[400] = {
-         description: 'Link to reset the password is invalid',
-      }
+      #swagger.responses[200] = { description: 'Password has been changed' }
+      #swagger.responses[400] = { description: 'Link to reset the password is invalid' }
 */
-   '/password-change',
-   ...changePassword
-)
+      ...changePassword
+   )

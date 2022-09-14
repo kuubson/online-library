@@ -1,18 +1,18 @@
-import { messageTypes, roles } from '@online-library/tools'
+import { messageTypes } from '@online-library/tools'
 
-export const token = {
+export const authToken = {
    in: 'cookie',
-   name: 'token',
+   name: 'authToken',
    type: 'apiKey',
-   description: 'Auth token (jwt) generated with /login or /loginWithFacebook',
+   description: 'Auth token (jwt) generated with /login or /login/fb',
 }
 
-const createdAt = {
+export const createdAt = {
    type: 'string',
    format: 'date-time',
 }
 
-const updatedAt = {
+export const updatedAt = {
    type: 'string',
    format: 'date-time',
 }
@@ -40,24 +40,34 @@ export const contentFile = {
       'https://res.cloudinary.com/onlinelibrary-storage/raw/upload/v1662546764/111296ee27d2a82152225969d92eb660a16d16b041d3712e0ee860ae01ed78a8e01bc77f4b888fb0681cebba0ec619bb10012b3a3cfee8c_fbhuen.txt',
 }
 
-const fileType = {
+export const fileType = {
    type: 'string',
    enum: messageTypes,
 }
 
-export const title = {
+const emptyString = {
+   type: 'string',
+   maxLength: 0,
+   required: true,
+}
+
+const _title = {
    type: 'string',
    required: true,
    description: 'Title to search for. It takes precedence over the author',
    example: 'Let it Be',
 }
 
-export const author = {
+export const title = { anyOf: [_title, emptyString] }
+
+const _author = {
    type: 'string',
    required: true,
    description: 'Author to search for',
    example: 'Craig Nicolas',
 }
+
+export const author = { anyOf: [_author, emptyString] }
 
 export const withProfile = {
    type: 'boolean',
@@ -235,77 +245,10 @@ export const cover = {
    example: 'https://loremflickr.com/640/480/nature?78445',
 }
 
-export const schemas = {
-   book: {
-      type: 'object',
-      properties: {
-         id,
-         createdAt,
-         updatedAt,
-         title: {
-            type: 'string',
-            example: 'Hound Dog',
-         },
-         author: {
-            type: 'string',
-            example: 'Nina Barton',
-         },
-         cover,
-         price,
-      },
-   },
-   messagesInfo: {
-      type: 'object',
-      properties: {
-         lastUnreadMessageIndex,
-         unreadMessagesAmount,
-         userId,
-      },
-   },
-   sendFileResponse: {
-      type: 'object',
-      properties: {
-         type: fileType,
-         content: contentFile,
-      },
-   },
-   subscription: {
-      type: 'object',
-      properties: {
-         endpoint,
-         expirationTime,
-         keys,
-      },
-   },
-   message: {
-      type: 'object',
-      properties: {
-         id,
-         createdAt,
-         updatedAt,
-         type: fileType,
-         content: contentFile,
-         filename,
-         readBy,
-         cloudinaryId,
-         userId: id,
-         user,
-      },
-   },
-   paypalApprovalLink: {
-      type: 'string',
-      required: true,
-      description: 'Link to paypal checkout generated with /createPayPalPayment',
-      example:
-         'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-27H754218P7505C',
-   },
-   role: {
-      type: 'object',
-      properties: {
-         role: {
-            type: 'string',
-            enum: roles,
-         },
-      },
-   },
+export const paypalLink = {
+   type: 'string',
+   required: true,
+   description: 'Link to paypal checkout generated with /paypalCheckout',
+   example:
+      'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-27H754218P7505C',
 }

@@ -31,18 +31,18 @@ export const BookPopup = ({
             <Book id={id} title={title} author={author} cover={cover} price={price} withPopup />
             <Styled.Content>
                <Header black>
-                  Are you sure you want to
-                  {price ? ' add this book to the cart' : ' borrow this book'}?
+                  Confirm
+                  {price ? ' adding this book to the cart' : ' borrowing this book'}
                </Header>
                <Styled.ButtonsContainer>
                   <Button
                      onClick={price ? () => handleAdddingToCart(id) : handleBorrowingBook}
                      notAbsolute
                   >
-                     Yes
+                     Confirm
                   </Button>
                   <Button onClick={() => setBookPopupData(undefined)} notAbsolute>
-                     No
+                     Cancel
                   </Button>
                </Styled.ButtonsContainer>
             </Styled.Content>

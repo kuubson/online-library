@@ -6,23 +6,23 @@ import { yupValidation } from 'middlewares'
 
 import { updateReadByProperty } from 'helpers'
 
-import type { Body, ProtectedRoute } from 'types/express'
+import type { InitialBody, InitialQuery, ProtectedRoute, Query } from 'types/express'
 
-const { validation } = API['/api/user/chat/messages'].post
+const { validation } = API['/api/user/chat/messages'].get
 
-const schema = yup.object({ body: validation })
+const schema = yup.object({ query: validation })
 
-export const getMessages: ProtectedRoute<Body<typeof schema>> = [
+export const getMessages: ProtectedRoute<InitialBody, InitialQuery, Query<typeof schema>> = [
    yupValidation({ schema }),
    async (req, res, next) => {
       try {
          const { id, name } = req.user
 
-         const { limit, offset } = req.body
+         const { limit, offset } = req.query
 
          const messages = await Message.findAll({
-            limit,
-            offset,
+            limit: Number(limit),
+            offset: Number(offset),
             order: [['id', 'DESC']],
             include: [
                {

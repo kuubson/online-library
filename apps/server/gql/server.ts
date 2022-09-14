@@ -12,6 +12,8 @@ import { verify } from 'jsonwebtoken'
 import type { PassportStatic } from 'passport'
 import { WebSocketServer } from 'ws'
 
+import { GRAPHQL_WS_CLOSE_STATUS } from '@online-library/tools'
+
 import { CODEGEN, JWT_KEY, NODE_ENV } from 'config'
 
 import { schema } from 'gql/schema'
@@ -47,7 +49,7 @@ export const initializeGraphQL = async (
                const authToken = getCookie(extra.request.headers.cookie, 'authToken')
                verify(authToken, JWT_KEY) as AuthTokenData
             } catch (error) {
-               extra.socket.close(4401)
+               extra.socket.close(GRAPHQL_WS_CLOSE_STATUS)
             }
          },
       },
@@ -74,6 +76,7 @@ export const initializeGraphQL = async (
       context: ({ req, res }: GraphqlContext) => ({
          req,
          res,
+         pubsub,
       }),
       csrfPrevention: true,
       persistedQueries: false,

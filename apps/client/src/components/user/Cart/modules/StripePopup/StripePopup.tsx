@@ -27,7 +27,7 @@ export const StripePopup = ({ price, setShouldStripePopupAppear }: StripePopupPr
       <PopupContainer>
          <StyledBookPopup.ContentContainer withLessHeight isKeyboardOpened={isKeyboardOpened}>
             <StyledBookPopup.Content withoutMargin>
-               <Header black>Enter your details and submit payment</Header>
+               <Header black>Enter details and submit payment</Header>
                <Styled.CardContainer>
                   <CardElement
                      options={cardElementOptions}

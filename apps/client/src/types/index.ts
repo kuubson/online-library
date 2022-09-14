@@ -4,6 +4,9 @@ import type { messageTypes } from '@online-library/tools'
 
 import type { Book } from 'gql'
 
+import type { AnyFBType } from './any'
+
+export * from './any'
 export * from './api'
 
 export type GraphqlError = GraphQLError & {
@@ -21,7 +24,7 @@ export type ApiError = {
    request: unknown
 }
 
-export type FBType = any
+export type FBType = AnyFBType
 
 export type FBStatus = {
    status: string

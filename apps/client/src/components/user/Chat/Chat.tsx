@@ -6,7 +6,7 @@ import { Button, UserContent, Warning } from 'components/shared/styled'
 
 import { Messages, ProgressLoader } from './modules'
 
-import { useMessagesInfo } from 'hooks'
+import { useChatDetails } from 'hooks'
 
 import { useChat } from './hooks'
 
@@ -17,7 +17,7 @@ type ChatProps = {
 }
 
 export const Chat = ({ shouldMenuExpand }: ChatProps) => {
-   const { lastUnreadMessageIndex } = useMessagesInfo()
+   const { lastUnreadMessageIndex } = useChatDetails()
 
    const textareaRef = useRef<HTMLTextAreaElement>(null)
 
@@ -67,7 +67,7 @@ export const Chat = ({ shouldMenuExpand }: ChatProps) => {
    return (
       <ChatContainer shouldMenuExpand={shouldMenuExpand} areThereMessages={areThereMessages}>
          {!loading && lastUnreadMessageIndex && messages.length < lastUnreadMessageIndex && (
-            <Styled.MessagesInfo onClick={getUnreadMessages}>Unread messages</Styled.MessagesInfo>
+            <Styled.Details onClick={getUnreadMessages}>Unread messages</Styled.Details>
          )}
          {!loading &&
             (areThereMessages ? (
@@ -89,7 +89,7 @@ export const Chat = ({ shouldMenuExpand }: ChatProps) => {
             <Styled.Textarea
                ref={textareaRef}
                value={message}
-               placeholder="Type your message..."
+               placeholder="Enter message..."
                disabled={fileUploadInProgess}
                onChange={event => setMessage(event.target.value)}
                onFocus={() => scrollToLastMessage(500)}

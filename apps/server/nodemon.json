@@ -1,4 +1,4 @@
 {
-   "ext": "ts,gql",
+   "ext": "ts,gql,json",
    "ignore": ["./database/generated/"]
 }

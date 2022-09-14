@@ -4,15 +4,16 @@ import { multerFile } from 'middlewares'
 
 import { reduceImageSize } from 'helpers'
 
-import type { InitialBody, InitialCookies, Middleware } from 'types/express'
+import type { InitialBody, InitialCookies, InitialQuery, Middleware } from 'types/express'
 
-const { header, errors } = API['/api/user/chat/file'].post
+const { header, errors } = API['/api/user/chat/files'].post
 
-export const handleMulterFile: Middleware<InitialBody, InitialCookies, 'protected'> = (
-   req,
-   res,
-   next
-) =>
+export const handleMulterFile: Middleware<
+   InitialBody,
+   InitialCookies,
+   InitialQuery,
+   'protected'
+> = (req, res, next) =>
    multerFile.single('file')(req, res, () => {
       try {
          if (!req.file) {

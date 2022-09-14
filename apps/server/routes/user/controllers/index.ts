@@ -6,21 +6,16 @@ import { Auth } from './Auth'
 import { Books } from './Books'
 import { Cart } from './Cart'
 import { Chat } from './Chat'
-import { Global } from './Global'
 
 export const UserController = Router()
 
 UserController.use(
    /*
    #swagger.tags = ['Auth (rate limited)']
-   #swagger.responses[422] = {
-      description: 'Data validation failed',   
-   } 
-   #swagger.responses[429] = {
-      description: 'Too many requests',   
-   } 
+   #swagger.responses[422] = { $ref: "#/definitions/422@data-validation" }
+   #swagger.responses[429] = { $ref: "#/definitions/429@rate-limit" }
 */
-   '/api/user/auth/',
+   '/api/user/auth',
    rateLimiter(),
    Auth
 )
@@ -28,43 +23,32 @@ UserController.use(
 UserController.use(
    /*
    #swagger.tags = ['Books']
-   #swagger.security = [{ "token": [] }]    
+   #swagger.responses[422] = { $ref: "#/definitions/422@data-validation" }
+   #swagger.security = [{ "authToken": [] }]    
 */
-   '/api/user/books/',
+   '/api/user/books',
    jwtAuthorization,
    Books
 )
+
 UserController.use(
    /*
    #swagger.tags = ['Cart']
-   #swagger.responses[422] = {
-      description: 'Data validation failed',   
-   } 
-   #swagger.security = [{ "token": [] }]    
+   #swagger.responses[422] = { $ref: "#/definitions/422@data-validation" }
+   #swagger.security = [{ "authToken": [] }]    
 */
-   '/api/user/cart/',
+   '/api/user/cart',
    jwtAuthorization,
    Cart
 )
+
 UserController.use(
    /*
    #swagger.tags = ['Chat']
-   #swagger.responses[422] = {
-      description: 'Data validation failed',   
-   } 
-   #swagger.security = [{ "token": [] }]    
+   #swagger.responses[422] = { $ref: "#/definitions/422@data-validation" }
+   #swagger.security = [{ "authToken": [] }]    
 */
-   '/api/user/chat/',
+   '/api/user/chat',
    jwtAuthorization,
    Chat
-)
-UserController.use(
-   /*
-   #swagger.tags = ['Global']
-   #swagger.responses[422] = {
-      description: 'Data validation failed',   
-   }
-*/
-   '/api/user/global/',
-   Global
 )

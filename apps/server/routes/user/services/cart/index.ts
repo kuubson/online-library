@@ -1,3 +1,3 @@
-export { createPayPalPayment } from './createPayPalPayment'
-export { executePayPalPayment } from './executePayPalPayment'
+export { paypalCheckout } from './paypalCheckout'
+export { paypalPayment } from './paypalPayment'
 export { stripePayment } from './stripePayment'

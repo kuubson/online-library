@@ -5,7 +5,7 @@ import { ApiFeedback, Loader, Location } from 'components/shared'
 
 import { Home } from 'components/guest/Home/Home'
 import { Login } from 'components/guest/Login/Login'
-import { PasswordRecovery } from 'components/guest/PasswordRecovery/PasswordRecovery'
+import { PasswordReset } from 'components/guest/PasswordReset/PasswordReset'
 import { Registration } from 'components/guest/Registration/Registration'
 import { Support } from 'components/guest/Support/Support'
 import { Cart } from 'components/user/Cart/Cart'
@@ -79,7 +79,7 @@ export const App = () => {
                path="/password-recovery/:passwordToken"
                element={
                   <Guest>
-                     <PasswordRecovery />
+                     <PasswordReset />
                   </Guest>
                }
             />

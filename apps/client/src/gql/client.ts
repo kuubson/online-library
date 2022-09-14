@@ -3,8 +3,9 @@ import { onError } from '@apollo/client/link/error'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { createClient } from 'graphql-ws'
+import type { CloseEvent } from 'ws'
 
-import { API, AuthError, ConnectivityError } from '@online-library/tools'
+import { API, AuthError, ConnectivityError, GRAPHQL_WS_CLOSE_STATUS } from '@online-library/tools'
 
 import { NODE_ENV } from 'config'
 
@@ -14,16 +15,16 @@ import { debounceLoader, defaultAxios, history, resetLoader, websocketUrl } from
 
 import type { GraphqlError } from 'types'
 
-const handleOnClosed = (event: any) => {
-   if (event.code === 4401) {
-      client.clearStore()
-   }
-}
-
 const webSocketLink = new GraphQLWsLink(
    createClient({
       url: websocketUrl,
-      on: { closed: handleOnClosed },
+      on: {
+         closed: (event: CloseEvent | unknown) => {
+            if ((event as CloseEvent).code === GRAPHQL_WS_CLOSE_STATUS) {
+               client.clearStore()
+            }
+         },
+      },
    })
 )
 
@@ -59,15 +60,18 @@ const handleError = onError(({ graphQLErrors, networkError }) => {
    if (graphQLErrors) {
       const [{ extensions }] = graphQLErrors
 
-      const exception = extensions.exception as GraphqlError['exception']
+      const exception = extensions?.exception as GraphqlError['exception']
 
-      setApiFeedback(exception.errorHeader, exception.errorMessage)
+      setApiFeedback(
+         exception?.errorHeader || ConnectivityError.errorHeader,
+         exception?.errorMessage || ConnectivityError.errorMessage
+      )
    }
 
    if (networkError) {
       if ('statusCode' in networkError) {
          if (networkError.statusCode === 401) {
-            const { request } = API['/api/user/global/logout'].get
+            const { request } = API['/api/logout'].get
             defaultAxios(request).then(() => {
                setApiFeedback(AuthError.errorHeader, AuthError.errorMessage)
                history.push('/login')
