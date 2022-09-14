@@ -1356,7 +1356,7 @@
         "in": "cookie",
         "name": "authToken",
         "type": "apiKey",
-        "description": "Auth token (jwt) generated with /login or /loginWithFb"
+        "description": "Auth token (jwt) generated with /login or /login/fb"
       }
     }
   }
