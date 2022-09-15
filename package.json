@@ -2,12 +2,11 @@
    "name": "@online-library/root",
    "private": true,
    "scripts": {
-      "docs": "yarn workspace @online-library/server docs",
       "dev": "turbo run dev",
-      "predev": "yarn docs",
       "lint": "turbo run lint",
       "test": "turbo run test",
       "build": "turbo run build",
+      "docs": "yarn workspace @online-library/server docs",
       "codegen": "graphql-codegen",
       "packages": "turbo run build --filter=./packages/* --force",
       "postinstall": "yarn packages && yarn docs && yarn packages",
