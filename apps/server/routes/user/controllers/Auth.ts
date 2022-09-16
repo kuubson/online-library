@@ -18,9 +18,9 @@ Auth.post(
    /**
       #swagger.summary = "Account registration"
       #swagger.description = `
-         ✅ Checks if user already exist <br />
-         ✅ Generates an <b>activation token</b> <br />
-         ✅ Sends link with the <b>token</b> to allow user activate his account <br />
+         ✔️ Checks if user already exist <br />
+         ✔️ Generates an <b>activation token</b> <br />
+         ✔️ Sends link with the <b>token</b> to allow user activate his account <br />
       `
       #swagger.requestBody = {
          required: true,
@@ -38,8 +38,8 @@ Auth.patch(
    /**
       #swagger.summary = "Account activation"
       #swagger.description = `
-         ✅ Check if user already activated his account <br />
-         ✅ Toggles account as activated if it's not alread <br />
+         ✔️ Check if user already activated his account <br />
+         ✔️ Toggles account as activated if it's not alread <br />
       `
       #swagger.requestBody = {
          required: true,
@@ -57,9 +57,9 @@ Auth.post(
    /**
       #swagger.summary = "Account activation token"
       #swagger.description = `
-         ✅ Ensures user with provided email address exists <br />
-         ✅ Rejects resending activation token if account is already activate <br />
-         ✅ Sends new activation token to the use <br />
+         ✔️ Ensures user with provided email address exists <br />
+         ✔️ Rejects resending activation token if account is already activate <br />
+         ✔️ Sends new activation token to the use <br />
       `
       #swagger.requestBody = {
          required: true,
@@ -78,9 +78,9 @@ Auth.post(
    /**
       #swagger.summary = "Authentication"
       #swagger.description = `
-         ✅ Checks given email and password <br />
-         ✅ Check if account is activated <br />
-         ✅ Sends auth token, that expires in 24h, if credentials are ok<br />
+         ✔️ Checks given email and password <br />
+         ✔️ Check if account is activated <br />
+         ✔️ Sends auth token, that expires in 24h, if credentials are ok<br />
       `
       #swagger.requestBody = {
          required: true,
@@ -98,8 +98,8 @@ Auth.post(
    /**
       #swagger.summary = "Authentication"
       #swagger.description = `
-         ✅ Verifies <b>access token</b> provided by FB auth <br />
-         ✅ Sends <b>auth token</b>, that expires in 24h, for either already existing user or newly created one <br />
+         ✔️ Verifies <b>access token</b> provided by FB auth <br />
+         ✔️ Sends <b>auth token</b>, that expires in 24h, for either already existing user or newly created one <br />
       `
       #swagger.requestBody = {
          required: true,
@@ -118,9 +118,9 @@ Auth.route('/password')
       /**
       #swagger.summary = "Password reset request"
       #swagger.description = `
-         ✅ Checks if any user belongs to provided email address <br />
-         ✅ Makes sure that user account is activated <br />
-         ✅ Generates <b>password token</b> to authorize changing password in the next step (password form) <br />
+         ✔️ Checks if any user belongs to provided email address <br />
+         ✔️ Makes sure that user account is activated <br />
+         ✔️ Generates <b>password token</b> to authorize changing password in the next step (password form) <br />
       `
       #swagger.requestBody = {
          required: true,
@@ -137,7 +137,7 @@ Auth.route('/password')
       /**
       #swagger.summary = "Password change"
       #swagger.description = `
-         ✅ Changes user password <br />
+         ✔️ Changes user password <br />
       `
       #swagger.requestBody = {
          required: true,

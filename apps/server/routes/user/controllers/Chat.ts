@@ -17,8 +17,8 @@ Chat.route('/messages')
       /**
       #swagger.summary = "Chat messages"
       #swagger.description = `
-         ✅ Returns some of the previous messages (implements infinite scroll) <br />
-         ✅ Mark messages as read by user that requested this endpoint <br />
+         ✔️ Returns some of the previous messages (implements infinite scroll) <br />
+         ✔️ Mark messages as read by user that requested this endpoint <br />
       `
       #swagger.parameters['obj'] = {
          in: 'query',
@@ -36,8 +36,8 @@ Chat.route('/messages')
       /**
       #swagger.summary = "Sending message"
       #swagger.description = `
-         ✅ Sends text message to others <br />
-         ✅ Sends push notification <br />
+         ✔️ Sends text message to others <br />
+         ✔️ Sends push notification <br />
       `
       #swagger.requestBody = {
          required: true,
@@ -52,11 +52,11 @@ Chat.post(
    /**
       #swagger.summary = "Sending file"
       #swagger.description = `
-         ✅ If file is an image it reduces its size <br />
-         ✅ Validates size & extension of the file <br />
-         ✅ Uploads file to cloudinary <br />
-         ✅ Sends file / image / video to others <br />
-         ✅ Sends proper push notification <br />
+         ✔️ If file is an image it reduces its size <br />
+         ✔️ Validates size & extension of the file <br />
+         ✔️ Uploads file to cloudinary <br />
+         ✔️ Sends file / image / video to others <br />
+         ✔️ Sends proper push notification <br />
       `
       #swagger.requestBody = {
          required: true,
@@ -79,8 +79,8 @@ Chat.post(
    /**
       #swagger.summary = "Push notifications"
       #swagger.description = `
-         ✅ Stores web push subscription detail in the database <br />
-         ✅ Creates many subscriptions per user (user can use multiple devices) <br />
+         ✔️ Stores web push subscription detail in the database <br />
+         ✔️ Creates many subscriptions per user (user can use multiple devices) <br />
       `
       #swagger.requestBody = {
          required: true,
@@ -96,9 +96,9 @@ Chat.get(
    /**
       #swagger.summary = "Chat details"
       #swagger.description = `
-         ✅ Returns info related to chatting <br />
-         ✅ Counts how many messages user missed since last view <br />
-         ✅ Returns index of last undread message so user can easily scroll to it <br />
+         ✔️ Returns info related to chatting <br />
+         ✔️ Counts how many messages user missed since last view <br />
+         ✔️ Returns index of last undread message so user can easily scroll to it <br />
       `
       #swagger.responses[200] = { 
          description: 'Details returned',

@@ -8,8 +8,8 @@ Books.get(
    /**
       #swagger.summary = "Books searcher"
       #swagger.description = `
-         ✅ Suggest books by author or title <br />
-         ✅ Searches either books assigned to the user or from the whole store <br />
+         ✔️ Suggest books by author or title <br />
+         ✔️ Searches either books assigned to the user or from the whole store <br />
       `
       #swagger.parameters['obj'] = {
          in: 'query',

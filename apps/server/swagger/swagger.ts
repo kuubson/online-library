@@ -30,7 +30,7 @@ swaggerAutogen({ openapi: '3.0.0' })(
    doc
 ).then(({ success }: SwaggerAutogenPromise) => {
    if (success) {
-      console.log('📄✅ API docs has been generated')
+      console.log('📄✔️ API docs has been generated')
    } else {
       console.log('📄❌ Generating API docs has failed')
    }

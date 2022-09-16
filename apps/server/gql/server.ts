@@ -29,7 +29,7 @@ export const initializeGraphQL = async (
    server: Server,
    passport: PassportStatic
 ) => {
-   if (!CODEGEN) {
+   if (!CODEGEN || NODE_ENV === 'production') {
       app.use('/graphql', (...args) => gqlAuthorization(passport)(...args))
    }
 

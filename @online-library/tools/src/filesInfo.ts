@@ -5,9 +5,9 @@ const regex = {
 }
 
 const sizes = {
-   maxImageSize: 31457280, // 30 mb
-   maxVideoSize: 52428800, // 50 mb
-   maxFileSize: 10485760, // 10 mb
+   maxImageSize: 31457280, // 30MB
+   maxVideoSize: 52428800, // 50MB
+   maxFileSize: 10485760, // 10MB
 }
 
 export const filesInfo = {

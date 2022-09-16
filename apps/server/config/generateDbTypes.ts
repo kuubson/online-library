@@ -22,5 +22,5 @@ export const generateDbTypes = async (connection: Sequelize) => {
       DATABASE_PASSWORD,
       sequelizeAutoConfig
    ).run()
-   console.log('✅ Database types generated')
+   console.log('✔️ Database types generated')
 }

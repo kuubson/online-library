@@ -7,7 +7,7 @@ export const seedBooks = async (amount: number) => {
 
    await Promise.all(books.map(book => book.destroy()))
 
-   console.log('✅ Old books wiped out')
+   console.log('✔️ Old books wiped out')
 
    for (let x = 0; x < amount; x++) {
       console.log(`📚 ${x + 1}/${amount} books added`)
@@ -22,5 +22,5 @@ export const seedBooks = async (amount: number) => {
       })
    }
 
-   console.log('✅ New books seeded')
+   console.log('✔️ New books seeded')
 }
