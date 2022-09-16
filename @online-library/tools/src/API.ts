@@ -7,20 +7,22 @@ import type { Method } from '../types'
 import { default as swagger } from '../../../apps/server/swagger/swagger.json'
 import { yup } from './yup'
 
+type Paths = typeof swagger.paths
+
 const addValidation = <
-   Path extends keyof typeof swagger.paths,
-   Validation extends Partial<Record<keyof typeof swagger.paths[Path], OptionalObjectSchema<any>>>
+   Path extends keyof Paths,
+   Validation extends Partial<Record<keyof Paths[Path], OptionalObjectSchema<any>>>
 >(
    path: Path,
    payload: Validation
 ) => {
-   const methods = mapValues(payload, (validation, method: keyof typeof swagger.paths[Path]) => ({
+   const methods = mapValues(payload, (validation, method: keyof Paths[Path]) => ({
       ...swagger.paths[path][method],
       validation,
    }))
    return { [path]: methods } as {
       [key in Path]: {
-         [method in keyof typeof swagger.paths[Path]]: typeof swagger.paths[Path][method] & {
+         [method in keyof Paths[Path]]: Paths[Path][method] & {
             validation: Validation[method]
          }
       }
@@ -154,11 +156,9 @@ export const API = mapValues(API_PATHS, (methods, path) => ({
  * API type guard = makes sure that keys of "paths" match keys of "swagger.paths" ~~~> API.ts stays more refactorproof
  */
 
-type SWAGGER = typeof swagger.paths
-
 type API_PATHS_WITH_VALIDATION = {
-   [path in keyof SWAGGER]: {
-      [method in keyof SWAGGER[path]]: SWAGGER[path][method] & {
+   [path in keyof Paths]: {
+      [method in keyof Paths[path]]: Paths[path][method] & {
          validation: OptionalObjectSchema<any>
       }
    }
@@ -167,5 +167,5 @@ type API_PATHS_WITH_VALIDATION = {
 // if it is red, it means that the keys that you put manually into API_PATHS are not matched with what backend API exposes
 
 declare function _(api: API): api is {
-   [key in keyof typeof swagger.paths]: API_PATHS_WITH_VALIDATION[key]
+   [key in keyof Paths]: API_PATHS_WITH_VALIDATION[key]
 }
