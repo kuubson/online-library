@@ -110,7 +110,7 @@ https://user-images.githubusercontent.com/38701627/190345831-c926f6e7-16c9-4598-
 | ------------------ | ------------------------------------------------- | ------------------------ | --------------------------- | -------------------------- |
 | `yarn dev`         | runs each app & watch-build each package          | watch-build package      | runs react app              | runs nodemon for server.ts |
 | `yarn lint`        | lint & ts check each app & package                | lint & ts check          | lint & ts & stylelint check | lint & ts check            |
-| `yarn test`        | run tests of all apps & packages only once        | x                        | runs RTL test once          | x                          |
+| `yarn test`        | run tests of all apps & lib only once             | x                        | runs RTL test once          | x                          |
 | `yarn test:watch`  | x                                                 | x                        | watch-runs RTL tests        | x                          |
 | `yarn build`       | builds each app & package                         | builds package with tsup | builds react app            | build express server       |
 | `yarn docs`        | generates docs for API (@online-library/server)   | x                        | x                           | x                          |
@@ -123,17 +123,17 @@ https://user-images.githubusercontent.com/38701627/190345831-c926f6e7-16c9-4598-
 
 ```mermaid
 graph TD
-apps-->client("@online-library/client")
-apps-->native("@online-library/native")
-apps-->server("@online-library/server")
+apps-->client(web)
+apps-->native(native)
+apps-->server{{server}}
 
-tools("@online-library/tools")-->packages
-eslint-config-custom-->packages
+tools(tools)-->lib
+eslint-config(eslint-config)-->lib
 
-packages-->apps((apps))
+lib-->apps((apps))
 
 turborepo[\turborepo/]-->apps
-turborepo-->packages((packages))
+turborepo-->lib(("@online-library"))
 
 heroku[\heroku/]-->db[("sequelize (postgresql)")]
 
@@ -143,13 +143,16 @@ heroku-->server
 
 server-->api{api}
 
-apollo-->graphql
+auth([auth])-->api{api}
+jwt-->auth
 
-express-->api
+apollo-->graphql([graphql])
+
+express([express])-->api
 graphql-->api
 
-docs([docs])-->express
-swagger-->docs
+swagger-->express
+docs-->swagger
 
 api-->client
 api-->native

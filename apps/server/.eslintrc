@@ -1,1 +1,1 @@
-{ "extends": ["custom"] }
+{ "extends": ["@online-library/eslint-config"] }

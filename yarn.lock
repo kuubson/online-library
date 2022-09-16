@@ -2759,7 +2759,7 @@
 
 "@trivago/prettier-plugin-sort-imports@^3.3.0":
   version "3.3.0"
-  resolved "https://registry.npmjs.org/@trivago/prettier-plugin-sort-imports/-/prettier-plugin-sort-imports-3.3.0.tgz"
+  resolved "https://registry.yarnpkg.com/@trivago/prettier-plugin-sort-imports/-/prettier-plugin-sort-imports-3.3.0.tgz#ee4e9ec1d8e3076b95fcb94311f42f7a61eecd37"
   integrity sha512-1y44bVZuIN0RsS3oIiGd5k8Vm3IZXYZnp4VsP2Z/S5L9WAOw43HE2clso66M2S/dDeJ+8sKPqnHsEfh39Vjs3w==
   dependencies:
     "@babel/core" "7.17.8"
@@ -10679,6 +10679,11 @@ prettier-linter-helpers@^1.0.0:
   integrity sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==
   dependencies:
     fast-diff "^1.1.2"
+
+prettier@@online-library/prettier-config:
+  version "3.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.0.0-alpha.0.tgz#d4489d1c83e400ba63b9c64d593133e390ffec40"
+  integrity sha512-S1pm0PyEOc0KWtO4YRf0Hz5+Wh8vj/p7iFpdxcJd7Vhdu9jo/fBE8JZdOVx4WRN4oK4cpqtrsaESNIBQ21vGKA==
 
 prettier@^2.7.1:
   version "2.7.1"

@@ -1,6 +1,6 @@
 {
    "settings": { "react": { "version": "18.2.0" } },
-   "extends": ["custom", "plugin:react/recommended"],
+   "extends": ["@online-library/eslint-config", "plugin:react/recommended"],
    "rules": {
       "@typescript-eslint/ban-types": "warn",
       "react/no-unescaped-entities": "warn",

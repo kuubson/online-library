@@ -8,13 +8,13 @@
       "build": "turbo run build",
       "docs": "yarn workspace @online-library/server docs",
       "codegen": "graphql-codegen",
-      "packages": "turbo run build --filter=./packages/* --force",
-      "postinstall": "yarn packages && yarn docs && yarn packages",
+      "lib": "turbo run build --filter=./@online-library/* --force",
+      "postinstall": "yarn lib && yarn docs && yarn lib",
       "prepare": "husky install"
    },
    "workspaces": [
       "apps/*",
-      "packages/*"
+      "@online-library/*"
    ],
    "dependencies": {
       "@graphql-codegen/add": "^3.2.1",

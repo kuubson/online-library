@@ -11,7 +11,7 @@
    "importOrder": [
       "<THIRD_PARTY_MODULES>",
 
-      "online-library",
+      "@online-library/tools",
 
       "^dotenv(.*)",
       "^./config/aliases$",

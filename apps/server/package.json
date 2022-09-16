@@ -69,7 +69,7 @@
       "copyfiles": "^2.4.1",
       "cross-env": "^7.0.3",
       "dotenv": "^16.0.2",
-      "eslint-config-custom": "*",
+      "@online-library/eslint-config": "*",
       "nodemon": "^2.0.19",
       "sequelize-auto": "^0.8.8",
       "ts-node": "^10.9.1"
