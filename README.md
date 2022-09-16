@@ -1,6 +1,17 @@
+<div align="center">
+    <img src="online-library.svg" >
+</div>
+
+<div align="center">
+
+| [Stack](#-technologies--tools) | [Notes](#-some-notes) | [Automation](#-automation) | [Tools](#-side-tools) | [Docs](#-documentation) | [Flow](#-flow) | [Goals](#-future-goals) | [Preview](#-app-preview) | [Scripts](#-root-scripts) | [Env](#-environment-variables) |
+| ------------------------------ | --------------------- | -------------------------- | --------------------- | ----------------------- | -------------- | ----------------------- | ------------------------ | ------------------------- | ------------------------------ |
+
+</div>
+
 # 💻 Sample js fullstack app (monorepo)
 
-## 🛠️ Technologies & tools
+## 🔧 Technologies & tools
 
 -  **TS** (mapped types, method overloads, type guards)
 -  **react.js** ⚛️ + **redux** (hooks, CRA) + **RTL** for testing
@@ -22,9 +33,9 @@
 
 ## 📄 Some notes
 
-Sample, **bleeding-edge technologies driven** 💯, fullstack app, [hosted](https://online-library-application.herokuapp.com) on **Heroku** 📡
+> **Note** Sample, **bleeding-edge technologies driven** 💯, fullstack app, [hosted](https://online-library-application.herokuapp.com) on **Heroku** 📡.
 
-Acts as a **fake store** with possibility to chat with other users:
+Acts as a **fake store** with possibility to chat 💬 with other users:
 
 -  account registration, fb / credentials login
 -  **user support** (forgot password, lost activation link)
@@ -52,9 +63,9 @@ Acts as a **fake store** with possibility to chat with other users:
 -  [@faker-js/faker](https://fakerjs.dev/guide/) for seeding db with fake data
 -  [picsum.photos](https://picsum.photos) for generating random images
 
-## 🛡️ Documentation
+## 🛡 Documentation
 
-Docs are available in the development environment
+> **Note** Docs are available in the development environment
 
 -  [REST API](http://localhost:3001/api-docs) - well documented using **OpenAPI** specification
 
@@ -112,7 +123,7 @@ api-->native
 -  replace errors popup with **react-toastify**
 -  tweak seeding db flow
 
-## 📺 Preview
+## 📺 App preview
 
 | Registration                                                                                                           | Login form                                                                                                           | Sample error                                                                                                    |
 | ---------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
@@ -126,9 +137,9 @@ api-->native
 | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | ![chat](https://user-images.githubusercontent.com/38701627/190213605-faccbbd6-cd74-4e44-bfe5-944cf1019e67.png) | ![cart](https://user-images.githubusercontent.com/38701627/190213811-bc6236ca-0de5-499b-9455-c434bbb144bb.png) | ![cart-stripe](https://user-images.githubusercontent.com/38701627/190213822-11bdd6ab-e4cd-40e6-87f1-805c229806be.png) |
 
-## ⌨️ Root scripts
+## ⌨ Root scripts
 
-To run locally, fill `.env` (see [Environment variables](#-environment-variables) and `.env-example`) and trigger `yarn dev`
+> **Note** To run locally, fill `.env` (see [Environment variables](#-environment-variables) and `.env-example`) and trigger `yarn dev`
 
 | command            | root[^r]                                                                                                                                    |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -149,7 +160,7 @@ To run locally, fill `.env` (see [Environment variables](#-environment-variables
 [^codegen]: must be set to `true` if using **graphql-codegen** (`yarn codegen`) - it skips jwt auth
 [^order]: before generating API docs, the lib must be built (otherwise it throws errors) **AND** before lib is built, the API docs must be fresh (because lib depends on API docs)
 
-## ⚙️ Other scripts
+## ⚙ Other scripts
 
 | command           | tools[^t]                            | web[^w]                     | server[^s]                                                                                                         |
 | ----------------- | ------------------------------------ | --------------------------- | ------------------------------------------------------------------------------------------------------------------ |
@@ -162,7 +173,7 @@ To run locally, fill `.env` (see [Environment variables](#-environment-variables
 
 ## 🔒 Environment variables
 
-If **Heroku** struggles with the build, set `YARN_PRODUCTION` to `false`
+> **Warning** If **Heroku** struggles with the build, set `YARN_PRODUCTION` to `false`
 
 | variable                                                                | server[^s]          | web[^w]                            | details                                                                                                       |
 | ----------------------------------------------------------------------- | ------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------- |
