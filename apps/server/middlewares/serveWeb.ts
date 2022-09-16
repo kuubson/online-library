@@ -4,10 +4,10 @@ import path from 'path'
 
 import { initializeCsrf } from './csrf'
 
-export const serveClient = async (app: Application) => {
+export const serveWeb = async (app: Application) => {
    initializeCsrf(app)
 
-   const buildPath = '../../../client/build'
+   const buildPath = '../../../web/build'
 
    app.use(express.static(path.resolve(__dirname, buildPath)))
 

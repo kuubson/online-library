@@ -33,7 +33,7 @@ export { handleMulterFile } from './handleMulterFile'
 export { jwtAuthorization } from './jwtAuthorization'
 export { multerFile } from './multerFile'
 export { rateLimiter } from './rateLimiter'
-export { serveClient } from './serveClient'
+export { serveWeb } from './serveWeb'
 export { unless } from './unless'
 export { yupValidation } from './yupValidation'
 

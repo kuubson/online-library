@@ -9,7 +9,7 @@ import { NODE_ENV, PORT } from 'config'
 
 import 'database'
 
-import { formatErrors, initializeMiddlewares, serveClient } from 'middlewares'
+import { formatErrors, initializeMiddlewares, serveWeb } from 'middlewares'
 
 import { router } from 'routes'
 
@@ -24,7 +24,7 @@ app.use(router)
 formatErrors(app)
 
 if (NODE_ENV === 'production') {
-   serveClient(app)
+   serveWeb(app)
 }
 
 server.listen(PORT || 3001, () => console.log(`🚀 Server has launched`))
