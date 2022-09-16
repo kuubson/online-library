@@ -1,15 +1,7 @@
-<div align="center">
-    <img src="online-library.svg" >
-</div>
-
-<div align="center">
-
-| [Stack](#-technologies--tools) | [Notes](#-some-notes) | [Automation](#-automation) | [Tools](#-side-tools) | [Docs](#-documentation) | [Flow](#-flow) | [Goals](#-future-goals) | [Preview](#-app-preview) | [Scripts](#-root-scripts) | [Env](#-environment-variables) |
-| ------------------------------ | --------------------- | -------------------------- | --------------------- | ----------------------- | -------------- | ----------------------- | ------------------------ | ------------------------- | ------------------------------ |
-
-</div>
-
 # 💻 Sample js fullstack app (monorepo)
+
+| [Stack](#-technologies--tools) | [Notes](#-some-notes) | [Automation](#-automation) | [Tools](#-side-tools) | [Docs](#-documentation) | [Flow](#-flow) | [Future goals](#-future-goals) | [App preview](#-app-preview) | [Scripts](#-root-scripts) | [Env](#-environment-variables) |
+| ------------------------------ | --------------------- | -------------------------- | --------------------- | ----------------------- | -------------- | ------------------------------ | ---------------------------- | ------------------------- | ------------------------------ |
 
 ## 🔧 Technologies & tools
 
