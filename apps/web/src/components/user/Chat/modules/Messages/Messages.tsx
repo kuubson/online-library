@@ -1,10 +1,14 @@
 /* eslint-disable react/display-name */
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useEffect, useRef } from 'react'
 import styled from 'styled-components/macro'
 
 import { queries } from 'styles'
 
 import { fadeIn } from 'assets/animations'
+
+import { usePrevious } from 'hooks'
+
+import { isChatInitialLoad } from 'helpers'
 
 import type { MessageType } from 'types'
 
@@ -16,7 +20,7 @@ type MessagesProps = {
    messages: MessageType[]
    currentUserId: string | undefined
    onTouchStart: () => void
-   onScroll: (event: React.UIEvent<HTMLDivElement>) => Promise<void>
+   onScroll: (event: React.UIEvent<HTMLDivElement>) => void
    scrollToLastMessage: (delay: number) => void
 }
 
@@ -24,21 +28,38 @@ export const Messages = forwardRef<HTMLDivElement, MessagesProps>(
    (
       { endOfMessages, messages, currentUserId, onTouchStart, onScroll, scrollToLastMessage },
       ref
-   ) => (
-      <MessagesContainer ref={ref} onTouchStart={onTouchStart} onScroll={onScroll}>
-         {messages.map((message, index) => (
-            <Message
-               key={message.id}
-               {...message}
-               currentUserId={currentUserId}
-               nextMessage={messages[index + 1]}
-               scrollToLastMessage={scrollToLastMessage}
-               withLastMessage={index === messages.length - 1}
-            />
-         ))}
-         <div ref={endOfMessages}></div>
-      </MessagesContainer>
-   )
+   ) => {
+      const previousChat = usePrevious(messages)
+
+      const lastMessageBeforeFetch = useRef<HTMLDivElement>(null)
+
+      useEffect(() => {
+         if (lastMessageBeforeFetch.current) {
+            lastMessageBeforeFetch.current.scrollIntoView()
+         }
+      }, [messages])
+
+      return (
+         <MessagesContainer ref={ref} onTouchStart={onTouchStart} onScroll={onScroll}>
+            {messages.map((message, index) => {
+               const isLastMessageBeforeFetch =
+                  !isChatInitialLoad(messages) && message.id === previousChat?.[0]?.id
+               return (
+                  <Message
+                     ref={isLastMessageBeforeFetch ? lastMessageBeforeFetch : null}
+                     key={message.id}
+                     {...message}
+                     currentUserId={currentUserId}
+                     nextMessage={messages[index + 1]}
+                     scrollToLastMessage={scrollToLastMessage}
+                     withLastMessage={index === messages.length - 1}
+                  />
+               )
+            })}
+            <div ref={endOfMessages}></div>
+         </MessagesContainer>
+      )
+   }
 )
 
 const MessagesContainer = styled.div`

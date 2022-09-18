@@ -1,11 +1,18 @@
+import { debounce } from 'lodash'
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 
-import { API, filesInfo } from '@online-library/tools'
+import { API, MESSAGES_FETCH_LIMIT, filesInfo } from '@online-library/tools'
 
 import { useChatDetails, useSocket } from 'hooks'
 
-import { handleApiError, setApiFeedback, subscribePushNotifications } from 'helpers'
+import {
+   detectMobileDevice,
+   handleApiError,
+   isChatInitialLoad,
+   setApiFeedback,
+   subscribePushNotifications,
+} from 'helpers'
 
 import { apiAxios, defaultAxios } from 'utils'
 
@@ -16,13 +23,14 @@ const { request, validation } = API['/api/user/chat/messages'].get
 let uploadProgressInterval: ReturnType<typeof setInterval>
 
 type UseChatProps = {
-   setLoading: ReactDispatch<boolean>
    setShowFileInput: ReactDispatch<boolean>
    setPercentage: ReactDispatch<number>
 }
 
-export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChatProps) => {
+export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
    const { socket } = useSocket()
+
+   const [loading, setLoading] = useState(true)
 
    const { lastUnreadMessageIndex, setUnreadMessagesAmount } = useChatDetails()
 
@@ -34,70 +42,78 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
 
    const [messages, setMessages] = useState<MessageType[]>([])
    const [message, setMessage] = useState('')
+
    const [hasMoreMessages, setHasMoreMessages] = useState(true)
+   const [isChatScrollOnTop, setIsChatScrollOnTop] = useState(false)
 
-   const getMessages = async (
-      limit: number,
-      offset: number,
-      event: React.UIEvent<HTMLDivElement> | undefined
-   ) => {
-      if (event) {
-         const target = event.target as HTMLDivElement
-         if (target.scrollTop <= 0 && hasMoreMessages) {
-            const response = await apiAxios<typeof validation, MessagesResponse>(request, {
-               limit: limit.toString(),
-               offset: offset.toString(),
-            })
+   // TODO: prevent refreshing page on mobile, fix layout on mobile, tweak infinite loader
 
-            if (response) {
-               const { messages: loadedMessages } = response.data
+   const setChatScroll = (event: React.UIEvent<HTMLDivElement>) => {
+      const target = event.target as HTMLDivElement
 
-               setHasMoreMessages(loadedMessages.length !== 0)
+      const isChatScrollOnTop = target.scrollTop <= 0
 
-               const lastScroll = target.scrollHeight
+      setIsChatScrollOnTop(isChatScrollOnTop)
+   }
 
-               setMessages(messages => [...loadedMessages, ...messages])
+   const getMessages = async (limit: number, offset: number) => {
+      const response = await apiAxios<typeof validation, MessagesResponse>(request, {
+         limit: limit.toString(),
+         offset: offset.toString(),
+      })
 
-               target.scrollTop = target.scrollHeight - lastScroll
+      if (response) {
+         setLoading(false)
 
-               if (lastUnreadMessageIndex) {
-                  if (loadedMessages.length + messages.length >= lastUnreadMessageIndex) {
-                     setUnreadMessagesAmount(0)
-                  }
-               }
+         const { messages: fetchedMessages, userId, userName } = response.data
+
+         setHasMoreMessages(!!fetchedMessages.length)
+
+         setCurrentUserId(userId)
+         setCurrentUserName(userName)
+
+         const chat = [...messages]
+
+         fetchedMessages.map(message => {
+            if (!chat.includes(message)) {
+               chat.unshift(message)
+            }
+         })
+
+         setMessages(chat)
+
+         if (lastUnreadMessageIndex) {
+            if (chat.length >= lastUnreadMessageIndex) {
+               setUnreadMessagesAmount(0)
             }
          }
-      } else {
-         const response = await apiAxios<typeof validation, MessagesResponse>(request, {
-            limit: limit.toString(),
-            offset: offset.toString(),
-         })
-         if (response) {
-            setLoading(false)
 
-            const { messages, userId, userName } = response.data
-
-            setCurrentUserId(userId)
-            setCurrentUserName(userName)
-
-            setMessages(messages)
-
+         // scrolls to the bottom on initial load
+         if (isChatInitialLoad(chat)) {
             pushToLastMessage()
-
-            if (lastUnreadMessageIndex) {
-               if (messages.length >= lastUnreadMessageIndex) {
-                  setUnreadMessagesAmount(0)
-               }
-            }
          }
       }
    }
 
    useEffect(() => {
-      getMessages(20, 0, undefined)
-      setTimeout(() => {
-         subscribePushNotifications()
-      }, 2000)
+      const loadMoreMessages = () => {
+         if (!loading && hasMoreMessages) {
+            if (isChatScrollOnTop) {
+               getMessages(MESSAGES_FETCH_LIMIT, messages.length)
+            }
+         }
+      }
+
+      const debounceLoadMoreMessages = debounce(loadMoreMessages, 300)
+
+      window.addEventListener('wheel', debounceLoadMoreMessages)
+
+      return () => window.removeEventListener('wheel', debounceLoadMoreMessages)
+   }, [messages, hasMoreMessages, isChatScrollOnTop])
+
+   useEffect(() => {
+      setTimeout(() => subscribePushNotifications, 2000)
+      getMessages(MESSAGES_FETCH_LIMIT, 0)
    }, [])
 
    useEffect(() => {
@@ -111,14 +127,10 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
          socket?.emit('readMessages')
       }
 
-      if (socket) {
-         socket.on('sendMessage', handleOnSendMessage)
-      }
+      socket?.on('sendMessage', handleOnSendMessage)
 
       return () => {
-         if (socket) {
-            socket.off('sendMessage', handleOnSendMessage)
-         }
+         socket?.off('sendMessage', handleOnSendMessage)
       }
    }, [socket])
 
@@ -314,17 +326,35 @@ export const useChat = ({ setLoading, setShowFileInput, setPercentage }: UseChat
       }
    }
 
+   const handleOnKeyPress = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (event.key === 'Enter') {
+         switch (true) {
+            case detectMobileDevice() as boolean:
+               return
+            case !event.currentTarget.value.trim():
+               event.preventDefault()
+               break
+            case !event.shiftKey:
+               sendMessage()
+               break
+         }
+      }
+   }
+
    return {
       messagesRef,
       endOfMessages,
       currentUserId,
       messages,
       message,
+      loading,
       setMessage,
       getMessages,
       getUnreadMessages,
       sendMessage,
       sendFile,
       scrollToLastMessage,
+      handleOnKeyPress,
+      setChatScroll,
    }
 }

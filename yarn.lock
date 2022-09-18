@@ -10680,11 +10680,6 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@@online-library/prettier-config:
-  version "3.0.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.0.0-alpha.0.tgz#d4489d1c83e400ba63b9c64d593133e390ffec40"
-  integrity sha512-S1pm0PyEOc0KWtO4YRf0Hz5+Wh8vj/p7iFpdxcJd7Vhdu9jo/fBE8JZdOVx4WRN4oK4cpqtrsaESNIBQ21vGKA==
-
 prettier@^2.7.1:
   version "2.7.1"
   resolved "https://registry.npmjs.org/prettier/-/prettier-2.7.1.tgz"

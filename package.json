@@ -13,8 +13,8 @@
       "prepare": "husky install"
    },
    "workspaces": [
-      "apps/*",
-      "@online-library/*"
+      "@online-library/*",
+      "apps/*"
    ],
    "dependencies": {
       "@graphql-codegen/add": "^3.2.1",

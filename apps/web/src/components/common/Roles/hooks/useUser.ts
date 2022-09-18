@@ -74,13 +74,9 @@ export const useUser = (withChat: boolean | undefined) => {
    }
 
    useEffect(() => {
-      if (socket) {
-         socket.on('sendMessage', handleOnSendMessage)
-      }
+      socket?.on('sendMessage', handleOnSendMessage)
       return () => {
-         if (socket) {
-            socket.off('sendMessage', handleOnSendMessage)
-         }
+         socket?.off('sendMessage', handleOnSendMessage)
       }
    }, [socket, unreadMessagesAmount, currentUserId])
 

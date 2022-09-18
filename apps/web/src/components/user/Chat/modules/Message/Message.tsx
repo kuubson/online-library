@@ -1,5 +1,6 @@
+/* eslint-disable react/display-name */
 import fileSaver from 'file-saver'
-import { useEffect, useState } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components/macro'
 
 import * as Styled from './styled'
@@ -13,123 +14,129 @@ type MessageProps = {
    withLastMessage: boolean
 }
 
-export const Message = ({
-   type,
-   content,
-   filename,
-   userId,
-   user: { name },
-   createdAt,
-   currentUserId,
-   nextMessage,
-   scrollToLastMessage,
-   withLastMessage,
-}: MessageType & MessageProps) => {
-   const [shouldDetailsAppear, setShouldDetailsAppear] = useState(false)
-   const [imageError, setImageError] = useState(false)
-   const [videoError, setVideoError] = useState(false)
+export const Message = forwardRef<HTMLDivElement, MessageType & MessageProps>(
+   (
+      {
+         type,
+         content,
+         filename,
+         userId,
+         user: { name },
+         createdAt,
+         currentUserId,
+         nextMessage,
+         scrollToLastMessage,
+         withLastMessage,
+      },
+      ref
+   ) => {
+      const [shouldDetailsAppear, setShouldDetailsAppear] = useState(false)
+      const [imageError, setImageError] = useState(false)
+      const [videoError, setVideoError] = useState(false)
 
-   const date = new Date(createdAt)
+      const date = new Date(createdAt)
 
-   const withFile = type === 'FILE'
+      const withFile = type === 'FILE'
 
-   const withCurrentUser = userId === currentUserId
+      const withCurrentUser = userId === currentUserId
 
-   const withLastUserMessage = (nextMessage && userId !== nextMessage.userId) || !nextMessage
+      const withLastUserMessage = (nextMessage && userId !== nextMessage.userId) || !nextMessage
 
-   useEffect(() => {
-      scrollToTheBottom()
-   }, [])
+      useEffect(() => {
+         scrollToTheBottom()
+      }, [])
 
-   useEffect(() => {
-      if (shouldDetailsAppear) {
-         setTimeout(() => setShouldDetailsAppear(false), 3000)
+      useEffect(() => {
+         if (shouldDetailsAppear) {
+            setTimeout(() => setShouldDetailsAppear(false), 3000)
+         }
+      }, [shouldDetailsAppear])
+
+      const scrollToTheBottom = () => {
+         if (withLastMessage) {
+            scrollToLastMessage(0)
+         }
       }
-   }, [shouldDetailsAppear])
 
-   const scrollToTheBottom = () => {
-      if (withLastMessage) {
-         scrollToLastMessage(0)
+      const handleFileLoadingError = () => {
+         type === 'IMAGE' ? setImageError(true) : setVideoError(true)
       }
-   }
 
-   const handleFileLoadingError = () => {
-      type === 'IMAGE' ? setImageError(true) : setVideoError(true)
-   }
+      const showError = (error: string) => (
+         <Styled.Content
+            withCurrentUser={withCurrentUser}
+            withLastUserMessage={withLastUserMessage}
+            withError
+         >
+            {error}
+            {withLastUserMessage && showAvatar()}
+         </Styled.Content>
+      )
 
-   const showError = (error: string) => (
-      <Styled.Content
-         withCurrentUser={withCurrentUser}
-         withLastUserMessage={withLastUserMessage}
-         withError
-      >
-         {error}
-         {withLastUserMessage && showAvatar()}
-      </Styled.Content>
-   )
+      const showAvatar = () => (
+         <Styled.Avatar withCurrentUser={withCurrentUser}>{name?.charAt(0)}</Styled.Avatar>
+      )
 
-   const showAvatar = () => (
-      <Styled.Avatar withCurrentUser={withCurrentUser}>{name?.charAt(0)}</Styled.Avatar>
-   )
-
-   return (
-      <MessageContainer
-         onClick={() => setShouldDetailsAppear(true)}
-         withCurrentUser={withCurrentUser}
-         withLastUserMessage={!!withLastUserMessage && !!nextMessage}
-      >
-         {type === 'IMAGE' ? (
-            !imageError ? (
-               <Styled.Container>
-                  <Styled.Image
-                     src={content}
-                     onLoad={scrollToTheBottom}
-                     onError={handleFileLoadingError}
-                  />
-                  {withLastUserMessage && showAvatar()}
-               </Styled.Container>
+      return (
+         <MessageContainer
+            ref={ref}
+            onClick={() => setShouldDetailsAppear(true)}
+            withCurrentUser={withCurrentUser}
+            withLastUserMessage={!!withLastUserMessage && !!nextMessage}
+         >
+            {type === 'IMAGE' ? (
+               !imageError ? (
+                  <Styled.Container>
+                     <Styled.Image
+                        src={content}
+                        onLoad={scrollToTheBottom}
+                        onError={handleFileLoadingError}
+                     />
+                     {withLastUserMessage && showAvatar()}
+                  </Styled.Container>
+               ) : (
+                  showError('Image failed to load')
+               )
+            ) : type === 'VIDEO' ? (
+               !videoError ? (
+                  <Styled.Container>
+                     <Styled.Video
+                        src={content}
+                        controls
+                        onLoadStart={scrollToTheBottom}
+                        onError={handleFileLoadingError}
+                     />
+                     {withLastUserMessage && showAvatar()}
+                  </Styled.Container>
+               ) : (
+                  showError('Video failed to load')
+               )
             ) : (
-               showError('Image failed to load')
-            )
-         ) : type === 'VIDEO' ? (
-            !videoError ? (
-               <Styled.Container>
-                  <Styled.Video
-                     src={content}
-                     controls
-                     onLoadStart={scrollToTheBottom}
-                     onError={handleFileLoadingError}
-                  />
+               <Styled.Content
+                  onClick={() => withFile && fileSaver.saveAs(content, filename)}
+                  withCurrentUser={withCurrentUser}
+                  withLastUserMessage={withLastUserMessage}
+                  withFile={withFile}
+               >
+                  {withFile ? filename : content}
                   {withLastUserMessage && showAvatar()}
-               </Styled.Container>
-            ) : (
-               showError('Video failed to load')
-            )
-         ) : (
-            <Styled.Content
-               onClick={() => withFile && fileSaver.saveAs(content, filename)}
-               withCurrentUser={withCurrentUser}
-               withLastUserMessage={withLastUserMessage}
-               withFile={withFile}
-            >
-               {withFile ? filename : content}
-               {withLastUserMessage && showAvatar()}
-            </Styled.Content>
-         )}
-         {(withLastUserMessage || shouldDetailsAppear) && (
-            <Styled.Date
-               withCurrentUser={withCurrentUser}
-               withLastUserMessage={withLastUserMessage}
-               shouldDetailsAppear={shouldDetailsAppear}
-            >
-               {new Date().toDateString() === date.toDateString()
-                  ? date.toLocaleTimeString()
-                  : date.toLocaleString()}
-            </Styled.Date>
-         )}
-      </MessageContainer>
-   )
-}
+               </Styled.Content>
+            )}
+            {(withLastUserMessage || shouldDetailsAppear) && (
+               <Styled.Date
+                  withCurrentUser={withCurrentUser}
+                  withLastUserMessage={withLastUserMessage}
+                  shouldDetailsAppear={shouldDetailsAppear}
+               >
+                  {new Date().toDateString() === date.toDateString()
+                     ? date.toLocaleTimeString()
+                     : date.toLocaleString()}
+               </Styled.Date>
+            )}
+         </MessageContainer>
+      )
+   }
+)
 
 type MessageContainerProps = {
    withCurrentUser?: boolean

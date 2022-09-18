@@ -1,3 +1,5 @@
+import { MESSAGES_FETCH_LIMIT } from '@online-library/tools'
+
 import {
    access_token,
    author,
@@ -100,7 +102,7 @@ export const requests = {
    'get@messages': {
       type: 'object',
       properties: {
-         limit: integer(20),
+         limit: integer(MESSAGES_FETCH_LIMIT),
          offset: integer(0),
       },
    },

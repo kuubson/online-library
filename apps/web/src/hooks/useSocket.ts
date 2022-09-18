@@ -10,10 +10,8 @@ export const useSocket = () => {
    const setSocket = useAction(socketActions.setSocket)
 
    const closeSocketConnection = () => {
-      if (socket) {
-         socket.disconnect()
-         setSocket(null)
-      }
+      socket?.disconnect()
+      setSocket(null)
    }
 
    return {

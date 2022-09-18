@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import styled, { css } from 'styled-components/macro'
 
 import * as Styled from './styled'
@@ -21,8 +21,6 @@ export const Chat = ({ shouldMenuExpand }: ChatProps) => {
 
    const textareaRef = useRef<HTMLTextAreaElement>(null)
 
-   const [loading, setLoading] = useState(true)
-
    const [showFileInput, setShowFileInput] = useState(true)
 
    const [percentage, setPercentage] = useState(0)
@@ -33,14 +31,15 @@ export const Chat = ({ shouldMenuExpand }: ChatProps) => {
       currentUserId,
       messages,
       message,
+      loading,
       setMessage,
-      getMessages,
       getUnreadMessages,
       sendMessage,
       sendFile,
       scrollToLastMessage,
+      handleOnKeyPress,
+      setChatScroll,
    } = useChat({
-      setLoading,
       setShowFileInput,
       setPercentage,
    })
@@ -48,21 +47,6 @@ export const Chat = ({ shouldMenuExpand }: ChatProps) => {
    const areThereMessages = messages.length > 0
 
    const fileUploadInProgess = percentage > 0
-
-   const handleOnKeyPress = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      if (event.key === 'Enter') {
-         switch (true) {
-            case detectMobileDevice() as boolean:
-               return
-            case !event.currentTarget.value.trim():
-               event.preventDefault()
-               break
-            case !event.shiftKey:
-               sendMessage()
-               break
-         }
-      }
-   }
 
    return (
       <ChatContainer shouldMenuExpand={shouldMenuExpand} areThereMessages={areThereMessages}>
@@ -79,7 +63,7 @@ export const Chat = ({ shouldMenuExpand }: ChatProps) => {
                   onTouchStart={() =>
                      detectMobileDevice() && textareaRef.current && textareaRef.current.blur()
                   }
-                  onScroll={event => getMessages(20, messages.length, event)}
+                  onScroll={setChatScroll}
                   scrollToLastMessage={scrollToLastMessage}
                />
             ) : (
