@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Application, NextFunction, Request, Response } from 'express'
 
-import type { ApiError } from '@online-library/tools'
-import { AuthError, AuthErrorBase, CSRFError, RequestError } from '@online-library/tools'
+import {
+   ApiError,
+   AuthError,
+   AuthErrorBase,
+   CSRFError,
+   EmptyFileError,
+   RequestError,
+} from '@online-library/tools'
 
 import { NODE_ENV } from 'config'
 
@@ -29,10 +35,7 @@ export const formatErrors = (app: Application) =>
       }
 
       if ((error as ApiError).message === 'Empty file') {
-         return res.status(422).send({
-            errorHeader: 'Sending a file',
-            errorMessage: 'The selected text file is empty',
-         })
+         return res.status(422).send(EmptyFileError)
       }
 
       res.status(status).send({

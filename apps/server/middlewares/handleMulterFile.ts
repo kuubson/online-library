@@ -17,7 +17,7 @@ export const handleMulterFile: Middleware<
    multerFile.single('file')(req, res, () => {
       try {
          if (!req.file) {
-            throw new ApiError(header, errors[422], 422)
+            throw new ApiError(header, errors[400], 400)
          }
 
          const { images } = filesInfo.regex

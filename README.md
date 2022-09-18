@@ -6,7 +6,7 @@
 ## 🔧 Stack
 
 -  **TS** (mapped types, method overloads, type guards)
--  **react.js** ⚛️ + **redux** (hooks, CRA) + **RTL** for testing
+-  **react.js** ⚛️ + **redux** (CRA, hooks) + **RTL** for testing
 -  **react-hook-form** + **yup** for user inputs
 -  **styled components** 💅🏾 + **SCSS**
 -  **web APIs** (serviceWorker for **web push notifications**, **PWA**)
@@ -32,7 +32,7 @@ Acts as a **fake store** with possibility to chat 💬 with other users:
 -  account registration, fb / credentials login
 -  **user support** (forgot password, lost activation link)
 -  store fulfilled with paid and free books
--  payments with **stripe or paypal**
+-  payments with **stripe** or **paypal**
 -  **push notifications** to stay up to date with what other writes
 -  possibility to send **images / videos / files**
 -  **searchbar** for books
