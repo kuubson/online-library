@@ -38,7 +38,7 @@ export const Chat = ({ shouldMenuExpand }: ChatProps) => {
       sendFile,
       scrollToLastMessage,
       handleOnKeyPress,
-      setChatScroll,
+      handleInfiniteLoader,
    } = useChat({
       setShowFileInput,
       setPercentage,
@@ -63,7 +63,7 @@ export const Chat = ({ shouldMenuExpand }: ChatProps) => {
                   onTouchStart={() =>
                      detectMobileDevice() && textareaRef.current && textareaRef.current.blur()
                   }
-                  onScroll={setChatScroll}
+                  onScroll={handleInfiniteLoader}
                   scrollToLastMessage={scrollToLastMessage}
                />
             ) : (

@@ -36,21 +36,27 @@ export const Menu = ({ options, _setShouldMenuExpand }: MenuProps) => {
             <Styled.Line shouldMenuExpand={shouldMenuExpand} />
          </Styled.LinesContainer>
          <Styled.OptionsContainer shouldMenuExpand={shouldMenuExpand}>
-            {options.map(
-               ({ option, pathname, counter }) =>
+            {options.map(({ option, pathname, counter }) => {
+               const handleOnClick = () => {
+                  if (option === 'Logout') {
+                     return logout()
+                  }
+                  history.push(`${pathname}`)
+                  setShouldMenuExpand(false)
+               }
+               return (
                   location.pathname !== pathname && (
                      <Styled.Option
                         key={option}
-                        onClick={() =>
-                           option === 'Logout' ? logout() : history.push(`${pathname}`)
-                        }
+                        onClick={handleOnClick}
                         shouldMenuExpand={shouldMenuExpand}
                         counter={counter}
                      >
                         {option}
                      </Styled.Option>
                   )
-            )}
+               )
+            })}
          </Styled.OptionsContainer>
       </MenuContainer>
    )

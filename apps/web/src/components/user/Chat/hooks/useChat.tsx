@@ -1,4 +1,3 @@
-import { debounce } from 'lodash'
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 
@@ -44,16 +43,17 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
    const [message, setMessage] = useState('')
 
    const [hasMoreMessages, setHasMoreMessages] = useState(true)
-   const [isChatScrollOnTop, setIsChatScrollOnTop] = useState(false)
 
-   // TODO: prevent refreshing page on mobile, fix layout on mobile, tweak infinite loader
-
-   const setChatScroll = (event: React.UIEvent<HTMLDivElement>) => {
+   const handleInfiniteLoader = (event: React.UIEvent<HTMLDivElement>) => {
       const target = event.target as HTMLDivElement
 
       const isChatScrollOnTop = target.scrollTop <= 0
 
-      setIsChatScrollOnTop(isChatScrollOnTop)
+      const canLoadMessages = !loading && hasMoreMessages && isChatScrollOnTop
+
+      if (canLoadMessages) {
+         getMessages(MESSAGES_FETCH_LIMIT, messages.length)
+      }
    }
 
    const getMessages = async (limit: number, offset: number) => {
@@ -94,22 +94,6 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
          }
       }
    }
-
-   useEffect(() => {
-      const loadMoreMessages = () => {
-         if (!loading && hasMoreMessages) {
-            if (isChatScrollOnTop) {
-               getMessages(MESSAGES_FETCH_LIMIT, messages.length)
-            }
-         }
-      }
-
-      const debounceLoadMoreMessages = debounce(loadMoreMessages, 300)
-
-      window.addEventListener('wheel', debounceLoadMoreMessages)
-
-      return () => window.removeEventListener('wheel', debounceLoadMoreMessages)
-   }, [messages, hasMoreMessages, isChatScrollOnTop])
 
    useEffect(() => {
       setTimeout(() => subscribePushNotifications, 2000)
@@ -355,6 +339,6 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
       sendFile,
       scrollToLastMessage,
       handleOnKeyPress,
-      setChatScroll,
+      handleInfiniteLoader,
    }
 }
