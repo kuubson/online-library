@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import styled, { css } from 'styled-components/macro'
+import styled from 'styled-components/macro'
 
 import * as Styled from './styled'
 import { Button, UserContent, Warning } from 'components/shared/styled'
@@ -55,50 +55,52 @@ export const Chat = ({ shouldMenuExpand }: ChatProps) => {
          )}
          {!loading &&
             (areThereMessages ? (
-               <Messages
-                  ref={messagesRef}
-                  endOfMessages={endOfMessages}
-                  messages={messages}
-                  currentUserId={currentUserId}
-                  onTouchStart={() =>
-                     detectMobileDevice() && textareaRef.current && textareaRef.current.blur()
-                  }
-                  onScroll={handleInfiniteLoader}
-                  scrollToLastMessage={scrollToLastMessage}
-               />
+               <>
+                  <Messages
+                     ref={messagesRef}
+                     endOfMessages={endOfMessages}
+                     messages={messages}
+                     currentUserId={currentUserId}
+                     onTouchStart={() =>
+                        detectMobileDevice() && textareaRef.current && textareaRef.current.blur()
+                     }
+                     onScroll={handleInfiniteLoader}
+                     scrollToLastMessage={scrollToLastMessage}
+                  />
+                  <Styled.TextareaContainer>
+                     <Styled.Textarea
+                        ref={textareaRef}
+                        value={message}
+                        placeholder="Enter message..."
+                        disabled={fileUploadInProgess}
+                        onChange={event => setMessage(event.target.value)}
+                        onFocus={() => scrollToLastMessage(500)}
+                        onKeyPress={handleOnKeyPress}
+                     />
+                     {fileUploadInProgess ? (
+                        <ProgressLoader percentage={percentage} />
+                     ) : (
+                        <Button as="label" htmlFor="file" withChat>
+                           Upload file
+                        </Button>
+                     )}
+                     {showFileInput && <Styled.FileInput onChange={sendFile} />}
+                     <Button
+                        onClick={() => {
+                           sendMessage()
+                           if (detectMobileDevice()) {
+                              textareaRef.current?.focus()
+                           }
+                        }}
+                        withChat
+                     >
+                        Send
+                     </Button>
+                  </Styled.TextareaContainer>
+               </>
             ) : (
                <Warning>There are no messages</Warning>
             ))}
-         <Styled.TextareaContainer>
-            <Styled.Textarea
-               ref={textareaRef}
-               value={message}
-               placeholder="Enter message..."
-               disabled={fileUploadInProgess}
-               onChange={event => setMessage(event.target.value)}
-               onFocus={() => scrollToLastMessage(500)}
-               onKeyPress={handleOnKeyPress}
-            />
-            {fileUploadInProgess ? (
-               <ProgressLoader percentage={percentage} />
-            ) : (
-               <Button as="label" htmlFor="file" withChat>
-                  Upload file
-               </Button>
-            )}
-            {showFileInput && <Styled.FileInput onChange={sendFile} />}
-            <Button
-               onClick={() => {
-                  sendMessage()
-                  if (detectMobileDevice()) {
-                     textareaRef.current?.focus()
-                  }
-               }}
-               withChat
-            >
-               Send
-            </Button>
-         </Styled.TextareaContainer>
       </ChatContainer>
    )
 }
@@ -108,14 +110,8 @@ type ChatContainerProps = {
 }
 
 const ChatContainer = styled(UserContent)<ChatContainerProps>`
-   ${({ areThereMessages }) =>
-      areThereMessages
-         ? css`
-              justify-content: flex-start;
-           `
-         : css`
-              height: 100vh;
-              padding-bottom: 90px;
-              align-items: center;
-           `}
+   display: flex;
+   justify-content: space-between;
+   align-items: flex-start;
+   flex-direction: column;
 `

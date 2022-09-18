@@ -64,16 +64,14 @@ export const Messages = forwardRef<HTMLDivElement, MessagesProps>(
 
 const MessagesContainer = styled.div`
    width: 100%;
-   height: calc(100vh - 237px);
-   padding: 1px 0px;
+   max-height: calc(100vh - (var(--textareaHeight) + var(--userContentPadding)));
+   padding-bottom: 15px;
    overflow: auto;
-   display: flex;
-   flex-direction: column;
    animation: ${fadeIn} 0.5s ease-in-out;
    ::-webkit-scrollbar {
       display: none;
    }
    @media ${queries.largeTablet} {
-      height: calc(100vh - 225px);
+      max-height: calc(100vh - (var(--textareaHeight) + var(--userContentPadding)));
    }
 `

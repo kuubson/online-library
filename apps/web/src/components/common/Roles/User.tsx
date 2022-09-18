@@ -19,8 +19,8 @@ export const User = ({ children, withChat }: UserProps) => {
 
    return (
       <>
-         <Menu options={options} _setShouldMenuExpand={_setShouldMenuExpand} />
          <UserContent>
+            <Menu options={options} _setShouldMenuExpand={_setShouldMenuExpand} />
             {React.cloneElement(children as JSX.Element, { shouldMenuExpand })}
          </UserContent>
       </>

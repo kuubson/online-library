@@ -1,6 +1,8 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
+import { GlobalStyle } from 'styles'
+
 import { ApiFeedback, Loader, Location } from 'components/shared'
 
 import { Home } from 'components/guest/Home/Home'
@@ -32,6 +34,7 @@ export const App = () => {
 
    return (
       <AppContainer>
+         <GlobalStyle />
          {loading && <Loader />}
          {showApiFeedback && <ApiFeedback />}
          <Routes>
