@@ -6,6 +6,7 @@
       "lint": "turbo run lint",
       "test": "turbo run test",
       "build": "turbo run build",
+      "android": "yarn workspace @online-library/native android",
       "docs": "yarn workspace @online-library/server docs",
       "codegen": "graphql-codegen",
       "lib": "turbo run build --filter=./@online-library/* --force",
