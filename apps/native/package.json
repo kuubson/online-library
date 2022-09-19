@@ -40,5 +40,10 @@
       "json",
       "node"
     ]
+  },
+  "workspaces": {
+    "nohoist": [
+      "**"
+    ]
   }
 }
