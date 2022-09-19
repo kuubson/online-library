@@ -6,17 +6,24 @@
       "lint": "turbo run lint",
       "test": "turbo run test",
       "build": "turbo run build",
+      "docs": "turbo run docs",
       "android": "yarn workspace @online-library/native android",
-      "docs": "yarn workspace @online-library/server docs",
+      "metro": "yarn workspace @online-library/native metro",
       "codegen": "graphql-codegen",
-      "lib": "turbo run build --filter=./@online-library/* --force",
-      "postinstall": "yarn lib && yarn docs && yarn lib",
       "prepare": "husky install"
    },
-   "workspaces": [
-      "@online-library/*",
-      "apps/*"
-   ],
+   "workspaces": {
+      "packages": [
+         "@online-library/*",
+         "apps/*"
+      ],
+      "nohoist": [
+         "**/react",
+         "**/react-dom",
+         "**/react-native",
+         "**/react-native/**"
+      ]
+   },
    "dependencies": {
       "@graphql-codegen/add": "^3.2.1",
       "@graphql-codegen/cli": "^2.12.0",
@@ -28,6 +35,11 @@
       "husky": "^8.0.1",
       "prettier": "^2.7.1",
       "turbo": "^1.4.6",
-      "typescript": "^4.8.2"
+      "typescript": "^4.8.2",
+      "@stylelint/postcss-css-in-js": "^0.38.0",
+      "stylelint": "^14.11.0",
+      "stylelint-config-styled-components": "^0.1.1",
+      "stylelint-processor-styled-components": "^1.10.0",
+      "postcss-scss": "^4.0.4"
    }
 }
