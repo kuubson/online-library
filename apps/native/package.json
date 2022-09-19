@@ -17,9 +17,10 @@
       ]
    },
    "dependencies": {
+      "@online-library/tools": "*",
       "react": "18.1.0",
       "react-native": "0.70.1",
-      "@online-library/tools": "*"
+      "styled-components": "^5.3.5"
    },
    "devDependencies": {
       "@babel/core": "^7.12.9",
