@@ -6,15 +6,15 @@ import styled from 'styled-components/native'
 
 import { theme } from '@online-library/core'
 
+import type { RootStackParamList } from 'types'
+
 import { Text } from './common'
 import { HomeScreen } from './screens'
 
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator<RootStackParamList>()
 
 export const App = () => {
-   useEffect(() => {
-      SplashScreen.hide()
-   }, [])
+   useEffect(() => SplashScreen.hide(), [])
    return (
       <AppContainer>
          <NavigationContainer>

@@ -1,4 +1,4 @@
-import { API, yup } from '@online-library/tools'
+import { API, randomImage, yup } from '@online-library/tools'
 
 import { Connection } from 'database'
 
@@ -36,7 +36,7 @@ export const sendMessage: ProtectedRoute<Body<typeof schema>> = [
                tag: id,
                title: `From ${name}`,
                body: `${content}`,
-               icon: 'https://picsum.photos/1920/1080',
+               icon: randomImage,
                data: {
                   userName: name,
                   url: `${baseUrl(req)}/chat`,

@@ -1,6 +1,6 @@
 import cloudinary from 'cloudinary'
 
-import { API, ApiError, filesInfo } from '@online-library/tools'
+import { API, ApiError, filesInfo, randomImage } from '@online-library/tools'
 
 import { Connection } from 'database'
 import type { Message } from 'database/models/Message'
@@ -122,7 +122,7 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, InitialQuery,
                tag: id,
                title: `From ${name}`,
                body: message,
-               icon: 'https://picsum.photos/1920/1080',
+               icon: randomImage,
                data: {
                   userName: name,
                   url: `${baseUrl(req)}/chat`,

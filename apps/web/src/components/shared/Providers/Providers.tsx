@@ -5,12 +5,12 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { ThemeProvider } from 'styled-components/macro'
 
 import type { ReactChildren } from '@online-library/core'
+import { theme } from '@online-library/core'
 
 import { client } from 'gql/client'
 
 import { persistor, store } from 'redux/store'
 
-import { theme } from 'styles'
 import 'styles/index.scss'
 
 import { Loader } from 'components/shared'

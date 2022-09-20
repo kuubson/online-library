@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import 'react-redux'
+import type { theme } from '@online-library/core'
 
 import type { RootState } from 'redux/store'
-
-import type { theme } from 'styles'
 
 declare module 'react-redux' {
    interface DefaultRootState extends RootState {}
