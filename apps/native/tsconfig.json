@@ -1,6 +1,7 @@
 {
    "extends": "@tsconfig/react-native/tsconfig.json",
    "compilerOptions": {
+      "baseUrl": "src",
       "skipLibCheck": true,
       "types": ["jest", "@types/styled-components-react-native"]
    }

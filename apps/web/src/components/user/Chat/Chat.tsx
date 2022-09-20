@@ -49,7 +49,7 @@ export const Chat = ({ shouldMenuExpand }: ChatProps) => {
    const fileUploadInProgess = percentage > 0
 
    return (
-      <ChatContainer shouldMenuExpand={shouldMenuExpand} areThereMessages={areThereMessages}>
+      <ChatContainer shouldMenuExpand={shouldMenuExpand}>
          {!loading && lastUnreadMessageIndex && messages.length < lastUnreadMessageIndex && (
             <Styled.Details onClick={getUnreadMessages}>Unread messages</Styled.Details>
          )}
@@ -105,11 +105,7 @@ export const Chat = ({ shouldMenuExpand }: ChatProps) => {
    )
 }
 
-type ChatContainerProps = {
-   areThereMessages?: boolean
-}
-
-const ChatContainer = styled(UserContent)<ChatContainerProps>`
+const ChatContainer = styled(UserContent)`
    display: flex;
    justify-content: space-between;
    align-items: flex-start;

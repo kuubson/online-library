@@ -7,6 +7,7 @@
       "test": "turbo run test",
       "build": "turbo run build",
       "docs": "turbo run docs",
+      "lib": "turbo run dev --filter=./@online-library/*",
       "android": "yarn workspace @online-library/native android",
       "metro": "yarn workspace @online-library/native metro",
       "codegen": "graphql-codegen",

@@ -1,4 +1,4 @@
-import { Form, GuestContent, Submit } from 'components/shared/styled'
+import { Form, Submit } from 'components/shared/styled'
 
 import { HomeButton, Input } from 'components/shared'
 
@@ -7,7 +7,7 @@ import { usePasswordReset } from './hooks'
 export const PasswordReset = () => {
    const { changePassword, control, errors } = usePasswordReset()
    return (
-      <GuestContent>
+      <>
          <HomeButton />
          <Form onSubmit={changePassword}>
             <Input
@@ -28,6 +28,6 @@ export const PasswordReset = () => {
             />
             <Submit>Change password</Submit>
          </Form>
-      </GuestContent>
+      </>
    )
 }

@@ -130,6 +130,8 @@ api-->native
 -  tweak seeding db flow
 -  check out **react-native-web**
 
+TODO: fill scripts
+
 ## ⌨ Root scripts
 
 > **Note** To run locally, fill `.env` (see [Environment variables](#-environment-variables) and `.env-example`), trigger `yarn install` and `yarn dev`

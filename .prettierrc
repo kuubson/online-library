@@ -11,6 +11,7 @@
    "importOrder": [
       "<THIRD_PARTY_MODULES>",
 
+      "@online-library/core",
       "@online-library/tools",
 
       "^dotenv(.*)",
