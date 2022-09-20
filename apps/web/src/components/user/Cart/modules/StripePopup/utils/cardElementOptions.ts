@@ -1,7 +1,9 @@
+import { theme } from 'styles'
+
 export const cardElementOptions = {
    style: {
       base: {
-         iconColor: '#0088ff',
+         iconColor: theme.colors.primary,
          color: 'black',
          '::placeholder': { color: 'black' },
       },

@@ -1,4 +1,4 @@
-import { API } from './API'
+import { API } from '../API'
 
 class ApiError extends Error {
    errorHeader: string

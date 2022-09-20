@@ -15,7 +15,7 @@ export const OptionsContainer = styled.ul<StyledProps>`
       width: 100%;
       height: 0px;
       overflow: hidden;
-      background: ${({ theme }) => theme.mainColor};
+      background: ${({ theme }) => theme.colors.primary};
       flex-direction: column;
       position: absolute;
       top: 100%;
