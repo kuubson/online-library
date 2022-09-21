@@ -35,7 +35,7 @@ export const Messages = forwardRef<HTMLDivElement, MessagesProps>(
 
       useEffect(() => {
          if (lastMessageBeforeFetch.current) {
-            lastMessageBeforeFetch.current.scrollIntoView()
+            lastMessageBeforeFetch.current.scrollIntoView() // TODO: trigger it only when fetching more messages
          }
       }, [messages])
 
@@ -44,6 +44,9 @@ export const Messages = forwardRef<HTMLDivElement, MessagesProps>(
             {messages.map((message, index) => {
                const isLastMessageBeforeFetch =
                   !isChatInitialLoad(messages) && message.id === previousChat?.[0]?.id
+
+               // TODO: verify order of messages
+
                return (
                   <Message
                      ref={isLastMessageBeforeFetch ? lastMessageBeforeFetch : null}
