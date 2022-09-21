@@ -1,6 +1,6 @@
 import { API } from '../API'
 
-class ApiError extends Error {
+export class ApiError extends Error {
    errorHeader: string
    errorMessage: string
    status: number
@@ -18,7 +18,7 @@ export const CSRFError = new ApiError(
    403
 )
 
-class AuthErrorBase extends ApiError {
+export class AuthErrorBase extends ApiError {
    constructor() {
       super('Authentication', 'The authentication cookie is invalid, log in again', 401)
    }
