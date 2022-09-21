@@ -19,6 +19,6 @@
       "tsconfig": "*",
       "@types/validator": "^13.7.6",
       "tsup": "^5.10.1",
-      "typescript": "^4.5.3"
+      "typescript": "^4.8.3"
    }
 }
