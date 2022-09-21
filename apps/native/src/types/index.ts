@@ -1,14 +1,10 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
+
 /* eslint-disable @typescript-eslint/no-namespace */
+import type { Screens } from '@online-library/core'
+
 declare global {
    namespace ReactNavigation {
-      interface RootParamList extends RootStackParamList {}
+      interface RootParamList extends Screens {}
    }
-}
-
-export type RootStackParamList = {
-   Home: undefined
-   Login: undefined
-   Registration: undefined
-   EmailSupport: undefined
 }

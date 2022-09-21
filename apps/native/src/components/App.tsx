@@ -4,20 +4,19 @@ import React, { useEffect } from 'react'
 import SplashScreen from 'react-native-splash-screen'
 import styled from 'styled-components/native'
 
-import { theme } from '@online-library/core'
-
-import type { RootStackParamList } from 'types'
+import type { Screens } from '@online-library/core'
+import { navigationRef, theme } from '@online-library/core'
 
 import { Text } from './common'
 import { HomeScreen, RegistrationScreen } from './screens'
 
-const Tab = createBottomTabNavigator<RootStackParamList>()
+const Tab = createBottomTabNavigator<Screens>()
 
 export const App = () => {
    useEffect(() => SplashScreen.hide(), [])
    return (
       <AppContainer>
-         <NavigationContainer>
+         <NavigationContainer ref={navigationRef}>
             <Tab.Navigator
                initialRouteName="Home"
                screenOptions={{

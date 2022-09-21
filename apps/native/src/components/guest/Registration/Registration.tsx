@@ -1,6 +1,4 @@
-import { useNavigation } from '@react-navigation/native'
-
-import { defaultAxios, useRegistration } from '@online-library/core'
+import { defaultAxios, navigate, useRegistration } from '@online-library/core'
 
 import { t } from '@online-library/locales'
 
@@ -12,9 +10,7 @@ import { Input } from 'components/shared'
 export const Registration = () => {
    const { register, control, errors } = useRegistration(defaultAxios)
 
-   const navigation = useNavigation() // TODO use not hook
-
-   const handleRegistration = () => register(() => navigation.navigate('Login'))
+   const handleRegistration = () => register(() => navigate('Login'))
 
    return (
       <>
@@ -55,12 +51,12 @@ export const Registration = () => {
          </Submit>
          <Styled.Annotations>
             <Styled.AnnotationContainer>
-               <Styled.Annotation onClick={() => navigation.navigate('EmailSupport')}>
+               <Styled.Annotation onClick={() => navigate('EmailSupport')}>
                   {t('guest.registration.annotation1')}
                </Styled.Annotation>
             </Styled.AnnotationContainer>
             <Styled.AnnotationContainer>
-               <Styled.Annotation onClick={() => navigation.navigate('Login')}>
+               <Styled.Annotation onClick={() => navigate('Login')}>
                   {t('guest.registration.annotation2')}
                </Styled.Annotation>
             </Styled.AnnotationContainer>
