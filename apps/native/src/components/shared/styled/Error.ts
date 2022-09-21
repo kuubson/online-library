@@ -4,6 +4,8 @@ import { scale } from 'styles'
 
 import { Text } from 'components/common'
 
-export const Header = styled(Text)`
-   font-size: ${scale(30)}px;
+export const Error = styled(Text)`
+   color: red;
+   font-size: ${scale(12)}px;
+   margin-top: ${scale(10)}px;
 `

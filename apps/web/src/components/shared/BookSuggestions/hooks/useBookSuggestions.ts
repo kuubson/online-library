@@ -70,22 +70,22 @@ export const useBookSuggestions = ({
    }
 
    const handleSort = (id: number, price: number | null | undefined) => {
-      const filterOut = (book: Book) => book.id !== id
+      const notSuggestion = (book: Book) => book.id !== id
 
-      const filter = (book: Book) => book.id === id
+      const suggestion = (book: Book) => book.id === id
 
       if (!price) {
-         const sortedFreeBooks = freeBooks.filter(filterOut)
+         const sortedFreeBooks = freeBooks.filter(notSuggestion)
 
-         const sortedFreeBook = freeBooks.find(filter) || books.find(filter)
+         const sortedFreeBook = freeBooks.find(suggestion) || books.find(suggestion)
 
          if (sortedFreeBook) {
             setFreeBooks([sortedFreeBook, ...sortedFreeBooks])
          }
       } else {
-         const sortedPaidBooks = paidBooks.filter(filterOut)
+         const sortedPaidBooks = paidBooks.filter(notSuggestion)
 
-         const sortedPaidBook = paidBooks.find(filter) || books.find(filter)
+         const sortedPaidBook = paidBooks.find(suggestion) || books.find(suggestion)
 
          if (sortedPaidBook) {
             setPaidBooks([sortedPaidBook, ...sortedPaidBooks])

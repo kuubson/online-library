@@ -62,10 +62,10 @@ export const Book = ({
                )}`
             }}
          />
-         <Styled.AnnotationsContainer>
+         <Styled.Annotations>
             <Styled.Annotation>{author}</Styled.Annotation>
             <Styled.Annotation withTitle>{title}</Styled.Annotation>
-         </Styled.AnnotationsContainer>
+         </Styled.Annotations>
          {withCart ? (
             <Button onClick={() => removeFromCart(id)} price={price}>
                Remove

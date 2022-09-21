@@ -6,12 +6,14 @@
    "main": "./dist/index.js",
    "types": "./dist/index.d.ts",
    "scripts": {
-      "dev": "yarn build -- --watch",
+      "dev": "yarn build --watch",
       "lint": "eslint . && tsc --noEmit",
       "build": "tsup src/index.ts --format cjs --dts --external react"
    },
    "dependencies": {
-      "lodash": "^4.17.21"
+      "lodash": "^4.17.21",
+      "yup": "^0.32.11",
+      "react-hook-form": "^7.35.0"
    },
    "devDependencies": {
       "@types/react": "^18.0.18",

@@ -8,5 +8,6 @@ export const Container = styled.div`
    display: flex;
    justify-content: center;
    align-items: center;
+   align-self: flex-end; // TODO: verify if this fixes chat layouts
    position: relative;
 `

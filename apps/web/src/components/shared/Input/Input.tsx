@@ -2,12 +2,12 @@ import type { Control } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
 import styled, { css } from 'styled-components/macro'
 
+import type { AnyControl } from '@online-library/core'
+
 import { queries } from 'styles'
 
 import * as Styled from './styled'
 import { Error } from 'components/shared/styled'
-
-import type { AnyControl } from 'types'
 
 type InputProps = {
    control: Control<AnyControl, AnyControl>

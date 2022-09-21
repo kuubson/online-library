@@ -9,7 +9,7 @@ import { theme } from '@online-library/core'
 import type { RootStackParamList } from 'types'
 
 import { Text } from './common'
-import { HomeScreen } from './screens'
+import { HomeScreen, RegistrationScreen } from './screens'
 
 const Tab = createBottomTabNavigator<RootStackParamList>()
 
@@ -31,7 +31,12 @@ export const App = () => {
                <Tab.Screen
                   name="Home"
                   component={HomeScreen}
-                  options={{ tabBarIcon: () => <Text>🏠</Text> }}
+                  options={{ tabBarIcon: () => <Text>Home</Text> }}
+               />
+               <Tab.Screen
+                  name="Registration"
+                  component={RegistrationScreen}
+                  options={{ tabBarIcon: () => <Text>Registration</Text> }}
                />
             </Tab.Navigator>
          </NavigationContainer>

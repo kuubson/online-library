@@ -1,5 +1,5 @@
 {
-   "name": "@online-library/tools",
+   "name": "@online-library/locales",
    "version": "1.0.0",
    "private": true,
    "sideEffects": false,
@@ -11,12 +11,9 @@
       "build": "tsup src/index.ts --format cjs --dts --external react"
    },
    "dependencies": {
-      "lodash": "^4.17.21",
-      "validator": "^13.7.0",
-      "yup": "^0.32.11"
+      "lodash": "^4.17.21"
    },
    "devDependencies": {
-      "@types/validator": "^13.7.6",
       "tsup": "^5.10.1",
       "typescript": "^4.5.3"
    }
