@@ -1,25 +1,4 @@
 {
-   "compilerOptions": {
-      "jsx": "react-jsx",
-      "lib": ["ES2015"],
-      "module": "ESNext",
-      "target": "es6",
-      "composite": false,
-      "declaration": true,
-      "declarationMap": true,
-      "esModuleInterop": true,
-      "forceConsistentCasingInFileNames": true,
-      "inlineSources": false,
-      "isolatedModules": true,
-      "moduleResolution": "node",
-      "noUnusedLocals": false,
-      "noUnusedParameters": false,
-      "preserveWatchOutput": true,
-      "skipLibCheck": true,
-      "strict": true,
-      "resolveJsonModule": true,
-      "rootDirs": [".", "../../../apps/server"]
-   },
-   "include": ["."],
-   "exclude": ["dist", "node_modules"]
+   "extends": "tsconfig/library.json",
+   "compilerOptions": { "rootDirs": [".", "../../../apps/server"] }
 }
