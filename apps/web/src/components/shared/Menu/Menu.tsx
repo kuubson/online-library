@@ -70,7 +70,7 @@ const MenuContainer = styled.nav<MenuContainerProps>`
    width: calc(100% - 40px);
    height: 90px;
    padding: 0px 30px;
-   background: ${({ theme }) => theme.mainColor};
+   background: ${({ theme }) => theme.colors.primary};
    display: flex;
    justify-content: space-between;
    align-items: center;

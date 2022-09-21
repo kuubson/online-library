@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 import { queries } from 'styles'
 
 export const PayPalButton = styled.button`
-   background: ${({ theme }) => theme.payPalColor};
+   background: ${({ theme }) => theme.colors.paypal};
    border-radius: 15px;
    font-size: 14px;
    margin: 25px auto 0px auto;

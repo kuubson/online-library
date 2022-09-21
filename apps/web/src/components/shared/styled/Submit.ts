@@ -37,7 +37,7 @@ export const Submit = styled.button<StyledProps>`
    ${({ withFacebook }) =>
       withFacebook
          ? css`
-              background: ${({ theme }) => theme.facebookColor};
+              background: ${({ theme }) => theme.colors.fb};
               border: none;
               border-radius: 5px;
            `
