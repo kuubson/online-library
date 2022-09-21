@@ -12,8 +12,8 @@
       "<THIRD_PARTY_MODULES>",
 
       "@online-library/core",
-      "@online-library/tools",
       "@online-library/locales",
+      "@online-library/tools",
 
       "^dotenv(.*)",
       "^./config/aliases$",
@@ -31,9 +31,8 @@
 
       "^routes(.*)",
 
-      "^redux/hooks$",
-      "^redux/store$",
-      "^redux/reducers(.*)",
+      "^@redux$",
+      "^@redux/reducers(.*)",
 
       "^styles(.*)",
 

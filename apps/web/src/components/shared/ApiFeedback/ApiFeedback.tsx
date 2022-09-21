@@ -1,21 +1,19 @@
 import styled from 'styled-components/macro'
 
+import { useApiFeedback } from '@online-library/core'
+
 import { fadeIn } from 'assets/animations'
 
 import * as Styled from './styled'
 
 import { LoaderContainer } from 'components/shared/Loader/Loader'
 
-import { useApiFeedback } from 'hooks'
-
-import { setApiFeedback } from 'helpers'
-
 export const ApiFeedback = () => {
-   const { header, message, buttonText, callback } = useApiFeedback()
+   const { header, message, buttonText, callback, resetApiFeedback } = useApiFeedback()
 
    const handleOnClick = () => {
       callback()
-      setApiFeedback('', '', '')
+      resetApiFeedback()
    }
 
    return (

@@ -1,16 +1,9 @@
-import type { AxiosResponse } from 'axios'
 import axios from 'axios'
-import type { InferType } from 'yup'
 
-import type { Methods } from '@online-library/tools'
+import type { AxiosOverload, AxiosOverloadArgs } from '@online-library/core'
+import { debounceLoader, resetLoader } from '@online-library/core'
 
 import { handleApiError } from 'helpers'
-
-import type { AnyAxiosOverloadData, AnyAxiosOverloadPayload } from 'types'
-
-import type { TypedSchema } from 'yup/lib/util/types'
-
-import { debounceLoader, resetLoader } from './loader'
 
 const customAxios = axios.create()
 
@@ -38,20 +31,6 @@ customAxios.interceptors.response.use(
    }
 )
 
-type Request<M extends Methods> = {
-   method: M
-   url: string
-}
-
-type AxiosOverload = {
-   <P extends TypedSchema | AnyAxiosOverloadPayload, D = AnyAxiosOverloadData>(
-      request: Request<Methods>,
-      data?: P extends TypedSchema ? InferType<P> : P
-   ): Promise<AxiosResponse<D, unknown>>
-}
-
-type AxiosOverloadArgs = (request: Request<Methods>, data?: unknown) => ReturnType<AxiosOverload>
-
 export const apiAxios: AxiosOverload = (
    ...[{ method, url }, data]: Parameters<AxiosOverloadArgs>
 ) => {
@@ -64,9 +43,3 @@ export const apiAxios: AxiosOverload = (
       data,
    })
 }
-
-export const defaultAxios: AxiosOverload = (...[request, data]: Parameters<AxiosOverloadArgs>) =>
-   axios.request({
-      ...request,
-      data,
-   })

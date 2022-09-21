@@ -1,12 +1,12 @@
 import { useRef, useState } from 'react'
 import styled from 'styled-components/macro'
 
+import { useChatDetails } from '@online-library/core'
+
 import * as Styled from './styled'
 import { Button, UserContent, Warning } from 'components/shared/styled'
 
 import { Messages, ProgressLoader } from './modules'
-
-import { useChatDetails } from 'hooks'
 
 import { useChat } from './hooks'
 

@@ -1,10 +1,10 @@
+import { defaultAxios } from '@online-library/core'
+
 import { API } from '@online-library/tools'
 
 import { REACT_APP_PUBLIC_VAPID_KEY } from 'config'
 
 import { urlBase64ToUint8Array } from 'helpers'
-
-import { defaultAxios } from 'utils'
 
 export const subscribePushNotifications = async () => {
    try {

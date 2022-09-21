@@ -1,8 +1,6 @@
+import { setApiFeedback, useCart } from '@online-library/core'
+
 import { useBorrowBookMutation } from 'gql'
-
-import { useCart } from 'hooks'
-
-import { setApiFeedback } from 'helpers'
 
 import type { SetBookPopupDataFn } from 'types'
 

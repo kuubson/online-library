@@ -1,4 +1,4 @@
-import { socketActions } from 'redux/reducers/socket'
+import { socketActions } from '@redux/reducers/socket'
 
 import { useSelector } from 'hooks'
 

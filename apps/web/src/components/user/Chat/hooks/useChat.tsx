@@ -1,19 +1,18 @@
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 
-import { API, MESSAGES_FETCH_LIMIT, filesInfo } from '@online-library/tools'
+import { defaultAxios, setApiFeedback, useChatDetails, useSocket } from '@online-library/core'
 
-import { useChatDetails, useSocket } from 'hooks'
+import { API, MESSAGES_FETCH_LIMIT, filesInfo } from '@online-library/tools'
 
 import {
    detectMobileDevice,
    handleApiError,
    isChatInitialLoad,
-   setApiFeedback,
    subscribePushNotifications,
 } from 'helpers'
 
-import { apiAxios, defaultAxios } from 'utils'
+import { apiAxios } from 'utils'
 
 import type { MessageType, MessagesResponse, SendFileResponse } from 'types'
 

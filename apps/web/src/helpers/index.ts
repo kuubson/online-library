@@ -1,7 +1,5 @@
 export { detectMobileDevice } from './detectMobileDevice'
 export { handleApiError } from './handleApiError'
 export { isChatInitialLoad } from './isChatInitialLoad'
-export { setApiFeedback } from './setApiFeedback'
-export { setLoading } from './setLoading'
 export { subscribePushNotifications } from './subscribePushNotifications'
 export { urlBase64ToUint8Array } from './urlBase64ToUint8Array'

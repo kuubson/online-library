@@ -11,14 +11,16 @@ import { socket } from './socket'
 const cartConfig = {
    key: 'cart',
    storage,
+   // TODO: async storage for native
 }
 
 const chatDetailsConfig = {
    key: 'chatDetails',
    storage,
+   // TODO: async storage for native
 }
 
-export const rootReducer = combineReducers({
+export const coreReducer = combineReducers({
    socket,
    loader,
    apiFeedback,

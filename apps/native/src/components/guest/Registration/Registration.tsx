@@ -1,16 +1,20 @@
 import { useNavigation } from '@react-navigation/native'
 
+import { defaultAxios, useRegistration } from '@online-library/core'
+
 import { t } from '@online-library/locales'
 
 import * as Styled from './styled'
-import { Submit } from 'components/shared/styled'
+import { ButtonText, Submit } from 'components/shared/styled'
 
 import { Input } from 'components/shared'
 
 export const Registration = () => {
-   const { register, control, errors } = {} as any
+   const { register, control, errors } = useRegistration(defaultAxios)
 
-   const navigation = useNavigation()
+   const navigation = useNavigation() // TODO use not hook
+
+   const handleRegistration = () => register(() => navigation.navigate('Login'))
 
    return (
       <>
@@ -46,7 +50,9 @@ export const Registration = () => {
             placeholder={t('guest.registration.inputs.repeatedPassword.placeholder')}
             error={errors.repeatedPassword?.message}
          />
-         <Submit onPress={register}>Register</Submit>
+         <Submit onPress={handleRegistration}>
+            <ButtonText>Register</ButtonText>
+         </Submit>
          <Styled.Annotations>
             <Styled.AnnotationContainer>
                <Styled.Annotation onClick={() => navigation.navigate('EmailSupport')}>

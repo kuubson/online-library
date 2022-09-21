@@ -1,4 +1,4 @@
-import { chatDetailsActions } from 'redux/reducers/chatDetails'
+import { chatDetailsActions } from '@redux/reducers/chatDetails'
 
 import { useSelector } from 'hooks'
 

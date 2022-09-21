@@ -1,4 +1,4 @@
-import { cartActions } from 'redux/reducers/cart'
+import { cartActions } from '@redux/reducers/cart'
 
 import { useSelector } from 'hooks'
 

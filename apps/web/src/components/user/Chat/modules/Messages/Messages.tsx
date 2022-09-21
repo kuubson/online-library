@@ -2,11 +2,11 @@
 import React, { forwardRef, useEffect, useRef } from 'react'
 import styled from 'styled-components/macro'
 
+import { usePrevious } from '@online-library/core'
+
 import { queries } from 'styles'
 
 import { fadeIn } from 'assets/animations'
-
-import { usePrevious } from 'hooks'
 
 import { isChatInitialLoad } from 'helpers'
 
