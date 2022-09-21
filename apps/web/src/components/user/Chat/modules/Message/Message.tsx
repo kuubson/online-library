@@ -86,7 +86,7 @@ export const Message = forwardRef<HTMLDivElement, MessageType & MessageProps>(
          >
             {type === 'IMAGE' ? (
                !imageError ? (
-                  <Styled.Container>
+                  <Styled.Container withCurrentUser={withCurrentUser}>
                      <Styled.Image
                         src={content}
                         onLoad={scrollToTheBottom}
@@ -99,7 +99,7 @@ export const Message = forwardRef<HTMLDivElement, MessageType & MessageProps>(
                )
             ) : type === 'VIDEO' ? (
                !videoError ? (
-                  <Styled.Container>
+                  <Styled.Container withCurrentUser={withCurrentUser}>
                      <Styled.Video
                         src={content}
                         controls
