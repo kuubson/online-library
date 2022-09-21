@@ -66,9 +66,11 @@ Chat.post(
          description: 'File has been sent',
          schema: { $ref: '#/definitions/schema@file' },
       } 
-      #swagger.responses[422] = { description: 'File has not been attached' }  
+      #swagger.responses[422] = { description: 'The selected text file is empty' }  
+      #swagger.responses[400] = { description: 'File has not been attached' }  
       #swagger.responses[415] = { description: 'Such file is not supported' }  
       #swagger.responses[413] = { description: 'File size too large' }  
+      #swagger.responses[500] = { description: 'Sending file failed' }  
 */
    '/files',
    handleMulterFile,

@@ -1,5 +1,5 @@
 import * as StyledRegistration from 'components/guest/Registration/styled'
-import { Form, GuestContent, Submit } from 'components/shared/styled'
+import { Form, Submit } from 'components/shared/styled'
 
 import { HomeButton, Input } from 'components/shared'
 
@@ -10,7 +10,7 @@ import { history } from 'utils'
 export const Login = () => {
    const { loginWithCredentials, loginWithFb, control, errors } = useLogin()
    return (
-      <GuestContent>
+      <>
          <HomeButton />
          <Form onSubmit={event => event.preventDefault()}>
             <Input
@@ -42,6 +42,6 @@ export const Login = () => {
                </StyledRegistration.Annotation>
             </StyledRegistration.AnnotationsContainer>
          </Form>
-      </GuestContent>
+      </>
    )
 }

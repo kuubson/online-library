@@ -1,5 +1,5 @@
 import * as Styled from './styled'
-import { Form, GuestContent, Submit } from 'components/shared/styled'
+import { Form, Submit } from 'components/shared/styled'
 
 import { HomeButton, Input } from 'components/shared'
 
@@ -10,7 +10,7 @@ import { history } from 'utils'
 export const Registration = () => {
    const { register, control, errors } = useRegistration()
    return (
-      <GuestContent>
+      <>
          <HomeButton />
          <Form onSubmit={register}>
             <Input
@@ -55,6 +55,6 @@ export const Registration = () => {
                </Styled.Annotation>
             </Styled.AnnotationsContainer>
          </Form>
-      </GuestContent>
+      </>
    )
 }

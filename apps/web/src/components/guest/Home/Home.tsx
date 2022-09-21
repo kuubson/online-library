@@ -1,5 +1,6 @@
+import styled from 'styled-components/macro'
+
 import * as Styled from './styled'
-import { HomeContainer } from 'components/shared/styled'
 
 import { useAccountActivation } from './hooks'
 
@@ -24,3 +25,10 @@ export const Home = () => {
       </HomeContainer>
    )
 }
+
+const HomeContainer = styled.section`
+   width: 100%;
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+`
