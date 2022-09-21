@@ -9,9 +9,6 @@ import { Input } from 'components/shared'
 
 export const Registration = () => {
    const { register, control, errors } = useRegistration(defaultAxios)
-
-   const handleRegistration = () => register(() => navigate('Login'))
-
    return (
       <>
          <Input
@@ -46,7 +43,7 @@ export const Registration = () => {
             placeholder={t('guest.registration.inputs.repeatedPassword.placeholder')}
             error={errors.repeatedPassword?.message}
          />
-         <Submit onPress={handleRegistration}>
+         <Submit onPress={() => register(() => navigate('Login'))}>
             <ButtonText>Register</ButtonText>
          </Submit>
          <Styled.Annotations>

@@ -11,13 +11,10 @@ import { apiAxios, history } from 'utils'
 
 export const Registration = () => {
    const { register, control, errors } = useRegistration(apiAxios)
-
-   const handleRegistration = () => register(() => history.push('/login'))
-
    return (
       <>
          <HomeButton />
-         <Form onSubmit={handleRegistration}>
+         <Form onSubmit={event => register(() => history.push('/login'), event)}>
             <Input
                {...{ control }}
                id="name"

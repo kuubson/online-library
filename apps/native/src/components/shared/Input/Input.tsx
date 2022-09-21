@@ -1,3 +1,4 @@
+import { upperFirst } from 'lodash'
 import type { Control } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
 import styled from 'styled-components/native'
@@ -45,7 +46,7 @@ export const Input = ({
             />
          )}
       />
-      {error && <Error>{error}</Error>}
+      {error && <Error>{upperFirst(error)}</Error>}
    </InputContainer>
 )
 
