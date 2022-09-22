@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react'
 import type { InferType } from 'yup'
 
-import { setApiFeedback, useCart as useCartHook } from '@online-library/core'
-
-import { API } from '@online-library/tools'
+import { API, history, setApiFeedback, useCart as useCartHook } from '@online-library/core'
 
 import { useGetBooksQuery } from 'gql'
 
 import { useQueryParams } from 'hooks'
 
-import { apiAxios, history } from 'utils'
+import { apiAxios } from 'utils'
 
 import type { ApiError, PaypalCheckoutResponse } from 'types'
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 
-import { randomImage } from '@online-library/tools'
+import { randomImage } from '@online-library/core'
 
 export const RoleContainer = styled.section`
    min-height: 100%;

@@ -1,4 +1,4 @@
-import { API, ApiError, filesInfo } from '@online-library/tools'
+import { API, ApiError, filesInfo } from '@online-library/core'
 
 import { multerFile } from 'middlewares'
 

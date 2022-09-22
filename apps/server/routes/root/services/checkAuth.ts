@@ -1,7 +1,7 @@
 import { verify } from 'jsonwebtoken'
 
-import type { Role } from '@online-library/tools'
-import { AuthError, roles, yup } from '@online-library/tools'
+import type { Role } from '@online-library/core'
+import { AuthError, roles, yup } from '@online-library/core'
 
 import { JWT_KEY } from 'config'
 

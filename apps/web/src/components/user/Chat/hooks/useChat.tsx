@@ -1,9 +1,15 @@
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 
-import { defaultAxios, setApiFeedback, useChatDetails, useSocket } from '@online-library/core'
-
-import { API, MESSAGES_FETCH_LIMIT, filesInfo } from '@online-library/tools'
+import {
+   API,
+   MESSAGES_FETCH_LIMIT,
+   defaultAxios,
+   filesInfo,
+   setApiFeedback,
+   useChatDetails,
+   useSocket,
+} from '@online-library/core'
 
 import {
    detectMobileDevice,

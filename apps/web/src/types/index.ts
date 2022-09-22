@@ -1,6 +1,6 @@
 import type { GraphQLError } from 'graphql'
 
-import type { messageTypes } from '@online-library/tools'
+import type { messageTypes } from '@online-library/core'
 
 import type { Book } from 'gql'
 

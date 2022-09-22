@@ -13,7 +13,6 @@
 
       "@online-library/core",
       "@online-library/locales",
-      "@online-library/tools",
 
       "^dotenv(.*)",
       "^./config/aliases$",

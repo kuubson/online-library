@@ -12,7 +12,7 @@ import { verify } from 'jsonwebtoken'
 import type { PassportStatic } from 'passport'
 import { WebSocketServer } from 'ws'
 
-import { GRAPHQL_WS_CLOSE_STATUS } from '@online-library/tools'
+import { GRAPHQL_WS_CLOSE_STATUS } from '@online-library/core'
 
 import { CODEGEN, JWT_KEY, NODE_ENV } from 'config'
 

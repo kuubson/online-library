@@ -1,6 +1,6 @@
 import passport from 'passport'
 
-import { FBError } from '@online-library/tools'
+import { FBError } from '@online-library/core'
 
 import type { Middleware } from 'types/express'
 

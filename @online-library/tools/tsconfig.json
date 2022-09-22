@@ -1,4 +1,0 @@
-{
-   "extends": "tsconfig/library.json",
-   "compilerOptions": { "rootDirs": [".", "../../../apps/server"] }
-}

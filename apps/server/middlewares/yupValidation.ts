@@ -2,7 +2,7 @@ import type { NextFunction, Request, Response } from 'express'
 import { ValidationError } from 'yup'
 import type { ObjectShape, OptionalObjectSchema } from 'yup/lib/object'
 
-import { DataValidationError } from '@online-library/tools'
+import { DataValidationError } from '@online-library/core'
 
 type Schema<T extends ObjectShape> = {
    schema: OptionalObjectSchema<T>

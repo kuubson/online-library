@@ -1,8 +1,6 @@
-import { setApiFeedback, useForm } from '@online-library/core'
+import { API, history, setApiFeedback, useForm } from '@online-library/core'
 
-import { API } from '@online-library/tools'
-
-import { apiAxios, history } from 'utils'
+import { apiAxios } from 'utils'
 
 import type { FBLoginRequest, FBMeRespose } from 'types'
 

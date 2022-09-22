@@ -1,10 +1,9 @@
 import type { AxiosResponse } from 'axios'
 import type { InferType } from 'yup'
 
-import type { Methods } from '@online-library/tools'
-
 import type { AnyAxiosOverloadData, AnyAxiosOverloadPayload } from 'types'
 
+import type { Methods } from '../types'
 import type { TypedSchema } from 'yup/lib/util/types'
 
 type Request<M extends Methods> = {

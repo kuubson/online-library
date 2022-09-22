@@ -2,8 +2,7 @@ import { ImageBackground } from 'react-native'
 import styled from 'styled-components/native'
 
 import type { ReactChildren } from '@online-library/core'
-
-import { randomImage } from '@online-library/tools'
+import { randomImage } from '@online-library/core'
 
 import * as Styled from './styled'
 

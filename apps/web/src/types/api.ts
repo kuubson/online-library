@@ -1,4 +1,4 @@
-import type { Role, messageTypes } from '@online-library/tools'
+import type { Role, messageTypes } from '@online-library/core'
 
 import type { Book } from 'gql'
 

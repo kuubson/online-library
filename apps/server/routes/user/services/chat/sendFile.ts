@@ -1,6 +1,6 @@
 import cloudinary from 'cloudinary'
 
-import { API, ApiError, filesInfo, randomImage } from '@online-library/tools'
+import { API, ApiError, filesInfo, randomImage } from '@online-library/core'
 
 import { Connection } from 'database'
 import type { Message } from 'database/models/Message'

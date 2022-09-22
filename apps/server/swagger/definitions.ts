@@ -1,4 +1,4 @@
-import { messageTypes } from '@online-library/tools'
+import { messageTypes } from '@online-library/core'
 
 export const authToken = {
    in: 'cookie',

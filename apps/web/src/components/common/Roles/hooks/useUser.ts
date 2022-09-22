@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react'
 import io from 'socket.io-client'
 
-import { defaultAxios, useCart, useChatDetails, useSocket } from '@online-library/core'
-
-import { API } from '@online-library/tools'
+import {
+   API,
+   defaultAxios,
+   history,
+   useCart,
+   useChatDetails,
+   useSocket,
+} from '@online-library/core'
 
 import { handleApiError } from 'helpers'
-
-import { history } from 'utils'
 
 import type { ChatDetailsResponse, MessageType, TokenCheckResponse } from 'types'
 

@@ -1,6 +1,6 @@
 import { createRateLimitRule } from 'graphql-rate-limit'
 
-import { RateLimitError } from '@online-library/tools'
+import { RateLimitError } from '@online-library/core'
 
 export const rateLimiter = createRateLimitRule({
    identifyContext: ({ id }) => id,

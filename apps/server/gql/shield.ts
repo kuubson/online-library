@@ -1,7 +1,7 @@
 import { shield as _shield, and } from 'graphql-shield'
 import type { LogicRule } from 'graphql-shield/dist/rules'
 
-import { AuthError } from '@online-library/tools'
+import { AuthError } from '@online-library/core'
 
 import { isUser, rateLimiter } from 'gql/middlewares'
 

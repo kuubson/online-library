@@ -1,4 +1,4 @@
-import { useRegistration } from '@online-library/core'
+import { history, useRegistration } from '@online-library/core'
 
 import { t } from '@online-library/locales'
 
@@ -7,7 +7,7 @@ import { Form, Submit } from 'components/shared/styled'
 
 import { HomeButton, Input } from 'components/shared'
 
-import { apiAxios, history } from 'utils'
+import { apiAxios } from 'utils'
 
 export const Registration = () => {
    const { register, control, errors } = useRegistration(apiAxios)

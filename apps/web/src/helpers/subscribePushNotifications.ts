@@ -1,6 +1,4 @@
-import { defaultAxios } from '@online-library/core'
-
-import { API } from '@online-library/tools'
+import { API, defaultAxios } from '@online-library/core'
 
 import { REACT_APP_PUBLIC_VAPID_KEY } from 'config'
 

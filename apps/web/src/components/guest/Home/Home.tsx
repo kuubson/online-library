@@ -1,10 +1,10 @@
 import styled from 'styled-components/macro'
 
+import { history } from '@online-library/core'
+
 import * as Styled from './styled'
 
 import { useAccountActivation } from './hooks'
-
-import { history } from 'utils'
 
 export const Home = () => {
    useAccountActivation()

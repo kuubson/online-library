@@ -2,10 +2,10 @@
 import { mapValues } from 'lodash'
 import type { OptionalObjectSchema } from 'yup/lib/object'
 
-import type { Method } from './types'
+import type { Method } from '../types'
 
-import { default as swagger } from '../../../apps/server/swagger/swagger.json'
-import { yup } from './utils/yup'
+import { default as swagger } from '../../../../apps/server/swagger/swagger.json'
+import { yup } from './yup'
 
 type Paths = typeof swagger.paths
 

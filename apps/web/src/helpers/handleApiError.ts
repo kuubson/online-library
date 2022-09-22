@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
-import { setApiFeedback } from '@online-library/core'
-
-import { ConnectivityError, RequestError } from '@online-library/tools'
+import { ConnectivityError, RequestError, history, setApiFeedback } from '@online-library/core'
 
 import { NODE_ENV } from 'config'
-
-import { history } from 'utils'
 
 import type { ApiError } from 'types'
 
