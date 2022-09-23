@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Application, NextFunction, Request, Response } from 'express'
 
-import type { ApiError } from '@online-library/tools'
+import type { ApiError } from '@online-library/config'
 import {
    AuthError,
    AuthErrorBase,
    CSRFError,
    EmptyFileError,
    RequestError,
-} from '@online-library/tools'
+} from '@online-library/config'
 
 import { NODE_ENV } from 'config'
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import io from 'socket.io-client'
 
-import type { MessageType } from '@online-library/tools'
-import { API } from '@online-library/tools'
+import type { MessageType } from '@online-library/config'
+import { API } from '@online-library/config'
 
 import {
    defaultAxios,

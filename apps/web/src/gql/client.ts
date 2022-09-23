@@ -11,7 +11,7 @@ import {
    ConnectivityError,
    GRAPHQL_WS_CLOSE_STATUS,
    websocketUrl,
-} from '@online-library/tools'
+} from '@online-library/config'
 
 import type { GraphqlError } from '@online-library/core'
 import {

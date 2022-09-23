@@ -1,7 +1,7 @@
 import type { Response } from 'express'
 import type { PubSub } from 'graphql-subscriptions'
 
-import type { Role } from '@online-library/tools'
+import type { Role } from '@online-library/config'
 
 import type { AnySwaggerData } from 'types'
 import type { CustomRequest } from 'types/express'

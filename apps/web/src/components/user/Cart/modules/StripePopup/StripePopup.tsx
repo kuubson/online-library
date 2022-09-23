@@ -1,4 +1,3 @@
-import { CardElement } from '@stripe/react-stripe-js'
 import { useState } from 'react'
 
 import { useIsKeyboardOpened } from '@online-library/core'
@@ -8,8 +7,6 @@ import { Button, Error, Header, PopupContainer } from 'components/shared/styled'
 import * as StyledBookPopup from 'components/user/Store/modules/BookPopup/styled'
 
 import { useStripePopup } from './hooks'
-
-import { cardElementOptions } from './utils'
 
 type StripePopupProps = {
    price: string | undefined
@@ -29,8 +26,7 @@ export const StripePopup = ({ price, setShouldStripePopupAppear }: StripePopupPr
             <StyledBookPopup.Content withoutMargin>
                <Header black>Enter details and submit payment</Header>
                <Styled.CardContainer>
-                  <CardElement
-                     options={cardElementOptions}
+                  <Styled.Card
                      onChange={event =>
                         event.error ? setError(event.error.message) : setError('')
                      }

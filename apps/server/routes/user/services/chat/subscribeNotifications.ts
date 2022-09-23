@@ -1,4 +1,4 @@
-import { API, yup } from '@online-library/tools'
+import { API, yup } from '@online-library/config'
 
 import { Connection } from 'database'
 

@@ -5,7 +5,9 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { ThemeProvider } from 'styled-components/macro'
 
 import type { ReactChildren } from '@online-library/core'
-import { history, persistor, store, theme } from '@online-library/core'
+import { history, persistor, store } from '@online-library/core'
+
+import { theme } from '@online-library/ui'
 
 import { client } from 'gql/client'
 

@@ -3,7 +3,7 @@ import fileSaver from 'file-saver'
 import { forwardRef, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components/macro'
 
-import type { MessageType } from '@online-library/tools'
+import type { MessageType } from '@online-library/config'
 
 import * as Styled from './styled'
 

@@ -1,21 +1,21 @@
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 
-import type { MessageType } from '@online-library/tools'
+import type { MessageType } from '@online-library/config'
 import {
    API,
    FILE_EXTENSIONS,
    FILE_SIZES,
    MESSAGES_FETCH_LIMIT,
-   isChatInitialLoad,
-   messagesOrder,
-} from '@online-library/tools'
+   MESSAGES_ORDER,
+} from '@online-library/config'
 
 import {
    apiAxios,
    defaultAxios,
    detectMobileDevice,
    handleApiError,
+   isChatInitialLoad,
    setApiFeedback,
    subscribePushNotifications,
    useChatDetails,
@@ -99,7 +99,7 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
             }
          })
 
-         setMessages(chat.sort(messagesOrder))
+         setMessages(chat.sort(MESSAGES_ORDER))
 
          if (lastUnreadMessageIndex) {
             if (chat.length >= lastUnreadMessageIndex) {

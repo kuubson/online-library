@@ -1,1 +1,0 @@
-export { cardElementOptions } from './cardElementOptions'

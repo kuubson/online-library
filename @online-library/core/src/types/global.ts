@@ -15,8 +15,6 @@ export type FBMeRespose = {
    email: string
 }
 
-export type FBType = AnyFBType
-
 export type FBStatus = {
    status: string
 }

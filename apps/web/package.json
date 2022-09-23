@@ -12,8 +12,8 @@
    "dependencies": {
       "@apollo/client": "^3.6.9",
       "@hookform/resolvers": "^2.9.7",
-      "@online-library/tools": "*",
-      "@online-library/locales": "*",
+      "@online-library/config": "*",
+      "@online-library/ui": "*",
       "@reduxjs/toolkit": "^1.8.5",
       "@stripe/react-stripe-js": "^1.10.0",
       "@stripe/stripe-js": "^1.35.0",

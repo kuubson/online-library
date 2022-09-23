@@ -1,7 +1,7 @@
 import { verify } from 'jsonwebtoken'
 
-import type { Role } from '@online-library/tools'
-import { AuthError, roles, yup } from '@online-library/tools'
+import type { Role } from '@online-library/config'
+import { AuthError, ROLE, yup } from '@online-library/config'
 
 import { JWT_KEY } from 'config'
 
@@ -26,7 +26,7 @@ export const checkAuth: Route<InitialBody, Cookies<typeof schema>> = [
 
          const { role } = verify(authToken, JWT_KEY) as AuthTokenData
 
-         if (!roles.includes(role)) {
+         if (!ROLE.includes(role)) {
             throw AuthError
          }
 

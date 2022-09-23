@@ -1,4 +1,4 @@
-import { API } from '@online-library/tools'
+import { API } from '@online-library/config'
 
 import { apiAxios, history, setApiFeedback, useForm } from '@online-library/core'
 

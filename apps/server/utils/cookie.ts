@@ -1,4 +1,4 @@
-import { COOKIE_MAX_AGE } from '@online-library/tools'
+import { COOKIE_MAX_AGE } from '@online-library/config'
 
 import { NODE_ENV } from 'config'
 

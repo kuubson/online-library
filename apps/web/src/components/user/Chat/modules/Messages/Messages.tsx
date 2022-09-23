@@ -2,10 +2,9 @@
 import React, { forwardRef } from 'react'
 import styled, { css } from 'styled-components/macro'
 
-import type { MessageType } from '@online-library/tools'
-import { isChatInitialLoad } from '@online-library/tools'
+import type { MessageType } from '@online-library/config'
 
-import { usePrevious } from '@online-library/core'
+import { isChatInitialLoad, usePrevious } from '@online-library/core'
 
 import { fadeIn } from 'assets/animations'
 

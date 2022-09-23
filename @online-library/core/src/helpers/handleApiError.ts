@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
-import { ConnectivityError, RequestError, callback, isProd, isProdWeb } from '@online-library/tools'
+import {
+   ConnectivityError,
+   RequestError,
+   callback,
+   isProd,
+   isProdWeb,
+} from '@online-library/config'
 
 import { setApiFeedback } from 'helpers'
 

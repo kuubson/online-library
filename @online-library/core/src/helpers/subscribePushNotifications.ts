@@ -1,6 +1,4 @@
-import { API } from '@online-library/tools'
-
-import { REACT_APP_PUBLIC_VAPID_KEY } from 'config'
+import { API } from '@online-library/config'
 
 import { defaultAxios } from 'utils'
 
@@ -26,7 +24,9 @@ export const subscribePushNotifications = async () => {
             if (pushManager) {
                const subscription = await pushManager.subscribe({
                   userVisibleOnly: true,
-                  applicationServerKey: urlBase64ToUint8Array(REACT_APP_PUBLIC_VAPID_KEY),
+                  applicationServerKey: urlBase64ToUint8Array(
+                     process.env.REACT_APP_PUBLIC_VAPID_KEY as string
+                  ),
                })
 
                const { request } = API['/api/user/chat/notifications'].post

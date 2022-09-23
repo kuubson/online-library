@@ -5,7 +5,9 @@ import SplashScreen from 'react-native-splash-screen'
 import styled from 'styled-components/native'
 
 import type { Screens } from '@online-library/core'
-import { navigationRef, theme } from '@online-library/core'
+import { navigationRef } from '@online-library/core'
+
+import { theme } from '@online-library/ui'
 
 import { Text } from './common'
 import { HomeScreen, RegistrationScreen } from './screens'

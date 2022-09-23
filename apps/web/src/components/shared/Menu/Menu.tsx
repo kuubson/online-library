@@ -1,13 +1,14 @@
+import { useState } from 'react'
 import { useLocation } from 'react-router'
 import styled, { css } from 'styled-components/macro'
 
-import { history } from '@online-library/core'
+import { history, useTopOffset } from '@online-library/core'
+
+import { useLogout } from '@online-library/ui'
 
 import { queries } from 'styles'
 
 import * as Styled from './styled'
-
-import { useMenu } from './hooks'
 
 type MenuProps = {
    options: {
@@ -20,22 +21,24 @@ type MenuProps = {
 export const Menu = ({ options }: MenuProps) => {
    const location = useLocation()
 
-   const { shouldMenuExpand, shouldMenuStick, setShouldMenuExpand, logout } = useMenu()
+   const { logout } = useLogout()
 
-   const menuProps = { shouldMenuExpand }
+   const shouldMenuStick = useTopOffset() > 20
+
+   const [shouldMenuExpand, setShouldMenuExpand] = useState(false)
 
    return (
       <MenuContainer shouldMenuStick={shouldMenuStick}>
          <Styled.Logo>Online Library</Styled.Logo>
          <Styled.LinesContainer
             onClick={() => setShouldMenuExpand(shouldMenuExpand => !shouldMenuExpand)}
-            {...menuProps}
+            {...{ shouldMenuExpand }}
          >
-            <Styled.Line {...menuProps} />
-            <Styled.Line {...menuProps} />
-            <Styled.Line {...menuProps} />
+            <Styled.Line {...{ shouldMenuExpand }} />
+            <Styled.Line {...{ shouldMenuExpand }} />
+            <Styled.Line {...{ shouldMenuExpand }} />
          </Styled.LinesContainer>
-         <Styled.OptionsContainer {...menuProps}>
+         <Styled.OptionsContainer {...{ shouldMenuExpand }}>
             {options.map(({ option, pathname, counter }) => {
                const handleOnClick = () => {
                   if (option === 'Logout') {
@@ -47,7 +50,7 @@ export const Menu = ({ options }: MenuProps) => {
                if (location.pathname !== pathname) {
                   return (
                      <Styled.Option
-                        {...menuProps}
+                        {...{ shouldMenuExpand }}
                         key={option}
                         onClick={handleOnClick}
                         counter={counter}

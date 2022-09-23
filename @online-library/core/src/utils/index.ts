@@ -1,3 +1,3 @@
-export * from './axios/axios'
+export * from './axios'
 export { history } from './history'
-export * from './navigation/navigation'
+export * from './navigation'

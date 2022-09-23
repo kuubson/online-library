@@ -1,3 +1,3 @@
-export * from 'utils/axios/types'
-export * from 'utils/navigation/types'
+export * from './axios'
 export * from './global'
+export * from './navigation'

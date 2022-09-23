@@ -1,6 +1,6 @@
 import { Op } from 'sequelize'
 
-import { API, yup } from '@online-library/tools'
+import { API, yup } from '@online-library/config'
 
 import { Book } from 'database'
 import type { Book as BookType } from 'database/models/Book'

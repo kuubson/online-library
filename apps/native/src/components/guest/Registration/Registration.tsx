@@ -1,6 +1,6 @@
-import { navigate, useRegistration } from '@online-library/core'
+import { navigate } from '@online-library/core'
 
-import { t } from '@online-library/locales'
+import { t, useRegistration } from '@online-library/ui'
 
 import * as Styled from './styled'
 import { ButtonText, Submit } from 'components/shared/styled'

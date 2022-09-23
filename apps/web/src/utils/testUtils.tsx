@@ -3,7 +3,7 @@ import { render as _render } from '@testing-library/react'
 import axios from 'axios'
 import type { ReactElement } from 'react'
 
-import { serverUrl } from '@online-library/tools'
+import { serverUrl } from '@online-library/config'
 
 import { Providers } from 'components/shared'
 

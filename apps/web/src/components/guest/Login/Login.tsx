@@ -1,6 +1,6 @@
-import { history, useLogin } from '@online-library/core'
+import { history } from '@online-library/core'
 
-import { t } from '@online-library/locales'
+import { t, useLogin } from '@online-library/ui'
 
 import { Annotation, Annotations } from 'components/guest/Registration/styled'
 import { Form, Submit } from 'components/shared/styled'

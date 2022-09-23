@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { API, ApiError, yup } from '@online-library/tools'
+import { API, ApiError, yup } from '@online-library/config'
 
 import { JWT_KEY, TokenExpiration } from 'config'
 

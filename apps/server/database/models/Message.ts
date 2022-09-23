@@ -11,7 +11,7 @@ import type {
 } from 'sequelize'
 import { DataTypes, Model } from 'sequelize'
 
-import type { messageTypes } from '@online-library/tools'
+import type { MESSAGE_TYPE } from '@online-library/config'
 
 import { dbDefaultAttributes } from 'utils'
 
@@ -22,7 +22,7 @@ export class Message extends Model<InferAttributes<Message>, InferCreationAttrib
    declare createdAt: CreationOptional<Date>
    declare updatedAt: CreationOptional<Date>
 
-   declare type: typeof messageTypes[number]
+   declare type: typeof MESSAGE_TYPE[number]
    declare content: string
    declare filename: string | null
    declare readBy: string

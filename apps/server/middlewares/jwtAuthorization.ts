@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import passport from 'passport'
 
-import type { Role } from '@online-library/tools'
-import { AuthError } from '@online-library/tools'
+import type { Role } from '@online-library/config'
+import { AuthError } from '@online-library/config'
 
 import { cookie } from 'utils'
 

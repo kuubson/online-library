@@ -1,6 +1,7 @@
 export { detectMobileDevice } from './detectMobileDevice'
 export { handleApiError } from './handleApiError'
-export * from './loader'
+export { isChatInitialLoad } from './isChatInitialLoad'
+export { debounceLoader, resetLoader } from './loader'
 export { setApiFeedback } from './setApiFeedback'
 export { setLoading } from './setLoading'
 export { subscribePushNotifications } from './subscribePushNotifications'

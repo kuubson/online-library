@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import { verify } from 'jsonwebtoken'
 
-import { API, ApiError, yup } from '@online-library/tools'
+import { API, ApiError, yup } from '@online-library/config'
 
 import { JWT_KEY } from 'config'
 

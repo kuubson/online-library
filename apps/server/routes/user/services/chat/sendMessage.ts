@@ -1,4 +1,4 @@
-import { API, RANDOM_IMAGE, yup } from '@online-library/tools'
+import { API, RANDOM_IMAGE, yup } from '@online-library/config'
 
 import { Connection } from 'database'
 

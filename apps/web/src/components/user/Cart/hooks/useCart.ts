@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { InferType } from 'yup'
 
-import { API } from '@online-library/tools'
+import { API } from '@online-library/config'
 
 import type { ResponseError } from '@online-library/core'
 import { apiAxios, history, setApiFeedback, useCart as useCartHook } from '@online-library/core'

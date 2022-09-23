@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 
-import { theme } from '@online-library/core'
+import { theme } from '@online-library/ui'
 
 import { scale } from 'styles'
 

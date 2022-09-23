@@ -11,7 +11,7 @@
       "build": "tsup src/index.ts --format cjs --dts --external react"
    },
    "dependencies": {
-      "@online-library/tools": "*",
+      "@online-library/config": "*",
       "@react-native-async-storage/async-storage": "^1.17.10",
       "@react-navigation/native": "^6.0.13",
       "@reduxjs/toolkit": "^1.8.5",
