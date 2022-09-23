@@ -1,4 +1,4 @@
-import { MESSAGE_TYPE } from '@online-library/config'
+import { MESSAGE_TYPES } from '@online-library/config'
 
 export const authToken = {
    in: 'cookie',
@@ -42,7 +42,7 @@ export const contentFile = {
 
 export const fileType = {
    type: 'string',
-   enum: MESSAGE_TYPE,
+   enum: MESSAGE_TYPES,
 }
 
 const emptyString = {

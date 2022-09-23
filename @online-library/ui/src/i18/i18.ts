@@ -1,6 +1,6 @@
 import { get } from 'lodash'
 
-import { en } from './languages/en'
+import { en } from './translations/en'
 
 type Path<T, Key extends keyof T> = Key extends string
    ? T[Key] extends Record<string, unknown>

@@ -24,6 +24,6 @@ export const FILE_EXTENSIONS = {
 
 export const MESSAGES_ORDER = (a: HasId, b: HasId) => a.id - b.id
 
-export const MESSAGE_TYPE = ['MESSAGE', 'IMAGE', 'VIDEO', 'FILE'] as const
+export const MESSAGE_TYPES = ['MESSAGE', 'IMAGE', 'VIDEO', 'FILE'] as const
 
-export const ROLE = ['guest', 'user'] as const
+export const ROLES = ['guest', 'user'] as const

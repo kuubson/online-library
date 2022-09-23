@@ -1,4 +1,4 @@
-import type { MESSAGE_TYPE, MessageType, Role } from '@online-library/config'
+import type { MESSAGE_TYPES, MessageType, Role } from '@online-library/config'
 
 import type { Book } from 'gql'
 
@@ -22,7 +22,7 @@ export type ChatDetailsResponse = {
 }
 
 export type SendFileResponse = {
-   type: typeof MESSAGE_TYPE[number]
+   type: typeof MESSAGE_TYPES[number]
    content: string
 }
 

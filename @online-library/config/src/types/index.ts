@@ -1,10 +1,10 @@
-import type { MESSAGE_TYPE, ROLE } from 'utils'
+import type { MESSAGE_TYPES, ROLES } from 'utils'
 
-export type Role = typeof ROLE[number]
+export type Role = typeof ROLES[number]
 
 export type MessageType = {
    id: number
-   type: typeof MESSAGE_TYPE[number]
+   type: typeof MESSAGE_TYPES[number]
    content: string
    filename?: string
    userId: string

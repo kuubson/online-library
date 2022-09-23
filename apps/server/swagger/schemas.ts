@@ -1,4 +1,4 @@
-import { ROLE } from '@online-library/config'
+import { ROLES } from '@online-library/config'
 
 import {
    cloudinaryId,
@@ -24,7 +24,7 @@ export const schemas = {
       properties: {
          role: {
             type: 'string',
-            enum: ROLE,
+            enum: ROLES,
          },
       },
    },
