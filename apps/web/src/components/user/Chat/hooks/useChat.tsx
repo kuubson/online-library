@@ -12,17 +12,16 @@ import {
 } from '@online-library/tools'
 
 import {
+   apiAxios,
    defaultAxios,
    detectMobileDevice,
+   handleApiError,
    setApiFeedback,
+   subscribePushNotifications,
    useChatDetails,
    usePrevious,
    useSocket,
 } from '@online-library/core'
-
-import { handleApiError, subscribePushNotifications } from 'helpers'
-
-import { apiAxios } from 'utils'
 
 import type { MessagesResponse, SendFileResponse } from 'types'
 
@@ -116,7 +115,7 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
    }
 
    useEffect(() => {
-      setTimeout(() => subscribePushNotifications, 2000)
+      setTimeout(subscribePushNotifications, 2000)
       getMessages(MESSAGES_FETCH_LIMIT, 0)
    }, [])
 

@@ -2,11 +2,9 @@ import { useEffect, useState } from 'react'
 
 import { API } from '@online-library/tools'
 
-import { useForm } from '@online-library/core'
+import { apiAxios, useForm } from '@online-library/core'
 
 import type { Book } from 'gql'
-
-import { apiAxios } from 'utils'
 
 import type { BookSuggestionsProps, BooksResponse } from 'types'
 

@@ -1,10 +1,18 @@
 import { API } from '@online-library/tools'
 
-import { history, setApiFeedback, useForm } from '@online-library/core'
+import { useForm } from 'hooks'
 
-import { apiAxios } from 'utils'
+import { setApiFeedback } from 'helpers'
 
-import type { FBLoginRequest, FBMeRespose } from 'types'
+import { apiAxios, history } from 'utils'
+
+import type { FBLoginRequest, FBMeRespose, FBType } from 'types'
+
+declare global {
+   interface Window {
+      FB: FBType
+   }
+}
 
 const { request, validation } = API['/api/user/auth/login/credentials'].post
 

@@ -3,11 +3,9 @@ import type { InferType } from 'yup'
 
 import { API } from '@online-library/tools'
 
-import { history, setApiFeedback } from '@online-library/core'
+import { apiAxios, history, setApiFeedback } from '@online-library/core'
 
 import { useQueryParams } from 'hooks'
-
-import { apiAxios } from 'utils'
 
 const { request, validation, header, errors } = API['/api/user/auth/account'].patch
 

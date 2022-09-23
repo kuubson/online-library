@@ -3,15 +3,14 @@ import type { InferType } from 'yup'
 
 import { API } from '@online-library/tools'
 
-import { history, setApiFeedback, useCart as useCartHook } from '@online-library/core'
+import type { ResponseError } from '@online-library/core'
+import { apiAxios, history, setApiFeedback, useCart as useCartHook } from '@online-library/core'
 
 import { useGetBooksQuery } from 'gql'
 
 import { useQueryParams } from 'hooks'
 
-import { apiAxios } from 'utils'
-
-import type { ApiError, PaypalCheckoutResponse } from 'types'
+import type { PaypalCheckoutResponse } from 'types'
 
 const { request, validation, header, errors } = API['/api/user/cart/paypal/payment'].post
 
@@ -50,7 +49,7 @@ export const useCart = () => {
                }
             }
          } catch (error) {
-            if ((error as ApiError).response?.status === 409) {
+            if ((error as ResponseError).response?.status === 409) {
                resetCart()
                history.push('/profile')
             }

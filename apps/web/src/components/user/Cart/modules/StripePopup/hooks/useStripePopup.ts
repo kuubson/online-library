@@ -2,9 +2,7 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 
 import { API } from '@online-library/tools'
 
-import { history, setApiFeedback, setLoading, useCart } from '@online-library/core'
-
-import { apiAxios } from 'utils'
+import { apiAxios, history, setApiFeedback, setLoading, useCart } from '@online-library/core'
 
 export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean>) => {
    const stripe = useStripe()

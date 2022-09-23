@@ -1,6 +1,6 @@
 export { Op } from 'sequelize'
-export { baseUrl } from './baseUrl'
 export * from './cookie'
 export { dbDefaultAttributes } from './dbDefaultAttributes'
 export { emailTemplate } from './emailTemplate'
+export { hostUrl } from './hostUrl'
 export { jwt } from './jwt'

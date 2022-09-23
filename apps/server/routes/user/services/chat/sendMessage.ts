@@ -6,7 +6,7 @@ import { yupValidation } from 'middlewares'
 
 import { sendNotificationsForOtherUsers } from 'helpers'
 
-import { baseUrl } from 'utils'
+import { hostUrl } from 'utils'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
@@ -39,7 +39,7 @@ export const sendMessage: ProtectedRoute<Body<typeof schema>> = [
                icon: RANDOM_IMAGE,
                data: {
                   userName: name,
-                  url: `${baseUrl(req)}/chat`,
+                  url: `${hostUrl(req)}/chat`,
                },
             })
 

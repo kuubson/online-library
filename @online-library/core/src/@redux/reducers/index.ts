@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import type { WebStorage } from 'redux-persist'
 import { persistReducer } from 'redux-persist'
 
-import { isWeb } from 'isWeb'
+import { isWeb } from '@online-library/tools'
 
 import { apiFeedback } from './apiFeedback'
 import { cart } from './cart'

@@ -7,14 +7,12 @@ import { Form, Submit } from 'components/shared/styled'
 
 import { HomeButton, Input } from 'components/shared'
 
-import { apiAxios } from 'utils'
-
 export const Registration = () => {
-   const { register, control, errors } = useRegistration(apiAxios)
+   const { register, control, errors } = useRegistration()
    return (
       <>
          <HomeButton />
-         <Form onSubmit={event => register(() => history.push('/login'), event)}>
+         <Form onSubmit={register}>
             <Input
                {...{ control }}
                id="name"

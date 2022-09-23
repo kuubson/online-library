@@ -1,20 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
-import { ConnectivityError, RequestError } from '@online-library/tools'
+import { ConnectivityError, RequestError, callback, isProd, isProdWeb } from '@online-library/tools'
 
-import { history, setApiFeedback } from '@online-library/core'
+import { setApiFeedback } from 'helpers'
 
-import { NODE_ENV } from 'config'
+import { history, navigate } from 'utils'
 
-import type { ApiError } from 'types'
-
-const production = NODE_ENV === 'production'
+import type { ResponseError } from 'types'
 
 export const handleApiError = <T extends unknown>(error: T) => {
-   if (!production) {
+   if (!isProd) {
       console.log(error)
    }
 
-   const { response, request } = error as ApiError
+   const { response, request } = error as ResponseError
 
    if (response.data) {
       const {
@@ -23,7 +21,10 @@ export const handleApiError = <T extends unknown>(error: T) => {
       } = response
 
       if (status === 401) {
-         history.push('/login')
+         callback({
+            web: () => history.push('/login'),
+            native: () => navigate('Login'),
+         })
       }
 
       if (errorHeader && errorMessage) {
@@ -34,7 +35,7 @@ export const handleApiError = <T extends unknown>(error: T) => {
          ConnectivityError.errorHeader,
          ConnectivityError.errorMessage,
          'Refresh the application',
-         () => production && window.location.reload()
+         () => isProdWeb && window.location.reload()
       )
    }
 
@@ -43,7 +44,7 @@ export const handleApiError = <T extends unknown>(error: T) => {
          RequestError.errorHeader,
          RequestError.errorMessage,
          'Refresh the application',
-         () => production && window.location.reload()
+         () => isProdWeb && window.location.reload()
       )
    }
 
@@ -51,6 +52,6 @@ export const handleApiError = <T extends unknown>(error: T) => {
       ConnectivityError.errorHeader,
       'An unexpected problem has occurred in the application',
       'Refresh the application',
-      () => production && window.location.reload()
+      () => isProdWeb && window.location.reload()
    )
 }

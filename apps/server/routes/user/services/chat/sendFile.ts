@@ -7,7 +7,7 @@ import type { Message } from 'database/models/Message'
 
 import { deleteTemporaryFile, sendNotificationsForOtherUsers } from 'helpers'
 
-import { baseUrl } from 'utils'
+import { hostUrl } from 'utils'
 
 import type { InitialBody, InitialCookies, InitialQuery, ProtectedRoute } from 'types/express'
 
@@ -124,7 +124,7 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, InitialQuery,
                icon: RANDOM_IMAGE,
                data: {
                   userName: name,
-                  url: `${baseUrl(req)}/chat`,
+                  url: `${hostUrl(req)}/chat`,
                },
             })
 

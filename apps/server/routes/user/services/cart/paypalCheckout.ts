@@ -7,7 +7,7 @@ import { yupValidation } from 'middlewares'
 
 import { totalBooksPrice, verifyPurchasingBooks } from 'helpers'
 
-import { baseUrl } from 'utils'
+import { hostUrl } from 'utils'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
@@ -36,8 +36,8 @@ export const paypalCheckout: ProtectedRoute<Body<typeof schema>> = [
             intent: 'sale',
             payer: { payment_method: 'paypal' },
             redirect_urls: {
-               return_url: `${baseUrl(req)}/cart`,
-               cancel_url: `${baseUrl(req)}/cart`,
+               return_url: `${hostUrl(req)}/cart`,
+               cancel_url: `${hostUrl(req)}/cart`,
             },
             transactions: [
                {

@@ -1,26 +1,30 @@
-import { API } from '@online-library/tools'
+import { API, callback } from '@online-library/tools'
 
 import { useForm } from 'hooks'
 
 import { setApiFeedback } from 'helpers'
 
-import type { AxiosOverload, Callback, FormEvent } from 'types'
+import { apiAxios, history, navigate } from 'utils'
 
 const { request, validation, header, errors } = API['/api/user/auth/register'].post
 
-export const useRegistration = (axios: AxiosOverload) => {
+export const useRegistration = () => {
    const { submit, control, errors: formErrors, getValues } = useForm(validation)
 
-   const register = (callback: Callback, event?: FormEvent) =>
-      submit(async () => {
-         const response = await axios<typeof validation>(request, getValues())
-         if (response) {
-            setApiFeedback(header, errors[200], 'Okey', callback)
-         }
-      })(event)
+   const register = async () => {
+      const response = await apiAxios<typeof validation>(request, getValues())
+      if (response) {
+         setApiFeedback(header, errors[200], 'Okey', () =>
+            callback({
+               web: () => history.push('/login'),
+               native: () => navigate('Login'),
+            })
+         )
+      }
+   }
 
    return {
-      register,
+      register: submit(register),
       control,
       errors: formErrors,
    }

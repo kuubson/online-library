@@ -17,15 +17,7 @@ import { Chat } from 'components/user/Chat/Chat'
 import { Profile } from 'components/user/Profile/Profile'
 import { Store } from 'components/user/Store/Store'
 
-import type { FBType } from 'types'
-
 import { Guest, User } from './common'
-
-declare global {
-   interface Window {
-      FB: FBType
-   }
-}
 
 export const App = () => {
    const { loading } = useLoader()

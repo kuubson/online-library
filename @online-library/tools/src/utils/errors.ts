@@ -1,4 +1,4 @@
-import { API } from './api/api'
+import { API } from 'api'
 
 export class ApiError extends Error {
    errorHeader: string
@@ -12,17 +12,17 @@ export class ApiError extends Error {
    }
 }
 
-export const CSRFError = new ApiError(
-   'Authentication',
-   'Invalid csrf token. Make sure any extension does not block cookies',
-   403
-)
-
 export class AuthErrorBase extends ApiError {
    constructor() {
       super('Authentication', 'The authentication cookie is invalid, log in again', 401)
    }
 }
+
+export const CSRFError = new ApiError(
+   'Authentication',
+   'Invalid csrf token. Make sure any extension does not block cookies',
+   403
+)
 
 export const AuthError = new AuthErrorBase()
 

@@ -1,8 +1,8 @@
+import { yup } from 'customYup'
 import { mapValues } from 'lodash'
 import type { OptionalObjectSchema } from 'yup/lib/object'
 
-import { default as swagger } from '../../../../../apps/server/swagger/swagger.json'
-import { yup } from '../yup'
+import { default as swagger } from '../../../../apps/server/swagger/swagger.json'
 
 export type SWAGGER_PATHS = typeof swagger.paths
 

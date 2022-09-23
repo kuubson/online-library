@@ -11,12 +11,13 @@
       "build": "tsup src/index.ts --format cjs --dts --external react"
    },
    "dependencies": {
+      "@online-library/tools": "*",
       "@react-native-async-storage/async-storage": "^1.17.10",
       "@react-navigation/native": "^6.0.13",
-      "@online-library/tools": "*",
       "@reduxjs/toolkit": "^1.8.5",
       "@types/validator": "^13.7.6",
       "axios": "^0.27.2",
+      "graphql": "^16.6.0",
       "history": "^5.3.0",
       "lodash": "^4.17.21",
       "react": "^18.1.0",

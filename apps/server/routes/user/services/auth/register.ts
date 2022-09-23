@@ -10,7 +10,7 @@ import { yupValidation } from 'middlewares'
 
 import { transporter } from 'helpers'
 
-import { baseUrl, emailTemplate } from 'utils'
+import { emailTemplate, hostUrl } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
@@ -54,7 +54,7 @@ export const register: Route<Body<typeof schema>> = [
                      `${header} in the Online Library`,
                      `To activate the account click the button`,
                      'Activate account',
-                     `${baseUrl(req)}/home/?activationToken=${activationToken}`
+                     `${hostUrl(req)}/home/?activationToken=${activationToken}`
                   ),
                })
             } catch {

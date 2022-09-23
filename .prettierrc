@@ -11,7 +11,7 @@
    "importOrder": [
       "<THIRD_PARTY_MODULES>",
 
-      "isWeb",
+      "^is$",
 
       "@online-library/tools",
       "@online-library/core",

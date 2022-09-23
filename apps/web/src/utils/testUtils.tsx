@@ -3,16 +3,16 @@ import { render as _render } from '@testing-library/react'
 import axios from 'axios'
 import type { ReactElement } from 'react'
 
-import { Providers } from 'components/shared'
+import { serverUrl } from '@online-library/tools'
 
-import { baseUrl } from 'utils'
+import { Providers } from 'components/shared'
 
 export * from '@testing-library/react'
 export { default as userEvent } from '@testing-library/user-event'
 
-axios.defaults.baseURL = baseUrl
-
 type Options = Omit<RenderOptions, 'wrapper'>
+
+axios.defaults.baseURL = serverUrl
 
 export const render = (ui: ReactElement, options?: Options) =>
    _render(ui, {

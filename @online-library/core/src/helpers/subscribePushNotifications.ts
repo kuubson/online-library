@@ -1,8 +1,8 @@
 import { API } from '@online-library/tools'
 
-import { defaultAxios } from '@online-library/core'
-
 import { REACT_APP_PUBLIC_VAPID_KEY } from 'config'
+
+import { defaultAxios } from 'utils'
 
 const urlBase64ToUint8Array = (base64String: string) => {
    const padding = '='.repeat((4 - (base64String.length % 4)) % 4)

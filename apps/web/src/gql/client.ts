@@ -5,8 +5,15 @@ import { getMainDefinition } from '@apollo/client/utilities'
 import { createClient } from 'graphql-ws'
 import type { CloseEvent } from 'ws'
 
-import { API, AuthError, ConnectivityError, GRAPHQL_WS_CLOSE_STATUS } from '@online-library/tools'
+import {
+   API,
+   AuthError,
+   ConnectivityError,
+   GRAPHQL_WS_CLOSE_STATUS,
+   websocketUrl,
+} from '@online-library/tools'
 
+import type { GraphqlError } from '@online-library/core'
 import {
    debounceLoader,
    defaultAxios,
@@ -16,10 +23,6 @@ import {
 } from '@online-library/core'
 
 import { NODE_ENV } from 'config'
-
-import { websocketUrl } from 'utils'
-
-import type { GraphqlError } from 'types'
 
 const webSocketLink = new GraphQLWsLink(
    createClient({

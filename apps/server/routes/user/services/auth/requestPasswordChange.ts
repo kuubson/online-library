@@ -10,7 +10,7 @@ import { yupValidation } from 'middlewares'
 
 import { transporter } from 'helpers'
 
-import { baseUrl, emailTemplate } from 'utils'
+import { emailTemplate, hostUrl } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
@@ -50,7 +50,7 @@ export const requestPasswordChange: Route<Body<typeof schema>> = [
                      `${header} in the Online Library`,
                      `To change the password click the button`,
                      'Change password',
-                     `${baseUrl(req)}/password-recovery/${passwordToken}`
+                     `${hostUrl(req)}/password-recovery/${passwordToken}`
                   ),
                })
             } catch (error) {
