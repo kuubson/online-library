@@ -11,6 +11,8 @@
    "importOrder": [
       "<THIRD_PARTY_MODULES>",
 
+      "isWeb",
+
       "@online-library/tools",
       "@online-library/core",
       "@online-library/locales",

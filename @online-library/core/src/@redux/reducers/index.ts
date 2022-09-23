@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import type { WebStorage } from 'redux-persist'
 import { persistReducer } from 'redux-persist'
 
-import { isNative } from 'utils'
+import { isWeb } from 'isWeb'
 
 import { apiFeedback } from './apiFeedback'
 import { cart } from './cart'
@@ -13,7 +13,7 @@ import { socket } from './socket'
 
 let storage: WebStorage | typeof AsyncStorage = AsyncStorage
 
-if (!isNative) {
+if (isWeb) {
    // eslint-disable-next-line @typescript-eslint/no-var-requires
    storage = require('redux-persist/lib/storage').default
 }

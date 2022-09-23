@@ -1,6 +1,6 @@
 import type { BrowserHistory } from 'history'
 import { createBrowserHistory } from 'history'
 
-import { isNative } from 'utils'
+import { isWeb } from 'isWeb'
 
-export const history = (!isNative && createBrowserHistory()) as BrowserHistory
+export const history = (isWeb && createBrowserHistory()) as BrowserHistory
