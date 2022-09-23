@@ -1,15 +1,22 @@
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 
-import { API, FILE_EXTENSIONS, FILE_SIZES, MESSAGES_FETCH_LIMIT } from '@online-library/tools'
+import type { MessageType } from '@online-library/tools'
+import {
+   API,
+   FILE_EXTENSIONS,
+   FILE_SIZES,
+   MESSAGES_FETCH_LIMIT,
+   isChatInitialLoad,
+   messagesOrder,
+} from '@online-library/tools'
 
-import type { MessageType } from '@online-library/core'
 import {
    defaultAxios,
    detectMobileDevice,
-   isChatInitialLoad,
    setApiFeedback,
    useChatDetails,
+   usePrevious,
    useSocket,
 } from '@online-library/core'
 
@@ -37,6 +44,7 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
 
    const messagesRef = useRef<HTMLDivElement>(null)
    const endOfMessages = useRef<HTMLDivElement>(null)
+   const lastMessageBeforeFetch = useRef<HTMLDivElement>(null)
 
    const [currentUserId, setCurrentUserId] = useState<string>('')
    const [currentUserName, setCurrentUserName] = useState<string>('')
@@ -46,7 +54,10 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
 
    const [hasMoreMessages, setHasMoreMessages] = useState(true)
 
-   const handleInfiniteLoader = (event: React.UIEvent<HTMLDivElement>) => {
+   const [triggerPersistingScroll, setTriggerPersistingScroll] = useState(0)
+   const previousPersistScrollTrigger = usePrevious(triggerPersistingScroll)
+
+   const handleInfiniteLoader = async (event: React.UIEvent<HTMLDivElement>) => {
       const target = event.target as HTMLDivElement
 
       const isChatScrollOnTop = target.scrollTop <= 0
@@ -55,8 +66,15 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
 
       if (canLoadMessages) {
          getMessages(MESSAGES_FETCH_LIMIT, messages.length)
+         setTriggerPersistingScroll(Math.random())
       }
    }
+
+   useEffect(() => {
+      if (lastMessageBeforeFetch.current) {
+         lastMessageBeforeFetch.current.scrollIntoView()
+      }
+   }, [triggerPersistingScroll, previousPersistScrollTrigger])
 
    const getMessages = async (limit: number, offset: number) => {
       const response = await apiAxios<typeof validation, MessagesResponse>(request, {
@@ -82,7 +100,7 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
             }
          })
 
-         setMessages(chat)
+         setMessages(chat.sort(messagesOrder))
 
          if (lastUnreadMessageIndex) {
             if (chat.length >= lastUnreadMessageIndex) {
@@ -329,6 +347,7 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
    return {
       messagesRef,
       endOfMessages,
+      lastMessageBeforeFetch,
       currentUserId,
       messages,
       message,

@@ -4,7 +4,7 @@ import styled from 'styled-components/macro'
 import { detectMobileDevice, useChatDetails } from '@online-library/core'
 
 import * as Styled from './styled'
-import { Button, UserContent, Warning } from 'components/shared/styled'
+import { Button, UserContent } from 'components/shared/styled'
 
 import { Messages, ProgressLoader } from './modules'
 
@@ -26,6 +26,7 @@ export const Chat = ({ shouldMenuExpand }: ChatProps) => {
    const {
       messagesRef,
       endOfMessages,
+      lastMessageBeforeFetch,
       currentUserId,
       messages,
       message,
@@ -42,8 +43,6 @@ export const Chat = ({ shouldMenuExpand }: ChatProps) => {
       setPercentage,
    })
 
-   const areThereMessages = messages.length > 0
-
    const fileUploadInProgess = percentage > 0
 
    return (
@@ -51,54 +50,52 @@ export const Chat = ({ shouldMenuExpand }: ChatProps) => {
          {!loading && lastUnreadMessageIndex && messages.length < lastUnreadMessageIndex && (
             <Styled.Details onClick={getUnreadMessages}>Unread messages</Styled.Details>
          )}
-         {!loading &&
-            (areThereMessages ? (
-               <>
-                  <Messages
-                     ref={messagesRef}
-                     endOfMessages={endOfMessages}
-                     messages={messages}
-                     currentUserId={currentUserId}
-                     onTouchStart={() =>
-                        detectMobileDevice() && textareaRef.current && textareaRef.current.blur()
-                     }
-                     onScroll={handleInfiniteLoader}
-                     scrollToLastMessage={scrollToLastMessage}
+         {!loading && (
+            <>
+               <Messages
+                  ref={messagesRef}
+                  endOfMessages={endOfMessages}
+                  lastMessageBeforeFetch={lastMessageBeforeFetch}
+                  messages={messages}
+                  currentUserId={currentUserId}
+                  onTouchStart={() =>
+                     detectMobileDevice() && textareaRef.current && textareaRef.current.blur()
+                  }
+                  onScroll={handleInfiniteLoader}
+                  scrollToLastMessage={scrollToLastMessage}
+               />
+               <Styled.TextareaContainer>
+                  <Styled.Textarea
+                     ref={textareaRef}
+                     value={message}
+                     placeholder="Enter message..."
+                     disabled={fileUploadInProgess}
+                     onChange={event => setMessage(event.target.value)}
+                     onFocus={() => scrollToLastMessage(500)}
+                     onKeyPress={handleOnKeyPress}
                   />
-                  <Styled.TextareaContainer>
-                     <Styled.Textarea
-                        ref={textareaRef}
-                        value={message}
-                        placeholder="Enter message..."
-                        disabled={fileUploadInProgess}
-                        onChange={event => setMessage(event.target.value)}
-                        onFocus={() => scrollToLastMessage(500)}
-                        onKeyPress={handleOnKeyPress}
-                     />
-                     {fileUploadInProgess ? (
-                        <ProgressLoader percentage={percentage} />
-                     ) : (
-                        <Button as="label" htmlFor="file" withChat>
-                           Upload file
-                        </Button>
-                     )}
-                     {showFileInput && <Styled.FileInput onChange={sendFile} />}
-                     <Button
-                        onClick={() => {
-                           sendMessage()
-                           if (detectMobileDevice()) {
-                              textareaRef.current?.focus()
-                           }
-                        }}
-                        withChat
-                     >
-                        Send
+                  {fileUploadInProgess ? (
+                     <ProgressLoader percentage={percentage} />
+                  ) : (
+                     <Button as="label" htmlFor="file" withChat>
+                        Upload file
                      </Button>
-                  </Styled.TextareaContainer>
-               </>
-            ) : (
-               <Warning>There are no messages</Warning>
-            ))}
+                  )}
+                  {showFileInput && <Styled.FileInput onChange={sendFile} />}
+                  <Button
+                     onClick={() => {
+                        sendMessage()
+                        if (detectMobileDevice()) {
+                           textareaRef.current?.focus()
+                        }
+                     }}
+                     withChat
+                  >
+                     Send
+                  </Button>
+               </Styled.TextareaContainer>
+            </>
+         )}
       </ChatContainer>
    )
 }

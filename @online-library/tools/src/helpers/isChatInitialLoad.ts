@@ -1,4 +1,4 @@
-import { MESSAGES_FETCH_LIMIT } from '@online-library/tools'
+import { MESSAGES_FETCH_LIMIT } from 'utils'
 
 import type { MessageType } from 'types'
 

@@ -111,8 +111,8 @@ api-->native
 
 ## 🆒 Side tools
 
--  [Budibase](https://budibase.com/) (low code platform) for editing database records
--  [Mermaid](https://mermaid-js.github.io/mermaid/#/) for building diagrams with ease
+-  [Budibase](https://budibase.com/) (low code platform) for creating simple panels that help navigating through the database (perfect choice for admin panels)
+-  [Mermaid](https://mermaid-js.github.io/mermaid/#/) for diagrams
 -  [TS errors translator](https://ts-error-translator.vercel.app)
 -  [json to ts/jsonschema](https://app.quicktype.io/?l=ts) converter
 -  [@faker-js/faker](https://fakerjs.dev/guide/) for seeding db with fake data
@@ -128,9 +128,6 @@ api-->native
 -  add **WebRTC** for video chat
 -  replace errors popup with **react-toastify**
 -  tweak seeding db flow
--  check out **react-native-web**
-
-TODO: fill scripts
 
 ## ⌨ Root scripts
 
@@ -163,20 +160,20 @@ TODO: fill scripts
 
 > **Warning** if **Heroku** struggles with the build, set `YARN_PRODUCTION` to `false`
 
-| variable                                                                | server[^s]          | web[^w]                            | details                                                                                                       |
-| ----------------------------------------------------------------------- | ------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `CLOUDINARY_API_KEY` `CLOUDINARY_API_SECRET` `CLOUDINARY_NAME`          | all                 | ❌                                 | [cloudinary](https://cloudinary.com) API credentials                                                          |
-| `DATABASE_HOST` `DATABASE_NAME` `DATABASE_PASSWORD` `DATABASE_USERNAME` | all                 | ❌                                 | PostgreSQL credentials                                                                                        |
-| `JWT_KEY`                                                               | ✔️                  | ❌                                 | secret key for `jsonwebtoken`                                                                                 |
-| `NODEMAILER_USERNAME` `NODEMAILER_PASSWORD`                             | all                 | ❌                                 | SMTP provider (`nodemailer`) credentials                                                                      |
-| `PAYPAL_CLIENT_ID` `PAYPAL_CLIENT_SECRET`                               | all                 | ❌                                 | [paypal](https://developer.paypal.com) API credentials                                                        |
-| `PRIVATE_VAPID_KEY` `REACT_APP_PUBLIC_VAPID_KEY`                        | all                 | `REACT_APP_PUBLIC_VAPID_KEY`       | `web-push` [package](<(https://www.npmjs.com/package/web-push)>) credentials (`web-push generate-vapid-keys`) |
-| `FACEBOOK_APP_SECRET` `REACT_APP_FACEBOOK_APP_ID`                       | all                 | `REACT_APP_FACEBOOK_APP_ID`        | fb [app](https://developers.facebook.com/apps) credentials                                                    |
-| `STRIPE_SECRET_KEY` `REACT_APP_STRIPE_PUBLISHABLE_KEY`                  | `STRIPE_SECRET_KEY` | `REACT_APP_STRIPE_PUBLISHABLE_KEY` | [stripe](https://dashboard.stripe.com) API credentials                                                        |
-| `CODEGEN`                                                               | ✔️                  | ❌                                 | see note[^codegen]                                                                                            |
-| `SEQUELIZE_AUTO`                                                        | ✔️                  | ❌                                 | set to `true` to re-autogenerate db models from existing tables (generates all methods for associations)      |
-| `SEED_BOOKS`                                                            | ✔️                  | ❌                                 | set to `true` to seed db with random books                                                                    |
-| `SEED_USER`                                                             | ✔️                  | ❌                                 | set to `true` to seed db with testing user                                                                    |
+| variables                                                               | details                                                                                                       | server[^s]          | web[^w]                            |
+| ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------- | ---------------------------------- |
+| `CLOUDINARY_API_KEY` `CLOUDINARY_API_SECRET` `CLOUDINARY_NAME`          | [cloudinary](https://cloudinary.com) API credentials                                                          | all                 | ❌                                 |
+| `DATABASE_HOST` `DATABASE_NAME` `DATABASE_PASSWORD` `DATABASE_USERNAME` | PostgreSQL credentials                                                                                        | all                 | ❌                                 |
+| `JWT_KEY`                                                               | secret key for `jsonwebtoken`                                                                                 | ✔️                  | ❌                                 |
+| `NODEMAILER_USERNAME` `NODEMAILER_PASSWORD`                             | SMTP provider (`nodemailer`) credentials                                                                      | all                 | ❌                                 |
+| `PAYPAL_CLIENT_ID` `PAYPAL_CLIENT_SECRET`                               | [paypal](https://developer.paypal.com) API credentials                                                        | all                 | ❌                                 |
+| `PRIVATE_VAPID_KEY` `REACT_APP_PUBLIC_VAPID_KEY`                        | `web-push` [package](<(https://www.npmjs.com/package/web-push)>) credentials (`web-push generate-vapid-keys`) | all                 | `REACT_APP_PUBLIC_VAPID_KEY`       |
+| `FACEBOOK_APP_SECRET` `REACT_APP_FACEBOOK_APP_ID`                       | fb [app](https://developers.facebook.com/apps) credentials                                                    | all                 | `REACT_APP_FACEBOOK_APP_ID`        |
+| `STRIPE_SECRET_KEY` `REACT_APP_STRIPE_PUBLISHABLE_KEY`                  | [stripe](https://dashboard.stripe.com) API credentials                                                        | `STRIPE_SECRET_KEY` | `REACT_APP_STRIPE_PUBLISHABLE_KEY` |
+| `CODEGEN`                                                               | see note[^codegen]                                                                                            | ✔️                  | ❌                                 |
+| `SEQUELIZE_AUTO`                                                        | set to `true` to re-autogenerate db models from existing tables (generates all methods for associations)      | ✔️                  | ❌                                 |
+| `SEED_BOOKS`                                                            | set to `true` to seed db with random books                                                                    | ✔️                  | ❌                                 |
+| `SEED_USER`                                                             | set to `true` to seed db with testing user                                                                    | ✔️                  | ❌                                 |
 
 [^r]: root level of the project
 [^t]: @online-library/tools - lib for sharing stuff between apps. It exposes `API.ts` which transforms autogenerated API docs into usable `API` variable
