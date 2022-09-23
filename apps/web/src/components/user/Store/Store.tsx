@@ -10,11 +10,7 @@ import { BookPopup } from './modules'
 
 import { useStore } from './hooks'
 
-type StoreProps = {
-   shouldMenuExpand?: boolean
-}
-
-export const Store = ({ shouldMenuExpand }: StoreProps) => {
+export const Store = () => {
    const {
       loading,
       freeBooks,
@@ -41,7 +37,7 @@ export const Store = ({ shouldMenuExpand }: StoreProps) => {
    const shouldShowSearchBar = areThereFreeBooks && areTherePaidBooks
 
    return (
-      <UserContent shouldMenuExpand={shouldMenuExpand}>
+      <UserContent>
          {bookPopupData && <BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />}
          {!loading &&
             (!areThereFreeBooks && !areTherePaidBooks ? (

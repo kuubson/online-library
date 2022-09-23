@@ -15,27 +15,27 @@ type MenuProps = {
       pathname?: string
       counter?: number
    }[]
-   _setShouldMenuExpand: ReactDispatch<boolean>
 }
 
-export const Menu = ({ options, _setShouldMenuExpand }: MenuProps) => {
+export const Menu = ({ options }: MenuProps) => {
    const location = useLocation()
 
-   const { shouldMenuExpand, shouldMenuStick, setShouldMenuExpand, logout } =
-      useMenu(_setShouldMenuExpand)
+   const { shouldMenuExpand, shouldMenuStick, setShouldMenuExpand, logout } = useMenu()
+
+   const menuProps = { shouldMenuExpand }
 
    return (
       <MenuContainer shouldMenuStick={shouldMenuStick}>
          <Styled.Logo>Online Library</Styled.Logo>
          <Styled.LinesContainer
             onClick={() => setShouldMenuExpand(shouldMenuExpand => !shouldMenuExpand)}
-            shouldMenuExpand={shouldMenuExpand}
+            {...menuProps}
          >
-            <Styled.Line shouldMenuExpand={shouldMenuExpand} />
-            <Styled.Line shouldMenuExpand={shouldMenuExpand} />
-            <Styled.Line shouldMenuExpand={shouldMenuExpand} />
+            <Styled.Line {...menuProps} />
+            <Styled.Line {...menuProps} />
+            <Styled.Line {...menuProps} />
          </Styled.LinesContainer>
-         <Styled.OptionsContainer shouldMenuExpand={shouldMenuExpand}>
+         <Styled.OptionsContainer {...menuProps}>
             {options.map(({ option, pathname, counter }) => {
                const handleOnClick = () => {
                   if (option === 'Logout') {
@@ -44,18 +44,18 @@ export const Menu = ({ options, _setShouldMenuExpand }: MenuProps) => {
                   history.push(`${pathname}`)
                   setShouldMenuExpand(false)
                }
-               return (
-                  location.pathname !== pathname && (
+               if (location.pathname !== pathname) {
+                  return (
                      <Styled.Option
+                        {...menuProps}
                         key={option}
                         onClick={handleOnClick}
-                        shouldMenuExpand={shouldMenuExpand}
                         counter={counter}
                      >
                         {option}
                      </Styled.Option>
                   )
-               )
+               }
             })}
          </Styled.OptionsContainer>
       </MenuContainer>

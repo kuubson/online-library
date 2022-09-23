@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { API } from '@online-library/tools'
 
@@ -8,14 +8,12 @@ import { apiAxios } from 'utils'
 
 import type { FBStatus } from 'types'
 
-export const useMenu = (_setShouldMenuExpand: ReactDispatch<boolean>) => {
+export const useMenu = () => {
    const { closeSocketConnection } = useSocket()
 
    const [shouldMenuExpand, setShouldMenuExpand] = useState(false)
 
    const { resetCart } = useCart()
-
-   useEffect(() => _setShouldMenuExpand(shouldMenuExpand), [shouldMenuExpand])
 
    const logout = async () => {
       const { request } = API['/api/logout'].get

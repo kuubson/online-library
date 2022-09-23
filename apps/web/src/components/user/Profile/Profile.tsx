@@ -10,11 +10,7 @@ import { BookPreview } from './modules'
 
 import { useProfile } from './hooks'
 
-type ProfileProps = {
-   shouldMenuExpand?: boolean
-}
-
-export const Profile = ({ shouldMenuExpand }: ProfileProps) => {
+export const Profile = () => {
    const { loading, boughtBooks, borrowedBooks, setBoughtBooks, setBorrowedBooks } = useProfile()
 
    const [bookPopupData, setBookPopupData] = useState<BookType>()
@@ -33,7 +29,7 @@ export const Profile = ({ shouldMenuExpand }: ProfileProps) => {
    const shouldShowSearchBar = areThereBoughtBooks && areThereBorrowedBooks
 
    return (
-      <UserContent shouldMenuExpand={shouldMenuExpand}>
+      <UserContent>
          {bookPopupData && <BookPreview {...bookPopupData} setBookPopupData={setBookPopupData} />}
          {!loading &&
             (!areThereBoughtBooks && !areThereBorrowedBooks ? (

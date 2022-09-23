@@ -10,11 +10,7 @@ import { Messages, ProgressLoader } from './modules'
 
 import { useChat } from './hooks'
 
-type ChatProps = {
-   shouldMenuExpand?: boolean
-}
-
-export const Chat = ({ shouldMenuExpand }: ChatProps) => {
+export const Chat = () => {
    const { lastUnreadMessageIndex } = useChatDetails()
 
    const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -46,7 +42,7 @@ export const Chat = ({ shouldMenuExpand }: ChatProps) => {
    const fileUploadInProgess = percentage > 0
 
    return (
-      <ChatContainer shouldMenuExpand={shouldMenuExpand}>
+      <ChatContainer>
          {!loading && lastUnreadMessageIndex && messages.length < lastUnreadMessageIndex && (
             <Styled.Details onClick={getUnreadMessages}>Unread messages</Styled.Details>
          )}

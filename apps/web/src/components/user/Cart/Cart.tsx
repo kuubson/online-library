@@ -15,11 +15,7 @@ import { StripePopup } from './modules/'
 
 const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLISHABLE_KEY)
 
-type CarsProps = {
-   shouldMenuExpand?: boolean
-}
-
-export const Cart = ({ shouldMenuExpand }: CarsProps) => {
+export const Cart = () => {
    const { books, price, paypalCheckout } = useCart()
 
    const [shouldStripePopupAppear, setShouldStripePopupAppear] = useState(false)
@@ -28,7 +24,7 @@ export const Cart = ({ shouldMenuExpand }: CarsProps) => {
 
    return (
       <Elements stripe={stripePromise} options={{ locale: 'en' }}>
-         <UserContent shouldMenuExpand={shouldMenuExpand}>
+         <UserContent>
             {shouldStripePopupAppear && (
                <StripePopup price={price} setShouldStripePopupAppear={setShouldStripePopupAppear} />
             )}

@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 
 import type { ReactChildren } from '@online-library/core'
@@ -15,16 +14,11 @@ type UserProps = ReactChildren & {
 
 export const User = ({ children, withChat }: UserProps) => {
    const { options } = useUser(withChat)
-
-   const [shouldMenuExpand, _setShouldMenuExpand] = useState(false) // TODO: simplify this
-
    return (
-      <>
-         <UserContent>
-            <Menu options={options} _setShouldMenuExpand={_setShouldMenuExpand} />
-            {React.cloneElement(children as JSX.Element, { shouldMenuExpand })}
-         </UserContent>
-      </>
+      <UserContent>
+         <Menu options={options} />
+         {children}
+      </UserContent>
    )
 }
 
