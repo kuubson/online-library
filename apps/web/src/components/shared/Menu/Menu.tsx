@@ -1,13 +1,13 @@
 import { useLocation } from 'react-router'
 import styled, { css } from 'styled-components/macro'
 
+import { history } from '@online-library/core'
+
 import { queries } from 'styles'
 
 import * as Styled from './styled'
 
 import { useMenu } from './hooks'
-
-import { history } from 'utils'
 
 type MenuProps = {
    options: {

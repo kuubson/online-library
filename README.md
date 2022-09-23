@@ -136,8 +136,6 @@ TODO: fill scripts
 
 > **Note** To run locally, fill `.env` (see [Environment variables](#-environment-variables) and `.env-example`), trigger `yarn install` and `yarn dev`
 
-> **Warning** `yarn docs` does not work when triggered with turbo pipeline (**swagger-autogen** issue)
-
 | command            | root[^r]                                                                                                                                    |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | `yarn dev`         | triggers `dev` pipeline ~> launches **web**[^w] & **server**[^s], bundles **tools**[^t] in watchmode                                        |

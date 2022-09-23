@@ -11,8 +11,11 @@
    "importOrder": [
       "<THIRD_PARTY_MODULES>",
 
-      "@online-library/core",
+      "isWeb",
+
       "@online-library/tools",
+      "@online-library/core",
+      "@online-library/locales",
 
       "^dotenv(.*)",
       "^./config/aliases$",
@@ -30,9 +33,8 @@
 
       "^routes(.*)",
 
-      "^redux/hooks$",
-      "^redux/store$",
-      "^redux/reducers(.*)",
+      "^@redux$",
+      "^@redux/reducers(.*)",
 
       "^styles(.*)",
 

@@ -1,7 +1,5 @@
 import type { GraphQLError } from 'graphql'
 
-import type { messageTypes } from '@online-library/tools'
-
 import type { Book } from 'gql'
 
 import type { AnyFBType } from './any'
@@ -53,16 +51,4 @@ export type BookSuggestionsProps = {
    setFreeBooks: ReactDispatch<Book[]>
    setPaidBooks: ReactDispatch<Book[]>
    withProfile?: boolean
-}
-
-export type MessageType = {
-   id: number
-   type: typeof messageTypes[number]
-   content: string
-   filename?: string
-   userId: string
-   user: {
-      name: string
-   }
-   createdAt: string
 }

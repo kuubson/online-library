@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import styled, { css } from 'styled-components/macro'
 
+import { useCart } from '@online-library/core'
+
 import type { Book as BookType } from 'gql'
 
 import * as Styled from './styled'
 import { Button } from 'components/shared/styled'
-
-import { useCart } from 'hooks'
 
 type BookProps = {
    setBookPopupData?: ReactDispatch<BookType | undefined>
@@ -62,10 +62,10 @@ export const Book = ({
                )}`
             }}
          />
-         <Styled.AnnotationsContainer>
+         <Styled.Annotations>
             <Styled.Annotation>{author}</Styled.Annotation>
             <Styled.Annotation withTitle>{title}</Styled.Annotation>
-         </Styled.AnnotationsContainer>
+         </Styled.Annotations>
          {withCart ? (
             <Button onClick={() => removeFromCart(id)} price={price}>
                Remove

@@ -1,6 +1,8 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
+import { useApiFeedback, useLoader } from '@online-library/core'
+
 import { GlobalStyle } from 'styles'
 
 import { ApiFeedback, Loader, Location } from 'components/shared'
@@ -14,8 +16,6 @@ import { Cart } from 'components/user/Cart/Cart'
 import { Chat } from 'components/user/Chat/Chat'
 import { Profile } from 'components/user/Profile/Profile'
 import { Store } from 'components/user/Store/Store'
-
-import { useApiFeedback, useLoader } from 'hooks'
 
 import type { FBType } from 'types'
 

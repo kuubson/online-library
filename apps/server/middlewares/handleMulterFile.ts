@@ -1,4 +1,4 @@
-import { API, ApiError, filesInfo } from '@online-library/tools'
+import { API, ApiError, FILE_EXTENSIONS } from '@online-library/tools'
 
 import { multerFile } from 'middlewares'
 
@@ -20,7 +20,7 @@ export const handleMulterFile: Middleware<
             throw new ApiError(header, errors[400], 400)
          }
 
-         const { images } = filesInfo.regex
+         const { images } = FILE_EXTENSIONS
 
          const { mimetype, originalname, path } = req.file
 

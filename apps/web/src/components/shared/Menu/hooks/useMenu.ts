@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 
 import { API } from '@online-library/tools'
 
-import { useCart, useSocket, useTopOffset } from 'hooks'
+import { history, useCart, useSocket, useTopOffset } from '@online-library/core'
 
-import { apiAxios, history } from 'utils'
+import { apiAxios } from 'utils'
 
 import type { FBStatus } from 'types'
 

@@ -1,6 +1,2 @@
-export { API } from './API'
 export * from './types'
-export * from './utils/constants'
-export * from './utils/errors'
-export { filesInfo } from './utils/filesInfo'
-export * from './utils/yup'
+export * from './utils'

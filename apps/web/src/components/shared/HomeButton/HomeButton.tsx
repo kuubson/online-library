@@ -1,8 +1,8 @@
 import styled from 'styled-components/macro'
 
-import { queries } from 'styles'
+import { history } from '@online-library/core'
 
-import { history } from 'utils'
+import { queries } from 'styles'
 
 type HomeButtonProps = {
    withReturnButton?: boolean

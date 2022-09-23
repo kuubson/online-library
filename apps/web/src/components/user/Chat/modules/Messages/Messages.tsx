@@ -2,15 +2,12 @@
 import React, { forwardRef, useEffect, useRef } from 'react'
 import styled from 'styled-components/macro'
 
+import type { MessageType } from '@online-library/core'
+import { isChatInitialLoad, usePrevious } from '@online-library/core'
+
 import { queries } from 'styles'
 
 import { fadeIn } from 'assets/animations'
-
-import { usePrevious } from 'hooks'
-
-import { isChatInitialLoad } from 'helpers'
-
-import type { MessageType } from 'types'
 
 import { Message } from '../'
 
@@ -35,7 +32,7 @@ export const Messages = forwardRef<HTMLDivElement, MessagesProps>(
 
       useEffect(() => {
          if (lastMessageBeforeFetch.current) {
-            lastMessageBeforeFetch.current.scrollIntoView()
+            lastMessageBeforeFetch.current.scrollIntoView() // TODO: trigger it only when fetching more messages
          }
       }, [messages])
 
@@ -44,9 +41,13 @@ export const Messages = forwardRef<HTMLDivElement, MessagesProps>(
             {messages.map((message, index) => {
                const isLastMessageBeforeFetch =
                   !isChatInitialLoad(messages) && message.id === previousChat?.[0]?.id
+
+               // TODO: verify order of messages
+
                return (
                   <Message
                      ref={isLastMessageBeforeFetch ? lastMessageBeforeFetch : null}
+                     // TODO: duplicated keys, investigate why
                      key={message.id}
                      {...message}
                      currentUserId={currentUserId}

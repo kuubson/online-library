@@ -1,8 +1,8 @@
 import type { Role, messageTypes } from '@online-library/tools'
 
-import type { Book } from 'gql'
+import type { MessageType } from '@online-library/core'
 
-import type { MessageType } from 'types'
+import type { Book } from 'gql'
 
 export type TokenCheckResponse = {
    role: Role

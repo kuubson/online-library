@@ -3,9 +3,9 @@ import fileSaver from 'file-saver'
 import { forwardRef, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components/macro'
 
-import * as Styled from './styled'
+import type { MessageType } from '@online-library/core'
 
-import type { MessageType } from 'types'
+import * as Styled from './styled'
 
 type MessageProps = {
    currentUserId: string | undefined
@@ -86,7 +86,7 @@ export const Message = forwardRef<HTMLDivElement, MessageType & MessageProps>(
          >
             {type === 'IMAGE' ? (
                !imageError ? (
-                  <Styled.Container>
+                  <Styled.Container withCurrentUser={withCurrentUser}>
                      <Styled.Image
                         src={content}
                         onLoad={scrollToTheBottom}
@@ -99,7 +99,7 @@ export const Message = forwardRef<HTMLDivElement, MessageType & MessageProps>(
                )
             ) : type === 'VIDEO' ? (
                !videoError ? (
-                  <Styled.Container>
+                  <Styled.Container withCurrentUser={withCurrentUser}>
                      <Styled.Video
                         src={content}
                         controls

@@ -1,11 +1,11 @@
-import * as StyledRegistration from 'components/guest/Registration/styled'
+import { history } from '@online-library/core'
+
+import { Annotation, Annotations } from 'components/guest/Registration/styled'
 import { Form, Submit } from 'components/shared/styled'
 
 import { HomeButton, Input } from 'components/shared'
 
 import { useLogin } from './hooks'
-
-import { history } from 'utils'
 
 export const Login = () => {
    const { loginWithCredentials, loginWithFb, control, errors } = useLogin()
@@ -33,14 +33,14 @@ export const Login = () => {
             <Submit onClick={loginWithFb} withFacebook>
                Login with Facebook
             </Submit>
-            <StyledRegistration.AnnotationsContainer>
-               <StyledRegistration.Annotation onClick={() => history.push('/registration')}>
+            <Annotations>
+               <Annotation onClick={() => history.push('/registration')}>
                   {"I don't have an account yet, go to registration page"}
-               </StyledRegistration.Annotation>
-               <StyledRegistration.Annotation onClick={() => history.push('/password-support')}>
+               </Annotation>
+               <Annotation onClick={() => history.push('/password-support')}>
                   I forgot password
-               </StyledRegistration.Annotation>
-            </StyledRegistration.AnnotationsContainer>
+               </Annotation>
+            </Annotations>
          </Form>
       </>
    )

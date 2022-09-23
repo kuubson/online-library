@@ -7,11 +7,17 @@ import type { CloseEvent } from 'ws'
 
 import { API, AuthError, ConnectivityError, GRAPHQL_WS_CLOSE_STATUS } from '@online-library/tools'
 
+import {
+   debounceLoader,
+   defaultAxios,
+   history,
+   resetLoader,
+   setApiFeedback,
+} from '@online-library/core'
+
 import { NODE_ENV } from 'config'
 
-import { setApiFeedback } from 'helpers'
-
-import { debounceLoader, defaultAxios, history, resetLoader, websocketUrl } from 'utils'
+import { websocketUrl } from 'utils'
 
 import type { GraphqlError } from 'types'
 

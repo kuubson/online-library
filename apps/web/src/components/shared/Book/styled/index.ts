@@ -1,4 +1,4 @@
 export { Annotation } from './Annotation'
-export { AnnotationsContainer } from './AnnotationsContainer'
+export { Annotations } from './Annotations'
 export { Cover } from './Cover'
 export { Loader } from './Loader'

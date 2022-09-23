@@ -1,10 +1,8 @@
 import { API } from '@online-library/tools'
 
-import { useSocket } from 'hooks'
+import { defaultAxios, history, useSocket } from '@online-library/core'
 
 import { handleApiError } from 'helpers'
-
-import { defaultAxios, history } from 'utils'
 
 import type { TokenCheckResponse } from 'types'
 

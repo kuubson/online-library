@@ -1,59 +1,61 @@
+import { history, useRegistration } from '@online-library/core'
+
+import { t } from '@online-library/locales'
+
 import * as Styled from './styled'
 import { Form, Submit } from 'components/shared/styled'
 
 import { HomeButton, Input } from 'components/shared'
 
-import { useRegistration } from './hooks'
-
-import { history } from 'utils'
+import { apiAxios } from 'utils'
 
 export const Registration = () => {
-   const { register, control, errors } = useRegistration()
+   const { register, control, errors } = useRegistration(apiAxios)
    return (
       <>
          <HomeButton />
-         <Form onSubmit={register}>
+         <Form onSubmit={event => register(() => history.push('/login'), event)}>
             <Input
                {...{ control }}
                id="name"
-               label="Name"
+               label={t('guest.registration.inputs.name.label')}
                type="text"
-               placeholder="Enter name..."
+               placeholder={t('guest.registration.inputs.name.placeholder')}
                error={errors.name?.message}
             />
             <Input
                {...{ control }}
                id="email"
-               label="Email"
+               label={t('guest.registration.inputs.email.label')}
                type="text"
-               placeholder="Enter email address..."
+               placeholder={t('guest.registration.inputs.email.placeholder')}
                error={errors.email?.message}
             />
             <Input
                {...{ control }}
                id="password"
-               label="Password"
+               label={t('guest.registration.inputs.password.label')}
                type="password"
-               placeholder="Enter password..."
+               placeholder={t('guest.registration.inputs.password.placeholder')}
                error={errors.password?.message}
             />
             <Input
                {...{ control }}
                id="repeatedPassword"
-               label="Repeat Password"
+               label={t('guest.registration.inputs.repeatedPassword.label')}
                type="password"
-               placeholder="Enter password again..."
+               placeholder={t('guest.registration.inputs.repeatedPassword.placeholder')}
                error={errors.repeatedPassword?.message}
             />
             <Submit>Register</Submit>
-            <Styled.AnnotationsContainer>
+            <Styled.Annotations>
                <Styled.Annotation onClick={() => history.push('/email-support')}>
-                  {"I haven't received the e-mail / activation link has expired"}
+                  {t('guest.registration.annotation1')}
                </Styled.Annotation>
                <Styled.Annotation onClick={() => history.push('/login')}>
-                  I already have an account, go to login page
+                  {t('guest.registration.annotation2')}
                </Styled.Annotation>
-            </Styled.AnnotationsContainer>
+            </Styled.Annotations>
          </Form>
       </>
    )

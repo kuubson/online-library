@@ -1,4 +1,4 @@
-import { theme } from 'styles'
+import { theme } from '@online-library/core'
 
 export const cardElementOptions = {
    style: {

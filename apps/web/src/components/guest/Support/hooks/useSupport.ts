@@ -1,10 +1,8 @@
 import { API } from '@online-library/tools'
 
-import { useForm } from 'hooks'
+import { history, setApiFeedback, useForm } from '@online-library/core'
 
-import { setApiFeedback } from 'helpers'
-
-import { apiAxios, history } from 'utils'
+import { apiAxios } from 'utils'
 
 export const useSupport = (withPasswordSupport: boolean | undefined) => {
    const { request, validation, header, errors } = withPasswordSupport

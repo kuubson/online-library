@@ -32,6 +32,8 @@ export const getMessages: ProtectedRoute<InitialBody, InitialQuery, Query<typeof
             ],
          }).then(messages => messages.sort((a, b) => a.id - b.id))
 
+         // TODO: verify order of messages
+
          const { updatedMessages } = await updateReadByProperty(id, messages)
 
          res.send({
