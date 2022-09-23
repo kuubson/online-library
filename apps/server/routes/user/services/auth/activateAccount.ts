@@ -1,6 +1,6 @@
 import { verify } from 'jsonwebtoken'
 
-import { API, ApiError, yup } from '@online-library/core'
+import { API, ApiError, yup } from '@online-library/tools'
 
 import { JWT_KEY } from 'config'
 

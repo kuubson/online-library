@@ -1,5 +1,5 @@
-import type { API } from '@online-library/core'
-import { ApiError } from '@online-library/core'
+import type { API } from '@online-library/tools'
+import { ApiError } from '@online-library/tools'
 
 import { Book } from 'database'
 import type { User } from 'database/models/User'

@@ -1,4 +1,4 @@
-import { MESSAGES_FETCH_LIMIT } from '@online-library/core'
+import { MESSAGES_FETCH_LIMIT } from '@online-library/tools'
 
 import {
    access_token,

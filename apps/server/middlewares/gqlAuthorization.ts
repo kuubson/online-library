@@ -2,7 +2,7 @@
 import type { NextFunction, Response } from 'express'
 import type { PassportStatic } from 'passport'
 
-import { AuthError } from '@online-library/core'
+import { AuthError } from '@online-library/tools'
 
 import type { CustomRequest } from 'types/express'
 

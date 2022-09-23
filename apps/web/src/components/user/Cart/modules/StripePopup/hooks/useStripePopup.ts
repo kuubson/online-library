@@ -1,6 +1,8 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 
-import { API, history, setApiFeedback, setLoading, useCart } from '@online-library/core'
+import { API } from '@online-library/tools'
+
+import { history, setApiFeedback, setLoading, useCart } from '@online-library/core'
 
 import { apiAxios } from 'utils'
 

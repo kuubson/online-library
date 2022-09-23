@@ -1,4 +1,6 @@
-import { API, defaultAxios, history, useSocket } from '@online-library/core'
+import { API } from '@online-library/tools'
+
+import { defaultAxios, history, useSocket } from '@online-library/core'
 
 import { handleApiError } from 'helpers'
 

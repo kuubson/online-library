@@ -1,2 +1,5 @@
+export { detectMobileDevice } from './detectMobileDevice'
+export { isChatInitialLoad } from './isChatInitialLoad'
 export * from './loader'
 export { setApiFeedback } from './setApiFeedback'
+export { setLoading } from './setLoading'

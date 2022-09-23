@@ -1,26 +1,23 @@
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 
+import { API, FILE_EXTENSIONS, FILE_SIZES, MESSAGES_FETCH_LIMIT } from '@online-library/tools'
+
+import type { MessageType } from '@online-library/core'
 import {
-   API,
-   MESSAGES_FETCH_LIMIT,
    defaultAxios,
-   filesInfo,
+   detectMobileDevice,
+   isChatInitialLoad,
    setApiFeedback,
    useChatDetails,
    useSocket,
 } from '@online-library/core'
 
-import {
-   detectMobileDevice,
-   handleApiError,
-   isChatInitialLoad,
-   subscribePushNotifications,
-} from 'helpers'
+import { handleApiError, subscribePushNotifications } from 'helpers'
 
 import { apiAxios } from 'utils'
 
-import type { MessageType, MessagesResponse, SendFileResponse } from 'types'
+import type { MessagesResponse, SendFileResponse } from 'types'
 
 const { request, validation } = API['/api/user/chat/messages'].get
 
@@ -208,10 +205,9 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
       const file = event.currentTarget.files?.[0]
 
       if (file) {
-         const {
-            regex: { images, videos, files },
-            sizes: { maxImageSize, maxVideoSize, maxFileSize },
-         } = filesInfo
+         const { images, videos, files } = FILE_EXTENSIONS
+
+         const { maxImageSize, maxVideoSize, maxFileSize } = FILE_SIZES
 
          const { name, size } = file
 

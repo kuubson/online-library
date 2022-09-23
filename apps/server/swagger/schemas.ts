@@ -1,4 +1,4 @@
-import { roles } from '@online-library/core'
+import { roles } from '@online-library/tools'
 
 import {
    cloudinaryId,

@@ -2,15 +2,12 @@
 import React, { forwardRef, useEffect, useRef } from 'react'
 import styled from 'styled-components/macro'
 
-import { usePrevious } from '@online-library/core'
+import type { MessageType } from '@online-library/core'
+import { isChatInitialLoad, usePrevious } from '@online-library/core'
 
 import { queries } from 'styles'
 
 import { fadeIn } from 'assets/animations'
-
-import { isChatInitialLoad } from 'helpers'
-
-import type { MessageType } from 'types'
 
 import { Message } from '../'
 
@@ -50,6 +47,7 @@ export const Messages = forwardRef<HTMLDivElement, MessagesProps>(
                return (
                   <Message
                      ref={isLastMessageBeforeFetch ? lastMessageBeforeFetch : null}
+                     // TODO: duplicated keys, investigate why
                      key={message.id}
                      {...message}
                      currentUserId={currentUserId}

@@ -1,6 +1,6 @@
 import Stripe from 'stripe'
 
-import { API, ApiError, yup } from '@online-library/core'
+import { API, ApiError, yup } from '@online-library/tools'
 
 import { STRIPE_SECRET_KEY } from 'config'
 

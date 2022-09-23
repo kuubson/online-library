@@ -1,10 +1,10 @@
+import { API } from '@online-library/tools'
+
 import { useForm } from 'hooks'
 
 import { setApiFeedback } from 'helpers'
 
 import type { AxiosOverload, Callback, FormEvent } from 'types'
-
-import { API } from '../utils/API'
 
 const { request, validation, header, errors } = API['/api/user/auth/register'].post
 

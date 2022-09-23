@@ -2,7 +2,7 @@ import { cartActions } from '@redux/reducers/cart'
 
 import { useSelector } from 'hooks'
 
-import { useAction } from './useAction'
+import { useAction } from './common/useAction'
 
 export const useCart = () => {
    const { cart } = useSelector(state => state.cart)

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
-import { API, history, useCart, useSocket } from '@online-library/core'
+import { API } from '@online-library/tools'
 
-import { useTopOffset } from 'hooks'
+import { history, useCart, useSocket, useTopOffset } from '@online-library/core'
 
 import { apiAxios } from 'utils'
 

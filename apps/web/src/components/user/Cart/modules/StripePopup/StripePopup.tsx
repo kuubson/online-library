@@ -1,11 +1,11 @@
 import { CardElement } from '@stripe/react-stripe-js'
 import { useState } from 'react'
 
+import { useIsKeyboardOpened } from '@online-library/core'
+
 import * as Styled from './styled'
 import { Button, Error, Header, PopupContainer } from 'components/shared/styled'
 import * as StyledBookPopup from 'components/user/Store/modules/BookPopup/styled'
-
-import { useIsKeyboardOpened } from 'hooks'
 
 import { useStripePopup } from './hooks'
 

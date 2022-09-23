@@ -3,8 +3,9 @@ import type { InferType } from 'yup'
 
 import type { AnyAxiosOverloadData, AnyAxiosOverloadPayload } from 'types'
 
-import type { Methods } from '../types'
 import type { TypedSchema } from 'yup/lib/util/types'
+
+export type Methods = 'get' | 'post' | 'put' | 'patch' | 'delete'
 
 type Request<M extends Methods> = {
    method: M

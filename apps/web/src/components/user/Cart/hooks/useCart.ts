@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import type { InferType } from 'yup'
 
-import { API, history, setApiFeedback, useCart as useCartHook } from '@online-library/core'
+import { API } from '@online-library/tools'
+
+import { history, setApiFeedback, useCart as useCartHook } from '@online-library/core'
 
 import { useGetBooksQuery } from 'gql'
 

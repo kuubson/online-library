@@ -1,8 +1,6 @@
 import { chatDetailsActions } from '@redux/reducers/chatDetails'
 
-import { useSelector } from 'hooks'
-
-import { useAction } from './useAction'
+import { useAction, useSelector } from 'hooks'
 
 export const useChatDetails = () => {
    const { lastUnreadMessageIndex, unreadMessagesAmount } = useSelector(state => state.chatDetails)

@@ -1,6 +1,6 @@
 import paypal from 'paypal-rest-sdk'
 
-import { API, ApiError, yup } from '@online-library/core'
+import { API, ApiError, yup } from '@online-library/tools'
 
 import { Book } from 'database'
 

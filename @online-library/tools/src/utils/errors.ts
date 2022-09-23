@@ -1,4 +1,4 @@
-import { API } from './API'
+import { API } from './api/api'
 
 export class ApiError extends Error {
    errorHeader: string

@@ -1,6 +1,6 @@
 import cloudinary from 'cloudinary'
 
-import { API, ApiError, filesInfo, randomImage } from '@online-library/core'
+import { API, ApiError, FILE_EXTENSIONS, FILE_SIZES, RANDOM_IMAGE } from '@online-library/tools'
 
 import { Connection } from 'database'
 import type { Message } from 'database/models/Message'
@@ -17,10 +17,9 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, InitialQuery,
    async (req, res, next) => {
       try {
          await Connection.transaction(async transaction => {
-            const {
-               regex: { images, videos, files },
-               sizes: { maxImageSize, maxVideoSize, maxFileSize },
-            } = filesInfo
+            const { images, videos, files } = FILE_EXTENSIONS
+
+            const { maxImageSize, maxVideoSize, maxFileSize } = FILE_SIZES
 
             const { mimetype, originalname, path, size } = req.file
 
@@ -122,7 +121,7 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, InitialQuery,
                tag: id,
                title: `From ${name}`,
                body: message,
-               icon: randomImage,
+               icon: RANDOM_IMAGE,
                data: {
                   userName: name,
                   url: `${baseUrl(req)}/chat`,

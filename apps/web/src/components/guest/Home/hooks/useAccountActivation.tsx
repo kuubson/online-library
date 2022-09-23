@@ -1,7 +1,9 @@
 import { useEffect } from 'react'
 import type { InferType } from 'yup'
 
-import { API, history, setApiFeedback } from '@online-library/core'
+import { API } from '@online-library/tools'
+
+import { history, setApiFeedback } from '@online-library/core'
 
 import { useQueryParams } from 'hooks'
 

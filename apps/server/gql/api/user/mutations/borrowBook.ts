@@ -1,4 +1,4 @@
-import { ApiError } from '@online-library/core'
+import { ApiError } from '@online-library/tools'
 
 import { Book } from 'database'
 

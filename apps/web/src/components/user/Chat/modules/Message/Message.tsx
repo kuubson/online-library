@@ -3,9 +3,9 @@ import fileSaver from 'file-saver'
 import { forwardRef, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components/macro'
 
-import * as Styled from './styled'
+import type { MessageType } from '@online-library/core'
 
-import type { MessageType } from 'types'
+import * as Styled from './styled'
 
 type MessageProps = {
    currentUserId: string | undefined

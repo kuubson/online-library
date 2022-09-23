@@ -1,5 +1,2 @@
-export { detectMobileDevice } from './detectMobileDevice'
 export { handleApiError } from './handleApiError'
-export { isChatInitialLoad } from './isChatInitialLoad'
 export { subscribePushNotifications } from './subscribePushNotifications'
-export { urlBase64ToUint8Array } from './urlBase64ToUint8Array'

@@ -11,6 +11,7 @@
    "importOrder": [
       "<THIRD_PARTY_MODULES>",
 
+      "@online-library/tools",
       "@online-library/core",
       "@online-library/locales",
 

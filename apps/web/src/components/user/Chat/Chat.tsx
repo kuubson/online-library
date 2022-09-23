@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import styled from 'styled-components/macro'
 
-import { useChatDetails } from '@online-library/core'
+import { detectMobileDevice, useChatDetails } from '@online-library/core'
 
 import * as Styled from './styled'
 import { Button, UserContent, Warning } from 'components/shared/styled'
@@ -9,8 +9,6 @@ import { Button, UserContent, Warning } from 'components/shared/styled'
 import { Messages, ProgressLoader } from './modules'
 
 import { useChat } from './hooks'
-
-import { detectMobileDevice } from 'helpers'
 
 type ChatProps = {
    shouldMenuExpand?: boolean

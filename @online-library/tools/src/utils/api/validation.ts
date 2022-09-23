@@ -1,35 +1,34 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { mapValues } from 'lodash'
 import type { OptionalObjectSchema } from 'yup/lib/object'
 
-import type { Method } from '../types'
+import { default as swagger } from '../../../../../apps/server/swagger/swagger.json'
+import { yup } from '../yup'
 
-import { default as swagger } from '../../../../apps/server/swagger/swagger.json'
-import { yup } from './yup'
+export type SWAGGER_PATHS = typeof swagger.paths
 
-type Paths = typeof swagger.paths
+export type api = typeof API_PATHS
 
-const addValidation = <
-   Path extends keyof Paths,
-   Validation extends Partial<Record<keyof Paths[Path], OptionalObjectSchema<any>>>
+export const addValidation = <
+   Path extends keyof SWAGGER_PATHS,
+   Validation extends Partial<Record<keyof SWAGGER_PATHS[Path], OptionalObjectSchema<any>>>
 >(
    path: Path,
    payload: Validation
 ) => {
-   const methods = mapValues(payload, (validation, method: keyof Paths[Path]) => ({
+   const methods = mapValues(payload, (validation, method: keyof SWAGGER_PATHS[Path]) => ({
       ...swagger.paths[path][method],
       validation,
    }))
    return { [path]: methods } as {
       [key in Path]: {
-         [method in keyof Paths[Path]]: Paths[Path][method] & {
+         [method in keyof SWAGGER_PATHS[Path]]: SWAGGER_PATHS[Path][method] & {
             validation: Validation[method]
          }
       }
    }
 }
 
-const API_PATHS = {
+export const API_PATHS = {
    ...swagger.paths,
    ...addValidation('/api/user/auth/login/credentials', {
       post: yup
@@ -123,49 +122,4 @@ const API_PATHS = {
    ...addValidation('/api/user/auth/account', {
       patch: yup.object({ activationToken: yup.string().plain() }).noOtherKeys(),
    }),
-}
-
-type API = typeof API_PATHS
-
-export const API = mapValues(API_PATHS, (methods, path) => ({
-   ...mapValues(methods, ({ responses, validation, summary }, method) => ({
-      request: {
-         method,
-         url: path,
-      },
-      validation,
-      header: summary,
-      errors: mapValues(responses, ({ description }: { description: string }) => description),
-   })),
-})) as {
-   [path in keyof API]: {
-      [method in keyof API[path]]: API[path][method] extends {
-         responses: object
-         validation: object
-      }
-         ? Method<method, keyof API[path][method]['responses'], API[path][method]['validation']>
-         : API[path][method] extends {
-              responses: object
-           }
-         ? Method<method, keyof API[path][method]['responses'], null>
-         : API[path][method]
-   }
-}
-
-/**
- * API type guard = makes sure that keys of "paths" match keys of "swagger.paths" ~~~> API.ts stays more refactorproof
- */
-
-type API_PATHS_WITH_VALIDATION = {
-   [path in keyof Paths]: {
-      [method in keyof Paths[path]]: Paths[path][method] & {
-         validation: OptionalObjectSchema<any>
-      }
-   }
-}
-
-// if it is red, it means that the keys that you put manually into API_PATHS are not matched with what backend API exposes
-
-declare function _(api: API): api is {
-   [key in keyof Paths]: API_PATHS_WITH_VALIDATION[key]
 }

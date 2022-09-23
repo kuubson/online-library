@@ -1,7 +1,7 @@
 import type { Payment } from 'paypal-rest-sdk'
 import paypal from 'paypal-rest-sdk'
 
-import { API, ApiError, yup } from '@online-library/core'
+import { API, ApiError, yup } from '@online-library/tools'
 
 import { yupValidation } from 'middlewares'
 

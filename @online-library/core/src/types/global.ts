@@ -1,13 +1,15 @@
-export const roles = ['guest', 'user'] as const
+export type AnyControl = any
 
-export type Role = typeof roles[number]
+export type AnySocket = any
 
-export const messageTypes = ['MESSAGE', 'IMAGE', 'VIDEO', 'FILE'] as const
+export type AnyAxiosOverloadPayload = any
+
+export type AnyAxiosOverloadData = any
+
+export type FormEvent = React.FormEvent<HTMLFormElement>
 
 export type ReactChildren = {
    children: React.ReactNode
 }
-
-export type FormEvent = React.FormEvent<HTMLFormElement>
 
 export type Callback = () => void
