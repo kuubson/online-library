@@ -9,6 +9,8 @@ import { navigationRef } from '@online-library/core'
 
 import { theme } from '@online-library/ui'
 
+import { Providers } from 'components/shared'
+
 import { Text } from 'components/common'
 
 import { HomeScreen, LoginScreen, RegistrationScreen } from './screens'
@@ -18,36 +20,38 @@ const Tab = createBottomTabNavigator<Screens>()
 export const App = () => {
    useEffect(() => SplashScreen.hide(), [])
    return (
-      <AppContainer>
-         <NavigationContainer ref={navigationRef}>
-            <Tab.Navigator
-               initialRouteName="Home"
-               screenOptions={{
-                  headerShown: false,
-                  tabBarStyle: { backgroundColor: theme.colors.primary },
-                  tabBarLabelStyle: { display: 'none' },
-                  tabBarItemStyle: { justifyContent: 'center' },
-                  tabBarBadgeStyle: { backgroundColor: 'white' },
-               }}
-            >
-               <Tab.Screen
-                  name="Home"
-                  component={HomeScreen}
-                  options={{ tabBarIcon: () => <Text>Home</Text> }}
-               />
-               <Tab.Screen
-                  name="Registration"
-                  component={RegistrationScreen}
-                  options={{ tabBarIcon: () => <Text>Registration</Text> }}
-               />
-               <Tab.Screen
-                  name="Login"
-                  component={LoginScreen}
-                  options={{ tabBarIcon: () => <Text>Login</Text> }}
-               />
-            </Tab.Navigator>
-         </NavigationContainer>
-      </AppContainer>
+      <Providers>
+         <AppContainer>
+            <NavigationContainer ref={navigationRef}>
+               <Tab.Navigator
+                  initialRouteName="Home"
+                  screenOptions={{
+                     headerShown: false,
+                     tabBarStyle: { backgroundColor: theme.colors.primary },
+                     tabBarLabelStyle: { display: 'none' },
+                     tabBarItemStyle: { justifyContent: 'center' },
+                     tabBarBadgeStyle: { backgroundColor: 'white' },
+                  }}
+               >
+                  <Tab.Screen
+                     name="Home"
+                     component={HomeScreen}
+                     options={{ tabBarIcon: () => <Text>Home</Text> }}
+                  />
+                  <Tab.Screen
+                     name="Registration"
+                     component={RegistrationScreen}
+                     options={{ tabBarIcon: () => <Text>Registration</Text> }}
+                  />
+                  <Tab.Screen
+                     name="Login"
+                     component={LoginScreen}
+                     options={{ tabBarIcon: () => <Text>Login</Text> }}
+                  />
+               </Tab.Navigator>
+            </NavigationContainer>
+         </AppContainer>
+      </Providers>
    )
 }
 

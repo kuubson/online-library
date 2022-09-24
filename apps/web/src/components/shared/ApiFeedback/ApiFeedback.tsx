@@ -6,7 +6,7 @@ import { fadeIn } from 'assets/animations'
 
 import * as Styled from './styled'
 
-import { LoaderContainer } from 'components/shared/Loader/Loader'
+import { LoaderContainer } from 'components/common/Loader/Loader'
 
 export const ApiFeedback = () => {
    const { header, message, buttonText, callback, resetApiFeedback } = useApiFeedback()

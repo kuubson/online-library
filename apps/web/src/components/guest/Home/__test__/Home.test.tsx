@@ -29,7 +29,7 @@ it('can navigate to login form', async () => {
    expect(screen.getByTestId('location')).toHaveTextContent('login')
 
    const annotation1 = screen.getByText(t('guest.login.annotation1'))
-   const annotation2 = screen.getByText('guest.login.annotation2')
+   const annotation2 = screen.getByText(t('guest.login.annotation2'))
 
    expect(annotation1).toBeInTheDocument()
    expect(annotation2).toBeInTheDocument()

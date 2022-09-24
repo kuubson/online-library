@@ -13,7 +13,7 @@ import { client } from 'gql/client'
 
 import 'styles/index.scss'
 
-import { Loader } from 'components/shared'
+import { Loader } from 'components/common'
 
 export const Providers = ({ children }: ReactChildren) => (
    <Provider store={store}>

@@ -5,9 +5,9 @@
 
 ## 🔧 Stack
 
--  **TS** (mapped types, method overloads, type guards)
+-  **typescript** (advanced: mapped types, method overloads, type guards)
 -  **react.js** ⚛️ + **redux** (CRA, hooks) + **RTL** for testing
--  **react-hook-form** + **yup** for user inputs
+-  **react-hook-form** + **yup** for user inputs & validation
 -  **styled components** 💅🏾 + **SCSS**
 -  **web APIs** (serviceWorker for **web push notifications**, **PWA**)
 -  **graphql** (Apollo Express & Apollo Client)
@@ -21,7 +21,6 @@
 -  monorepo (**yarn** + **turborepo**) for better developer experience (workspaces, tasks pipeline, incremental builds)
 -  custom local lib [@online-library/config](https://github.com/kuubson/online-library/tree/master/@online-library/config)[^t]
 -  eslint, 🧹 prettier, husky
--  native app ([online-library-native](https://github.com/toxxiczny/online-library-native))
 
 ## 📄 Some notes
 
