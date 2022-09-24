@@ -1,4 +1,4 @@
-import { API } from '@online-library/config'
+import { API, FB_FIELDS } from '@online-library/config'
 
 import type { FBLoginRequest, FBMeRespose } from '@online-library/core'
 import {
@@ -31,7 +31,7 @@ export const useLogin = () => {
          ({ authResponse, status }: FBLoginRequest) => {
             if (authResponse && status === 'connected') {
                return window.FB.api(
-                  '/me?fields=id,first_name,email',
+                  `/me?fields=${FB_FIELDS}`,
                   async ({ first_name, email }: FBMeRespose) => {
                      const response = await apiAxios<typeof validation>(request, {
                         name: first_name,

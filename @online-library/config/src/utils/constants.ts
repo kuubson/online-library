@@ -27,3 +27,5 @@ export const MESSAGES_ORDER = (a: HasId, b: HasId) => a.id - b.id
 export const MESSAGE_TYPES = ['MESSAGE', 'IMAGE', 'VIDEO', 'FILE'] as const
 
 export const ROLES = ['guest', 'user'] as const
+
+export const FB_FIELDS = 'id,first_name,email'

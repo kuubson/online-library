@@ -29,9 +29,9 @@ export const Login = () => {
                placeholder={t('guest.login.inputs.password.placeholder')}
                error={errors.password?.message}
             />
-            <Submit onClick={loginWithCredentials}>Login</Submit>
+            <Submit onClick={loginWithCredentials}>{t('guest.login.buttons.login')}</Submit>
             <Submit onClick={loginWithFb} withFacebook>
-               Login with Facebook
+               {t('guest.login.buttons.fbLogin')}
             </Submit>
             <Annotations>
                <Annotation onClick={() => history.push('/registration')}>

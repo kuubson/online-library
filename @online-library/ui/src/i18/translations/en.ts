@@ -31,6 +31,10 @@ export const en = {
             email,
             password,
          },
+         buttons: {
+            login: 'Login',
+            fbLogin: 'Login with Facebook',
+         },
          annotation1: "I don't have an account yet, go to registration page",
          annotation2: 'I forgot password',
       },

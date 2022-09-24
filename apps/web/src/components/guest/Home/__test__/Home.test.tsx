@@ -1,6 +1,8 @@
 import 'jest-styled-components'
 import { render, screen, userEvent } from 'utils/testUtils'
 
+import { t } from '@online-library/ui'
+
 import { App } from 'components/App'
 
 import { Home } from '../Home'
@@ -26,9 +28,8 @@ it('can navigate to login form', async () => {
 
    expect(screen.getByTestId('location')).toHaveTextContent('login')
 
-   // TODO: once i18 config is there, use text values from it
-   const annotation1 = screen.getByText("I don't have an account yet, go to registration page")
-   const annotation2 = screen.getByText('I forgot password')
+   const annotation1 = screen.getByText(t('guest.login.annotation1'))
+   const annotation2 = screen.getByText('guest.login.annotation2')
 
    expect(annotation1).toBeInTheDocument()
    expect(annotation2).toBeInTheDocument()

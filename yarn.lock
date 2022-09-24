@@ -3697,19 +3697,27 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-native-fbsdk@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@types/react-native-fbsdk/-/react-native-fbsdk-3.0.2.tgz#25a61ad55b713a6284dbfe56497029c0ed1ff639"
+  integrity sha512-1Y4MYIQ5Kg0qxz25KFOl8d4p2oHdTm7ad7e6za4nBuFOmMOaKrhJeK3f/eG17zQ37yFMZpd7vf35DeEZckH+Mg==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+
+"@types/react-native@*", "@types/react-native@^0.70.0":
+  version "0.70.3"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.70.3.tgz#18f0d06ac1cd6a114a001d2b5270bfb506fee25c"
+  integrity sha512-J2bo6zZ5rt64AZKlBQwOpD91nEMOWp17Wm3broTqxYxCuOik4jLPcOr1HUBOKoJBPwBAYrIV/KMj/546ZkazAw==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-native@^0.65":
   version "0.65.25"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.65.25.tgz#19a4a32ce500a911e79cd346301e4f7fd6eb0449"
   integrity sha512-EW1P3uHc+URpMFPE/QYoeIxeHVF/ZLUxdR0d7QrggpcwOgz+QMvXPrh+qZFIOtno8sI314h55tJYobNCSXm1pQ==
   dependencies:
     "@types/react" "^17"
-
-"@types/react-native@^0.70.0":
-  version "0.70.3"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.70.3.tgz#18f0d06ac1cd6a114a001d2b5270bfb506fee25c"
-  integrity sha512-J2bo6zZ5rt64AZKlBQwOpD91nEMOWp17Wm3broTqxYxCuOik4jLPcOr1HUBOKoJBPwBAYrIV/KMj/546ZkazAw==
-  dependencies:
-    "@types/react" "*"
 
 "@types/react-test-renderer@^18.0.0":
   version "18.0.0"
@@ -13313,6 +13321,11 @@ react-native-codegen@^0.70.5:
     flow-parser "^0.121.0"
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
+
+react-native-fbsdk@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-fbsdk/-/react-native-fbsdk-3.0.0.tgz#07ef41758bb17a0acaff744008af625a45ef9a01"
+  integrity sha512-i0JocuzLlGk13J0xFDjm8GlX7SADAL2kh/syE/HOn5HHdW+PFjC31MNj5AtzIw2TicHXpHGO6VPKNfdWFbxboA==
 
 react-native-gradle-plugin@^0.70.3:
   version "0.70.3"

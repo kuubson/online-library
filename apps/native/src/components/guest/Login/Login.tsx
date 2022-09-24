@@ -7,8 +7,13 @@ import { ButtonText, Submit } from 'components/shared/styled'
 
 import { Input } from 'components/shared'
 
+import { useFbSDK } from './hooks'
+
 export const Login = () => {
    const { loginWithCredentials, control, errors } = useLogin()
+
+   const { loginWithFb } = useFbSDK()
+
    return (
       <>
          <Input
@@ -28,9 +33,11 @@ export const Login = () => {
             error={errors.password?.message}
             secureTextEntry
          />
-
          <Submit onPress={loginWithCredentials}>
-            <ButtonText>Login</ButtonText>
+            <ButtonText>{t('guest.login.buttons.login')}</ButtonText>
+         </Submit>
+         <Submit onPress={loginWithFb} withFacebook>
+            <ButtonText>{t('guest.login.buttons.fbLogin')}</ButtonText>
          </Submit>
          <Annotations>
             <AnnotationContainer>
