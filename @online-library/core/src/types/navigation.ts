@@ -3,6 +3,7 @@ export type Screens = {
    Login: undefined
    Registration: undefined
    EmailSupport: undefined
+   Store: undefined
 }
 
 export type Screen = keyof Screens

@@ -1,17 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
-import {
-   ConnectivityError,
-   RequestError,
-   callback,
-   isProd,
-   isProdWeb,
-} from '@online-library/config'
+import { ConnectivityError, RequestError, isProd, isProdWeb } from '@online-library/config'
 
 import { setApiFeedback } from 'helpers'
 
-import { history, navigate } from 'utils'
+import { callback, history, navigate } from 'utils'
 
 import type { ResponseError } from 'types'
+
+const reload = () => isProdWeb && window.location.reload()
 
 export const handleApiError = <T extends unknown>(error: T) => {
    if (!isProd) {
@@ -40,8 +36,8 @@ export const handleApiError = <T extends unknown>(error: T) => {
       return setApiFeedback(
          ConnectivityError.errorHeader,
          ConnectivityError.errorMessage,
-         'Refresh the application',
-         () => isProdWeb && window.location.reload()
+         'Reload the application',
+         reload
       )
    }
 
@@ -49,15 +45,15 @@ export const handleApiError = <T extends unknown>(error: T) => {
       return setApiFeedback(
          RequestError.errorHeader,
          RequestError.errorMessage,
-         'Refresh the application',
-         () => isProdWeb && window.location.reload()
+         'Reload the application',
+         reload
       )
    }
 
    setApiFeedback(
       ConnectivityError.errorHeader,
       'An unexpected problem has occurred in the application',
-      'Refresh the application',
-      () => isProdWeb && window.location.reload()
+      'Reload the application',
+      reload
    )
 }

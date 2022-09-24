@@ -1,15 +1,22 @@
-import { Wrapper } from 'components/common'
+import { Guest } from 'components/common'
 import { Home } from 'components/guest/Home/Home'
+import { Login } from 'components/guest/Login/Login'
 import { Registration } from 'components/guest/Registration/Registration'
 
 export const HomeScreen = () => (
-   <Wrapper>
+   <Guest>
       <Home />
-   </Wrapper>
+   </Guest>
 )
 
 export const RegistrationScreen = () => (
-   <Wrapper>
+   <Guest>
       <Registration />
-   </Wrapper>
+   </Guest>
+)
+
+export const LoginScreen = () => (
+   <Guest>
+      <Login />
+   </Guest>
 )

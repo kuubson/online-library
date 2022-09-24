@@ -20,4 +20,5 @@ export const Submit = styled.TouchableOpacity<StyledProps>`
    border-color: white;
    justify-content: center;
    align-items: center;
+   align-self: center;
 `

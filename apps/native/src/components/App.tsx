@@ -9,8 +9,9 @@ import { navigationRef } from '@online-library/core'
 
 import { theme } from '@online-library/ui'
 
-import { Text } from './common'
-import { HomeScreen, RegistrationScreen } from './screens'
+import { Text } from 'components/common'
+
+import { HomeScreen, LoginScreen, RegistrationScreen } from './screens'
 
 const Tab = createBottomTabNavigator<Screens>()
 
@@ -38,6 +39,11 @@ export const App = () => {
                   name="Registration"
                   component={RegistrationScreen}
                   options={{ tabBarIcon: () => <Text>Registration</Text> }}
+               />
+               <Tab.Screen
+                  name="Login"
+                  component={LoginScreen}
+                  options={{ tabBarIcon: () => <Text>Login</Text> }}
                />
             </Tab.Navigator>
          </NavigationContainer>

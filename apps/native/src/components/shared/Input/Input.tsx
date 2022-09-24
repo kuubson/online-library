@@ -17,7 +17,6 @@ type InputProps = {
    type: string
    placeholder: string
    error?: string
-   withBooksSuggestions?: boolean
    secureTextEntry?: boolean
    moreMarginBottom?: boolean
 }

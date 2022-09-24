@@ -1,7 +1,14 @@
 import { API } from '@online-library/config'
 
 import type { FBLoginRequest, FBMeRespose } from '@online-library/core'
-import { apiAxios, history, setApiFeedback, useForm } from '@online-library/core'
+import {
+   apiAxios,
+   callback,
+   history,
+   navigate,
+   setApiFeedback,
+   useForm,
+} from '@online-library/core'
 
 const { request, validation } = API['/api/user/auth/login/credentials'].post
 
@@ -11,7 +18,10 @@ export const useLogin = () => {
    const loginWithCredentials = async () => {
       const response = await apiAxios<typeof validation>(request, getValues())
       if (response) {
-         history.push('/store')
+         callback({
+            web: () => history.push('/store'),
+            native: () => navigate('Store'),
+         })
       }
    }
 
@@ -28,14 +38,12 @@ export const useLogin = () => {
                         email,
                         access_token: authResponse.accessToken,
                      })
-
                      if (response) {
                         history.push('/store')
                      }
                   }
                )
             }
-
             setApiFeedback(header, errors[400])
          },
          { scope: 'email,public_profile' }

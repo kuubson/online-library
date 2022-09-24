@@ -34,6 +34,7 @@ export const Registration = () => {
             type="password"
             placeholder={t('guest.registration.inputs.password.placeholder')}
             error={errors.password?.message}
+            secureTextEntry
          />
          <Input
             {...{ control }}
@@ -42,6 +43,7 @@ export const Registration = () => {
             type="password"
             placeholder={t('guest.registration.inputs.repeatedPassword.placeholder')}
             error={errors.repeatedPassword?.message}
+            secureTextEntry
          />
          <Submit onPress={register}>
             <ButtonText>Register</ButtonText>
@@ -53,7 +55,7 @@ export const Registration = () => {
                </Styled.Annotation>
             </Styled.AnnotationContainer>
             <Styled.AnnotationContainer>
-               <Styled.Annotation onClick={() => navigate('Login')}>
+               <Styled.Annotation onClick={() => navigate('Login')} noMargin>
                   {t('guest.registration.annotation2')}
                </Styled.Annotation>
             </Styled.AnnotationContainer>

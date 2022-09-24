@@ -1,6 +1,13 @@
-import { API, callback } from '@online-library/config'
+import { API } from '@online-library/config'
 
-import { apiAxios, history, navigate, setApiFeedback, useForm } from '@online-library/core'
+import {
+   apiAxios,
+   callback,
+   history,
+   navigate,
+   setApiFeedback,
+   useForm,
+} from '@online-library/core'
 
 const { request, validation, header, errors } = API['/api/user/auth/register'].post
 

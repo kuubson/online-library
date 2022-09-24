@@ -1,4 +1,4 @@
-import { isWeb } from 'is'
+import { isWeb } from '@online-library/config'
 
 type CallbackProps = {
    web: () => void

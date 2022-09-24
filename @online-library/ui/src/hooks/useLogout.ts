@@ -1,7 +1,7 @@
-import { API } from '@online-library/config'
+import { API, isWeb } from '@online-library/config'
 
 import type { FBStatus } from '@online-library/core'
-import { apiAxios, history, useCart, useSocket } from '@online-library/core'
+import { apiAxios, callback, history, navigate, useCart, useSocket } from '@online-library/core'
 
 export const useLogout = () => {
    const { closeSocketConnection } = useSocket()
@@ -14,19 +14,22 @@ export const useLogout = () => {
       const response = await apiAxios(request)
 
       if (response) {
-         const handleGetLoginStatus = (response: FBStatus) => {
-            if (response.status === 'connected') {
-               window.FB.logout(() => null)
-            }
+         if (isWeb) {
+            window.FB.getLoginStatus((response: FBStatus) => {
+               if (response.status === 'connected') {
+                  window.FB.logout(() => null)
+               }
+            })
          }
-
-         window.FB.getLoginStatus(handleGetLoginStatus)
 
          closeSocketConnection()
 
          resetCart()
 
-         history.push('/login')
+         callback({
+            web: () => history.push('/login'),
+            native: () => navigate('Login'),
+         })
       }
    }
 
