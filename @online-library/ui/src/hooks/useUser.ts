@@ -1,9 +1,16 @@
 import { useEffect } from 'react'
 
-import { API } from '@online-library/config'
+import { API, isWeb } from '@online-library/config'
 
-import type { ChatDetailsResponse, TokenCheckResponse } from '@online-library/core'
-import { defaultAxios, handleApiError, history, useChatDetails } from '@online-library/core'
+import {
+   ChatDetailsResponse,
+   TokenCheckResponse,
+   defaultAxios,
+   handleApiError,
+   history,
+   setRole,
+   useChatDetails,
+} from '@online-library/core'
 
 export const useUser = () => {
    const { setCurrentUserId, setLastUnreadMessageIndex, setUnreadMessagesAmount } = useChatDetails()
@@ -16,8 +23,13 @@ export const useUser = () => {
 
          if (response) {
             const { role } = response.data
+
+            setRole(role)
+
             if (role !== 'user') {
-               history.push('/login')
+               if (isWeb) {
+                  history.push('/login')
+               }
             }
          }
       } catch (error) {

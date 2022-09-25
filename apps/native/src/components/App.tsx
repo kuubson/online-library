@@ -4,25 +4,25 @@ import React, { useEffect } from 'react'
 import SplashScreen from 'react-native-splash-screen'
 import styled from 'styled-components/native'
 
-import type { Screens } from '@online-library/core'
-import { navigationRef } from '@online-library/core'
+import { Screens, navigationRef, useRole } from '@online-library/core'
 
 import { theme } from '@online-library/ui'
 
 import { Text } from 'components/shared/styled'
 
-import { Providers } from 'components/shared'
-
-import { HomeScreen, LoginScreen, RegistrationScreen } from './screens'
+import { HomeScreen, LoginScreen, RegistrationScreen, StoreScreen } from './screens'
 
 const Tab = createBottomTabNavigator<Screens>()
 
 export const App = () => {
+   const { role } = useRole()
+
    useEffect(() => SplashScreen.hide(), [])
+
    return (
-      <Providers>
-         <AppContainer>
-            <NavigationContainer ref={navigationRef}>
+      <AppContainer>
+         <NavigationContainer ref={navigationRef}>
+            {role === 'guest' ? (
                <Tab.Navigator
                   initialRouteName="Home"
                   screenOptions={{
@@ -49,9 +49,26 @@ export const App = () => {
                      options={{ tabBarIcon: () => <Text>Login</Text> }}
                   />
                </Tab.Navigator>
-            </NavigationContainer>
-         </AppContainer>
-      </Providers>
+            ) : (
+               <Tab.Navigator
+                  initialRouteName="Store"
+                  screenOptions={{
+                     headerShown: false,
+                     tabBarStyle: { backgroundColor: theme.colors.primary },
+                     tabBarLabelStyle: { display: 'none' },
+                     tabBarItemStyle: { justifyContent: 'center' },
+                     tabBarBadgeStyle: { backgroundColor: 'white' },
+                  }}
+               >
+                  <Tab.Screen
+                     name="Store"
+                     component={StoreScreen}
+                     options={{ tabBarIcon: () => <Text>Store</Text> }}
+                  />
+               </Tab.Navigator>
+            )}
+         </NavigationContainer>
+      </AppContainer>
    )
 }
 

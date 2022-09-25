@@ -3,15 +3,13 @@ import type { Control } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
 import styled from 'styled-components/native'
 
-import type { AnyControl } from '@online-library/core'
-
 import { scale } from 'styles'
 
 import * as Styled from './styled'
 import { Error } from 'components/shared/styled'
 
 type InputProps = {
-   control: Control<AnyControl, AnyControl>
+   control: Control<any, any>
    id: string
    label?: string
    type: string

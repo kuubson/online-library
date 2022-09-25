@@ -1,12 +1,12 @@
-import { API, FB_FIELDS } from '@online-library/config'
+import { API, FB_FIELDS, isWeb } from '@online-library/config'
 
-import type { FBLoginRequest, FBMeRespose } from '@online-library/core'
 import {
+   FBLoginRequest,
+   FBMeRespose,
    apiAxios,
-   callback,
    history,
-   navigate,
    setApiFeedback,
+   setRole,
    useForm,
 } from '@online-library/core'
 
@@ -18,10 +18,10 @@ export const useLogin = () => {
    const loginWithCredentials = async () => {
       const response = await apiAxios<typeof validation>(request, getValues())
       if (response) {
-         callback({
-            web: () => history.push('/store'),
-            native: () => navigate('Store'),
-         })
+         setRole('user')
+         if (isWeb) {
+            history.push('/store')
+         }
       }
    }
 

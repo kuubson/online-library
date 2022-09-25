@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
-import { ConnectivityError, RequestError, isProd, isProdWeb } from '@online-library/config'
+import { ConnectivityError, RequestError, isProd, isProdWeb, isWeb } from '@online-library/config'
 
-import { setApiFeedback } from 'helpers'
+import { setApiFeedback, setRole } from 'helpers'
 
-import { callback, history, navigate } from 'utils'
+import { history } from 'utils'
 
 import type { ResponseError } from 'types'
 
-const reload = () => isProdWeb && window.location.reload()
+const refresh = () => isProdWeb && window.location.reload()
 
 export const handleApiError = <T extends unknown>(error: T) => {
    if (!isProd) {
@@ -23,10 +23,10 @@ export const handleApiError = <T extends unknown>(error: T) => {
       } = response
 
       if (status === 401) {
-         callback({
-            web: () => history.push('/login'),
-            native: () => navigate('Login'),
-         })
+         setRole('guest')
+         if (isWeb) {
+            history.push('/login')
+         }
       }
 
       if (errorHeader && errorMessage) {
@@ -36,8 +36,8 @@ export const handleApiError = <T extends unknown>(error: T) => {
       return setApiFeedback(
          ConnectivityError.errorHeader,
          ConnectivityError.errorMessage,
-         'Reload the application',
-         reload
+         'Refresh the app',
+         refresh
       )
    }
 
@@ -45,15 +45,15 @@ export const handleApiError = <T extends unknown>(error: T) => {
       return setApiFeedback(
          RequestError.errorHeader,
          RequestError.errorMessage,
-         'Reload the application',
-         reload
+         'Refresh the app',
+         refresh
       )
    }
 
    setApiFeedback(
       ConnectivityError.errorHeader,
       'An unexpected problem has occurred in the application',
-      'Reload the application',
-      reload
+      'Refresh the app',
+      refresh
    )
 }

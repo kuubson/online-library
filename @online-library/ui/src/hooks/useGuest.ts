@@ -1,9 +1,15 @@
 import { useEffect } from 'react'
 
-import { API } from '@online-library/config'
+import { API, isWeb } from '@online-library/config'
 
-import type { TokenCheckResponse } from '@online-library/core'
-import { defaultAxios, handleApiError, history, useSocket } from '@online-library/core'
+import {
+   TokenCheckResponse,
+   defaultAxios,
+   handleApiError,
+   history,
+   setRole,
+   useSocket,
+} from '@online-library/core'
 
 export const useGuest = () => {
    const { closeSocketConnection } = useSocket()
@@ -17,11 +23,17 @@ export const useGuest = () => {
          if (response) {
             const { role } = response.data
 
-            if (role === 'user') {
-               return history.push('/store')
+            setRole(role)
+
+            if (role === 'guest') {
+               closeSocketConnection()
             }
 
-            closeSocketConnection()
+            if (role === 'user') {
+               if (isWeb) {
+                  history.push('/store')
+               }
+            }
          }
       } catch (error) {
          handleApiError(error)

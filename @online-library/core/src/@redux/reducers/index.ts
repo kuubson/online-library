@@ -9,6 +9,7 @@ import { apiFeedback } from './apiFeedback'
 import { cart } from './cart'
 import { chatDetails } from './chatDetails'
 import { loader } from './loader'
+import { role } from './role'
 import { socket } from './socket'
 
 let storage: WebStorage | typeof AsyncStorage = AsyncStorage
@@ -30,6 +31,7 @@ const chatDetailsConfig = {
 
 export const coreReducer = combineReducers({
    socket,
+   role,
    loader,
    apiFeedback,
    cart: persistReducer(cartConfig, cart),

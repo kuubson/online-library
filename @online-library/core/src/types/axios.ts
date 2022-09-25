@@ -1,8 +1,6 @@
 import type { AxiosResponse } from 'axios'
 import type { InferType } from 'yup'
 
-import type { AnyAxiosOverloadData, AnyAxiosOverloadPayload } from 'types'
-
 import type { TypedSchema } from 'yup/lib/util/types'
 
 export type Methods = 'get' | 'post' | 'put' | 'patch' | 'delete'
@@ -13,7 +11,12 @@ type Request<M extends Methods> = {
 }
 
 export type AxiosOverload = {
-   <P extends TypedSchema | AnyAxiosOverloadPayload, D = AnyAxiosOverloadData>(
+   <D extends object>(request: Request<Methods>): Promise<AxiosResponse<D, unknown>>
+   <P extends TypedSchema | any>(
+      request: Request<Methods>,
+      data?: P extends TypedSchema ? InferType<P> : P
+   ): Promise<AxiosResponse<any, unknown>>
+   <P extends TypedSchema | any, D extends object>(
       request: Request<Methods>,
       data?: P extends TypedSchema ? InferType<P> : P
    ): Promise<AxiosResponse<D, unknown>>
