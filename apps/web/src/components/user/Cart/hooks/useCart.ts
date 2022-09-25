@@ -3,14 +3,12 @@ import type { InferType } from 'yup'
 
 import { API } from '@online-library/config'
 
-import type { ResponseError } from '@online-library/core'
+import type { PaypalCheckoutResponse, ResponseError } from '@online-library/core'
 import { apiAxios, history, setApiFeedback, useCart as useCartHook } from '@online-library/core'
 
 import { useGetBooksQuery } from 'gql'
 
 import { useQueryParams } from 'hooks'
-
-import type { PaypalCheckoutResponse } from 'types'
 
 const { request, validation, header, errors } = API['/api/user/cart/paypal/payment'].post
 

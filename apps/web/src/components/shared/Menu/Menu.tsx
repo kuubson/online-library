@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useLocation } from 'react-router'
 import styled, { css } from 'styled-components/macro'
 
-import { history, useTopOffset } from '@online-library/core'
+import { history, useCart, useChatDetails, useTopOffset } from '@online-library/core'
 
 import { useLogout } from '@online-library/ui'
 
@@ -10,22 +10,40 @@ import { queries } from 'styles'
 
 import * as Styled from './styled'
 
-type MenuProps = {
-   options: {
-      option: string
-      pathname?: string
-      counter?: number
-   }[]
-}
-
-export const Menu = ({ options }: MenuProps) => {
+export const Menu = () => {
    const location = useLocation()
 
    const { logout } = useLogout()
 
+   const { cart } = useCart()
+
+   const { unreadMessagesAmount } = useChatDetails()
+
    const shouldMenuStick = useTopOffset() > 20
 
    const [shouldMenuExpand, setShouldMenuExpand] = useState(false)
+
+   const options = [
+      {
+         option: 'Store',
+         pathname: '/store',
+      },
+      {
+         option: 'Profile',
+         pathname: '/profile',
+      },
+      {
+         option: 'Cart',
+         pathname: '/cart',
+         counter: cart.length <= 99 ? cart.length : 99,
+      },
+      {
+         option: 'Chat',
+         pathname: '/chat',
+         counter: unreadMessagesAmount && (unreadMessagesAmount <= 99 ? unreadMessagesAmount : 99),
+      },
+      { option: 'Logout' },
+   ]
 
    return (
       <MenuContainer shouldMenuStick={shouldMenuStick}>

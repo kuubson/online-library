@@ -10,6 +10,7 @@ import {
    MESSAGES_ORDER,
 } from '@online-library/config'
 
+import type { MessagesResponse, SendFileResponse } from '@online-library/core'
 import {
    apiAxios,
    defaultAxios,
@@ -22,8 +23,6 @@ import {
    usePrevious,
    useSocket,
 } from '@online-library/core'
-
-import type { MessagesResponse, SendFileResponse } from 'types'
 
 const { request, validation } = API['/api/user/chat/messages'].get
 

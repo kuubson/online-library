@@ -1,8 +1,9 @@
+import { useEffect } from 'react'
+
 import { API } from '@online-library/config'
 
+import type { TokenCheckResponse } from '@online-library/core'
 import { defaultAxios, handleApiError, history, useSocket } from '@online-library/core'
-
-import type { TokenCheckResponse } from 'types'
 
 export const useGuest = () => {
    const { closeSocketConnection } = useSocket()
@@ -27,5 +28,7 @@ export const useGuest = () => {
       }
    }
 
-   return { checkAuth }
+   useEffect(() => {
+      checkAuth()
+   }, [])
 }

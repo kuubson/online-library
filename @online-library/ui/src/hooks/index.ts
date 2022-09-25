@@ -1,3 +1,6 @@
+export { useGuest } from './useGuest'
 export { useLogin } from './useLogin'
 export { useLogout } from './useLogout'
 export { useRegistration } from './useRegistration'
+export { useSocketIO } from './useSocketIO'
+export { useUser } from './useUser'

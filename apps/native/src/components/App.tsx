@@ -1,14 +1,11 @@
-import { API_BASEURL } from '@env'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import React, { useEffect } from 'react'
 import SplashScreen from 'react-native-splash-screen'
 import styled from 'styled-components/native'
 
-import { HOST_URL, isProd } from '@online-library/config'
-
 import type { Screens } from '@online-library/core'
-import { customAxios, navigationRef } from '@online-library/core'
+import { navigationRef } from '@online-library/core'
 
 import { theme } from '@online-library/ui'
 
@@ -19,8 +16,6 @@ import { Providers } from 'components/shared'
 import { HomeScreen, LoginScreen, RegistrationScreen } from './screens'
 
 const Tab = createBottomTabNavigator<Screens>()
-
-customAxios.defaults.baseURL = isProd ? HOST_URL : API_BASEURL
 
 export const App = () => {
    useEffect(() => SplashScreen.hide(), [])
