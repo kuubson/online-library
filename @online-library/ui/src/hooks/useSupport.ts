@@ -1,6 +1,13 @@
 import { API } from '@online-library/config'
 
-import { apiAxios, history, setApiFeedback, useForm } from '@online-library/core'
+import {
+   apiAxios,
+   callback,
+   history,
+   navigate,
+   setApiFeedback,
+   useForm,
+} from '@online-library/core'
 
 export const useSupport = (withPasswordSupport: boolean | undefined) => {
    const { request, validation, header, errors } = withPasswordSupport
@@ -12,7 +19,12 @@ export const useSupport = (withPasswordSupport: boolean | undefined) => {
    const handleSupport = async () => {
       const response = await apiAxios<typeof validation>(request, getValues())
       if (response) {
-         setApiFeedback(header, errors[200], 'Okey', () => history.push('/login'))
+         setApiFeedback(header, errors[200], 'Okey', () =>
+            callback({
+               web: () => history.push('/login'),
+               native: () => navigate('Login'),
+            })
+         )
       }
    }
 

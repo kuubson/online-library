@@ -4,6 +4,8 @@ import { Login } from 'components/guest/Login/Login'
 import { Registration } from 'components/guest/Registration/Registration'
 import { Store } from 'components/user/Store/Store'
 
+import { Support } from './guest/Support/Support'
+
 export const HomeScreen = () => (
    <Guest>
       <Home />
@@ -19,6 +21,18 @@ export const RegistrationScreen = () => (
 export const LoginScreen = () => (
    <Guest>
       <Login />
+   </Guest>
+)
+
+export const EmailSupportScreen = () => (
+   <Guest>
+      <Support />
+   </Guest>
+)
+
+export const PasswordSupportScreen = () => (
+   <Guest>
+      <Support withPasswordSupport />
    </Guest>
 )
 

@@ -38,5 +38,10 @@ export const en = {
          annotation1: "I don't have an account yet, go to registration page",
          annotation2: 'I forgot password',
       },
+      support: {
+         inputs: { email },
+         email: { button: 'Resend e-mail' },
+         password: { button: 'Recover password' },
+      },
    },
 } as const

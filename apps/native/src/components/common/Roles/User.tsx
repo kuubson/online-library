@@ -7,6 +7,8 @@ import { useSocketIO, useUser } from '@online-library/ui'
 
 import { scale } from 'styles'
 
+import { Wrapper } from '../Wrapper/Wrapper'
+
 export const User = ({ children }: ReactChildren) => {
    const { name } = useRoute()
 
@@ -14,7 +16,11 @@ export const User = ({ children }: ReactChildren) => {
 
    useUser()
 
-   return <UserContainer>{children}</UserContainer>
+   return (
+      <Wrapper>
+         <UserContainer>{children}</UserContainer>
+      </Wrapper>
+   )
 }
 
 const UserContainer = styled.View`

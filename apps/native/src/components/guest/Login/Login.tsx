@@ -41,12 +41,7 @@ export const Login = () => {
          </Submit>
          <Annotations>
             <AnnotationContainer>
-               <Annotation onClick={() => navigate('EmailSupport')}>
-                  {t('guest.login.annotation1')}
-               </Annotation>
-            </AnnotationContainer>
-            <AnnotationContainer>
-               <Annotation onClick={() => navigate('Login')} noMargin>
+               <Annotation onPress={() => navigate('PasswordSupport')} noMargin>
                   {t('guest.login.annotation2')}
                </Annotation>
             </AnnotationContainer>

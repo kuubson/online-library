@@ -50,13 +50,8 @@ export const Registration = () => {
          </Submit>
          <Styled.Annotations>
             <Styled.AnnotationContainer>
-               <Styled.Annotation onClick={() => navigate('EmailSupport')}>
+               <Styled.Annotation onPress={() => navigate('EmailSupport')}>
                   {t('guest.registration.annotation1')}
-               </Styled.Annotation>
-            </Styled.AnnotationContainer>
-            <Styled.AnnotationContainer>
-               <Styled.Annotation onClick={() => navigate('Login')} noMargin>
-                  {t('guest.registration.annotation2')}
                </Styled.Annotation>
             </Styled.AnnotationContainer>
          </Styled.Annotations>

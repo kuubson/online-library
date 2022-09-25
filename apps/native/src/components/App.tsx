@@ -10,7 +10,14 @@ import { theme } from '@online-library/ui'
 
 import { Text } from 'components/shared/styled'
 
-import { HomeScreen, LoginScreen, RegistrationScreen, StoreScreen } from './screens'
+import {
+   EmailSupportScreen,
+   HomeScreen,
+   LoginScreen,
+   PasswordSupportScreen,
+   RegistrationScreen,
+   StoreScreen,
+} from './screens'
 
 const Tab = createBottomTabNavigator<Screens>()
 
@@ -47,6 +54,16 @@ export const App = () => {
                      name="Login"
                      component={LoginScreen}
                      options={{ tabBarIcon: () => <Text>Login</Text> }}
+                  />
+                  <Tab.Screen
+                     name="EmailSupport"
+                     component={EmailSupportScreen}
+                     options={{ tabBarItemStyle: { display: 'none' } }}
+                  />
+                  <Tab.Screen
+                     name="PasswordSupport"
+                     component={PasswordSupportScreen}
+                     options={{ tabBarItemStyle: { display: 'none' } }}
                   />
                </Tab.Navigator>
             ) : (

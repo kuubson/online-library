@@ -2,8 +2,9 @@ export type Screens = {
    Home: undefined
    Login: undefined
    Registration: undefined
-   EmailSupport: undefined
    Store: undefined
+   EmailSupport: undefined
+   PasswordSupport: undefined
 }
 
 export type Screen = keyof Screens
