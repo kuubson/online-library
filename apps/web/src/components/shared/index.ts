@@ -1,4 +1,3 @@
-export { ApiFeedback } from './ApiFeedback/ApiFeedback'
 export { Book } from './Book/Book'
 export { Books } from './Books/Books'
 export { BookSuggestions } from './BookSuggestions/BookSuggestions'

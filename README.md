@@ -124,6 +124,7 @@ api-->native
 -  make use of **storybook.js**
 -  run app in a **Docker** container
 -  integrate **Sentry** for monitoring the app
+-  finish setup for **i18n**
 -  add **WebRTC** for video chat
 -  replace errors popup with **react-toastify**
 -  tweak seeding db flow

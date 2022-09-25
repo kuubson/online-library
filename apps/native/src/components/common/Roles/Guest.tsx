@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/native'
 
-import { ReactChildren } from '@online-library/core'
+import type { ReactChildren } from '@online-library/core'
 
 import { scale } from 'styles'
 

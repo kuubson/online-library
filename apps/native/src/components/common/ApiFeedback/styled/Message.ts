@@ -4,6 +4,7 @@ import { scale } from 'styles'
 
 import { Text } from 'components/shared/styled'
 
-export const Header = styled(Text)`
-   font-size: ${scale(35)}px;
+export const Message = styled(Text)`
+   text-align: center;
+   line-height: ${scale(30)}px;
 `

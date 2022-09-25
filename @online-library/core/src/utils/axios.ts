@@ -4,7 +4,7 @@ import { debounceLoader, handleApiError, resetLoader } from 'helpers'
 
 import type { AxiosOverload, AxiosOverloadArgs } from 'types'
 
-const customAxios = axios.create()
+export const customAxios = axios.create()
 
 customAxios.interceptors.request.use(
    request => {

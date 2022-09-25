@@ -1,4 +1,5 @@
+export { AbsoluteContainer } from './AbsoluteContainer'
 export { Button } from './Button'
-export { ButtonText } from './ButtonText'
 export { Error } from './Error'
 export { Submit } from './Submit'
+export { Text } from './Text'

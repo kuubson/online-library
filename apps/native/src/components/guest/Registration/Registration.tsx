@@ -3,7 +3,7 @@ import { navigate } from '@online-library/core'
 import { t, useRegistration } from '@online-library/ui'
 
 import * as Styled from './styled'
-import { ButtonText, Submit } from 'components/shared/styled'
+import { Submit, Text } from 'components/shared/styled'
 
 import { Input } from 'components/shared'
 
@@ -46,7 +46,7 @@ export const Registration = () => {
             secureTextEntry
          />
          <Submit onPress={register}>
-            <ButtonText>Register</ButtonText>
+            <Text>Register</Text>
          </Submit>
          <Styled.Annotations>
             <Styled.AnnotationContainer>

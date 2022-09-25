@@ -5,7 +5,7 @@ import { useApiFeedback, useLoader } from '@online-library/core'
 
 import { GlobalStyle } from 'styles'
 
-import { ApiFeedback, Location } from 'components/shared'
+import { Location } from 'components/shared'
 
 import { Home } from 'components/guest/Home/Home'
 import { Login } from 'components/guest/Login/Login'
@@ -17,7 +17,7 @@ import { Chat } from 'components/user/Chat/Chat'
 import { Profile } from 'components/user/Profile/Profile'
 import { Store } from 'components/user/Store/Store'
 
-import { Guest, Loader, User } from './common'
+import { ApiFeedback, Guest, Loader, User } from './common'
 
 export const App = () => {
    const { loading } = useLoader()

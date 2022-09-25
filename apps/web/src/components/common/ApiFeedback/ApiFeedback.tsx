@@ -5,8 +5,7 @@ import { useApiFeedback } from '@online-library/core'
 import { fadeIn } from 'assets/animations'
 
 import * as Styled from './styled'
-
-import { LoaderContainer } from 'components/common/Loader/Loader'
+import { FixedContainer } from 'components/shared/styled'
 
 export const ApiFeedback = () => {
    const { header, message, buttonText, callback, resetApiFeedback } = useApiFeedback()
@@ -27,7 +26,7 @@ export const ApiFeedback = () => {
    )
 }
 
-const ApiFeedbackContainer = styled(LoaderContainer)`
+const ApiFeedbackContainer = styled(FixedContainer)`
    flex-direction: column;
    animation: ${fadeIn} 0.5s ease-in-out;
    z-index: 6;

@@ -3,7 +3,7 @@ import { navigate } from '@online-library/core'
 import { t, useLogin } from '@online-library/ui'
 
 import { Annotation, AnnotationContainer, Annotations } from 'components/guest/Registration/styled'
-import { ButtonText, Submit } from 'components/shared/styled'
+import { Submit, Text } from 'components/shared/styled'
 
 import { Input } from 'components/shared'
 
@@ -34,10 +34,10 @@ export const Login = () => {
             secureTextEntry
          />
          <Submit onPress={loginWithCredentials}>
-            <ButtonText>{t('guest.login.buttons.login')}</ButtonText>
+            <Text>{t('guest.login.buttons.login')}</Text>
          </Submit>
          <Submit onPress={loginWithFb} withFacebook>
-            <ButtonText>{t('guest.login.buttons.fbLogin')}</ButtonText>
+            <Text>{t('guest.login.buttons.fbLogin')}</Text>
          </Submit>
          <Annotations>
             <AnnotationContainer>
