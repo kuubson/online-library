@@ -1,14 +1,7 @@
 import { API, FB_FIELDS, isWeb } from '@online-library/config'
 
-import {
-   FBLoginRequest,
-   FBMeRespose,
-   apiAxios,
-   history,
-   setApiFeedback,
-   setRole,
-   useForm,
-} from '@online-library/core'
+import type { FBLoginRequest, FBMeRespose } from '@online-library/core'
+import { apiAxios, history, setApiFeedback, setRole, useForm } from '@online-library/core'
 
 const { request, validation } = API['/api/user/auth/login/credentials'].post
 

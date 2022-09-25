@@ -87,6 +87,15 @@ export type User = {
    name: Scalars['String']
 }
 
+export type BorrowBookMutationVariables = Exact<{
+   bookId: Scalars['Int']
+}>
+
+export type BorrowBookMutation = {
+   __typename?: 'Mutation'
+   borrowBook: { __typename?: 'Book'; title: string; author: string }
+}
+
 export type GetBooksQueryVariables = Exact<{
    ids: Array<Scalars['Int']> | Scalars['Int']
 }>
@@ -154,15 +163,51 @@ export type UserSubscription = {
    user: { __typename?: 'User'; name: string }
 }
 
-export type BorrowBookMutationVariables = Exact<{
-   bookId: Scalars['Int']
-}>
+export const BorrowBookDocument = gql`
+   mutation borrowBook($bookId: Int!) {
+      borrowBook(bookId: $bookId) {
+         title
+         author
+      }
+   }
+`
+export type BorrowBookMutationFn = Apollo.MutationFunction<
+   BorrowBookMutation,
+   BorrowBookMutationVariables
+>
 
-export type BorrowBookMutation = {
-   __typename?: 'Mutation'
-   borrowBook: { __typename?: 'Book'; title: string; author: string }
+/**
+ * __useBorrowBookMutation__
+ *
+ * To run a mutation, you first call `useBorrowBookMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useBorrowBookMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [borrowBookMutation, { data, loading, error }] = useBorrowBookMutation({
+ *   variables: {
+ *      bookId: // value for 'bookId'
+ *   },
+ * });
+ */
+export function useBorrowBookMutation(
+   baseOptions?: Apollo.MutationHookOptions<BorrowBookMutation, BorrowBookMutationVariables>
+) {
+   const options = { ...defaultOptions, ...baseOptions }
+   return Apollo.useMutation<BorrowBookMutation, BorrowBookMutationVariables>(
+      BorrowBookDocument,
+      options
+   )
 }
-
+export type BorrowBookMutationHookResult = ReturnType<typeof useBorrowBookMutation>
+export type BorrowBookMutationResult = Apollo.MutationResult<BorrowBookMutation>
+export type BorrowBookMutationOptions = Apollo.BaseMutationOptions<
+   BorrowBookMutation,
+   BorrowBookMutationVariables
+>
 export const GetBooksDocument = gql`
    query getBooks($ids: [Int!]!) {
       books(ids: $ids) {
@@ -357,48 +402,3 @@ export function useUserSubscription(
 }
 export type UserSubscriptionHookResult = ReturnType<typeof useUserSubscription>
 export type UserSubscriptionResult = Apollo.SubscriptionResult<UserSubscription>
-export const BorrowBookDocument = gql`
-   mutation borrowBook($bookId: Int!) {
-      borrowBook(bookId: $bookId) {
-         title
-         author
-      }
-   }
-`
-export type BorrowBookMutationFn = Apollo.MutationFunction<
-   BorrowBookMutation,
-   BorrowBookMutationVariables
->
-
-/**
- * __useBorrowBookMutation__
- *
- * To run a mutation, you first call `useBorrowBookMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useBorrowBookMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [borrowBookMutation, { data, loading, error }] = useBorrowBookMutation({
- *   variables: {
- *      bookId: // value for 'bookId'
- *   },
- * });
- */
-export function useBorrowBookMutation(
-   baseOptions?: Apollo.MutationHookOptions<BorrowBookMutation, BorrowBookMutationVariables>
-) {
-   const options = { ...defaultOptions, ...baseOptions }
-   return Apollo.useMutation<BorrowBookMutation, BorrowBookMutationVariables>(
-      BorrowBookDocument,
-      options
-   )
-}
-export type BorrowBookMutationHookResult = ReturnType<typeof useBorrowBookMutation>
-export type BorrowBookMutationResult = Apollo.MutationResult<BorrowBookMutation>
-export type BorrowBookMutationOptions = Apollo.BaseMutationOptions<
-   BorrowBookMutation,
-   BorrowBookMutationVariables
->

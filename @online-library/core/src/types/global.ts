@@ -24,6 +24,7 @@ export type FormEvent = React.FormEvent<HTMLFormElement>
 export type ReactChildren = {
    children: React.ReactNode
 }
+export type ReactDispatch<T> = React.Dispatch<React.SetStateAction<T>>
 
 export type GraphqlError = GraphQLError & {
    exception: {

@@ -2,7 +2,8 @@ import { AccessToken, GraphRequest, GraphRequestManager, LoginManager } from 're
 
 import { API, FB_FIELDS } from '@online-library/config'
 
-import { FBMeRespose, apiAxios, setApiFeedback, setRole } from '@online-library/core'
+import type { FBMeRespose } from '@online-library/core'
+import { apiAxios, setApiFeedback, setRole } from '@online-library/core'
 
 export const useFbSDK = () => {
    const loginWithFb = async () => {

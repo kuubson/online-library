@@ -4,9 +4,13 @@ import type { InferType } from 'yup'
 import { API } from '@online-library/config'
 
 import type { PaypalCheckoutResponse, ResponseError } from '@online-library/core'
-import { apiAxios, history, setApiFeedback, useCart as useCartHook } from '@online-library/core'
-
-import { useGetBooksQuery } from 'gql'
+import {
+   apiAxios,
+   history,
+   setApiFeedback,
+   useCart as useCartHook,
+   useGetBooksQuery,
+} from '@online-library/core'
 
 import { useQueryParams } from 'hooks'
 

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import type { Book } from 'gql'
-import { useGetProfileBooksQuery } from 'gql'
+import type { Book } from '@online-library/core'
+import { useGetProfileBooksQuery } from '@online-library/core'
 
 export const useProfile = () => {
    const [boughtBooks, setBoughtBooks] = useState<Book[]>([])
@@ -16,10 +16,26 @@ export const useProfile = () => {
       },
    })
 
+   const areThereBoughtBooks = !!boughtBooks.length
+   const areThereBorrowedBooks = !!borrowedBooks.length
+   const shouldShowSearchBar = areThereBoughtBooks && areThereBorrowedBooks
+
+   const books = {
+      freeBooks: borrowedBooks,
+      setFreeBooks: setBorrowedBooks,
+      paidBooks: boughtBooks,
+      setPaidBooks: setBoughtBooks,
+      withProfile: true,
+   }
+
    return {
       loading,
       boughtBooks,
       borrowedBooks,
+      areThereBoughtBooks,
+      areThereBorrowedBooks,
+      shouldShowSearchBar,
+      books,
       setBoughtBooks,
       setBorrowedBooks,
    }

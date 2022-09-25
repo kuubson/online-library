@@ -2,14 +2,8 @@ import { useEffect } from 'react'
 
 import { API, isWeb } from '@online-library/config'
 
-import {
-   TokenCheckResponse,
-   defaultAxios,
-   handleApiError,
-   history,
-   setRole,
-   useSocket,
-} from '@online-library/core'
+import type { TokenCheckResponse } from '@online-library/core'
+import { defaultAxios, handleApiError, history, setRole, useSocket } from '@online-library/core'
 
 export const useGuest = () => {
    const { closeSocketConnection } = useSocket()

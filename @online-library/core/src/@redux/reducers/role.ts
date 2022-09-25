@@ -1,15 +1,13 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 
-import { Role } from '@online-library/config'
+import type { Role } from '@online-library/config'
 
 type RoleState = {
    role: Role
 }
 
-const initialState: RoleState = {
-   role: 'guest',
-}
+const initialState: RoleState = { role: 'guest' }
 
 const roleSlice = createSlice({
    name: 'role',

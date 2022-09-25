@@ -1,6 +1,7 @@
 import { API, isWeb } from '@online-library/config'
 
-import { FBStatus, apiAxios, history, setRole, useCart, useSocket } from '@online-library/core'
+import type { FBStatus } from '@online-library/core'
+import { apiAxios, history, setRole, useCart, useSocket } from '@online-library/core'
 
 export const useLogout = () => {
    const { closeSocketConnection } = useSocket()

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import type { Book } from 'gql'
-import { useGetFreeAndPaidBooksQuery } from 'gql'
+import type { Book } from '@online-library/core'
+import { useGetFreeAndPaidBooksQuery } from '@online-library/core'
 
 export const useStore = () => {
    const [freeBooks, setFreeBooks] = useState<Book[]>([])
@@ -40,12 +40,27 @@ export const useStore = () => {
       })
    }
 
+   const areThereFreeBooks = !!freeBooks.length
+   const areTherePaidBooks = !!paidBooks.length
+   const shouldShowSearchBar = areThereFreeBooks && areTherePaidBooks
+
+   const books = {
+      freeBooks,
+      setFreeBooks,
+      paidBooks,
+      setPaidBooks,
+   }
+
    return {
       loading,
       freeBooks,
       paidBooks,
       hasMoreFreeBooks,
       hasMorePaidBooks,
+      areThereFreeBooks,
+      areTherePaidBooks,
+      shouldShowSearchBar,
+      books,
       setFreeBooks,
       setPaidBooks,
       getMoreBooks,

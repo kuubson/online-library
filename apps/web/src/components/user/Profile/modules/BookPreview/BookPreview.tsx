@@ -1,27 +1,16 @@
 import { useEffect, useState } from 'react'
 
-import type { Book as BookType } from 'gql'
+import { useBookPopup } from '@online-library/core'
 
 import * as Styled from './styled'
+import { ButtonsContainer, Content, ContentContainer } from 'components/shared/BookPopup/styled'
 import { Button, PopupContainer } from 'components/shared/styled'
-import * as StyledBookPopup from 'components/user/Store/modules/BookPopup/styled'
 
 import { Book } from 'components/shared'
 
-import type { SetBookPopupDataFn } from 'types'
+export const BookPreview = () => {
+   const { id, title, author, cover, price, resetBookPopup } = useBookPopup()
 
-type BookPreviewProps = BookType & {
-   setBookPopupData: SetBookPopupDataFn
-}
-
-export const BookPreview = ({
-   id,
-   title,
-   author,
-   cover,
-   price,
-   setBookPopupData,
-}: BookPreviewProps) => {
    const [pages] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
    const [currentPage, setCurrentPage] = useState(0)
@@ -37,7 +26,7 @@ export const BookPreview = ({
 
    return (
       <PopupContainer>
-         <StyledBookPopup.ContentContainer withFlips>
+         <ContentContainer withFlips>
             <Styled.BookContainer withFlips={opened} read={read}>
                {pages.map((_, index) => (
                   <Styled.Page
@@ -62,8 +51,8 @@ export const BookPreview = ({
                   </Styled.Page>
                ))}
             </Styled.BookContainer>
-            <StyledBookPopup.Content withFlips>
-               <StyledBookPopup.ButtonsContainer>
+            <Content withFlips>
+               <ButtonsContainer>
                   {opened ? (
                      <>
                         <Button onClick={() => setCurrentPage(0)} notAbsolute withoutFixedWidth>
@@ -98,18 +87,14 @@ export const BookPreview = ({
                         >
                            Read it
                         </Button>
-                        <Button
-                           onClick={() => setBookPopupData(undefined)}
-                           notAbsolute
-                           withoutFixedWidth
-                        >
+                        <Button onClick={resetBookPopup} notAbsolute withoutFixedWidth>
                            Close
                         </Button>
                      </>
                   )}
-               </StyledBookPopup.ButtonsContainer>
-            </StyledBookPopup.Content>
-         </StyledBookPopup.ContentContainer>
+               </ButtonsContainer>
+            </Content>
+         </ContentContainer>
       </PopupContainer>
    )
 }

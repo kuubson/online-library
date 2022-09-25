@@ -1,4 +1,4 @@
-import { Role } from '@online-library/config'
+import type { Role } from '@online-library/config'
 
 import { store } from '@redux'
 

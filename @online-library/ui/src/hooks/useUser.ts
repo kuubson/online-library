@@ -2,9 +2,8 @@ import { useEffect } from 'react'
 
 import { API, isWeb } from '@online-library/config'
 
+import type { ChatDetailsResponse, TokenCheckResponse } from '@online-library/core'
 import {
-   ChatDetailsResponse,
-   TokenCheckResponse,
    defaultAxios,
    handleApiError,
    history,

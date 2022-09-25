@@ -10,7 +10,7 @@ import {
    MESSAGES_ORDER,
 } from '@online-library/config'
 
-import type { MessagesResponse, SendFileResponse } from '@online-library/core'
+import type { MessagesResponse, ReactDispatch, SendFileResponse } from '@online-library/core'
 import {
    apiAxios,
    defaultAxios,

@@ -72,6 +72,7 @@ export type Body<B extends TypedSchema> = InferType<B>['body']
 export type Cookies<C extends TypedSchema> = InferType<C>['cookies']
 
 export type Query<Q extends TypedSchema> = InferType<Q>['query']
+
 export interface CustomRequest extends Request {
    user: {
       user: User

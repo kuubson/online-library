@@ -1,20 +1,20 @@
 import { useState } from 'react'
 import styled, { css } from 'styled-components/macro'
 
-import { useCart } from '@online-library/core'
+import { FALLBACK_IMAGE } from '@online-library/config'
 
-import type { Book as BookType } from 'gql'
+import type { Book as BookType } from '@online-library/core'
+import { useBookPopup, useCart } from '@online-library/core'
 
 import * as Styled from './styled'
 import { Button } from 'components/shared/styled'
 
-type BookProps = {
-   setBookPopupData?: ReactDispatch<BookType | undefined>
+type BookProps = BookType & {
    withCart?: boolean
    withProfile?: boolean
    withPopup?: boolean
    withFlips?: boolean
-} & BookType
+}
 
 export const Book = ({
    id,
@@ -22,7 +22,6 @@ export const Book = ({
    author,
    cover,
    price,
-   setBookPopupData,
    withCart,
    withProfile,
    withPopup,
@@ -30,19 +29,19 @@ export const Book = ({
 }: BookProps) => {
    const { cart, removeFromCart } = useCart()
 
+   const { setBookPopupData } = useBookPopup()
+
    const [loading, setLoading] = useState(true)
 
-   const handleBookPopup = () => {
-      if (setBookPopupData) {
-         setBookPopupData({
-            id,
-            title,
-            author,
-            cover,
-            price,
-         })
-      }
-   }
+   const handleBookPopup = () =>
+      setBookPopupData({
+         id,
+         title,
+         author,
+         cover,
+         price,
+         withProfile: false,
+      })
 
    const inCart = cart.includes(id)
 
@@ -57,9 +56,7 @@ export const Book = ({
             onLoad={() => setLoading(false)}
             onError={event => {
                setLoading(true)
-               event.currentTarget.src = `https://picsum.photos/1920/108${Math.floor(
-                  Math.random() * 10
-               )}`
+               event.currentTarget.src = FALLBACK_IMAGE
             }}
          />
          <Styled.Annotations>
@@ -74,11 +71,7 @@ export const Book = ({
             <Button onClick={handleBookPopup}>Open</Button>
          ) : !withPopup ? (
             <Button
-               onClick={() => {
-                  if (!inCart) {
-                     handleBookPopup()
-                  }
-               }}
+               onClick={() => !inCart && handleBookPopup()}
                price={price}
                withoutHover={inCart}
             >

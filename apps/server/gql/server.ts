@@ -14,7 +14,7 @@ import { WebSocketServer } from 'ws'
 
 import { GRAPHQL_WS_CLOSE_STATUS } from '@online-library/config'
 
-import { CODEGEN, JWT_KEY, NODE_ENV } from 'config'
+import { JWT_KEY, NODE_ENV } from 'config'
 
 import { schema } from 'gql/schema'
 
@@ -29,9 +29,7 @@ export const initializeGraphQL = async (
    server: Server,
    passport: PassportStatic
 ) => {
-   if (!CODEGEN || NODE_ENV === 'production') {
-      app.use('/graphql', (...args) => gqlAuthorization(passport)(...args))
-   }
+   app.use('/graphql', (...args) => gqlAuthorization(passport)(...args))
 
    const pubsub = new PubSub()
 

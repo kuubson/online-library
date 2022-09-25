@@ -10,4 +10,5 @@ export const AbsoluteContainer = styled.View`
    bottom: 0px;
    left: 0px;
    z-index: 2;
+   elevation: 2;
 `

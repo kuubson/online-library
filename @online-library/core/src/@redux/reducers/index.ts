@@ -6,6 +6,7 @@ import { persistReducer } from 'redux-persist'
 import { isWeb } from '@online-library/config'
 
 import { apiFeedback } from './apiFeedback'
+import { bookPopup } from './bookPopup'
 import { cart } from './cart'
 import { chatDetails } from './chatDetails'
 import { loader } from './loader'
@@ -34,6 +35,7 @@ export const coreReducer = combineReducers({
    role,
    loader,
    apiFeedback,
+   bookPopup,
    cart: persistReducer(cartConfig, cart),
    chatDetails: persistReducer(chatDetailsConfig, chatDetails),
 })

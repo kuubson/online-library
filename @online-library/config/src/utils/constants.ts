@@ -10,6 +10,8 @@ export const MESSAGES_FETCH_LIMIT = 20
 
 export const RANDOM_IMAGE = 'https://picsum.photos/1920/1080'
 
+export const FALLBACK_IMAGE = `https://picsum.photos/1920/108${Math.floor(Math.random() * 10)}`
+
 export const FILE_SIZES = {
    maxImageSize: 31457280, // 30MB
    maxVideoSize: 52428800, // 50MB

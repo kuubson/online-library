@@ -4,7 +4,8 @@ import React, { useEffect } from 'react'
 import SplashScreen from 'react-native-splash-screen'
 import styled from 'styled-components/native'
 
-import { Screens, navigationRef, useRole } from '@online-library/core'
+import type { Screens } from '@online-library/core'
+import { navigationRef, useRole } from '@online-library/core'
 
 import { theme } from '@online-library/ui'
 

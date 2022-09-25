@@ -12,6 +12,7 @@ import { name as appName } from './app.json'
 import { App } from './src/components/App'
 
 axios.defaults.baseURL = isProd ? HOST_URL : API_BASEURL
+
 customAxios.defaults.baseURL = isProd ? HOST_URL : API_BASEURL
 
 AppRegistry.registerComponent(appName, () => () => (

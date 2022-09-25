@@ -1,5 +1,7 @@
 import type { MESSAGE_TYPES, MessageType, Role } from '@online-library/config'
 
+import type { Book } from './graphql'
+
 export type TokenCheckResponse = {
    role: Role
 }
@@ -23,4 +25,8 @@ export type SendFileResponse = {
 
 export type PaypalCheckoutResponse = {
    link: string
+}
+
+export type BooksResponse = {
+   books: Book[]
 }

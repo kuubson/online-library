@@ -1,10 +1,11 @@
 import { useState } from 'react'
 
+import type { ReactDispatch } from '@online-library/core'
 import { useIsKeyboardOpened } from '@online-library/core'
 
 import * as Styled from './styled'
+import { ButtonsContainer, Content, ContentContainer } from 'components/shared/BookPopup/styled'
 import { Button, Error, Header, PopupContainer } from 'components/shared/styled'
-import * as StyledBookPopup from 'components/user/Store/modules/BookPopup/styled'
 
 import { useStripePopup } from './hooks'
 
@@ -22,8 +23,8 @@ export const StripePopup = ({ price, setShouldStripePopupAppear }: StripePopupPr
 
    return (
       <PopupContainer>
-         <StyledBookPopup.ContentContainer withLessHeight isKeyboardOpened={isKeyboardOpened}>
-            <StyledBookPopup.Content withoutMargin>
+         <ContentContainer withLessHeight isKeyboardOpened={isKeyboardOpened}>
+            <Content withoutMargin>
                <Header black>Enter details and submit payment</Header>
                <Styled.CardContainer>
                   <Styled.Card
@@ -33,16 +34,16 @@ export const StripePopup = ({ price, setShouldStripePopupAppear }: StripePopupPr
                   />
                </Styled.CardContainer>
                {error && <Error>{error}</Error>}
-               <StyledBookPopup.ButtonsContainer>
+               <ButtonsContainer>
                   <Button onClick={() => setShouldStripePopupAppear(false)} notAbsolute>
                      Cancel
                   </Button>
                   <Button onClick={handlePaying} notAbsolute withoutFixedWidth>
                      Submit ${price}
                   </Button>
-               </StyledBookPopup.ButtonsContainer>
-            </StyledBookPopup.Content>
-         </StyledBookPopup.ContentContainer>
+               </ButtonsContainer>
+            </Content>
+         </ContentContainer>
       </PopupContainer>
    )
 }

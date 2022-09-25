@@ -1,14 +1,14 @@
 import styled from 'styled-components/macro'
 
+import type { BookSuggestionsProps } from '@online-library/core'
+
+import { useBookSuggestions } from '@online-library/ui'
+
 import { queries } from 'styles'
 
 import * as Styled from './styled'
 
 import { Input } from 'components/shared'
-
-import { useBookSuggestions } from './hooks'
-
-import type { BookSuggestionsProps } from 'types'
 
 export const BookSuggestions = ({
    freeBooks,
@@ -24,7 +24,6 @@ export const BookSuggestions = ({
       setPaidBooks,
       withProfile,
    })
-
    return (
       <BookSuggestionsContainer>
          {findByTitle ? (

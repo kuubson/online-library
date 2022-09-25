@@ -1,5 +1,6 @@
 export { AbsoluteContainer } from './AbsoluteContainer'
 export { Button } from './Button'
 export { Error } from './Error'
+export { PopupButton } from './PopupButton'
 export { Submit } from './Submit'
 export { Text } from './Text'

@@ -10,23 +10,19 @@ import {
    AuthError,
    ConnectivityError,
    GRAPHQL_WS_CLOSE_STATUS,
+   isProdWeb,
    websocketUrl,
 } from '@online-library/config'
 
-import type { GraphqlError } from '@online-library/core'
-import {
-   debounceLoader,
-   defaultAxios,
-   history,
-   resetLoader,
-   setApiFeedback,
-} from '@online-library/core'
+import { debounceLoader, resetLoader, setApiFeedback } from 'helpers'
 
-import { NODE_ENV } from 'config'
+import { defaultAxios, history } from 'utils'
+
+import type { GraphqlError } from 'types'
 
 const webSocketLink = new GraphQLWsLink(
    createClient({
-      url: websocketUrl,
+      url: websocketUrl, // TODO: fix for rn
       on: {
          closed: (event: CloseEvent | unknown) => {
             if ((event as CloseEvent).code === GRAPHQL_WS_CLOSE_STATUS) {
@@ -43,7 +39,7 @@ const customFetch = (uri: RequestInfo | URL, options: RequestInit) => {
 }
 
 const httpLink = new HttpLink({
-   uri: '/graphql',
+   uri: 'http://192.168.1.11:3001/graphql', // TODO: fix for rn
    fetch: customFetch,
 })
 
@@ -56,12 +52,12 @@ const splitLink = split(
    httpLink
 )
 
-const handleLoader = new ApolloLink((operation, forward) => {
-   return forward(operation).map(response => {
+const handleLoader = new ApolloLink((operation, forward) =>
+   forward(operation).map(response => {
       resetLoader()
       return response
    })
-})
+)
 
 const handleError = onError(({ graphQLErrors, networkError }) => {
    resetLoader()
@@ -91,7 +87,7 @@ const handleError = onError(({ graphQLErrors, networkError }) => {
             ConnectivityError.errorHeader,
             ConnectivityError.errorMessage,
             'Okey',
-            () => NODE_ENV === 'production' && window.location.reload()
+            () => isProdWeb && window.location.reload()
          )
       }
    }

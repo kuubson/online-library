@@ -5,17 +5,17 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { ThemeProvider } from 'styled-components/macro'
 
 import type { ReactChildren } from '@online-library/core'
-import { history, persistor, store } from '@online-library/core'
+import { client, history, persistor, store } from '@online-library/core'
 
 import { theme } from '@online-library/ui'
-
-import { client } from 'gql/client'
 
 import 'styles/index.scss'
 
 import { Loader } from 'components/common'
 
-export const Providers = ({ children }: ReactChildren) => (
+export const Providers = (
+   { children }: ReactChildren // TODO: move to lib
+) => (
    <Provider store={store}>
       <PersistGate loading={<Loader />} persistor={persistor}>
          <ApolloProvider client={client}>

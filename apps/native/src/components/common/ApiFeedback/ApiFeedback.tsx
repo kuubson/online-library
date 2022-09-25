@@ -37,4 +37,5 @@ export const ApiFeedback = () => {
 
 const ApiFeedbackContainer = styled(AbsoluteContainer)`
    z-index: 3;
+   elevation: 3;
 `

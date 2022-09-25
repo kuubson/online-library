@@ -1,30 +1,12 @@
-import type { Book as BookType } from 'gql'
+import { useBookPopup } from '@online-library/core'
 
 import * as Styled from './styled'
 import { Button, Header, PopupContainer } from 'components/shared/styled'
 
 import { Book } from 'components/shared'
 
-import { useBookPopup } from './hooks'
-
-import type { SetBookPopupDataFn } from 'types'
-
-type BookPopupProps = BookType & {
-   setBookPopupData: SetBookPopupDataFn
-}
-
-export const BookPopup = ({
-   id,
-   title,
-   author,
-   cover,
-   price,
-   setBookPopupData,
-}: BookPopupProps) => {
-   const { handleAdddingToCart, handleBorrowingBook } = useBookPopup({
-      id,
-      setBookPopupData,
-   })
+export const BookPopup = () => {
+   const { id, title, author, cover, price, resetBookPopup, borrowBook, addToCart } = useBookPopup()
    return (
       <PopupContainer>
          <Styled.ContentContainer>
@@ -35,13 +17,10 @@ export const BookPopup = ({
                   {price ? ' adding this book to the cart' : ' borrowing this book'}
                </Header>
                <Styled.ButtonsContainer>
-                  <Button
-                     onClick={price ? () => handleAdddingToCart(id) : handleBorrowingBook}
-                     notAbsolute
-                  >
+                  <Button onClick={price ? () => addToCart(id) : borrowBook} notAbsolute>
                      Confirm
                   </Button>
-                  <Button onClick={() => setBookPopupData(undefined)} notAbsolute>
+                  <Button onClick={resetBookPopup} notAbsolute>
                      Cancel
                   </Button>
                </Styled.ButtonsContainer>

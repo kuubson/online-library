@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components/macro'
 
-import type { Book as BookType } from 'gql'
+import type { Book as BookType } from '@online-library/core'
 
 import { queries } from 'styles'
 
@@ -16,7 +16,6 @@ type BooksProps = {
    error: string
    header?: string
    hasMore?: boolean
-   setBookPopupData?: ReactDispatch<BookType | undefined>
    loadMore?: () => void
    searchBar?: JSX.Element
    withCart?: boolean
@@ -31,7 +30,6 @@ export const Books = ({
    error,
    header,
    hasMore,
-   setBookPopupData,
    loadMore,
    searchBar,
    withCart,
@@ -67,7 +65,6 @@ export const Books = ({
                      author={author}
                      cover={cover}
                      price={price}
-                     setBookPopupData={setBookPopupData}
                      withCart={withCart}
                      withProfile={withProfile}
                   />

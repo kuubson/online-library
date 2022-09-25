@@ -31,7 +31,9 @@
       "redux": "^4.2.0",
       "redux-persist": "^6.0.0",
       "validator": "^13.7.0",
-      "yup": "^0.32.11"
+      "yup": "^0.32.11",
+      "@apollo/client": "^3.6.9",
+      "graphql-ws": "^5.10.1"
    },
    "devDependencies": {
       "@types/react": "^18.0.18",

@@ -1,6 +1,4 @@
-import { useState } from 'react'
-
-import type { Book as BookType } from 'gql'
+import { useBookPopup } from '@online-library/core'
 
 import { UserContent } from 'components/shared/styled'
 
@@ -11,26 +9,21 @@ import { BookPreview } from './modules'
 import { useProfile } from './hooks'
 
 export const Profile = () => {
-   const { loading, boughtBooks, borrowedBooks, setBoughtBooks, setBorrowedBooks } = useProfile()
+   const { showBookPopup } = useBookPopup()
 
-   const [bookPopupData, setBookPopupData] = useState<BookType>()
-
-   const books = {
-      freeBooks: borrowedBooks,
-      setFreeBooks: setBorrowedBooks,
-      paidBooks: boughtBooks,
-      setPaidBooks: setBoughtBooks,
-      withProfile: true,
-   }
-
-   const areThereBoughtBooks = !!boughtBooks.length
-   const areThereBorrowedBooks = !!borrowedBooks.length
-
-   const shouldShowSearchBar = areThereBoughtBooks && areThereBorrowedBooks
+   const {
+      loading,
+      boughtBooks,
+      borrowedBooks,
+      areThereBoughtBooks,
+      areThereBorrowedBooks,
+      shouldShowSearchBar,
+      books,
+   } = useProfile()
 
    return (
       <UserContent>
-         {bookPopupData && <BookPreview {...bookPopupData} setBookPopupData={setBookPopupData} />}
+         {showBookPopup && <BookPreview />}
          {!loading &&
             (!areThereBoughtBooks && !areThereBorrowedBooks ? (
                <Books books={[]} error="Go to store to get free books or buy some" />
@@ -40,7 +33,6 @@ export const Profile = () => {
                      books={boughtBooks}
                      header="Premium books"
                      error="No premium books"
-                     setBookPopupData={setBookPopupData}
                      withProfile
                      {...((!areThereBorrowedBooks || shouldShowSearchBar) && {
                         searchBar: <BookSuggestions {...books} />,
@@ -50,7 +42,6 @@ export const Profile = () => {
                      books={borrowedBooks}
                      header="Enjoy borrowed books"
                      error="No borrowed books"
-                     setBookPopupData={setBookPopupData}
                      withProfile
                      {...(!areThereBoughtBooks && { searchBar: <BookSuggestions {...books} /> })}
                   />

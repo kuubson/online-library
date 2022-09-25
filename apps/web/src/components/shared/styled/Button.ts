@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components/macro'
 
-import type { Book } from 'gql'
+import type { Book } from '@online-library/core'
 
 import { queries } from 'styles'
 
