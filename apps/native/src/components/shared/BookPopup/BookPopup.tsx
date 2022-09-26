@@ -29,7 +29,7 @@ export const BookPopup = () => {
                <PopupButton onPress={price ? () => addToCart(id) : borrowBook}>
                   <Text>Confirm</Text>
                </PopupButton>
-               <PopupButton onPress={resetBookPopup} notAbsolute>
+               <PopupButton onPress={resetBookPopup}>
                   <Text>Cancel</Text>
                </PopupButton>
             </Styled.Content>

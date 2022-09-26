@@ -5,10 +5,9 @@ import SplashScreen from 'react-native-splash-screen'
 import styled from 'styled-components/native'
 
 import type { Screens } from '@online-library/core'
-import { navigationRef, useRole } from '@online-library/core'
-import { theme } from '@online-library/core'
+import { navigationRef, theme, useRole } from '@online-library/core'
 
-import { Text } from 'components/shared/styled'
+import { TabBarIcon } from './shared/styled'
 
 import {
    EmailSupportScreen,
@@ -43,17 +42,17 @@ export const App = () => {
                   <Tab.Screen
                      name="Home"
                      component={HomeScreen}
-                     options={{ tabBarIcon: () => <Text>Home</Text> }}
+                     options={{ tabBarIcon: () => <TabBarIcon>Home</TabBarIcon> }}
                   />
                   <Tab.Screen
                      name="Registration"
                      component={RegistrationScreen}
-                     options={{ tabBarIcon: () => <Text>Registration</Text> }}
+                     options={{ tabBarIcon: () => <TabBarIcon>Registration</TabBarIcon> }}
                   />
                   <Tab.Screen
                      name="Login"
                      component={LoginScreen}
-                     options={{ tabBarIcon: () => <Text>Login</Text> }}
+                     options={{ tabBarIcon: () => <TabBarIcon>Login</TabBarIcon> }}
                   />
                   <Tab.Screen
                      name="EmailSupport"
@@ -80,7 +79,7 @@ export const App = () => {
                   <Tab.Screen
                      name="Store"
                      component={StoreScreen}
-                     options={{ tabBarIcon: () => <Text>Store</Text> }}
+                     options={{ tabBarIcon: () => <TabBarIcon> Store</TabBarIcon> }}
                   />
                </Tab.Navigator>
             )}

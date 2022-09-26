@@ -5,6 +5,6 @@ import { moderateScale } from 'styles'
 import { Text } from 'components/shared/styled'
 
 export const Header = styled(Text)`
-   font-size: ${moderateScale(20)}px;
+   font-size: ${moderateScale(22)}px;
    margin-bottom: ${moderateScale(40)}px;
 `

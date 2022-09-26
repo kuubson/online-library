@@ -1,4 +1,4 @@
-import { useLogout, useStore } from '@online-library/ui'
+import { useStore } from '@online-library/ui'
 
 import { BookSuggestions, Books } from 'components/shared'
 
@@ -15,8 +15,6 @@ export const Store = () => {
       books,
       getMoreBooks,
    } = useStore()
-
-   const { logout } = useLogout()
 
    return (
       <>
