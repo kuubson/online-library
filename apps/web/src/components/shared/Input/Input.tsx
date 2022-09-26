@@ -1,19 +1,14 @@
-import type { Control } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
 import styled, { css } from 'styled-components/macro'
+
+import type { _InputProps } from '@online-library/core'
 
 import { queries } from 'styles'
 
 import * as Styled from './styled'
 import { Error } from 'components/shared/styled'
 
-type InputProps = {
-   control: Control<any, any>
-   id: string
-   label?: string
-   type: string
-   placeholder: string
-   error?: string
+type InputProps = _InputProps & {
    withBooksSuggestions?: boolean
 }
 

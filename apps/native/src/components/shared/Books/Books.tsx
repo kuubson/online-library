@@ -1,27 +1,13 @@
 import React from 'react'
 import styled from 'styled-components/native'
 
-import type { Book as BookType } from '@online-library/core'
+import type { _BooksProps } from '@online-library/core'
 
 import { Header } from '../BookPopup/styled'
 import { Text } from '../styled'
 import * as Styled from './styled'
 
 import { Book } from 'components/shared/Book/Book'
-
-type BooksProps = {
-   books: BookType[]
-   error: string
-   header?: string
-   hasMore?: boolean
-   loadMore?: () => void
-   searchBar?: JSX.Element
-   withCart?: boolean
-   withProfile?: boolean
-   withMarginRight?: boolean
-   fullWidth?: boolean
-   withoutInput?: boolean
-}
 
 export const Books = ({
    books,
@@ -32,7 +18,7 @@ export const Books = ({
    searchBar,
    withCart,
    withProfile,
-}: BooksProps) => {
+}: _BooksProps) => {
    const areThereBooks = !!books.length
    return (
       <BooksContainer withoutBooks={!areThereBooks}>

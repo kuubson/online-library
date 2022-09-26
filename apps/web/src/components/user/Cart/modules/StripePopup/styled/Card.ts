@@ -1,7 +1,7 @@
 import { CardElement } from '@stripe/react-stripe-js'
 import styled from 'styled-components/macro'
 
-import { theme } from '@online-library/ui'
+import { theme } from '@online-library/core'
 
 export const Card = styled(CardElement).attrs(() => ({
    options: {

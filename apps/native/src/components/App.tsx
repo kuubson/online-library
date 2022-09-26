@@ -6,8 +6,7 @@ import styled from 'styled-components/native'
 
 import type { Screens } from '@online-library/core'
 import { navigationRef, useRole } from '@online-library/core'
-
-import { theme } from '@online-library/ui'
+import { theme } from '@online-library/core'
 
 import { Text } from 'components/shared/styled'
 

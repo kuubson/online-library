@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components/macro'
 
-import type { Book as BookType } from '@online-library/core'
+import type { _BooksProps } from '@online-library/core'
 
 import { queries } from 'styles'
 
@@ -11,15 +11,7 @@ import { Button, Header, HeaderContainer, Warning } from 'components/shared/styl
 
 import { Book } from 'components/shared'
 
-type BooksProps = {
-   books: BookType[]
-   error: string
-   header?: string
-   hasMore?: boolean
-   loadMore?: () => void
-   searchBar?: JSX.Element
-   withCart?: boolean
-   withProfile?: boolean
+type BooksProps = _BooksProps & {
    withMarginRight?: boolean
    fullWidth?: boolean
    withoutInput?: boolean

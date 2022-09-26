@@ -4,6 +4,7 @@ import styled from 'styled-components/macro'
 import { useApiFeedback, useLoader } from '@online-library/core'
 
 import { GlobalStyle } from 'styles'
+import 'styles/index.scss'
 
 import { Location } from 'components/shared'
 

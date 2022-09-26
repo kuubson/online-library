@@ -11,10 +11,11 @@ import {
    ConnectivityError,
    GRAPHQL_WS_CLOSE_STATUS,
    isProdWeb,
+   isWeb,
    websocketUrl,
 } from '@online-library/config'
 
-import { debounceLoader, resetLoader, setApiFeedback } from 'helpers'
+import { debounceLoader, resetLoader, setApiFeedback, setRole } from 'helpers'
 
 import { defaultAxios, history } from 'utils'
 
@@ -39,7 +40,7 @@ const customFetch = (uri: RequestInfo | URL, options: RequestInit) => {
 }
 
 const httpLink = new HttpLink({
-   uri: 'http://192.168.1.11:3001/graphql', // TODO: fix for rn
+   uri: isWeb ? '/graphql' : 'http://192.168.1.11:3001/graphql',
    fetch: customFetch,
 })
 
@@ -78,15 +79,20 @@ const handleError = onError(({ graphQLErrors, networkError }) => {
          if (networkError.statusCode === 401) {
             const { request } = API['/api/logout'].get
             defaultAxios(request).then(() => {
+               setRole('guest')
+
                setApiFeedback(AuthError.errorHeader, AuthError.errorMessage)
-               history.push('/login')
+
+               if (isWeb) {
+                  history.push('/login')
+               }
             })
          }
       } else {
          setApiFeedback(
             ConnectivityError.errorHeader,
             ConnectivityError.errorMessage,
-            'Okey',
+            'Refresh the app',
             () => isProdWeb && window.location.reload()
          )
       }

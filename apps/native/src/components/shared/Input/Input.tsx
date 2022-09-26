@@ -1,20 +1,15 @@
 import { upperFirst } from 'lodash'
-import type { Control } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
 import styled from 'styled-components/native'
+
+import { _InputProps } from '@online-library/core'
 
 import { scale } from 'styles'
 
 import * as Styled from './styled'
 import { Error } from 'components/shared/styled'
 
-type InputProps = {
-   control: Control<any, any>
-   id: string
-   label?: string
-   type: string
-   placeholder: string
-   error?: string
+type InputProps = _InputProps & {
    secureTextEntry?: boolean
    moreMarginBottom?: boolean
 }

@@ -1,12 +1,9 @@
 import { ApolloProvider } from '@apollo/client'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
-import { ThemeProvider } from 'styled-components/native'
+import { ThemeProvider } from 'styled-components'
 
-import type { ReactChildren } from '@online-library/core'
-import { client, persistor, store } from '@online-library/core'
-
-import { theme } from '@online-library/ui'
+import { ReactChildren, client, persistor, store, theme } from '@online-library/core'
 
 import { Loader } from 'components/common'
 
