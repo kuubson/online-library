@@ -1,10 +1,10 @@
-import { Guest, User } from 'components/common'
-import { Home } from 'components/guest/Home/Home'
-import { Login } from 'components/guest/Login/Login'
-import { Registration } from 'components/guest/Registration/Registration'
-import { Store } from 'components/user/Store/Store'
-
+import { Guest, User } from './common'
+import { Home } from './guest/Home/Home'
+import { Login } from './guest/Login/Login'
+import { Registration } from './guest/Registration/Registration'
 import { Support } from './guest/Support/Support'
+import { Profile } from './user/Profile/Profile'
+import { Store } from './user/Store/Store'
 
 export const HomeScreen = () => (
    <Guest>
@@ -39,5 +39,11 @@ export const PasswordSupportScreen = () => (
 export const StoreScreen = () => (
    <User>
       <Store />
+   </User>
+)
+
+export const ProfileScreen = () => (
+   <User>
+      <Profile />
    </User>
 )

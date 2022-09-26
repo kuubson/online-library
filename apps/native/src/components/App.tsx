@@ -14,6 +14,7 @@ import {
    HomeScreen,
    LoginScreen,
    PasswordSupportScreen,
+   ProfileScreen,
    RegistrationScreen,
    StoreScreen,
 } from './screens'
@@ -79,7 +80,12 @@ export const App = () => {
                   <Tab.Screen
                      name="Store"
                      component={StoreScreen}
-                     options={{ tabBarIcon: () => <TabBarIcon> Store</TabBarIcon> }}
+                     options={{ tabBarIcon: () => <TabBarIcon>Store</TabBarIcon> }}
+                  />
+                  <Tab.Screen
+                     name="Profile"
+                     component={ProfileScreen}
+                     options={{ tabBarIcon: () => <TabBarIcon>Profile</TabBarIcon> }}
                   />
                </Tab.Navigator>
             )}

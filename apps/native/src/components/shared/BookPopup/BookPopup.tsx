@@ -10,7 +10,8 @@ import * as Styled from './styled'
 import { Book } from 'components/shared/Book/Book'
 
 export const BookPopup = () => {
-   const { id, title, author, cover, price, resetBookPopup, borrowBook, addToCart } = useBookPopup()
+   const { id, title, author, cover, price, withProfile, resetBookPopup, borrowBook, addToCart } =
+      useBookPopup()
    return (
       <BookPopupContainer>
          <Styled.ScrollView
@@ -22,15 +23,19 @@ export const BookPopup = () => {
          >
             <Styled.Content>
                <Book id={id} title={title} author={author} cover={cover} price={price} withPopup />
-               <Styled.Header black>
-                  Confirm
-                  {price ? ' adding this book to the cart' : ' borrowing this book'}
-               </Styled.Header>
-               <PopupButton onPress={price ? () => addToCart(id) : borrowBook}>
-                  <Text>Confirm</Text>
-               </PopupButton>
+               {!withProfile && (
+                  <>
+                     <Styled.Header black>
+                        Confirm
+                        {price ? ' adding this book to the cart' : ' borrowing this book'}
+                     </Styled.Header>
+                     <PopupButton onPress={price ? () => addToCart(id) : borrowBook}>
+                        <Text>Confirm</Text>
+                     </PopupButton>
+                  </>
+               )}
                <PopupButton onPress={resetBookPopup}>
-                  <Text>Cancel</Text>
+                  <Text>{withProfile ? 'Close' : 'Cancel'}</Text>
                </PopupButton>
             </Styled.Content>
          </Styled.ScrollView>

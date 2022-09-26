@@ -1,16 +1,8 @@
-import { useBookPopup } from '@online-library/core'
-
 import { useProfile } from '@online-library/ui'
-
-import { UserContent } from 'components/shared/styled'
 
 import { BookSuggestions, Books } from 'components/shared'
 
-import { BookPreview } from './modules'
-
 export const Profile = () => {
-   const { showBookPopup } = useBookPopup()
-
    const {
       loading,
       boughtBooks,
@@ -22,8 +14,7 @@ export const Profile = () => {
    } = useProfile()
 
    return (
-      <UserContent>
-         {showBookPopup && <BookPreview />}
+      <>
          {!loading &&
             (!areThereBoughtBooks && !areThereBorrowedBooks ? (
                <Books books={[]} error="Go to store to get free books or buy some" />
@@ -47,6 +38,6 @@ export const Profile = () => {
                   />
                </>
             ))}
-      </UserContent>
+      </>
    )
 }
