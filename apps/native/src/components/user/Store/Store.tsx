@@ -1,8 +1,6 @@
-import { useBookPopup } from '@online-library/core'
+import { useLogout, useStore } from '@online-library/ui'
 
-import { useStore } from '@online-library/ui'
-
-import { BookPopup, BookSuggestions, Books } from 'components/shared'
+import { BookSuggestions, Books } from 'components/shared'
 
 export const Store = () => {
    const {
@@ -18,12 +16,10 @@ export const Store = () => {
       getMoreBooks,
    } = useStore()
 
-   const { showBookPopup } = useBookPopup()
+   const { logout } = useLogout()
 
    return (
       <>
-         {showBookPopup && <BookPopup />}
-         {/* // TODO: fix layout */}
          {!loading &&
             (!areThereFreeBooks && !areTherePaidBooks ? (
                <Books books={[]} error="There are no books in the library right now" />

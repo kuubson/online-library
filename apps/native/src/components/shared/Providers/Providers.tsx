@@ -7,7 +7,7 @@ import { ReactChildren, client, persistor, store, theme } from '@online-library/
 
 import { SERVER_NATIVE_URL } from 'config'
 
-import { Loader } from 'components/common'
+import { Loader } from '../../common/Loader/Loader'
 
 export const Providers = ({ children }: ReactChildren) => (
    <Provider store={store}>

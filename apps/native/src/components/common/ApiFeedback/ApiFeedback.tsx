@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 import { useApiFeedback } from '@online-library/core'
 
 import * as Styled from './styled'
-import { AbsoluteContainer, Submit, Text } from 'components/shared/styled'
+import { AbsoluteContainer, Text } from 'components/shared/styled'
 
 export const ApiFeedback = () => {
    const { header, message, buttonText, callback, resetApiFeedback } = useApiFeedback()
@@ -21,7 +21,7 @@ export const ApiFeedback = () => {
                <Styled.Header>{header}</Styled.Header>
                <Styled.Message>{message}</Styled.Message>
             </Styled.HeaderContainer>
-            <Submit
+            <Styled.Button
                onPress={() => {
                   resetApiFeedback()
                   callback()
@@ -29,7 +29,7 @@ export const ApiFeedback = () => {
                noMargin
             >
                <Text>{buttonText}</Text>
-            </Submit>
+            </Styled.Button>
          </Styled.ScrollView>
       </ApiFeedbackContainer>
    )

@@ -1,7 +1,8 @@
 import styled from 'styled-components/native'
 
-import { scale } from 'styles'
+import { moderateScale } from 'styles'
 
 export const ScrollView = styled.ScrollView`
-   margin: ${scale(25)}px 0px;
+   width: 100%;
+   margin: ${moderateScale(25)}px 0px;
 `

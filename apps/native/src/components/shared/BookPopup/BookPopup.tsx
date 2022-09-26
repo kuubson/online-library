@@ -21,15 +21,7 @@ export const BookPopup = () => {
             }}
          >
             <Styled.Content>
-               <Book
-                  id={id}
-                  title={title}
-                  author={author}
-                  cover={cover}
-                  price={price}
-                  withPopup
-                  first
-               />
+               <Book id={id} title={title} author={author} cover={cover} price={price} withPopup />
                <Styled.Header black>
                   Confirm
                   {price ? ' adding this book to the cart' : ' borrowing this book'}

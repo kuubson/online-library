@@ -5,7 +5,7 @@ import type { ReactChildren } from '@online-library/core'
 
 import { useGuest } from '@online-library/ui'
 
-import { scale } from 'styles'
+import { moderateScale } from 'styles'
 
 import { Wrapper } from '../Wrapper/Wrapper'
 
@@ -19,7 +19,7 @@ export const Guest = ({ children }: ReactChildren) => {
 }
 
 const GuestContainer = styled.View`
-   padding: ${scale(25)}px;
+   padding: ${moderateScale(25)}px;
    justify-content: center;
    flex: 1;
 `

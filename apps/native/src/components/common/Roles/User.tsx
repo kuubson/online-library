@@ -7,7 +7,7 @@ import { useSocketIO, useUser } from '@online-library/ui'
 
 import { SOCKETIO_URL } from 'config'
 
-import { scale } from 'styles'
+import { moderateScale } from 'styles'
 
 import { Wrapper } from '../Wrapper/Wrapper'
 
@@ -26,7 +26,7 @@ export const User = ({ children }: ReactChildren) => {
 }
 
 const UserContainer = styled.View`
-   padding: 0px ${scale(15)}px ${scale(35)}px ${scale(15)}px;
+   padding: 0px ${moderateScale(15)}px ${moderateScale(20)}px ${moderateScale(15)}px;
    justify-content: center;
    flex: 1;
 `

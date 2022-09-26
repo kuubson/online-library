@@ -1,14 +1,14 @@
 import styled from 'styled-components/native'
 
-import { scale } from 'styles'
+import { moderateScale } from 'styles'
 
 export const LoadMoreButton = styled.TouchableOpacity`
    width: 50%;
-   height: ${scale(50)}px;
+   height: ${moderateScale(50)}px;
    border-color: white;
-   border-width: ${scale(2)}px;
-   border-radius: ${scale(10)}px;
-   margin-top: ${scale(35)}px;
+   border-width: ${moderateScale(2)}px;
+   border-radius: ${moderateScale(10)}px;
+   margin-top: ${moderateScale(10)}px;
    justify-content: center;
    align-items: center;
    align-self: center;

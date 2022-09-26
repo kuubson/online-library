@@ -5,7 +5,7 @@ import type { BookSuggestionsProps } from '@online-library/core'
 
 import { useBookSuggestions } from '@online-library/ui'
 
-import { scale } from 'styles'
+import { moderateScale } from 'styles'
 
 import * as Styled from './styled'
 
@@ -29,9 +29,21 @@ export const BookSuggestions = ({
    return (
       <BookSuggestionsContainer>
          {findByTitle ? (
-            <Input {...{ control }} id="title" type="text" placeholder="Type book's title..." />
+            <Input
+               {...{ control }}
+               id="title"
+               type="text"
+               placeholder="Type book's title..."
+               noMarginBottom
+            />
          ) : (
-            <Input {...{ control }} id="author" type="text" placeholder="Type author's name..." />
+            <Input
+               {...{ control }}
+               id="author"
+               type="text"
+               placeholder="Type author's name..."
+               noMarginBottom
+            />
          )}
          <Styled.SwitcherContainer onPress={switchFindBy}>
             <Styled.Switcher>By {findByTitle ? 'author' : 'title'}</Styled.Switcher>
@@ -50,6 +62,6 @@ export const BookSuggestions = ({
 
 const BookSuggestionsContainer = styled.View`
    width: 100%;
-   margin-top: ${scale(-10)}px;
+   margin-top: ${moderateScale(-10)}px;
    position: relative;
 `

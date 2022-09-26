@@ -1,7 +1,7 @@
 import styled from 'styled-components/native'
 
 export const SwitcherContainer = styled.TouchableOpacity`
-   height: 49px; // TODO: scale it
+   height: 100%;
    justify-content: center;
    align-items: center;
    position: absolute;

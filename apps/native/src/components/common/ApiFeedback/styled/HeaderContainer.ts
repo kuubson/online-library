@@ -1,10 +1,10 @@
 import styled from 'styled-components/native'
 
-import { scale } from 'styles'
+import { moderateScale } from 'styles'
 
 export const HeaderContainer = styled.View`
-   width: ${scale(300)}px;
-   margin-bottom: ${scale(80)}px;
+   width: ${moderateScale(300)}px;
+   margin-bottom: ${moderateScale(80)}px;
    justify-content: center;
    align-items: center;
 `

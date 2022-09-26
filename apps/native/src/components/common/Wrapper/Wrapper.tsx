@@ -3,10 +3,11 @@ import styled from 'styled-components/native'
 
 import { RANDOM_IMAGE } from '@online-library/config'
 
-import type { ReactChildren } from '@online-library/core'
-import { useApiFeedback, useLoader } from '@online-library/core'
+import { ReactChildren, useApiFeedback, useBookPopup, useLoader } from '@online-library/core'
 
 import * as Styled from './styled'
+
+import { BookPopup } from 'components/shared'
 
 import { ApiFeedback } from '../ApiFeedback/ApiFeedback'
 import { Loader } from '../Loader/Loader'
@@ -16,10 +17,13 @@ export const Wrapper = ({ children }: ReactChildren) => {
 
    const { showApiFeedback } = useApiFeedback()
 
+   const { showBookPopup } = useBookPopup()
+
    return (
       <WrapperContainer source={{ uri: RANDOM_IMAGE }} resizeMode="cover">
          {loading && <Loader />}
          {showApiFeedback && <ApiFeedback />}
+         {showBookPopup && <BookPopup />}
          <Styled.Layer />
          <Styled.ScrollView contentContainerStyle={{ flexGrow: 1 }}>{children}</Styled.ScrollView>
       </WrapperContainer>

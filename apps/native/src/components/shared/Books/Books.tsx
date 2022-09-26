@@ -30,7 +30,7 @@ export const Books = ({
          )}
          <Styled.Content>
             {areThereBooks ? (
-               books.map(({ id, title, author, cover, price }, index) => (
+               books.map(({ id, title, author, cover, price }) => (
                   <Book
                      key={id}
                      id={id}
@@ -40,7 +40,6 @@ export const Books = ({
                      price={price}
                      withCart={withCart}
                      withProfile={withProfile}
-                     first={index === 0}
                   />
                ))
             ) : (
