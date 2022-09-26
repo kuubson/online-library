@@ -12,7 +12,6 @@ export const Profile = () => {
       shouldShowSearchBar,
       books,
    } = useProfile()
-
    return (
       <>
          {!loading &&

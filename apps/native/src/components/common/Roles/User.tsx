@@ -26,7 +26,7 @@ export const User = ({ children }: ReactChildren) => {
 }
 
 const UserContainer = styled.View`
-   padding: 0px ${moderateScale(15)}px ${moderateScale(20)}px ${moderateScale(15)}px;
+   padding: 0px ${moderateScale(15)}px ${moderateScale(15)}px ${moderateScale(15)}px;
    justify-content: center;
    flex: 1;
 `

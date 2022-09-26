@@ -15,7 +15,6 @@ export const Store = () => {
       books,
       getMoreBooks,
    } = useStore()
-
    return (
       <>
          {!loading &&

@@ -3,6 +3,8 @@ import styled, { css } from 'styled-components/native'
 
 import type { _BooksProps } from '@online-library/core'
 
+import { moderateScale } from 'styles'
+
 import { Header, Text } from '../styled'
 import * as Styled from './styled'
 
@@ -20,7 +22,7 @@ export const Books = ({
 }: _BooksProps) => {
    const areThereBooks = !!books.length
    return (
-      <BooksContainer withoutBooks={!areThereBooks}>
+      <BooksContainer withoutBooks={!areThereBooks} moreMarginBottom={hasMore}>
          {areThereBooks && (
             <>
                {header && <Header>{header}</Header>}
@@ -54,17 +56,25 @@ export const Books = ({
 
 type BooksContainerProps = {
    withoutBooks: boolean
+   moreMarginBottom: boolean
 }
 
 const BooksContainer = styled.View<BooksContainerProps>`
    justify-content: center;
    align-items: stretch;
    flex: 1;
+
    ${({ withoutBooks }) =>
       withoutBooks
          ? css`
               align-items: center;
               order: 2;
+           `
+         : null}
+   ${({ moreMarginBottom }) =>
+      moreMarginBottom
+         ? css`
+              margin-bottom: ${moderateScale(25)}px;
            `
          : null}
 `
