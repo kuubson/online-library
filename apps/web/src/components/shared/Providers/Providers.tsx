@@ -12,7 +12,7 @@ import { Loader } from 'components/common'
 export const Providers = ({ children }: ReactChildren) => (
    <Provider store={store}>
       <PersistGate loading={<Loader />} persistor={persistor}>
-         <ApolloProvider client={client}>
+         <ApolloProvider client={client()}>
             <ThemeProvider theme={theme}>
                <HistoryRouter history={history}>{children}</HistoryRouter>
             </ThemeProvider>

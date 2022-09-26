@@ -5,6 +5,8 @@ import type { ReactChildren } from '@online-library/core'
 
 import { useSocketIO, useUser } from '@online-library/ui'
 
+import { SOCKETIO_URL } from 'config'
+
 import { scale } from 'styles'
 
 import { Wrapper } from '../Wrapper/Wrapper'
@@ -12,7 +14,7 @@ import { Wrapper } from '../Wrapper/Wrapper'
 export const User = ({ children }: ReactChildren) => {
    const { name } = useRoute()
 
-   useSocketIO({ withChat: name === 'Chat' })
+   useSocketIO({ SOCKETIO_URL, withChat: name === 'Chat' })
 
    useUser()
 

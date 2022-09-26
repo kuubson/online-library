@@ -1,15 +1,16 @@
 import { useEffect } from 'react'
 import io from 'socket.io-client'
 
-import type { MessageType } from '@online-library/config'
+import { MessageType, isWeb } from '@online-library/config'
 
 import { useChatDetails, useSocket } from '@online-library/core'
 
 type UseSocketIOProps = {
+   SOCKETIO_URL?: string
    withChat: boolean
 }
 
-export const useSocketIO = ({ withChat }: UseSocketIOProps) => {
+export const useSocketIO = ({ SOCKETIO_URL, withChat }: UseSocketIOProps) => {
    const { socket, setSocket } = useSocket()
 
    const {
@@ -22,7 +23,7 @@ export const useSocketIO = ({ withChat }: UseSocketIOProps) => {
 
    useEffect(() => {
       if (!socket) {
-         setSocket(io('/user'))
+         setSocket(io(isWeb ? '/user' : `${SOCKETIO_URL}/user`))
       }
    }, [])
 

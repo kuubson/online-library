@@ -9,10 +9,11 @@ import {
    API,
    AuthError,
    ConnectivityError,
+   GQL_URL,
    GRAPHQL_WS_CLOSE_STATUS,
+   isProd,
    isProdWeb,
    isWeb,
-   websocketUrl,
 } from '@online-library/config'
 
 import { debounceLoader, resetLoader, setApiFeedback, setRole } from 'helpers'
@@ -21,37 +22,40 @@ import { defaultAxios, history } from 'utils'
 
 import type { GraphqlError } from 'types'
 
-const webSocketLink = new GraphQLWsLink(
-   createClient({
-      url: websocketUrl, // TODO: fix for rn
-      on: {
-         closed: (event: CloseEvent | unknown) => {
-            if ((event as CloseEvent).code === GRAPHQL_WS_CLOSE_STATUS) {
-               client.clearStore()
-            }
+const webSocketLink = (SERVER_URL?: string) =>
+   new GraphQLWsLink(
+      createClient({
+         url: isProd || isWeb ? GQL_URL : `${SERVER_URL?.replace('http', 'ws')}/graphql`,
+         on: {
+            closed: (event: CloseEvent | unknown) => {
+               if ((event as CloseEvent).code === GRAPHQL_WS_CLOSE_STATUS) {
+                  client(SERVER_URL).clearStore()
+               }
+            },
          },
-      },
-   })
-)
+      })
+   )
 
-const customFetch = (uri: RequestInfo | URL, options: RequestInit) => {
+const customFetch = (uri: RequestInfo | string, options: RequestInit) => {
    debounceLoader()
    return fetch(uri, options)
 }
 
-const httpLink = new HttpLink({
-   uri: isWeb ? '/graphql' : 'http://192.168.1.11:3001/graphql',
-   fetch: customFetch,
-})
+const httpLink = (SERVER_URL?: string) =>
+   new HttpLink({
+      uri: isWeb ? '/graphql' : `${SERVER_URL}/graphql`,
+      fetch: customFetch,
+   })
 
-const splitLink = split(
-   ({ query }) => {
-      const definition = getMainDefinition(query)
-      return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
-   },
-   webSocketLink,
-   httpLink
-)
+const splitLink = (SERVER_URL?: string) =>
+   split(
+      ({ query }) => {
+         const definition = getMainDefinition(query)
+         return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
+      },
+      webSocketLink(SERVER_URL),
+      httpLink(SERVER_URL)
+   )
 
 const handleLoader = new ApolloLink((operation, forward) =>
    forward(operation).map(response => {
@@ -99,7 +103,8 @@ const handleError = onError(({ graphQLErrors, networkError }) => {
    }
 })
 
-export const client = new ApolloClient({
-   link: ApolloLink.from([handleLoader, handleError, splitLink]),
-   cache: new InMemoryCache(),
-})
+export const client = (SERVER_URL?: string) =>
+   new ApolloClient({
+      link: ApolloLink.from([handleLoader, handleError, splitLink(SERVER_URL)]),
+      cache: new InMemoryCache(),
+   })

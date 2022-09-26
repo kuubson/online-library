@@ -1,11 +1,11 @@
-import { isProd, isWeb } from 'is'
+import { isProd } from 'is'
 
-const protocol = !isProd ? 'http://' : 'https://'
+const LOCALHOST = 'localhost:3001'
 
-const port = !isProd ? ':3001' : ''
+export const HOST = 'online-library-application.herokuapp.com'
 
-const wsPrefix = !isProd ? 'ws' : 'wss'
+export const SERVER_URL = isProd ? `https://${HOST}` : `http://${LOCALHOST}`
 
-export const serverUrl = isWeb ? `${protocol}${window.location.hostname}${port}` : ''
+export const GQL_URL = isProd ? `wss://${HOST}/graphql` : `ws://${LOCALHOST}/graphql`
 
-export const websocketUrl = isWeb ? `${wsPrefix}://${window.location.hostname}${port}/graphql` : ''
+export const SOCKETIO_URL = isProd ? `https://${HOST}/socket.io` : `http://${LOCALHOST}/socket.io`

@@ -5,6 +5,7 @@ import { scale } from 'styles'
 import { Text } from 'components/shared/styled'
 
 export const Message = styled(Text)`
+   max-width: 80%;
    text-align: center;
    line-height: ${scale(30)}px;
 `
