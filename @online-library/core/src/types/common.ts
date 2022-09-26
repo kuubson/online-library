@@ -1,7 +1,8 @@
 import { Control } from 'react-hook-form'
 
+import type { Book } from 'gql'
+
 import type { ReactDispatch } from './global'
-import type { Book } from './graphql'
 
 export type _BooksProps = {
    books: Book[]

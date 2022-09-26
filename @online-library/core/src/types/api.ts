@@ -1,6 +1,6 @@
 import type { MESSAGE_TYPES, MessageType, Role } from '@online-library/config'
 
-import type { Book } from './graphql'
+import type { Book } from 'gql'
 
 export type TokenCheckResponse = {
    role: Role

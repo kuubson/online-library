@@ -1,10 +1,10 @@
+import { useBorrowBookMutation } from 'gql'
+
 import { bookPopupActions, initialState } from '@redux/reducers/bookPopup'
 
 import { useAction, useCart, useSelector } from 'hooks'
 
 import { setApiFeedback } from 'helpers'
-
-import { useBorrowBookMutation } from 'types'
 
 export const useBookPopup = () => {
    const {

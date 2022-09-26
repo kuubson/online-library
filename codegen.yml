@@ -1,7 +1,7 @@
 overwrite: true
 schema: 'http://localhost:3001/graphql'
 generates:
-   '@online-library/core/src/types/graphql.ts':
+   '@online-library/core/src/gql/graphql.ts':
       documents: '**/*.gql'
       plugins:
          - 'typescript'

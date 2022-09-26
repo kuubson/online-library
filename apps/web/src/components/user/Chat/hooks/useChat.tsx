@@ -106,7 +106,7 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
             }
          }
 
-         // scrolls to the bottom on initial load
+         // NOTE: scrolls to the bottom on initial load
          if (isChatInitialLoad(chat)) {
             pushToLastMessage()
          }

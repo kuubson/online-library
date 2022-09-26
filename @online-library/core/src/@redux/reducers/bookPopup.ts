@@ -1,7 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 
-import type { Book } from 'types'
+import type { Book } from 'gql'
 
 type Data = Book & {
    withProfile: boolean
