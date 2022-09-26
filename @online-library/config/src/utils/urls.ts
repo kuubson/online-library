@@ -1,10 +1,12 @@
 import { isProd } from 'is'
 
-const LOCALHOST = 'localhost:3001'
+const LOCALHOST = 'localhost'
 
 export const HOST = 'online-library-application.herokuapp.com'
 
-export const SERVER_URL = isProd ? `https://${HOST}` : `http://${LOCALHOST}`
+export const CLIENT_URL = isProd ? `https://${HOST}` : `http://${LOCALHOST}`
+
+export const SERVER_URL = isProd ? `https://${HOST}` : `http://${LOCALHOST}:3001`
 
 export const GQL_URL = isProd ? `wss://${HOST}/graphql` : `ws://${LOCALHOST}/graphql`
 

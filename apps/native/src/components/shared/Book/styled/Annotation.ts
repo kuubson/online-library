@@ -10,6 +10,6 @@ type StyledProps = {
 
 export const Annotation = styled(Text)<StyledProps>`
    font-size: ${({ withTitle }) => (withTitle ? scale(15) : scale(18))}px;
-   margin-top: ${({ withTitle }) => (withTitle ? scale(5) : 0)}px;
+   padding: ${scale(8)}px ${scale(10)}px;
    text-align: center;
 `

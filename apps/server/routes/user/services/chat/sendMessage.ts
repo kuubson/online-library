@@ -1,12 +1,10 @@
-import { API, RANDOM_IMAGE, yup } from '@online-library/config'
+import { API, CLIENT_URL, RANDOM_IMAGE, yup } from '@online-library/config'
 
 import { Connection } from 'database'
 
 import { yupValidation } from 'middlewares'
 
-import { sendNotificationsForOtherUsers } from 'helpers'
-
-import { hostUrl } from 'utils'
+import { sendNotificationToAllUsers } from 'helpers'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
@@ -32,14 +30,14 @@ export const sendMessage: ProtectedRoute<Body<typeof schema>> = [
                { transaction }
             )
 
-            sendNotificationsForOtherUsers(id, {
+            sendNotificationToAllUsers(id, {
                tag: id,
                title: `From ${name}`,
                body: `${content}`,
                icon: RANDOM_IMAGE,
                data: {
                   userName: name,
-                  url: `${hostUrl(req)}/chat`,
+                  url: `${CLIENT_URL}/chat`,
                },
             })
 

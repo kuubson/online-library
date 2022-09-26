@@ -1,11 +1,13 @@
 import express from 'express'
 import http from 'http'
 
+import { isProd } from '@online-library/config'
+
 import 'dotenv/config'
 
 import './config/aliases'
 
-import { NODE_ENV, PORT } from 'config'
+import { PORT } from 'config'
 
 import 'database'
 
@@ -23,7 +25,7 @@ app.use(router)
 
 formatErrors(app)
 
-if (NODE_ENV === 'production') {
+if (isProd) {
    serveWeb(app)
 }
 

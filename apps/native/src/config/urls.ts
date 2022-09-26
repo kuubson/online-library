@@ -1,11 +1,9 @@
 import { API_URL } from '@env'
 
-import {
-   SERVER_URL as _SERVER_URL,
-   SOCKETIO_URL as _SOCKETIO_URL,
-   isProd,
-} from '@online-library/config'
+import { SERVER_URL, SOCKETIO_URL as _SOCKETIO_URL, isProd } from '@online-library/config'
 
-export const SERVER_URL = isProd ? _SERVER_URL : API_URL
+// CANNOT be moved to @online-library/config/src.utils/urls.ts beacuse API_URL is then undefined
+
+export const SERVER_NATIVE_URL = isProd ? SERVER_URL : API_URL
 
 export const SOCKETIO_URL = isProd ? _SOCKETIO_URL : `${API_URL}/socket.io`

@@ -17,7 +17,7 @@ type Options = {
    }
 }
 
-export const sendNotificationsForOtherUsers: NotificationsForOtherUsersSender = async (
+export const sendNotificationToAllUsers: NotificationsForOtherUsersSender = async (
    userId,
    options
 ) => {

@@ -12,9 +12,9 @@ import { verify } from 'jsonwebtoken'
 import type { PassportStatic } from 'passport'
 import { WebSocketServer } from 'ws'
 
-import { GRAPHQL_WS_CLOSE_STATUS } from '@online-library/config'
+import { GRAPHQL_WS_CLOSE_STATUS, isProd } from '@online-library/config'
 
-import { JWT_KEY, NODE_ENV } from 'config'
+import { JWT_KEY } from 'config'
 
 import { schema } from 'gql/schema'
 
@@ -58,9 +58,9 @@ export const initializeGraphQL = async (
       schema,
       plugins: [
          ApolloServerPluginDrainHttpServer({ httpServer: server }),
-         NODE_ENV !== 'production'
-            ? ApolloServerPluginLandingPageLocalDefault({ embed: true })
-            : ApolloServerPluginLandingPageDisabled(),
+         isProd
+            ? ApolloServerPluginLandingPageDisabled()
+            : ApolloServerPluginLandingPageLocalDefault({ embed: true }),
          {
             async serverWillStart() {
                return {
