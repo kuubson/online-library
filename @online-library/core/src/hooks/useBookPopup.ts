@@ -13,7 +13,7 @@ export const useBookPopup = () => {
 
    const [_borrowBook] = useBorrowBookMutation({ variables: { bookId: id } })
 
-   const setBookPopupData = useAction(bookPopupActions.setBookPopup)
+   const setBookPopupData = useAction(bookPopupActions.setBookPopupData)
 
    const { cart, addToCart: _addToCard } = useCart()
 

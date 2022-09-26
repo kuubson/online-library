@@ -1,4 +1,5 @@
 export { useBookSuggestions } from './useBookSuggestions'
+export { useCart } from './useCart'
 export { useGuest } from './useGuest'
 export { useLogin } from './useLogin'
 export { useLogout } from './useLogout'

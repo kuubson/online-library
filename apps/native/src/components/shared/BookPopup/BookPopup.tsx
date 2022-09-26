@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 
 import { useBookPopup } from '@online-library/core'
 
-import { PopupButton, Text } from '../styled'
+import { Header, PopupButton, Text } from '../styled'
 import * as Styled from './styled'
 
 import { Book } from 'components/shared/Book/Book'
@@ -25,10 +25,10 @@ export const BookPopup = () => {
                <Book id={id} title={title} author={author} cover={cover} price={price} withPopup />
                {!withProfile && (
                   <>
-                     <Styled.Header black>
+                     <Header black>
                         Confirm
                         {price ? ' adding this book to the cart' : ' borrowing this book'}
-                     </Styled.Header>
+                     </Header>
                      <PopupButton onPress={price ? () => addToCart(id) : borrowBook}>
                         <Text>Confirm</Text>
                      </PopupButton>

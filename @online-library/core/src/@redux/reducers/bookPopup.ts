@@ -26,7 +26,7 @@ const bookPopupSlice = createSlice({
    name: 'bookPopup',
    initialState,
    reducers: {
-      setBookPopup: (state, { payload }: PayloadAction<SliceState['data']>) => {
+      setBookPopupData: (state, { payload }: PayloadAction<SliceState['data']>) => {
          state.data = payload
       },
    },

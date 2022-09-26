@@ -6,4 +6,5 @@ import { Text } from 'components/shared/styled'
 
 export const Warning = styled(Text)`
    margin-top: ${moderateScale(35)}px;
+   font-size: ${moderateScale(16)}px;
 `

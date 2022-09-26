@@ -3,6 +3,7 @@ import { Home } from './guest/Home/Home'
 import { Login } from './guest/Login/Login'
 import { Registration } from './guest/Registration/Registration'
 import { Support } from './guest/Support/Support'
+import { Cart } from './user/Cart/Cart'
 import { Profile } from './user/Profile/Profile'
 import { Store } from './user/Store/Store'
 
@@ -45,5 +46,11 @@ export const StoreScreen = () => (
 export const ProfileScreen = () => (
    <User>
       <Profile />
+   </User>
+)
+
+export const CartScreen = () => (
+   <User>
+      <Cart />
    </User>
 )

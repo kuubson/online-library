@@ -3,8 +3,7 @@ import styled, { css } from 'styled-components/native'
 
 import type { _BooksProps } from '@online-library/core'
 
-import { Header } from '../BookPopup/styled'
-import { Text } from '../styled'
+import { Header, Text } from '../styled'
 import * as Styled from './styled'
 
 import { Book } from 'components/shared/Book/Book'

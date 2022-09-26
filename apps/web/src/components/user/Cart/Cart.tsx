@@ -1,6 +1,11 @@
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { useState } from 'react'
+import { InferType } from 'yup'
+
+import { API } from '@online-library/config'
+
+import { useCart } from '@online-library/ui'
 
 import { REACT_APP_STRIPE_PUBLISHABLE_KEY } from 'config'
 
@@ -9,18 +14,23 @@ import { Header, HeaderContainer, Submit, UserContent } from 'components/shared/
 
 import { Books } from 'components/shared'
 
-import { useCart } from './hooks'
+import { useQueryParams } from 'hooks'
 
 import { StripePopup } from './modules/'
 
 const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLISHABLE_KEY)
 
+const { validation } = API['/api/user/cart/paypal/payment'].post
+
 export const Cart = () => {
-   const { books, price, paypalCheckout } = useCart()
+   const { paymentId, PayerID } = useQueryParams() as InferType<typeof validation>
+
+   const { books, price, areThereBooks, paypalCheckout } = useCart({
+      paymentId,
+      PayerID,
+   })
 
    const [shouldStripePopupAppear, setShouldStripePopupAppear] = useState(false)
-
-   const areThereBooks = !!books.length
 
    return (
       <Elements stripe={stripePromise} options={{ locale: 'en' }}>

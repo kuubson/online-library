@@ -1,6 +1,7 @@
 export { AbsoluteContainer } from './AbsoluteContainer'
 export { Button } from './Button'
 export { Error } from './Error'
+export { Header } from './Header'
 export { PopupButton } from './PopupButton'
 export { Submit } from './Submit'
 export { TabBarIcon } from './TabBarIcon'

@@ -15,6 +15,7 @@ export const API = mapValues(API_PATHS, (methods, path) => ({
       },
       validation,
       header: summary,
+      // TODO: rename errors => responses
       errors: mapValues(responses, ({ description }: { description: string }) => description),
    })),
 })) as {

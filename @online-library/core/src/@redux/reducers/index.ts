@@ -10,6 +10,7 @@ import { bookPopup } from './bookPopup'
 import { cart } from './cart'
 import { chatDetails } from './chatDetails'
 import { loader } from './loader'
+import { paypalModal } from './paypalModal'
 import { role } from './role'
 import { socket } from './socket'
 
@@ -35,6 +36,7 @@ export const coreReducer = combineReducers({
    role,
    loader,
    apiFeedback,
+   paypalModal,
    bookPopup,
    cart: persistReducer(cartConfig, cart),
    chatDetails: persistReducer(chatDetailsConfig, chatDetails),
