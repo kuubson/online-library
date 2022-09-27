@@ -22,7 +22,7 @@ export const Books = ({
 }: _BooksProps) => {
    const areThereBooks = !!books.length
    return (
-      <BooksContainer withoutBooks={!areThereBooks} moreMarginBottom={hasMore}>
+      <BooksContainer withoutBooks={!areThereBooks}>
          {areThereBooks && (
             <>
                {header && <Header>{header}</Header>}
@@ -31,7 +31,7 @@ export const Books = ({
          )}
          <Styled.Content>
             {areThereBooks
-               ? books.map(({ id, title, author, cover, price }) => (
+               ? books.map(({ id, title, author, cover, price }, index) => (
                     <Book
                        key={id}
                        id={id}
@@ -41,6 +41,7 @@ export const Books = ({
                        price={price}
                        withCart={withCart}
                        withProfile={withProfile}
+                       isFirst={index === 0}
                     />
                  ))
                : !withProfile && <Styled.Warning>{error}</Styled.Warning>}
@@ -56,25 +57,18 @@ export const Books = ({
 
 type BooksContainerProps = {
    withoutBooks: boolean
-   moreMarginBottom: boolean
 }
 
 const BooksContainer = styled.View<BooksContainerProps>`
+   margin: 0px ${moderateScale(30)}px ${moderateScale(30)}px ${moderateScale(30)}px;
    justify-content: center;
    align-items: stretch;
    flex: 1;
-
    ${({ withoutBooks }) =>
       withoutBooks
          ? css`
               align-items: center;
               order: 2;
-           `
-         : null}
-   ${({ moreMarginBottom }) =>
-      moreMarginBottom
-         ? css`
-              margin-bottom: ${moderateScale(25)}px;
            `
          : null}
 `

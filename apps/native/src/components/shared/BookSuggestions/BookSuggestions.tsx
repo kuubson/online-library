@@ -5,6 +5,8 @@ import type { BookSuggestionsProps } from '@online-library/core'
 
 import { useBookSuggestions } from '@online-library/ui'
 
+import { moderateScale } from 'styles'
+
 import * as Styled from './styled'
 
 import { Input } from '../Input/Input'
@@ -62,4 +64,5 @@ export const BookSuggestions = ({
 
 const BookSuggestionsContainer = styled.View`
    width: 100%;
+   margin-bottom: ${moderateScale(30)}px;
 `
