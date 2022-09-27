@@ -22,21 +22,31 @@ export const BookPopup = () => {
             }}
          >
             <Styled.Content>
-               <Book id={id} title={title} author={author} cover={cover} price={price} withPopup />
-               {!withProfile && (
-                  <>
-                     <Header black>
-                        Confirm
-                        {price ? ' adding this book to the cart' : ' borrowing this book'}
-                     </Header>
-                     <PopupButton onPress={price ? () => addToCart(id) : borrowBook}>
-                        <Text>Confirm</Text>
-                     </PopupButton>
-                  </>
-               )}
-               <PopupButton onPress={resetBookPopup}>
-                  <Text>{withProfile ? 'Close' : 'Cancel'}</Text>
-               </PopupButton>
+               <Book
+                  id={id}
+                  title={title}
+                  author={author}
+                  cover={cover}
+                  price={price}
+                  withPopup
+                  noMargin
+               />
+               <Styled.Buttons>
+                  {!withProfile && (
+                     <>
+                        <Header black>
+                           Confirm
+                           {price ? ' adding this book to the cart' : ' borrowing this book'}
+                        </Header>
+                        <PopupButton onPress={price ? () => addToCart(id) : borrowBook}>
+                           <Text>Confirm</Text>
+                        </PopupButton>
+                     </>
+                  )}
+                  <PopupButton onPress={resetBookPopup}>
+                     <Text>{withProfile ? 'Close' : 'Cancel'}</Text>
+                  </PopupButton>
+               </Styled.Buttons>
             </Styled.Content>
          </Styled.ScrollView>
       </BookPopupContainer>

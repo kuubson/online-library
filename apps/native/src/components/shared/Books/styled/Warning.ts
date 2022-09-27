@@ -5,6 +5,6 @@ import { moderateScale } from 'styles'
 import { Text } from 'components/shared/styled'
 
 export const Warning = styled(Text)`
-   margin-top: ${moderateScale(35)}px;
-   font-size: ${moderateScale(16)}px;
+   max-width: 80%;
+   font-size: ${moderateScale(18)}px;
 `

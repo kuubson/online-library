@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import type { Book } from '@online-library/core'
-import { useGetFreeAndPaidBooksQuery } from '@online-library/core'
+import { useFreeAndPaidBooksQuery } from '@online-library/core'
 
 export const useStore = () => {
    const [freeBooks, setFreeBooks] = useState<Book[]>([])
@@ -10,7 +10,7 @@ export const useStore = () => {
    const [hasMoreFreeBooks, setHasMoreFreeBooks] = useState(true)
    const [hasMorePaidBooks, setHasMorePaidBooks] = useState(true)
 
-   const { loading, fetchMore: getBooks } = useGetFreeAndPaidBooksQuery({
+   const { loading, fetchMore: getBooks } = useFreeAndPaidBooksQuery({
       variables: {
          freeBooksOffset: 0,
          paidBooksOffset: 0,

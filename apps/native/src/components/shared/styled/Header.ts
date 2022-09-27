@@ -1,4 +1,4 @@
-import styled from 'styled-components/native'
+import styled, { css } from 'styled-components/native'
 
 import { moderateScale } from 'styles'
 
@@ -6,7 +6,15 @@ import { Text } from './Text'
 
 export const Header = styled(Text)`
    text-align: center;
-   color: ${({ black }) => (black ? 'black' : 'white')};
+   color: white;
    font-size: ${moderateScale(17)}px;
    margin-bottom: ${moderateScale(30)}px;
+
+   ${({ black }) =>
+      black
+         ? css`
+              color: black;
+              margin-bottom: ${moderateScale(10)}px;
+           `
+         : null}
 `

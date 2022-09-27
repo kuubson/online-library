@@ -1,14 +1,13 @@
 import { useState } from 'react'
 
-import type { Book } from '@online-library/core'
-import { useGetProfileBooksQuery } from '@online-library/core'
+import { Book, useProfileBooksQuery } from '@online-library/core'
 
 export const useProfile = () => {
    const [boughtBooks, setBoughtBooks] = useState<Book[]>([])
 
    const [borrowedBooks, setBorrowedBooks] = useState<Book[]>([])
 
-   const { loading } = useGetProfileBooksQuery({
+   const { loading } = useProfileBooksQuery({
       fetchPolicy: 'cache-and-network',
       onCompleted: ({ boughtBooks, borrowedBooks }) => {
          setBoughtBooks(boughtBooks)

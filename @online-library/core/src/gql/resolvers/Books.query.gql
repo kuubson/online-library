@@ -1,4 +1,4 @@
-query getBooks($ids: [Int!]!) {
+query books($ids: [Int!]!) {
    books(ids: $ids) {
       id
       title

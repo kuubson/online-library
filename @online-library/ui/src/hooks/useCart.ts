@@ -11,7 +11,7 @@ import {
    history,
    navigate,
    setApiFeedback,
-   useGetBooksQuery,
+   useBooksQuery,
    usePaypalModal,
    useCart as useReduxCart,
 } from '@online-library/core'
@@ -25,7 +25,7 @@ export const useCart = ({ paymentId, PayerID }: UseCartProps) => {
 
    const { cart, resetCart } = useReduxCart()
 
-   const { data } = useGetBooksQuery({ variables: { ids: cart } })
+   const { data } = useBooksQuery({ variables: { ids: cart } })
 
    const books = data?.books || []
 

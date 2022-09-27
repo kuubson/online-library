@@ -17,7 +17,7 @@ type BookProps = BookType & {
    withCart?: boolean
    withProfile?: boolean
    withPopup?: boolean
-   isFirst?: boolean
+   noMargin?: boolean
 }
 
 export const Book = ({
@@ -29,7 +29,7 @@ export const Book = ({
    withCart,
    withProfile,
    withPopup,
-   isFirst,
+   noMargin,
 }: BookProps) => {
    const [uri, setUri] = useState(cover)
 
@@ -49,7 +49,7 @@ export const Book = ({
             setIsLoading(true)
             setUri(FALLBACK_IMAGE)
          }}
-         isFirst={isFirst}
+         noMargin={noMargin}
       >
          {isLoading && (
             <AbsoluteContainer>
@@ -118,9 +118,9 @@ export const Book = ({
 
 const window = Dimensions.get('window')
 
-type BookContainerProps = Pick<BookProps, 'isFirst'>
+type BookContainerProps = Pick<BookProps, 'noMargin'>
 
 const BookContainer = styled.ImageBackground<BookContainerProps>`
    height: ${window.width >= window.height ? window.width / 2.2 : window.height / 2.2}px;
-   margin-top: ${({ isFirst }) => (isFirst ? 0 : moderateScale(30))}px;
+   margin-top: ${({ noMargin }) => (noMargin ? 0 : moderateScale(30))}px;
 `

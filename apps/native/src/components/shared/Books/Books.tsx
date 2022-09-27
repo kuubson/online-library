@@ -21,8 +21,13 @@ export const Books = ({
    withProfile,
 }: _BooksProps) => {
    const areThereBooks = !!books.length
+
+   if (!areThereBooks && withCart === undefined) {
+      return null
+   }
+
    return (
-      <BooksContainer withoutBooks={!areThereBooks}>
+      <BooksContainer areThereBooks={areThereBooks}>
          {areThereBooks && (
             <>
                {header && <Header>{header}</Header>}
@@ -30,21 +35,23 @@ export const Books = ({
             </>
          )}
          <Styled.Content>
-            {areThereBooks
-               ? books.map(({ id, title, author, cover, price }, index) => (
-                    <Book
-                       key={id}
-                       id={id}
-                       title={title}
-                       author={author}
-                       cover={cover}
-                       price={price}
-                       withCart={withCart}
-                       withProfile={withProfile}
-                       isFirst={index === 0}
-                    />
-                 ))
-               : !withProfile && <Styled.Warning>{error}</Styled.Warning>}
+            {areThereBooks ? (
+               books.map(({ id, title, author, cover, price }, index) => (
+                  <Book
+                     key={id}
+                     id={id}
+                     title={title}
+                     author={author}
+                     cover={cover}
+                     price={price}
+                     withCart={withCart}
+                     withProfile={withProfile}
+                     noMargin={index === 0}
+                  />
+               ))
+            ) : (
+               <Styled.Warning>{error}</Styled.Warning>
+            )}
             {books.length >= 10 && hasMore && !withCart && (
                <Styled.LoadMoreButton onPress={loadMore}>
                   <Text>Load more</Text>
@@ -56,7 +63,7 @@ export const Books = ({
 }
 
 type BooksContainerProps = {
-   withoutBooks: boolean
+   areThereBooks: boolean
 }
 
 const BooksContainer = styled.View<BooksContainerProps>`
@@ -64,11 +71,10 @@ const BooksContainer = styled.View<BooksContainerProps>`
    justify-content: center;
    align-items: stretch;
    flex: 1;
-   ${({ withoutBooks }) =>
-      withoutBooks
+   ${({ areThereBooks }) =>
+      !areThereBooks
          ? css`
               align-items: center;
-              order: 2;
            `
          : null}
 `

@@ -1,4 +1,4 @@
-query getFreeAndPaidBooks($freeBooksOffset: Int!, $paidBooksOffset: Int!) {
+query freeAndPaidBooks($freeBooksOffset: Int!, $paidBooksOffset: Int!) {
    freeBooks(freeBooksOffset: $freeBooksOffset, paidBooksOffset: $paidBooksOffset) {
       id
       title

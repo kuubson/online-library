@@ -1,4 +1,4 @@
-query getProfileBooks {
+query profileBooks {
    boughtBooks {
       id
       title
