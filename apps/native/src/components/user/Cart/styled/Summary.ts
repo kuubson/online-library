@@ -9,5 +9,6 @@ type SummaryProps = {
 }
 
 export const Summary = styled(Text)<SummaryProps>`
+   max-width: 80%;
    margin-bottom: ${({ last }) => (last ? moderateScale(35) : moderateScale(15))}px;
 `

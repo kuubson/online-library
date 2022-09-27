@@ -52,13 +52,13 @@ export const RateLimitError = new ApiError(
 
 export const ExpiredToken = new ApiError(
    'Request processing',
-   'Token required by this action has expired',
+   'Token required for the request has expired',
    422
 )
 
 export const InvalidToken = new ApiError(
    'Request processing',
-   'Token required by this action is invalid',
+   'Token required for the request is invalid',
    422
 )
 

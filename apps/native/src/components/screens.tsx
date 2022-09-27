@@ -4,6 +4,7 @@ import { Login } from './guest/Login/Login'
 import { Registration } from './guest/Registration/Registration'
 import { Support } from './guest/Support/Support'
 import { Cart } from './user/Cart/Cart'
+import { Chat } from './user/Chat/Chat'
 import { Profile } from './user/Profile/Profile'
 import { Store } from './user/Store/Store'
 
@@ -52,5 +53,11 @@ export const ProfileScreen = () => (
 export const CartScreen = () => (
    <User>
       <Cart />
+   </User>
+)
+
+export const ChatScreen = () => (
+   <User>
+      <Chat />
    </User>
 )

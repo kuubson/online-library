@@ -7,6 +7,7 @@ export type Screens = {
    Store: undefined
    Profile: undefined
    Cart: undefined
+   Chat: undefined
 }
 
 export type Screen = keyof Screens

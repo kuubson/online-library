@@ -4,7 +4,6 @@ import { moderateScale } from 'styles'
 
 import { Text } from 'components/shared/styled'
 
-export const Warning = styled(Text)`
-   max-width: 80%;
-   font-size: ${moderateScale(18)}px;
+export const MessagesInfoText = styled(Text)`
+   font-size: ${moderateScale(10)}px;
 `

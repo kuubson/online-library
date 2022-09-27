@@ -5,7 +5,7 @@ import type { _BooksProps } from '@online-library/core'
 
 import { moderateScale } from 'styles'
 
-import { Header, Text } from '../styled'
+import { Header, Text, Warning } from '../styled'
 import * as Styled from './styled'
 
 import { Book } from 'components/shared/Book/Book'
@@ -50,7 +50,7 @@ export const Books = ({
                   />
                ))
             ) : (
-               <Styled.Warning>{error}</Styled.Warning>
+               <Warning>{error}</Warning>
             )}
             {books.length >= 10 && hasMore && !withCart && (
                <Styled.LoadMoreButton onPress={loadMore}>
@@ -67,7 +67,7 @@ type BooksContainerProps = {
 }
 
 const BooksContainer = styled.View<BooksContainerProps>`
-   margin: 0px ${moderateScale(30)}px ${moderateScale(30)}px ${moderateScale(30)}px;
+   margin: 0px ${moderateScale(15)}px ${moderateScale(30)}px ${moderateScale(15)}px;
    justify-content: center;
    align-items: stretch;
    flex: 1;

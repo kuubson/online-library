@@ -13,6 +13,8 @@ import { moderateScale } from 'styles'
 import { AbsoluteContainer, PopupButton, Text } from '../styled'
 import * as Styled from './styled'
 
+import { scalableDimension } from 'utils'
+
 type BookProps = BookType & {
    withCart?: boolean
    withProfile?: boolean
@@ -121,6 +123,6 @@ const window = Dimensions.get('window')
 type BookContainerProps = Pick<BookProps, 'noMargin'>
 
 const BookContainer = styled.ImageBackground<BookContainerProps>`
-   height: ${window.width >= window.height ? window.width / 2.2 : window.height / 2.2}px;
+   height: ${scalableDimension}px;
    margin-top: ${({ noMargin }) => (noMargin ? 0 : moderateScale(30))}px;
 `

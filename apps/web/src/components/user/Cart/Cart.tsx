@@ -1,7 +1,7 @@
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { useState } from 'react'
-import { InferType } from 'yup'
+import type { InferType } from 'yup'
 
 import { API } from '@online-library/config'
 

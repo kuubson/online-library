@@ -4,7 +4,14 @@ import React, { useEffect } from 'react'
 import SplashScreen from 'react-native-splash-screen'
 import styled from 'styled-components/native'
 
-import { Screens, navigationRef, theme, useCart, useRole } from '@online-library/core'
+import {
+   Screens,
+   navigationRef,
+   theme,
+   useCart,
+   useChatDetails,
+   useRole,
+} from '@online-library/core'
 
 import { moderateScale } from 'styles'
 
@@ -12,6 +19,7 @@ import { TabBarIcon } from './shared/styled'
 
 import {
    CartScreen,
+   ChatScreen,
    EmailSupportScreen,
    HomeScreen,
    LoginScreen,
@@ -23,10 +31,24 @@ import {
 
 const Tab = createBottomTabNavigator<Screens>()
 
+const screenOptions = {
+   headerShown: false,
+   tabBarStyle: { backgroundColor: theme.colors.primary },
+   tabBarLabelStyle: { display: 'none' },
+   tabBarItemStyle: { justifyContent: 'center' },
+   tabBarBadgeStyle: {
+      backgroundColor: 'white',
+      fontSize: moderateScale(10),
+      marginLeft: moderateScale(10),
+   },
+} as object
+
 export const App = () => {
    const { role } = useRole()
 
    const { cart } = useCart()
+
+   const { unreadMessagesAmount } = useChatDetails()
 
    useEffect(() => SplashScreen.hide(), [])
 
@@ -34,16 +56,7 @@ export const App = () => {
       <AppContainer>
          <NavigationContainer ref={navigationRef}>
             {role === 'guest' ? (
-               <Tab.Navigator
-                  initialRouteName="Home"
-                  screenOptions={{
-                     headerShown: false,
-                     tabBarStyle: { backgroundColor: theme.colors.primary },
-                     tabBarLabelStyle: { display: 'none' },
-                     tabBarItemStyle: { justifyContent: 'center' },
-                     tabBarBadgeStyle: { backgroundColor: 'white' },
-                  }}
-               >
+               <Tab.Navigator initialRouteName="Home" screenOptions={screenOptions}>
                   <Tab.Screen
                      name="Home"
                      component={HomeScreen}
@@ -73,34 +86,29 @@ export const App = () => {
             ) : (
                <Tab.Navigator
                   initialRouteName="Store"
-                  screenOptions={{
-                     headerShown: false,
-                     tabBarStyle: { backgroundColor: theme.colors.primary },
-                     tabBarLabelStyle: { display: 'none' },
-                     tabBarItemStyle: { justifyContent: 'center' },
-                     tabBarBadgeStyle: {
-                        backgroundColor: 'white',
-                        fontSize: moderateScale(10),
-                        marginLeft: moderateScale(10),
-                     },
-                  }}
+                  screenOptions={({ route }) => ({
+                     ...screenOptions,
+                     tabBarIcon: ({ focused }) => (
+                        <TabBarIcon isFocused={focused}>{route.name}</TabBarIcon>
+                     ),
+                  })}
                >
-                  <Tab.Screen
-                     name="Store"
-                     component={StoreScreen}
-                     options={{ tabBarIcon: () => <TabBarIcon>Store</TabBarIcon> }}
-                  />
-                  <Tab.Screen
-                     name="Profile"
-                     component={ProfileScreen}
-                     options={{ tabBarIcon: () => <TabBarIcon>Profile</TabBarIcon> }}
-                  />
+                  <Tab.Screen name="Store" component={StoreScreen} />
+                  <Tab.Screen name="Profile" component={ProfileScreen} />
                   <Tab.Screen
                      name="Cart"
                      component={CartScreen}
                      options={{
-                        tabBarIcon: () => <TabBarIcon>Cart</TabBarIcon>,
                         ...(!!cart.length && { tabBarBadge: cart.length <= 99 ? cart.length : 99 }),
+                     }}
+                  />
+                  <Tab.Screen
+                     name="Chat"
+                     component={ChatScreen}
+                     options={{
+                        ...(unreadMessagesAmount && {
+                           tabBarBadge: unreadMessagesAmount <= 99 ? unreadMessagesAmount : 99,
+                        }),
                      }}
                   />
                </Tab.Navigator>

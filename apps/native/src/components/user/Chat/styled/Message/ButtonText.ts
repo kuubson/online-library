@@ -2,8 +2,8 @@ import styled from 'styled-components/native'
 
 import { moderateScale } from 'styles'
 
-export const Text = styled.Text`
-   color: white;
-   text-align: center;
+import { Text } from 'components/shared/styled'
+
+export const ButtonText = styled(Text)`
    font-size: ${moderateScale(14)}px;
 `
