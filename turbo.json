@@ -7,9 +7,9 @@
       "test": { "dependsOn": ["lib:build"], "outputs": [] },
       "docs": { "dependsOn": ["lib:build"], "outputs": ["swagger.json"] },
       "build": {
-         "dependsOn": ["^lint", "^lib:build", "test", "lint", "docs"],
+         "dependsOn": ["^lib:build", "test", "lint", "docs"],
          "outputs": ["build", "dist"]
       },
-      "lib:build": { "outputs": ["dist"] }
+      "lib:build": { "outputs": ["dist"], "dependsOn": ["^lib:build"] }
    }
 }
