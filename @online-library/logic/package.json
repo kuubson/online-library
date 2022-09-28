@@ -1,5 +1,5 @@
 {
-   "name": "@online-library/ui",
+   "name": "@online-library/logic",
    "version": "1.0.0",
    "private": true,
    "sideEffects": false,

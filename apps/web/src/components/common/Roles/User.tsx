@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 
 import type { ReactChildren } from '@online-library/core'
 
-import { useSocketIO, useUser } from '@online-library/ui'
+import { useSocketIO, useUser } from '@online-library/logic'
 
 import { RoleContainer } from 'components/shared/styled'
 

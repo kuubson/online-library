@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 import type { ReactChildren } from '@online-library/core'
 import { navigationRef, useChatDetails } from '@online-library/core'
 
-import { useSocketIO, useUser } from '@online-library/ui'
+import { useSocketIO, useUser } from '@online-library/logic'
 
 import { SERVER_NATIVE_URL } from 'config'
 

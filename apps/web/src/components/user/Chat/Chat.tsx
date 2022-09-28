@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 
 import { detectMobileDevice, useChatDetails } from '@online-library/core'
 
-import { useChat } from '@online-library/ui'
+import { useChat } from '@online-library/logic'
 
 import * as Styled from './styled'
 import { Button, UserContent } from 'components/shared/styled'

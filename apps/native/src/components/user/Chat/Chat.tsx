@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 
 import { useChatDetails } from '@online-library/core'
 
-import { useChat } from '@online-library/ui'
+import { useChat } from '@online-library/logic'
 
 import { moderateScale } from 'styles'
 

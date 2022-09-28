@@ -13,7 +13,7 @@
 
       "@online-library/config",
       "@online-library/core",
-      "@online-library/ui",
+      "@online-library/logic",
 
       "^dotenv(.*)",
       "^./config/aliases$",

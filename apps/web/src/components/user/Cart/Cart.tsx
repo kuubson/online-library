@@ -5,7 +5,7 @@ import type { InferType } from 'yup'
 
 import { API } from '@online-library/config'
 
-import { useCart } from '@online-library/ui'
+import { useCart } from '@online-library/logic'
 
 import { REACT_APP_STRIPE_PUBLISHABLE_KEY } from 'config'
 

@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 
 import type { ReactChildren } from '@online-library/core'
 
-import { useGuest } from '@online-library/ui'
+import { useGuest } from '@online-library/logic'
 
 import { RoleContainer } from 'components/shared/styled'
 

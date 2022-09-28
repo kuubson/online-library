@@ -1,6 +1,6 @@
-import { navigate } from '@online-library/core'
+import { navigate, t } from '@online-library/core'
 
-import { t, useRegistration } from '@online-library/ui'
+import { useRegistration } from '@online-library/logic'
 
 import * as Styled from './styled'
 import { Submit, Text } from 'components/shared/styled'

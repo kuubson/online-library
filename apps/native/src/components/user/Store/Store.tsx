@@ -1,4 +1,4 @@
-import { useStore } from '@online-library/ui'
+import { useStore } from '@online-library/logic'
 
 import { BookSuggestions, Books } from 'components/shared'
 

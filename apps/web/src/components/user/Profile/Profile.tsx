@@ -1,6 +1,6 @@
 import { useBookPopup } from '@online-library/core'
 
-import { useProfile } from '@online-library/ui'
+import { useProfile } from '@online-library/logic'
 
 import { UserContent } from 'components/shared/styled'
 

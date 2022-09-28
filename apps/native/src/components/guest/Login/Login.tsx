@@ -1,6 +1,6 @@
-import { navigate } from '@online-library/core'
+import { navigate, t } from '@online-library/core'
 
-import { t, useLogin } from '@online-library/ui'
+import { useLogin } from '@online-library/logic'
 
 import { Annotation, AnnotationContainer, Annotations } from 'components/guest/Registration/styled'
 import { Submit, Text } from 'components/shared/styled'

@@ -3,7 +3,7 @@ import styled from 'styled-components/native'
 
 import type { BookSuggestionsProps } from '@online-library/core'
 
-import { useBookSuggestions } from '@online-library/ui'
+import { useBookSuggestions } from '@online-library/logic'
 
 import { moderateScale } from 'styles'
 

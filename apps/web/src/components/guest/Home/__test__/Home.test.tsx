@@ -1,7 +1,7 @@
 import 'jest-styled-components'
 import { render, screen, userEvent } from 'utils/testUtils'
 
-import { t } from '@online-library/ui'
+import { t } from '@online-library/core'
 
 import { App } from 'components/App'
 

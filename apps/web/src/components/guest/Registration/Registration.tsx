@@ -1,6 +1,6 @@
-import { history } from '@online-library/core'
+import { history, t } from '@online-library/core'
 
-import { t, useRegistration } from '@online-library/ui'
+import { useRegistration } from '@online-library/logic'
 
 import * as Styled from './styled'
 import { Form, Submit } from 'components/shared/styled'

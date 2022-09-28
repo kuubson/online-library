@@ -1,4 +1,4 @@
-import { useProfile } from '@online-library/ui'
+import { useProfile } from '@online-library/logic'
 
 import { BookSuggestions, Books } from 'components/shared'
 

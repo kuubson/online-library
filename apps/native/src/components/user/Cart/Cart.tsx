@@ -7,7 +7,7 @@ import { API } from '@online-library/config'
 
 import { usePaypalModal } from '@online-library/core'
 
-import { useCart } from '@online-library/ui'
+import { useCart } from '@online-library/logic'
 
 import * as Styled from './styled'
 import { Header, Submit, Text } from 'components/shared/styled'

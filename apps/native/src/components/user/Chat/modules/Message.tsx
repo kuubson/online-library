@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components/native'
 
 import type { MessageAdditionalProps, MessageType } from '@online-library/config'
 
-import { useMessage } from '@online-library/ui'
+import { useMessage } from '@online-library/logic'
 
 import { moderateScale } from 'styles'
 

@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components/macro'
 
 import { history, useCart, useChatDetails, useTopOffset } from '@online-library/core'
 
-import { useLogout } from '@online-library/ui'
+import { useLogout } from '@online-library/logic'
 
 import { queries } from 'styles'
 

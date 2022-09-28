@@ -1,4 +1,6 @@
-import { t, useSupport } from '@online-library/ui'
+import { t } from '@online-library/core'
+
+import { useSupport } from '@online-library/logic'
 
 import { Submit, Text } from 'components/shared/styled'
 

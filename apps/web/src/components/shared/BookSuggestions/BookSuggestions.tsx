@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 
 import type { BookSuggestionsProps } from '@online-library/core'
 
-import { useBookSuggestions } from '@online-library/ui'
+import { useBookSuggestions } from '@online-library/logic'
 
 import { queries } from 'styles'
 
