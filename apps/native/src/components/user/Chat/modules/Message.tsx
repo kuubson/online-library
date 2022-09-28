@@ -95,9 +95,7 @@ export const Message = forwardRef<HTMLDivElement, MessageProps>(
                !imageError ? (
                   <StyledMessage.Container>
                      <StyledMessage.Image
-                        source={{
-                           uri: content,
-                        }}
+                        source={{ uri: content }}
                         resizeMode="contain"
                         onLoad={scrollToTheBottom}
                         onError={handleFileLoadingError}

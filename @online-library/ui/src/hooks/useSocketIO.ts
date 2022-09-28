@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import io from 'socket.io-client'
 
-import { MessageType, isWeb } from '@online-library/config'
+import type { MessageType } from '@online-library/config'
+import { isWeb } from '@online-library/config'
 
 import { useChatDetails, useSocket } from '@online-library/core'
 

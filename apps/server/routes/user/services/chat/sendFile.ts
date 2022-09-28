@@ -16,7 +16,7 @@ import { deleteTemporaryFile, sendNotificationToAllUsers } from 'helpers'
 
 import type { InitialBody, InitialCookies, InitialQuery, ProtectedRoute } from 'types/express'
 
-const { header, errors } = API['/api/user/chat/files'].post
+const { header, responses } = API['/api/user/chat/files'].post
 
 export const sendFile: ProtectedRoute<InitialBody, InitialCookies, InitialQuery, false> = [
    async (req, res, next) => {
@@ -33,7 +33,7 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, InitialQuery,
             const isFile = files.test(mimetype) || files.test(originalname)
 
             if (!isImage && !isVideo && !isFile) {
-               throw new ApiError(header, errors[415], 415)
+               throw new ApiError(header, responses[415], 415)
             }
 
             let sizeError = false
@@ -57,7 +57,7 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, InitialQuery,
             }
 
             if (sizeError) {
-               throw new ApiError(header, errors[413], 413)
+               throw new ApiError(header, responses[413], 413)
             }
 
             const { id, name } = req.user

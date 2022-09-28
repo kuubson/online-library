@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { API } from '@online-library/config'
+import type { API } from '@online-library/config'
 
 import { debounceLoader, handleApiError, resetLoader } from 'helpers'
 
@@ -52,11 +52,6 @@ export const defaultAxios: AxiosOverload = (...[request, data]: Parameters<Axios
    return axios.request({
       ...request,
       data,
-      headers:
-         request.url === filesEndpoint
-            ? {
-                 'Content-Type': 'multipart/form-data',
-              }
-            : {},
+      headers: request.url === filesEndpoint ? { 'Content-Type': 'multipart/form-data' } : {},
    })
 }

@@ -8,7 +8,7 @@ import { yupValidation } from 'middlewares'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
-const { validation, header, errors } = API['/api/user/cart/paypal/payment'].post
+const { validation, header, responses } = API['/api/user/cart/paypal/payment'].post
 
 const schema = yup.object({ body: validation })
 
@@ -21,16 +21,16 @@ export const paypalPayment: ProtectedRoute<Body<typeof schema>> = [
          const [payment] = await req.user.getPayments({ where: { paymentId } })
 
          if (!payment) {
-            throw new ApiError(header, errors[404], 404)
+            throw new ApiError(header, responses[404], 404)
          }
 
          if (payment.approved) {
-            throw new ApiError(header, errors[409], 409)
+            throw new ApiError(header, responses[409], 409)
          }
 
          paypal.payment.execute(paymentId, { payer_id: PayerID }, async (error, { state }) => {
             if (error || state !== 'approved') {
-               throw new ApiError(header, errors[402], 402)
+               throw new ApiError(header, responses[402], 402)
             }
 
             const books = await Book.findAll({ where: { id: payment.products.split(',') } })

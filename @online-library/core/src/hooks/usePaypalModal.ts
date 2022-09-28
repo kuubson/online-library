@@ -7,5 +7,8 @@ export const usePaypalModal = () => {
 
    const setShowPayPalModal = useAction(paypalModalActions.setShowPayPalModal)
 
-   return { showPayPalModal, setShowPayPalModal }
+   return {
+      showPayPalModal,
+      setShowPayPalModal,
+   }
 }

@@ -3,9 +3,8 @@ import type { InferType } from 'yup'
 
 import { API, isWeb } from '@online-library/config'
 
+import type { PaypalCheckoutResponse, ResponseError } from '@online-library/core'
 import {
-   PaypalCheckoutResponse,
-   ResponseError,
    apiAxios,
    callback,
    history,
@@ -16,7 +15,7 @@ import {
    useCart as useReduxCart,
 } from '@online-library/core'
 
-const { request, validation, header, errors } = API['/api/user/cart/paypal/payment'].post
+const { request, validation, header, responses } = API['/api/user/cart/paypal/payment'].post
 
 type UseCartProps = InferType<typeof validation>
 
@@ -57,7 +56,7 @@ export const useCart = ({ paymentId, PayerID }: UseCartProps) => {
                PayerID,
             })
             if (response) {
-               setApiFeedback(header, errors[200], 'Check profile tab', reset)
+               setApiFeedback(header, responses[200], 'Check profile tab', reset)
             }
          } catch (error) {
             if ((error as ResponseError).response?.status === 409) {

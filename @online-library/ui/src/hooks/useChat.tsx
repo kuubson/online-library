@@ -2,19 +2,18 @@ import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import DocumentPicker from 'react-native-document-picker'
 
+import type { MessageType } from '@online-library/config'
 import {
    API,
    FILE_EXTENSIONS,
    FILE_SIZES,
    MESSAGES_FETCH_LIMIT,
    MESSAGES_ORDER,
-   MessageType,
    isWeb,
 } from '@online-library/config'
 
+import type { MessagesResponse, SendFileResponse } from '@online-library/core'
 import {
-   MessagesResponse,
-   SendFileResponse,
    apiAxios,
    callback,
    defaultAxios,
@@ -270,7 +269,7 @@ export const useChat = () => {
    }
 
    const sendFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { request, header, errors } = API['/api/user/chat/files'].post
+      const { request, header, responses } = API['/api/user/chat/files'].post
 
       let percentage = 0
 
@@ -279,9 +278,7 @@ export const useChat = () => {
       if (isWeb) {
          file = event.currentTarget.files?.[0]
       } else {
-         file = await DocumentPicker.pickSingle({
-            type: [DocumentPicker.types.allFiles],
-         })
+         file = await DocumentPicker.pickSingle({ type: [DocumentPicker.types.allFiles] })
       }
 
       if (file) {
@@ -303,12 +300,12 @@ export const useChat = () => {
          }
 
          const largeSizeError = () => {
-            return setApiFeedback(header, errors[413])
+            return setApiFeedback(header, responses[413])
          }
 
          if (!isImage && !isVideo && !isFile) {
             resetFileInput()
-            return setApiFeedback(header, errors[415])
+            return setApiFeedback(header, responses[415])
          }
 
          if (size) {

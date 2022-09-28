@@ -6,7 +6,7 @@ import { default as swagger } from '../../../../apps/server/swagger/swagger.json
 
 export type SWAGGER_PATHS = typeof swagger.paths
 
-export type api = typeof API_PATHS
+export type Api = typeof API_PATHS
 
 export const addValidation = <
    Path extends keyof SWAGGER_PATHS,

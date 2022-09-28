@@ -9,7 +9,7 @@ import { totalBooksPrice, verifyPurchasingBooks } from 'helpers'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
-const { validation, header, errors } = API['/api/user/cart/paypal/checkout'].post
+const { validation, header, responses } = API['/api/user/cart/paypal/checkout'].post
 
 const schema = yup.object({ body: validation })
 
@@ -23,7 +23,7 @@ export const paypalCheckout: ProtectedRoute<Body<typeof schema>> = [
             user: req.user,
             products,
             header,
-            errors,
+            responses,
          })
 
          const description = books.map(({ title }) => title).join(', ')
@@ -60,13 +60,13 @@ export const paypalCheckout: ProtectedRoute<Body<typeof schema>> = [
          paypal.payment.create(payment, async (error, payment) => {
             try {
                if (error || !payment.id || !payment.links) {
-                  throw new ApiError(header, errors[402], 402)
+                  throw new ApiError(header, responses[402], 402)
                }
 
                const approvalLink = payment.links.find(({ rel }) => rel === 'approval_url')
 
                if (!approvalLink) {
-                  throw new ApiError(header, errors[402], 402)
+                  throw new ApiError(header, responses[402], 402)
                }
 
                await req.user.createPayment({

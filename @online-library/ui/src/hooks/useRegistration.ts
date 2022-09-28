@@ -9,7 +9,7 @@ import {
    useForm,
 } from '@online-library/core'
 
-const { request, validation, header, errors } = API['/api/user/auth/register'].post
+const { request, validation, header, responses } = API['/api/user/auth/register'].post
 
 export const useRegistration = () => {
    const { submit, control, errors: formErrors, getValues } = useForm(validation)
@@ -17,7 +17,7 @@ export const useRegistration = () => {
    const register = async () => {
       const response = await apiAxios<typeof validation>(request, getValues())
       if (response) {
-         setApiFeedback(header, errors[200], 'Okey', () =>
+         setApiFeedback(header, responses[200], 'Okey', () =>
             callback({
                web: () => history.push('/login'),
                native: () => navigate('Login'),

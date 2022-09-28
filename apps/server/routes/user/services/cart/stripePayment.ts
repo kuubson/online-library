@@ -14,7 +14,7 @@ import type { Body, ProtectedRoute } from 'types/express'
 
 const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: '2022-08-01' })
 
-const { validation, header, errors } = API['/api/user/cart/stripe/payment'].post
+const { validation, header, responses } = API['/api/user/cart/stripe/payment'].post
 
 const schema = yup.object({ body: validation })
 
@@ -29,7 +29,7 @@ export const stripePayment: ProtectedRoute<Body<typeof schema>> = [
                user: req.user,
                products,
                header,
-               errors,
+               responses,
             })
 
             const description = books.map(({ title }) => title).join(', ')
@@ -52,14 +52,14 @@ export const stripePayment: ProtectedRoute<Body<typeof schema>> = [
                })
 
                if (payment.status !== 'succeeded') {
-                  throw new ApiError(header, errors[402], 402)
+                  throw new ApiError(header, responses[402], 402)
                }
 
                await Promise.all(books.map(async book => req.user.addBook(book, { transaction })))
 
                res.send()
             } catch (error) {
-               throw new ApiError(header, errors[402], 402)
+               throw new ApiError(header, responses[402], 402)
             }
          })
       } catch (error) {

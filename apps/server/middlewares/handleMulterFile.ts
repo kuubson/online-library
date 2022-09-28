@@ -6,7 +6,7 @@ import { reduceImageSize } from 'helpers'
 
 import type { InitialBody, InitialCookies, InitialQuery, Middleware } from 'types/express'
 
-const { header, errors } = API['/api/user/chat/files'].post
+const { header, responses } = API['/api/user/chat/files'].post
 
 export const handleMulterFile: Middleware<
    InitialBody,
@@ -17,7 +17,7 @@ export const handleMulterFile: Middleware<
    multerFile.single('file')(req, res, () => {
       try {
          if (!req.file) {
-            throw new ApiError(header, errors[400], 400)
+            throw new ApiError(header, responses[400], 400)
          }
 
          const { images } = FILE_EXTENSIONS

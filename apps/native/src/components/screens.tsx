@@ -1,14 +1,14 @@
-import { BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { DefaultNavigatorOptions, EventMapBase, NavigationState } from '@react-navigation/native'
+import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import type {
+   DefaultNavigatorOptions,
+   EventMapBase,
+   NavigationState,
+} from '@react-navigation/native'
 import React from 'react'
 
-import {
-   Screens as ScreensType,
-   theme,
-   useCart,
-   useChatDetails,
-   useRole,
-} from '@online-library/core'
+import type { Screens as ScreensType } from '@online-library/core'
+import { theme, useCart, useChatDetails, useRole } from '@online-library/core'
 
 import { moderateScale } from 'styles'
 
@@ -27,7 +27,7 @@ import { Store } from './user/Store/Store'
 export type NavigatorOptions = DefaultNavigatorOptions<
    ScreensType,
    NavigationState,
-   {},
+   object,
    EventMapBase
 >
 

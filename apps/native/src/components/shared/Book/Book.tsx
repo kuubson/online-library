@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Dimensions } from 'react-native'
 import Spinner from 'react-native-spinkit'
 import styled from 'styled-components/native'
 
@@ -117,8 +116,6 @@ export const Book = ({
       </BookContainer>
    )
 }
-
-const window = Dimensions.get('window')
 
 type BookContainerProps = Pick<BookProps, 'noMargin'>
 

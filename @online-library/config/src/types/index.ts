@@ -28,7 +28,7 @@ export type ApiMethod<M, E extends keyof any, V> = {
    }
    validation: V extends null ? null : V
    header: string
-   errors: Record<E, string>
+   responses: Record<E, string>
 }
 
 export type HasId = {

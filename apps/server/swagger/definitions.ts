@@ -21,6 +21,7 @@ export const contentFile = {
    type: 'string',
    format: 'uri',
    'qt-uri-protocols': ['https'],
+   // NOTE: should match with FILE_EXTENSIONS
    'qt-uri-extensions': [
       'jpg',
       'jpeg',
@@ -34,7 +35,7 @@ export const contentFile = {
       'ppt',
       'pptx',
       'pdf',
-   ], // NOTE: should match with FILE_EXTENSIONS,
+   ],
    description: 'Link to uploaded resource',
    example:
       'https://res.cloudinary.com/onlinelibrary-storage/raw/upload/v1662546764/111296ee27d2a82152225969d92eb660a16d16b041d3712e0ee860ae01ed78a8e01bc77f4b888fb0681cebba0ec619bb10012b3a3cfee8c_fbhuen.txt',

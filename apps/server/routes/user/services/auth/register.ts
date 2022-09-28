@@ -14,7 +14,7 @@ import { emailTemplate } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
-const { validation, header, errors } = API['/api/user/auth/register'].post
+const { validation, header, responses } = API['/api/user/auth/register'].post
 
 const schema = yup.object({ body: validation })
 
@@ -28,7 +28,7 @@ export const register: Route<Body<typeof schema>> = [
             const user = await User.findOne({ where: { email } })
 
             if (user) {
-               throw new ApiError(header, errors[409], 409)
+               throw new ApiError(header, responses[409], 409)
             }
 
             const activationToken = jwt.sign({ email }, JWT_KEY, {
@@ -58,7 +58,7 @@ export const register: Route<Body<typeof schema>> = [
                   ),
                })
             } catch {
-               throw new ApiError(header, errors[502], 502)
+               throw new ApiError(header, responses[502], 502)
             }
 
             res.send()

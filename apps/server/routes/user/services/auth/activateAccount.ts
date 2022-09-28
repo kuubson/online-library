@@ -12,7 +12,7 @@ import { jwt } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
-const { validation, header, errors } = API['/api/user/auth/account'].patch
+const { validation, header, responses } = API['/api/user/auth/account'].patch
 
 const schema = yup.object({ body: validation.shape({ activationToken: jwt }) })
 
@@ -28,11 +28,11 @@ export const activateAccount: Route<Body<typeof schema>> = [
             const authentication = await Authentication.findOne({ where: { activationToken } })
 
             if (!authentication) {
-               throw new ApiError(header, errors[409], 409)
+               throw new ApiError(header, responses[409], 409)
             }
 
             if (authentication.authenticated) {
-               throw new ApiError(header, errors[403], 403)
+               throw new ApiError(header, responses[403], 403)
             }
 
             await authentication.update({ authenticated: true }, { transaction })

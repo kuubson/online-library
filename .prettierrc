@@ -11,8 +11,6 @@
    "importOrder": [
       "<THIRD_PARTY_MODULES>",
 
-      "^is$",
-
       "@online-library/config",
       "@online-library/core",
       "@online-library/ui",

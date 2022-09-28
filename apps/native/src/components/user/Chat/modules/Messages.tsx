@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { MessageType } from '@online-library/config'
+import type { MessageType } from '@online-library/config'
 
 import { isChatInitialLoad, usePrevious } from '@online-library/core'
 

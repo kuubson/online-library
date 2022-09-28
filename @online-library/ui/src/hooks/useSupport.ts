@@ -10,7 +10,7 @@ import {
 } from '@online-library/core'
 
 export const useSupport = (withPasswordSupport: boolean | undefined) => {
-   const { request, validation, header, errors } = withPasswordSupport
+   const { request, validation, header, responses } = withPasswordSupport
       ? API['/api/user/auth/password'].post
       : API['/api/user/auth/activation-token'].post
 
@@ -19,7 +19,7 @@ export const useSupport = (withPasswordSupport: boolean | undefined) => {
    const handleSupport = async () => {
       const response = await apiAxios<typeof validation>(request, getValues())
       if (response) {
-         setApiFeedback(header, errors[200], 'Okey', () =>
+         setApiFeedback(header, responses[200], 'Okey', () =>
             callback({
                web: () => history.push('/login'),
                native: () => navigate('Login'),

@@ -14,7 +14,7 @@ import { jwt } from 'utils'
 import type { PasswordTokenData } from 'types'
 import type { Body, Route } from 'types/express'
 
-const { validation, header, errors } = API['/api/user/auth/password'].patch
+const { validation, header, responses } = API['/api/user/auth/password'].patch
 
 const schema = yup.object({ body: validation.shape({ passwordToken: jwt }) })
 
@@ -35,7 +35,7 @@ export const changePassword: Route<Body<typeof schema>> = [
             })
 
             if (!user) {
-               throw new ApiError(header, errors[400], 400)
+               throw new ApiError(header, responses[400], 400)
             }
 
             await user.update(

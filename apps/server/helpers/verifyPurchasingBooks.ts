@@ -8,16 +8,16 @@ type VerifyPurchasingBooksProps = {
    user: User
    products: number[] | undefined
    header: string
-   errors:
-      | typeof API['/api/user/cart/stripe/payment']['post']['errors']
-      | typeof API['/api/user/cart/paypal/checkout']['post']['errors']
+   responses:
+      | typeof API['/api/user/cart/stripe/payment']['post']['responses']
+      | typeof API['/api/user/cart/paypal/checkout']['post']['responses']
 }
 
 export const verifyPurchasingBooks = async ({
    user,
    products,
    header,
-   errors,
+   responses,
 }: VerifyPurchasingBooksProps) => {
    const bookIds = await user
       .getBooks({ where: { id: products } })
@@ -26,13 +26,13 @@ export const verifyPurchasingBooks = async ({
    const availableBooks = await Book.findAll({ where: { id: products } })
 
    if (!availableBooks.length) {
-      throw new ApiError(header, errors[404], 404)
+      throw new ApiError(header, responses[404], 404)
    }
 
    const books = availableBooks.filter(({ id }) => !bookIds.includes(id))
 
    if (!books.length) {
-      throw new ApiError(header, errors[409], 409)
+      throw new ApiError(header, responses[409], 409)
    }
 
    return { books }

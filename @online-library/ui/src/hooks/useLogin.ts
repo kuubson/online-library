@@ -19,7 +19,7 @@ export const useLogin = () => {
    }
 
    const loginWithFb = () => {
-      const { request, validation, header, errors } = API['/api/user/auth/login/fb'].post
+      const { request, validation, header, responses } = API['/api/user/auth/login/fb'].post
       window.FB.login(
          ({ authResponse, status }: FBLoginRequest) => {
             if (authResponse && status === 'connected') {
@@ -37,7 +37,7 @@ export const useLogin = () => {
                   }
                )
             }
-            setApiFeedback(header, errors[400])
+            setApiFeedback(header, responses[400])
          },
          { scope: 'email,public_profile' }
       )

@@ -3,7 +3,8 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { ThemeProvider } from 'styled-components'
 
-import { ReactChildren, client, persistor, store, theme } from '@online-library/core'
+import type { ReactChildren } from '@online-library/core'
+import { client, persistor, store, theme } from '@online-library/core'
 
 import { SERVER_NATIVE_URL } from 'config'
 

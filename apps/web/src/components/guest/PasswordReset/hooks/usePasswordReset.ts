@@ -4,7 +4,7 @@ import { API } from '@online-library/config'
 
 import { apiAxios, history, setApiFeedback, useForm } from '@online-library/core'
 
-const { request, validation, header, errors } = API['/api/user/auth/password'].patch
+const { request, validation, header, responses } = API['/api/user/auth/password'].patch
 
 export const usePasswordReset = () => {
    const { passwordToken } = useParams()
@@ -17,7 +17,7 @@ export const usePasswordReset = () => {
          passwordToken,
       })
       if (response) {
-         setApiFeedback(header, errors[200], 'Okey', () => history.push('/login'))
+         setApiFeedback(header, responses[200], 'Okey', () => history.push('/login'))
       }
    }
 

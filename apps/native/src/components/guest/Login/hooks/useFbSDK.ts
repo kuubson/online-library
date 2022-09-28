@@ -7,18 +7,18 @@ import { apiAxios, setApiFeedback, setRole } from '@online-library/core'
 
 export const useFbSDK = () => {
    const loginWithFb = async () => {
-      const { request, validation, header, errors } = API['/api/user/auth/login/fb'].post
+      const { request, validation, header, responses } = API['/api/user/auth/login/fb'].post
       try {
          const response = await LoginManager.logInWithPermissions(['email', 'public_profile'])
 
          if (response.isCancelled) {
-            return setApiFeedback(header, errors[400])
+            return setApiFeedback(header, responses[400])
          }
 
          const data = await AccessToken.getCurrentAccessToken()
 
          if (!data) {
-            return setApiFeedback(header, errors[400])
+            return setApiFeedback(header, responses[400])
          }
 
          const accessToken = data.accessToken.toString()
@@ -33,7 +33,7 @@ export const useFbSDK = () => {
                   },
                   async (error, data) => {
                      if (error) {
-                        setApiFeedback(header, errors[400])
+                        setApiFeedback(header, responses[400])
                      } else {
                         const { first_name, email } = data as FBMeRespose
 
@@ -52,7 +52,7 @@ export const useFbSDK = () => {
             )
             .start()
       } catch (error) {
-         setApiFeedback(header, errors[400])
+         setApiFeedback(header, responses[400])
       }
    }
 

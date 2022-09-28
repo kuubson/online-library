@@ -10,7 +10,6 @@ import { usePaypalModal } from '@online-library/core'
 import { useCart } from '@online-library/ui'
 
 import * as Styled from './styled'
-// TODO: tweak .prettierrc (components/shared/* together)
 import { Header, Submit, Text } from 'components/shared/styled'
 
 import { Books } from 'components/shared'

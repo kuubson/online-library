@@ -4,7 +4,8 @@ import styled from 'styled-components/native'
 
 import { RANDOM_IMAGE } from '@online-library/config'
 
-import { ReactChildren, useApiFeedback, useBookPopup, useLoader } from '@online-library/core'
+import type { ReactChildren } from '@online-library/core'
+import { useApiFeedback, useBookPopup, useLoader } from '@online-library/core'
 
 import * as Styled from './styled'
 

@@ -25,7 +25,7 @@ export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean
             })
 
             if (paymentMethod) {
-               const { request, validation, header, errors } =
+               const { request, validation, header, responses } =
                   API['/api/user/cart/stripe/payment'].post
 
                const response = await apiAxios<typeof validation>(request, {
@@ -35,7 +35,7 @@ export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean
 
                if (response) {
                   setShouldStripePopupAppear(false)
-                  setApiFeedback(header, errors[200], 'Check profile tab', () => {
+                  setApiFeedback(header, responses[200], 'Check profile tab', () => {
                      resetCart()
                      history.push('/profile')
                   })

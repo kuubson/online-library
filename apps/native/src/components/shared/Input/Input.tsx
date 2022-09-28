@@ -2,7 +2,7 @@ import { upperFirst } from 'lodash'
 import { Controller } from 'react-hook-form'
 import styled, { css } from 'styled-components/native'
 
-import { _InputProps } from '@online-library/core'
+import type { _InputProps } from '@online-library/core'
 
 import { moderateScale } from 'styles'
 

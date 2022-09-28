@@ -64,8 +64,8 @@ export const InvalidToken = new ApiError(
 
 export const fbLogin = API['/api/user/auth/login/fb'].post
 
-export const FBError = new ApiError(fbLogin.header, fbLogin.errors[400], 400)
+export const FBError = new ApiError(fbLogin.header, fbLogin.responses[400], 400)
 
 export const sendFile = API['/api/user/chat/files'].post
 
-export const EmptyFileError = new ApiError(sendFile.header, sendFile.errors[422], 422)
+export const EmptyFileError = new ApiError(sendFile.header, sendFile.responses[422], 422)

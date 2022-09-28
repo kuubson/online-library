@@ -1,4 +1,3 @@
-// import { Actions } from 'react-native-router-flux'
 import React from 'react'
 import styled from 'styled-components/native'
 

@@ -6,7 +6,7 @@ import { API, ApiError } from '@online-library/config'
 
 import { deleteTemporaryFile } from 'helpers'
 
-const { header, errors } = API['/api/user/chat/files'].post
+const { header, responses } = API['/api/user/chat/files'].post
 
 export const reduceImageSize = async (path: string, next: NextFunction) =>
    sharp(path)
@@ -16,7 +16,7 @@ export const reduceImageSize = async (path: string, next: NextFunction) =>
       .toBuffer((error, buffer) => {
          if (error) {
             deleteTemporaryFile(path)
-            next(new ApiError(header, errors[500], 500))
+            next(new ApiError(header, responses[500], 500))
          }
 
          fs.writeFileSync(path, buffer)

@@ -4,7 +4,7 @@ import type { OptionalObjectSchema } from 'yup/lib/object'
 
 import type { ApiMethod } from 'types'
 
-import type { SWAGGER_PATHS, api } from './validation'
+import type { Api, SWAGGER_PATHS } from './validation'
 import { API_PATHS } from './validation'
 
 export const API = mapValues(API_PATHS, (methods, path) => ({
@@ -15,21 +15,20 @@ export const API = mapValues(API_PATHS, (methods, path) => ({
       },
       validation,
       header: summary,
-      // TODO: rename errors => responses
-      errors: mapValues(responses, ({ description }: { description: string }) => description),
+      responses: mapValues(responses, ({ description }: { description: string }) => description),
    })),
 })) as {
-   [path in keyof api]: {
-      [method in keyof api[path]]: api[path][method] extends {
+   [path in keyof Api]: {
+      [method in keyof Api[path]]: Api[path][method] extends {
          responses: object
          validation: object
       }
-         ? ApiMethod<method, keyof api[path][method]['responses'], api[path][method]['validation']>
-         : api[path][method] extends {
+         ? ApiMethod<method, keyof Api[path][method]['responses'], Api[path][method]['validation']>
+         : Api[path][method] extends {
               responses: object
            }
-         ? ApiMethod<method, keyof api[path][method]['responses'], null>
-         : api[path][method]
+         ? ApiMethod<method, keyof Api[path][method]['responses'], null>
+         : Api[path][method]
    }
 }
 
@@ -38,7 +37,7 @@ export const API = mapValues(API_PATHS, (methods, path) => ({
  * if it's red, it means that the keys, you put manually into API_PATHS, are not matched with what backend API exposes
  */
 
-declare function _(api: api): api is {
+declare function _(api: Api): api is {
    [key in keyof SWAGGER_PATHS]: {
       [path in keyof SWAGGER_PATHS]: {
          [method in keyof SWAGGER_PATHS[path]]: SWAGGER_PATHS[path][method] & {

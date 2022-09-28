@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
-import { Book, useProfileBooksQuery } from '@online-library/core'
+import type { Book } from '@online-library/core'
+import { useProfileBooksQuery } from '@online-library/core'
 
 export const useProfile = () => {
    const [boughtBooks, setBoughtBooks] = useState<Book[]>([])

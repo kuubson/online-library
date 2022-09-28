@@ -14,7 +14,7 @@ import { emailTemplate } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
-const { validation, header, errors } = API['/api/user/auth/activation-token'].post
+const { validation, header, responses } = API['/api/user/auth/activation-token'].post
 
 const schema = yup.object({ body: validation })
 
@@ -31,11 +31,11 @@ export const resendActivationToken: Route<Body<typeof schema>> = [
             })
 
             if (!user || !user.authentication) {
-               throw new ApiError(header, errors[404], 404)
+               throw new ApiError(header, responses[404], 404)
             }
 
             if (user.authentication.authenticated) {
-               throw new ApiError(header, errors[403], 403)
+               throw new ApiError(header, responses[403], 403)
             }
 
             const activationToken = jwt.sign({ email }, JWT_KEY, {
@@ -56,7 +56,7 @@ export const resendActivationToken: Route<Body<typeof schema>> = [
                   ),
                })
             } catch (error) {
-               throw new ApiError(header, errors[502], 502)
+               throw new ApiError(header, responses[502], 502)
             }
 
             res.send()
