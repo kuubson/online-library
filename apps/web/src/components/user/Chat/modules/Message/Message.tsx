@@ -1,20 +1,17 @@
 /* eslint-disable react/display-name */
 import fileSaver from 'file-saver'
-import { forwardRef, useEffect, useState } from 'react'
+import { forwardRef } from 'react'
 import styled, { css } from 'styled-components/macro'
 
-import type { MessageType } from '@online-library/config'
+import type { MessageAdditionalProps, MessageType } from '@online-library/config'
+
+import { useMessage } from '@online-library/ui'
 
 import * as Styled from './styled'
 
-type MessageProps = {
-   currentUserId: string | undefined
-   nextMessage: MessageType
-   scrollToLastMessage: (delay: number) => void
-   withLastMessage: boolean
-}
+type MessageProps = MessageType & MessageAdditionalProps
 
-export const Message = forwardRef<HTMLDivElement, MessageType & MessageProps>(
+export const Message = forwardRef<HTMLDivElement, MessageProps>(
    (
       {
          type,
@@ -30,37 +27,26 @@ export const Message = forwardRef<HTMLDivElement, MessageType & MessageProps>(
       },
       ref
    ) => {
-      const [shouldDetailsAppear, setShouldDetailsAppear] = useState(false)
-      const [imageError, setImageError] = useState(false)
-      const [videoError, setVideoError] = useState(false)
-
-      const date = new Date(createdAt)
-
-      const withFile = type === 'FILE'
-
-      const withCurrentUser = userId === currentUserId
-
-      const withLastUserMessage = (nextMessage && userId !== nextMessage.userId) || !nextMessage
-
-      useEffect(() => {
-         scrollToTheBottom()
-      }, [])
-
-      useEffect(() => {
-         if (shouldDetailsAppear) {
-            setTimeout(() => setShouldDetailsAppear(false), 3000)
-         }
-      }, [shouldDetailsAppear])
-
-      const scrollToTheBottom = () => {
-         if (withLastMessage) {
-            scrollToLastMessage(0)
-         }
-      }
-
-      const handleFileLoadingError = () => {
-         type === 'IMAGE' ? setImageError(true) : setVideoError(true)
-      }
+      const {
+         imageError,
+         videoError,
+         shouldDetailsAppear,
+         date,
+         withFile,
+         withCurrentUser,
+         withLastUserMessage,
+         scrollToTheBottom,
+         setShouldDetailsAppear,
+         handleFileLoadingError,
+      } = useMessage({
+         type,
+         userId,
+         createdAt,
+         currentUserId,
+         nextMessage,
+         scrollToLastMessage,
+         withLastMessage,
+      })
 
       const showError = (error: string) => (
          <Styled.Content

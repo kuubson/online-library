@@ -1,16 +1,22 @@
-import { useEffect, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import RNFetchBlob from 'rn-fetch-blob'
 import styled, { css } from 'styled-components/native'
+
+import type { MessageAdditionalProps, MessageType } from '@online-library/config'
+
+import { useMessage } from '@online-library/ui'
 
 import { moderateScale } from 'styles'
 
 import * as StyledMessage from '../styled/Message'
 import { Video } from './Video'
 
+type MessageProps = MessageType & MessageAdditionalProps
+
 export const Message = ({
    type,
    content,
+   filename,
    userId,
    user: { name },
    createdAt,
@@ -18,49 +24,44 @@ export const Message = ({
    nextMessage,
    scrollToLastMessage,
    withLastMessage,
-}: any) => {
-   const [shouldDetailsAppear, setShouldDetailsAppear] = useState(false)
-
-   const [imageError, setImageError] = useState(false)
-
-   const [videoError, setVideoError] = useState(false)
-
-   const date = new Date(createdAt)
-
-   const withCurrentUser = userId === currentUserId
-
-   const withLastUserMessage = (nextMessage && userId !== nextMessage.userId) || !nextMessage
-
-   const withFile = type === 'FILE'
-
-   useEffect(() => {
-      scrollToTheBottom()
-   }, [])
-
-   useEffect(() => {
-      if (shouldDetailsAppear) {
-         setTimeout(() => setShouldDetailsAppear(false), 3000)
-      }
-   }, [shouldDetailsAppear])
-
-   const scrollToTheBottom = () => withLastMessage && scrollToLastMessage()
+}: MessageProps) => {
+   const {
+      imageError,
+      videoError,
+      shouldDetailsAppear,
+      date,
+      withFile,
+      withCurrentUser,
+      withLastUserMessage,
+      scrollToTheBottom,
+      setShouldDetailsAppear,
+      handleFileLoadingError,
+   } = useMessage({
+      type,
+      userId,
+      createdAt,
+      currentUserId,
+      nextMessage,
+      scrollToLastMessage,
+      withLastMessage,
+   })
 
    const downloadFile = () => {
       const { config, fs } = RNFetchBlob
+
       const { DownloadDir } = fs.dirs
+
       const options = {
          fileCache: true,
          addAndroidDownloads: {
             useDownloadManager: true,
             notification: true,
-            path: `${DownloadDir}/${content.split('filename')[1]}`, // TODO: filename comes from props
+            path: `${DownloadDir}/${filename}`,
          },
       }
+
       config(options).fetch('GET', content)
    }
-
-   const handleFileLoadingError = () =>
-      type === 'IMAGE' ? setImageError(true) : setVideoError(true)
 
    const showError = (error: string) => (
       <StyledMessage.ContentContainer

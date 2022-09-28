@@ -14,6 +14,13 @@ export type MessageType = {
    createdAt: string
 }
 
+export type MessageAdditionalProps = {
+   currentUserId: string | undefined
+   nextMessage: MessageType
+   scrollToLastMessage: (delay: number) => void
+   withLastMessage: boolean
+}
+
 export type ApiMethod<M, E extends keyof any, V> = {
    readonly request: {
       readonly method: M
