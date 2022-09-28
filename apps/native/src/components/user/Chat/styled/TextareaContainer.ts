@@ -10,4 +10,8 @@ export const TextareaContainer = styled.View`
    border-radius: ${moderateScale(10)}px;
    justify-content: space-around;
    flex-direction: row;
+   position: absolute;
+   bottom: 0px;
+   right: 0px;
+   left: 0px;
 `

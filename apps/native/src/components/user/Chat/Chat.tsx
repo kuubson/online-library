@@ -17,6 +17,7 @@ export const Chat = () => {
    const {
       messagesRef,
       endOfMessages,
+      lastMessageBeforeFetch,
       currentUserId,
       loading,
       messages,
@@ -27,6 +28,7 @@ export const Chat = () => {
       sendMessage,
       sendFile,
       scrollToLastMessage,
+      handleInfiniteLoader,
    } = useChat()
 
    const { lastUnreadMessageIndex } = useChatDetails()
@@ -46,11 +48,10 @@ export const Chat = () => {
                   <Messages
                      ref={messagesRef}
                      endOfMessages={endOfMessages}
+                     lastMessageBeforeFetch={lastMessageBeforeFetch}
                      messages={messages}
                      currentUserId={currentUserId}
-                     // TODO: handle scrolling
-                     // onScroll={(e: any) => getMessages(20, messages.length, e)}
-                     // onContentSizeChange={handleOnContentSizeChange}
+                     onScroll={handleInfiniteLoader}
                      scrollToLastMessage={scrollToLastMessage}
                   />
                ) : (
@@ -89,7 +90,7 @@ export const Chat = () => {
 }
 
 const ChatContainer = styled.View`
-   padding: ${moderateScale(10)}px ${moderateScale(15)}px ${moderateScale(15)}px
+   padding: ${moderateScale(10)}px ${moderateScale(15)}px ${moderateScale(95)}px
       ${moderateScale(15)}px;
    flex: 1;
 `

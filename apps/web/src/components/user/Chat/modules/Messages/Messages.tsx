@@ -18,9 +18,9 @@ type MessagesProps = {
    lastMessageBeforeFetch: React.RefObject<HTMLDivElement>
    messages: MessageType[]
    currentUserId: string | undefined
-   onTouchStart: () => void
    onScroll: (event: React.UIEvent<HTMLDivElement>) => void
    scrollToLastMessage: (delay: number) => void
+   onTouchStart: () => void
 }
 
 export const Messages = forwardRef<HTMLDivElement, MessagesProps>(

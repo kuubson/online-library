@@ -1,7 +1,5 @@
 import styled, { css } from 'styled-components/native'
 
-import { moderateScale } from 'styles'
-
 import { Text } from './Text'
 
 type StyledProps = {
@@ -14,7 +12,6 @@ export const TabBarIcon = styled(Text)<StyledProps>`
       isFocused
          ? css`
               font-weight: bold;
-              font-size: ${moderateScale(15)}px;
            `
          : null}
 `

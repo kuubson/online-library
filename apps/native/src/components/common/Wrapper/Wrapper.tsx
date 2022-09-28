@@ -1,3 +1,4 @@
+import { useRoute } from '@react-navigation/native'
 import { ImageBackground } from 'react-native'
 import styled from 'styled-components/native'
 
@@ -13,6 +14,8 @@ import { ApiFeedback } from '../ApiFeedback/ApiFeedback'
 import { Loader } from '../Loader/Loader'
 
 export const Wrapper = ({ children }: ReactChildren) => {
+   const { name } = useRoute()
+
    const { loading } = useLoader()
 
    const { showApiFeedback } = useApiFeedback()
@@ -25,7 +28,13 @@ export const Wrapper = ({ children }: ReactChildren) => {
          {showApiFeedback && <ApiFeedback />}
          {showBookPopup && <BookPopup />}
          <Styled.Layer />
-         <Styled.ScrollView contentContainerStyle={{ flexGrow: 1 }}>{children}</Styled.ScrollView>
+         {name !== 'Chat' ? (
+            <Styled.ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+               {children}
+            </Styled.ScrollView>
+         ) : (
+            children
+         )}
       </WrapperContainer>
    )
 }

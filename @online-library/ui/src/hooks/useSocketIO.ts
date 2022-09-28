@@ -22,10 +22,6 @@ export const useSocketIO = ({ SERVER_NATIVE_URL, withChat }: UseSocketIOProps) =
    } = useChatDetails()
 
    useEffect(() => {
-      console.log({ socket, SERVER_NATIVE_URL })
-   }, [socket])
-
-   useEffect(() => {
       if (isWeb) {
          setSocket(io('/user'))
       } else {

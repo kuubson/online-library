@@ -14,19 +14,25 @@ import { Wrapper } from '../Wrapper/Wrapper'
 export const User = ({ children }: ReactChildren) => {
    const { name } = useRoute()
 
-   useSocketIO({ SERVER_NATIVE_URL, withChat: name === 'Chat' })
+   const withChat = name === 'Chat'
+
+   useSocketIO({ SERVER_NATIVE_URL, withChat })
 
    useUser()
 
    return (
       <Wrapper>
-         <UserContainer>{children}</UserContainer>
+         <UserContainer withChat={withChat}>{children}</UserContainer>
       </Wrapper>
    )
 }
 
-const UserContainer = styled.View`
-   margin-top: ${moderateScale(30)}px;
+type UserContainerProps = {
+   withChat: boolean
+}
+
+const UserContainer = styled.View<UserContainerProps>`
+   margin-top: ${({ withChat }) => moderateScale(withChat ? 0 : 30)}px;
    justify-content: center;
    flex: 1;
 `

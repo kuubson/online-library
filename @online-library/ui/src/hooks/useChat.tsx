@@ -11,9 +11,11 @@ import {
    isWeb,
 } from '@online-library/config'
 
-import type { MessagesResponse, SendFileResponse } from '@online-library/core'
 import {
+   MessagesResponse,
+   SendFileResponse,
    apiAxios,
+   callback,
    defaultAxios,
    detectMobileDevice,
    handleApiError,
@@ -57,7 +59,9 @@ export const useChat = () => {
    const handleInfiniteLoader = async (event: React.UIEvent<HTMLDivElement>) => {
       const target = event.target as HTMLDivElement
 
-      const isChatScrollOnTop = target.scrollTop <= 0
+      const isChatScrollOnTop = isWeb
+         ? target.scrollTop <= 0
+         : (event.nativeEvent as any).contentOffset.y <= 0
 
       const canLoadMessages = !loading && hasMoreMessages && isChatScrollOnTop
 
@@ -68,11 +72,12 @@ export const useChat = () => {
    }
 
    useEffect(() => {
-      if (isWeb) {
-         if (lastMessageBeforeFetch.current) {
-            lastMessageBeforeFetch.current.scrollIntoView()
-         }
-      }
+      callback({
+         web: () =>
+            lastMessageBeforeFetch.current && lastMessageBeforeFetch.current.scrollIntoView(),
+         native: () =>
+            lastMessageBeforeFetch.current && (lastMessageBeforeFetch.current as any).scrollToEnd(), // TODO: persist somehow scroll for native app
+      })
    }, [triggerPersistingScroll, previousPersistScrollTrigger])
 
    const getMessages = async (limit: number, offset: number) => {
@@ -149,36 +154,51 @@ export const useChat = () => {
 
          if (response) {
             const { messages } = response.data
+            setUnreadMessagesAmount(0)
 
             setMessages(messages)
 
-            if (isWeb) {
-               setTimeout(() => {
-                  if (messagesRef.current) {
-                     messagesRef.current.scrollTop = 1
-                  }
-               }, 0)
-            }
-
-            setUnreadMessagesAmount(0)
+            scrollToTop()
          }
       }
    }
 
+   const scrollToTop = () => {
+      setTimeout(() => {
+         callback({
+            web: () => messagesRef.current && (messagesRef.current.scrollTop = 1),
+            native: () =>
+               messagesRef.current &&
+               (messagesRef.current as any).scrollTo({
+                  x: 0,
+                  y: 0,
+                  animated: false,
+               }),
+         })
+      }, 0)
+   }
+
    const scrollToLastMessage = (delay: number) => {
       setTimeout(() => {
-         if (isWeb) {
-            endOfMessages.current && endOfMessages.current.scrollIntoView({ behavior: 'smooth' })
-         }
+         callback({
+            web: () =>
+               endOfMessages.current &&
+               endOfMessages.current.scrollIntoView({ behavior: 'smooth' }),
+            native: () =>
+               messagesRef.current && (messagesRef.current as any).scrollToEnd({ animated: true }),
+         })
       }, delay)
    }
 
    const pushToLastMessage = () => {
       setTimeout(() => {
-         if (isWeb) {
-            const messages = messagesRef.current
-            messages && (messages.scrollTop = messages.scrollHeight)
-         }
+         callback({
+            web: () =>
+               messagesRef.current &&
+               (messagesRef.current.scrollTop = messagesRef.current.scrollHeight),
+            native: () =>
+               messagesRef.current && (messagesRef.current as any).scrollToEnd({ animated: false }),
+         })
       }, 0)
    }
 
@@ -228,7 +248,7 @@ export const useChat = () => {
 
       let percentage = 0
 
-      const file = event.currentTarget.files?.[0]
+      const file = event.currentTarget.files?.[0] // TODO: add rn fle picker
 
       if (file) {
          const { images, videos, files } = FILE_EXTENSIONS
