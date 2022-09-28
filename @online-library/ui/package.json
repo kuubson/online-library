@@ -14,7 +14,8 @@
       "@online-library/config": "*",
       "@online-library/core": "*",
       "lodash": "^4.17.21",
-      "socket.io-client": "^4.5.2"
+      "socket.io-client": "^4.5.2",
+      "react-native-document-picker": "^8.1.1"
    },
    "devDependencies": {
       "tsconfig": "*",

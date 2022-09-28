@@ -1,5 +1,6 @@
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
+import DocumentPicker from 'react-native-document-picker'
 
 import {
    API,
@@ -273,7 +274,15 @@ export const useChat = () => {
 
       let percentage = 0
 
-      const file = event.currentTarget.files?.[0] // TODO: add rn fle picker
+      let file = null
+
+      if (isWeb) {
+         file = event.currentTarget.files?.[0]
+      } else {
+         file = await DocumentPicker.pickSingle({
+            type: [DocumentPicker.types.allFiles],
+         })
+      }
 
       if (file) {
          const { images, videos, files } = FILE_EXTENSIONS
@@ -302,30 +311,32 @@ export const useChat = () => {
             return setApiFeedback(header, errors[415])
          }
 
-         if (isImage) {
-            if (size > maxImageSize) {
-               resetFileInput()
-               largeSizeError()
+         if (size) {
+            if (isImage) {
+               if (size > maxImageSize) {
+                  resetFileInput()
+                  largeSizeError()
+               }
             }
-         }
 
-         if (isVideo) {
-            if (size > maxVideoSize) {
-               resetFileInput()
-               largeSizeError()
+            if (isVideo) {
+               if (size > maxVideoSize) {
+                  resetFileInput()
+                  largeSizeError()
+               }
             }
-         }
 
-         if (isFile) {
-            if (size > maxFileSize) {
-               resetFileInput()
-               largeSizeError()
+            if (isFile) {
+               if (size > maxFileSize) {
+                  resetFileInput()
+                  largeSizeError()
+               }
             }
          }
 
          const form = new FormData()
 
-         form.append('file', file)
+         form.append('file', file as any)
 
          try {
             uploadProgressInterval = setInterval(() => {

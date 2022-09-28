@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import { API } from '@online-library/config'
+
 import { debounceLoader, handleApiError, resetLoader } from 'helpers'
 
 import type { AxiosOverload, AxiosOverloadArgs } from 'types'
@@ -43,8 +45,18 @@ export const apiAxios: AxiosOverload = (
    })
 }
 
-export const defaultAxios: AxiosOverload = (...[request, data]: Parameters<AxiosOverloadArgs>) =>
-   axios.request({
+type FilesEndpoint = Extract<keyof typeof API, '/api/user/chat/files'>
+
+export const defaultAxios: AxiosOverload = (...[request, data]: Parameters<AxiosOverloadArgs>) => {
+   const filesEndpoint: FilesEndpoint = '/api/user/chat/files'
+   return axios.request({
       ...request,
       data,
+      headers:
+         request.url === filesEndpoint
+            ? {
+                 'Content-Type': 'multipart/form-data',
+              }
+            : {},
    })
+}
