@@ -6,9 +6,9 @@
    "main": "./dist/index.js",
    "types": "./dist/index.d.ts",
    "scripts": {
-      "lib:dev": "yarn lib:build --watch",
+      "dev": "yarn build --watch",
       "lint": "eslint . && tsc --noEmit",
-      "lib:build": "tsup src/index.ts --format cjs --dts --external react"
+      "build": "tsup src/index.ts --format cjs --dts --external react"
    },
    "dependencies": {
       "@online-library/config": "*",
