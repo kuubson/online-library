@@ -11,12 +11,13 @@
       "build": "tsup src/index.ts --format cjs --dts --external react"
    },
    "dependencies": {
+      "@online-library/config": "*",
       "@react-native-async-storage/async-storage": "^1.17.10",
       "@react-navigation/native": "^6.0.13",
-      "@online-library/tools": "*",
       "@reduxjs/toolkit": "^1.8.5",
       "@types/validator": "^13.7.6",
       "axios": "^0.27.2",
+      "graphql": "^16.6.0",
       "history": "^5.3.0",
       "lodash": "^4.17.21",
       "react": "^18.1.0",
@@ -30,7 +31,9 @@
       "redux": "^4.2.0",
       "redux-persist": "^6.0.0",
       "validator": "^13.7.0",
-      "yup": "^0.32.11"
+      "yup": "^0.32.11",
+      "@apollo/client": "^3.6.9",
+      "graphql-ws": "^5.10.1"
    },
    "devDependencies": {
       "@types/react": "^18.0.18",

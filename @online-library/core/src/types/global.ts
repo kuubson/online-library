@@ -1,15 +1,44 @@
-export type AnyControl = any
+import type { GraphQLError } from 'graphql'
 
-export type AnySocket = any
+export type FBLoginRequest = {
+   authResponse: {
+      userID: string
+      signedRequest: string
+      expiresIn: string
+      accessToken: string
+   }
+   status: 'connected' | 'not_authorized'
+}
 
-export type AnyAxiosOverloadPayload = any
+export type FBMeRespose = {
+   first_name: string
+   email: string
+}
 
-export type AnyAxiosOverloadData = any
+export type FBStatus = {
+   status: string
+}
 
 export type FormEvent = React.FormEvent<HTMLFormElement>
 
 export type ReactChildren = {
    children: React.ReactNode
+}
+export type ReactDispatch<T> = React.Dispatch<React.SetStateAction<T>>
+
+export type GraphqlError = GraphQLError & {
+   exception: {
+      errorHeader: string
+      errorMessage: string
+   }
+}
+
+export type ResponseError = {
+   response: {
+      status: number
+      data: GraphqlError['exception']
+   }
+   request: unknown
 }
 
 export type Callback = () => void

@@ -1,19 +1,13 @@
-import { useEffect } from 'react'
 import styled from 'styled-components/macro'
 
 import type { ReactChildren } from '@online-library/core'
 
+import { useGuest } from '@online-library/ui'
+
 import { RoleContainer } from 'components/shared/styled'
 
-import { useGuest } from './hooks'
-
 export const Guest = ({ children }: ReactChildren) => {
-   const { checkAuth } = useGuest()
-
-   useEffect(() => {
-      checkAuth()
-   }, [])
-
+   useGuest()
    return (
       <RoleContainer>
          <GuestContent>{children}</GuestContent>

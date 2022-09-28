@@ -1,8 +1,8 @@
+import { t, useSupport } from '@online-library/ui'
+
 import { Form, Submit } from 'components/shared/styled'
 
 import { HomeButton, Input } from 'components/shared'
-
-import { useSupport } from './hooks'
 
 type SupportProps = {
    withPasswordSupport?: boolean
@@ -17,12 +17,16 @@ export const Support = ({ withPasswordSupport }: SupportProps) => {
             <Input
                {...{ control }}
                id="email"
-               label="Email"
+               label={t('guest.support.inputs.email.label')}
                type="text"
-               placeholder="Enter email address..."
+               placeholder={t('guest.support.inputs.email.placeholder')}
                error={errors.email?.message}
             />
-            <Submit>{withPasswordSupport ? 'Recover password' : 'Resend e-mail'}</Submit>
+            <Submit>
+               {withPasswordSupport
+                  ? t('guest.support.password.button')
+                  : t('guest.support.email.button')}
+            </Submit>
          </Form>
       </>
    )

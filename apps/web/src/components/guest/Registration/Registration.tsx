@@ -1,20 +1,18 @@
-import { history, useRegistration } from '@online-library/core'
+import { history } from '@online-library/core'
 
-import { t } from '@online-library/locales'
+import { t, useRegistration } from '@online-library/ui'
 
 import * as Styled from './styled'
 import { Form, Submit } from 'components/shared/styled'
 
 import { HomeButton, Input } from 'components/shared'
 
-import { apiAxios } from 'utils'
-
 export const Registration = () => {
-   const { register, control, errors } = useRegistration(apiAxios)
+   const { register, control, errors } = useRegistration()
    return (
       <>
          <HomeButton />
-         <Form onSubmit={event => register(() => history.push('/login'), event)}>
+         <Form onSubmit={register}>
             <Input
                {...{ control }}
                id="name"

@@ -1,13 +1,11 @@
 import type { Payment } from 'paypal-rest-sdk'
 import paypal from 'paypal-rest-sdk'
 
-import { API, ApiError, yup } from '@online-library/tools'
+import { API, ApiError, CLIENT_URL, yup } from '@online-library/config'
 
 import { yupValidation } from 'middlewares'
 
 import { totalBooksPrice, verifyPurchasingBooks } from 'helpers'
-
-import { baseUrl } from 'utils'
 
 import type { Body, ProtectedRoute } from 'types/express'
 
@@ -36,8 +34,8 @@ export const paypalCheckout: ProtectedRoute<Body<typeof schema>> = [
             intent: 'sale',
             payer: { payment_method: 'paypal' },
             redirect_urls: {
-               return_url: `${baseUrl(req)}/cart`,
-               cancel_url: `${baseUrl(req)}/cart`,
+               return_url: `${CLIENT_URL}/cart`,
+               cancel_url: `${CLIENT_URL}/cart`,
             },
             transactions: [
                {

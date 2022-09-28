@@ -1,6 +1,7 @@
 import { verify } from 'jsonwebtoken'
 import type { Server, Socket as _Socket } from 'socket.io'
-import type { ExtendedError } from 'socket.io/dist/namespace'
+
+import { AuthError } from '@online-library/config'
 
 import { JWT_KEY } from 'config'
 
@@ -38,7 +39,7 @@ export const user = (io: Server) => {
 
          next()
       } catch (error) {
-         next(error as ExtendedError)
+         next(AuthError)
       }
    })
 

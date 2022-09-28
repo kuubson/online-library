@@ -40,6 +40,8 @@ const initializeDatabase = async () => {
       // await connection.sync({ alter: true })
       await connection.sync()
 
+      // await Message.findAll().then(m => m.map(m => m.destroy()))
+
       console.log('📁 Database connected')
 
       if (NODE_ENV === 'development') {

@@ -1,0 +1,14 @@
+query profileBooks {
+   boughtBooks {
+      id
+      title
+      author
+      cover
+   }
+   borrowedBooks {
+      id
+      title
+      author
+      cover
+   }
+}

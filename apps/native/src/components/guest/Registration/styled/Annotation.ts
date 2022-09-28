@@ -1,8 +1,8 @@
 import styled from 'styled-components/native'
 
-import { scale } from 'styles'
+import { moderateScale } from 'styles'
 
-import { Text } from 'components/common'
+import { Text } from 'components/shared/styled'
 
 type StyledProps = {
    noMargin: boolean
@@ -10,6 +10,6 @@ type StyledProps = {
 
 export const Annotation = styled(Text)<StyledProps>`
    text-align: center;
-   font-size: ${scale(15)}px;
-   margin-bottom: ${({ noMargin }) => (noMargin ? 0 : scale(25))}px;
+   font-size: ${moderateScale(15)}px;
+   margin-bottom: ${({ noMargin }) => (noMargin ? 0 : moderateScale(25))}px;
 `

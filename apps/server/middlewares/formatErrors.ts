@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Application, NextFunction, Request, Response } from 'express'
 
-import type { ApiError } from '@online-library/tools'
 import {
+   ApiError,
    AuthError,
    AuthErrorBase,
    CSRFError,
    EmptyFileError,
    RequestError,
-} from '@online-library/tools'
-
-import { NODE_ENV } from 'config'
+   isProd,
+} from '@online-library/config'
 
 import { cookie } from 'utils'
 
@@ -20,7 +19,7 @@ type Error = ApiError & {
 
 export const formatErrors = (app: Application) =>
    app.use((error: Error, _: Request, res: Response, __: NextFunction) => {
-      if (NODE_ENV !== 'production') {
+      if (!isProd) {
          console.log(error)
       }
 

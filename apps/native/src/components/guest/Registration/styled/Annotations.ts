@@ -1,9 +1,10 @@
 import styled from 'styled-components/native'
 
-import { scale } from 'styles'
+import { moderateScale } from 'styles'
 
 export const Annotations = styled.View`
-   width: ${scale(200)}px;
+   width: ${moderateScale(250)}px;
    justify-content: space-between;
    align-items: center;
+   align-self: center;
 `

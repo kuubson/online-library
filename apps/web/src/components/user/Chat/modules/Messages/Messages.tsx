@@ -1,53 +1,58 @@
 /* eslint-disable react/display-name */
-import React, { forwardRef, useEffect, useRef } from 'react'
-import styled from 'styled-components/macro'
+import React, { forwardRef } from 'react'
+import styled, { css } from 'styled-components/macro'
 
-import type { MessageType } from '@online-library/core'
+import type { MessageType } from '@online-library/config'
+
 import { isChatInitialLoad, usePrevious } from '@online-library/core'
 
-import { queries } from 'styles'
-
 import { fadeIn } from 'assets/animations'
+
+import { Warning } from 'components/shared/styled'
 
 import { Message } from '../'
 
 type MessagesProps = {
    ref: React.RefObject<HTMLDivElement>
    endOfMessages: React.RefObject<HTMLDivElement>
+   lastMessageBeforeFetch: React.RefObject<HTMLDivElement>
    messages: MessageType[]
    currentUserId: string | undefined
-   onTouchStart: () => void
    onScroll: (event: React.UIEvent<HTMLDivElement>) => void
    scrollToLastMessage: (delay: number) => void
+   onTouchStart: () => void
 }
 
 export const Messages = forwardRef<HTMLDivElement, MessagesProps>(
    (
-      { endOfMessages, messages, currentUserId, onTouchStart, onScroll, scrollToLastMessage },
+      {
+         endOfMessages,
+         lastMessageBeforeFetch,
+         messages,
+         currentUserId,
+         onTouchStart,
+         onScroll,
+         scrollToLastMessage,
+      },
       ref
    ) => {
+      const areThereMessages = !!messages.length
+
       const previousChat = usePrevious(messages)
 
-      const lastMessageBeforeFetch = useRef<HTMLDivElement>(null)
-
-      useEffect(() => {
-         if (lastMessageBeforeFetch.current) {
-            lastMessageBeforeFetch.current.scrollIntoView() // TODO: trigger it only when fetching more messages
-         }
-      }, [messages])
-
       return (
-         <MessagesContainer ref={ref} onTouchStart={onTouchStart} onScroll={onScroll}>
+         <MessagesContainer
+            ref={ref}
+            onTouchStart={onTouchStart}
+            onScroll={onScroll}
+            areThereMessages={areThereMessages}
+         >
             {messages.map((message, index) => {
                const isLastMessageBeforeFetch =
                   !isChatInitialLoad(messages) && message.id === previousChat?.[0]?.id
-
-               // TODO: verify order of messages
-
                return (
                   <Message
                      ref={isLastMessageBeforeFetch ? lastMessageBeforeFetch : null}
-                     // TODO: duplicated keys, investigate why
                      key={message.id}
                      {...message}
                      currentUserId={currentUserId}
@@ -58,13 +63,19 @@ export const Messages = forwardRef<HTMLDivElement, MessagesProps>(
                )
             })}
             <div ref={endOfMessages}></div>
+            {!areThereMessages && <Warning>There are no messages</Warning>}
          </MessagesContainer>
       )
    }
 )
 
-const MessagesContainer = styled.div`
+type MessagesContainerProps = {
+   areThereMessages: boolean
+}
+
+const MessagesContainer = styled.div<MessagesContainerProps>`
    width: 100%;
+   min-height: calc(100vh - (var(--textareaHeight) + var(--userContentPadding)));
    max-height: calc(100vh - (var(--textareaHeight) + var(--userContentPadding)));
    padding-bottom: 15px;
    overflow: auto;
@@ -72,7 +83,12 @@ const MessagesContainer = styled.div`
    ::-webkit-scrollbar {
       display: none;
    }
-   @media ${queries.largeTablet} {
-      max-height: calc(100vh - (var(--textareaHeight) + var(--userContentPadding)));
-   }
+   ${({ areThereMessages }) =>
+      !areThereMessages
+         ? css`
+              display: flex;
+              justify-content: center;
+              align-items: center;
+           `
+         : null}
 `

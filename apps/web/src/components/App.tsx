@@ -4,8 +4,9 @@ import styled from 'styled-components/macro'
 import { useApiFeedback, useLoader } from '@online-library/core'
 
 import { GlobalStyle } from 'styles'
+import 'styles/index.scss'
 
-import { ApiFeedback, Loader, Location } from 'components/shared'
+import { Location } from 'components/shared'
 
 import { Home } from 'components/guest/Home/Home'
 import { Login } from 'components/guest/Login/Login'
@@ -17,15 +18,7 @@ import { Chat } from 'components/user/Chat/Chat'
 import { Profile } from 'components/user/Profile/Profile'
 import { Store } from 'components/user/Store/Store'
 
-import type { FBType } from 'types'
-
-import { Guest, User } from './common'
-
-declare global {
-   interface Window {
-      FB: FBType
-   }
-}
+import { ApiFeedback, Guest, Loader, User } from './common'
 
 export const App = () => {
    const { loading } = useLoader()

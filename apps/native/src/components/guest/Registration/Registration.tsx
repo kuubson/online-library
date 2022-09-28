@@ -1,14 +1,14 @@
-import { defaultAxios, navigate, useRegistration } from '@online-library/core'
+import { navigate } from '@online-library/core'
 
-import { t } from '@online-library/locales'
+import { t, useRegistration } from '@online-library/ui'
 
 import * as Styled from './styled'
-import { ButtonText, Submit } from 'components/shared/styled'
+import { Submit, Text } from 'components/shared/styled'
 
 import { Input } from 'components/shared'
 
 export const Registration = () => {
-   const { register, control, errors } = useRegistration(defaultAxios)
+   const { register, control, errors } = useRegistration()
    return (
       <>
          <Input
@@ -34,6 +34,7 @@ export const Registration = () => {
             type="password"
             placeholder={t('guest.registration.inputs.password.placeholder')}
             error={errors.password?.message}
+            secureTextEntry
          />
          <Input
             {...{ control }}
@@ -42,19 +43,15 @@ export const Registration = () => {
             type="password"
             placeholder={t('guest.registration.inputs.repeatedPassword.placeholder')}
             error={errors.repeatedPassword?.message}
+            secureTextEntry
          />
-         <Submit onPress={() => register(() => navigate('Login'))}>
-            <ButtonText>Register</ButtonText>
+         <Submit onPress={register}>
+            <Text>Register</Text>
          </Submit>
          <Styled.Annotations>
             <Styled.AnnotationContainer>
-               <Styled.Annotation onClick={() => navigate('EmailSupport')}>
+               <Styled.Annotation onPress={() => navigate('EmailSupport')}>
                   {t('guest.registration.annotation1')}
-               </Styled.Annotation>
-            </Styled.AnnotationContainer>
-            <Styled.AnnotationContainer>
-               <Styled.Annotation onClick={() => navigate('Login')}>
-                  {t('guest.registration.annotation2')}
                </Styled.Annotation>
             </Styled.AnnotationContainer>
          </Styled.Annotations>

@@ -1,48 +1,30 @@
-import { useState } from 'react'
+import { useBookPopup } from '@online-library/core'
 
-import type { Book } from 'gql'
+import { useStore } from '@online-library/ui'
 
 import { UserContent } from 'components/shared/styled'
 
-import { BookSuggestions, Books } from 'components/shared'
+import { BookPopup, BookSuggestions, Books } from 'components/shared'
 
-import { BookPopup } from './modules'
-
-import { useStore } from './hooks'
-
-type StoreProps = {
-   shouldMenuExpand?: boolean
-}
-
-export const Store = ({ shouldMenuExpand }: StoreProps) => {
+export const Store = () => {
    const {
       loading,
       freeBooks,
       paidBooks,
       hasMoreFreeBooks,
       hasMorePaidBooks,
-      setFreeBooks,
-      setPaidBooks,
+      areThereFreeBooks,
+      areTherePaidBooks,
+      shouldShowSearchBar,
+      books,
       getMoreBooks,
    } = useStore()
 
-   const [bookPopupData, setBookPopupData] = useState<Book>()
-
-   const books = {
-      freeBooks,
-      setFreeBooks,
-      paidBooks,
-      setPaidBooks,
-   }
-
-   const areThereFreeBooks = !!freeBooks.length
-   const areTherePaidBooks = !!paidBooks.length
-
-   const shouldShowSearchBar = areThereFreeBooks && areTherePaidBooks
+   const { showBookPopup } = useBookPopup()
 
    return (
-      <UserContent shouldMenuExpand={shouldMenuExpand}>
-         {bookPopupData && <BookPopup {...bookPopupData} setBookPopupData={setBookPopupData} />}
+      <UserContent>
+         {showBookPopup && <BookPopup />}
          {!loading &&
             (!areThereFreeBooks && !areTherePaidBooks ? (
                <Books books={[]} error="There are no books in the library right now" />
@@ -53,7 +35,6 @@ export const Store = ({ shouldMenuExpand }: StoreProps) => {
                      header="Find here awesome books"
                      error="There are no free books in the library right now"
                      hasMore={hasMoreFreeBooks}
-                     setBookPopupData={setBookPopupData}
                      loadMore={() => getMoreBooks(freeBooks.length, 0)}
                      {...((!areTherePaidBooks || shouldShowSearchBar) && {
                         searchBar: <BookSuggestions {...books} />,
@@ -64,7 +45,6 @@ export const Store = ({ shouldMenuExpand }: StoreProps) => {
                      header="Choose some paid books"
                      error="There are no paid books in the library right now"
                      hasMore={hasMorePaidBooks}
-                     setBookPopupData={setBookPopupData}
                      loadMore={() => getMoreBooks(0, paidBooks.length)}
                      {...(!areThereFreeBooks && { searchBar: <BookSuggestions {...books} /> })}
                   />

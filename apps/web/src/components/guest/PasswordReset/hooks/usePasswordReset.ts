@@ -1,10 +1,8 @@
 import { useParams } from 'react-router-dom'
 
-import { API } from '@online-library/tools'
+import { API } from '@online-library/config'
 
-import { history, setApiFeedback, useForm } from '@online-library/core'
-
-import { apiAxios } from 'utils'
+import { apiAxios, history, setApiFeedback, useForm } from '@online-library/core'
 
 const { request, validation, header, errors } = API['/api/user/auth/password'].patch
 

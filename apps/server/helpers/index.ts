@@ -1,7 +1,7 @@
 export { deleteTemporaryFile } from './deleteTemporaryFile'
 export { getCookie } from './getCookie'
 export { reduceImageSize } from './reduceImageSize'
-export { sendNotificationsForOtherUsers } from './sendNotificationsForOtherUsers'
+export { sendNotificationToAllUsers } from './sendNotificationToAllUsers'
 export { totalBooksPrice } from './totalBooksPrice'
 export { transporter } from './transporter'
 export { updateReadByProperty } from './updateReadByProperty'

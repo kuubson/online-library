@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Online Library</string>
+    <string name="facebook_app_id">486353109582067</string>
+    <string name="fb_login_protocol_scheme">fb486353109582067</string>
+    <string name="facebook_client_token">30d5631f0f86b636b0b1ed40e6d417c0</string>
 </resources>

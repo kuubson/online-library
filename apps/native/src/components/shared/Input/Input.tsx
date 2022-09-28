@@ -1,25 +1,18 @@
 import { upperFirst } from 'lodash'
-import type { Control } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
-import styled from 'styled-components/native'
+import styled, { css } from 'styled-components/native'
 
-import type { AnyControl } from '@online-library/core'
+import { _InputProps } from '@online-library/core'
 
-import { scale } from 'styles'
+import { moderateScale } from 'styles'
 
 import * as Styled from './styled'
 import { Error } from 'components/shared/styled'
 
-type InputProps = {
-   control: Control<AnyControl, AnyControl>
-   id: string
-   label?: string
-   type: string
-   placeholder: string
-   error?: string
-   withBooksSuggestions?: boolean
+type InputProps = _InputProps & {
    secureTextEntry?: boolean
    moreMarginBottom?: boolean
+   noMarginBottom?: boolean
 }
 
 export const Input = ({
@@ -30,8 +23,9 @@ export const Input = ({
    error,
    secureTextEntry,
    moreMarginBottom,
+   noMarginBottom,
 }: InputProps) => (
-   <InputContainer moreMarginBottom={moreMarginBottom}>
+   <InputContainer moreMarginBottom={moreMarginBottom} noMarginBottom={noMarginBottom}>
       {!!label && <Styled.Label>{label}</Styled.Label>}
       <Controller
          control={control}
@@ -50,8 +44,15 @@ export const Input = ({
    </InputContainer>
 )
 
-type InputContainerProps = Pick<InputProps, 'moreMarginBottom'>
+type InputContainerProps = Pick<InputProps, 'moreMarginBottom' | 'noMarginBottom'>
 
 const InputContainer = styled.View<InputContainerProps>`
-   margin-bottom: ${({ moreMarginBottom }) => (moreMarginBottom ? scale(35) : scale(25))}px;
+   margin-bottom: ${({ moreMarginBottom }) =>
+      moreMarginBottom ? moderateScale(35) : moderateScale(25)}px;
+   ${({ noMarginBottom }) =>
+      noMarginBottom
+         ? css`
+              margin-bottom: 0px;
+           `
+         : null}
 `

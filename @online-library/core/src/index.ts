@@ -1,4 +1,5 @@
 export * from './@redux'
+export * from './gql'
 export * from './helpers'
 export * from './hooks'
 export * from './styles'

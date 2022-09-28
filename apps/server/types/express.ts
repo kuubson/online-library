@@ -2,18 +2,16 @@ import type { NextFunction, Request, Response } from 'express'
 import type * as qs from 'qs'
 import type { InferType } from 'yup'
 
-import type { Role } from '@online-library/tools'
+import type { Role } from '@online-library/config'
 
 import type { User } from 'database/models/User'
 
 import type { TypedSchema } from 'yup/lib/util/types'
 
-import type { AnyFile, AnyUser } from './any'
-
 declare module 'express-serve-static-core' {
    interface Request {
-      user: User | undefined | AnyUser
-      file: Express.Multer.File | undefined | AnyFile
+      user: User | undefined | any
+      file: Express.Multer.File | undefined | any
       allowedExtenstionsError?: boolean
       sizeLimit?: boolean
    }
@@ -74,6 +72,7 @@ export type Body<B extends TypedSchema> = InferType<B>['body']
 export type Cookies<C extends TypedSchema> = InferType<C>['cookies']
 
 export type Query<Q extends TypedSchema> = InferType<Q>['query']
+
 export interface CustomRequest extends Request {
    user: {
       user: User

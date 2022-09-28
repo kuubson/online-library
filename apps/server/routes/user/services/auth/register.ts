@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { API, ApiError, yup } from '@online-library/tools'
+import { API, ApiError, CLIENT_URL, yup } from '@online-library/config'
 
 import { JWT_KEY, TokenExpiration } from 'config'
 
@@ -10,7 +10,7 @@ import { yupValidation } from 'middlewares'
 
 import { transporter } from 'helpers'
 
-import { baseUrl, emailTemplate } from 'utils'
+import { emailTemplate } from 'utils'
 
 import type { Body, Route } from 'types/express'
 
@@ -54,7 +54,7 @@ export const register: Route<Body<typeof schema>> = [
                      `${header} in the Online Library`,
                      `To activate the account click the button`,
                      'Activate account',
-                     `${baseUrl(req)}/home/?activationToken=${activationToken}`
+                     `${CLIENT_URL}/home/?activationToken=${activationToken}`
                   ),
                })
             } catch {

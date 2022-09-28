@@ -1,41 +1,62 @@
+import { useState } from 'react'
 import { useLocation } from 'react-router'
 import styled, { css } from 'styled-components/macro'
 
-import { history } from '@online-library/core'
+import { history, useCart, useChatDetails, useTopOffset } from '@online-library/core'
+
+import { useLogout } from '@online-library/ui'
 
 import { queries } from 'styles'
 
 import * as Styled from './styled'
 
-import { useMenu } from './hooks'
-
-type MenuProps = {
-   options: {
-      option: string
-      pathname?: string
-      counter?: number
-   }[]
-   _setShouldMenuExpand: ReactDispatch<boolean>
-}
-
-export const Menu = ({ options, _setShouldMenuExpand }: MenuProps) => {
+export const Menu = () => {
    const location = useLocation()
 
-   const { shouldMenuExpand, shouldMenuStick, setShouldMenuExpand, logout } =
-      useMenu(_setShouldMenuExpand)
+   const { logout } = useLogout()
+
+   const { cart } = useCart()
+
+   const { unreadMessagesAmount } = useChatDetails()
+
+   const shouldMenuStick = useTopOffset() > 20
+
+   const [shouldMenuExpand, setShouldMenuExpand] = useState(false)
+
+   const options = [
+      {
+         option: 'Store',
+         pathname: '/store',
+      },
+      {
+         option: 'Profile',
+         pathname: '/profile',
+      },
+      {
+         option: 'Cart',
+         pathname: '/cart',
+         counter: cart.length <= 99 ? cart.length : 99,
+      },
+      {
+         option: 'Chat',
+         pathname: '/chat',
+         counter: unreadMessagesAmount && (unreadMessagesAmount <= 99 ? unreadMessagesAmount : 99),
+      },
+      { option: 'Logout' },
+   ]
 
    return (
       <MenuContainer shouldMenuStick={shouldMenuStick}>
          <Styled.Logo>Online Library</Styled.Logo>
          <Styled.LinesContainer
             onClick={() => setShouldMenuExpand(shouldMenuExpand => !shouldMenuExpand)}
-            shouldMenuExpand={shouldMenuExpand}
+            {...{ shouldMenuExpand }}
          >
-            <Styled.Line shouldMenuExpand={shouldMenuExpand} />
-            <Styled.Line shouldMenuExpand={shouldMenuExpand} />
-            <Styled.Line shouldMenuExpand={shouldMenuExpand} />
+            <Styled.Line {...{ shouldMenuExpand }} />
+            <Styled.Line {...{ shouldMenuExpand }} />
+            <Styled.Line {...{ shouldMenuExpand }} />
          </Styled.LinesContainer>
-         <Styled.OptionsContainer shouldMenuExpand={shouldMenuExpand}>
+         <Styled.OptionsContainer {...{ shouldMenuExpand }}>
             {options.map(({ option, pathname, counter }) => {
                const handleOnClick = () => {
                   if (option === 'Logout') {
@@ -44,18 +65,18 @@ export const Menu = ({ options, _setShouldMenuExpand }: MenuProps) => {
                   history.push(`${pathname}`)
                   setShouldMenuExpand(false)
                }
-               return (
-                  location.pathname !== pathname && (
+               if (location.pathname !== pathname) {
+                  return (
                      <Styled.Option
+                        {...{ shouldMenuExpand }}
                         key={option}
                         onClick={handleOnClick}
-                        shouldMenuExpand={shouldMenuExpand}
                         counter={counter}
                      >
                         {option}
                      </Styled.Option>
                   )
-               )
+               }
             })}
          </Styled.OptionsContainer>
       </MenuContainer>

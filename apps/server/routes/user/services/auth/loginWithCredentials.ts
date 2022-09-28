@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-import type { Role } from '@online-library/tools'
-import { API, ApiError, yup } from '@online-library/tools'
+import type { Role } from '@online-library/config'
+import { API, ApiError, yup } from '@online-library/config'
 
 import { JWT_KEY, TokenExpiration } from 'config'
 

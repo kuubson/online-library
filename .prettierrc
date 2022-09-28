@@ -11,11 +11,11 @@
    "importOrder": [
       "<THIRD_PARTY_MODULES>",
 
-      "isWeb",
+      "^is$",
 
-      "@online-library/tools",
+      "@online-library/config",
       "@online-library/core",
-      "@online-library/locales",
+      "@online-library/ui",
 
       "^dotenv(.*)",
       "^./config/aliases$",

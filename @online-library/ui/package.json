@@ -1,0 +1,25 @@
+{
+   "name": "@online-library/ui",
+   "version": "1.0.0",
+   "private": true,
+   "sideEffects": false,
+   "main": "./dist/index.js",
+   "types": "./dist/index.d.ts",
+   "scripts": {
+      "dev": "yarn build --watch",
+      "lint": "eslint . && tsc --noEmit",
+      "build": "tsup src/index.ts --format cjs --dts --external react"
+   },
+   "dependencies": {
+      "@online-library/config": "*",
+      "@online-library/core": "*",
+      "lodash": "^4.17.21",
+      "socket.io-client": "^4.5.2",
+      "react-native-document-picker": "^8.1.1"
+   },
+   "devDependencies": {
+      "tsconfig": "*",
+      "tsup": "^5.10.1",
+      "typescript": "^4.8.3"
+   }
+}

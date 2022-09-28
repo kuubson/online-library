@@ -1,8 +1,6 @@
 import { mergeResolvers } from '@graphql-tools/merge'
 
-import type { AnyResolver } from 'types'
-
-type LoadFn = (pathname: string, withSchema?: boolean) => AnyResolver[]
+type LoadFn = (pathname: string, withSchema?: boolean) => any[]
 
 enum Resolvers {
    Query = 'queries',
@@ -10,7 +8,7 @@ enum Resolvers {
    Subscription = 'subscriptions',
 }
 
-const findDuplicatedResolvers = (resolvers: AnyResolver[]) => {
+const findDuplicatedResolvers = (resolvers: any[]) => {
    const flatResolvers = resolvers.flat().map(Object.keys).flat()
 
    const duplicates = flatResolvers

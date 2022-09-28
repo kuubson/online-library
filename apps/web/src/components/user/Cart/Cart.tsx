@@ -1,6 +1,11 @@
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { useState } from 'react'
+import type { InferType } from 'yup'
+
+import { API } from '@online-library/config'
+
+import { useCart } from '@online-library/ui'
 
 import { REACT_APP_STRIPE_PUBLISHABLE_KEY } from 'config'
 
@@ -9,26 +14,27 @@ import { Header, HeaderContainer, Submit, UserContent } from 'components/shared/
 
 import { Books } from 'components/shared'
 
-import { useCart } from './hooks'
+import { useQueryParams } from 'hooks'
 
 import { StripePopup } from './modules/'
 
 const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLISHABLE_KEY)
 
-type CarsProps = {
-   shouldMenuExpand?: boolean
-}
+const { validation } = API['/api/user/cart/paypal/payment'].post
 
-export const Cart = ({ shouldMenuExpand }: CarsProps) => {
-   const { books, price, paypalCheckout } = useCart()
+export const Cart = () => {
+   const { paymentId, PayerID } = useQueryParams() as InferType<typeof validation>
+
+   const { books, price, areThereBooks, paypalCheckout } = useCart({
+      paymentId,
+      PayerID,
+   })
 
    const [shouldStripePopupAppear, setShouldStripePopupAppear] = useState(false)
 
-   const areThereBooks = !!books.length
-
    return (
       <Elements stripe={stripePromise} options={{ locale: 'en' }}>
-         <UserContent shouldMenuExpand={shouldMenuExpand}>
+         <UserContent>
             {shouldStripePopupAppear && (
                <StripePopup price={price} setShouldStripePopupAppear={setShouldStripePopupAppear} />
             )}

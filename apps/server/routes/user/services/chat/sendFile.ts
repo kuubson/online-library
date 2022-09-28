@@ -1,13 +1,18 @@
 import cloudinary from 'cloudinary'
 
-import { API, ApiError, FILE_EXTENSIONS, FILE_SIZES, RANDOM_IMAGE } from '@online-library/tools'
+import {
+   API,
+   ApiError,
+   CLIENT_URL,
+   FILE_EXTENSIONS,
+   FILE_SIZES,
+   RANDOM_IMAGE,
+} from '@online-library/config'
 
 import { Connection } from 'database'
 import type { Message } from 'database/models/Message'
 
-import { deleteTemporaryFile, sendNotificationsForOtherUsers } from 'helpers'
-
-import { baseUrl } from 'utils'
+import { deleteTemporaryFile, sendNotificationToAllUsers } from 'helpers'
 
 import type { InitialBody, InitialCookies, InitialQuery, ProtectedRoute } from 'types/express'
 
@@ -117,14 +122,14 @@ export const sendFile: ProtectedRoute<InitialBody, InitialCookies, InitialQuery,
                { transaction }
             )
 
-            sendNotificationsForOtherUsers(id, {
+            sendNotificationToAllUsers(id, {
                tag: id,
                title: `From ${name}`,
                body: message,
                icon: RANDOM_IMAGE,
                data: {
                   userName: name,
-                  url: `${baseUrl(req)}/chat`,
+                  url: `${CLIENT_URL}/chat`,
                },
             })
 

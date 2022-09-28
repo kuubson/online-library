@@ -1,0 +1,1 @@
+export { scalableDimension } from './scalableDimension'

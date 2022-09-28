@@ -2,7 +2,9 @@
 import type { NextFunction, Response } from 'express'
 import type { PassportStatic } from 'passport'
 
-import { AuthError } from '@online-library/tools'
+import { AuthError, isProd } from '@online-library/config'
+
+import { CODEGEN } from 'config'
 
 import type { CustomRequest } from 'types/express'
 
@@ -12,8 +14,12 @@ export const gqlAuthorization =
          'jwt',
          { session: false },
          (error, { user, role }: CustomRequest['user']) => {
-            if (error || !user) {
-               next(AuthError)
+            const shouldThrowError = !CODEGEN || isProd
+
+            if (shouldThrowError) {
+               if (error || !user) {
+                  next(AuthError)
+               }
             }
 
             req.user = {

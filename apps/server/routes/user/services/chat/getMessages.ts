@@ -1,4 +1,4 @@
-import { API, yup } from '@online-library/tools'
+import { API, MESSAGES_ORDER, yup } from '@online-library/config'
 
 import { Message, User } from 'database'
 
@@ -30,9 +30,7 @@ export const getMessages: ProtectedRoute<InitialBody, InitialQuery, Query<typeof
                   attributes: ['name'],
                },
             ],
-         }).then(messages => messages.sort((a, b) => a.id - b.id))
-
-         // TODO: verify order of messages
+         }).then(messages => messages.sort(MESSAGES_ORDER))
 
          const { updatedMessages } = await updateReadByProperty(id, messages)
 

@@ -1,9 +1,7 @@
-import { COOKIE_MAX_AGE } from '@online-library/tools'
-
-import { NODE_ENV } from 'config'
+import { COOKIE_MAX_AGE, isProd } from '@online-library/config'
 
 export const cookie = (setMaxAge?: boolean) => ({
-   secure: NODE_ENV === 'production',
+   secure: isProd,
    httpOnly: true,
    sameSite: true,
    ...(setMaxAge && { maxAge: COOKIE_MAX_AGE }),
