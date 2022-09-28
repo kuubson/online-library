@@ -7,10 +7,10 @@ import { useChatDetails, useSocket } from '@online-library/core'
 
 type UseSocketIOProps = {
    SERVER_NATIVE_URL?: string
-   withChat: boolean
+   canUpdateChatDetails: boolean
 }
 
-export const useSocketIO = ({ SERVER_NATIVE_URL, withChat }: UseSocketIOProps) => {
+export const useSocketIO = ({ SERVER_NATIVE_URL, canUpdateChatDetails }: UseSocketIOProps) => {
    const { socket, setSocket } = useSocket()
 
    const {
@@ -29,17 +29,18 @@ export const useSocketIO = ({ SERVER_NATIVE_URL, withChat }: UseSocketIOProps) =
       }
    }, [])
 
-   const handleOnSendMessage = (message: MessageType) => {
-      if (!withChat && message.userId !== currentUserId) {
-         setUnreadMessagesAmount(unreadMessagesAmount + 1)
-         setLastUnreadMessageIndex(lastUnreadMessageIndex ? lastUnreadMessageIndex + 1 : 1)
-      }
-   }
-
    useEffect(() => {
+      const handleOnSendMessage = (message: MessageType) => {
+         if (canUpdateChatDetails && message.userId !== currentUserId) {
+            setUnreadMessagesAmount(unreadMessagesAmount + 1)
+            setLastUnreadMessageIndex(lastUnreadMessageIndex ? lastUnreadMessageIndex + 1 : 1)
+         }
+      }
+
       socket?.on('sendMessage', handleOnSendMessage)
+
       return () => {
          socket?.off('sendMessage', handleOnSendMessage)
       }
-   }, [socket, unreadMessagesAmount, currentUserId])
+   }, [socket, unreadMessagesAmount, currentUserId, canUpdateChatDetails])
 }

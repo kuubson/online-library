@@ -8,8 +8,8 @@ import { useChat } from '@online-library/ui'
 
 import { moderateScale } from 'styles'
 
-import { Warning } from 'components/shared/styled'
 import * as Styled from './styled'
+import { Warning } from 'components/shared/styled'
 
 import { Messages } from './modules'
 
@@ -39,7 +39,7 @@ export const Chat = () => {
    return (
       <>
          <ChatContainer>
-            {!loading && lastUnreadMessageIndex && messages.length < lastUnreadMessageIndex && (
+            {!loading && !!lastUnreadMessageIndex && messages.length < lastUnreadMessageIndex && (
                <Styled.MessagesInfo onPress={getUnreadMessages}>
                   <Styled.MessagesInfoText>Unread messages</Styled.MessagesInfoText>
                </Styled.MessagesInfo>

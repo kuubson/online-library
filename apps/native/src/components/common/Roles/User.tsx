@@ -1,7 +1,7 @@
-import { useRoute } from '@react-navigation/native'
+import { useFocusEffect, useRoute } from '@react-navigation/native'
 import styled from 'styled-components/native'
 
-import type { ReactChildren } from '@online-library/core'
+import { ReactChildren, navigationRef, useChatDetails } from '@online-library/core'
 
 import { useSocketIO, useUser } from '@online-library/ui'
 
@@ -14,15 +14,23 @@ import { Wrapper } from '../Wrapper/Wrapper'
 export const User = ({ children }: ReactChildren) => {
    const { name } = useRoute()
 
-   const withChat = name === 'Chat'
+   const { canUpdateChatDetails, setCanUpdateChatDetails } = useChatDetails()
 
-   useSocketIO({ SERVER_NATIVE_URL, withChat })
+   useFocusEffect(() => {
+      const canUpdateChatDetails = navigationRef.current?.getCurrentRoute()?.name !== 'Chat'
+      setCanUpdateChatDetails(canUpdateChatDetails)
+   })
+
+   useSocketIO({
+      SERVER_NATIVE_URL,
+      canUpdateChatDetails,
+   })
 
    useUser()
 
    return (
       <Wrapper>
-         <UserContainer withChat={withChat}>{children}</UserContainer>
+         <UserContainer withChat={name === 'Chat'}>{children}</UserContainer>
       </Wrapper>
    )
 }

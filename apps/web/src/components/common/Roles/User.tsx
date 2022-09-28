@@ -12,7 +12,9 @@ import { Menu } from 'components/shared'
 export const User = ({ children }: ReactChildren) => {
    const { pathname } = useLocation()
 
-   useSocketIO({ withChat: pathname === '/chat' })
+   const canUpdateChatDetails = pathname !== '/chat'
+
+   useSocketIO({ canUpdateChatDetails })
 
    useUser()
 
