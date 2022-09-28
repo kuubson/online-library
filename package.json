@@ -3,13 +3,14 @@
    "private": true,
    "scripts": {
       "dev": "turbo run dev",
+      "lib": "turbo run lib:dev",
       "lint": "turbo run lint",
       "test": "turbo run test",
       "build": "turbo run build",
       "docs": "turbo run docs",
-      "lib": "turbo run dev --filter=./@online-library/*",
       "android": "yarn workspace @online-library/native android",
       "metro": "yarn workspace @online-library/native metro",
+      "server": "yarn workspace @online-library/server dev",
       "codegen": "graphql-codegen",
       "prepare": "husky install"
    },

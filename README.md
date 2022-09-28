@@ -24,7 +24,7 @@
 
 ## 📄 Some notes
 
-> **Note** Sample, **bleeding-edge technologies driven** 💯, fullstack app, [hosted](https://online-library-application.herokuapp.com) on 📡 **Heroku** .
+> **Note** Sample, **bleeding-edge technologies driven** 💯, fullstack, cross-plaftorm app, [hosted](https://online-library-application.herokuapp.com) on 📡 **Heroku** .
 
 Acts as a **fake store** with possibility to chat 💬 with other users:
 

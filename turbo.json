@@ -2,12 +2,14 @@
    "$schema": "https://turborepo.org/schema.json",
    "pipeline": {
       "dev": { "cache": false },
+      "lib:dev": { "cache": false },
       "lint": { "outputs": [] },
-      "test": { "outputs": [] },
-      "docs": { "outputs": ["swagger.json"] },
+      "test": { "dependsOn": ["lib:build"], "outputs": [] },
+      "docs": { "dependsOn": ["lib:build"], "outputs": ["swagger.json"] },
       "build": {
-         "dependsOn": ["^build", "docs", "lint", "test"],
+         "dependsOn": ["^lint", "^lib:build", "test", "lint", "docs"],
          "outputs": ["build", "dist"]
-      }
+      },
+      "lib:build": { "outputs": ["dist"] }
    }
 }
