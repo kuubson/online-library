@@ -7,7 +7,7 @@ type StyledProps = {
    withLastUserMessage: boolean
 }
 
-export const ContentContainer = styled.View<StyledProps>`
+export const ContentContainer = styled.TouchableOpacity<StyledProps>`
    padding: ${moderateScale(8)}px ${moderateScale(10)}px;
    margin-bottom: ${moderateScale(10)}px;
    font-size: ${moderateScale(15)}px;
@@ -15,12 +15,6 @@ export const ContentContainer = styled.View<StyledProps>`
    color: white;
    background: rgba(0, 136, 255, 0.4);
    position: relative;
-   @media (max-width: 1000px) {
-      font-size: ${moderateScale(14)}px;
-   }
-   @media (max-width: 700px) {
-      font-size: ${moderateScale(13)}px;
-   }
    ${({ withCurrentUser }) =>
       withCurrentUser
          ? css`

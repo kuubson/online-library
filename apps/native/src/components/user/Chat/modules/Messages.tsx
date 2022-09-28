@@ -16,6 +16,7 @@ type MessagesProps = {
    currentUserId: string | undefined
    onScroll: (event: any) => void
    scrollToLastMessage: (delay: number) => void
+   onContentSizeChange: (_: any, h: number) => void
 }
 
 export const Messages = forwardRef(
@@ -27,12 +28,13 @@ export const Messages = forwardRef(
          currentUserId,
          onScroll,
          scrollToLastMessage,
+         onContentSizeChange,
       }: MessagesProps,
       ref
    ) => {
       const previousChat = usePrevious(messages)
       return (
-         <MessagesContainer ref={ref} onScroll={onScroll}>
+         <MessagesContainer ref={ref} onScroll={onScroll} onContentSizeChange={onContentSizeChange}>
             {messages.map((message, index) => {
                const isLastMessageBeforeFetch =
                   !isChatInitialLoad(messages) && message.id === previousChat?.[0]?.id

@@ -8,8 +8,8 @@ import { useChat } from '@online-library/ui'
 
 import { moderateScale } from 'styles'
 
-import * as Styled from './styled'
 import { Warning } from 'components/shared/styled'
+import * as Styled from './styled'
 
 import { Messages } from './modules'
 
@@ -29,6 +29,7 @@ export const Chat = () => {
       sendFile,
       scrollToLastMessage,
       handleInfiniteLoader,
+      handleOnContentSizeChange,
    } = useChat()
 
    const { lastUnreadMessageIndex } = useChatDetails()
@@ -53,6 +54,7 @@ export const Chat = () => {
                      currentUserId={currentUserId}
                      onScroll={handleInfiniteLoader}
                      scrollToLastMessage={scrollToLastMessage}
+                     onContentSizeChange={handleOnContentSizeChange}
                   />
                ) : (
                   <Warning>There are no messages</Warning>
@@ -70,7 +72,6 @@ export const Chat = () => {
             <Styled.ButtonsContainer>
                <Styled.ButtonContainer withMarginRight>
                   {!isUploadingFile ? (
-                     // TODO: handle it properly
                      <Styled.Button onPress={sendFile}>
                         <Styled.ButtonText>Upload file</Styled.ButtonText>
                      </Styled.Button>

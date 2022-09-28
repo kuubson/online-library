@@ -53,6 +53,9 @@ export const useChat = () => {
    const [triggerPersistingScroll, setTriggerPersistingScroll] = useState(0)
    const previousPersistScrollTrigger = usePrevious(triggerPersistingScroll)
 
+   const [lastScroll, setLastScroll] = useState(0)
+   const [shouldScrollToLastMessage, setShouldScrollToLastMessage] = useState(false)
+
    const [showFileInput, setShowFileInput] = useState(true)
    const [percentage, setPercentage] = useState(0)
 
@@ -71,13 +74,29 @@ export const useChat = () => {
       }
    }
 
+   // TODO: it works but the UX is not too good, must investigate for other possible solutions
+   const handleOnContentSizeChange = (_: any, h: number) => {
+      if (!lastScroll || lastScroll !== h) {
+         setLastScroll(h)
+      }
+      if (shouldScrollToLastMessage) {
+         messagesRef.current &&
+            (messagesRef.current as any).scrollTo({
+               x: 0,
+               y: h - lastScroll,
+               animated: false,
+            })
+
+         setLastScroll(h)
+
+         setShouldScrollToLastMessage(false)
+      }
+   }
+
    useEffect(() => {
-      callback({
-         web: () =>
-            lastMessageBeforeFetch.current && lastMessageBeforeFetch.current.scrollIntoView(),
-         native: () =>
-            lastMessageBeforeFetch.current && (lastMessageBeforeFetch.current as any).scrollToEnd(), // TODO: persist somehow scroll for native app
-      })
+      if (isWeb) {
+         lastMessageBeforeFetch.current && lastMessageBeforeFetch.current.scrollIntoView()
+      }
    }, [triggerPersistingScroll, previousPersistScrollTrigger])
 
    const getMessages = async (limit: number, offset: number) => {
@@ -91,7 +110,13 @@ export const useChat = () => {
 
          const { messages: fetchedMessages, userId, userName } = response.data
 
-         setHasMoreMessages(!!fetchedMessages.length)
+         const hasMoreMessages = !!fetchedMessages.length
+
+         setHasMoreMessages(hasMoreMessages)
+
+         if (hasMoreMessages) {
+            setShouldScrollToLastMessage(true)
+         }
 
          setCurrentUserId(userId)
          setCurrentUserName(userName)
@@ -393,5 +418,6 @@ export const useChat = () => {
       scrollToLastMessage,
       handleOnKeyPress,
       handleInfiniteLoader,
+      handleOnContentSizeChange,
    }
 }
