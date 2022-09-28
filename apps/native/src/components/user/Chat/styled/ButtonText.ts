@@ -6,5 +6,5 @@ import { Text } from 'components/shared/styled'
 
 export const ButtonText = styled(Text)`
    text-align: center;
-   font-size: ${moderateScale(12)};
+   font-size: ${moderateScale(12)}px;
 `

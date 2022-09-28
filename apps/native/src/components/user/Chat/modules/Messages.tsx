@@ -17,14 +17,14 @@ export const Messages = forwardRef(
       ref
    ) => (
       <MessagesContainer ref={ref} onScroll={onScroll} onContentSizeChange={onContentSizeChange}>
-         {messages.map(({ id, type, content, userId, userName, createdAt }: any, index: any) => (
+         {messages.map(({ id, type, content, userId, user, createdAt }: any, index: any) => (
             <Message
                key={id}
                id={id}
                type={type}
                content={content}
                userId={userId}
-               userName={userName}
+               user={user}
                createdAt={createdAt}
                currentUserId={currentUserId}
                nextMessage={messages[index + 1]}

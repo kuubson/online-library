@@ -36,7 +36,7 @@ export const Messages = forwardRef<HTMLDivElement, MessagesProps>(
       },
       ref
    ) => {
-      const areThereMessages = messages.length > 0
+      const areThereMessages = !!messages.length
 
       const previousChat = usePrevious(messages)
 

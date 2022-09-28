@@ -1,16 +1,17 @@
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 
-import type { MessageType } from '@online-library/config'
 import {
    API,
    FILE_EXTENSIONS,
    FILE_SIZES,
    MESSAGES_FETCH_LIMIT,
    MESSAGES_ORDER,
+   MessageType,
+   isWeb,
 } from '@online-library/config'
 
-import type { MessagesResponse, ReactDispatch, SendFileResponse } from '@online-library/core'
+import type { MessagesResponse, SendFileResponse } from '@online-library/core'
 import {
    apiAxios,
    defaultAxios,
@@ -28,12 +29,7 @@ const { request, validation } = API['/api/user/chat/messages'].get
 
 let uploadProgressInterval: ReturnType<typeof setInterval>
 
-type UseChatProps = {
-   setShowFileInput: ReactDispatch<boolean>
-   setPercentage: ReactDispatch<number>
-}
-
-export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
+export const useChat = () => {
    const { socket } = useSocket()
 
    const [loading, setLoading] = useState(true)
@@ -55,6 +51,9 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
    const [triggerPersistingScroll, setTriggerPersistingScroll] = useState(0)
    const previousPersistScrollTrigger = usePrevious(triggerPersistingScroll)
 
+   const [showFileInput, setShowFileInput] = useState(true)
+   const [percentage, setPercentage] = useState(0)
+
    const handleInfiniteLoader = async (event: React.UIEvent<HTMLDivElement>) => {
       const target = event.target as HTMLDivElement
 
@@ -69,8 +68,10 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
    }
 
    useEffect(() => {
-      if (lastMessageBeforeFetch.current) {
-         lastMessageBeforeFetch.current.scrollIntoView()
+      if (isWeb) {
+         if (lastMessageBeforeFetch.current) {
+            lastMessageBeforeFetch.current.scrollIntoView()
+         }
       }
    }, [triggerPersistingScroll, previousPersistScrollTrigger])
 
@@ -114,7 +115,9 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
    }
 
    useEffect(() => {
-      setTimeout(subscribePushNotifications, 2000)
+      if (isWeb) {
+         setTimeout(subscribePushNotifications, 2000)
+      }
       getMessages(MESSAGES_FETCH_LIMIT, 0)
    }, [])
 
@@ -122,6 +125,7 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
       const handleOnSendMessage = (message: MessageType) => {
          setMessages(messages => [...messages, message])
 
+         // NOTE: VIDEO and IMAGE handle scrollToLastMessage with onLoad event
          if (message.type === 'MESSAGE' || message.type === 'FILE') {
             scrollToLastMessage(0)
          }
@@ -148,11 +152,13 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
 
             setMessages(messages)
 
-            setTimeout(() => {
-               if (messagesRef.current) {
-                  messagesRef.current.scrollTop = 1
-               }
-            }, 0)
+            if (isWeb) {
+               setTimeout(() => {
+                  if (messagesRef.current) {
+                     messagesRef.current.scrollTop = 1
+                  }
+               }, 0)
+            }
 
             setUnreadMessagesAmount(0)
          }
@@ -161,14 +167,18 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
 
    const scrollToLastMessage = (delay: number) => {
       setTimeout(() => {
-         endOfMessages.current && endOfMessages.current.scrollIntoView({ behavior: 'smooth' })
+         if (isWeb) {
+            endOfMessages.current && endOfMessages.current.scrollIntoView({ behavior: 'smooth' })
+         }
       }, delay)
    }
 
    const pushToLastMessage = () => {
       setTimeout(() => {
-         const messages = messagesRef.current
-         messages && (messages.scrollTop = messages.scrollHeight)
+         if (isWeb) {
+            const messages = messagesRef.current
+            messages && (messages.scrollTop = messages.scrollHeight)
+         }
       }, 0)
    }
 
@@ -342,6 +352,8 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
       }
    }
 
+   const isUploadingFile = percentage > 0
+
    return {
       messagesRef,
       endOfMessages,
@@ -350,6 +362,9 @@ export const useChat = ({ setShowFileInput, setPercentage }: UseChatProps) => {
       messages,
       message,
       loading,
+      isUploadingFile,
+      percentage,
+      showFileInput,
       setMessage,
       getMessages,
       getUnreadMessages,

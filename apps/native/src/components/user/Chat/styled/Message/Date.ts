@@ -14,7 +14,6 @@ export const Date = styled(Text)<StyledProps>`
    width: 100%;
    font-size: ${moderateScale(13)}px;
    text-align: left;
-   letter-spacing: ${moderateScale(2)}px;
    ${({ withCurrentUser }) =>
       withCurrentUser
          ? css`

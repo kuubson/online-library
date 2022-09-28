@@ -1,24 +1,16 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import styled from 'styled-components/macro'
 
 import { detectMobileDevice, useChatDetails } from '@online-library/core'
+
+import { useChat } from '@online-library/ui'
 
 import * as Styled from './styled'
 import { Button, UserContent } from 'components/shared/styled'
 
 import { Messages, ProgressLoader } from './modules'
 
-import { useChat } from './hooks'
-
 export const Chat = () => {
-   const { lastUnreadMessageIndex } = useChatDetails()
-
-   const textareaRef = useRef<HTMLTextAreaElement>(null)
-
-   const [showFileInput, setShowFileInput] = useState(true)
-
-   const [percentage, setPercentage] = useState(0)
-
    const {
       messagesRef,
       endOfMessages,
@@ -27,6 +19,9 @@ export const Chat = () => {
       messages,
       message,
       loading,
+      isUploadingFile,
+      percentage,
+      showFileInput,
       setMessage,
       getUnreadMessages,
       sendMessage,
@@ -34,12 +29,11 @@ export const Chat = () => {
       scrollToLastMessage,
       handleOnKeyPress,
       handleInfiniteLoader,
-   } = useChat({
-      setShowFileInput,
-      setPercentage,
-   })
+   } = useChat()
 
-   const fileUploadInProgess = percentage > 0
+   const { lastUnreadMessageIndex } = useChatDetails()
+
+   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
    return (
       <ChatContainer>
@@ -65,12 +59,12 @@ export const Chat = () => {
                      ref={textareaRef}
                      value={message}
                      placeholder="Enter message..."
-                     disabled={fileUploadInProgess}
+                     disabled={isUploadingFile}
                      onChange={event => setMessage(event.target.value)}
                      onFocus={() => scrollToLastMessage(500)}
                      onKeyPress={handleOnKeyPress}
                   />
-                  {fileUploadInProgess ? (
+                  {isUploadingFile ? (
                      <ProgressLoader percentage={percentage} />
                   ) : (
                      <Button as="label" htmlFor="file" withChat>

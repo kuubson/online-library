@@ -6,11 +6,11 @@ import { MessageType, isWeb } from '@online-library/config'
 import { useChatDetails, useSocket } from '@online-library/core'
 
 type UseSocketIOProps = {
-   SOCKETIO_URL?: string
+   SERVER_NATIVE_URL?: string
    withChat: boolean
 }
 
-export const useSocketIO = ({ SOCKETIO_URL, withChat }: UseSocketIOProps) => {
+export const useSocketIO = ({ SERVER_NATIVE_URL, withChat }: UseSocketIOProps) => {
    const { socket, setSocket } = useSocket()
 
    const {
@@ -22,8 +22,14 @@ export const useSocketIO = ({ SOCKETIO_URL, withChat }: UseSocketIOProps) => {
    } = useChatDetails()
 
    useEffect(() => {
-      if (!socket) {
-         setSocket(io(isWeb ? '/user' : `${SOCKETIO_URL}/user`))
+      console.log({ socket, SERVER_NATIVE_URL })
+   }, [socket])
+
+   useEffect(() => {
+      if (isWeb) {
+         setSocket(io('/user'))
+      } else {
+         setSocket(io(`${SERVER_NATIVE_URL}/user`, { withCredentials: true }))
       }
    }, [])
 

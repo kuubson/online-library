@@ -12,7 +12,7 @@ export const Message = ({
    type,
    content,
    userId,
-   userName,
+   user: { name },
    createdAt,
    currentUserId,
    nextMessage,
@@ -33,7 +33,9 @@ export const Message = ({
 
    const withFile = type === 'FILE'
 
-   useEffect(() => scrollToTheBottom(), [])
+   useEffect(() => {
+      scrollToTheBottom()
+   }, [])
 
    useEffect(() => {
       if (shouldDetailsAppear) {
@@ -51,7 +53,7 @@ export const Message = ({
          addAndroidDownloads: {
             useDownloadManager: true,
             notification: true,
-            path: `${DownloadDir}/${content.split('filename')[1]}`,
+            path: `${DownloadDir}/${content.split('filename')[1]}`, // TODO: filename comes from props
          },
       }
       config(options).fetch('GET', content)
@@ -72,7 +74,7 @@ export const Message = ({
 
    const showAvatar = () => (
       <StyledMessage.AvatarContainer withCurrentUser={withCurrentUser}>
-         <StyledMessage.Avatar>{userName.charAt(0)}</StyledMessage.Avatar>
+         <StyledMessage.Avatar>{name.charAt(0)}</StyledMessage.Avatar>
       </StyledMessage.AvatarContainer>
    )
 
