@@ -5,5 +5,5 @@ import { moderateScale } from 'styles'
 export const Text = styled.Text`
    color: white;
    text-align: center;
-   font-size: ${moderateScale(14)}px;
+   font-size: ${moderateScale(16)}px;
 `

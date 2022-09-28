@@ -6,6 +6,7 @@ import { Text } from './Text'
 
 export const Error = styled(Text)`
    color: red;
+   font-weight: bold;
    font-size: ${moderateScale(12)}px;
    margin-top: ${moderateScale(10)}px;
    text-align: left;

@@ -6,6 +6,7 @@ import { Button as _Button } from 'components/shared/styled'
 
 export const Button = styled(_Button)`
    background: #333333;
+   padding: ${moderateScale(15)}px;
    border-right-width: ${moderateScale(2)}px;
    border-right-color: white;
    border-left-width: ${moderateScale(2)}px;
