@@ -7,7 +7,7 @@ type StyledProps = {
 }
 
 export const TabBarIcon = styled(Text)<StyledProps>`
-   width: 100px;
+   width: 150px;
    ${({ isFocused }) =>
       isFocused
          ? css`

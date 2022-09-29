@@ -3,11 +3,10 @@
    "private": true,
    "scripts": {
       "dev": "turbo run dev",
-      "lib": "turbo run dev",
+      "lib": "turbo run dev --filter=./@online-library/*",
       "lint": "turbo run lint",
       "test": "turbo run test",
       "build": "turbo run build --filter=./apps/*",
-      "lib:build": "turbo run build --filter=./packages/*",
       "docs": "turbo run docs --filter=./apps/server",
       "android": "yarn workspace @online-library/native android",
       "metro": "yarn workspace @online-library/native metro",
@@ -39,9 +38,5 @@
       "@trivago/prettier-plugin-sort-imports": "^3.3.0",
       "stylelint-config-styled-components": "^0.1.1",
       "stylelint-processor-styled-components": "^1.10.0"
-   },
-   "resolutions": {
-      "react": "^18.1.0",
-      "react-dom": "^18.1.0"
    }
 }

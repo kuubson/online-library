@@ -42,3 +42,11 @@ export type ResponseError = {
 }
 
 export type Callback = () => void
+
+export type CloseEvent = {
+   wasClean: boolean
+   code: number
+   reason: string
+   type: string
+   target: any
+}
