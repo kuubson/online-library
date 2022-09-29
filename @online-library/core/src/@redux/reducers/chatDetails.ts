@@ -8,8 +8,6 @@ type SliceState = {
    canUpdateChatDetails: boolean
 }
 
-type Payload = PayloadAction<number>
-
 const initialState: SliceState = {
    currentUserId: null,
    lastUnreadMessageIndex: null,
@@ -24,10 +22,10 @@ const chatDetailsSlice = createSlice({
       setCurrentUserId: (state, { payload }: PayloadAction<string>) => {
          state.currentUserId = payload
       },
-      setLastUnreadMessageIndex: (state, { payload }: Payload) => {
+      setLastUnreadMessageIndex: (state, { payload }: PayloadAction<number | null>) => {
          state.lastUnreadMessageIndex = payload
       },
-      setUnreadMessagesAmount: (state, { payload }: Payload) => {
+      setUnreadMessagesAmount: (state, { payload }: PayloadAction<number>) => {
          state.unreadMessagesAmount = payload
       },
       setCanUpdateChatDetails: (state, { payload }: PayloadAction<boolean>) => {

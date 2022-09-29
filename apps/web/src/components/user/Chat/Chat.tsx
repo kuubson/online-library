@@ -38,7 +38,7 @@ export const Chat = () => {
    return (
       <ChatContainer>
          {!loading && lastUnreadMessageIndex && messages.length < lastUnreadMessageIndex && (
-            <Styled.Details onClick={getUnreadMessages}>Unread messages</Styled.Details> // TODO: verify counter (badge above "Chat" option)
+            <Styled.Details onClick={getUnreadMessages}>Unread messages</Styled.Details>
          )}
          {!loading && (
             <>

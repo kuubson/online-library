@@ -36,7 +36,8 @@ export const useChat = () => {
 
    const [loading, setLoading] = useState(true)
 
-   const { lastUnreadMessageIndex, setUnreadMessagesAmount } = useChatDetails()
+   const { lastUnreadMessageIndex, setUnreadMessagesAmount, setLastUnreadMessageIndex } =
+      useChatDetails()
 
    const messagesRef = useRef<HTMLDivElement>(null)
    const endOfMessages = useRef<HTMLDivElement>(null)
@@ -179,7 +180,9 @@ export const useChat = () => {
 
          if (response) {
             const { messages } = response.data
+
             setUnreadMessagesAmount(0)
+            setLastUnreadMessageIndex(null)
 
             setMessages(messages)
 
