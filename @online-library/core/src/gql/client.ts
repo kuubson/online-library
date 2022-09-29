@@ -19,15 +19,7 @@ import { debounceLoader, resetLoader, setApiFeedback, setRole } from 'helpers'
 
 import { defaultAxios, history } from 'utils'
 
-import type { GraphqlError } from 'types'
-
-type CloseEvent = {
-   wasClean: boolean
-   code: number
-   reason: string
-   type: string
-   target: any
-}
+import type { CloseEvent, GraphqlError } from 'types'
 
 const webSocketLink = (SERVER_NATIVE_URL?: string) =>
    new GraphQLWsLink(
@@ -114,4 +106,4 @@ export const client = (SERVER_NATIVE_URL?: string) =>
    new ApolloClient({
       link: ApolloLink.from([handleLoader, handleError, splitLink(SERVER_NATIVE_URL)]),
       cache: new InMemoryCache(),
-   }) as ApolloClient<any>
+   })
