@@ -114,4 +114,4 @@ export const client = (SERVER_NATIVE_URL?: string) =>
    new ApolloClient({
       link: ApolloLink.from([handleLoader, handleError, splitLink(SERVER_NATIVE_URL)]),
       cache: new InMemoryCache(),
-   })
+   }) as ApolloClient<any>

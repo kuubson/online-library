@@ -10,7 +10,7 @@
       "build": "react-scripts build"
    },
    "dependencies": {
-      "@apollo/client": "^3.6.8",
+      "@apollo/client": "3.6.9",
       "@hookform/resolvers": "^2.9.7",
       "@online-library/config": "*",
       "@online-library/logic": "*",
