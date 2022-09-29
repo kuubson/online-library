@@ -3,7 +3,6 @@ import { onError } from '@apollo/client/link/error'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { createClient } from 'graphql-ws'
-import type { CloseEvent } from 'ws'
 
 import {
    API,
@@ -21,6 +20,14 @@ import { debounceLoader, resetLoader, setApiFeedback, setRole } from 'helpers'
 import { defaultAxios, history } from 'utils'
 
 import type { GraphqlError } from 'types'
+
+type CloseEvent = {
+   wasClean: boolean
+   code: number
+   reason: string
+   type: string
+   target: any
+}
 
 const webSocketLink = (SERVER_NATIVE_URL?: string) =>
    new GraphQLWsLink(
