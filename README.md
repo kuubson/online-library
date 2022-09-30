@@ -129,6 +129,7 @@ api-->native
 -  add **WebRTC** for video chat
 -  replace errors popup with **react-toastify**
 -  tweak seeding db flow
+-  set up CircleCI for releases
 
 ## ⌨ Root scripts
 
