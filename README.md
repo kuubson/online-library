@@ -119,6 +119,7 @@ api-->native
 
 ## 🎯 Future goals
 
+-  set up CircleCI for releases
 -  **test coverage** as high as possible + add e2e tests (**cypress**)
 -  consider switching **graphql + sequelize** to **tRPC + prisma**
 -  make use of **storybook.js**
