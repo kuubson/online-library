@@ -37,6 +37,7 @@ buck-out/
 \.buckd/
 *.keystore
 !debug.keystore
+!onlinelibrary.keystore.encrypted
 
 # fastlane
 #

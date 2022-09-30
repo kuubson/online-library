@@ -7,7 +7,10 @@
       "ios": "react-native run-ios",
       "metro": "react-native start",
       "lint": "eslint . && tsc --noEmit && stylelint src/**/*.{ts,tsx}",
-      "test": "jest"
+      "test": "jest",
+      "assets": "react-native bundle --platform android --dev false --entry-file apps/native/index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
+      "apk": "cd android && ./gradlew bundleRelease -x bundleReleaseJsAndAssets",
+      "aab": "cd android && ./gradlew assembleRelease -x bundleReleaseJsAndAssets"
    },
    "dependencies": {
       "@apollo/client": "3.6.9",
