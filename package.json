@@ -3,17 +3,19 @@
    "private": true,
    "scripts": {
       "dev": "turbo run dev",
-      "lib": "turbo run dev --filter=./@online-library/*",
+      "lib:dev": "turbo run dev --filter=./@online-library/*",
       "lint": "turbo run lint",
       "test": "turbo run test",
-      "build": "turbo run build --filter=./apps/*",
+      "build": "turbo run build",
+      "lib:build": "turbo run lib:build",
       "docs": "turbo run docs --filter=./apps/server",
       "android": "yarn workspace @online-library/native android",
       "metro": "yarn workspace @online-library/native metro",
       "server": "yarn workspace @online-library/server dev",
       "codegen": "graphql-codegen",
       "prepare": "husky install",
-      "postbuild": "yarn docs"
+      "postbuild": "yarn docs",
+      "postinstall": "yarn lib:build"
    },
    "workspaces": [
       "@online-library/*",

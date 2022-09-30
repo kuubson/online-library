@@ -159,7 +159,7 @@ api-->native
 
 ## 🔒 Environment variables
 
-> **Note** Remember to update `HOST` variable in `@online-library\config\src\utils\urls.ts` when changing domain
+> **Note** Remember to update `HOST` variable in `@online-library\config\src\utils\urls.ts` when changing the target domain
 
 | variables                                                               | details                                                                                                       | server[^s]          | web[^w]                            |
 | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------- | ---------------------------------- |

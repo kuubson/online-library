@@ -6,9 +6,9 @@
    "main": "./dist/index.js",
    "types": "./dist/index.d.ts",
    "scripts": {
-      "dev": "yarn build --watch",
+      "dev": "yarn lib:build --watch",
       "lint": "eslint . && tsc --noEmit",
-      "build": "tsup src/index.ts --format cjs --dts --external react"
+      "lib:build": "tsup src/index.ts --format cjs --dts --external react"
    },
    "dependencies": {
       "@apollo/client": "3.6.9",

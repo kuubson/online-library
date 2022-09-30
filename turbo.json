@@ -3,11 +3,15 @@
    "pipeline": {
       "dev": { "cache": false },
       "lint": { "outputs": [] },
+      "test": { "outputs": [] },
+      "docs": { "dependsOn": ["^lib:build"], "outputs": ["swagger.json"] },
       "build": {
-         "dependsOn": ["^build", "docs", "test"],
+         "dependsOn": ["^lib:build", "docs", "test"],
          "outputs": ["build", "dist"]
       },
-      "test": { "dependsOn": ["^build"], "outputs": [] },
-      "docs": { "dependsOn": ["^build"], "outputs": ["swagger.json"] }
+      "lib:build": {
+         "dependsOn": ["^lib:build"],
+         "outputs": ["dist"]
+      }
    }
 }
