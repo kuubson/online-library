@@ -5,6 +5,8 @@ import styled, { css } from 'styled-components/macro'
 
 import type { MessageAdditionalProps, MessageType } from '@online-library/config'
 
+import { t } from '@online-library/core'
+
 import { useMessage } from '@online-library/logic'
 
 import * as Styled from '../styled/Message'
@@ -81,7 +83,7 @@ export const Message = forwardRef<HTMLDivElement, MessageProps>(
                      {withLastUserMessage && showAvatar()}
                   </Styled.Container>
                ) : (
-                  showError('Image failed to load')
+                  showError(t('common.failedImageLoading'))
                )
             ) : type === 'VIDEO' ? (
                !videoError ? (
@@ -95,7 +97,7 @@ export const Message = forwardRef<HTMLDivElement, MessageProps>(
                      {withLastUserMessage && showAvatar()}
                   </Styled.Container>
                ) : (
-                  showError('Video failed to load')
+                  showError(t('common.failedVideoLoading'))
                )
             ) : (
                <Styled.Content

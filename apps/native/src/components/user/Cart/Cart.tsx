@@ -5,7 +5,7 @@ import type { InferType } from 'yup'
 
 import { API } from '@online-library/config'
 
-import { usePaypalModal } from '@online-library/core'
+import { t, usePaypalModal } from '@online-library/core'
 
 import { useCart } from '@online-library/logic'
 
@@ -65,20 +65,22 @@ export const Cart = () => {
                }}
             />
          )}
-         <Books books={books} header="List of books" error="The cart is empty" withCart />
+         <Books books={books} header={t('cart.header')} error={t('cart.empty')} withCart />
          {areThereBooks && (
             <Styled.SummaryContainer>
-               <Header>Summary</Header>
+               <Header>{t('common.summary')}</Header>
                {books.map(({ id, title, price }, index) => (
                   <Styled.Summary key={id} last={index === books.length - 1}>
-                     Book "{title}" 1 x ${price?.toFixed(2)}
+                     {`${t('common.book')} "{${title}}" 1 x ${price?.toFixed(2)}`}
                   </Styled.Summary>
                ))}
                <Submit>
-                  <Text>Pay ${price}</Text>
+                  <Text>
+                     {t('buttons.pay')} ${price}
+                  </Text>
                </Submit>
                <Styled.PayPalButton onPress={paypalCheckout}>
-                  <Styled.ButtonText>Pay with PayPal</Styled.ButtonText>
+                  <Styled.ButtonText>{t('buttons.paypal')}</Styled.ButtonText>
                </Styled.PayPalButton>
             </Styled.SummaryContainer>
          )}

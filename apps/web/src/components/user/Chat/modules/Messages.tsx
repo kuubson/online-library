@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components/macro'
 
 import type { MessageType } from '@online-library/config'
 
-import { isChatInitialLoad, usePrevious } from '@online-library/core'
+import { isChatInitialLoad, t, usePrevious } from '@online-library/core'
 
 import { fadeIn } from 'styles'
 
@@ -63,7 +63,7 @@ export const Messages = forwardRef<HTMLDivElement, MessagesProps>(
                )
             })}
             <div ref={endOfMessages}></div>
-            {!areThereMessages && <Warning>There are no messages</Warning>}
+            {!areThereMessages && <Warning>{t('common.noMessages')}</Warning>}
          </MessagesContainer>
       )
    }

@@ -19,15 +19,13 @@ export const Support = ({ withPasswordSupport }: SupportProps) => {
             <Input
                {...{ control }}
                id="email"
-               label={t('guest.support.inputs.email.label')}
+               label={t('inputs.email.label')}
                type="text"
-               placeholder={t('guest.support.inputs.email.placeholder')}
+               placeholder={t('inputs.email.placeholder')}
                error={errors.email?.message}
             />
             <Submit>
-               {withPasswordSupport
-                  ? t('guest.support.password.button')
-                  : t('guest.support.email.button')}
+               {withPasswordSupport ? t('buttons.recoverPassword') : t('buttons.resendEmail')}
             </Submit>
          </Form>
       </>

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/native'
 
-import { navigate } from '@online-library/core'
+import { navigate, t } from '@online-library/core'
 
 import * as Styled from './styled'
 import { Text } from 'components/shared/styled'
@@ -11,10 +11,10 @@ export const Home = () => (
       <Styled.Header>Online Library</Styled.Header>
       <Styled.Buttons>
          <Styled.Button onPress={() => navigate('Login')}>
-            <Text>Login</Text>
+            <Text>{t('buttons.login')}</Text>
          </Styled.Button>
          <Styled.Button onPress={() => navigate('Registration')} noMargin>
-            <Text>Register</Text>
+            <Text>{t('buttons.register')}</Text>
          </Styled.Button>
       </Styled.Buttons>
    </HomeContainer>

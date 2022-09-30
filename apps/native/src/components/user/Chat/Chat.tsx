@@ -2,7 +2,7 @@ import React from 'react'
 import Spinner from 'react-native-spinkit'
 import styled from 'styled-components/native'
 
-import { useChatDetails } from '@online-library/core'
+import { t, useChatDetails } from '@online-library/core'
 
 import { useChat } from '@online-library/logic'
 
@@ -41,7 +41,7 @@ export const Chat = () => {
          <ChatContainer>
             {!loading && !!lastUnreadMessageIndex && messages.length < lastUnreadMessageIndex && (
                <Styled.MessagesInfo onPress={getUnreadMessages}>
-                  <Styled.MessagesInfoText>Unread messages</Styled.MessagesInfoText>
+                  <Styled.MessagesInfoText>{t('common.unreadBadge')}</Styled.MessagesInfoText>
                </Styled.MessagesInfo>
             )}
             {!loading &&
@@ -57,13 +57,13 @@ export const Chat = () => {
                      onContentSizeChange={handleOnContentSizeChange}
                   />
                ) : (
-                  <Warning>There are no messages</Warning>
+                  <Warning>{t('common.noMessages')}</Warning>
                ))}
          </ChatContainer>
          <Styled.TextareaContainer>
             <Styled.Textarea
                value={message}
-               placeholder="Type your message..."
+               placeholder={t('inputs.message.placeholder')}
                placeholderTextColor="white"
                onChangeText={setMessage}
                textAlignVertical="top"
@@ -73,7 +73,7 @@ export const Chat = () => {
                <Styled.ButtonContainer withMarginRight>
                   {!isUploadingFile ? (
                      <Styled.Button onPress={sendFile}>
-                        <Styled.ButtonText>Upload file</Styled.ButtonText>
+                        <Styled.ButtonText>{t('buttons.upload')}</Styled.ButtonText>
                      </Styled.Button>
                   ) : (
                      <Spinner color="white" type="Bounce" size={moderateScale(50)} />
@@ -81,7 +81,7 @@ export const Chat = () => {
                </Styled.ButtonContainer>
                <Styled.ButtonContainer>
                   <Styled.Button onPress={sendMessage}>
-                     <Styled.ButtonText>Send</Styled.ButtonText>
+                     <Styled.ButtonText>{t('buttons.send')}</Styled.ButtonText>
                   </Styled.Button>
                </Styled.ButtonContainer>
             </Styled.ButtonsContainer>

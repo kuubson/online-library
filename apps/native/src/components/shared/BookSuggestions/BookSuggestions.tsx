@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components/native'
 
 import type { BookSuggestionsProps } from '@online-library/core'
+import { t } from '@online-library/core'
 
 import { useBookSuggestions } from '@online-library/logic'
 
@@ -25,7 +26,6 @@ export const BookSuggestions = ({
       setPaidBooks,
       withProfile,
    })
-
    return (
       <BookSuggestionsContainer>
          <Styled.InputContainer>
@@ -47,14 +47,18 @@ export const BookSuggestions = ({
                />
             )}
             <Styled.SwitcherContainer onPress={switchFindBy}>
-               <Styled.Switcher>By {findByTitle ? 'author' : 'title'}</Styled.Switcher>
+               <Styled.Switcher>
+                  {findByTitle
+                     ? t('suggestionsInput.findByTitle')
+                     : t('suggestionsInput.findByAuthor')}
+               </Styled.Switcher>
             </Styled.SwitcherContainer>
          </Styled.InputContainer>
          <Styled.Suggestions>
             {!!error && <Styled.Suggestion>{error}</Styled.Suggestion>}
             {books.map(({ id, title, author, price }) => (
                <Styled.Suggestion key={id} onPress={() => handleSort(id, price)}>
-                  "{title}" written by {author}
+                  {`"${title}" ${t('suggestionsInput.writtenBy')} ${author}`}
                </Styled.Suggestion>
             ))}
          </Styled.Suggestions>

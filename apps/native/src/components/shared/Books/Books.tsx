@@ -2,6 +2,7 @@ import React from 'react'
 import styled, { css } from 'styled-components/native'
 
 import type { _BooksProps } from '@online-library/core'
+import { t } from '@online-library/core'
 
 import { moderateScale } from 'styles'
 
@@ -54,7 +55,7 @@ export const Books = ({
             )}
             {books.length >= 10 && hasMore && !withCart && (
                <Styled.LoadMoreButton onPress={loadMore}>
-                  <Text>Load more</Text>
+                  <Text>{t('buttons.loadMore')}</Text>
                </Styled.LoadMoreButton>
             )}
          </Styled.Content>

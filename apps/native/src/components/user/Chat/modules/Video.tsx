@@ -1,9 +1,11 @@
 import React, { useRef, useState } from 'react'
 import _Video from 'react-native-video'
 
-import { scalableDimension } from 'utils'
+import { t } from '@online-library/core'
 
 import * as StyledMessage from '../styled/Message'
+
+import { scalableDimension } from 'utils'
 
 export const Video = ({ source, onError }: any) => {
    const video = useRef<any>()
@@ -40,7 +42,9 @@ export const Video = ({ source, onError }: any) => {
                      isPaused && setShouldDisplayButton(false)
                   }}
                >
-                  <StyledMessage.ButtonText>{isPaused ? 'Play' : 'Pause'}</StyledMessage.ButtonText>
+                  <StyledMessage.ButtonText>
+                     {isPaused ? t('buttons.play') : t('buttons.pause')}
+                  </StyledMessage.ButtonText>
                </StyledMessage.Button>
             )}
          </StyledMessage.ButtonContainer>

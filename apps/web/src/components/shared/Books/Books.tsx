@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components/macro'
 
 import type { _BooksProps } from '@online-library/core'
+import { t } from '@online-library/core'
 
 import { fadeIn, queries } from 'styles'
 
@@ -64,7 +65,7 @@ export const Books = ({
             )}
             {books.length >= 10 && hasMore && !withCart && (
                <Button onClick={loadMore} notAbsolute withLoadMore>
-                  Load more
+                  {t('buttons.loadMore')}
                </Button>
             )}
          </Styled.Books>

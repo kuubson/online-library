@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import type { ReactDispatch } from '@online-library/core'
-import { useIsKeyboardOpened } from '@online-library/core'
+import { t, useIsKeyboardOpened } from '@online-library/core'
 
 import * as Styled from '../styled/StripePopup'
 import { ButtonsContainer, Content, ContentContainer } from 'components/shared/BookPopup/styled'
@@ -25,7 +25,7 @@ export const StripePopup = ({ price, setShouldStripePopupAppear }: StripePopupPr
       <PopupContainer>
          <ContentContainer withLessHeight isKeyboardOpened={isKeyboardOpened}>
             <Content withoutMargin>
-               <Header black>Enter details and submit payment</Header>
+               <Header black>{t('stripePopup.header')}</Header>
                <Styled.CardContainer>
                   <Styled.Card
                      onChange={event =>
@@ -36,10 +36,10 @@ export const StripePopup = ({ price, setShouldStripePopupAppear }: StripePopupPr
                {error && <Error>{error}</Error>}
                <ButtonsContainer>
                   <Button onClick={() => setShouldStripePopupAppear(false)} notAbsolute>
-                     Cancel
+                     {t('buttons.cancel')}
                   </Button>
                   <Button onClick={handlePaying} notAbsolute withoutFixedWidth>
-                     Submit ${price}
+                     {t('buttons.submit')} ${price}
                   </Button>
                </ButtonsContainer>
             </Content>

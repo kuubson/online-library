@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/native'
 
-import { useBookPopup } from '@online-library/core'
+import { t, useBookPopup } from '@online-library/core'
 
 import { Header, PopupButton, Text } from '../styled'
 import * as Styled from './styled'
@@ -34,16 +34,15 @@ export const BookPopup = () => {
                   {!withProfile && (
                      <>
                         <Header black>
-                           Confirm
-                           {price ? ' adding this book to the cart' : ' borrowing this book'}
+                           {price ? t('bookPopup.confirmBuying') : t('bookPopup.confirmBorrowing')}
                         </Header>
                         <PopupButton onPress={price ? () => addToCart(id) : borrowBook}>
-                           <Text>Confirm</Text>
+                           <Text>{t('buttons.confirm')}</Text>
                         </PopupButton>
                      </>
                   )}
                   <PopupButton onPress={resetBookPopup}>
-                     <Text>{withProfile ? 'Close' : 'Cancel'}</Text>
+                     <Text>{withProfile ? t('buttons.close') : t('buttons.cancel')}</Text>
                   </PopupButton>
                </Styled.Buttons>
             </Styled.Content>

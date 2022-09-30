@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 
-import { history } from '@online-library/core'
+import { history, t } from '@online-library/core'
 
 import { queries } from 'styles'
 
@@ -10,7 +10,7 @@ type HomeButtonProps = {
 
 export const HomeButton = ({ withReturnButton }: HomeButtonProps) => (
    <HomeButtonContainer onClick={() => (withReturnButton ? history.back() : history.push('/home'))}>
-      {withReturnButton ? 'Return' : 'Home page'}
+      {withReturnButton ? t('buttons.return') : t('buttons.homePage')}
    </HomeButtonContainer>
 )
 

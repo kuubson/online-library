@@ -5,6 +5,8 @@ import type { InferType } from 'yup'
 
 import { API } from '@online-library/config'
 
+import { t } from '@online-library/core'
+
 import { useCart } from '@online-library/logic'
 
 import { REACT_APP_STRIPE_PUBLISHABLE_KEY } from 'config'
@@ -33,6 +35,7 @@ export const Cart = () => {
    const [shouldStripePopupAppear, setShouldStripePopupAppear] = useState(false)
 
    return (
+      // TODO: set dynamic locale when i18 setup is done
       <Elements stripe={stripePromise} options={{ locale: 'en' }}>
          <UserContent>
             {shouldStripePopupAppear && (
@@ -40,8 +43,8 @@ export const Cart = () => {
             )}
             <Books
                books={books}
-               header="List of books"
-               error="The cart is empty"
+               header={t('cart.header')}
+               error={t('cart.empty')}
                withCart
                withMarginRight={areThereBooks}
                fullWidth={!areThereBooks}
@@ -50,20 +53,20 @@ export const Cart = () => {
             {areThereBooks && (
                <Styled.SummaryContainer>
                   <HeaderContainer withoutInput>
-                     <Header>Summary</Header>
+                     <Header>{t('common.summary')}</Header>
                   </HeaderContainer>
                   <Styled.Summary>
                      {books.map(({ id, title, price }) => (
                         <Styled.Book key={id}>
-                           {`Book "{${title}}" 1 x ${price?.toFixed(2)}`}
+                           {`${t('common.book')} "{${title}}" 1 x ${price?.toFixed(2)}`}
                         </Styled.Book>
                      ))}
                   </Styled.Summary>
                   <Submit onClick={() => setShouldStripePopupAppear(true)} withLessMarginTop>
-                     Pay ${price}
+                     {t('buttons.pay')} ${price}
                   </Submit>
                   <Styled.PayPalButton onClick={paypalCheckout}>
-                     Pay with PayPal
+                     {t('buttons.paypal')}
                   </Styled.PayPalButton>
                </Styled.SummaryContainer>
             )}

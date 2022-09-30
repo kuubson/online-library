@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 
-import { history } from '@online-library/core'
+import { history, t } from '@online-library/core'
 
 import * as Styled from './styled'
 
@@ -13,14 +13,18 @@ export const Home = () => {
          <Styled.HeaderContainer>
             <Styled.Header>Online Library</Styled.Header>
             <Styled.Buttons>
-               <Styled.Button onClick={() => history.push('/login')}>Login</Styled.Button>
-               <Styled.Button onClick={() => history.push('/registration')}>Register</Styled.Button>
+               <Styled.Button onClick={() => history.push('/login')}>
+                  {t('buttons.login')}
+               </Styled.Button>
+               <Styled.Button onClick={() => history.push('/registration')}>
+                  {t('buttons.register')}
+               </Styled.Button>
             </Styled.Buttons>
          </Styled.HeaderContainer>
          <Styled.AdvantagesContainer>
-            <Styled.Advantage>The largest resource of books in the internet</Styled.Advantage>
-            <Styled.Advantage>Top books from top authors for free</Styled.Advantage>
-            <Styled.Advantage>The lowest pricing for premium books</Styled.Advantage>
+            <Styled.Advantage>{t('home.advantage1')}</Styled.Advantage>
+            <Styled.Advantage>{t('home.advantage2')}</Styled.Advantage>
+            <Styled.Advantage>{t('home.advantage3')}</Styled.Advantage>
          </Styled.AdvantagesContainer>
       </HomeContainer>
    )

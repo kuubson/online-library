@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import styled from 'styled-components/macro'
 
-import { detectMobileDevice, useChatDetails } from '@online-library/core'
+import { detectMobileDevice, t, useChatDetails } from '@online-library/core'
 
 import { useChat } from '@online-library/logic'
 
@@ -38,7 +38,7 @@ export const Chat = () => {
    return (
       <ChatContainer>
          {!loading && lastUnreadMessageIndex && messages.length < lastUnreadMessageIndex && (
-            <Styled.Details onClick={getUnreadMessages}>Unread messages</Styled.Details>
+            <Styled.Details onClick={getUnreadMessages}>{t('common.unreadBadge')}</Styled.Details>
          )}
          {!loading && (
             <>
@@ -58,7 +58,7 @@ export const Chat = () => {
                   <Styled.Textarea
                      ref={textareaRef}
                      value={message}
-                     placeholder="Enter message..."
+                     placeholder={t('inputs.message.placeholder')}
                      disabled={isUploadingFile}
                      onChange={event => setMessage(event.target.value)}
                      onFocus={() => scrollToLastMessage(500)}
@@ -68,7 +68,7 @@ export const Chat = () => {
                      <ProgressLoader percentage={percentage} />
                   ) : (
                      <Button as="label" htmlFor="file" withChat>
-                        Upload file
+                        {t('buttons.upload')}
                      </Button>
                   )}
                   {showFileInput && <Styled.FileInput onChange={sendFile} />}
@@ -81,7 +81,7 @@ export const Chat = () => {
                      }}
                      withChat
                   >
-                     Send
+                     {t('buttons.send')}
                   </Button>
                </Styled.TextareaContainer>
             </>

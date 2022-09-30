@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components/macro'
 import { FALLBACK_IMAGE } from '@online-library/config'
 
 import type { Book as BookType } from '@online-library/core'
-import { useBookPopup, useCart } from '@online-library/core'
+import { bookPopupButtonText, t, useBookPopup, useCart } from '@online-library/core'
 
 import * as Styled from './styled'
 import { Button } from 'components/shared/styled'
@@ -43,7 +43,7 @@ export const Book = ({
          withProfile: false,
       })
 
-   const inCart = cart.includes(id)
+   const isInCart = cart.includes(id)
 
    return (
       <BookContainer withPopup={withPopup} withFlips={withFlips}>
@@ -65,23 +65,26 @@ export const Book = ({
          </Styled.Annotations>
          {withCart ? (
             <Button onClick={() => removeFromCart(id)} price={price}>
-               Remove
+               {t('buttons.remove')}
             </Button>
          ) : withProfile ? (
-            <Button onClick={handleBookPopup}>Open</Button>
+            <Button onClick={handleBookPopup}>{t('buttons.open')}</Button>
          ) : !withPopup ? (
             <Button
-               onClick={() => !inCart && handleBookPopup()}
+               onClick={() => !isInCart && handleBookPopup()}
                price={price}
-               withoutHover={inCart}
+               withoutHover={isInCart}
             >
-               {price ? (inCart ? 'In cart' : 'Buy') : 'Borrow'}
+               {bookPopupButtonText({
+                  price,
+                  isInCart,
+               })}
             </Button>
          ) : (
             withPopup &&
             price && (
                <Button price={price} withoutHover>
-                  Price
+                  {t('buttons.price')}
                </Button>
             )
          )}

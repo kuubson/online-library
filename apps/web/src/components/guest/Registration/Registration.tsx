@@ -16,42 +16,42 @@ export const Registration = () => {
             <Input
                {...{ control }}
                id="name"
-               label={t('guest.registration.inputs.name.label')}
+               label={t('inputs.name.label')}
                type="text"
-               placeholder={t('guest.registration.inputs.name.placeholder')}
+               placeholder={t('inputs.name.placeholder')}
                error={errors.name?.message}
             />
             <Input
                {...{ control }}
                id="email"
-               label={t('guest.registration.inputs.email.label')}
+               label={t('inputs.email.label')}
                type="text"
-               placeholder={t('guest.registration.inputs.email.placeholder')}
+               placeholder={t('inputs.email.placeholder')}
                error={errors.email?.message}
             />
             <Input
                {...{ control }}
                id="password"
-               label={t('guest.registration.inputs.password.label')}
+               label={t('inputs.password.label')}
                type="password"
-               placeholder={t('guest.registration.inputs.password.placeholder')}
+               placeholder={t('inputs.password.placeholder')}
                error={errors.password?.message}
             />
             <Input
                {...{ control }}
                id="repeatedPassword"
-               label={t('guest.registration.inputs.repeatedPassword.label')}
+               label={t('inputs.repeatedPassword.label')}
                type="password"
-               placeholder={t('guest.registration.inputs.repeatedPassword.placeholder')}
+               placeholder={t('inputs.repeatedPassword.placeholder')}
                error={errors.repeatedPassword?.message}
             />
-            <Submit>Register</Submit>
+            <Submit>{t('buttons.register')}</Submit>
             <Styled.Annotations>
                <Styled.Annotation onClick={() => history.push('/email-support')}>
-                  {t('guest.registration.annotation1')}
+                  {t('registration.annotation1')}
                </Styled.Annotation>
                <Styled.Annotation onClick={() => history.push('/login')}>
-                  {t('guest.registration.annotation2')}
+                  {t('registration.annotation2')}
                </Styled.Annotation>
             </Styled.Annotations>
          </Form>

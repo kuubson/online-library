@@ -1,4 +1,4 @@
-import { useBookPopup } from '@online-library/core'
+import { t, useBookPopup } from '@online-library/core'
 
 import { useStore } from '@online-library/logic'
 
@@ -27,13 +27,13 @@ export const Store = () => {
          {showBookPopup && <BookPopup />}
          {!loading &&
             (!areThereFreeBooks && !areTherePaidBooks ? (
-               <Books books={[]} error="There are no books in the library right now" />
+               <Books books={[]} error={t('store.noBooks')} />
             ) : (
                <>
                   <Books
                      books={freeBooks}
-                     header="Find here awesome books"
-                     error="There are no free books in the library right now"
+                     header={t('profile.books.free.header')}
+                     error={t('profile.books.free.error')}
                      hasMore={hasMoreFreeBooks}
                      loadMore={() => getMoreBooks(freeBooks.length, 0)}
                      {...((!areTherePaidBooks || shouldShowSearchBar) && {
@@ -42,8 +42,8 @@ export const Store = () => {
                   />
                   <Books
                      books={paidBooks}
-                     header="Choose some paid books"
-                     error="There are no paid books in the library right now"
+                     header={t('profile.books.paid.header')}
+                     error={t('profile.books.paid.error')}
                      hasMore={hasMorePaidBooks}
                      loadMore={() => getMoreBooks(0, paidBooks.length)}
                      {...(!areThereFreeBooks && { searchBar: <BookSuggestions {...books} /> })}

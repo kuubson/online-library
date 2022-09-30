@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { useBookPopup } from '@online-library/core'
+import { t, useBookPopup } from '@online-library/core'
 
 import * as Styled from '../styled/BookPreview'
 import { ButtonsContainer, Content, ContentContainer } from 'components/shared/BookPopup/styled'
@@ -56,14 +56,14 @@ export const BookPreview = () => {
                   {opened ? (
                      <>
                         <Button onClick={() => setCurrentPage(0)} notAbsolute withoutFixedWidth>
-                           First page
+                           {t('buttons.firstPage')}
                         </Button>
                         <Button
                            onClick={() => setCurrentPage(currentPage => currentPage - 1)}
                            notAbsolute
                            withoutFixedWidth
                         >
-                           Previous page
+                           {t('buttons.previousPage')}
                         </Button>
                         <Button
                            onClick={() => {
@@ -75,7 +75,7 @@ export const BookPreview = () => {
                            withoutFixedWidth
                            withMarginLeft
                         >
-                           Next page
+                           {t('buttons.nextPage')}
                         </Button>
                      </>
                   ) : (
@@ -85,10 +85,10 @@ export const BookPreview = () => {
                            notAbsolute
                            withoutFixedWidth
                         >
-                           Read it
+                           {t('buttons.read')}
                         </Button>
                         <Button onClick={resetBookPopup} notAbsolute withoutFixedWidth>
-                           Close
+                           {t('buttons.close')}
                         </Button>
                      </>
                   )}
