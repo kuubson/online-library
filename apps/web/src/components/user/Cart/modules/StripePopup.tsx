@@ -3,11 +3,11 @@ import { useState } from 'react'
 import type { ReactDispatch } from '@online-library/core'
 import { useIsKeyboardOpened } from '@online-library/core'
 
-import * as Styled from './styled'
+import * as Styled from '../styled/StripePopup'
 import { ButtonsContainer, Content, ContentContainer } from 'components/shared/BookPopup/styled'
 import { Button, Error, Header, PopupContainer } from 'components/shared/styled'
 
-import { useStripePopup } from './hooks'
+import { useStripePopup } from '../hooks'
 
 type StripePopupProps = {
    price: string | undefined

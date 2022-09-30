@@ -7,7 +7,7 @@ import type { MessageAdditionalProps, MessageType } from '@online-library/config
 
 import { useMessage } from '@online-library/logic'
 
-import * as Styled from './styled'
+import * as Styled from '../styled/Message'
 
 type MessageProps = MessageType & MessageAdditionalProps
 

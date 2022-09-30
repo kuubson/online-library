@@ -2,9 +2,7 @@ import styled, { css } from 'styled-components/macro'
 
 import type { _BooksProps } from '@online-library/core'
 
-import { queries } from 'styles'
-
-import { fadeIn } from 'assets/animations'
+import { fadeIn, queries } from 'styles'
 
 import * as Styled from './styled'
 import { Button, Header, HeaderContainer, Warning } from 'components/shared/styled'

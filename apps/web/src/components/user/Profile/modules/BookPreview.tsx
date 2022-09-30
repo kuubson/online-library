@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { useBookPopup } from '@online-library/core'
 
-import * as Styled from './styled'
+import * as Styled from '../styled/BookPreview'
 import { ButtonsContainer, Content, ContentContainer } from 'components/shared/BookPopup/styled'
 import { Button, PopupContainer } from 'components/shared/styled'
 

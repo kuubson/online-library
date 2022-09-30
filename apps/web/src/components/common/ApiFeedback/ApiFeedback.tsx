@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 
 import { useApiFeedback } from '@online-library/core'
 
-import { fadeIn } from 'assets/animations'
+import { fadeIn } from 'styles'
 
 import * as Styled from './styled'
 import { FixedContainer } from 'components/shared/styled'
