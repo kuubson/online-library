@@ -111,7 +111,10 @@ export const Message = forwardRef<HTMLDivElement, MessageProps>(
                )
             ) : type === 'VIDEO' ? (
                !videoError ? (
-                  <Video source={{ uri: content }} onError={handleFileLoadingError} />
+                  <StyledMessage.Container>
+                     <Video source={{ uri: content }} onError={handleFileLoadingError} />
+                     {withLastUserMessage && showAvatar()}
+                  </StyledMessage.Container>
                ) : (
                   showError(t('common.failedVideoLoading'))
                )

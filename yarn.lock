@@ -15418,7 +15418,7 @@ svgo@^2.7.0:
     picocolors "^1.0.0"
     stable "^0.1.8"
 
-swagger-autogen@2.22.0:
+swagger-autogen@^2.22.0:
   version "2.22.0"
   resolved "https://registry.yarnpkg.com/swagger-autogen/-/swagger-autogen-2.22.0.tgz#61b62b64e693c1a2310a86d4e2529bd8f490f61b"
   integrity sha512-MPdtwgx/RL3og0RjFVV9hPoQv3x+c3ZRhS0Vjp9k94DLV7iUgIuCg8H+uAT8oD5w48ATTRT1VjcOHlCGH62pdA==

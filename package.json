@@ -7,15 +7,15 @@
       "lint": "turbo run lint",
       "test": "turbo run test",
       "build": "turbo run build",
+      "postbuild": "yarn lib",
       "lib": "turbo run lib:build",
-      "docs": "turbo run docs --filter=./apps/server",
       "android": "yarn workspace @online-library/native android",
       "metro": "yarn workspace @online-library/native metro",
       "server": "yarn workspace @online-library/server dev",
+      "docs": "turbo run docs --filter=./apps/server",
       "codegen": "graphql-codegen",
-      "prepare": "husky install",
-      "postbuild": "yarn docs",
-      "postinstall": "yarn lib"
+      "postinstall": "yarn lib",
+      "prepare": "husky install"
    },
    "workspaces": [
       "@online-library/*",

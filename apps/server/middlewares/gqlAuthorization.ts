@@ -4,8 +4,6 @@ import type { PassportStatic } from 'passport'
 
 import { AuthError, isProd } from '@online-library/config'
 
-import { CODEGEN } from 'config'
-
 import type { CustomRequest } from 'types/express'
 
 export const gqlAuthorization =
@@ -14,9 +12,7 @@ export const gqlAuthorization =
          'jwt',
          { session: false },
          (error, { user, role }: CustomRequest['user']) => {
-            const shouldThrowError = !CODEGEN || isProd
-
-            if (shouldThrowError) {
+            if (isProd) {
                if (error || !user) {
                   next(AuthError)
                }

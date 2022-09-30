@@ -7,7 +7,8 @@
       "ios": "react-native run-ios",
       "metro": "react-native start",
       "lint": "eslint . && tsc --noEmit && stylelint src/**/*.{ts,tsx}",
-      "test": "jest"
+      "test": "jest",
+      "test:watch": "jest --watchAll"
    },
    "dependencies": {
       "@apollo/client": "3.6.9",
