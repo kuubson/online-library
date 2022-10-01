@@ -27,7 +27,7 @@ export const getBooks: ProtectedRoute<Body<typeof schema>> = [
          const query = { where: { [searchByKey]: { [Op.iLike]: `%${searchByValue}%` } } }
 
          if (searchByValue) {
-            if (withProfile) {
+            if (withProfile === 'true') {
                books = await req.user.getBooks(query)
             } else {
                books = await Book.findAll(query)

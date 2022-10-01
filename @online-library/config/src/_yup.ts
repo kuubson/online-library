@@ -94,7 +94,7 @@ declare module 'yup' {
       repeatedPassword(key?: string): RequiredStringSchema<TType, TContext>
       noSpecialChars(): RequiredStringSchema<TType, TContext>
       plain(): RequiredStringSchema<TType, TContext>
-      booleanAsString(): RequiredStringSchema<TType, TContext>
+      booleanAsString(): RequiredStringSchema<'true' | 'false', TContext>
    }
    interface ArraySchema<
       T extends AnySchema | Lazy<any, any>,
