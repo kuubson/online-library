@@ -5,7 +5,7 @@
 
 ## 🔧 Technologies
 
-> **Note** Tech stack is in sync with the web app, since all the logic and configuration is shared within custom packages `@online-library/config`, `@online-library/core`, `@online-library/logic`
+> **Note** Tech stack is in sync with the web app, since all the configuration and logic is shared within [custom packages](https://github.com/kuubson/online-library#-custom-packages)
 
 -  **react navigation**
 -  **styled components** (no integration with **react-native-web** since native targets different UX than web)
@@ -69,7 +69,7 @@ Covers all the [features](https://github.com/kuubson/online-library#-some-notes)
 
 ### 🤖 Android
 
-1. Fill `~/.gradle/gradle.properties` or `android/gradle.properties` with the following vars ([info](https://reactnative.dev/docs/signed-apk-android))
+1. Fill `~/.gradle/gradle.properties` or `android/gradle.properties` with the following envs ([more info](https://reactnative.dev/docs/signed-apk-android))
 
 > **Note** `ORG_GRADLE_PROJECT_` prefix is required for CircleCI
 
