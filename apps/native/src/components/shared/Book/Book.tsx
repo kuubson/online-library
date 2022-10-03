@@ -5,7 +5,7 @@ import styled from 'styled-components/native'
 import { FALLBACK_IMAGE } from '@online-library/config'
 
 import type { Book as BookType } from '@online-library/core'
-import { useBookPopup, useCart } from '@online-library/core'
+import { bookPopupButtonText, t, useBookPopup, useCart } from '@online-library/core'
 
 import { moderateScale } from 'styles'
 
@@ -64,7 +64,9 @@ export const Book = ({
          {withCart ? (
             <Styled.ButtonContainer>
                <PopupButton onPress={() => removeFromCart(id)}>
-                  <Text>Remove (${price})</Text>
+                  <Text>
+                     {t('buttons.remove')} (${price})
+                  </Text>
                </PopupButton>
             </Styled.ButtonContainer>
          ) : withProfile ? (
@@ -81,7 +83,7 @@ export const Book = ({
                      })
                   }
                >
-                  <Text>Open</Text>
+                  <Text>{t('buttons.open')}</Text>
                </PopupButton>
             </Styled.ButtonContainer>
          ) : !withPopup ? (
@@ -100,7 +102,12 @@ export const Book = ({
                      })
                   }
                >
-                  <Text>{price ? (isInCart ? 'In cart' : 'Buy') : 'Borrow'}</Text>
+                  <Text>
+                     {bookPopupButtonText({
+                        price,
+                        isInCart,
+                     })}
+                  </Text>
                </PopupButton>
             </Styled.ButtonContainer>
          ) : (
@@ -108,7 +115,9 @@ export const Book = ({
             price && (
                <Styled.ButtonContainer>
                   <PopupButton>
-                     <Text>Price: ${price}</Text>
+                     <Text>
+                        {t('buttons.price')}: ${price}
+                     </Text>
                   </PopupButton>
                </Styled.ButtonContainer>
             )

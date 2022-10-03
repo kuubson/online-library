@@ -14,44 +14,44 @@ export const Registration = () => {
          <Input
             {...{ control }}
             id="name"
-            label={t('guest.registration.inputs.name.label')}
+            label={t('inputs.name.label')}
             type="text"
-            placeholder={t('guest.registration.inputs.name.placeholder')}
+            placeholder={t('inputs.name.placeholder')}
             error={errors.name?.message}
          />
          <Input
             {...{ control }}
             id="email"
-            label={t('guest.registration.inputs.email.label')}
+            label={t('inputs.email.label')}
             type="text"
-            placeholder={t('guest.registration.inputs.email.placeholder')}
+            placeholder={t('inputs.email.placeholder')}
             error={errors.email?.message}
          />
          <Input
             {...{ control }}
             id="password"
-            label={t('guest.registration.inputs.password.label')}
+            label={t('inputs.password.label')}
             type="password"
-            placeholder={t('guest.registration.inputs.password.placeholder')}
+            placeholder={t('inputs.password.placeholder')}
             error={errors.password?.message}
             secureTextEntry
          />
          <Input
             {...{ control }}
             id="repeatedPassword"
-            label={t('guest.registration.inputs.repeatedPassword.label')}
+            label={t('inputs.repeatedPassword.label')}
             type="password"
-            placeholder={t('guest.registration.inputs.repeatedPassword.placeholder')}
+            placeholder={t('inputs.repeatedPassword.placeholder')}
             error={errors.repeatedPassword?.message}
             secureTextEntry
          />
          <Submit onPress={register}>
-            <Text>Register</Text>
+            <Text>{t('buttons.register')}</Text>
          </Submit>
          <Styled.Annotations>
             <Styled.AnnotationContainer>
                <Styled.Annotation onPress={() => navigate('EmailSupport')}>
-                  {t('guest.registration.annotation1')}
+                  {t('registration.annotation1')}
                </Styled.Annotation>
             </Styled.AnnotationContainer>
          </Styled.Annotations>

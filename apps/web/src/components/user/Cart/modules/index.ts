@@ -1,1 +1,1 @@
-export { StripePopup } from './StripePopup/StripePopup'
+export { StripePopup } from './StripePopup'

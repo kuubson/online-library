@@ -24,7 +24,6 @@ type Env = {
 
    STRIPE_SECRET_KEY: string
 
-   CODEGEN: 'true' | undefined
    SEQUELIZE_AUTO: 'true' | undefined
    SEED_BOOKS: 'true' | undefined
    SEED_USER: 'true' | undefined
@@ -52,7 +51,6 @@ export const {
    REACT_APP_FACEBOOK_APP_ID,
    FACEBOOK_APP_SECRET,
    STRIPE_SECRET_KEY,
-   CODEGEN,
    SEQUELIZE_AUTO,
    SEED_BOOKS,
    SEED_USER,

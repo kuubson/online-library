@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 
-import { fadeIn } from 'assets/animations'
+import { fadeIn } from 'styles'
 
 export const PopupContainer = styled.div`
    width: 100%;

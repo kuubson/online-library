@@ -19,30 +19,30 @@ export const Login = () => {
          <Input
             {...{ control }}
             id="email"
-            label={t('guest.login.inputs.email.label')}
+            label={t('inputs.email.label')}
             type="text"
-            placeholder={t('guest.login.inputs.email.placeholder')}
+            placeholder={t('inputs.email.placeholder')}
             error={errors.email?.message}
          />
          <Input
             {...{ control }}
             id="password"
-            label={t('guest.login.inputs.password.label')}
+            label={t('inputs.password.label')}
             type="password"
-            placeholder={t('guest.login.inputs.password.placeholder')}
+            placeholder={t('inputs.password.placeholder')}
             error={errors.password?.message}
             secureTextEntry
          />
          <Submit onPress={loginWithCredentials}>
-            <Text>{t('guest.login.buttons.login')}</Text>
+            <Text>{t('buttons.login')}</Text>
          </Submit>
          <Submit onPress={loginWithFb} withFacebook>
-            <Text>{t('guest.login.buttons.fbLogin')}</Text>
+            <Text>{t('buttons.fbLogin')}</Text>
          </Submit>
          <Annotations>
             <AnnotationContainer>
                <Annotation onPress={() => navigate('PasswordSupport')} noMargin>
-                  {t('guest.login.annotation2')}
+                  {t('login.annotation2')}
                </Annotation>
             </AnnotationContainer>
          </Annotations>

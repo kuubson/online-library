@@ -1,3 +1,5 @@
+import { t } from '@online-library/core'
+
 import { Form, Submit } from 'components/shared/styled'
 
 import { HomeButton, Input } from 'components/shared'
@@ -13,20 +15,20 @@ export const PasswordReset = () => {
             <Input
                {...{ control }}
                id="password"
-               label="Password"
+               label={t('inputs.password.label')}
                type="password"
-               placeholder="Enter password..."
+               placeholder={t('inputs.password.placeholder')}
                error={errors.password?.message}
             />
             <Input
                {...{ control }}
                id="repeatedPassword"
-               label="Repeat Password"
+               label={t('inputs.repeatedPassword.label')}
                type="password"
-               placeholder="Enter password again..."
+               placeholder={t('inputs.repeatedPassword.placeholder')}
                error={errors.repeatedPassword?.message}
             />
-            <Submit>Change password</Submit>
+            <Submit>{t('buttons.changePassword')}</Submit>
          </Form>
       </>
    )

@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro'
 
 import type { BookSuggestionsProps } from '@online-library/core'
+import { t } from '@online-library/core'
 
 import { useBookSuggestions } from '@online-library/logic'
 
@@ -31,7 +32,7 @@ export const BookSuggestions = ({
                {...{ control }}
                id="title"
                type="text"
-               placeholder="Type book's title..."
+               placeholder={t('inputs.title.placeholder')}
                withBooksSuggestions
             />
          ) : (
@@ -39,18 +40,18 @@ export const BookSuggestions = ({
                {...{ control }}
                id="author"
                type="text"
-               placeholder="Type author's name..."
+               placeholder={t('inputs.author.placeholder')}
                withBooksSuggestions
             />
          )}
          <Styled.Switcher onClick={switchFindBy}>
-            By {findByTitle ? 'author' : 'title'}
+            {findByTitle ? t('suggestionsInput.findByTitle') : t('suggestionsInput.findByAuthor')}
          </Styled.Switcher>
          <Styled.SuggestionsContainer>
             {error && <Styled.Suggestion>{error}</Styled.Suggestion>}
             {books.map(({ id, title, author, price }) => (
                <Styled.Suggestion key={id} onClick={() => handleSort(id, price)}>
-                  {`"${title}" written by ${author}`}
+                  {`"${title}" ${t('suggestionsInput.writtenBy')} ${author}`}
                </Styled.Suggestion>
             ))}
          </Styled.SuggestionsContainer>

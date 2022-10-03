@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components/macro'
 
-import { fadeOut } from 'assets/animations'
+import { fadeOut } from 'styles'
 
 type StyledProps = {
    $loading?: boolean

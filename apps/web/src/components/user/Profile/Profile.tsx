@@ -1,4 +1,4 @@
-import { useBookPopup } from '@online-library/core'
+import { t, useBookPopup } from '@online-library/core'
 
 import { useProfile } from '@online-library/logic'
 
@@ -26,13 +26,13 @@ export const Profile = () => {
          {showBookPopup && <BookPreview />}
          {!loading &&
             (!areThereBoughtBooks && !areThereBorrowedBooks ? (
-               <Books books={[]} error="Go to store to get free books or buy some" />
+               <Books books={[]} error={t('profile.noBooks')} />
             ) : (
                <>
                   <Books
                      books={boughtBooks}
-                     header="Premium books"
-                     error="No premium books"
+                     header={t('profile.books.paid.header')}
+                     error={t('profile.books.paid.error')}
                      withProfile
                      {...((!areThereBorrowedBooks || shouldShowSearchBar) && {
                         searchBar: <BookSuggestions {...books} />,
@@ -40,8 +40,8 @@ export const Profile = () => {
                   />
                   <Books
                      books={borrowedBooks}
-                     header="Enjoy borrowed books"
-                     error="No borrowed books"
+                     header={t('profile.books.free.header')}
+                     error={t('profile.books.free.error')}
                      withProfile
                      {...(!areThereBoughtBooks && { searchBar: <BookSuggestions {...books} /> })}
                   />

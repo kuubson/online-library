@@ -1,4 +1,4 @@
-import { useBookPopup } from '@online-library/core'
+import { t, useBookPopup } from '@online-library/core'
 
 import * as Styled from './styled'
 import { Button, Header, PopupContainer } from 'components/shared/styled'
@@ -13,15 +13,14 @@ export const BookPopup = () => {
             <Book id={id} title={title} author={author} cover={cover} price={price} withPopup />
             <Styled.Content>
                <Header black>
-                  Confirm
-                  {price ? ' adding this book to the cart' : ' borrowing this book'}
+                  {price ? t('bookPopup.confirmBuying') : t('bookPopup.confirmBorrowing')}
                </Header>
                <Styled.ButtonsContainer>
                   <Button onClick={price ? () => addToCart(id) : borrowBook} notAbsolute>
-                     Confirm
+                     {t('buttons.confirm')}
                   </Button>
                   <Button onClick={resetBookPopup} notAbsolute>
-                     Cancel
+                     {t('buttons.cancel')}
                   </Button>
                </Styled.ButtonsContainer>
             </Styled.Content>

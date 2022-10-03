@@ -12,9 +12,9 @@ it('should render proper buttons', () => {
 
    const [loginButton, registrationButton] = home.getAllByRole('button')
 
-   expect(loginButton).toHaveTextContent('Login')
+   expect(loginButton).toHaveTextContent(t('buttons.login'))
 
-   expect(registrationButton).toHaveTextContent('Register')
+   expect(registrationButton).toHaveTextContent(t('buttons.register'))
 })
 
 it('can navigate to login form', async () => {
@@ -22,14 +22,14 @@ it('can navigate to login form', async () => {
 
    const user = userEvent.setup()
 
-   const loginButton = home.getByRole('button', { name: 'Login' })
+   const loginButton = home.getByRole('button', { name: t('buttons.login') })
 
    await user.click(loginButton)
 
    expect(screen.getByTestId('location')).toHaveTextContent('login')
 
-   const annotation1 = screen.getByText(t('guest.login.annotation1'))
-   const annotation2 = screen.getByText(t('guest.login.annotation2'))
+   const annotation1 = screen.getByText(t('login.annotation1'))
+   const annotation2 = screen.getByText(t('login.annotation2'))
 
    expect(annotation1).toBeInTheDocument()
    expect(annotation2).toBeInTheDocument()

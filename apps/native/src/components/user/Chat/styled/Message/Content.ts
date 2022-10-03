@@ -6,6 +6,7 @@ import { Text } from 'components/shared/styled'
 
 export const Content = styled(Text)`
    max-width: 80%;
+   text-align: justify;
    ${({ withLetterSpacing }) =>
       withLetterSpacing
          ? css`

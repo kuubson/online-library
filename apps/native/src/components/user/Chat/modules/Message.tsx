@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import { forwardRef } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import RNFetchBlob from 'rn-fetch-blob'
@@ -5,11 +6,14 @@ import styled, { css } from 'styled-components/native'
 
 import type { MessageAdditionalProps, MessageType } from '@online-library/config'
 
+import { t } from '@online-library/core'
+
 import { useMessage } from '@online-library/logic'
 
 import { moderateScale } from 'styles'
 
 import * as StyledMessage from '../styled/Message'
+
 import { Video } from './Video'
 
 type MessageProps = MessageType & MessageAdditionalProps
@@ -103,13 +107,16 @@ export const Message = forwardRef<HTMLDivElement, MessageProps>(
                      {withLastUserMessage && showAvatar()}
                   </StyledMessage.Container>
                ) : (
-                  showError('Image failed to load')
+                  showError(t('common.failedImageLoading'))
                )
             ) : type === 'VIDEO' ? (
                !videoError ? (
-                  <Video source={{ uri: content }} onError={handleFileLoadingError} />
+                  <StyledMessage.Container>
+                     <Video source={{ uri: content }} onError={handleFileLoadingError} />
+                     {withLastUserMessage && showAvatar()}
+                  </StyledMessage.Container>
                ) : (
-                  showError('Video failed to load')
+                  showError(t('common.failedVideoLoading'))
                )
             ) : (
                <StyledMessage.ContentContainer
