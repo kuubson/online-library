@@ -131,6 +131,10 @@ def reactNativeArchitectures() {
     return value ? value.split(",") : ["armeabi-v7a", "x86", "x86_64", "arm64-v8a"]
 }
 
+def keyStorePropertiesFile = rootProject.file("keystore.properties")
+def keyStoreProperties = new Properties()
+keyStoreProperties.load(new FileInputStream(keyStorePropertiesFile))
+
 android {
     ndkVersion rootProject.ext.ndkVersion
 
@@ -220,12 +224,10 @@ android {
             keyPassword 'android'
         }
         release {
-            if (project.hasProperty('ORG_GRADLE_PROJECT_MYAPP_UPLOAD_STORE_FILE')) {
-                storeFile file(ORG_GRADLE_PROJECT_MYAPP_UPLOAD_STORE_FILE)
-                storePassword ORG_GRADLE_PROJECT_MYAPP_UPLOAD_STORE_PASSWORD
-                keyAlias ORG_GRADLE_PROJECT_MYAPP_UPLOAD_KEY_ALIAS
-                keyPassword ORG_GRADLE_PROJECT_MYAPP_UPLOAD_KEY_PASSWORD
-            }
+            keyAlias keyStoreProperties['releaseKeyAlias']
+            keyPassword keyStoreProperties['releaseKeyPassword']
+            storeFile file(keyStoreProperties['releaseKeyStore'])
+            storePassword keyStoreProperties['releaseStorePassword']
         }
     }
     buildTypes {

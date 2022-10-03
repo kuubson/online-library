@@ -10,8 +10,8 @@
       "test": "jest",
       "test:watch": "jest --watchAll",
       "assets": "react-native bundle --platform android --dev false --entry-file apps/native/index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
-      "apk": "./gradlew bundleRelease -x bundleReleaseJsAndAssets",
-      "aab": "./gradlew assembleRelease -x bundleReleaseJsAndAssets"
+      "apk": "cd android && ./gradlew assembleRelease -x bundleReleaseJsAndAssets",
+      "aab": "cd android && ./gradlew bundleRelease -x bundleReleaseJsAndAssets"
    },
    "dependencies": {
       "@apollo/client": "3.6.9",

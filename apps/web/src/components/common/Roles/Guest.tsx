@@ -18,7 +18,7 @@ export const Guest = ({ children }: ReactChildren) => {
 const GuestContent = styled.section`
    width: 100%;
    min-height: 100%;
-   padding: 96px 0px 35px 0px;
+   padding: 76px 0px 0px 0px;
    display: flex;
    align-items: center;
 `

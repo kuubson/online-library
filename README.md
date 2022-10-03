@@ -1,7 +1,7 @@
 # 💻 js fullstack app (monorepo)
 
-| [Stack](#-stack) | [Packages](#-custom-packages) | [Notes](#-some-notes) | [Docs](#-documentation) | [Flow](#-flow) | [Preview](#-app-preview) | [Automation](#-automation) | [Tools](#-side-tools) | [Goals](#-future-goals) | [Scripts](#-root-scripts) | [Env](#-environment-variables) | [Tips](#-tips) | [Native]() |
-| ---------------- | ----------------------------- | --------------------- | ----------------------- | -------------- | ------------------------ | -------------------------- | --------------------- | ----------------------- | ------------------------- | ------------------------------ | -------------- | ---------- |
+| [Stack](#-stack) | [Packages](#-custom-packages) | [Notes](#-some-notes) | [Docs](#-documentation) | [Flow](#-flow) | [Preview](#-app-preview) | [Tools](#-tools) | [Goals](#-future-goals) | [Scripts](#-root-scripts) | [Env](#-environment-variables) | [Tips](#-tips) | [Native](https://github.com/kuubson/online-library/tree/master/apps/native#-native-app) |
+| ---------------- | ----------------------------- | --------------------- | ----------------------- | -------------- | ------------------------ | ---------------- | ----------------------- | ------------------------- | ------------------------------ | -------------- | --------------------------------------------------------------------------------------- |
 
 ## 🔧 Stack
 
@@ -19,7 +19,7 @@
 -  **swagger** + **jsonschema** for **API docs**
 -  **paypal** & **stripe** integration for 💲 payments
 -  monorepo (**yarn** + **turborepo**) for better developer experience (workspaces, tasks pipeline, incremental builds)
--  custom local [packages](#📦-custom-packages)
+-  custom local [packages](#-custom-packages)
 -  eslint, prettier 🧹, stylelint, husky
 
 > **Note** See [technologies](https://github.com/kuubson/online-library/tree/circleci/apps/native#-technologies) for the native app
@@ -43,7 +43,7 @@ Acts as a **fake store** with possibility to chat 💬 with other users:
 -  **push notifications** to stay up to date with what other writes
 -  possibility to send **images / videos / files**
 -  **searchbar** for books
--  **preview** of books inside profile tab
+-  **preview** of books inside the profile tab
 -  targets both web and native app users
 -  **UX**: infinite loaders (store, chat), proper error handling, push notifications, fully responsive, jump to the last unread message (chat)
 
@@ -110,7 +110,9 @@ api-->web
 
 > **Note** Preview the [native app](https://github.com/kuubson/online-library/tree/circleci/apps/native#-app-preview)
 
-## 🤖 Automation
+## 🆒 Tools
+
+### 🤖 Automation
 
 -  every push to the master branch triggers autodeployment on [Heroku](https://dashboard.heroku.com/apps/online-library-application)
 -  [@trivago/prettier-plugin-sort-imports](https://www.npmjs.com/package/@trivago/prettier-plugin-sort-imports) for keeping consistent order of imports (custom flow)
@@ -118,7 +120,7 @@ api-->web
 -  [@graphql-tools/merge](https://www.graphql-tools.com/docs/schema-merging) for auto merging resolvers & type defs into schema (**custom wrapper** to detect duplicated resolvers)
 -  [swagger-autogen](https://github.com/davibaltar/swagger-autogen) for autogenerating **API docs** (allow skipping **YAML** hell 😈)
 
-## 🆒 Side tools
+### 🔩 Side tools
 
 -  [Budibase](https://budibase.com/) (low code platform) for creating simple panels that help navigating through the database (perfect choice for admin panels)
 -  [Mermaid](https://mermaid-js.github.io/mermaid/#/) for diagrams

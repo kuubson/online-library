@@ -1,5 +1,5 @@
 export { Advantage } from './Advantage'
-export { AdvantagesContainer } from './AdvantagesContainer'
+export { Advantages } from './Advantages'
 export { Button } from './Button'
 export { Buttons } from './Buttons'
 export { Header } from './Header'

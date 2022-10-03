@@ -1,7 +1,7 @@
 # 📱 native app
 
-| [Stack](#-technologies) | [Notes](#-some-notes) | [Preview](#-app-preview) | [Goals](#-future-goals) | [Scripts](#-scripts) | [Env](#-environment-variables) | [Builds](#-building-process) | [Distribution](#-distribution) | [Tips](#-tips) | [Web]() |
-| ----------------------- | --------------------- | ------------------------ | ----------------------- | -------------------- | ------------------------------ | ---------------------------- | ------------------------------ | -------------- | ------- |
+| [Stack](#-technologies) | [Notes](#-some-notes) | [Preview](#-app-preview) | [Goals](#-future-goals) | [Scripts](#-scripts) | [Env](#-environment-variables) | [Builds](#-building-process) | [Distribution](#-distribution) | [Tips](#-tips) | [Web](https://github.com/kuubson/online-library#-sample-js-fullstack-app-monorepo) |
+| ----------------------- | --------------------- | ------------------------ | ----------------------- | -------------------- | ------------------------------ | ---------------------------- | ------------------------------ | -------------- | ---------------------------------------------------------------------------------- |
 
 ## 🔧 Technologies
 
@@ -54,10 +54,10 @@ Covers all the [features](https://github.com/kuubson/online-library#-some-notes)
 | `yarn test`       | runs `jest` only once                             |
 | `yarn test:watch` | runs `jest` (watchmode)                           |
 | `yarn assets`     | generates all needed assets for the release build |
-| `yarn apk`        | build android app (release apk file)              |
-| `yarn aab`        | build android app (release aab file)              |
+| `yarn apk`        | builds android app (release apk file)             |
+| `yarn aab`        | builds android app (release aab file)             |
 
-> **Warning** Integration with `react-native-monorepo-tools` didn't work well (metro throwed errors [see the note]()) so paths to node_modules, inside the native files, are prefixed with `../../` to match the root + `metro.config.js` has additional property `projectRoot`
+> **Warning** Integration with `react-native-monorepo-tools` didn't work well (metro was throwing error[^metro-error]) so paths to node_modules, inside the native files, are prefixed with `../../` to match the root + `metro.config.js` has additional property `projectRoot`
 
 ## 🔒 Environment variables
 
@@ -91,7 +91,7 @@ ORG_GRADLE_PROJECT_MYAPP_UPLOAD_KEY_PASSWORD=
 1. Generate key
    `openssl enc -aes-256-cbc -k <SECRET HERE> -P -md sha1`
 2. Encrypt:
-   `openssl aes-256-cbc -e -in onlinelibrary.keystore -out onlinelibrary.keystore.encrypted -k <KEY HERE>`
+   `openssl aes-256-cbc -e -in onlinelibrary.keystore -out onlinelibrary.keystore.encrypted -k <KEY HERE> -md md5` // TODO: "Don’t use md5. It's insecure and broken"
 3. Decrypt
    `openssl aes-256-cbc -d -in onlinelibrary.keystore.encrypted -k <KEY HERE> -md md5 >> onlinelibrary.keystore`
 
@@ -119,3 +119,5 @@ metro-file-map: Haste module naming collision: @online-library/server
 }
 error Duplicated files or mocks. Please check the console for more info.
 ```
+
+[^metro-error]: Invariant Violation: Failed to call into JavaScript module method AppRegistry.runApplication() - it was caused by importing [custom packages](https://github.com/kuubson/online-library#-custom-packages)

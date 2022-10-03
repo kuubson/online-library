@@ -6,4 +6,5 @@ export const HeaderContainer = styled.div`
    justify-content: space-around;
    align-items: center;
    flex-direction: column;
+   flex: 1;
 `
