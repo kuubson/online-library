@@ -1,0 +1,80 @@
+version: 2.1
+
+orbs:
+   gh: circleci/github-cli@1.0
+   android: circleci/android@2.1.2
+   node: circleci/node@5.0.3
+
+jobs:
+   build:
+      docker:
+         - image: cimg/android:2022.09
+      #     - image: cimg/node:16.17.1
+      parameters:
+         token:
+            default: GITHUB_TOKEN
+            type: env_var_name
+      steps:
+         - checkout
+         - run: git submodule sync
+         - run: git submodule update --init
+         - gh/setup
+         - node/install:
+              install-yarn: true
+              node-version: '16.17.0'
+         - restore_cache:
+              name: Restore cache
+              keys:
+                 - yarn-packages-{{ checksum "yarn.lock" }}
+         - run:
+              name: Install dependencies
+              command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+         - save_cache:
+              name: Save cache
+              key: yarn-packages-{{ checksum "yarn.lock" }}
+              paths:
+                 - ~/.cache/yarn
+         - run:
+              name: Generate cache key
+              command: |
+                 find . -name 'build.gradle' | sort | xargs cat |
+                 shasum | awk '{print $1}' > /tmp/gradle_cache_seed
+         - restore_cache:
+              key: gradle-v1-{{ arch }}-{{ checksum "/tmp/gradle_cache_seed" }}
+         - run:
+              name: Run tests
+              command: yarn test
+         - run:
+              name: 'Decode release keystore'
+              command: cd apps/native/android/app && echo $RELEASE_KEYSTORE_BASE64 | base64 -d | tee release.keystore > /dev/null
+         - run:
+              name: Create keystore.properties
+              command: |
+                 cd apps/native/android && printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' \
+                 $RELEASE_KEY_ALIAS $RELEASE_KEY_PASSWORD $RELEASE_KEYSTORE $RELEASE_STORE_PASSWORD > keystore.properties
+         - run:
+              name: Update permissions for gradlew
+              command: cd apps/native/android && chmod +x ./gradlew
+         - run:
+              name: Generate assets
+              command: cd apps/native && yarn assets
+         - run:
+              name: Generate APK
+              command: cd apps/native && yarn apk
+         - run:
+              name: Create release
+              command: cd online-library-releases && gh release create v1.0.0 ../apps/native/android/app/build/outputs/apk/release/app-release.apk
+         - save_cache:
+              key: gradle-v1-{{ arch }}-{{ checksum "/tmp/gradle_cache_seed" }}
+              paths:
+                 - ~/.gradle/caches
+                 - ~/.gradle/wrapper
+
+workflows:
+   build:
+      jobs:
+         - build:
+              filters:
+                 branches:
+                    only:
+                       - main

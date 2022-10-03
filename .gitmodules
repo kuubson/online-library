@@ -1,0 +1,3 @@
+[submodule "online-library-releases"]
+	path = online-library-releases
+	url = https://github.com/kuubson/online-library-releases

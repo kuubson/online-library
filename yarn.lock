@@ -7835,11 +7835,6 @@ find-cache-dir@^3.3.1:
     make-dir "^3.0.2"
     pkg-dir "^4.1.0"
 
-find-root@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/find-root/-/find-root-1.1.0.tgz#abcfc8ba76f708c42a97b3d685b7e9450bfb9ce4"
-  integrity sha512-NKfW6bec6GfKc0SGx1e07QZY9PE99u0Bft/0rzSD5k3sO/vwkVUpDUKVm5Gpp5Ue3YfShPFTX2070tDs5kB9Ng==
-
 find-up@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/find-up/-/find-up-3.0.0.tgz#49169f1d7993430646da61ecc5ae355c21c97b73"
@@ -13565,14 +13560,6 @@ react-native-gradle-plugin@^0.70.2:
   version "0.70.3"
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.70.3.tgz#cbcf0619cbfbddaa9128701aa2d7b4145f9c4fc8"
   integrity sha512-oOanj84fJEXUg9FoEAQomA8ISG+DVIrTZ3qF7m69VQUJyOGYyDZmPqKcjvRku4KXlEH6hWO9i4ACLzNBh8gC0A==
-
-react-native-monorepo-tools@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-monorepo-tools/-/react-native-monorepo-tools-1.2.0.tgz#0214788c41deacd2ba54785ad9f12c6cae86087d"
-  integrity sha512-FBD99QSQciWqFjCJI3KrWxrHDFaTwOmeJ1JrXHAeMSInu1S32mvNq4NOtYPhj72fylTbobAeYJmwMDyzrFK7Qw==
-  dependencies:
-    find-root "^1.1.0"
-    glob "^7.1.7"
 
 react-native-safe-area-context@4.4.0:
   version "4.4.0"

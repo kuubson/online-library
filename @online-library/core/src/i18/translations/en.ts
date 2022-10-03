@@ -65,9 +65,10 @@ export const en = {
       writtenBy: 'written by',
    },
    home: {
-      advantage1: 'The largest resource of books in the internet',
-      advantage2: 'Top books from top authors for free',
-      advantage3: 'The lowest pricing for premium books',
+      advantage1: 'the largest book resource on the internet',
+      advantage2: 'the best books from the best authors for free',
+      advantage3: 'cross-platform mobile app',
+      advantage4: 'the lowest prices of premium books',
    },
    registration: {
       annotation1: "I haven't received the e-mail / activation link has expired",

@@ -58,7 +58,7 @@ export const Cart = () => {
                   <Styled.Summary>
                      {books.map(({ id, title, price }) => (
                         <Styled.Book key={id}>
-                           {`${t('common.book')} "{${title}}" 1 x ${price?.toFixed(2)}`}
+                           {`${t('common.book')} "${title}" 1 x ${price?.toFixed(2)}`}
                         </Styled.Book>
                      ))}
                   </Styled.Summary>

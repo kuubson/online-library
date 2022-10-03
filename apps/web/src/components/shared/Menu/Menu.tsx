@@ -47,7 +47,7 @@ export const Menu = () => {
 
    return (
       <MenuContainer shouldMenuStick={shouldMenuStick}>
-         <Styled.Logo>Online Library</Styled.Logo>
+         <Styled.Logo onClick={() => history.push('/')}>Online Library</Styled.Logo>
          <Styled.LinesContainer
             onClick={() => setShouldMenuExpand(shouldMenuExpand => !shouldMenuExpand)}
             {...{ shouldMenuExpand }}

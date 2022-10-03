@@ -31,14 +31,7 @@ export const App = () => {
          {loading && <Loader />}
          {showApiFeedback && <ApiFeedback />}
          <Routes>
-            <Route
-               path="/home"
-               element={
-                  <Guest>
-                     <Home />
-                  </Guest>
-               }
-            />
+            <Route path="/home" element={<Home />} />
             <Route
                path="/registration"
                element={
