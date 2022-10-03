@@ -8,15 +8,19 @@ export const useRelease = () => {
 
    useEffect(() => {
       const getApk = async () => {
-         const response = await axios.get<LatestReleaseResponse>(
-            'https://api.github.com/repos/kuubson/online-library-releases/releases/latest'
-         )
+         try {
+            const response = await axios.get<LatestReleaseResponse>(
+               'https://api.github.com/repos/kuubson/online-library-releases/releases/latest'
+            )
 
-         const apk = response.data.assets.find(({ browser_download_url }) =>
-            browser_download_url.includes('.apk')
-         )
+            const apk = response.data.assets.find(({ browser_download_url }) =>
+               browser_download_url.includes('.apk')
+            )
 
-         setApk(apk?.browser_download_url)
+            setApk(apk?.browser_download_url)
+         } catch (error) {
+            setApk(undefined)
+         }
       }
       getApk()
    }, [])

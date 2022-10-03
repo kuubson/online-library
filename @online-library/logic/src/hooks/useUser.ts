@@ -39,16 +39,20 @@ export const useUser = () => {
    const getChatDetails = async () => {
       const { request } = API['/api/user/chat/details'].get
 
-      const response = await defaultAxios<ChatDetailsResponse>(request)
+      try {
+         const response = await defaultAxios<ChatDetailsResponse>(request)
 
-      if (response) {
-         const { lastUnreadMessageIndex, unreadMessagesAmount, userId } = response.data
+         if (response) {
+            const { lastUnreadMessageIndex, unreadMessagesAmount, userId } = response.data
 
-         setCurrentUserId(userId)
+            setCurrentUserId(userId)
 
-         setLastUnreadMessageIndex(lastUnreadMessageIndex)
+            setLastUnreadMessageIndex(lastUnreadMessageIndex)
 
-         setUnreadMessagesAmount(unreadMessagesAmount)
+            setUnreadMessagesAmount(unreadMessagesAmount)
+         }
+      } catch (error) {
+         handleApiError(error)
       }
    }
 
