@@ -6,6 +6,7 @@ export const Logo = styled.h1`
    font-size: 36px;
    font-weight: bold;
    text-align: left;
+   cursor: pointer;
    @media ${queries.largeDesktop} {
       font-size: 32px;
    }

@@ -1,11 +1,15 @@
-# 📱 native app
+# 📱 native app (available [here](https://online-library-application.herokuapp.com))
 
-| [Stack](#-technologies) | [Notes](#-some-notes) | [Preview](#-app-preview) | [Goals](#-future-goals) | [Scripts](#-scripts) | [Env](#-environment-variables) | [Builds](#-building-process) | [Distribution](#-distribution) | [Tips](#-tips) | [Web](https://github.com/kuubson/online-library#-sample-js-fullstack-app-monorepo) |
-| ----------------------- | --------------------- | ------------------------ | ----------------------- | -------------------- | ------------------------------ | ---------------------------- | ------------------------------ | -------------- | ---------------------------------------------------------------------------------- |
+[![Heroku](https://heroku-badge.herokuapp.com/?app=online-library-application&style=flat)]() [![CircleCI](https://circleci.com/gh/kuubson/online-library.svg?style=svg&circle-token=c6f9611e819c26df85c288d0c0a9edc6bbd4116d)]()
+
+| [Stack](#-technologies) | [Notes](#-some-notes) | [Preview](#-app-preview) | [Distribution](#-distribution) | [Goals](#-future-goals) | [Scripts](#-scripts) | [Env](#-environment-variables) | [CircleCI](#-circleci-variables) | [Tips](#-tips) | [Web](https://github.com/kuubson/online-library#-sample-js-fullstack-app-monorepo) |
+| ----------------------- | --------------------- | ------------------------ | ------------------------------ | ----------------------- | -------------------- | ------------------------------ | -------------------------------- | -------------- | ---------------------------------------------------------------------------------- |
 
 ## 🔧 Technologies
 
 > **Note** Tech stack is in sync with the web app, since all the configuration and logic is shared within [custom packages](https://github.com/kuubson/online-library#-custom-packages)
+
+> **Warning** App may behave unexpectedly on iOS due to the lack of needed development tools (macOS)
 
 -  **react navigation**
 -  **styled components** (no integration with **react-native-web** since native targets different UX than web)
@@ -15,17 +19,16 @@
 -  **react-native-fbsdk** for FB 🔑 auth
 -  **rn-fetch-blob** for downloading files from chat
 -  **react-native-splash-screen** for custom splash screen
--  **CircleCI** + 🔥 **Firebase App Distribution** for distributing the app
 
 ## 📄 Some notes
 
-> **Warning** App may behave unexpectedly on iOS due to the lack of needed development tools (macOS)
-
-Covers all the [features](https://github.com/kuubson/online-library#-some-notes) of the web app with some temporarily exceptions:
+The app covers all the [features](https://github.com/kuubson/online-library#-some-notes) of the web app with some temporarily exceptions:
 
 -  lack of **stripe** payments
 -  lack of "sneak-peek" the books
 -  lack of push notifications
+
+> **Warning** Integration with `react-native-monorepo-tools` didn't work well (metro was throwing error[^metro-error]) so paths to node_modules, inside the native files, are prefixed with `../../` to match the monorepo root + `metro.config.js` has additional property `projectRoot`
 
 ## 📺 App preview
 
@@ -35,11 +38,39 @@ Covers all the [features](https://github.com/kuubson/online-library#-some-notes)
 | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | ![registration](https://user-images.githubusercontent.com/38701627/193405537-6ce8595b-ffeb-43b0-8ecf-b43b3fe66b11.jpg) | ![store](https://user-images.githubusercontent.com/38701627/193405554-312760be-7fb2-4666-952b-a5ac6c20582f.jpg) | ![cart](https://user-images.githubusercontent.com/38701627/193405578-a92c8d28-a013-4d7e-9bab-e0fc7e25fa4b.jpg) | ![chat](https://user-images.githubusercontent.com/38701627/193405592-4694c837-e706-41cf-bd5a-c709d360d4bf.jpg) |
 
+## 🛬 Distribution
+
+> **Note** Ready and set up 🔥 [Firebase App Distribution](https://console.firebase.google.com/project/onlinelibrary-7ca01/appdistribution/app/android:com.onlinelibrary/releases) helps with distributing the app among testers
+
+> **Warning** App is distributed internally (no Google/Apple stores involved) using **CircleCI**
+
+### Every push to the master branch triggers CircleCI build workflow:
+
+#### 🤖 Android
+
+-  installs all dependencies
+-  caches what's possible to speed up the subsequent builds
+-  decodes **release keystore** from the CircleCI variable
+-  creates `keystore.properties` from CircleCI [variables](#-circleci-variables) (it keeps the keystore details)
+-  bundles needed assets & generates APK file
+-  creates a new github release in the special repository [online-library-releases](https://github.com/kuubson/online-library-releases)[^releases-repo]
+
+#### To build locally:
+
+-  have the `release.keystore` at `apps/native/android/app`
+-  have the filled `keystore.properties` at `apps/native/android`
+-  `yarn assets && yarn apk`
+
+#### 🍏 iOS
+
+> **Note** Empty due to the lack of needed development tools (macOS)
+
 ## 🎯 Future goals
 
 -  go **offline-first** with at least chat
 -  validate behaviour on iOS devices
 -  finish setup for the iOS (packages + distribution)
+-  integrate **beta** branch with the **Firebase App Distribution** (using **CircleCI**)
 
 ## ⚙ Scripts
 
@@ -57,52 +88,19 @@ Covers all the [features](https://github.com/kuubson/online-library#-some-notes)
 | `yarn apk`        | builds android app (release apk file)             |
 | `yarn aab`        | builds android app (release aab file)             |
 
-> **Warning** Integration with `react-native-monorepo-tools` didn't work well (metro was throwing error[^metro-error]) so paths to node_modules, inside the native files, are prefixed with `../../` to match the root + `metro.config.js` has additional property `projectRoot`
-
 ## 🔒 Environment variables
 
 | variable  | details                                                 |
 | --------- | ------------------------------------------------------- |
 | `API_URL` | url for the express server (e.g. `http://${IPv4}:3001`) |
 
-## 📦 Building process
+## 🔐 CircleCI variables
 
-### 🤖 Android
-
-1. Fill `~/.gradle/gradle.properties` or `android/gradle.properties` with the following envs ([more info](https://reactnative.dev/docs/signed-apk-android))
-
-> **Note** `ORG_GRADLE_PROJECT_` prefix is required for CircleCI
-
-```js
-ORG_GRADLE_PROJECT_MYAPP_UPLOAD_STORE_FILE=onlinelibrary.keystore
-ORG_GRADLE_PROJECT_MYAPP_UPLOAD_KEY_ALIAS=onlinelibrary
-ORG_GRADLE_PROJECT_MYAPP_UPLOAD_STORE_PASSWORD=
-ORG_GRADLE_PROJECT_MYAPP_UPLOAD_KEY_PASSWORD=
-```
-
-2. `cd apps/native`
-3. `yarn assets`
-4. `cd android`
-5. `yarn apk` or `yarn aab`
-6. Upload apk file to the [Firebase](https://console.firebase.google.com/project/onlinelibrary-7ca01/appdistribution/app/android:com.onlinelibrary/releases) panel
-
-> **Note** Dealing with the keystore:
-
-1. Generate key
-   `openssl enc -aes-256-cbc -k <SECRET HERE> -P -md sha1`
-2. Encrypt:
-   `openssl aes-256-cbc -e -in onlinelibrary.keystore -out onlinelibrary.keystore.encrypted -k <KEY HERE> -md md5` // TODO: "Don’t use md5. It's insecure and broken"
-3. Decrypt
-   `openssl aes-256-cbc -d -in onlinelibrary.keystore.encrypted -k <KEY HERE> -md md5 >> onlinelibrary.keystore`
-
-### 🍏 iOS
-
-> **Note** Empty due to the lack of needed development tools (macOS)
-
-## 🛬 Distribution
-
--  [APK](https://appdistribution.firebase.google.com/testerapps/1:718345577418:android:a2439d8d871bd72e5e6533/releases/47c0skdhcct38)
--  IPA (missing)
+| variable                                                                               | details                                                                                                   |
+| -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `GITHUB_TOKEN`                                                                         | personal access token for Github CLI orb                                                                  |
+| `RELEASE_KEYSTORE_BASE64`                                                              | release keystore converted to base64 (more [info](https://circleci.com/docs/deploy-android-applications)) |
+| `RELEASE_KEYSTORE` `RELEASE_KEY_ALIAS` `RELEASE_KEY_PASSWORD` `RELEASE_STORE_PASSWORD` | keystore related details (more [info](https://circleci.com/docs/deploy-android-applications))             |
 
 ## 📙 Tips
 
@@ -120,4 +118,5 @@ metro-file-map: Haste module naming collision: @online-library/server
 error Duplicated files or mocks. Please check the console for more info.
 ```
 
-[^metro-error]: Invariant Violation: Failed to call into JavaScript module method AppRegistry.runApplication() - it was caused by importing [custom packages](https://github.com/kuubson/online-library#-custom-packages)
+[^releases-repo]: Must be a separate repository, otherwise there is a risk, that a release will include the source code of the whole monorepo (when someone accidentally deletes `.gitattributes`)
+[^metro-error]: Invariant Violation: Failed to call into JavaScript module method AppRegistry.runApplication() - it was caused by importing [custom packages](https://github.com/kuubson/online-library#-custom-packages) into any ts file

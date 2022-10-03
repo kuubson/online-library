@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 
 import type { LatestReleaseResponse } from '../types'
 
-export const useMobile = () => {
-   const [apk, setApk] = useState<string>('')
+export const useRelease = () => {
+   const [apk, setApk] = useState<string | undefined>()
 
    useEffect(() => {
       const getApk = async () => {
@@ -16,10 +16,19 @@ export const useMobile = () => {
             browser_download_url.includes('.apk')
          )
 
-         setApk(apk?.browser_download_url || '')
+         setApk(apk?.browser_download_url)
       }
       getApk()
    }, [])
 
-   return { apk }
+   const downloadApk = () => {
+      if (apk) {
+         window.location.href = apk
+      }
+   }
+
+   return {
+      apk,
+      downloadApk,
+   }
 }

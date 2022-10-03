@@ -71,7 +71,7 @@ export const Cart = () => {
                <Header>{t('common.summary')}</Header>
                {books.map(({ id, title, price }, index) => (
                   <Styled.Summary key={id} last={index === books.length - 1}>
-                     {`${t('common.book')} "{${title}}" 1 x ${price?.toFixed(2)}`}
+                     {`${t('common.book')} "${title}" 1 x ${price?.toFixed(2)}`}
                   </Styled.Summary>
                ))}
                <Submit>

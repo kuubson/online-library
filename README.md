@@ -1,12 +1,15 @@
 # 💻 js fullstack app (monorepo)
 
+[![Heroku](https://heroku-badge.herokuapp.com/?app=online-library-application&style=flat)]() [![CircleCI](https://circleci.com/gh/kuubson/online-library.svg?style=svg&circle-token=c6f9611e819c26df85c288d0c0a9edc6bbd4116d)]()
+
 | [Stack](#-stack) | [Packages](#-custom-packages) | [Notes](#-some-notes) | [Docs](#-documentation) | [Flow](#-flow) | [Preview](#-app-preview) | [Tools](#-tools) | [Goals](#-future-goals) | [Scripts](#-root-scripts) | [Env](#-environment-variables) | [Tips](#-tips) | [Native](https://github.com/kuubson/online-library/tree/master/apps/native#-native-app) |
 | ---------------- | ----------------------------- | --------------------- | ----------------------- | -------------- | ------------------------ | ---------------- | ----------------------- | ------------------------- | ------------------------------ | -------------- | --------------------------------------------------------------------------------------- |
 
 ## 🔧 Stack
 
 -  **typescript** (advanced: mapped types, method overloads, type guards)
--  **react.js** ⚛️ + **redux** (CRA, hooks) + **RTL** for testing, **react-native**
+-  **react.js** ⚛️ + **redux** (CRA, hooks) + **RTL** for testing,
+-  **react-native** for a mobile app, distributed [internally]() with **CircleCI** + 🔥 **Firebase App Distribution**
 -  **react-hook-form** + **yup** for user inputs & validation
 -  **styled components** 💅🏾 + **SCSS**
 -  **web APIs** (serviceWorker for **web push notifications**, **PWA**)
@@ -60,45 +63,55 @@ Acts as a **fake store** with possibility to chat 💬 with other users:
 ```mermaid
 graph TD
 
-apollo-->graphql([graphql])
-docs-->swagger
-swagger-->express([express])
-jwt-->auth
+api-->turborepo
 
-api-->native
+%% --------------------------
 
-CircleCI[\CircleCI/]-->native
-Firebase[\Firebase/]-->native
+turborepo[\turborepo/]-->apps
+turborepo-->lib("@online-library")
 
-heroku[\Heroku/]-->db[(sequelize)]
+%% --------------------------
+
+config(config)-->lib
+core(core)-->lib
+logic(logic)-->lib
+
+lib-->apps((apps))
+
+%% --------------------------
+
+heroku[\Heroku/]-->db[("sequelize (sql)")]
 heroku-->server
 db-->server
 
-packages("@online-library")-->apps((apps))
-
-logic(logic)-->packages
-core(core)-->packages
-config(config)-->packages
-
-apps-->web(web)
-apps-->native(native)
 apps-->server{{server}}
+apps-->client(web)
+apps-->native(native)
+
+Firebase[\Firebase/]-->native
+online-library-releases-->native
+CircleCI[\CircleCI/]-->online-library-releases{{online-library-releases}}
+
+%% --------------------------
 
 server-->api{API}
 
-graphql-->api
-express-->api
-auth([auth])-->api
-socket(["socket.io"])-->api
+auth("auth (jwt)")-->api
 
-api-->web
+express("express (swagger)")-->api
+
+graphql("graphql (apollo)")-->api
+
+socket("socket.io")-->api
+
+%% --------------------------
 ```
 
 ## 📺 App preview
 
-| Registration                                                                                                           | Login form                                                                                                           | Sample error                                                                                                    |
-| ---------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| ![registration](https://user-images.githubusercontent.com/38701627/190213977-02bfedc6-ab2d-4543-a892-16bdd6e59eda.png) | ![login form](https://user-images.githubusercontent.com/38701627/190213920-2003322f-59b3-4973-bb5c-d49a0cf424d5.png) | ![error](https://user-images.githubusercontent.com/38701627/190214063-4e03889d-dc1b-4ea0-bab2-5ec26ad92e8c.png) |
+| Home                                                                                                           | Login form                                                                                                           | Sample error                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| ![home](https://user-images.githubusercontent.com/38701627/193646690-b5be0407-37a2-4693-8583-56e717c0ef16.png) | ![login form](https://user-images.githubusercontent.com/38701627/190213920-2003322f-59b3-4973-bb5c-d49a0cf424d5.png) | ![error](https://user-images.githubusercontent.com/38701627/190214063-4e03889d-dc1b-4ea0-bab2-5ec26ad92e8c.png) |
 
 | Store                                                                                                           | Profile                                                                                                           | Book preview                                                                                                        |
 | --------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
@@ -119,6 +132,7 @@ api-->web
 -  [graphql-codegen](https://www.the-guild.dev/graphql/codegen) for autogenerating code (hooks & types) from gql schema & documents
 -  [@graphql-tools/merge](https://www.graphql-tools.com/docs/schema-merging) for auto merging resolvers & type defs into schema (**custom wrapper** to detect duplicated resolvers)
 -  [swagger-autogen](https://github.com/davibaltar/swagger-autogen) for autogenerating **API docs** (allow skipping **YAML** hell 😈)
+-  **CircleCI** workflows
 
 ### 🔩 Side tools
 
@@ -147,22 +161,22 @@ api-->web
 
 > **Note** To run locally, install proper version of nodejs (see `.nvmrc`), fill `.env` (see [Environment variables](#-environment-variables) and `.env-example`), trigger `yarn install` and `yarn dev`
 
-| command            | description                                                                                             |
-| ------------------ | ------------------------------------------------------------------------------------------------------- |
-| `yarn dev`         | triggers `dev` pipeline ~> launches apps, bundles all packages (watchmode)                              |
-| `yarn lib:dev`     | triggers filtered `dev` pipeline ~> bundles only packages (watchmode)                                   |
-| `yarn lint`        | triggers `lint` pipeline ~> ts & eslint & stylelint check through all apps and packages                 |
-| `yarn test`        | triggers `test` pipeline ~> runs tests for web and native apps                                          |
-| `yarn build`       | triggers `build` pipeline ~> build all apps, bundles all packages                                       |
-| `yarn postbuild`   | triggers `yarn lib` script ~> makes sure that all packages are built on top of the newest docs          |
-| `yarn lib`         | triggers `lib:build` pipeline ~> bundles all packages                                                   |
-| `yarn android`     | triggers `android` script in `/native` ~> runs android app                                              |
-| `yarn metro`       | triggers `metro` script in `/native` ~> runs metro server                                               |
-| `yarn server`      | triggers `dev` script in `/server` ~> runs express server                                               |
-| `yarn docs`        | triggers filtered `docs` pipeline ~> generates API docs (OpenAPI) from comments of the REST controllers |
-| `yarn codegen`     | triggers `graphql codegen` ~> generates hooks & types from graphql schema                               |
-| `yarn postinstall` | triggers `yarn lib` script ~> makes sure that `build` pipeline runs without any errors                  |
-| `yarn prepare`     | triggers `husky install` ~> prepares **husky** on local `yarn install`                                  |
+| command            | description                                                                                                 |
+| ------------------ | ----------------------------------------------------------------------------------------------------------- |
+| `yarn dev`         | triggers `dev` pipeline ~> launches apps, bundles all packages (watchmode)                                  |
+| `yarn lib:dev`     | triggers filtered `dev` pipeline ~> bundles only packages (watchmode)                                       |
+| `yarn lint`        | triggers `lint` pipeline ~> ts & eslint & stylelint check through all apps and packages                     |
+| `yarn test`        | triggers `test` pipeline ~> runs tests for web and native apps                                              |
+| `yarn build`       | triggers `build` pipeline ~> build all apps, bundles all packages                                           |
+| `yarn postbuild`   | triggers `yarn lib` script ~> makes sure that all packages are built on top of the newest docs              |
+| `yarn lib`         | triggers `lib:build` pipeline ~> bundles all packages                                                       |
+| `yarn android`     | triggers `android` script in `/native` ~> runs android app                                                  |
+| `yarn metro`       | triggers `metro` script in `/native` ~> runs metro server                                                   |
+| `yarn server`      | triggers `dev` script in `/server` ~> runs express server                                                   |
+| `yarn docs`        | triggers filtered `docs` pipeline ~> generates API docs (**OpenAPI**) from comments of the REST controllers |
+| `yarn codegen`     | triggers `graphql codegen` ~> generates hooks & types from graphql schema                                   |
+| `yarn postinstall` | triggers `yarn lib` script ~> makes sure that `build` pipeline runs without any errors                      |
+| `yarn prepare`     | triggers `husky install` ~> prepares **husky** on local `yarn install`                                      |
 
 ## 🔎 Detailed scripts
 
@@ -173,7 +187,7 @@ api-->web
 | `yarn test`       | ❌                                                                                                                 | runs RTL tests only once    | ❌                              |
 | `yarn test:watch` | ❌                                                                                                                 | runs RTL tests (watchmode)  | ❌                              |
 | `yarn build`      | builds express server & copies ([copyfiles](https://www.npmjs.com/package/copyfiles)) gql related files to `/dist` | builds react app            | bundles the package             |
-| `yarn docs`       | generates API docs (OpenAPI) from comments of the REST controllers                                                 | ❌                          | ❌                              |
+| `yarn docs`       | generates API docs (**OpenAPI**) from comments of the REST controllers                                             | ❌                          | ❌                              |
 
 > **Note** See [scripts](https://github.com/kuubson/online-library/tree/circleci/apps/native#-scripts) for the native app
 

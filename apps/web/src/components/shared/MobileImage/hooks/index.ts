@@ -1,1 +1,1 @@
-export { useMobile } from './useMobile'
+export { useRelease } from './useRelease'

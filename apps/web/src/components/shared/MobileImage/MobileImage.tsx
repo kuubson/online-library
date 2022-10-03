@@ -9,14 +9,14 @@ import { MobileLanding } from 'assets/images'
 
 import * as Styled from './styled'
 
-import { useMobile } from './hooks'
+import { useRelease } from './hooks'
 
 type MobileImageProps = {
    onlyBadges?: boolean
 }
 
 export const MobileImage = ({ onlyBadges }: MobileImageProps) => {
-   const { apk } = useMobile()
+   const { apk, downloadApk } = useRelease()
 
    const [showBadges, setShowBadges] = useState(false)
 
@@ -29,11 +29,13 @@ export const MobileImage = ({ onlyBadges }: MobileImageProps) => {
          />
          {showBadges && (
             <Styled.Badges>
-               <Styled.Badge
-                  src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white"
-                  onClick={() => (window.location.href = apk)}
-                  hoverable
-               />
+               {apk && (
+                  <Styled.Badge
+                     src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white"
+                     onClick={downloadApk}
+                     hoverable
+                  />
+               )}
                <Styled.Badge src="https://img.shields.io/badge/coming soon-000000?style=for-the-badge&logo=ios&logoColor=white" />
             </Styled.Badges>
          )}
