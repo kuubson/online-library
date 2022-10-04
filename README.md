@@ -1,4 +1,4 @@
-# 💻 js fullstack app (monorepo)
+# 💻 js fullstack [app](https://online-library-application.herokuapp.com) (monorepo)
 
 [![Heroku](https://heroku-badge.herokuapp.com/?app=online-library-application&style=flat)](https://online-library-application.herokuapp.com/) [![CircleCI](https://circleci.com/gh/kuubson/online-library.svg?style=svg&circle-token=c6f9611e819c26df85c288d0c0a9edc6bbd4116d)](https://app.circleci.com/pipelines/github/kuubson/online-library)
 
@@ -35,7 +35,7 @@
 
 ## 📄 Some notes
 
-> **Note** Sample, **bleeding-edge technologies driven** 💯, fullstack, cross-plaftorm app, [hosted](https://online-library-application.herokuapp.com) on 📡 **Heroku**
+> **Note** Sample, **bleeding-edge technologies driven** 💯, fullstack, cross-plaftorm app, hosted on 📡 **Heroku**
 
 Acts as a **fake store** with possibility to chat 💬 with other users:
 
