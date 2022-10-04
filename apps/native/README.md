@@ -1,6 +1,6 @@
 # 📱 native app (available [here](https://online-library-application.herokuapp.com))
 
-[![Heroku](https://heroku-badge.herokuapp.com/?app=online-library-application&style=flat)]() [![CircleCI](https://circleci.com/gh/kuubson/online-library.svg?style=svg&circle-token=c6f9611e819c26df85c288d0c0a9edc6bbd4116d)](https://app.circleci.com/pipelines/github/kuubson/online-library)
+[![CircleCI](https://circleci.com/gh/kuubson/online-library.svg?style=svg&circle-token=c6f9611e819c26df85c288d0c0a9edc6bbd4116d)](https://app.circleci.com/pipelines/github/kuubson/online-library)
 
 | [Stack](#-technologies) | [Notes](#-some-notes) | [Preview](#-app-preview) | [Distribution](#-distribution) | [Goals](#-future-goals) | [Scripts](#-scripts) | [Env](#-environment-variables) | [CircleCI](#-circleci-variables) | [Tips](#-tips) | [Web](https://github.com/kuubson/online-library#-sample-js-fullstack-app-monorepo) |
 | ----------------------- | --------------------- | ------------------------ | ------------------------------ | ----------------------- | -------------------- | ------------------------------ | -------------------------------- | -------------- | ---------------------------------------------------------------------------------- |
@@ -85,8 +85,8 @@ The app covers all the [features](https://github.com/kuubson/online-library#-som
 | `yarn test`       | runs `jest` only once                             |
 | `yarn test:watch` | runs `jest` (watchmode)                           |
 | `yarn assets`     | generates all needed assets for the release build |
-| `yarn apk`        | builds android app (release apk file)             |
-| `yarn aab`        | builds android app (release aab file)             |
+| `yarn apk`        | builds android app (apk release file)             |
+| `yarn aab`        | builds android app (aab release file)             |
 
 ## 🔒 Environment variables
 
@@ -118,5 +118,5 @@ metro-file-map: Haste module naming collision: @online-library/server
 error Duplicated files or mocks. Please check the console for more info.
 ```
 
-[^releases-repo]: Must be a separate repository, otherwise there is a risk, that a release will include the source code of the whole monorepo (when someone accidentally deletes `.gitattributes`)
+[^releases-repo]: Must be a separate repository, otherwise there is a risk, that the release will include the source code of the whole monorepo (when someone accidentally deletes `.gitattributes`)
 [^metro-error]: Invariant Violation: Failed to call into JavaScript module method AppRegistry.runApplication() - it was caused by importing [custom packages](https://github.com/kuubson/online-library#-custom-packages) into any ts file

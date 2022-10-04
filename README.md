@@ -1,6 +1,6 @@
 # 💻 js fullstack app (monorepo)
 
-[![Heroku](https://heroku-badge.herokuapp.com/?app=online-library-application&style=flat)]() [![CircleCI](https://circleci.com/gh/kuubson/online-library.svg?style=svg&circle-token=c6f9611e819c26df85c288d0c0a9edc6bbd4116d)](https://app.circleci.com/pipelines/github/kuubson/online-library)
+[![Heroku](https://heroku-badge.herokuapp.com/?app=online-library-application&style=flat)](https://online-library-application.herokuapp.com/) [![CircleCI](https://circleci.com/gh/kuubson/online-library.svg?style=svg&circle-token=c6f9611e819c26df85c288d0c0a9edc6bbd4116d)](https://app.circleci.com/pipelines/github/kuubson/online-library)
 
 | [Stack](#-stack) | [Packages](#-custom-packages) | [Notes](#-some-notes) | [Docs](#-documentation) | [Flow](#-flow) | [Preview](#-app-preview) | [Tools](#-tools) | [Goals](#-future-goals) | [Scripts](#-root-scripts) | [Env](#-environment-variables) | [Tips](#-tips) | [Native](https://github.com/kuubson/online-library/tree/master/apps/native#-native-app) |
 | ---------------- | ----------------------------- | --------------------- | ----------------------- | -------------- | ------------------------ | ---------------- | ----------------------- | ------------------------- | ------------------------------ | -------------- | --------------------------------------------------------------------------------------- |
@@ -8,14 +8,14 @@
 ## 🔧 Stack
 
 -  **typescript** (advanced: mapped types, method overloads, type guards)
--  **react.js** ⚛️ + **redux** (CRA, hooks) + **RTL** for testing,
+-  **react.js** ⚛️ + **redux** (CRA, hooks) + **RTL** for testing
 -  **react-native** for a mobile app, distributed [internally](https://github.com/kuubson/online-library/tree/master/apps/native#-distribution) with **CircleCI** + 🔥 **Firebase App Distribution**
 -  **react-hook-form** + **yup** for user inputs & validation
 -  **styled components** 💅🏾 + **SCSS**
 -  **web APIs** (serviceWorker for **web push notifications**, **PWA**)
 -  **graphql** (Apollo Express & Apollo Client)
 -  **node.js** + **express.js**
--  **passport.js** + **JWT** (kept in cookies ) for auth
+-  **passport.js** + **JWT** (kept in cookies) for auth
 -  **socket.io** + **graphql-ws** for real time data transport
 -  **multer** + **cloudinary** for files upload 📁
 -  **sequelize** with **PostgreSQL**
@@ -40,15 +40,15 @@
 Acts as a **fake store** with possibility to chat 💬 with other users:
 
 -  account registration, fb / credentials login
--  **user support** (forgot password, lost activation link)
+-  user support (forgot password, lost activation link)
 -  store fulfilled with paid and free books
 -  payments with **stripe** or **paypal**
--  **push notifications** to stay up to date with what other writes
--  possibility to send **images / videos / files**
--  **searchbar** for books
--  **preview** of books inside the profile tab
+-  push notifications to stay up to date with what other writes
+-  possibility to send images / videos / files
+-  searchbar for books
+-  preview of books inside the profile tab
 -  targets both web and native app users
--  **UX**: infinite loaders (store, chat), proper error handling, push notifications, fully responsive, jump to the last unread message (chat)
+-  UX: infinite loaders (store, chat), proper error handling, push notifications, fully responsive, jump to the last unread message (chat)
 
 ## 🛡 Documentation
 
@@ -129,12 +129,11 @@ socket("socket.io")-->api
 
 ### 🤖 Automation
 
--  every push to the master branch triggers autodeployment on [Heroku](https://dashboard.heroku.com/apps/online-library-application)
+-  every push to the master branch triggers autodeployment on [Heroku](https://dashboard.heroku.com/apps/online-library-application) + **CircleCI** build workflow
 -  [@trivago/prettier-plugin-sort-imports](https://www.npmjs.com/package/@trivago/prettier-plugin-sort-imports) for keeping consistent order of imports (custom flow)
 -  [graphql-codegen](https://www.the-guild.dev/graphql/codegen) for autogenerating code (hooks & types) from gql schema & documents
 -  [@graphql-tools/merge](https://www.graphql-tools.com/docs/schema-merging) for auto merging resolvers & type defs into schema (**custom wrapper** to detect duplicated resolvers)
 -  [swagger-autogen](https://github.com/davibaltar/swagger-autogen) for autogenerating **API docs** (allow skipping **YAML** hell 😈)
--  **CircleCI** workflows
 
 ### 🔩 Side tools
 
@@ -162,6 +161,8 @@ socket("socket.io")-->api
 ## ⌨ Root scripts
 
 > **Note** To run locally, install proper version of nodejs (see `.nvmrc`), fill `.env` (see [Environment variables](#-environment-variables) and `.env-example`), trigger `yarn install` and `yarn dev`
+
+> **Warning** Remember to bump release tag version (`config.yml`) when pushing to the master branch othwerise CircleCI will fail
 
 | command            | description                                                                                                 |
 | ------------------ | ----------------------------------------------------------------------------------------------------------- |
