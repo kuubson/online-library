@@ -63,7 +63,7 @@ jobs:
               command: cd apps/native && yarn apk
          - run:
               name: Create release
-              command: cd online-library-releases && gh release create v1.0.2 ../apps/native/android/app/build/outputs/apk/release/app-release.apk
+              command: cd online-library-releases && gh release create v1.0.3 ../apps/native/android/app/build/outputs/apk/release/app-release.apk
          - save_cache:
               key: gradle-v1-{{ arch }}-{{ checksum "/tmp/gradle_cache_seed" }}
               paths:
