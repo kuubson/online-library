@@ -35,7 +35,7 @@
 
 ## 📄 Some notes
 
-> **Note** Sample, **bleeding-edge technologies driven** 💯, fullstack, cross-plaftorm app, hosted on 📡 **Heroku**
+> **Note** Sample, **cutting-edge technologies driven** 💯, fullstack, cross-plaftorm app, hosted on 📡 **Heroku**
 
 Acts as a **fake store** with possibility to chat 💬 with other users:
 
