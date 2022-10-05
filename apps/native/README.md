@@ -71,6 +71,7 @@ The app covers all the [features](https://github.com/kuubson/online-library#-som
 -  validate behaviour on iOS devices
 -  finish setup for the iOS (packages + distribution)
 -  integrate **beta** branch with the **Firebase App Distribution** (using **CircleCI**)
+-  set up rollback mechanism for releases
 
 ## ⚙ Scripts
 
