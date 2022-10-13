@@ -9,7 +9,7 @@
 
 -  **typescript** (advanced: mapped types, method overloads, type guards)
 -  **react.js** ⚛️ + **redux** (CRA, hooks) + **RTL** for testing
--  **react-native** for a mobile app, distributed [internally](https://github.com/kuubson/online-library/tree/master/apps/native#-distribution) with **CircleCI** + 🔥 **Firebase App Distribution**
+-  **react-native** for a [mobile app](https://github.com/kuubson/online-library/tree/master/apps/native#-native-app), distributed [internally](https://github.com/kuubson/online-library/tree/master/apps/native#-distribution) with **CircleCI** + 🔥 **Firebase App Distribution**
 -  **react-hook-form** + **yup** for user inputs & validation
 -  **styled components** 💅🏾 + **SCSS**
 -  **web APIs** (serviceWorker for **web push notifications**, **PWA**)
@@ -60,8 +60,6 @@ Acts as a **fake store** with possibility to chat 💬 with other users:
 
 ## 📊 Flow
 
-> **Note** See the [distribution](https://github.com/kuubson/online-library/tree/master/apps/native#-distribution) flow for the mobile app
-
 ```mermaid
 graph TD
 
@@ -93,6 +91,8 @@ apps-->native(native)
 Firebase[\Firebase/]-->native
 online-library-releases-->native
 CircleCI[\CircleCI/]-->online-library-releases{{online-library-releases}}
+
+> **Note** See the [distribution](https://github.com/kuubson/online-library/tree/master/apps/native#-distribution) flow for the mobile app
 
 %% --------------------------
 
