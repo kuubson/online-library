@@ -92,8 +92,6 @@ Firebase[\Firebase/]-->native
 online-library-releases-->native
 CircleCI[\CircleCI/]-->online-library-releases{{online-library-releases}}
 
-> **Note** See the [distribution](https://github.com/kuubson/online-library/tree/master/apps/native#-distribution) flow for the mobile app
-
 %% --------------------------
 
 server-->api{API}
@@ -105,9 +103,9 @@ express("express (swagger)")-->api
 graphql("graphql (apollo)")-->api
 
 socket("socket.io")-->api
-
-%% --------------------------
 ```
+
+> **Note** See [distribution](https://github.com/kuubson/online-library/tree/master/apps/native#-distribution) flow for the mobile app
 
 ## 📺 App preview
 
