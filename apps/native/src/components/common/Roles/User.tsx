@@ -1,7 +1,7 @@
 import { useFocusEffect, useRoute } from '@react-navigation/native'
 import styled from 'styled-components/native'
 
-import type { ReactChildren } from '@online-library/core'
+import type { ReactFC } from '@online-library/core'
 import { navigationRef, useChatDetails } from '@online-library/core'
 
 import { useSocketIO, useUser } from '@online-library/logic'
@@ -12,7 +12,7 @@ import { moderateScale } from 'styles'
 
 import { Wrapper } from '../Wrapper/Wrapper'
 
-export const User = ({ children }: ReactChildren) => {
+export const User = ({ children }: ReactFC) => {
    const { name } = useRoute()
 
    const { canUpdateChatDetails, setCanUpdateChatDetails } = useChatDetails()

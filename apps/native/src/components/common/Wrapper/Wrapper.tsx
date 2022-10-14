@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 
 import { RANDOM_IMAGE } from '@online-library/config'
 
-import type { ReactChildren } from '@online-library/core'
+import type { ReactFC } from '@online-library/core'
 import { useApiFeedback, useBookPopup, useLoader } from '@online-library/core'
 
 import * as Styled from './styled'
@@ -14,7 +14,7 @@ import { BookPopup } from 'components/shared'
 import { ApiFeedback } from '../ApiFeedback/ApiFeedback'
 import { Loader } from '../Loader/Loader'
 
-export const Wrapper = ({ children }: ReactChildren) => {
+export const Wrapper = ({ children }: ReactFC) => {
    const { name } = useRoute()
 
    const { loading } = useLoader()

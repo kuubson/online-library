@@ -1,6 +1,8 @@
 import { Sequelize } from 'sequelize'
 
-import { NODE_ENV, SEED_BOOKS, SEED_USER, SEQUELIZE_AUTO, db, generateDbTypes } from 'config'
+import { isDev } from '@online-library/config'
+
+import { SEED_BOOKS, SEED_USER, SEQUELIZE_AUTO, db, sequelizeAuto } from 'config'
 
 import { AuthenticationModel } from './models/Authentication'
 import { BookModel } from './models/Book'
@@ -42,7 +44,7 @@ const initializeDatabase = async () => {
 
       console.log('📁 Database connected')
 
-      if (NODE_ENV === 'development') {
+      if (isDev) {
          if (SEED_BOOKS === 'true') {
             seedBooks(100)
          }
@@ -50,7 +52,7 @@ const initializeDatabase = async () => {
             seedUser()
          }
          if (SEQUELIZE_AUTO === 'true') {
-            generateDbTypes(connection)
+            sequelizeAuto(connection)
          }
       }
    } catch (error) {

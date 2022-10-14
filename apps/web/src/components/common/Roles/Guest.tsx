@@ -1,12 +1,12 @@
 import styled from 'styled-components/macro'
 
-import type { ReactChildren } from '@online-library/core'
+import type { ReactFC } from '@online-library/core'
 
 import { useGuest } from '@online-library/logic'
 
 import { RoleContainer } from 'components/shared/styled'
 
-export const Guest = ({ children }: ReactChildren) => {
+export const Guest = ({ children }: ReactFC) => {
    useGuest()
    return (
       <RoleContainer>

@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
-import type { ReactChildren } from '@online-library/core'
+import type { ReactFC } from '@online-library/core'
 
 import { useSocketIO, useUser } from '@online-library/logic'
 
@@ -9,7 +9,7 @@ import { RoleContainer } from 'components/shared/styled'
 
 import { Menu } from 'components/shared'
 
-export const User = ({ children }: ReactChildren) => {
+export const User = ({ children }: ReactFC) => {
    const { pathname } = useLocation()
 
    const canUpdateChatDetails = pathname !== '/chat'

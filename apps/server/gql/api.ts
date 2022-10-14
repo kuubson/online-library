@@ -2,10 +2,12 @@ import { loadFilesSync } from '@graphql-tools/load-files'
 import { mergeResolvers, mergeTypeDefs } from '@graphql-tools/merge'
 import _path from 'path'
 
-import { NODE_ENV, scanResolvers } from 'config'
+import { isProd } from '@online-library/config'
+
+import { scanResolvers } from 'config'
 
 export const load = (path: string, isSchema = false) => {
-   const extension = isSchema ? 'gql' : NODE_ENV === 'production' ? 'js' : 'ts'
+   const extension = isSchema ? 'gql' : isProd ? 'js' : 'ts'
    return loadFilesSync(_path.join(__dirname, `./${path}/*.${extension}`))
 }
 

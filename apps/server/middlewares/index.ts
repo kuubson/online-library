@@ -9,12 +9,13 @@ import { Server as SocketServer } from 'socket.io'
 import { initializeSocketIO } from 'socketio/socketio'
 import webpush from 'web-push'
 
+import { isDev } from '@online-library/config'
+
 import {
    CLOUDINARY_API_KEY,
    CLOUDINARY_API_SECRET,
    CLOUDINARY_NAME,
    NODEMAILER_USERNAME,
-   NODE_ENV,
    PAYPAL_CLIENT_ID,
    PAYPAL_CLIENT_SECRET,
    PRIVATE_VAPID_KEY,
@@ -75,7 +76,7 @@ export const initializeMiddlewares = (app: Application, server: Server) => {
 
    initializeGraphQL(app, server, passport)
 
-   if (NODE_ENV === 'development') {
+   if (isDev) {
       serveApiDocs(app)
    }
 }

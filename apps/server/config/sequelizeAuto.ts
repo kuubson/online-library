@@ -15,7 +15,7 @@ const sequelizeAutoConfig: AutoOptions = {
    caseProp: 'c',
 }
 
-export const generateDbTypes = async (connection: Sequelize) => {
+export const sequelizeAuto = async (connection: Sequelize) => {
    await new SequelizeAuto(
       connection,
       DATABASE_USERNAME,

@@ -21,7 +21,7 @@ export type FBStatus = {
 
 export type FormEvent = React.FormEvent<HTMLFormElement>
 
-export type ReactChildren = {
+export type ReactFC = {
    children: React.ReactNode
 }
 export type ReactDispatch<T> = React.Dispatch<React.SetStateAction<T>>

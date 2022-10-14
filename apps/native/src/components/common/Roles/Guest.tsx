@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/native'
 
-import type { ReactChildren } from '@online-library/core'
+import type { ReactFC } from '@online-library/core'
 
 import { useGuest } from '@online-library/logic'
 
@@ -9,7 +9,7 @@ import { moderateScale } from 'styles'
 
 import { Wrapper } from '../Wrapper/Wrapper'
 
-export const Guest = ({ children }: ReactChildren) => {
+export const Guest = ({ children }: ReactFC) => {
    useGuest()
    return (
       <Wrapper>
