@@ -12,20 +12,20 @@
 > **Warning** App may behave unexpectedly on iOS due to the lack of needed development tools (macOS)
 
 -  **react navigation**
--  **styled components** (no integration with **react-native-web** since native targets different UX than web)
+-  **styled components** (no integration with **react-native-web** since the mobile app targets different UX than the web app)
 -  **react-native-webview** for handling integration with PayPal 💲
--  **react-native-document-picker** for sending files in chat
--  **react-native-video** for showing videos in chat
+-  **react-native-document-picker** for sending files in a chat
+-  **react-native-video** for showing videos in the chat
 -  **react-native-fbsdk** for FB 🔑 auth
--  **rn-fetch-blob** for downloading files from chat
--  **react-native-splash-screen** for custom splash screen
+-  **rn-fetch-blob** for downloading files from the chat
+-  **react-native-splash-screen** for a custom splash screen
 
 ## 📄 Some notes
 
 The app covers all the [features](https://github.com/kuubson/online-library#-some-notes) of the web app with some temporarily exceptions:
 
--  lack of **stripe** payments
--  lack of "sneak-peek" the books
+-  lack of the **stripe** payments
+-  lack of a "sneak-peek" the books
 -  lack of push notifications
 
 > **Warning** Integration with `react-native-monorepo-tools` didn't work well (metro was throwing error[^metro-error]) so paths to node_modules, inside the native files, are prefixed with `../../` to match the monorepo root + `metro.config.js` has additional property `projectRoot`
@@ -42,7 +42,7 @@ The app covers all the [features](https://github.com/kuubson/online-library#-som
 
 > **Note** Ready and set up 🔥 [Firebase App Distribution](https://console.firebase.google.com/project/onlinelibrary-7ca01/appdistribution/app/android:com.onlinelibrary/releases) helps with distributing the app among testers
 
-> **Warning** App is distributed internally (no Google Play & App Store involved) using **CircleCI**
+> **Warning**The app is distributed internally (no Google Play & App Store involved) using **CircleCI**
 
 ### Every push to the master branch triggers CircleCI build workflow:
 
@@ -67,27 +67,27 @@ The app covers all the [features](https://github.com/kuubson/online-library#-som
 
 ## 🎯 Future goals
 
--  go **offline-first** with at least chat
+-  go **offline-first** with at least the chat
 -  validate behaviour on iOS devices
 -  finish setup for the iOS (packages + distribution)
--  integrate **beta** branch with the **Firebase App Distribution** (using **CircleCI**)
+-  integrate the **beta** branch with the **Firebase App Distribution** (using **CircleCI**)
 -  set up rollback mechanism for releases
 
 ## ⚙ Scripts
 
-> **Note** To run locally, have the [environment](https://reactnative.dev/docs/environment-setup) ready (see `.nvmrc` to install proper version of nodejs), fill `.env` (see [Environment variables](#-environment-variables) and `.env-example`), trigger `yarn install` and `yarn android` or `yarn ios`
+> **Note** To run locally, have the [environment](https://reactnative.dev/docs/environment-setup) ready (see `.nvmrc` / use `nvm` to install proper version of nodejs), fill `.env` (see [Environment variables](#-environment-variables) and `.env-example`), trigger `yarn install` and `yarn android` or `yarn ios`
 
 | command           | description                                       |
 | ----------------- | ------------------------------------------------- |
-| `yarn android`    | builds android app (debug)                        |
-| `yarn ios`        | builds ios app (debug)                            |
+| `yarn android`    | builds the android app (debug)                    |
+| `yarn ios`        | builds the ios app (debug)                        |
 | `yarn metro`      | runs bundler                                      |
 | `yarn lint`       | ts & eslint & stylelint check                     |
 | `yarn test`       | runs `jest` only once                             |
 | `yarn test:watch` | runs `jest` (watchmode)                           |
 | `yarn assets`     | generates all needed assets for the release build |
-| `yarn apk`        | builds android app (apk release file)             |
-| `yarn aab`        | builds android app (aab release file)             |
+| `yarn apk`        | builds the android app (apk release file)         |
+| `yarn aab`        | builds the android app (aab release file)         |
 
 ## 🔒 Environment variables
 
