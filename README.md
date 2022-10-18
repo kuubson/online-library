@@ -25,7 +25,7 @@
 -  custom local [packages](#-custom-packages)
 -  eslint, prettier 🧹, stylelint, husky
 
-> **Note** See [technologies](https://github.com/kuubson/online-library/tree/circleci/apps/native#-technologies) for the mobile app
+> **Note** See [technologies](https://github.com/kuubson/online-library/tree/master/apps/native#-technologies) for the mobile app
 
 ## 📦 Custom packages
 
@@ -35,7 +35,7 @@
 
 ## 📄 Some notes
 
-> **Note**A sample, cutting-edge technologies driven 💯, fullstack, cross-plaftorm app, hosted on 📡 **Heroku**
+> **Note** A cutting-edge technologies driven 💯, fullstack, cross-plaftorm app, hosted on 📡 **Heroku**
 
 Acts as a **fake store** with possibility to chat 💬 with other users:
 
@@ -121,7 +121,7 @@ socket("socket.io")-->api
 | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | ![chat](https://user-images.githubusercontent.com/38701627/190213605-faccbbd6-cd74-4e44-bfe5-944cf1019e67.png) | ![cart](https://user-images.githubusercontent.com/38701627/190213811-bc6236ca-0de5-499b-9455-c434bbb144bb.png) | ![cart](https://user-images.githubusercontent.com/38701627/190213822-11bdd6ab-e4cd-40e6-87f1-805c229806be.png) |
 
-> **Note** Preview the [mobile app](https://github.com/kuubson/online-library/tree/circleci/apps/native#-app-preview)
+> **Note** Preview the [mobile app](https://github.com/kuubson/online-library/tree/master/apps/native#-app-preview)
 
 ## 🆒 Tools
 
@@ -154,7 +154,7 @@ socket("socket.io")-->api
 -  replace errors popup with **react-toastify**
 -  tweak seeding db flow
 
-> **Note** See [goals](https://github.com/kuubson/online-library/tree/circleci/apps/native#-future-goals) for the mobile app
+> **Note** See [goals](https://github.com/kuubson/online-library/tree/master/apps/native#-future-goals) for the mobile app
 
 ## ⌨ Root scripts
 
@@ -190,7 +190,7 @@ socket("socket.io")-->api
 | `yarn build`      | builds the express server & copies ([copyfiles](https://www.npmjs.com/package/copyfiles)) gql related files to `/dist` | builds the react app        | bundles the package             |
 | `yarn docs`       | generates API docs (**OpenAPI**) from comments of the REST controllers                                                 | ❌                          | ❌                              |
 
-> **Note** See [scripts](https://github.com/kuubson/online-library/tree/circleci/apps/native#-scripts) for the mobile app
+> **Note** See [scripts](https://github.com/kuubson/online-library/tree/master/apps/native#-scripts) for the mobile app
 
 ## 🔒 Environment variables
 
@@ -210,7 +210,7 @@ socket("socket.io")-->api
 | set to `true` to seed db with some random books                                                               | `SEED_BOOKS`                                                            | ❌                                 |
 | set to `true` to seed db with a testing user                                                                  | `SEED_USER`                                                             | ❌                                 |
 
-> **Note** See [envs](https://github.com/kuubson/online-library/tree/circleci/apps/native#-environment-variables) for the mobile app
+> **Note** See [envs](https://github.com/kuubson/online-library/tree/master/apps/native#-environment-variables) for the mobile app
 
 ## 📙 Tips
 
