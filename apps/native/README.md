@@ -42,7 +42,7 @@ The app covers all the [features](https://github.com/kuubson/online-library#-som
 
 > **Note** Ready and set up 🔥 [Firebase App Distribution](https://console.firebase.google.com/project/onlinelibrary-7ca01/appdistribution/app/android:com.onlinelibrary/releases) helps with distributing the app among testers
 
-> **Warning**The app is distributed internally (no Google Play & App Store involved) using **CircleCI**
+> **Warning** The app is distributed internally (no Google Play & App Store involved) using **CircleCI**
 
 ### Every push to the master branch triggers CircleCI build workflow:
 
