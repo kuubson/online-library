@@ -1,4 +1,5 @@
-# 💻 js fullstack [app](https://online-library-application.herokuapp.com) (monorepo)
+# 💻 js fullstack [app](https://online-library-application.herokuapp.com), monorepo (web & [mobile](https://github.com/kuubson/online-library/tree/master/apps/native#-native-app))
+
 
 [![CircleCI](https://circleci.com/gh/kuubson/online-library.svg?style=svg&circle-token=c6f9611e819c26df85c288d0c0a9edc6bbd4116d)](https://app.circleci.com/pipelines/github/kuubson/online-library)
 
