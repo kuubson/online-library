@@ -11,8 +11,9 @@ import { useCart } from '@online-library/logic'
 
 import { REACT_APP_STRIPE_PUBLISHABLE_KEY } from 'config'
 
+import { Header, HeaderContainer, Submit, UserContent } from 'styles/styled'
+
 import * as Styled from './styled'
-import { Header, HeaderContainer, Submit, UserContent } from 'components/shared/styled'
 
 import { Books } from 'components/shared'
 

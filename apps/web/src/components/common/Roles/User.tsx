@@ -5,7 +5,7 @@ import type { ReactFC } from '@online-library/core'
 
 import { useSocketIO, useUser } from '@online-library/logic'
 
-import { RoleContainer } from 'components/shared/styled'
+import { RoleContainer } from 'styles/styled'
 
 import { Menu } from 'components/shared'
 

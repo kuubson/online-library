@@ -6,7 +6,7 @@ import { t, useBookPopup } from '@online-library/core'
 import { Header, PopupButton, Text } from '../styled'
 import * as Styled from './styled'
 
-import { Book } from 'components/shared/Book/Book'
+import { Book } from '../Book/Book'
 
 export const BookPopup = () => {
    const { id, title, author, cover, price, withProfile, resetBookPopup, borrowBook, addToCart } =

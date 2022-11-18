@@ -2,7 +2,7 @@ import { t, useBookPopup } from '@online-library/core'
 
 import { useStore } from '@online-library/logic'
 
-import { UserContent } from 'components/shared/styled'
+import { UserContent } from 'styles/styled'
 
 import { BookPopup, BookSuggestions, Books } from 'components/shared'
 

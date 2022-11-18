@@ -4,7 +4,7 @@ import type { ReactFC } from '@online-library/core'
 
 import { useGuest } from '@online-library/logic'
 
-import { RoleContainer } from 'components/shared/styled'
+import { RoleContainer } from 'styles/styled'
 
 export const Guest = ({ children }: ReactFC) => {
    useGuest()

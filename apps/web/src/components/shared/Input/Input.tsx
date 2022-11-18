@@ -4,9 +4,9 @@ import styled, { css } from 'styled-components/macro'
 import type { _InputProps } from '@online-library/core'
 
 import { queries } from 'styles'
+import { Error } from 'styles/styled'
 
 import * as Styled from './styled'
-import { Error } from 'components/shared/styled'
 
 type InputProps = _InputProps & {
    withBooksSuggestions?: boolean

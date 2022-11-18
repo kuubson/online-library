@@ -3,9 +3,9 @@ import styled from 'styled-components/macro'
 import { history, t } from '@online-library/core'
 
 import { queries } from 'styles'
+import { RoleContainer } from 'styles/styled'
 
 import * as Styled from './styled'
-import { RoleContainer } from 'components/shared/styled'
 
 import { MobileImage } from 'components/shared'
 

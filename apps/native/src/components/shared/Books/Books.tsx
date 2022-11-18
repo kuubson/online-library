@@ -9,7 +9,7 @@ import { moderateScale } from 'styles'
 import { Header, Text, Warning } from '../styled'
 import * as Styled from './styled'
 
-import { Book } from 'components/shared/Book/Book'
+import { Book } from '../Book/Book'
 
 export const Books = ({
    books,

@@ -5,8 +5,9 @@ import { detectMobileDevice, t, useChatDetails } from '@online-library/core'
 
 import { useChat } from '@online-library/logic'
 
+import { Button, UserContent } from 'styles/styled'
+
 import * as Styled from './styled'
-import { Button, UserContent } from 'components/shared/styled'
 
 import { Messages, ProgressLoader } from './modules'
 

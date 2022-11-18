@@ -1,6 +1,6 @@
 import { t } from '@online-library/core'
 
-import { Form, Submit } from 'components/shared/styled'
+import { Form, Submit } from 'styles/styled'
 
 import { HomeButton, Input } from 'components/shared'
 

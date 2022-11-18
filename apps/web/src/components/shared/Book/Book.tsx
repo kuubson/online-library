@@ -6,8 +6,9 @@ import { FALLBACK_IMAGE } from '@online-library/config'
 import type { Book as BookType } from '@online-library/core'
 import { bookPopupButtonText, t, useBookPopup, useCart } from '@online-library/core'
 
+import { Button } from 'styles/styled'
+
 import * as Styled from './styled'
-import { Button } from 'components/shared/styled'
 
 type BookProps = BookType & {
    withCart?: boolean

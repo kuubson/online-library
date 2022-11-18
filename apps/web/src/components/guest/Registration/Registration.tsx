@@ -2,8 +2,9 @@ import { history, t } from '@online-library/core'
 
 import { useRegistration } from '@online-library/logic'
 
+import { Form, Submit } from 'styles/styled'
+
 import * as Styled from './styled'
-import { Form, Submit } from 'components/shared/styled'
 
 import { HomeButton, Input } from 'components/shared'
 

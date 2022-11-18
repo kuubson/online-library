@@ -2,7 +2,7 @@ import { t } from '@online-library/core'
 
 import { useSupport } from '@online-library/logic'
 
-import { Form, Submit } from 'components/shared/styled'
+import { Form, Submit } from 'styles/styled'
 
 import { HomeButton, Input } from 'components/shared'
 

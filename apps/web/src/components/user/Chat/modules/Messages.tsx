@@ -7,8 +7,7 @@ import type { MessageType } from '@online-library/config'
 import { isChatInitialLoad, t, usePrevious } from '@online-library/core'
 
 import { fadeIn } from 'styles'
-
-import { Warning } from 'components/shared/styled'
+import { Warning } from 'styles/styled'
 
 import { Message } from './'
 

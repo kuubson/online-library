@@ -4,9 +4,9 @@ import type { _BooksProps } from '@online-library/core'
 import { t } from '@online-library/core'
 
 import { fadeIn, queries } from 'styles'
+import { Button, Header, HeaderContainer, Warning } from 'styles/styled'
 
 import * as Styled from './styled'
-import { Button, Header, HeaderContainer, Warning } from 'components/shared/styled'
 
 import { Book } from 'components/shared'
 

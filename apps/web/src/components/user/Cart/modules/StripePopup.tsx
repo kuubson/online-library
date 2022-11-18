@@ -3,9 +3,10 @@ import { useState } from 'react'
 import type { ReactDispatch } from '@online-library/core'
 import { t, useIsKeyboardOpened } from '@online-library/core'
 
+import { Button, Error, Header, PopupContainer } from 'styles/styled'
+
 import * as Styled from '../styled/StripePopup'
 import { ButtonsContainer, Content, ContentContainer } from 'components/shared/BookPopup/styled'
-import { Button, Error, Header, PopupContainer } from 'components/shared/styled'
 
 import { useStripePopup } from '../hooks'
 

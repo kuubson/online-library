@@ -1,7 +1,8 @@
 import { t, useBookPopup } from '@online-library/core'
 
+import { Button, Header, PopupContainer } from 'styles/styled'
+
 import * as Styled from './styled'
-import { Button, Header, PopupContainer } from 'components/shared/styled'
 
 import { Book } from 'components/shared'
 
