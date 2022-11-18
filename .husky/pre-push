@@ -3,4 +3,4 @@
 
 yarn test
 
-cd online-library-releases && git push 
+cd online-library-releases && git push --no-verify

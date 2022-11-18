@@ -1,13 +1,14 @@
 import nodemailer from 'nodemailer'
 
-const { NODEMAILER_USERNAME, NODEMAILER_PASSWORD } = process.env
+const { MAILJET_PASSWORD, MAILJET_USER, NODEMAILER_USERNAME } = process.env
 
 export const transporter = nodemailer.createTransport(
    {
-      service: 'gmail',
+      host: 'in-v3.mailjet.com',
+      port: 587,
       auth: {
-         user: NODEMAILER_USERNAME,
-         pass: NODEMAILER_PASSWORD,
+         user: MAILJET_USER,
+         pass: MAILJET_PASSWORD,
       },
    },
    { from: `"Online Library" <${NODEMAILER_USERNAME}>` }

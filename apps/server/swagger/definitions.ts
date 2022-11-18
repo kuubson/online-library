@@ -21,8 +21,8 @@ export const contentFile = {
    type: 'string',
    format: 'uri',
    'qt-uri-protocols': ['https'],
-   // NOTE: should match with FILE_EXTENSIONS
    'qt-uri-extensions': [
+      // NOTE: should match with FILE_EXTENSIONS (@online-library\config\src\utils\constants.ts)
       'jpg',
       'jpeg',
       'png',
