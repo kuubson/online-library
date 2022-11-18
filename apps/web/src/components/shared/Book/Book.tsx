@@ -75,10 +75,12 @@ export const Book = ({
                price={price}
                withoutHover={isInCart}
             >
-               {bookPopupButtonText({
-                  price,
-                  isInCart,
-               })}
+               <>
+                  {bookPopupButtonText({
+                     price,
+                     isInCart,
+                  })}
+               </>
             </Button>
          ) : (
             withPopup &&

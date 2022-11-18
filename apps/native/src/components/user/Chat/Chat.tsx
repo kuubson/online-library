@@ -13,6 +13,8 @@ import { Warning } from 'components/shared/styled'
 
 import { Messages } from './modules'
 
+import type { MessagesProps } from './types'
+
 export const Chat = () => {
    const {
       messagesRef,
@@ -47,12 +49,14 @@ export const Chat = () => {
             {!loading &&
                (areThereMessages ? (
                   <Messages
-                     ref={messagesRef}
-                     endOfMessages={endOfMessages}
-                     lastMessageBeforeFetch={lastMessageBeforeFetch}
+                     ref={messagesRef as MessagesProps['ref']}
+                     endOfMessages={endOfMessages as MessagesProps['endOfMessages']}
+                     lastMessageBeforeFetch={
+                        lastMessageBeforeFetch as MessagesProps['lastMessageBeforeFetch']
+                     }
                      messages={messages}
                      currentUserId={currentUserId}
-                     onScroll={handleInfiniteLoader}
+                     onScroll={handleInfiniteLoader as unknown as MessagesProps['onScroll']}
                      scrollToLastMessage={scrollToLastMessage}
                      onContentSizeChange={handleOnContentSizeChange}
                   />

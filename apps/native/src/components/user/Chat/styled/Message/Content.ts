@@ -4,7 +4,11 @@ import { moderateScale } from 'styles'
 
 import { Text } from 'components/shared/styled'
 
-export const Content = styled(Text)`
+type StyledProps = {
+   withLetterSpacing: boolean
+}
+
+export const Content = styled(Text)<StyledProps>`
    max-width: 80%;
    text-align: justify;
    ${({ withLetterSpacing }) =>

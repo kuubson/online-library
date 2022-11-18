@@ -18,7 +18,7 @@ import { Video } from './Video'
 
 type MessageProps = MessageType & MessageAdditionalProps
 
-export const Message = forwardRef<HTMLDivElement, MessageProps>(
+export const Message = forwardRef<TouchableOpacity, MessageProps>(
    (
       {
          type,

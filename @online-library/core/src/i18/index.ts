@@ -14,4 +14,4 @@ type PickPath<T> = Path<T, keyof T> | keyof T
 
 type DotPick<T> = PickPath<T> extends string | keyof T ? PickPath<T> : keyof T
 
-export const t = (path: DotPick<typeof en>) => get(en, path)
+export const t = (path: DotPick<typeof en>) => get(en, path) as string

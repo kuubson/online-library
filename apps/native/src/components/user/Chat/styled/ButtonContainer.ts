@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/native'
 import { moderateScale } from 'styles'
 
 type StyledProps = {
-   withMarginRight: boolean
+   withMarginRight?: boolean
 }
 
 export const ButtonContainer = styled.View<StyledProps>`

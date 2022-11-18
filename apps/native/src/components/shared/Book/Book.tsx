@@ -103,10 +103,12 @@ export const Book = ({
                   }
                >
                   <Text>
-                     {bookPopupButtonText({
-                        price,
-                        isInCart,
-                     })}
+                     <>
+                        {bookPopupButtonText({
+                           price,
+                           isInCart,
+                        })}
+                     </>
                   </Text>
                </PopupButton>
             </Styled.ButtonContainer>

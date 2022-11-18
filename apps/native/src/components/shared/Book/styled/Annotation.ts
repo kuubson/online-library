@@ -5,7 +5,7 @@ import { moderateScale } from 'styles'
 import { Text } from 'components/shared/styled'
 
 type StyledProps = {
-   withTitle: boolean
+   withTitle?: boolean
 }
 
 export const Annotation = styled(Text)<StyledProps>`

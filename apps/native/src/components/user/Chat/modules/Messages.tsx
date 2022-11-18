@@ -1,26 +1,17 @@
 /* eslint-disable react/display-name */
+import type { RefObject } from 'react'
 import React, { forwardRef } from 'react'
+import type { ScrollView, TouchableOpacity } from 'react-native'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
-import type { MessageType } from '@online-library/config'
-
 import { isChatInitialLoad, usePrevious } from '@online-library/core'
+
+import type { MessagesProps } from '../types'
 
 import { Message } from './Message'
 
-type MessagesProps = {
-   ref: React.RefObject<any>
-   endOfMessages: React.RefObject<any>
-   lastMessageBeforeFetch: React.RefObject<any>
-   messages: MessageType[]
-   currentUserId: string | undefined
-   onScroll: (event: any) => void
-   scrollToLastMessage: (delay: number) => void
-   onContentSizeChange: (_: any, h: number) => void
-}
-
-export const Messages = forwardRef(
+export const Messages = forwardRef<ScrollView, MessagesProps>(
    (
       {
          endOfMessages,
@@ -30,7 +21,7 @@ export const Messages = forwardRef(
          onScroll,
          scrollToLastMessage,
          onContentSizeChange,
-      }: MessagesProps,
+      },
       ref
    ) => {
       const previousChat = usePrevious(messages)
@@ -41,7 +32,11 @@ export const Messages = forwardRef(
                   !isChatInitialLoad(messages) && message.id === previousChat?.[0]?.id
                return (
                   <Message
-                     ref={isLastMessageBeforeFetch ? lastMessageBeforeFetch : null}
+                     ref={
+                        isLastMessageBeforeFetch
+                           ? (lastMessageBeforeFetch as RefObject<TouchableOpacity>)
+                           : null
+                     }
                      key={message.id}
                      {...message}
                      currentUserId={currentUserId}
@@ -51,7 +46,7 @@ export const Messages = forwardRef(
                   />
                )
             })}
-            <View ref={endOfMessages}></View>
+            <View ref={endOfMessages as MessagesProps['endOfMessages']}></View>
          </MessagesContainer>
       )
    }

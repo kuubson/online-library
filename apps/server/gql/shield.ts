@@ -1,5 +1,5 @@
 import { shield as _shield, and } from 'graphql-shield'
-import type { LogicRule } from 'graphql-shield/dist/rules'
+import type { LogicRule } from 'graphql-shield/typings/rules'
 
 import { AuthError } from '@online-library/config'
 
