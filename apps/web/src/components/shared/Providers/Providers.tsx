@@ -14,7 +14,7 @@ export const Providers = ({ children }: ReactFC) => (
       <PersistGate loading={<Loader />} persistor={persistor}>
          <ApolloProvider client={client()}>
             <ThemeProvider theme={theme}>
-               <HistoryRouter history={history}>{children}</HistoryRouter>
+               <HistoryRouter history={history as any}>{children}</HistoryRouter>
             </ThemeProvider>
          </ApolloProvider>
       </PersistGate>

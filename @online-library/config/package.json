@@ -17,6 +17,8 @@
       "yup": "^0.32.11"
    },
    "devDependencies": {
+      "@types/lodash": "^4.14.189",
+      "@types/node": "^18.7.16",
       "tsconfig": "*",
       "tsup": "^5.10.1",
       "typescript": "^4.8.3"

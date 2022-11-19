@@ -32,6 +32,6 @@ const apiFeedbackSlice = createSlice({
    },
 })
 
-export const apiFeedbackActions = apiFeedbackSlice.actions
+export const { ...apiFeedbackActions } = apiFeedbackSlice.actions
 
 export const apiFeedback = apiFeedbackSlice.reducer

@@ -11,6 +11,6 @@ const paypalModalSlice = createSlice({
    },
 })
 
-export const paypalModalActions = paypalModalSlice.actions
+export const { ...paypalModalActions } = paypalModalSlice.actions
 
 export const paypalModal = paypalModalSlice.reducer

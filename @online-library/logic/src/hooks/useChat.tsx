@@ -76,7 +76,7 @@ export const useChat = () => {
    }
 
    // TODO: it works but the UX is not too good, must investigate for other possible solutions
-   const handleOnContentSizeChange = (_: any, h: number) => {
+   const handleOnContentSizeChange = (_: number, h: number) => {
       if (!lastScroll || lastScroll !== h) {
          setLastScroll(h)
       }
