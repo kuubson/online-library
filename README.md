@@ -1,6 +1,5 @@
 # 💻 js fullstack [app](https://online-library-application.herokuapp.com), monorepo (web & [mobile](https://github.com/kuubson/online-library/tree/master/apps/native#-native-app))
 
-
 [![CircleCI](https://circleci.com/gh/kuubson/online-library.svg?style=svg&circle-token=c6f9611e819c26df85c288d0c0a9edc6bbd4116d)](https://app.circleci.com/pipelines/github/kuubson/online-library)
 
 | [Stack](#-stack) | [Packages](#-custom-packages) | [Notes](#-some-notes) | [Docs](#-documentation) | [Flow](#-flow) | [Preview](#-app-preview) | [Tools](#-tools) | [Goals](#-future-goals) | [Scripts](#-root-scripts) | [Env](#-environment-variables) | [Tips](#-tips) | [Native](https://github.com/kuubson/online-library/tree/master/apps/native#-native-app) |
@@ -197,20 +196,20 @@ socket("socket.io")-->api
 
 > **Warning** Heroku struggles with the build so `YARN_PRODUCTION` is set to `false` in heroku envs
 
-| details                                                                                                       | server                                                                  | web                                |
-| ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ---------------------------------- |
-| [cloudinary](https://cloudinary.com) API credentials                                                          | `CLOUDINARY_API_KEY` `CLOUDINARY_API_SECRET` `CLOUDINARY_NAME`          | ❌                                 |
-| PostgreSQL credentials                                                                                        | `DATABASE_HOST` `DATABASE_NAME` `DATABASE_PASSWORD` `DATABASE_USERNAME` | ❌                                 |
-| secret key for `jsonwebtoken`                                                                                 | `JWT_KEY`                                                               | ❌                                 |
-| email address for the email sender (eg. no-reply@online-library.com)                                          | `NODEMAILER_USERNAME`                                                   | ❌                                 |
-| SMTP provider (`nodemailer` credentials)                                                                      | `MAILJET_USER` `MAILJET_PASSWORD`                                       | ❌                                 |
-| [paypal](https://developer.paypal.com) API credentials                                                        | `PAYPAL_CLIENT_ID` `PAYPAL_CLIENT_SECRET`                               | ❌                                 |
-| `web-push` [package](<(https://www.npmjs.com/package/web-push)>) credentials (`web-push generate-vapid-keys`) | `PRIVATE_VAPID_KEY` `REACT_APP_PUBLIC_VAPID_KEY`                        | `REACT_APP_PUBLIC_VAPID_KEY`       |
-| fb [app](https://developers.facebook.com/apps) credentials                                                    | `FACEBOOK_APP_SECRET` `REACT_APP_FACEBOOK_APP_ID`                       | `REACT_APP_FACEBOOK_APP_ID`        |
-| [stripe](https://dashboard.stripe.com) API credentials                                                        | `STRIPE_SECRET_KEY`                                                     | `REACT_APP_STRIPE_PUBLISHABLE_KEY` |
-| set to `true` to re-autogenerate db models from existing tables (generates all methods for associations)      | `SEQUELIZE_AUTO`                                                        | ❌                                 |
-| set to `true` to seed db with some random books                                                               | `SEED_BOOKS`                                                            | ❌                                 |
-| set to `true` to seed db with a testing user                                                                  | `SEED_USER`                                                             | ❌                                 |
+| details                                                                                                       | server                                                                  | web                           |
+| ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------- |
+| [cloudinary](https://cloudinary.com) API credentials                                                          | `CLOUDINARY_API_KEY` `CLOUDINARY_API_SECRET` `CLOUDINARY_NAME`          | ❌                            |
+| PostgreSQL credentials                                                                                        | `DATABASE_HOST` `DATABASE_NAME` `DATABASE_PASSWORD` `DATABASE_USERNAME` | ❌                            |
+| secret key for `jsonwebtoken`                                                                                 | `JWT_KEY`                                                               | ❌                            |
+| email address for the email sender (eg. no-reply@online-library.com)                                          | `NODEMAILER_USERNAME`                                                   | ❌                            |
+| SMTP provider (`nodemailer` credentials)                                                                      | `MAILJET_USER` `MAILJET_PASSWORD`                                       | ❌                            |
+| [paypal](https://developer.paypal.com) API credentials                                                        | `PAYPAL_CLIENT_ID` `PAYPAL_CLIENT_SECRET`                               | ❌                            |
+| `web-push` [package](<(https://www.npmjs.com/package/web-push)>) credentials (`web-push generate-vapid-keys`) | `PRIVATE_VAPID_KEY` `VITE_PUBLIC_VAPID_KEY`                             | `VITE_PUBLIC_VAPID_KEY`       |
+| fb [app](https://developers.facebook.com/apps) credentials                                                    | `FACEBOOK_APP_SECRET` `VITE_FACEBOOK_APP_ID`                            | `VITE_FACEBOOK_APP_ID`        |
+| [stripe](https://dashboard.stripe.com) API credentials                                                        | `STRIPE_SECRET_KEY`                                                     | `VITE_STRIPE_PUBLISHABLE_KEY` |
+| set to `true` to re-autogenerate db models from existing tables (generates all methods for associations)      | `SEQUELIZE_AUTO`                                                        | ❌                            |
+| set to `true` to seed db with some random books                                                               | `SEED_BOOKS`                                                            | ❌                            |
+| set to `true` to seed db with a testing user                                                                  | `SEED_USER`                                                             | ❌                            |
 
 > **Note** See [envs](https://github.com/kuubson/online-library/tree/master/apps/native#-environment-variables) for the mobile app
 

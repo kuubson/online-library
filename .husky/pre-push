@@ -1,6 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn test
+# yarn test
 
-cd online-library-releases && git push --no-verify
+# cd online-library-releases && git push --no-verify

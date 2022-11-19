@@ -2,7 +2,7 @@ import type { PassportStatic } from 'passport'
 import FacebookTokenStrategy from 'passport-facebook-token'
 import passportJwt from 'passport-jwt'
 
-import { FACEBOOK_APP_SECRET, JWT_KEY, REACT_APP_FACEBOOK_APP_ID } from 'config'
+import { FACEBOOK_APP_SECRET, JWT_KEY, VITE_FACEBOOK_APP_ID } from 'config'
 
 import { User } from 'database'
 
@@ -48,7 +48,7 @@ export const initializePassport = (passport: PassportStatic) => {
    passport.use(
       new FacebookTokenStrategy(
          {
-            clientID: REACT_APP_FACEBOOK_APP_ID,
+            clientID: VITE_FACEBOOK_APP_ID,
             clientSecret: FACEBOOK_APP_SECRET,
          },
          (_, __, profile, done) => (profile ? done(false, true) : done(false, false))
