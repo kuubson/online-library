@@ -1,6 +1,5 @@
 # 💻 js fullstack [app](https://online-library-application.herokuapp.com), monorepo (web & [mobile](https://github.com/kuubson/online-library/tree/master/apps/native#-native-app))
 
-
 [![CircleCI](https://circleci.com/gh/kuubson/online-library.svg?style=svg&circle-token=c6f9611e819c26df85c288d0c0a9edc6bbd4116d)](https://app.circleci.com/pipelines/github/kuubson/online-library)
 
 | [Stack](#-stack) | [Packages](#-custom-packages) | [Notes](#-some-notes) | [Docs](#-documentation) | [Flow](#-flow) | [Preview](#-app-preview) | [Tools](#-tools) | [Goals](#-future-goals) | [Scripts](#-root-scripts) | [Env](#-environment-variables) | [Tips](#-tips) | [Native](https://github.com/kuubson/online-library/tree/master/apps/native#-native-app) |
@@ -170,6 +169,7 @@ socket("socket.io")-->api
 | `yarn lint`        | triggers `lint` pipeline ~> ts & eslint & stylelint check through all apps and packages                         |
 | `yarn test`        | triggers `test` pipeline ~> runs tests for web and mobile apps                                                  |
 | `yarn build`       | triggers `build` pipeline ~> build all apps, bundles all packages                                               |
+| `yarn dts`         | triggers `dts` pipeline ~> generates `d.ts` files for web app                                                   |
 | `yarn postbuild`   | triggers `yarn lib` script ~> makes sure that all packages are built on top of the newest docs                  |
 | `yarn lib`         | triggers `lib:build` pipeline ~> bundles all packages                                                           |
 | `yarn android`     | triggers `android` script in `/native` ~> runs the android app                                                  |
@@ -182,14 +182,15 @@ socket("socket.io")-->api
 
 ## 🔎 Detailed scripts
 
-| command           | server                                                                                                                 | web                         | each package                    |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------- | ------------------------------- |
-| `yarn dev`        | runs express server with `NODE_ENV` set to `development`                                                               | runs the react app          | bundles the package (watchmode) |
-| `yarn lint`       | lint & ts check                                                                                                        | lint & ts & stylelint check | lint & ts check                 |
-| `yarn test`       | ❌                                                                                                                     | runs RTL tests only once    | ❌                              |
-| `yarn test:watch` | ❌                                                                                                                     | runs RTL tests (watchmode)  | ❌                              |
-| `yarn build`      | builds the express server & copies ([copyfiles](https://www.npmjs.com/package/copyfiles)) gql related files to `/dist` | builds the react app        | bundles the package             |
-| `yarn docs`       | generates API docs (**OpenAPI**) from comments of the REST controllers                                                 | ❌                          | ❌                              |
+| command           | server                                                                                                                 | web                                              | each package                    |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | ------------------------------- |
+| `yarn dev`        | runs express server with `NODE_ENV` set to `development`                                                               | runs the react app                               | bundles the package (watchmode) |
+| `yarn lint`       | lint & ts check                                                                                                        | lint & ts & stylelint check                      | lint & ts check                 |
+| `yarn test`       | ❌                                                                                                                     | runs RTL tests only once                         | ❌                              |
+| `yarn test:watch` | ❌                                                                                                                     | runs RTL tests (watchmode)                       | ❌                              |
+| `yarn build`      | builds the express server & copies ([copyfiles](https://www.npmjs.com/package/copyfiles)) gql related files to `/dist` | builds the react app                             | bundles the package             |
+| `yarn docs`       | generates API docs (**OpenAPI**) from comments of the REST controllers                                                 | ❌                                               | ❌                              |
+| `yarn dts`        | ❌                                                                                                                     | generates `d.ts` files to fullfill ts references | ❌                              |
 
 > **Note** See [scripts](https://github.com/kuubson/online-library/tree/master/apps/native#-scripts) for the mobile app
 
@@ -216,4 +217,10 @@ socket("socket.io")-->api
 
 ## 📙 Tips
 
-#### Remember to update the `HOST` variable in `@online-library\config\src\utils\urls.ts` when changing a target domain
+-  #### Remember to update the `HOST` variable in `@online-library\config\src\utils\urls.ts` when changing a target domain
+
+-  #### If you run `yarn lib:dev` and encounter the following error, make sure to trigger `yarn dts`
+
+```js
+error TS7016: Could not find a declaration file for module '@online-library/config'. '*/**/online-library/@online-library/config/dist/index.js' implicitly has an 'any' type.
+```

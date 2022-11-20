@@ -1,4 +1,4 @@
-import type { WindowType } from '../../../../apps/web/src/components/App'
+import type { WindowType } from '../../../../apps/web/src/components/shared/Providers/Providers'
 
 export * from './api'
 export * from './axios'

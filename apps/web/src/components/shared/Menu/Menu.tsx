@@ -10,7 +10,7 @@ import { queries } from 'styles'
 
 import * as Styled from './styled'
 
-import type { RouterPath } from 'components/App'
+import type { RouterPath } from '../Providers/Providers'
 
 export const Menu = () => {
    const location = useLocation()

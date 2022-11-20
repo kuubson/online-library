@@ -16,6 +16,6 @@ axios.defaults.baseURL = SERVER_URL
 
 export const render = (ui: ReactElement, options?: Options) =>
    _render(ui, {
-      wrapper: Providers,
+      wrapper: ({ children }) => <Providers rtl>{children}</Providers>,
       ...options,
    })

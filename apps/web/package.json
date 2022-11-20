@@ -7,7 +7,8 @@
       "lint": "eslint . && tsc --noEmit && stylelint src/**/*.{ts,tsx}",
       "test": "react-scripts test --watchAll=false",
       "test:watch": "react-scripts test",
-      "build": "react-scripts build"
+      "build": "react-scripts build",
+      "dts": "tsc --build ."
    },
    "dependencies": {
       "@apollo/client": "3.6.9",
