@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express'
-import type * as qs from 'qs'
+import type { ParsedQs } from 'qs'
 import type { InferType } from 'yup'
 
 import type { Role } from '@online-library/config'
@@ -29,13 +29,13 @@ type BodyBase<B extends object = InitialBody> = B
 
 type CookiesBase<C extends object = InitialCookies> = C
 
-type QueryBase<Q extends qs.ParsedQs = InitialQuery> = Q
+type QueryBase<Q extends ParsedQs = InitialQuery> = Q
 
 type ValidationBase<V extends boolean = true> = V
 interface ExpressRequest<
    B = BodyBase,
    C = CookiesBase,
-   Q extends qs.ParsedQs = QueryBase,
+   Q extends ParsedQs = QueryBase,
    RT = RouteTypeBase
 > extends Request {
    user: RT extends 'protected' ? User : undefined
@@ -48,14 +48,14 @@ interface ExpressRequest<
 export type Middleware<
    B = BodyBase,
    C = CookiesBase,
-   Q extends qs.ParsedQs = QueryBase,
+   Q extends ParsedQs = QueryBase,
    RT = RouteTypeBase
 > = (req: ExpressRequest<B, C, Q, RT>, res: Response, next: NextFunction) => void
 
 export type Route<
    B = BodyBase,
    C = CookiesBase,
-   Q extends qs.ParsedQs = QueryBase,
+   Q extends ParsedQs = QueryBase,
    RT = RouteTypeBase,
    V = ValidationBase
 > = V extends true ? [Middleware, Middleware<B, C, Q, RT>] : [Middleware<B, C, Q, RT>]
@@ -63,7 +63,7 @@ export type Route<
 export type ProtectedRoute<
    B = BodyBase,
    C = CookiesBase,
-   Q extends qs.ParsedQs = QueryBase,
+   Q extends ParsedQs = QueryBase,
    V = ValidationBase
 > = Route<B, C, Q, 'protected', V>
 

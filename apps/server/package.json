@@ -11,6 +11,7 @@
    "dependencies": {
       "@graphql-tools/load-files": "^6.6.1",
       "@graphql-tools/schema": "^9.0.4",
+      "@graphql-tools/merge": "^8.3.12",
       "@online-library/config": "*",
       "apollo-server-core": "^3.10.2",
       "apollo-server-express": "^3.10.2",
@@ -48,6 +49,7 @@
       "yup": "^0.32.11"
    },
    "devDependencies": {
+      "qs": "^6.11.0",
       "@faker-js/faker": "^7.5.0",
       "@online-library/eslint-config": "*",
       "@swc/core": "^1.2.248",

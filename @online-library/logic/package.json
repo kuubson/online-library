@@ -15,7 +15,9 @@
       "@online-library/core": "*",
       "lodash": "^4.17.21",
       "react-native-document-picker": "8.1.0",
-      "socket.io-client": "^4.5.2"
+      "socket.io-client": "^4.5.2",
+      "react-hook-form": "7.36.0",
+      "yup": "^0.32.11"
    },
    "devDependencies": {
       "tsconfig": "*",
