@@ -7,7 +7,6 @@
       "lint": "turbo run lint",
       "test": "turbo run test",
       "build": "turbo run build",
-      "dts": "turbo run dts",
       "postbuild": "yarn lib",
       "lib": "turbo run lib:build",
       "android": "yarn workspace @online-library/native android",

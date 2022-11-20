@@ -13,9 +13,8 @@
          "outputs": ["dist/**", "build/**"]
       },
       "lib:build": {
-         "dependsOn": ["^lib:build", "dts"],
+         "dependsOn": ["^lib:build"],
          "outputs": ["dist/**"]
-      },
-      "dts": { "outputs": ["dist/**"] }
+      }
    }
 }

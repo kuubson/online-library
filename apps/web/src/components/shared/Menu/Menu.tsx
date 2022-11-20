@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useLocation } from 'react-router'
 import styled, { css } from 'styled-components/macro'
 
+import type { RouterPath } from '@online-library/core'
 import { useCart, useChatDetails, useTopOffset } from '@online-library/core'
 
 import { useLogout } from '@online-library/logic'
@@ -9,8 +10,6 @@ import { useLogout } from '@online-library/logic'
 import { queries } from 'styles'
 
 import * as Styled from './styled'
-
-import type { RouterPath } from '../Providers/Providers'
 
 export const Menu = () => {
    const location = useLocation()

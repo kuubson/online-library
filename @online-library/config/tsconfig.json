@@ -2,6 +2,6 @@
    "extends": "../tsconfig/library.json",
    "compilerOptions": {
       "baseUrl": "src",
-      "rootDirs": [".", "../../../apps/server"] // NOTE: it should be maybe handled with the "references"
+      "rootDirs": [".", "../../../apps/server"]
    }
 }
