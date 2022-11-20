@@ -1,5 +1,3 @@
-import styled from 'styled-components/macro'
-
 import { useApiFeedback, useLoader } from '@online-library/core'
 
 import { GlobalStyle } from 'styles'
@@ -13,14 +11,10 @@ export const App = () => {
    const { showApiFeedback } = useApiFeedback()
 
    return (
-      <AppContainer>
+      <>
          <GlobalStyle />
          {loading && <Loader />}
          {showApiFeedback && <ApiFeedback />}
-      </AppContainer>
+      </>
    )
 }
-
-const AppContainer = styled.main`
-   height: 100%;
-`
