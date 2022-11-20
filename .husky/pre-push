@@ -2,5 +2,3 @@
 . "$(dirname "$0")/_/husky.sh"
 
 yarn test
-
-cd online-library-releases && git push --no-verify

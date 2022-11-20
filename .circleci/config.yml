@@ -6,10 +6,14 @@ orbs:
    node: circleci/node@5.0.3
 
 jobs:
+   hold:
+      docker:
+         - image: cimg/node:16.17.1
+      steps:
+         - run: printf "A hold job to wait for a manual approval"
    build:
       docker:
          - image: cimg/android:2022.09
-      #     - image: cimg/node:16.17.1
       parameters:
          token:
             default: GITHUB_TOKEN
@@ -63,7 +67,7 @@ jobs:
               command: cd apps/native && yarn apk
          - run:
               name: Create release
-              command: cd online-library-releases && gh release create v1.0.6 ../apps/native/android/app/build/outputs/apk/release/app-release.apk
+              command: cd online-library-releases && gh release create v1.0.7 ../apps/native/android/app/build/outputs/apk/release/app-release.apk
          - save_cache:
               key: gradle-v1-{{ arch }}-{{ checksum "/tmp/gradle_cache_seed" }}
               paths:
@@ -71,10 +75,13 @@ jobs:
                  - ~/.gradle/wrapper
 
 workflows:
-   build:
+   approve-and-build:
       jobs:
-         - build:
+         - hold:
               type: approval
+         - build:
+              requires:
+                 - hold
               filters:
                  branches:
                     only:
