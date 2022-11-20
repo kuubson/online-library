@@ -1,13 +1,6 @@
 import { API } from '@online-library/config'
 
-import {
-   apiAxios,
-   callback,
-   history,
-   navigate,
-   setApiFeedback,
-   useForm,
-} from '@online-library/core'
+import { apiAxios, callback, navigate, setApiFeedback, useForm } from '@online-library/core'
 
 const { request, validation, header, responses } = API['/api/user/auth/register'].post
 
@@ -19,7 +12,7 @@ export const useRegistration = () => {
       if (response) {
          setApiFeedback(header, responses[200], 'Okey', () =>
             callback({
-               web: () => history.push('/login'),
+               web: () => window.navigate('/login'),
                native: () => navigate('Login'),
             })
          )

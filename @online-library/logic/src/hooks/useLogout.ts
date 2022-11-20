@@ -1,7 +1,7 @@
 import { API, isWeb } from '@online-library/config'
 
 import type { FBStatus } from '@online-library/core'
-import { apiAxios, history, setRole, useCart, useSocket } from '@online-library/core'
+import { apiAxios, setRole, useCart, useSocket } from '@online-library/core'
 
 export const useLogout = () => {
    const { closeSocketConnection } = useSocket()
@@ -21,7 +21,7 @@ export const useLogout = () => {
          resetCart()
 
          if (isWeb) {
-            history.push('/login')
+            window.navigate('/login')
             window.FB.getLoginStatus((response: FBStatus) => {
                if (response.status === 'connected') {
                   window.FB.logout(() => null)

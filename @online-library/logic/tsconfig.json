@@ -2,5 +2,6 @@
    "extends": "../tsconfig/library.json",
    "compilerOptions": {
       "baseUrl": "src"
-   }
+   },
+   "references": [{ "path": "../../apps/web" }]
 }

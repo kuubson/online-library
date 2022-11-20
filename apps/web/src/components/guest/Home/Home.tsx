@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 
-import { history, t } from '@online-library/core'
+import { t } from '@online-library/core'
 
 import { queries } from 'styles'
 import { RoleContainer } from 'styles/styled'
@@ -18,10 +18,10 @@ export const Home = () => {
          <Styled.HeaderContainer>
             <Styled.Header>Online Library</Styled.Header>
             <Styled.Buttons>
-               <Styled.Button onClick={() => history.push('/login')}>
+               <Styled.Button onClick={() => window.navigate('/login')}>
                   {t('buttons.login')}
                </Styled.Button>
-               <Styled.Button onClick={() => history.push('/registration')}>
+               <Styled.Button onClick={() => window.navigate('/registration')}>
                   {t('buttons.register')}
                </Styled.Button>
             </Styled.Buttons>

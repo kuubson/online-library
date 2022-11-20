@@ -1,15 +1,5 @@
 import type { GraphQLError } from 'graphql'
 
-export type FBLoginRequest = {
-   authResponse: {
-      userID: string
-      signedRequest: string
-      expiresIn: string
-      accessToken: string
-   }
-   status: 'connected' | 'not_authorized'
-}
-
 export type FBMeRespose = {
    first_name: string
    email: string

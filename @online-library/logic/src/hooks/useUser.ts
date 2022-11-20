@@ -3,13 +3,7 @@ import { useEffect } from 'react'
 import { API, isWeb } from '@online-library/config'
 
 import type { ChatDetailsResponse, TokenCheckResponse } from '@online-library/core'
-import {
-   defaultAxios,
-   handleApiError,
-   history,
-   setRole,
-   useChatDetails,
-} from '@online-library/core'
+import { defaultAxios, handleApiError, setRole, useChatDetails } from '@online-library/core'
 
 export const useUser = () => {
    const { setCurrentUserId, setLastUnreadMessageIndex, setUnreadMessagesAmount } = useChatDetails()
@@ -27,7 +21,7 @@ export const useUser = () => {
 
             if (role !== 'user') {
                if (isWeb) {
-                  history.push('/login')
+                  window.navigate('/login')
                }
             }
          }

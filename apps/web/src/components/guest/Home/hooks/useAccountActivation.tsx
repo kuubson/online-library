@@ -3,7 +3,7 @@ import type { InferType } from 'yup'
 
 import { API } from '@online-library/config'
 
-import { apiAxios, history, setApiFeedback } from '@online-library/core'
+import { apiAxios, setApiFeedback } from '@online-library/core'
 
 import { useQueryParams } from 'hooks'
 
@@ -17,10 +17,10 @@ export const useAccountActivation = () => {
          const response = await apiAxios<typeof validation>(request, { activationToken })
 
          if (response) {
-            setApiFeedback(header, responses[200], 'Okey', () => history.push('/login'))
+            setApiFeedback(header, responses[200], 'Okey', () => window.navigate('/login'))
          }
       } catch (error) {
-         history.push('/login')
+         window.navigate('/login')
       }
    }
 

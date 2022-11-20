@@ -3,7 +3,7 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { API } from '@online-library/config'
 
 import type { ReactDispatch } from '@online-library/core'
-import { apiAxios, history, setApiFeedback, setLoading, useCart } from '@online-library/core'
+import { apiAxios, setApiFeedback, setLoading, useCart } from '@online-library/core'
 
 export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean>) => {
    const stripe = useStripe()
@@ -37,7 +37,7 @@ export const useStripePopup = (setShouldStripePopupAppear: ReactDispatch<boolean
                   setShouldStripePopupAppear(false)
                   setApiFeedback(header, responses[200], 'Check profile tab', () => {
                      resetCart()
-                     history.push('/profile')
+                     window.navigate('/profile')
                   })
                }
             } else {

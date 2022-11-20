@@ -1,4 +1,4 @@
-import { history, t } from '@online-library/core'
+import { t } from '@online-library/core'
 
 import { useRegistration } from '@online-library/logic'
 
@@ -48,10 +48,10 @@ export const Registration = () => {
             />
             <Submit>{t('buttons.register')}</Submit>
             <Styled.Annotations>
-               <Styled.Annotation onClick={() => history.push('/email-support')}>
+               <Styled.Annotation onClick={() => window.navigate('/email-support')}>
                   {t('registration.annotation1')}
                </Styled.Annotation>
-               <Styled.Annotation onClick={() => history.push('/login')}>
+               <Styled.Annotation onClick={() => window.navigate('/login')}>
                   {t('registration.annotation2')}
                </Styled.Annotation>
             </Styled.Annotations>

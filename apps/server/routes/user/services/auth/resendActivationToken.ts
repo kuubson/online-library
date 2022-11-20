@@ -52,7 +52,7 @@ export const resendActivationToken: Route<Body<typeof schema>> = [
                      `${header} in the Online Library`,
                      `To activate the account click the button`,
                      'Activate account',
-                     `${CLIENT_URL}/home/?activationToken=${activationToken}`
+                     `${CLIENT_URL}/?activationToken=${activationToken}`
                   ),
                })
             } catch (error) {

@@ -2,13 +2,15 @@ import { useState } from 'react'
 import { useLocation } from 'react-router'
 import styled, { css } from 'styled-components/macro'
 
-import { history, useCart, useChatDetails, useTopOffset } from '@online-library/core'
+import { useCart, useChatDetails, useTopOffset } from '@online-library/core'
 
 import { useLogout } from '@online-library/logic'
 
 import { queries } from 'styles'
 
 import * as Styled from './styled'
+
+import type { RouterPath } from 'components/App'
 
 export const Menu = () => {
    const location = useLocation()
@@ -43,11 +45,15 @@ export const Menu = () => {
          counter: unreadMessagesAmount && (unreadMessagesAmount <= 99 ? unreadMessagesAmount : 99),
       },
       { option: 'Logout' },
-   ]
+   ] as {
+      option: string
+      pathname?: RouterPath
+      counter?: number
+   }[]
 
    return (
       <MenuContainer shouldMenuStick={shouldMenuStick}>
-         <Styled.Logo onClick={() => history.push('/')}>Online Library</Styled.Logo>
+         <Styled.Logo onClick={() => window.navigate('/')}>Online Library</Styled.Logo>
          <Styled.LinesContainer
             onClick={() => setShouldMenuExpand(shouldMenuExpand => !shouldMenuExpand)}
             {...{ shouldMenuExpand }}
@@ -62,8 +68,12 @@ export const Menu = () => {
                   if (option === 'Logout') {
                      return logout()
                   }
-                  history.push(`${pathname}`)
+
                   setShouldMenuExpand(false)
+
+                  if (pathname) {
+                     window.navigate(`${pathname}`)
+                  }
                }
                if (location.pathname !== pathname) {
                   return (

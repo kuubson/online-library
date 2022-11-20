@@ -1,7 +1,7 @@
 import { API, FB_FIELDS, isWeb } from '@online-library/config'
 
-import type { FBLoginRequest, FBMeRespose } from '@online-library/core'
-import { apiAxios, history, setApiFeedback, setRole, useForm } from '@online-library/core'
+import type { FBMeRespose } from '@online-library/core'
+import { apiAxios, setApiFeedback, setRole, useForm } from '@online-library/core'
 
 const { request, validation } = API['/api/user/auth/login/credentials'].post
 
@@ -13,7 +13,7 @@ export const useLogin = () => {
       if (response) {
          setRole('user')
          if (isWeb) {
-            history.push('/store')
+            window.navigate('/store')
          }
       }
    }
@@ -21,7 +21,7 @@ export const useLogin = () => {
    const loginWithFb = () => {
       const { request, validation, header, responses } = API['/api/user/auth/login/fb'].post
       window.FB.login(
-         ({ authResponse, status }: FBLoginRequest) => {
+         ({ authResponse, status }) => {
             if (authResponse && status === 'connected') {
                return window.FB.api(
                   `/me?fields=${FB_FIELDS}`,
@@ -32,7 +32,7 @@ export const useLogin = () => {
                         access_token: authResponse.accessToken,
                      })
                      if (response) {
-                        history.push('/store')
+                        window.navigate('/store')
                      }
                   }
                )

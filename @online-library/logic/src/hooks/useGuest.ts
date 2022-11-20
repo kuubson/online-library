@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { API, isWeb } from '@online-library/config'
 
 import type { TokenCheckResponse } from '@online-library/core'
-import { defaultAxios, handleApiError, history, setRole, useSocket } from '@online-library/core'
+import { defaultAxios, handleApiError, setRole, useSocket } from '@online-library/core'
 
 export const useGuest = () => {
    const { closeSocketConnection } = useSocket()
@@ -25,7 +25,7 @@ export const useGuest = () => {
 
             if (role === 'user') {
                if (isWeb) {
-                  history.push('/store')
+                  window.navigate('/store')
                }
             }
          }

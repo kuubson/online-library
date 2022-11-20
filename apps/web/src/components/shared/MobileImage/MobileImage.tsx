@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components/macro'
 
-import { history } from '@online-library/core'
-
 import { queries } from 'styles'
 
 import { MobileLanding } from 'assets/images'
@@ -22,11 +20,7 @@ export const MobileImage = ({ onlyBadges }: MobileImageProps) => {
 
    return (
       <MobileImageContainer onlyBadges={onlyBadges}>
-         <Styled.Image
-            src={MobileLanding}
-            onClick={() => history.push('/mobile-app')}
-            onLoad={() => setShowBadges(true)}
-         />
+         <Styled.Image src={MobileLanding} onLoad={() => setShowBadges(true)} />
          {showBadges && (
             <Styled.Badges>
                {apk && (

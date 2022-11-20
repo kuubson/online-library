@@ -1,24 +1,103 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import type { RouteObject } from 'react-router-dom'
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
 import { useApiFeedback, useLoader } from '@online-library/core'
 
-import { GlobalStyle } from 'styles'
 import 'styles/index.scss'
 
-import { Location } from 'components/shared'
-
-import { Home } from 'components/guest/Home/Home'
-import { Login } from 'components/guest/Login/Login'
-import { PasswordReset } from 'components/guest/PasswordReset/PasswordReset'
-import { Registration } from 'components/guest/Registration/Registration'
-import { Support } from 'components/guest/Support/Support'
-import { Cart } from 'components/user/Cart/Cart'
-import { Chat } from 'components/user/Chat/Chat'
-import { Profile } from 'components/user/Profile/Profile'
-import { Store } from 'components/user/Store/Store'
-
+// NOTE: it must be a relative import
+import { GlobalStyle } from '../styles'
+// NOTE: -------------------------------
 import { ApiFeedback, Guest, Loader, User } from './common'
+import { Home, Login, PasswordReset, Registration, Support } from './guest'
+import { Location } from './shared'
+import { Cart, Chat, Profile, Store } from './user'
+
+export const routes = [
+   {
+      path: '/',
+      element: <Home />,
+   },
+   {
+      path: '/registration',
+      element: (
+         <Guest>
+            <Registration />
+         </Guest>
+      ),
+   },
+   {
+      path: '/email-support',
+      element: (
+         <Guest>
+            <Support />
+         </Guest>
+      ),
+   },
+   {
+      path: '/login',
+      element: (
+         <Guest>
+            <Login />
+         </Guest>
+      ),
+   },
+   {
+      path: '/password-support',
+      element: (
+         <Guest>
+            <Support withPasswordSupport />
+         </Guest>
+      ),
+   },
+   {
+      path: '/password-recovery/:passwordToken',
+      element: (
+         <Guest>
+            <PasswordReset />
+         </Guest>
+      ),
+   },
+   {
+      path: '/store',
+      element: (
+         <User>
+            <Store />
+         </User>
+      ),
+   },
+   {
+      path: '/profile',
+      element: (
+         <User>
+            <Profile />
+         </User>
+      ),
+   },
+   {
+      path: '/cart',
+      element: (
+         <User>
+            <Cart />
+         </User>
+      ),
+   },
+   {
+      path: '/chat',
+      element: (
+         <User>
+            <Chat />
+         </User>
+      ),
+   },
+   {
+      path: '*',
+      element: <Navigate to="/" />,
+   },
+] as const
+
+export const router = createBrowserRouter(routes as unknown as RouteObject[])
 
 export const App = () => {
    const { loading } = useLoader()
@@ -30,83 +109,8 @@ export const App = () => {
          <GlobalStyle />
          {loading && <Loader />}
          {showApiFeedback && <ApiFeedback />}
-         <Routes>
-            <Route path="/home" element={<Home />} />
-            <Route
-               path="/registration"
-               element={
-                  <Guest>
-                     <Registration />
-                  </Guest>
-               }
-            />
-            <Route
-               path="/email-support"
-               element={
-                  <Guest>
-                     <Support />
-                  </Guest>
-               }
-            />
-            <Route
-               path="/login"
-               element={
-                  <Guest>
-                     <Login />
-                  </Guest>
-               }
-            />
-            <Route
-               path="/password-support"
-               element={
-                  <Guest>
-                     <Support withPasswordSupport />
-                  </Guest>
-               }
-            />
-            <Route
-               path="/password-recovery/:passwordToken"
-               element={
-                  <Guest>
-                     <PasswordReset />
-                  </Guest>
-               }
-            />
-            <Route
-               path="/store"
-               element={
-                  <User>
-                     <Store />
-                  </User>
-               }
-            />
-            <Route
-               path="/profile"
-               element={
-                  <User>
-                     <Profile />
-                  </User>
-               }
-            />
-            <Route
-               path="/cart"
-               element={
-                  <User>
-                     <Cart />
-                  </User>
-               }
-            />
-            <Route
-               path="/chat"
-               element={
-                  <User>
-                     <Chat />
-                  </User>
-               }
-            />
-            <Route path="*" element={<Navigate to="/home" />} />
-         </Routes>
-         <Location data-testid="location" />
+         <RouterProvider router={router} />
+         <Location />
       </AppContainer>
    )
 }
@@ -114,3 +118,22 @@ export const App = () => {
 const AppContainer = styled.main`
    height: 100%;
 `
+
+export type WindowType = {
+   navigate: typeof navigate
+   goBack: typeof goBack
+}
+
+declare global {
+   // eslint-disable-next-line @typescript-eslint/no-empty-interface
+   interface Window extends WindowType {}
+}
+
+export type RouterPath = Exclude<typeof routes[number]['path'], '*'>
+
+const navigate = (path: RouterPath) => router.navigate(path)
+
+const goBack = () => router.navigate(-1)
+
+window.navigate = navigate
+window.goBack = goBack

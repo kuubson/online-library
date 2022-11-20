@@ -1,4 +1,4 @@
-import { history, t } from '@online-library/core'
+import { t } from '@online-library/core'
 
 import { useLogin } from '@online-library/logic'
 
@@ -35,10 +35,10 @@ export const Login = () => {
                {t('buttons.fbLogin')}
             </Submit>
             <Annotations>
-               <Annotation onClick={() => history.push('/registration')}>
+               <Annotation onClick={() => window.navigate('/registration')}>
                   {t('login.annotation1')}
                </Annotation>
-               <Annotation onClick={() => history.push('/password-support')}>
+               <Annotation onClick={() => window.navigate('/password-support')}>
                   {t('login.annotation2')}
                </Annotation>
             </Annotations>

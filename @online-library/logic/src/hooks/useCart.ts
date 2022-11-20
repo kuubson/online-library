@@ -7,7 +7,6 @@ import type { PaypalCheckoutResponse, ResponseError } from '@online-library/core
 import {
    apiAxios,
    callback,
-   history,
    navigate,
    setApiFeedback,
    useBooksQuery,
@@ -43,7 +42,7 @@ export const useCart = ({ paymentId, PayerID }: UseCartProps) => {
    const reset = () => {
       resetCart()
       callback({
-         web: () => history.push('/profile'),
+         web: () => window.navigate('/profile'),
          native: () => navigate('Profile'),
       })
    }

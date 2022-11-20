@@ -17,7 +17,7 @@ import {
 
 import { debounceLoader, resetLoader, setApiFeedback, setRole } from 'helpers'
 
-import { defaultAxios, history } from 'utils'
+import { defaultAxios } from 'utils'
 
 import type { CloseEvent, GraphqlError } from 'types'
 
@@ -87,7 +87,7 @@ const handleError = onError(({ graphQLErrors, networkError }) => {
                setApiFeedback(AuthError.errorHeader, AuthError.errorMessage)
 
                if (isWeb) {
-                  history.push('/login')
+                  window.navigate('/login')
                }
             })
          }

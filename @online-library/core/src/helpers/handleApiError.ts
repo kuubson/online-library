@@ -3,8 +3,6 @@ import { ConnectivityError, RequestError, isProd, isProdWeb, isWeb } from '@onli
 
 import { setApiFeedback, setRole } from 'helpers'
 
-import { history } from 'utils'
-
 import type { ResponseError } from 'types'
 
 const refresh = () => isProdWeb && window.location.reload()
@@ -25,7 +23,7 @@ export const handleApiError = <T extends unknown>(error: T) => {
       if (status === 401) {
          setRole('guest')
          if (isWeb) {
-            history.push('/login')
+            window.navigate('/login')
          }
       }
 

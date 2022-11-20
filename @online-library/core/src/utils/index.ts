@@ -1,5 +1,4 @@
 export * from './axios'
 export * from './callback'
 export * from './common'
-export { history } from './history.web'
 export * from './navigation.native'
