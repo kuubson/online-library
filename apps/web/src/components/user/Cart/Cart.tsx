@@ -9,7 +9,7 @@ import { t } from '@online-library/core'
 
 import { useCart } from '@online-library/logic'
 
-import { REACT_APP_STRIPE_PUBLISHABLE_KEY } from 'config'
+import { VITE_STRIPE_PUBLISHABLE_KEY } from 'config'
 
 import { Header, HeaderContainer, Submit, UserContent } from 'styles/styled'
 
@@ -21,7 +21,7 @@ import { useQueryParams } from 'hooks'
 
 import { StripePopup } from './modules/'
 
-const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLISHABLE_KEY)
+const stripePromise = loadStripe(VITE_STRIPE_PUBLISHABLE_KEY)
 
 const { validation } = API['/api/user/cart/paypal/payment'].post
 

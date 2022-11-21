@@ -19,7 +19,7 @@ import {
    PAYPAL_CLIENT_ID,
    PAYPAL_CLIENT_SECRET,
    PRIVATE_VAPID_KEY,
-   REACT_APP_PUBLIC_VAPID_KEY,
+   VITE_PUBLIC_VAPID_KEY,
 } from 'config'
 
 import { initializeGraphQL } from 'gql/server'
@@ -38,11 +38,7 @@ export { serveWeb } from './serveWeb'
 export { unless } from './unless'
 export { yupValidation } from './yupValidation'
 
-webpush.setVapidDetails(
-   `mailto:${NODEMAILER_USERNAME}`,
-   REACT_APP_PUBLIC_VAPID_KEY,
-   PRIVATE_VAPID_KEY
-)
+webpush.setVapidDetails(`mailto:${NODEMAILER_USERNAME}`, VITE_PUBLIC_VAPID_KEY, PRIVATE_VAPID_KEY)
 
 cloudinary.v2.config({
    cloud_name: CLOUDINARY_NAME,

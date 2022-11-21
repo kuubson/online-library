@@ -3,15 +3,13 @@ import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-export default defineConfig({
+export default defineConfig(() => ({
    server: { port: 3000 },
    plugins: [
-      react({
-         babel: { plugins: [['babel-plugin-styled-components']] },
-      }),
+      react({ babel: { plugins: [['babel-plugin-styled-components']] } }),
       VitePWA({
-         includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
          devOptions: { enabled: true },
+         registerType: 'prompt',
          manifest: {
             short_name: 'Online Library',
             name: 'Online Library',
@@ -31,8 +29,8 @@ export default defineConfig({
                },
             ],
          },
-         registerType: 'prompt',
+         includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
       }),
       tsconfigPaths(),
    ],
-})
+}))
