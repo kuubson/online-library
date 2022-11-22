@@ -1,14 +1,4 @@
-type Env = {
-   VITE_FACEBOOK_APP_ID: string
-
-   VITE_PUBLIC_VAPID_KEY: string
-
-   VITE_STRIPE_PUBLISHABLE_KEY: string
-
-   PUBLIC_URL: string
-
-   NODE_ENV: 'development' | 'test' | 'production'
-}
+// NOTE: types are inside end.d.ts
 
 export const {
    VITE_FACEBOOK_APP_ID,
@@ -16,4 +6,4 @@ export const {
    VITE_STRIPE_PUBLISHABLE_KEY,
    PUBLIC_URL,
    NODE_ENV,
-} = import.meta.env as unknown as Env
+} = import.meta.env

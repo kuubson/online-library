@@ -2,18 +2,20 @@ import { API } from '@online-library/config'
 
 import { defaultAxios } from 'utils'
 
-const urlBase64ToUint8Array = (base64String: string) => {
-   const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
-   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/')
-   const rawData = window.atob(base64)
-   const outputArray = new Uint8Array(rawData.length)
-   for (let i = 0; i < rawData.length; ++i) {
-      outputArray[i] = rawData.charCodeAt(i)
+const urlBase64ToUint8Array = (publicVapidKeyBase64: string | undefined) => {
+   if (publicVapidKeyBase64) {
+      const padding = '='.repeat((4 - (publicVapidKeyBase64.length % 4)) % 4)
+      const base64 = (publicVapidKeyBase64 + padding).replace(/-/g, '+').replace(/_/g, '/')
+      const rawData = window.atob(base64)
+      const outputArray = new Uint8Array(rawData.length)
+      for (let i = 0; i < rawData.length; ++i) {
+         outputArray[i] = rawData.charCodeAt(i)
+      }
+      return outputArray
    }
-   return outputArray
 }
 
-export const subscribePushNotifications = async () => {
+export const subscribePushNotifications = async (publicVapidKeyBase64: string | undefined) => {
    try {
       const { permissions, serviceWorker } = navigator
 
@@ -24,9 +26,7 @@ export const subscribePushNotifications = async () => {
             if (pushManager) {
                const subscription = await pushManager.subscribe({
                   userVisibleOnly: true,
-                  applicationServerKey: urlBase64ToUint8Array(
-                     process.env.VITE_PUBLIC_VAPID_KEY as string
-                  ),
+                  applicationServerKey: urlBase64ToUint8Array(publicVapidKeyBase64),
                })
 
                const { request } = API['/api/user/chat/notifications'].post

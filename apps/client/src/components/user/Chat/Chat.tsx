@@ -5,6 +5,8 @@ import { detectMobileDevice, t, useChatDetails } from '@online-library/core'
 
 import { useChat } from '@online-library/logic'
 
+import { VITE_PUBLIC_VAPID_KEY } from 'config'
+
 import { Button, UserContent } from 'styles/styled'
 
 import * as Styled from './styled'
@@ -30,7 +32,7 @@ export const Chat = () => {
       scrollToLastMessage,
       handleOnKeyPress,
       handleInfiniteLoader,
-   } = useChat()
+   } = useChat(VITE_PUBLIC_VAPID_KEY)
 
    const { lastUnreadMessageIndex } = useChatDetails()
 
