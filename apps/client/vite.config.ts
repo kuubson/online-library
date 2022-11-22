@@ -21,12 +21,11 @@ export default defineConfig(({ mode }) => {
             '/socket.io': { target: 'http://localhost:3001/socket.io' },
          },
       },
+      resolve: { alias: { 'react-native': 'react-native-web' } },
+      build: { commonjsOptions: { include: [/node_modules/, /config/, /core/, /logic/] } },
       optimizeDeps: {
          include: ['@online-library/config', '@online-library/core', '@online-library/logic'],
       },
-      build: { commonjsOptions: { include: [/config/, /core/, /logic/, /node_modules/] } },
-      resolve: { alias: { 'react-native': 'react-native-web' } },
-      define: { global: '({})' },
       plugins: [
          htmlPlugin(),
          tsconfigPaths(),

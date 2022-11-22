@@ -20,9 +20,12 @@
       <div id="root"></div>
       <script type="module" src="/src/main.tsx"></script>
       <script>
+         var global = global || window // NOTE: it suppresses the build error (due to the hoised "react-navigation/native" package)
+      </script>
+      <script>
          window.fbAsyncInit = function () {
             FB.init({
-               appId: '%VITE_FACEBOOK_APP_ID%', // TODO: inject env here
+               appId: '%VITE_FACEBOOK_APP_ID%',
                autoLogAppEvents: true,
                xfbml: true,
                version: 'v14.0',
