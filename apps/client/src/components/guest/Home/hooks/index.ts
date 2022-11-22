@@ -1,0 +1,1 @@
+export { useAccountActivation } from './useAccountActivation'

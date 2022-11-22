@@ -1,10 +1,12 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 
-import { App } from './App'
+import { Providers } from 'components/shared'
 
 createRoot(document.getElementById('root') as HTMLElement).render(
    <React.StrictMode>
-      <App />
+      <Providers>
+         <></>
+      </Providers>
    </React.StrictMode>
 )
