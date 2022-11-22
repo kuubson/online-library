@@ -3,12 +3,12 @@
    "version": "1.0.0",
    "private": true,
    "sideEffects": false,
-   "main": "./dist/index.js",
+   "main": "./dist/index.mjs",
    "types": "./dist/index.d.ts",
    "scripts": {
       "dev": "yarn lib:build --watch",
       "lint": "eslint . && tsc --noEmit",
-      "lib:build": "tsup src/index.ts --format cjs --dts --external react"
+      "lib:build": "tsup src/index.ts --format esm --dts --external react"
    },
    "dependencies": {
       "@types/validator": "^13.7.6",
