@@ -7,6 +7,8 @@ import { ThemeProvider } from 'styled-components'
 import type { ReactFC, Router } from '@online-library/core'
 import { client, persistor, store, theme } from '@online-library/core'
 
+import 'styles/index.scss'
+
 // NOTE: must use relative paths, can't be absolute
 // ------------------------------------------------
 import { Guest, Loader, Location, User } from '../../common'

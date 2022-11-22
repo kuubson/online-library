@@ -16,4 +16,4 @@ export const {
    VITE_STRIPE_PUBLISHABLE_KEY,
    PUBLIC_URL,
    NODE_ENV,
-} = process.env as unknown as Env
+} = import.meta.env as unknown as Env

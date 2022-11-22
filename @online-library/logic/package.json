@@ -3,12 +3,12 @@
    "version": "1.0.0",
    "private": true,
    "sideEffects": false,
-   "main": "./dist/index.mjs",
+   "main": "./dist/index.js",
    "types": "./dist/index.d.ts",
    "scripts": {
       "dev": "yarn lib:build --watch",
       "lint": "eslint . && tsc --noEmit",
-      "lib:build": "tsup src/index.ts --format esm --dts --external react"
+      "lib:build": "tsup src/index.ts --format cjs --dts --external react"
    },
    "dependencies": {
       "@online-library/config": "*",

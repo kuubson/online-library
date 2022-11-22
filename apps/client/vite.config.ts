@@ -3,9 +3,27 @@ import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-export default defineConfig(() => ({
-   server: { port: 3000 },
+export default defineConfig({
+   server: {
+      port: 3000,
+      // proxy: { '/api': { target: 'http://localhost:3001/api', changeOrigin: true } },
+      proxy: {
+         '/api': {
+            target: 'http://localhost:3001/api',
+            changeOrigin: true,
+            secure: false,
+            rewrite: path => path.replace('/api', ''),
+         },
+      },
+   },
+   optimizeDeps: {
+      include: ['@online-library/config', '@online-library/core', '@online-library/logic'],
+   },
+   build: { commonjsOptions: { include: [/config/, /core/, /logic/, /node_modules/] } },
+   resolve: { alias: { 'react-native': 'react-native-web' } },
+   define: { global: '({})' },
    plugins: [
+      tsconfigPaths(),
       react({ babel: { plugins: [['babel-plugin-styled-components']] } }),
       VitePWA({
          devOptions: { enabled: true },
@@ -31,6 +49,5 @@ export default defineConfig(() => ({
          },
          includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
       }),
-      tsconfigPaths(),
    ],
-}))
+})
