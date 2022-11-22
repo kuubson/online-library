@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { forwardRef } from 'react'
-import styled, { css } from 'styled-components/macro'
+import styled, { css } from 'styled-components'
 
 import type { MessageType } from '@online-library/config'
 

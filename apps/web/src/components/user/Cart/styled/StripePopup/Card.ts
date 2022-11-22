@@ -1,5 +1,5 @@
 import { CardElement } from '@stripe/react-stripe-js'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 
 import { theme } from '@online-library/core'
 
