@@ -56,5 +56,10 @@ export default defineConfig(({ mode }) => {
             includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
          }),
       ],
+      test: {
+         globals: true,
+         environment: 'jsdom',
+         setupFiles: './setupTests.ts',
+      },
    }
 })
