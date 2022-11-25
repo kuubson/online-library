@@ -1,2 +1,5 @@
-build/
+# apps
 dist/
+
+# other
+.env-example

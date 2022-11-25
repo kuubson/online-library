@@ -10,7 +10,7 @@
       },
       "build": {
          "dependsOn": ["^lib:build", "docs", "test"],
-         "outputs": ["dist/**", "build/**"]
+         "outputs": ["dist/**"]
       },
       "lib:build": {
          "dependsOn": ["^lib:build"],
