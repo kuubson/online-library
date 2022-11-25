@@ -1,7 +1,7 @@
 {
-   "name": "client",
+   "name": "@online-library/client",
    "private": true,
-   "version": "0.0.0",
+   "version": "1.0.0",
    "type": "module",
    "scripts": {
       "dev": "vite",
@@ -11,9 +11,34 @@
    "dependencies": {
       "react": "^18.2.0",
       "react-dom": "^18.2.0",
-      "styled-components": "^5.3.6"
+      "styled-components": "^5.3.6",
+      "@apollo/client": "3.6.9",
+      "@hookform/resolvers": "^2.9.7",
+      "@online-library/config": "*",
+      "@online-library/core": "*",
+      "@online-library/logic": "*",
+      "@reduxjs/toolkit": "^1.8.5",
+      "@stripe/react-stripe-js": "^1.10.0",
+      "@stripe/stripe-js": "^1.35.0",
+      "axios": "^0.27.2",
+      "file-saver": "^2.0.5",
+      "graphql": "^16.6.0",
+      "graphql-ws": "^5.10.1",
+      "lodash": "^4.17.21",
+      "query-string": "^7.1.1",
+      "react-hook-form": "7.36.0",
+      "react-native-web": "0.18.8",
+      "react-redux": "8.0.3",
+      "react-router-dom": "6.4.0",
+      "redux": "^4.2.0",
+      "redux-persist": "^6.0.0",
+      "sass": "^1.54.9",
+      "socket.io-client": "^4.5.2",
+      "typescript": "^4.8.3",
+      "yup": "^0.32.11"
    },
    "devDependencies": {
+      "@types/node": "^18.7.16",
       "@types/jest": "^29.2.3",
       "@types/react": "^18.0.24",
       "@types/react-dom": "^18.0.8",
@@ -21,6 +46,9 @@
       "typescript": "^4.6.4",
       "vite": "^3.2.3",
       "vite-plugin-pwa": "^0.13.3",
-      "vite-tsconfig-paths": "^3.6.0"
+      "vite-tsconfig-paths": "^3.6.0",
+      "@online-library/eslint-config": "*",
+      "@types/file-saver": "^2.0.5",
+      "@types/styled-components": "^5.1.26"
    }
 }
