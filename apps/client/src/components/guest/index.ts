@@ -1,5 +1,0 @@
-export { Home } from './Home/Home'
-export { Login } from './Login/Login'
-export { PasswordReset } from './PasswordReset/PasswordReset'
-export { Registration } from './Registration/Registration'
-export { Support } from './Support/Support'
