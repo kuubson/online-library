@@ -40,5 +40,9 @@
       "@trivago/prettier-plugin-sort-imports": "^3.3.0",
       "stylelint-config-styled-components": "^0.1.1",
       "stylelint-processor-styled-components": "^1.10.0"
+   },
+   "packageManager": "yarn@1.22.19",
+   "engines": {
+      "node": "16.18.0"
    }
 }
