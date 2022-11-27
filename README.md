@@ -144,15 +144,16 @@ socket("socket.io")-->api
 
 ## 🎯 Future goals
 
--  **test coverage** as high as possible + add e2e tests (**cypress**)
--  consider switching **graphql** + **sequelize** to **tRPC** + **prisma**
--  make use of **storybook.js**
--  run app in a **Docker** container
--  integrate **Sentry** for monitoring the app
--  finish setup for **i18n**
--  add **WebRTC** for video chat
--  replace errors popup with **react-toastify**
--  tweak seeding db flow
+-  [x] CRA ~> Vite
+-  [ ] **test coverage** as high as possible + add e2e tests (**cypress**)
+-  [ ] switch stack **graphql** + **sequelize** ~> **tRPC** + **prisma**
+-  [ ] make use of **storybook.js**
+-  [ ] run app in a **Docker** container
+-  [ ] integrate **Sentry** for monitoring the app
+-  [ ] finish setup for **i18n**
+-  [ ] add **WebRTC** for video chat
+-  [ ] replace errors popup with **react-toastify**
+-  [ ] tweak seeding db flow
 
 > **Note** See [goals](https://github.com/kuubson/online-library/tree/master/apps/native#-future-goals) for the mobile app
 
