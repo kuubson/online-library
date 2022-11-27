@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import styled, { css } from 'styled-components/macro'
+import styled, { css } from 'styled-components'
 
 import { FALLBACK_IMAGE } from '@online-library/config'
 

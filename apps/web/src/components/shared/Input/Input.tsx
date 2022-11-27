@@ -1,5 +1,5 @@
 import { Controller } from 'react-hook-form'
-import styled, { css } from 'styled-components/macro'
+import styled, { css } from 'styled-components'
 
 import type { _InputProps } from '@online-library/core'
 

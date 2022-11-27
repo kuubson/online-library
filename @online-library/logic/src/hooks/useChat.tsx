@@ -31,7 +31,7 @@ const { request, validation } = API['/api/user/chat/messages'].get
 
 let uploadProgressInterval: ReturnType<typeof setInterval>
 
-export const useChat = () => {
+export const useChat = (publicVapidKeyBase64?: string) => {
    const { socket } = useSocket()
 
    const [loading, setLoading] = useState(true)
@@ -147,7 +147,7 @@ export const useChat = () => {
 
    useEffect(() => {
       if (isWeb) {
-         setTimeout(subscribePushNotifications, 2000)
+         setTimeout(() => subscribePushNotifications(publicVapidKeyBase64), 2000)
       }
       getMessages(MESSAGES_FETCH_LIMIT, 0)
    }, [])

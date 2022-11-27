@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import fileSaver from 'file-saver'
 import { forwardRef } from 'react'
-import styled, { css } from 'styled-components/macro'
+import styled, { css } from 'styled-components'
 
 import type { MessageAdditionalProps, MessageType } from '@online-library/config'
 

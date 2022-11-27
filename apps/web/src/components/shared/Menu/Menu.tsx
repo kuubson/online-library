@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useLocation } from 'react-router'
-import styled, { css } from 'styled-components/macro'
+import { useLocation } from 'react-router-dom'
+import styled, { css } from 'styled-components'
 
 import type { RouterPath } from '@online-library/core'
 import { useCart, useChatDetails, useTopOffset } from '@online-library/core'

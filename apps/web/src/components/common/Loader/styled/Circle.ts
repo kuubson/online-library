@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components/macro'
+import styled, { keyframes } from 'styled-components'
 
 const circleAnimation = keyframes`
     100% { 

@@ -5,8 +5,6 @@ import { createHandlerBoundToURL, precacheAndRoute } from 'workbox-precaching'
 import { registerRoute } from 'workbox-routing'
 import { StaleWhileRevalidate } from 'workbox-strategies'
 
-import { PUBLIC_URL } from 'config'
-
 declare const self: ServiceWorkerGlobalScope
 
 clientsClaim()
@@ -26,7 +24,7 @@ registerRoute(({ request, url }: { request: Request; url: URL }) => {
       return false
    }
    return true
-}, createHandlerBoundToURL(`${PUBLIC_URL}/index.html`))
+}, createHandlerBoundToURL(`${process.env.PUBLIC_URL}/index.html`))
 
 registerRoute(
    ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png'),

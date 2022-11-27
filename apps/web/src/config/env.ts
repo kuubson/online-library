@@ -1,19 +1,9 @@
-type Env = {
-   REACT_APP_FACEBOOK_APP_ID: string
-
-   REACT_APP_PUBLIC_VAPID_KEY: string
-
-   REACT_APP_STRIPE_PUBLISHABLE_KEY: string
-
-   PUBLIC_URL: string
-
-   NODE_ENV: 'development' | 'test' | 'production'
-}
+// NOTE: types are inside end.d.ts
 
 export const {
-   REACT_APP_FACEBOOK_APP_ID,
-   REACT_APP_PUBLIC_VAPID_KEY,
-   REACT_APP_STRIPE_PUBLISHABLE_KEY,
+   VITE_FACEBOOK_APP_ID,
+   VITE_PUBLIC_VAPID_KEY,
+   VITE_STRIPE_PUBLISHABLE_KEY,
    PUBLIC_URL,
    NODE_ENV,
-} = process.env as unknown as Env
+} = import.meta.env

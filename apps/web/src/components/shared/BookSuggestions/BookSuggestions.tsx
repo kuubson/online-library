@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 
 import type { BookSuggestionsProps } from '@online-library/core'
 import { t } from '@online-library/core'

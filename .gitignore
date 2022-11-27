@@ -5,8 +5,8 @@ node_modules
 coverage
 
 # apps
-build
 dist
+dev-dist
 
 # other
 uploads/
