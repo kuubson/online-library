@@ -31,6 +31,11 @@ export default defineConfig(({ mode }) => {
             include: [/node_modules/, /react-native-web/, /config/, /core/, /logic/],
          },
       },
+      test: {
+         globals: true,
+         environment: 'jsdom',
+         setupFiles: './setupTests.ts',
+      },
       plugins: [
          htmlPlugin(),
          tsconfigPaths(),
@@ -61,10 +66,5 @@ export default defineConfig(({ mode }) => {
             includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
          }),
       ],
-      test: {
-         globals: true,
-         environment: 'jsdom',
-         setupFiles: './setupTests.ts',
-      },
    }
 })
