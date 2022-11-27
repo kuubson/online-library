@@ -22,9 +22,14 @@ export default defineConfig(({ mode }) => {
          },
       },
       resolve: { alias: { 'react-native': 'react-native-web' } },
-      build: { commonjsOptions: { include: [/node_modules/, /config/, /core/, /logic/] } },
       optimizeDeps: {
          include: ['@online-library/config', '@online-library/core', '@online-library/logic'],
+      },
+      build: {
+         commonjsOptions: {
+            // a "must have" to fix builds (they fail probably due to the hoisted packages)
+            include: [/node_modules/, /react-native-web/, /config/, /core/, /logic/],
+         },
       },
       plugins: [
          htmlPlugin(),
