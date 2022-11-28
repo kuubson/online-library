@@ -1,11 +1,9 @@
 # 📱 native [app](https://online-library-application.herokuapp.com)
 
-[![CircleCI](https://circleci.com/gh/kuubson/online-library.svg?style=svg&circle-token=c6f9611e819c26df85c288d0c0a9edc6bbd4116d)](https://app.circleci.com/pipelines/github/kuubson/online-library)
-
 | [Stack](#-technologies) | [Notes](#-some-notes) | [Preview](#-app-preview) | [Distribution](#-distribution) | [Goals](#-future-goals) | [Scripts](#-scripts) | [Env](#-environment-variables) | [CircleCI](#-circleci-variables) | [Tips](#-tips) | [Web](https://github.com/kuubson/online-library#-js-fullstack-app-monorepo) |
 | ----------------------- | --------------------- | ------------------------ | ------------------------------ | ----------------------- | -------------------- | ------------------------------ | -------------------------------- | -------------- | --------------------------------------------------------------------------- |
 
-## 🔧 Technologies
+## 🔧 Technologies &nbsp;[![CircleCI](https://circleci.com/gh/kuubson/online-library.svg?style=svg&circle-token=c6f9611e819c26df85c288d0c0a9edc6bbd4116d)](https://app.circleci.com/pipelines/github/kuubson/online-library)
 
 > **Note** Tech stack is in sync with the web app, since all the configuration and logic is shared within [custom packages](https://github.com/kuubson/online-library#-custom-packages)
 

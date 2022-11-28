@@ -1,11 +1,9 @@
 # 💻 js fullstack [app](https://online-library-application.herokuapp.com), monorepo (web & [mobile](https://github.com/kuubson/online-library/tree/master/apps/native#-native-app))
 
-[![CircleCI](https://circleci.com/gh/kuubson/online-library.svg?style=svg&circle-token=c6f9611e819c26df85c288d0c0a9edc6bbd4116d)](https://app.circleci.com/pipelines/github/kuubson/online-library)
-
 | [Stack](#-stack) | [Packages](#-custom-packages) | [Notes](#-some-notes) | [Docs](#-documentation) | [Flow](#-flow) | [Preview](#-app-preview) | [Tools](#-tools) | [Goals](#-future-goals) | [Scripts](#-root-scripts) | [Env](#-environment-variables) | [Tips](#-tips) | [Native](https://github.com/kuubson/online-library/tree/master/apps/native#-native-app) |
 | ---------------- | ----------------------------- | --------------------- | ----------------------- | -------------- | ------------------------ | ---------------- | ----------------------- | ------------------------- | ------------------------------ | -------------- | --------------------------------------------------------------------------------------- |
 
-## 🔧 Stack
+## 🔧 Stack &nbsp;[![CircleCI](https://circleci.com/gh/kuubson/online-library.svg?style=svg&circle-token=c6f9611e819c26df85c288d0c0a9edc6bbd4116d)](https://app.circleci.com/pipelines/github/kuubson/online-library)
 
 -  **typescript** (advanced: mapped types, method overloads, type guards)
 -  **react.js** ⚛️ + **redux** (CRA, hooks) + **RTL** for testing
