@@ -6,7 +6,7 @@
    "main": "./dist/index.js",
    "types": "./dist/index.d.ts",
    "scripts": {
-      "dev": "yarn lib:build --watch",
+      "dev": "pnpm lib:build --watch",
       "lint": "eslint . && tsc --noEmit",
       "lib:build": "tsup src/index.ts --format cjs --dts --external react"
    },
@@ -17,6 +17,8 @@
       "yup": "^0.32.11"
    },
    "devDependencies": {
+      "@types/lodash": "^4.14.190",
+      "@types/node": "^18.7.16",
       "tsconfig": "*",
       "tsup": "^5.10.1",
       "typescript": "^4.8.3"

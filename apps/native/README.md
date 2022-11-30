@@ -57,7 +57,7 @@ The app covers all the [features](https://github.com/kuubson/online-library#-som
 
 -  have the `release.keystore` at `apps/native/android/app`
 -  have the filled `keystore.properties` at `apps/native/android`
--  `yarn assets && yarn apk`
+-  `pnpm assets && pnpm apk`
 
 #### 🍏 iOS
 
@@ -73,19 +73,19 @@ The app covers all the [features](https://github.com/kuubson/online-library#-som
 
 ## ⚙ Scripts
 
-> **Note** To run locally, have the [environment](https://reactnative.dev/docs/environment-setup) ready (see `.nvmrc` / use `nvm` to install proper version of nodejs), fill `.env` (see [Environment variables](#-environment-variables) and `.env-example`), trigger `yarn install` and `yarn android` or `yarn ios`
+> **Note** To run locally, have the [environment](https://reactnative.dev/docs/environment-setup) ready (see `.nvmrc` / use `nvm` to install proper version of nodejs), fill `.env` (see [Environment variables](#-environment-variables) and `.env-example`), trigger `pnpm install` and `pnpm android` or `pnpm ios`
 
 | command           | description                                       |
 | ----------------- | ------------------------------------------------- |
-| `yarn android`    | builds the android app (debug)                    |
-| `yarn ios`        | builds the ios app (debug)                        |
-| `yarn metro`      | runs bundler                                      |
-| `yarn lint`       | ts & eslint & stylelint check                     |
-| `yarn test`       | runs `jest` only once                             |
-| `yarn test:watch` | runs `jest` (watchmode)                           |
-| `yarn assets`     | generates all needed assets for the release build |
-| `yarn apk`        | builds the android app (apk release file)         |
-| `yarn aab`        | builds the android app (aab release file)         |
+| `pnpm android`    | builds the android app (debug)                    |
+| `pnpm ios`        | builds the ios app (debug)                        |
+| `pnpm metro`      | runs bundler                                      |
+| `pnpm lint`       | ts & eslint & stylelint check                     |
+| `pnpm test`       | runs `jest` only once                             |
+| `pnpm test:watch` | runs `jest` (watchmode)                           |
+| `pnpm assets`     | generates all needed assets for the release build |
+| `pnpm apk`        | builds the android app (apk release file)         |
+| `pnpm aab`        | builds the android app (aab release file)         |
 
 ## 🔒 Environment variables
 

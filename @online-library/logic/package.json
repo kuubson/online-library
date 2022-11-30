@@ -6,7 +6,7 @@
    "main": "./dist/index.js",
    "types": "./dist/index.d.ts",
    "scripts": {
-      "dev": "yarn lib:build --watch",
+      "dev": "pnpm lib:build --watch",
       "lint": "eslint . && tsc --noEmit",
       "lib:build": "tsup src/index.ts --format cjs --dts --external react"
    },
@@ -20,6 +20,7 @@
       "yup": "^0.32.11"
    },
    "devDependencies": {
+      "@types/react": "^18.0.24",
       "@types/facebook-js-sdk": "^3.3.6",
       "tsconfig": "*",
       "tsup": "^5.10.1",

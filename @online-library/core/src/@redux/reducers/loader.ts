@@ -11,6 +11,6 @@ const loaderSlice = createSlice({
    },
 })
 
-export const loaderActions = loaderSlice.actions
+export const { ...loaderActions } = loaderSlice.actions
 
 export const loader = loaderSlice.reducer

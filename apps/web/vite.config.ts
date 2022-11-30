@@ -31,11 +31,6 @@ export default defineConfig(({ mode }) => {
             include: [/node_modules/, /react-native-web/, /config/, /core/, /logic/],
          },
       },
-      test: {
-         globals: true,
-         environment: 'jsdom',
-         setupFiles: './setupTests.ts',
-      },
       plugins: [
          htmlPlugin(),
          tsconfigPaths(),

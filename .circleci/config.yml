@@ -32,7 +32,7 @@ jobs:
                  - yarn-packages-{{ checksum "yarn.lock" }}
          - run:
               name: Install dependencies
-              command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+              command: pnpm install --frozen-lockfile --cache-folder ~/.cache/yarn
          - save_cache:
               name: Save cache
               key: yarn-packages-{{ checksum "yarn.lock" }}
@@ -47,7 +47,7 @@ jobs:
               key: gradle-v1-{{ arch }}-{{ checksum "/tmp/gradle_cache_seed" }}
          - run:
               name: Run tests
-              command: yarn test
+              command: pnpm test
          - run:
               name: 'Decode release keystore'
               command: cd apps/native/android/app && echo $RELEASE_KEYSTORE_BASE64 | base64 -d | tee release.keystore > /dev/null
@@ -61,10 +61,10 @@ jobs:
               command: cd apps/native/android && chmod +x ./gradlew
          - run:
               name: Generate assets
-              command: cd apps/native && yarn assets
+              command: cd apps/native && pnpm assets
          - run:
               name: Generate APK
-              command: cd apps/native && yarn apk
+              command: cd apps/native && pnpm apk
          - run:
               name: Create release
               command: cd online-library-releases && gh release create v1.0.7 ../apps/native/android/app/build/outputs/apk/release/app-release.apk

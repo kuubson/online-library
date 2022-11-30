@@ -21,6 +21,6 @@ const cartSlice = createSlice({
    },
 })
 
-export const cartActions = cartSlice.actions
+export const { ...cartActions } = cartSlice.actions
 
 export const cart = cartSlice.reducer

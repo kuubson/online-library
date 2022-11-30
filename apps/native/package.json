@@ -29,7 +29,7 @@
       "@types/react-native-video": "^5.0.14",
       "graphql-ws": "^5.10.1",
       "query-string": "^7.1.1",
-      "react": "18.1.0",
+      "react": "18.2.0",
       "react-hook-form": "7.36.0",
       "react-native": "0.70.0",
       "react-native-document-picker": "8.1.0",
