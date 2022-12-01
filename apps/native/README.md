@@ -73,7 +73,12 @@ The app covers all the [features](https://github.com/kuubson/online-library#-som
 
 ## ⚙ Scripts
 
-> **Note** To run locally, have the [environment](https://reactnative.dev/docs/environment-setup) ready (see `.nvmrc` / use `nvm` to install proper version of nodejs), fill `.env` (see [Environment variables](#-environment-variables) and `.env-example`), trigger `yarn install` and `yarn android` or `yarn ios`
+> **Note** To run locally follow the instructions
+
+1. have the [environment](https://reactnative.dev/docs/environment-setup) ready (see `.nvmrc` / use `nvm` to install proper version of nodejs)
+2. fill `.env` (see [Environment variables](#-environment-variables) and `.env-example`)
+3. create a file `keystore.properties` at `apps\native\android\` using `keystore-example.properties`
+4. trigger `yarn install` and `yarn android` or `yarn ios`
 
 | command           | description                                       |
 | ----------------- | ------------------------------------------------- |
@@ -103,7 +108,7 @@ The app covers all the [features](https://github.com/kuubson/online-library#-som
 
 ## 📙 Tips
 
-#### In case of the following error, delete `/dist` folder from `/apps/server/`
+-  #### In case of the following error, delete `/dist` folder from `/apps/server/`
 
 ```
 metro-file-map: Haste module naming collision: @online-library/server
@@ -119,3 +124,19 @@ error Duplicated files or mocks. Please check the console for more info.
 
 [^releases-repo]: Must be a separate repository, otherwise there is a risk, that the release will include the source code of the whole monorepo (when someone accidentally deletes `.gitattributes`)
 [^metro-error]: Invariant Violation: Failed to call into JavaScript module method AppRegistry.runApplication() - it was caused by importing [custom packages](https://github.com/kuubson/online-library#-custom-packages) into any ts file
+
+-  #### In case of the following error, run `yarn metro --reset-cache`
+
+```
+@env could not be found within the project or in these directories
+```
+
+-  #### In case of the app crashing right immediately after opening it:
+
+1. remove for a sec `rn-fetch-blob` from the package.json & comment out its usage (`apps\native\src\components\user\Chat\modules\Message.tsx`)
+2. cd `apps/native/android` && `./gradlew clean`
+3. delete all `node_modules`
+4. `yarn install --force`
+5. undo step 1
+6. `yarn install`
+7. `yarn android`
