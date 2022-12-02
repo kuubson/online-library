@@ -157,37 +157,37 @@ socket("socket.io")-->api
 
 ## ⌨ Root scripts
 
-> **Note** To run locally, install proper version of nodejs (use `nvm` / see `.nvmrc`), fill `.env` (see [Environment variables](#-environment-variables) and `.env-example`), trigger `pnpm install` and `pnpm dev`
+> **Note** To run locally, install proper version of nodejs (use `nvm` / see `.nvmrc`), fill `.env` (see [Environment variables](#-environment-variables) and `.env-example`), trigger `yarn install` and `yarn dev`
 
 > **Warning** Remember to bump release tag version (`config.yml`) when pushing to the master branch othwerise CircleCI will fail
 
 | command            | description                                                                                                     |
 | ------------------ | --------------------------------------------------------------------------------------------------------------- |
-| `pnpm dev`         | triggers `dev` pipeline ~> launches apps, bundles all packages (watchmode)                                      |
-| `pnpm lib:dev`     | triggers filtered `dev` pipeline ~> bundles only packages (watchmode)                                           |
-| `pnpm lint`        | triggers `lint` pipeline ~> ts & eslint & stylelint check through all apps and packages                         |
-| `pnpm test`        | triggers `test` pipeline ~> runs tests for web and mobile apps                                                  |
-| `pnpm build`       | triggers `build` pipeline ~> build all apps, bundles all packages                                               |
-| `pnpm postbuild`   | triggers `pnpm lib` script ~> makes sure that all packages are built on top of the newest docs                  |
-| `pnpm lib`         | triggers `lib:build` pipeline ~> bundles all packages                                                           |
-| `pnpm android`     | triggers `android` script in `/native` ~> runs the android app                                                  |
-| `pnpm metro`       | triggers `metro` script in `/native` ~> runs the metro server                                                   |
-| `pnpm server`      | triggers `dev` script in `/server` ~> runs the express server                                                   |
-| `pnpm docs`        | triggers filtered `docs` pipeline ~> generates the API docs (**OpenAPI**) from comments of the REST controllers |
-| `pnpm codegen`     | triggers `graphql codegen` ~> generates hooks & types from graphql schema                                       |
-| `pnpm postinstall` | triggers `pnpm lib` script ~> makes sure that `build` pipeline runs without any errors                          |
-| `pnpm prepare`     | triggers `husky install` ~> sets up **husky** on local `pnpm install`                                           |
+| `yarn dev`         | triggers `dev` pipeline ~> launches apps, bundles all packages (watchmode)                                      |
+| `yarn lib:dev`     | triggers filtered `dev` pipeline ~> bundles only packages (watchmode)                                           |
+| `yarn lint`        | triggers `lint` pipeline ~> ts & eslint & stylelint check through all apps and packages                         |
+| `yarn test`        | triggers `test` pipeline ~> runs tests for web and mobile apps                                                  |
+| `yarn build`       | triggers `build` pipeline ~> build all apps, bundles all packages                                               |
+| `yarn postbuild`   | triggers `yarn lib` script ~> makes sure that all packages are built on top of the newest docs                  |
+| `yarn lib`         | triggers `lib:build` pipeline ~> bundles all packages                                                           |
+| `yarn android`     | triggers `android` script in `/native` ~> runs the android app                                                  |
+| `yarn metro`       | triggers `metro` script in `/native` ~> runs the metro server                                                   |
+| `yarn server`      | triggers `dev` script in `/server` ~> runs the express server                                                   |
+| `yarn docs`        | triggers filtered `docs` pipeline ~> generates the API docs (**OpenAPI**) from comments of the REST controllers |
+| `yarn codegen`     | triggers `graphql codegen` ~> generates hooks & types from graphql schema                                       |
+| `yarn postinstall` | triggers `yarn lib` script ~> makes sure that `build` pipeline runs without any errors                          |
+| `yarn prepare`     | triggers `husky install` ~> sets up **husky** on local `yarn install`                                           |
 
 ## 🔎 Detailed scripts
 
 | command           | server                                                                                                                 | web                         | each package                    |
 | ----------------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------- | ------------------------------- |
-| `pnpm dev`        | runs express server with `NODE_ENV` set to `development`                                                               | runs the react app          | bundles the package (watchmode) |
-| `pnpm lint`       | lint & ts check                                                                                                        | lint & ts & stylelint check | lint & ts check                 |
-| `pnpm test`       | ❌                                                                                                                     | runs RTL tests only once    | ❌                              |
-| `pnpm test:watch` | ❌                                                                                                                     | runs RTL tests (watchmode)  | ❌                              |
-| `pnpm build`      | builds the express server & copies ([copyfiles](https://www.npmjs.com/package/copyfiles)) gql related files to `/dist` | builds the react app        | bundles the package             |
-| `pnpm docs`       | generates API docs (**OpenAPI**) from comments of the REST controllers                                                 | ❌                          | ❌                              |
+| `yarn dev`        | runs express server with `NODE_ENV` set to `development`                                                               | runs the react app          | bundles the package (watchmode) |
+| `yarn lint`       | lint & ts check                                                                                                        | lint & ts & stylelint check | lint & ts check                 |
+| `yarn test`       | ❌                                                                                                                     | runs RTL tests only once    | ❌                              |
+| `yarn test:watch` | ❌                                                                                                                     | runs RTL tests (watchmode)  | ❌                              |
+| `yarn build`      | builds the express server & copies ([copyfiles](https://www.npmjs.com/package/copyfiles)) gql related files to `/dist` | builds the react app        | bundles the package             |
+| `yarn docs`       | generates API docs (**OpenAPI**) from comments of the REST controllers                                                 | ❌                          | ❌                              |
 
 > **Note** See [scripts](https://github.com/kuubson/online-library/tree/master/apps/native#-scripts) for the mobile app
 

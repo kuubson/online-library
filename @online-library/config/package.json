@@ -6,7 +6,7 @@
    "main": "./dist/index.js",
    "types": "./dist/index.d.ts",
    "scripts": {
-      "dev": "pnpm lib:build --watch",
+      "dev": "yarn lib:build --watch",
       "lint": "eslint . && tsc --noEmit",
       "lib:build": "tsup src/index.ts --format cjs --dts --external react"
    },

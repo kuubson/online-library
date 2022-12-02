@@ -1,7 +1,7 @@
 {
    "name": "@online-library/root",
    "private": true,
-   "packageManager": "pnpm@7.16.1",
+   "packageManager": "yarn@1.22.19",
    "engines": {
       "node": "16.18.0"
    },
@@ -11,14 +11,14 @@
       "lint": "turbo run lint",
       "test": "turbo run test",
       "build": "turbo run build",
-      "postbuild": "pnpm lib",
+      "postbuild": "yarn lib",
       "lib": "turbo run lib:build",
-      "android": "pnpm -F native android",
-      "metro": "pnpm -F native metro",
-      "server": "pnpm -F server dev",
+      "android": "yarn workspace @online-library/native android",
+      "metro": "yarn workspace @online-library/native metro",
+      "server": "yarn workspace @online-library/server dev",
       "docs": "turbo run docs --filter=./apps/server",
       "codegen": "graphql-codegen",
-      "postinstall": "pnpm lib",
+      "postinstall": "yarn lib",
       "prepare": "husky install"
    },
    "workspaces": [
