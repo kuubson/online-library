@@ -20,6 +20,7 @@
       "yup": "^0.32.11"
    },
    "devDependencies": {
+      "@types/react": "^18.0.24",
       "@types/facebook-js-sdk": "^3.3.6",
       "tsconfig": "*",
       "tsup": "^5.10.1",

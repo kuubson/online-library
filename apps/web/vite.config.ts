@@ -28,13 +28,8 @@ export default defineConfig(({ mode }) => {
       build: {
          commonjsOptions: {
             // a "must have" to fix builds (it fails probably due to the hoisted packages)
-            include: [/node_modules/, /react-native-web/, /config/, /core/, /logic/],
+            include: [/node_modules/, /config/, /core/, /logic/, /react-native-web/],
          },
-      },
-      test: {
-         globals: true,
-         environment: 'jsdom',
-         setupFiles: './setupTests.ts',
       },
       plugins: [
          htmlPlugin(),

@@ -1,15 +1,25 @@
+import type AsyncStorage from '@react-native-async-storage/async-storage'
 import { configureStore } from '@reduxjs/toolkit'
+import type { ToolkitStore } from '@reduxjs/toolkit/dist/configureStore'
+import type { WebStorage } from 'redux-persist'
 import { persistStore } from 'redux-persist'
 
 import { coreReducer } from './reducers'
 
-export const store = configureStore({
-   reducer: coreReducer,
-   middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false }),
-})
+export let store = {} as ToolkitStore
 
-export const persistor = persistStore(store)
+export const getReduxSetup = (storage: WebStorage | typeof AsyncStorage) => {
+   const newStore = configureStore({
+      reducer: coreReducer(storage),
+      middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false }),
+   })
+   store = newStore
+   return {
+      store: newStore,
+      persistor: persistStore(newStore),
+   }
+}
 
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<ReturnType<typeof getReduxSetup>['store']['getState']>
 
-export type AppDispatch = typeof store.dispatch
+export type AppDispatch = ReturnType<typeof getReduxSetup>['store']['dispatch']

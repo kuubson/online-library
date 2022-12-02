@@ -1,17 +1,18 @@
 import { ApolloProvider } from '@apollo/client'
 import { Provider } from 'react-redux'
-import { MemoryRouter, Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
+import storage from 'redux-persist/lib/storage'
 import { ThemeProvider } from 'styled-components'
 
 import type { ReactFC, Router } from '@online-library/core'
-import { client, persistor, store, theme } from '@online-library/core'
+import { client, getReduxSetup, theme } from '@online-library/core'
 
 import 'styles/index.scss'
 
 // NOTE: must use relative paths, can't be absolute
 // ------------------------------------------------
-import { Guest, Loader, Location, User } from '../../common'
+import { Guest, Loader, User } from '../../common'
 import { Home, Login, PasswordReset, Registration, Support } from '../../guest'
 import { Cart, Chat, Profile, Store } from '../../user'
 
@@ -72,24 +73,15 @@ const router = createBrowserRouter(
    }))
 )
 
-type ProvidersProps = ReactFC & { rtl?: boolean }
+const { store, persistor } = getReduxSetup(storage)
 
-export const Providers = ({ children, rtl }: ProvidersProps) => (
+export const Providers = ({ children }: ReactFC) => (
    <Provider store={store}>
       <PersistGate loading={<Loader />} persistor={persistor}>
          <ApolloProvider client={client()}>
             <ThemeProvider theme={theme}>
-               {rtl ? (
-                  <MemoryRouter>
-                     {children}
-                     <Location />
-                  </MemoryRouter>
-               ) : (
-                  <>
-                     <RouterProvider router={router} />
-                     {children}
-                  </>
-               )}
+               <RouterProvider router={router} />
+               {children}
             </ThemeProvider>
          </ApolloProvider>
       </PersistGate>

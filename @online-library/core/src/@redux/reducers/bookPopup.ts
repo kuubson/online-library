@@ -32,6 +32,6 @@ const bookPopupSlice = createSlice({
    },
 })
 
-export const bookPopupActions = bookPopupSlice.actions
+export const { ...bookPopupActions } = bookPopupSlice.actions
 
 export const bookPopup = bookPopupSlice.reducer

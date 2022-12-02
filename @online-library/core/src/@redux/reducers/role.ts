@@ -19,6 +19,6 @@ const roleSlice = createSlice({
    },
 })
 
-export const roleActions = roleSlice.actions
+export const { ...roleActions } = roleSlice.actions
 
 export const role = roleSlice.reducer

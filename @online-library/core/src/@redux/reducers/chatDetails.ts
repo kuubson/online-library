@@ -34,6 +34,6 @@ const chatDetailsSlice = createSlice({
    },
 })
 
-export const chatDetailsActions = chatDetailsSlice.actions
+export const { ...chatDetailsActions } = chatDetailsSlice.actions
 
 export const chatDetails = chatDetailsSlice.reducer

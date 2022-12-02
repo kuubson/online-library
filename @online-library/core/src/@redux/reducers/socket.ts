@@ -1,9 +1,8 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-import type { Socket } from 'socket.io-client'
 
 type SliceState = {
-   socket: Socket | null
+   socket: any | null
 }
 
 const initialState: SliceState = { socket: null }
@@ -18,6 +17,6 @@ const socketSlice = createSlice({
    },
 })
 
-export const socketActions = socketSlice.actions
+export const { ...socketActions } = socketSlice.actions
 
 export const socket = socketSlice.reducer
