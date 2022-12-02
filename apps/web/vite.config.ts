@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
             '/socket.io': { target: 'http://localhost:3001/socket.io' },
          },
       },
-      resolve: { alias: { 'react-native': './node_modules/react-native-web/dist/index.js' } },
+      resolve: { alias: { 'react-native': 'react-native-web' } },
       optimizeDeps: {
          include: ['@online-library/config', '@online-library/core', '@online-library/logic'],
       },
