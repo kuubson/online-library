@@ -1,22 +1,23 @@
 # 📱 native [app](https://online-library-application.herokuapp.com)
 
-| [Stack](#-technologies) | [Notes](#-some-notes) | [Preview](#-app-preview) | [Distribution](#-distribution) | [Goals](#-future-goals) | [Scripts](#-scripts) | [Env](#-environment-variables) | [CircleCI](#-circleci-variables) | [Tips](#-tips) | [Web](https://github.com/kuubson/online-library#-js-fullstack-app-monorepo) |
-| ----------------------- | --------------------- | ------------------------ | ------------------------------ | ----------------------- | -------------------- | ------------------------------ | -------------------------------- | -------------- | --------------------------------------------------------------------------- |
+| [Stack](#-stack-) | [Preview](#-app-preview) | [Notes](#-some-notes) | [Distribution](#-distribution) | [Goals](#-future-goals) | [Scripts](#-scripts) | [Env](#-environment-variables) | [CircleCI](#-circleci-variables) | [Tips](#-tips) |
+| ----------------- | ------------------------ | --------------------- | ------------------------------ | ----------------------- | -------------------- | ------------------------------ | -------------------------------- | -------------- |
 
-## 🔧 Technologies &nbsp;[![CircleCI](https://circleci.com/gh/kuubson/online-library.svg?style=svg&circle-token=c6f9611e819c26df85c288d0c0a9edc6bbd4116d)](https://app.circleci.com/pipelines/github/kuubson/online-library)
+## 🔧 Stack &nbsp;[![CircleCI](https://circleci.com/gh/kuubson/online-library.svg?style=svg&circle-token=c6f9611e819c26df85c288d0c0a9edc6bbd4116d)](https://app.circleci.com/pipelines/github/kuubson/online-library)
 
-> **Note** Tech stack is in sync with the web app, since all the configuration and logic is shared within [custom packages](https://github.com/kuubson/online-library#-custom-packages)
+> **Note** Tech stack is in sync with the [web app](https://github.com/kuubson/online-library#-js-fullstack-app-monorepo), since all the configuration and logic is shared within the [custom packages](https://github.com/kuubson/online-library#-custom-packages)
+
+![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white) ![React Navigation](https://img.shields.io/badge/react%20navigation-8c90e0.svg?style=for-the-badge) ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
 
 > **Warning** App may behave unexpectedly on iOS due to the lack of needed development tools (macOS)
 
--  **react navigation**
--  **styled components** (no integration with **react-native-web** since the mobile app targets different UX than the web app)
--  **react-native-webview** for handling integration with PayPal 💲
--  **react-native-document-picker** for sending files in a chat
--  **react-native-video** for showing videos in the chat
--  **react-native-fbsdk** for FB 🔑 auth
--  **rn-fetch-blob** for downloading files from the chat
--  **react-native-splash-screen** for a custom splash screen
+## 📺 App preview
+
+> **Note** The layout of the app is fully scalable thanks to the [scale](https://github.com/kuubson/online-library/blob/master/apps/native/src/styles/scale.ts) util
+
+| Registration                                                                                                           | Store                                                                                                           | Cart                                                                                                           | Chat                                                                                                           |
+| ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| ![registration](https://user-images.githubusercontent.com/38701627/193405537-6ce8595b-ffeb-43b0-8ecf-b43b3fe66b11.jpg) | ![store](https://user-images.githubusercontent.com/38701627/193405554-312760be-7fb2-4666-952b-a5ac6c20582f.jpg) | ![cart](https://user-images.githubusercontent.com/38701627/193405578-a92c8d28-a013-4d7e-9bab-e0fc7e25fa4b.jpg) | ![chat](https://user-images.githubusercontent.com/38701627/193405592-4694c837-e706-41cf-bd5a-c709d360d4bf.jpg) |
 
 ## 📄 Some notes
 
@@ -27,14 +28,6 @@ The app covers all the [features](https://github.com/kuubson/online-library#-som
 -  lack of push notifications
 
 > **Warning** Integration with `react-native-monorepo-tools` didn't work well (metro was throwing error[^metro-error]) so paths to node_modules, inside the native files, are prefixed with `../../` to match the monorepo root + `metro.config.js` has additional property `projectRoot`
-
-## 📺 App preview
-
-> **Note** Layout of the app is fully scalable thanks to the [scale](https://github.com/kuubson/online-library/blob/master/apps/native/src/styles/scale.ts) util
-
-| Registration                                                                                                           | Store                                                                                                           | Cart                                                                                                           | Chat                                                                                                           |
-| ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| ![registration](https://user-images.githubusercontent.com/38701627/193405537-6ce8595b-ffeb-43b0-8ecf-b43b3fe66b11.jpg) | ![store](https://user-images.githubusercontent.com/38701627/193405554-312760be-7fb2-4666-952b-a5ac6c20582f.jpg) | ![cart](https://user-images.githubusercontent.com/38701627/193405578-a92c8d28-a013-4d7e-9bab-e0fc7e25fa4b.jpg) | ![chat](https://user-images.githubusercontent.com/38701627/193405592-4694c837-e706-41cf-bd5a-c709d360d4bf.jpg) |
 
 ## 🛬 Distribution
 
