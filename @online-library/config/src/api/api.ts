@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { mapValues } from 'lodash'
 import type { OptionalObjectSchema } from 'yup/lib/object'
 

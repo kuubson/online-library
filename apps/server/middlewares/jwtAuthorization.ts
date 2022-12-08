@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import passport from 'passport'
 
 import type { Role } from '@online-library/config'

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 module.exports = {
    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
    parser: '@typescript-eslint/parser',
@@ -13,6 +12,10 @@ module.exports = {
       '@typescript-eslint/consistent-type-imports': 'error',
       'no-empty': ['error', { allowEmptyCatch: true }],
       'unused-imports/no-unused-imports': 'warn',
+      '@typescript-eslint/no-unused-vars': [
+         'error',
+         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
       'object-curly-newline': [
          'warn',
          {
@@ -23,5 +26,5 @@ module.exports = {
          },
       ],
    },
-   ignorePatterns: ['dist', 'database/generated'],
+   ignorePatterns: ['dist', 'dev-dist', 'database/generated'],
 }
