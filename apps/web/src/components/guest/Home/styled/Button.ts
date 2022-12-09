@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import { queries } from 'styles'
 
-export const Button = styled.button`
+export const Button = styled.button.attrs({ 'data-cy': 'button' })`
    width: 200px;
    padding: 15px 0px;
    font-size: 14px;
