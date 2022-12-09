@@ -28,6 +28,18 @@ export const schemas = {
          },
       },
    },
+   'schema@mobile-app': {
+      type: 'object',
+      properties: {
+         apk: {
+            type: 'string',
+            format: 'uri',
+            'qt-uri-protocols': ['https'],
+            'qt-uri-extensions': ['.apk'],
+         },
+         // ipa: { type: 'string' }, // TODO: uncomment once IPA is ready
+      },
+   },
    'schema@book': {
       type: 'object',
       properties: {

@@ -1,6 +1,8 @@
 import { Router } from 'express'
 
-import { checkAuth, logout } from '../services'
+import { rateLimiter } from 'middlewares'
+
+import { checkAuth, getMobileApp, logout } from '../services'
 
 export const Root = Router()
 
@@ -34,4 +36,20 @@ Root.get(
 */
    '/logout',
    ...logout
+)
+
+Root.get(
+   /**
+      #swagger.summary = "Mobile app links (rate limited)"
+      #swagger.description = `
+         ✔️ Returns the links to download APK & soon IPA <br />
+      `
+      #swagger.responses[200] = { 
+         description: 'Links to APK & soon IPA',   
+         schema: { $ref: '#/definitions/schema@mobile-app' },   
+      }  
+*/
+   '/mobile-app',
+   rateLimiter(),
+   ...getMobileApp
 )

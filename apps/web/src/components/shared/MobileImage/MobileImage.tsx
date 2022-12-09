@@ -7,17 +7,16 @@ import { MobileLanding } from 'assets/images'
 
 import * as Styled from './styled'
 
-import { useRelease } from './hooks'
+import type { UseMobileAppHook } from 'components/guest/Home/hooks'
 
 type MobileImageProps = {
+   apk: UseMobileAppHook['apk']
+   downloadApk: UseMobileAppHook['downloadApk']
    onlyBadges?: boolean
 }
 
-export const MobileImage = ({ onlyBadges }: MobileImageProps) => {
-   const { apk, downloadApk } = useRelease()
-
+export const MobileImage = ({ apk, downloadApk, onlyBadges }: MobileImageProps) => {
    const [showBadges, setShowBadges] = useState(false)
-
    return (
       <MobileImageContainer onlyBadges={onlyBadges}>
          <Styled.Image src={MobileLanding} onLoad={() => setShowBadges(true)} />
