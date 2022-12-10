@@ -1,4 +1,4 @@
-# 💻 js fullstack [app](https://online-library-application.herokuapp.com), monorepo (web & [mobile](https://github.com/kuubson/online-library/tree/master/apps/native#-native-app))
+# 💻 js fullstack [app](https://online-library.up.railway.app), monorepo (web & [mobile](https://github.com/kuubson/online-library/tree/master/apps/native#-native-app))
 
 | [Stack](#-stack-) | [Preview](#-app-preview) | [Notes](#-some-notes) | [Flow](#-flow) | [Packages](#-custom-local-packages) | [Docs](#-documentation) | [Tools](#-tools) | [Goals](#-future-goals) | [Scripts](#-root-scripts) | [Env](#-environment-variables) | [Tips](#-tips) |
 | ----------------- | ------------------------ | --------------------- | -------------- | ----------------------------------- | ----------------------- | ---------------- | ----------------------- | ------------------------- | ------------------------------ | -------------- |
@@ -9,7 +9,7 @@
 
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) ![GraphQL](https://img.shields.io/badge/-GraphQL-E10098?style=for-the-badge&logo=graphql&logoColor=white) ![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101) ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens) ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white) ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)
 
-![Vite](https://img.shields.io/badge/Vite-646CFF.svg?style=for-the-badge&logo=Vite&logoColor=white) ![Turborepo](https://img.shields.io/badge/Turborepo-EF4444.svg?style=for-the-badge&logo=Turborepo&logoColor=white) ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white) ![CircleCI](https://img.shields.io/badge/circle%20ci-%23161616.svg?style=for-the-badge&logo=circleci&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF.svg?style=for-the-badge&logo=Vite&logoColor=white) ![Turborepo](https://img.shields.io/badge/Turborepo-EF4444.svg?style=for-the-badge&logo=Turborepo&logoColor=white) ![Railway](https://img.shields.io/badge/Railway-131415?style=for-the-badge&logo=railway&logoColor=white) ![CircleCI](https://img.shields.io/badge/circle%20ci-%23161616.svg?style=for-the-badge&logo=circleci&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
 > **Note** See the [stack](https://github.com/kuubson/online-library/tree/master/apps/native#-stack-) for the mobile app
 
@@ -31,7 +31,7 @@
 
 ## 📄 Some notes
 
-> **Note** A cutting-edge technologies driven 💯, fullstack, cross-plaftorm app, hosted on 📡 **Heroku**
+> **Note** A cutting-edge technologies driven 💯, fullstack, cross-plaftorm app, hosted on 📡 **Railway**
 
 Acts as a **fake store** with possibility to chat 💬 with other users:
 
@@ -68,8 +68,8 @@ lib-->apps((apps))
 
 %% --------------------------
 
-heroku[\Heroku/]-->db[("sequelize (sql)")]
-heroku-->server
+railway[\Railway/]-->db[("sequelize (sql)")]
+railway-->server
 db-->server
 
 apps-->server{{server}}
@@ -113,7 +113,7 @@ socket("socket.io")-->api
 
 ### 🤖 Automation
 
--  every push to the master branch triggers the autodeployment on [Heroku](https://dashboard.heroku.com/apps/online-library-application) + **CircleCI** build workflow
+-  every push to the master branch triggers the autodeployment on Railway + **CircleCI** build workflow
 -  [@trivago/prettier-plugin-sort-imports](https://www.npmjs.com/package/@trivago/prettier-plugin-sort-imports) for keeping a consistent order of imports (custom flow)
 -  [graphql-codegen](https://www.the-guild.dev/graphql/codegen) for autogenerating the code (hooks & types) from gql schema & documents
 -  [@graphql-tools/merge](https://www.graphql-tools.com/docs/schema-merging) for auto merging resolvers & type defs into schema (**custom wrapper** to detect duplicated resolvers)
@@ -180,8 +180,6 @@ socket("socket.io")-->api
 > **Note** See [scripts](https://github.com/kuubson/online-library/tree/master/apps/native#-scripts) for the mobile app
 
 ## 🔒 Environment variables
-
-> **Warning** Heroku struggles with the build so `YARN_PRODUCTION` is set to `false` in heroku envs
 
 | details                                                                                                       | server                                                                  | web                           |
 | ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------- |

@@ -1,4 +1,4 @@
-# 📱 native [app](https://online-library-application.herokuapp.com)
+# 📱 native [app](https://online-library.up.railway.app)
 
 | [Stack](#-stack-) | [Preview](#-app-preview) | [Notes](#-some-notes) | [Distribution](#-distribution) | [Goals](#-future-goals) | [Scripts](#-scripts) | [Env](#-environment-variables) | [CircleCI](#-circleci-variables) | [Tips](#-tips) |
 | ----------------- | ------------------------ | --------------------- | ------------------------------ | ----------------------- | -------------------- | ------------------------------ | -------------------------------- | -------------- |

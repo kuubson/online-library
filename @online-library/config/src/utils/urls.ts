@@ -2,7 +2,7 @@ import { isProd } from 'is'
 
 const LOCALHOST = 'localhost'
 
-export const HOST = 'online-library-application.herokuapp.com'
+export const HOST = 'online-library.up.railway.app'
 
 export const CLIENT_URL = isProd ? `https://${HOST}` : `http://${LOCALHOST}:3000`
 
