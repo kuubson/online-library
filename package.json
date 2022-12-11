@@ -10,6 +10,7 @@
       "lib:dev": "turbo run dev --filter=./@online-library/*",
       "lint": "turbo run lint",
       "test": "turbo run test",
+      "e2e": "turbo run e2e",
       "build": "turbo run build",
       "postbuild": "yarn lib",
       "lib": "turbo run lib:build",

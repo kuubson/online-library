@@ -27,3 +27,8 @@ tsconfig.tsbuildinfo
 
 # turbo
 .turbo
+
+# cypress
+screenshots
+videos
+downloads

@@ -6,7 +6,7 @@
    "scripts": {
       "dev": "vite",
       "lint": "eslint . && tsc --noEmit && stylelint src/**/*.{ts,tsx}",
-      "preview": "vite preview",
+      "e2e": "npx cypress open",
       "build": "tsc && vite build"
    },
    "dependencies": {
@@ -46,6 +46,8 @@
       "@types/react-dom": "^18.0.8",
       "@types/styled-components": "^5.1.26",
       "@vitejs/plugin-react": "^2.2.0",
+      "cypress": "^12.0.1",
+      "eslint-plugin-cypress": "^2.12.1",
       "typescript": "^4.8.3",
       "vite": "^3.2.3",
       "vite-plugin-pwa": "^0.13.3",
