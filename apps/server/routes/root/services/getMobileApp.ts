@@ -23,12 +23,12 @@ export const getMobileApp: Route<InitialBody, InitialCookies, InitialQuery, 'def
             // NOTE: it is a fallback, in case a rate limiter kicks in during the first request 🔝
             https
                .request(`https://github.com/${RELEASES_REPOSITORY}`, response => {
-                  const data: any[] = []
+                  const buffer: Buffer[] = []
 
-                  response.on('data', data => data.push(data))
+                  response.on('data', (data: Buffer) => buffer.push(data))
 
                   response.on('end', () => {
-                     const html = data.join()
+                     const html = buffer.join()
 
                      const regex = /v[1-9]+\.[0-9]+\.[0-9]+/ // NOTE: eg. v1.0.8, generated with ChatGPT
 
