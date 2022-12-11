@@ -10,7 +10,7 @@
          "outputs": ["swagger.json"]
       },
       "build": {
-         "dependsOn": ["^lib:build", "docs", "test", "e2e"],
+         "dependsOn": ["^lib:build", "docs", "test"],
          "outputs": ["dist/**"]
       },
       "lib:build": {
