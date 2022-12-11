@@ -7,7 +7,7 @@ import { RoleContainer } from 'styles/styled'
 
 import * as Styled from './styled'
 
-import { MobileImage } from 'components/shared'
+import { MobileImage } from './modules'
 
 import { useAccountActivation, useMobileApp } from './hooks'
 

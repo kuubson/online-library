@@ -1,17 +1,24 @@
 import styled, { css } from 'styled-components'
 
 type StyledProps = {
-   hoverable?: boolean
+   $active?: boolean
+   $hoverable?: boolean
 }
 
 export const Badge = styled.img<StyledProps>`
-   ${({ hoverable }) =>
-      hoverable &&
+   opacity: 0.7;
+   ${({ $hoverable }) =>
+      $hoverable &&
       css`
          transition: transform 0.3s ease-in-out;
          cursor: pointer;
          :hover {
             transform: scale(1.05);
          }
+      `}
+   ${({ $active }) =>
+      $active &&
+      css`
+         opacity: 1;
       `}
 `
