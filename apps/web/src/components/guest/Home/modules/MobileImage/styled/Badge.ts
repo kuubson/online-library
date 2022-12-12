@@ -5,7 +5,7 @@ type StyledProps = {
    $hoverable?: boolean
 }
 
-export const Badge = styled.img<StyledProps>`
+export const Badge = styled.img.attrs({ 'data-cy': 'badge' })<StyledProps>`
    opacity: 0.7;
    ${({ $hoverable }) =>
       $hoverable &&

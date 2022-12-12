@@ -9,13 +9,10 @@ import * as Styled from './styled'
 
 import { MobileImage } from './modules'
 
-import { useAccountActivation, useMobileApp } from './hooks'
+import { useAccountActivation } from './hooks'
 
 export const Home = () => {
    useAccountActivation()
-
-   const { ...mobileAppStuff } = useMobileApp()
-
    return (
       <HomeContainer>
          <Styled.HeaderContainer>
@@ -28,9 +25,8 @@ export const Home = () => {
                   {t('buttons.register')}
                </Styled.Button>
             </Styled.Buttons>
-            <MobileImage {...mobileAppStuff} onlyBadges />
          </Styled.HeaderContainer>
-         <MobileImage {...mobileAppStuff} />
+         <MobileImage />
          <Styled.Advantages>
             <Styled.Advantage>{t('home.advantage1')}</Styled.Advantage>
             <Styled.Advantage>{t('home.advantage2')}</Styled.Advantage>

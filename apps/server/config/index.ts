@@ -1,4 +1,3 @@
-export { db } from './db'
 export * from './env'
 export { scanResolvers } from './scanResolvers'
 export { sequelizeAuto } from './sequelizeAuto'
