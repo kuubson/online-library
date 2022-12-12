@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize'
 
 import { isDev } from '@online-library/config'
 
-import { SEED_BOOKS, SEED_USER, SEQUELIZE_AUTO, db, sequelizeAuto } from 'config'
+import { DATABASE_URL, SEED_BOOKS, SEED_USER, SEQUELIZE_AUTO, sequelizeAuto } from 'config'
 
 import { AuthenticationModel } from './models/Authentication'
 import { BookModel } from './models/Book'
@@ -12,7 +12,13 @@ import { SubscriptionModel } from './models/Subscription'
 import { UserModel } from './models/User'
 import { seedBooks, seedUser } from './seeds'
 
-const connection = new Sequelize(...db)
+const connection = new Sequelize(DATABASE_URL, {
+   logging: false,
+   define: {
+      charset: 'utf8mb4',
+      collate: 'utf8mb4_unicode_ci',
+   },
+})
 
 export const User = UserModel(connection)
 export const Authentication = AuthenticationModel(connection)

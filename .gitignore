@@ -4,13 +4,17 @@ node_modules
 # testing
 coverage
 
-# apps
+# server & web build
 dist
+
+# vite
 dev-dist
 
-# other
-uploads/
-server/database/generated
+# multer
+uploads
+
+# sequelize auto
+generated
 
 # misc
 .DS_Store
@@ -22,7 +26,7 @@ yarn-error.log*
 .pnpm-debug.log*
 tsconfig.tsbuildinfo
 
-# local env files
+# env files
 .env
 
 # turbo

@@ -11,5 +11,6 @@
       "strictPropertyInitialization": false,
       "skipLibCheck": true
    },
-   "ts-node": { "swc": true }
+   "ts-node": { "swc": true },
+   "exclude": ["database/generated"]
 }

@@ -6,8 +6,11 @@ export const seedUser = async () => {
       email: 'onlinelibraryapplication@gmail.com',
       password: 'testing',
    })
+
    await user.createAuthentication({
       activationToken: '5t6q8wu9hodsng67et7tsdft867tdf76tsd',
       authenticated: true,
    })
+
+   console.log('✔️ New user seeded')
 }

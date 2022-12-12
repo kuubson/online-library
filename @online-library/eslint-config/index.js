@@ -26,5 +26,5 @@ module.exports = {
          },
       ],
    },
-   ignorePatterns: ['dist', 'dev-dist', 'database/generated'],
+   ignorePatterns: ['dist', 'dev-dist', 'generated'],
 }
