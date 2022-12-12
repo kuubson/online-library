@@ -6,38 +6,50 @@ describe('Home page', () => {
       cy.getByCy('header').should('be.visible').should('have.text', 'Online Library')
 
       // Buttons
-      ;['Login', 'Register'].map((text, index) => {
-         cy.getByCy('button')
-            .eq(index)
-            .should('be.visible')
-            .should('be.enabled')
-            .should('have.text', text)
-      })
+      const buttons = ['Login', 'Register']
+
+      cy.getByCy('button')
+         .should('have.length', buttons.length)
+         .each((button, index) => {
+            cy.wrap(button)
+               .should('be.visible')
+               .should('be.enabled')
+               .should('have.text', buttons[index])
+         })
 
       // Image
       cy.checkImage('image')
 
       // Badges
-      cy.getByCy('badge').should('have.length', 2)
+      const badgeUrls = [
+         'https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white',
+         'https://img.shields.io/badge/coming%20soon-000000?style=for-the-badge&logo=ios&logoColor=white',
+      ]
 
       cy.getByCy('badge')
-         .first()
-         .should(
-            'have.attr',
-            'src',
-            'https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white'
-         )
-
-      cy.getByCy('badge')
-         .last()
-         .should(
-            'have.attr',
-            'src',
-            'https://img.shields.io/badge/coming%20soon-000000?style=for-the-badge&logo=ios&logoColor=white'
-         )
+         .should('have.length', badgeUrls.length)
+         .each((badge, index) => {
+            cy.wrap(badge).should('have.css', 'opacity', index === 0 ? '1' : '0.7')
+            cy.wrap(badge).should('have.attr', 'src', badgeUrls[index])
+         })
 
       // Advantages
       cy.getByCy('advantage').should('have.length', 4)
+   })
+
+   it('Navigation', () => {
+      cy.visit('/')
+
+      // Navigate to the login page
+      cy.getByCy('button').contains('Login').click()
+      cy.location('pathname').should('eq', '/login')
+
+      // Go back to the previous page
+      cy.go(-1)
+
+      // Navigate to the registration page
+      cy.getByCy('button').contains('Register').click()
+      cy.location('pathname').should('eq', '/registration')
    })
 
    it('Downloading .apk', () => {
