@@ -69,7 +69,7 @@ describe('Home page', () => {
    })
 
    it('Downloading .apk', () => {
-      cy.intercept({
+      cy.route({
          method: 'GET',
          url: '**/api/mobile-app',
       }).as('getMobileApp')
@@ -78,16 +78,8 @@ describe('Home page', () => {
 
       cy.wait('@getMobileApp').its('response.statusCode').should('be.oneOf', [200, 304])
 
-      // NOTE: Clicking the badge causes a 60-second timeout ("wait for a page to reload"). Using the `document.addEventListener` method is just a workaround for this issue.
-      cy.window()
-         .document()
-         .then(document => {
-            document.addEventListener('click', () =>
-               setTimeout(() => document.location.reload(), 5000)
-            )
-            cy.getByCy('badge').first().click()
-         })
+      cy.getByCy('link').first().click()
 
-      cy.readFile('cypress\\downloads\\app-release.apk')
+      cy.readFile('cypress\\downloads\\app-release.apk', { timeout: 15000 })
    })
 })

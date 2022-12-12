@@ -21,14 +21,5 @@ export const useMobileApp = () => {
       getApk()
    }, [])
 
-   const downloadApk = () => {
-      if (apk) {
-         window.location.href = apk
-      }
-   }
-
-   return {
-      apk,
-      downloadApk,
-   }
+   return { apk }
 }
