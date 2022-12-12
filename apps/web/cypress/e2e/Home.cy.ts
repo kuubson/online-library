@@ -1,6 +1,23 @@
 describe('Home page', () => {
-   it('Static stuff (header, buttons, image, badges, advantages) on desktop viewport', () => {
+   beforeEach(() => {
       cy.visit('/')
+   })
+
+   it('Navigation', () => {
+      // Navigate to the login page
+      cy.getByCy('button').contains('Login').click()
+      cy.location('pathname').should('eq', '/login')
+
+      // Go back to the previous page
+      cy.go(-1)
+
+      // Navigate to the registration page
+      cy.getByCy('button').contains('Register').click()
+      cy.location('pathname').should('eq', '/registration')
+   })
+
+   it('Static stuff (header, buttons, image, badges, advantages)', () => {
+      // ----------------- DESKTOP (DEFAULT) VIEWPORT -----------------
 
       // Header
       cy.getByCy('header').should('be.visible').should('have.text', 'Online Library')
@@ -35,46 +52,25 @@ describe('Home page', () => {
 
       // Advantages
       cy.getByCy('advantage').should('have.length', 4)
-   })
 
-   it('Static stuff on smaller viewport', () => {
-      cy.visit('/')
+      // ----------------- SMALLER VIEWPORT -----------------
 
-      // Set the viewport width to 900 pixels or less.
+      // Check that the image is no longer visible
+      cy.viewport(800, 1000)
+      cy.getByCy('image').should('not.be.visible')
+
+      // Check that the advantages are no longer visible
       cy.viewport(900, 1000)
-
-      // Check that the advantages are no longer visible.
       cy.getByCy('advantage').should('not.be.visible')
 
-      // Set the viewport width to 800 pixels or less.
-      cy.viewport(800, 1000)
-
-      // Check that the image is no longer visible.
-      cy.getByCy('image').should('not.be.visible')
-   })
-
-   it('Navigation', () => {
-      cy.visit('/')
-
-      // Navigate to the login page
-      cy.getByCy('button').contains('Login').click()
-      cy.location('pathname').should('eq', '/login')
-
-      // Go back to the previous page
-      cy.go(-1)
-
-      // Navigate to the registration page
-      cy.getByCy('button').contains('Register').click()
-      cy.location('pathname').should('eq', '/registration')
+      // ----------------- SMALLER VIEWPORT -----------------
    })
 
    it('Downloading .apk', () => {
-      cy.route({
+      cy.intercept({
          method: 'GET',
          url: '**/api/mobile-app',
       }).as('getMobileApp')
-
-      cy.visit('/')
 
       cy.wait('@getMobileApp').its('response.statusCode').should('be.oneOf', [200, 304])
 
