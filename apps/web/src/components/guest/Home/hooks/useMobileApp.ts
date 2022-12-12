@@ -32,5 +32,3 @@ export const useMobileApp = () => {
       downloadApk,
    }
 }
-
-export type UseMobileAppHook = ReturnType<typeof useMobileApp>
