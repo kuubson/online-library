@@ -1,5 +1,5 @@
 describe('Home page', () => {
-   it('Static stuff (header, buttons, image, badges, advantages)', () => {
+   it('Static stuff (header, buttons, image, badges, advantages) on desktop viewport', () => {
       cy.visit('/')
 
       // Header
@@ -37,6 +37,22 @@ describe('Home page', () => {
       cy.getByCy('advantage').should('have.length', 4)
    })
 
+   it('Static stuff on smaller viewport', () => {
+      cy.visit('/')
+
+      // Set the viewport width to 900 pixels or less.
+      cy.viewport(900, 1000)
+
+      // Check that the advantages are no longer visible.
+      cy.getByCy('advantage').should('not.be.visible')
+
+      // Set the viewport width to 800 pixels or less.
+      cy.viewport(800, 1000)
+
+      // Check that the image is no longer visible.
+      cy.getByCy('image').should('not.be.visible')
+   })
+
    it('Navigation', () => {
       cy.visit('/')
 
@@ -62,6 +78,7 @@ describe('Home page', () => {
 
       cy.wait('@getMobileApp').its('response.statusCode').should('be.oneOf', [200, 304])
 
+      // NOTE: Clicking the badge causes a 60-second timeout ("wait for a page to reload"). Using the `document.addEventListener` method is just a workaround for this issue.
       cy.window()
          .document()
          .then(document => {
