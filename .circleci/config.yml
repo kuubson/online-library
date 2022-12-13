@@ -8,7 +8,7 @@ orbs:
 jobs:
    e2e:
       docker:
-         - image: cimg/node:16.17.1
+         - image: cimg/node:16.17.0
       steps:
          - checkout
          - run: git submodule sync
@@ -36,7 +36,7 @@ jobs:
               command: cd apps/web && yarn test
    # hold:
    #    docker:
-   #       - image: cimg/node:16.17.1
+   #       - image: cimg/node:16.17.0
    #    steps:
    #       - run: printf "A hold job to wait for a manual approval"
    # native:
