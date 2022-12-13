@@ -9,7 +9,7 @@
 
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) ![GraphQL](https://img.shields.io/badge/-GraphQL-E10098?style=for-the-badge&logo=graphql&logoColor=white) ![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101) ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens) ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white) ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)
 
-![Vite](https://img.shields.io/badge/Vite-646CFF.svg?style=for-the-badge&logo=Vite&logoColor=white) ![Turborepo](https://img.shields.io/badge/Turborepo-EF4444.svg?style=for-the-badge&logo=Turborepo&logoColor=white) ![Railway](https://img.shields.io/badge/Railway-131415?style=for-the-badge&logo=railway&logoColor=white) ![CircleCI](https://img.shields.io/badge/circle%20ci-%23161616.svg?style=for-the-badge&logo=circleci&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF.svg?style=for-the-badge&logo=Vite&logoColor=white) ![Cypress](https://img.shields.io/badge/-cypress-%23E5E5E5?style=for-the-badge&logo=cypress&logoColor=058a5e) ![Turborepo](https://img.shields.io/badge/Turborepo-EF4444.svg?style=for-the-badge&logo=Turborepo&logoColor=white) ![Railway](https://img.shields.io/badge/Railway-131415?style=for-the-badge&logo=railway&logoColor=white) ![CircleCI](https://img.shields.io/badge/circle%20ci-%23161616.svg?style=for-the-badge&logo=circleci&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
 > **Note** See the [stack](https://github.com/kuubson/online-library/tree/master/apps/native#-stack-) for the mobile app
 
@@ -113,7 +113,7 @@ socket("socket.io")-->api
 
 ### 🤖 Automation
 
--  every push to the master branch triggers the autodeployment on Railway + **CircleCI** build workflow
+-  every push to the master branch triggers the autodeployment on Railway + **CircleCI** build workflow (linting, e2e tests, new release of the mobile app that requires an approval)
 -  [@trivago/prettier-plugin-sort-imports](https://www.npmjs.com/package/@trivago/prettier-plugin-sort-imports) for keeping a consistent order of imports (custom flow)
 -  [graphql-codegen](https://www.the-guild.dev/graphql/codegen) for autogenerating the code (hooks & types) from gql schema & documents
 -  [@graphql-tools/merge](https://www.graphql-tools.com/docs/schema-merging) for auto merging resolvers & type defs into schema (**custom wrapper** to detect duplicated resolvers)
@@ -151,10 +151,13 @@ socket("socket.io")-->api
 
 | command            | description                                                                                                     |
 | ------------------ | --------------------------------------------------------------------------------------------------------------- |
+| `yarn start`       | triggers `start` script in `/server` ~> runs server production build                                            |
+| `yarn start:local` | triggers `start:local` script in `/server` ~> runs server production build for `CircleCI` + `Cypress` purposes  |
 | `yarn dev`         | triggers `dev` pipeline ~> launches apps, bundles all packages (watchmode)                                      |
 | `yarn lib:dev`     | triggers filtered `dev` pipeline ~> bundles only packages (watchmode)                                           |
 | `yarn lint`        | triggers `lint` pipeline ~> ts & eslint & stylelint check through all apps and packages                         |
-| `yarn test`        | triggers `test` pipeline ~> runs tests for web and mobile apps                                                  |
+| `yarn test`        | triggers `test` pipeline ~> runs tests for mobile app                                                           |
+| `yarn test:e2e`    | triggers `test:e2e` pipeline ~> runs e2e tests for web app                                                      |
 | `yarn build`       | triggers `build` pipeline ~> build all apps, bundles all packages                                               |
 | `yarn postbuild`   | triggers `yarn lib` script ~> makes sure that all packages are built on top of the newest docs                  |
 | `yarn lib`         | triggers `lib:build` pipeline ~> bundles all packages                                                           |
@@ -167,14 +170,15 @@ socket("socket.io")-->api
 
 ## 🔎 Detailed scripts
 
-| command           | server                                                                                                                 | web                         | each package                    |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------- | ------------------------------- |
-| `yarn dev`        | runs express server with `NODE_ENV` set to `development`                                                               | runs the react app          | bundles the package (watchmode) |
-| `yarn lint`       | lint & ts check                                                                                                        | lint & ts & stylelint check | lint & ts check                 |
-| `yarn test`       | ❌                                                                                                                     | runs RTL tests only once    | ❌                              |
-| `yarn test:watch` | ❌                                                                                                                     | runs RTL tests (watchmode)  | ❌                              |
-| `yarn build`      | builds the express server & copies ([copyfiles](https://www.npmjs.com/package/copyfiles)) gql related files to `/dist` | builds the react app        | bundles the package             |
-| `yarn docs`       | generates API docs (**OpenAPI**) from comments of the REST controllers                                                 | ❌                          | ❌                              |
+| command            | server                                                                                                                 | web                         | each package                    |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------- | --------------------------- | ------------------------------- |
+| `yarn start`       | runs the server production build (serves also the web app)                                                             | ❌                          | ❌                              |
+| `yarn start:local` | runs the server production build on specific port (needed for `CircleCI` + `Cypress`)                                  | ❌                          | ❌                              |
+| `yarn dev`         | runs express server with `NODE_ENV` set to `development`                                                               | runs the react app          | bundles the package (watchmode) |
+| `yarn lint`        | lint & ts check                                                                                                        | lint & ts & stylelint check | lint & ts check                 |
+| `yarn test:e2e`    | ❌                                                                                                                     | runs e2e tests              | ❌                              |
+| `yarn build`       | builds the express server & copies ([copyfiles](https://www.npmjs.com/package/copyfiles)) gql related files to `/dist` | builds the react app        | bundles the package             |
+| `yarn docs`        | generates API docs (**OpenAPI**) from comments of the REST controllers                                                 | ❌                          | ❌                              |
 
 > **Note** See [scripts](https://github.com/kuubson/online-library/tree/master/apps/native#-scripts) for the mobile app
 
@@ -196,6 +200,16 @@ socket("socket.io")-->api
 | set to `true` to seed db with a testing user                                                                  | `SEED_USER`                                                             | ❌                            |
 
 > **Note** See [envs](https://github.com/kuubson/online-library/tree/master/apps/native#-environment-variables) for the mobile app
+
+## 🔐 CircleCI variables (+ all envs for the `server`)
+
+> **Note** To be able to run e2e tests, all server env variables are also required on the CircleCI
+
+| variable                                                                               | details                                                                                                   |
+| -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `GITHUB_TOKEN`                                                                         | personal access token for Github CLI orb                                                                  |
+| `RELEASE_KEYSTORE_BASE64`                                                              | release keystore converted to base64 (more [info](https://circleci.com/docs/deploy-android-applications)) |
+| `RELEASE_KEYSTORE` `RELEASE_KEY_ALIAS` `RELEASE_KEY_PASSWORD` `RELEASE_STORE_PASSWORD` | keystore related details (more [info](https://circleci.com/docs/deploy-android-applications))             |
 
 ## 📙 Tips
 

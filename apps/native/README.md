@@ -1,7 +1,7 @@
 # 📱 native [app](https://online-library.up.railway.app)
 
-| [Stack](#-stack-) | [Preview](#-app-preview) | [Notes](#-some-notes) | [Distribution](#-distribution) | [Goals](#-future-goals) | [Scripts](#-scripts) | [Env](#-environment-variables) | [CircleCI](#-circleci-variables) | [Tips](#-tips) |
-| ----------------- | ------------------------ | --------------------- | ------------------------------ | ----------------------- | -------------------- | ------------------------------ | -------------------------------- | -------------- |
+| [Stack](#-stack-) | [Preview](#-app-preview) | [Notes](#-some-notes) | [Distribution](#-distribution) | [Goals](#-future-goals) | [Scripts](#-scripts) | [Env](#-environment-variables) | [Tips](#-tips) |
+| ----------------- | ------------------------ | --------------------- | ------------------------------ | ----------------------- | -------------------- | ------------------------------ | -------------- |
 
 ## 🔧 Stack &nbsp;[![CircleCI](https://circleci.com/gh/kuubson/online-library.svg?style=svg&circle-token=c6f9611e819c26df85c288d0c0a9edc6bbd4116d)](https://app.circleci.com/pipelines/github/kuubson/online-library)
 
@@ -35,7 +35,9 @@ The app covers all the [features](https://github.com/kuubson/online-library#-som
 
 > **Warning** The app is distributed internally (no Google Play & App Store involved) using **CircleCI**
 
-### Every push to the master branch triggers CircleCI build workflow:
+### Every push to the master branch triggers CircleCI `native` workflow:
+
+> **Note** It requires the approval in the CircleCI panel
 
 #### 🤖 Android
 
@@ -90,14 +92,6 @@ The app covers all the [features](https://github.com/kuubson/online-library#-som
 | variable  | details                                                 |
 | --------- | ------------------------------------------------------- |
 | `API_URL` | url for the express server (e.g. `http://${IPv4}:3001`) |
-
-## 🔐 CircleCI variables
-
-| variable                                                                               | details                                                                                                   |
-| -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `GITHUB_TOKEN`                                                                         | personal access token for Github CLI orb                                                                  |
-| `RELEASE_KEYSTORE_BASE64`                                                              | release keystore converted to base64 (more [info](https://circleci.com/docs/deploy-android-applications)) |
-| `RELEASE_KEYSTORE` `RELEASE_KEY_ALIAS` `RELEASE_KEY_PASSWORD` `RELEASE_STORE_PASSWORD` | keystore related details (more [info](https://circleci.com/docs/deploy-android-applications))             |
 
 ## 📙 Tips
 
