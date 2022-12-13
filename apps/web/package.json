@@ -6,8 +6,9 @@
    "scripts": {
       "dev": "vite",
       "lint": "eslint . && tsc --noEmit && stylelint src/**/*.{ts,tsx}",
-      "e2e": "npx cypress open",
-      "build": "tsc && vite build"
+      "test:e2e": "npx cypress run --browser chrome",
+      "build": "tsc && vite build",
+      "cypress": "npx cypress open"
    },
    "dependencies": {
       "@apollo/client": "3.6.9",

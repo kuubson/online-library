@@ -6,12 +6,49 @@ orbs:
    node: circleci/node@5.0.3
 
 jobs:
+   e2e:
+      docker:
+         - image: cypress/browsers:node16.17.0-chrome106
+      steps:
+         - checkout
+         - run: git submodule sync
+         - run: git submodule update --init
+         - node/install:
+              install-yarn: true
+              node-version: '16.17.0'
+         - restore_cache:
+              name: Restore cache
+              keys:
+                 - yarn-packages-{{ checksum "yarn.lock" }}
+         - run:
+              name: Install dependencies
+              command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+         - save_cache:
+              name: Save cache
+              key: yarn-packages-{{ checksum "yarn.lock" }}
+              paths:
+                 - ~/.cache/yarn
+         - run:
+              name: Lint the codebase
+              command: yarn lint
+         - run:
+              name: Build the app
+              command: yarn build
+         - run:
+              name: Run the app
+              command: yarn start:local
+              background: true
+         - run:
+              name: Run web app tests
+              command: |
+                 sleep 1m
+                 cd apps/web && yarn test:e2e
    hold:
       docker:
-         - image: cimg/node:16.17.1
+         - image: cimg/node:16.17.0
       steps:
          - run: printf "A hold job to wait for a manual approval"
-   build:
+   native:
       docker:
          - image: cimg/android:2022.09
       parameters:
@@ -46,8 +83,8 @@ jobs:
          - restore_cache:
               key: gradle-v1-{{ arch }}-{{ checksum "/tmp/gradle_cache_seed" }}
          - run:
-              name: Run tests
-              command: yarn test
+              name: Run mobile app tests
+              command: cd apps/native && yarn test
          - run:
               name: 'Decode release keystore'
               command: cd apps/native/android/app && echo $RELEASE_KEYSTORE_BASE64 | base64 -d | tee release.keystore > /dev/null
@@ -67,7 +104,7 @@ jobs:
               command: cd apps/native && yarn apk
          - run:
               name: Create release
-              command: cd online-library-releases && gh release create v1.0.8 ../apps/native/android/app/build/outputs/apk/release/app-release.apk
+              command: cd online-library-releases && gh release create v1.0.9 ../apps/native/android/app/build/outputs/apk/release/app-release.apk
          - save_cache:
               key: gradle-v1-{{ arch }}-{{ checksum "/tmp/gradle_cache_seed" }}
               paths:
@@ -75,11 +112,12 @@ jobs:
                  - ~/.gradle/wrapper
 
 workflows:
-   approve-and-build:
+   build:
       jobs:
+         - e2e
          - hold:
               type: approval
-         - build:
+         - native:
               requires:
                  - hold
               filters:

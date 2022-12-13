@@ -78,7 +78,7 @@
         "tags": [
           "Root"
         ],
-        "summary": "Mobile app links",
+        "summary": "Mobile app links (rate limited)",
         "description": "   ✔️ Returns the links to download APK & soon IPA <br />   ",
         "parameters": [],
         "responses": {
@@ -880,7 +880,14 @@
         "type": "object",
         "properties": {
           "apk": {
-            "type": "string"
+            "type": "string",
+            "format": "uri",
+            "qt-uri-protocols": [
+              "https"
+            ],
+            "qt-uri-extensions": [
+              ".apk"
+            ]
           }
         }
       },
