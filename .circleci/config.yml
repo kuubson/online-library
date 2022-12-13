@@ -8,7 +8,7 @@ orbs:
 jobs:
    e2e:
       docker:
-         - image: cypress/base:14.16.0
+         - image: cypress/browsers:node18.12.0-chrome107
       steps:
          - checkout
          - run: git submodule sync
@@ -38,8 +38,8 @@ jobs:
          - run:
               name: Run web app tests
               command: |
-                  sleep 1m
-                  cd apps/web && yarn test:e2e
+                 sleep 1m
+                 cd apps/web && yarn test:e2e
    # hold:
    #    docker:
    #       - image: cimg/node:16.17.0
