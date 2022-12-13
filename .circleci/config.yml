@@ -8,11 +8,14 @@ orbs:
 jobs:
    e2e:
       docker:
-         - image: cimg/node:16.17.0
+         - image: cypress/base:14.16.0
       steps:
          - checkout
          - run: git submodule sync
          - run: git submodule update --init
+         - node/install:
+              install-yarn: true
+              node-version: '16.17.0'
          - restore_cache:
               name: Restore cache
               keys:
