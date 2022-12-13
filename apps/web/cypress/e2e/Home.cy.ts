@@ -78,6 +78,6 @@ describe('Home page', () => {
 
       cy.getByCy('link').first().click()
 
-      cy.readFile('cypress\\downloads\\app-release.apk', { timeout: 15000 })
+      cy.readFile('cypress/downloads/app-release.apk', { timeout: 15000 })
    })
 })
