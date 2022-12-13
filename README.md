@@ -164,7 +164,6 @@ socket("socket.io")-->api
 | `yarn docs`        | triggers filtered `docs` pipeline ~> generates the API docs (**OpenAPI**) from comments of the REST controllers |
 | `yarn codegen`     | triggers `graphql codegen` ~> generates hooks & types from graphql schema                                       |
 | `yarn postinstall` | triggers `yarn lib` script ~> makes sure that `build` pipeline runs without any errors                          |
-| `yarn prepare`     | triggers `husky install` ~> sets up **husky** on local `yarn install`                                           |
 
 ## 🔎 Detailed scripts
 
