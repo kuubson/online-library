@@ -1,9 +1,7 @@
 describe('Home page', () => {
-   beforeEach(() => {
-      cy.visit('/')
-   })
-
    it('Navigation', () => {
+      cy.visit('/')
+
       // Navigate to the login page
       cy.getByCy('button').contains('Login').click()
       cy.location('pathname').should('eq', '/login')
@@ -17,7 +15,9 @@ describe('Home page', () => {
    })
 
    it('Static stuff (header, buttons, image, badges, advantages)', () => {
-      // ----------------- DESKTOP (DEFAULT) VIEWPORT -----------------
+      cy.visit('/')
+
+      /** ----------------- DESKTOP VIEWPORT ----------------- */
 
       // Header
       cy.getByCy('header').should('be.visible').should('have.text', 'Online Library')
@@ -53,7 +53,7 @@ describe('Home page', () => {
       // Advantages
       cy.getByCy('advantage').should('have.length', 4)
 
-      // ----------------- SMALLER VIEWPORT -----------------
+      /** ----------------- SMALLER VIEWPORT ----------------- */
 
       // Check that the image is no longer visible
       cy.viewport(800, 1000)
@@ -63,7 +63,7 @@ describe('Home page', () => {
       cy.viewport(900, 1000)
       cy.getByCy('advantage').should('not.be.visible')
 
-      // ----------------- SMALLER VIEWPORT -----------------
+      /** ----------------- SMALLER VIEWPORT ----------------- */
    })
 
    it('Downloading .apk', () => {
@@ -71,6 +71,8 @@ describe('Home page', () => {
          method: 'GET',
          url: '**/api/mobile-app',
       }).as('getMobileApp')
+
+      cy.visit('/')
 
       cy.wait('@getMobileApp').its('response.statusCode').should('be.oneOf', [200, 304])
 

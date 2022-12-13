@@ -22,10 +22,12 @@ export const MobileImage = () => {
                   $hoverable
                />
             </Styled.Link>
-            <Styled.Badge
-               src="https://img.shields.io/badge/coming%20soon-000000?style=for-the-badge&logo=ios&logoColor=white"
-               alt="iOS link"
-            />
+            <Styled.Link>
+               <Styled.Badge
+                  src="https://img.shields.io/badge/coming%20soon-000000?style=for-the-badge&logo=ios&logoColor=white"
+                  alt="iOS link"
+               />
+            </Styled.Link>
          </Styled.Badges>
       </MobileImageContainer>
    )

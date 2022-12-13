@@ -6,6 +6,7 @@
    "scripts": {
       "dev": "vite",
       "lint": "eslint . && tsc --noEmit && stylelint src/**/*.{ts,tsx}",
+      "test": "npx cypress run --browser chrome",
       "e2e": "npx cypress open",
       "build": "tsc && vite build"
    },

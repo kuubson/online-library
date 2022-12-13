@@ -6,6 +6,8 @@
       "node": "16.17.0"
    },
    "scripts": {
+      "start": "yarn workspace @online-library/server start",
+      "start:local": "yarn workspace @online-library/server start:local",
       "dev": "turbo run dev",
       "lib:dev": "turbo run dev --filter=./@online-library/*",
       "lint": "turbo run lint",
