@@ -34,9 +34,12 @@ jobs:
          - run:
               name: Run the app
               command: yarn start:local
+              background: true
          - run:
               name: Run web app tests
-              command: cd apps/web && yarn test:e2e
+              command: |
+                  sleep 1m
+                  cd apps/web && yarn test:e2e
    # hold:
    #    docker:
    #       - image: cimg/node:16.17.0
