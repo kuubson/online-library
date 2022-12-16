@@ -21,9 +21,13 @@ export default defineConfig(({ mode }) => {
             '/socket.io': { target: 'http://localhost:3001/socket.io' },
          },
       },
-      resolve: { alias: { 'react-native': 'react-native-web' } },
-      optimizeDeps: {
-         include: ['@online-library/config', '@online-library/core', '@online-library/logic'],
+      resolve: {
+         alias: {
+            'react-native': 'react-native-web',
+            '@online-library/config': '@online-library/config/dist/index.mjs',
+            '@online-library/core': '@online-library/core/dist/index.mjs',
+            '@online-library/logic': '@online-library/logic/dist/index.mjs',
+         },
       },
       build: {
          commonjsOptions: {
