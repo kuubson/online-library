@@ -157,7 +157,8 @@ socket("socket.io")-->api
 | `yarn lib:dev`     | triggers filtered `dev` pipeline ~> bundles only packages (watchmode)                                           |
 | `yarn lint`        | triggers `lint` pipeline ~> ts & eslint & stylelint check through all apps and packages                         |
 | `yarn test`        | triggers `test` pipeline ~> runs tests for mobile app                                                           |
-| `yarn test:e2e`    | triggers `test:e2e` pipeline ~> runs e2e tests for web app                                                      |
+| `yarn test:e2e`    | triggers `test:e2e` script in `/web` ~> runs e2e tests for web app                                              |
+| `yarn cypress`     | triggers `cypress` script in `/web` ~> runs e2e tests for web app                                               |
 | `yarn build`       | triggers `build` pipeline ~> build all apps, bundles all packages                                               |
 | `yarn postbuild`   | triggers `yarn lib` script ~> makes sure that all packages are built on top of the newest docs                  |
 | `yarn lib`         | triggers `lib:build` pipeline ~> bundles all packages                                                           |

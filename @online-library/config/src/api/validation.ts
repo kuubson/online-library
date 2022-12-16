@@ -60,7 +60,7 @@ export const API_PATHS = {
    ...addValidation('/api/user/auth/register', {
       post: yup
          .object({
-            name: yup.string().noSpecialChars(),
+            name: yup.string().noSpecialChars().required(),
             email: yup.string().emailAddress(),
             password: yup.string().password(),
             repeatedPassword: yup.string().repeatedPassword(),

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import { queries } from 'styles'
 
-export const Annotation = styled.p`
+export const Annotation = styled.p.attrs({ 'data-cy': 'annotation' })`
    font-size: 13px;
    font-weight: bold;
    margin-bottom: 25px;

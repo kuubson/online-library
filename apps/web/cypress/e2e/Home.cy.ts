@@ -1,5 +1,5 @@
 describe('Home page', () => {
-   it('Navigation', () => {
+   it('should allow users to navigate between pages', () => {
       cy.visit('/')
 
       // Navigate to the login page
@@ -14,7 +14,7 @@ describe('Home page', () => {
       cy.location('pathname').should('eq', '/registration')
    })
 
-   it('Static stuff (header, buttons, image, badges, advantages)', () => {
+   it('should render static stuff', () => {
       cy.visit('/')
 
       /** ----------------- DESKTOP VIEWPORT ----------------- */
@@ -66,7 +66,7 @@ describe('Home page', () => {
       /** ----------------- SMALLER VIEWPORT ----------------- */
    })
 
-   it('Downloading .apk', () => {
+   it('should download .apk', () => {
       cy.intercept({
          method: 'GET',
          url: '**/api/mobile-app',
