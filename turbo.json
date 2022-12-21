@@ -4,7 +4,7 @@
       "dev": { "cache": false },
       "lint": { "outputs": [] },
       "test": { "outputs": [] },
-      "e2e": { "outputs": [] },
+      "test:e2e": { "outputs": [] },
       "docs": {
          "dependsOn": ["^lib:build"],
          "outputs": ["swagger.json"]

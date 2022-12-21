@@ -13,7 +13,6 @@
       "lint": "turbo run lint",
       "test": "turbo run test",
       "test:e2e": "turbo run test:e2e",
-      "cypress": "turbo run cypress",
       "build": "turbo run build",
       "postbuild": "yarn lib",
       "lib": "turbo run lib:build",
