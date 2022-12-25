@@ -6,7 +6,6 @@ import type { SwaggerAutogenPromise } from 'types'
 import { version } from '../package.json'
 import { authToken } from './definitions'
 import { requests } from './requests'
-import { responses } from './responses'
 import { schemas } from './schemas'
 
 const doc = {
@@ -16,11 +15,8 @@ const doc = {
       description: 'API for Online Library',
    },
    host: 'localhost:3001',
-   components: { '@schemas': { ...schemas } },
-   '@definitions': {
-      ...requests,
-      ...responses,
-   },
+   components: { '@schemas': schemas },
+   '@definitions': { ...requests },
    securityDefinitions: { authToken },
 }
 
