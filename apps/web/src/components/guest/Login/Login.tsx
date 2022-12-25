@@ -17,7 +17,7 @@ export const Login = () => {
             <Input
                {...{ control }}
                id="email"
-               label={t('inputs.email.label')}
+               label={`${t('inputs.email.label')} (onlinelibraryapplication@gmail.com)`}
                type="text"
                placeholder={t('inputs.email.placeholder')}
                error={errors.email?.message}
@@ -25,7 +25,7 @@ export const Login = () => {
             <Input
                {...{ control }}
                id="password"
-               label={t('inputs.password.label')}
+               label={`${t('inputs.password.label')} (testing)`}
                type="password"
                placeholder={t('inputs.password.placeholder')}
                error={errors.password?.message}
