@@ -47,7 +47,7 @@ Auth.patch(
       }  
       #swagger.responses[200] = { description: 'Account has been activated' }  
       #swagger.responses[409] = { description: 'No authentication associated with this link' }  
-      #swagger.responses[409] = { description: 'Account already activated' }
+      #swagger.responses[403] = { description: 'Account already activated' }
 */
    '/account',
    ...activateAccount
@@ -67,7 +67,7 @@ Auth.post(
       }  
       #swagger.responses[200] = { description: 'Link with new activation token has been sent' }  
       #swagger.responses[404] = { description: 'Provided email address is incorrect' }  
-      #swagger.responses[409] = { description: 'Account already activated' }
+      #swagger.responses[403] = { description: 'Account already activated' }
       #swagger.responses[502] = { description: 'There was a problem sending the activation link' }    
 */
    '/activation-token',
