@@ -35,3 +35,9 @@ export const MESSAGE_TYPES = ['MESSAGE', 'IMAGE', 'VIDEO', 'FILE'] as const
 export const ROLES = ['guest', 'user'] as const
 
 export const FB_FIELDS = 'id,first_name,email'
+
+export const TEST_USER = {
+   name: 'John',
+   email: 'testing@gmail.com',
+   password: 'Testing123',
+}

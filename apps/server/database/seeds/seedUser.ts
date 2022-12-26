@@ -1,16 +1,17 @@
-import { User } from 'database'
+import axios from 'axios'
+
+import { API, SERVER_URL } from '@online-library/config'
+
+const { request } = API['/api/testing/seed-user'].get
 
 export const seedUser = async () => {
-   const user = await User.create({
-      name: 'John',
-      email: 'onlinelibraryapplication@gmail.com',
-      password: 'testing',
-   })
-
-   await user.createAuthentication({
-      activationToken: '5t6q8wu9hodsng67et7tsdft867tdf76tsd',
-      authenticated: true,
-   })
-
-   console.log('✔️ New user seeded')
+   try {
+      await axios.request({
+         method: request.method,
+         url: `${SERVER_URL}${request.url}`,
+      })
+      console.log('✔️ New user seeded')
+   } catch (error) {
+      console.log('❌ Seeding user failed')
+   }
 }

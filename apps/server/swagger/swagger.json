@@ -14,7 +14,7 @@
     "/api/auth-check": {
       "get": {
         "tags": [
-          "Root"
+          "Global"
         ],
         "summary": "Auth check",
         "description": "   ✔️ Checks existance of <b>auth token</b> in cookies and validates it <br />   ✔️ Returns proper role to the end user <br />   ",
@@ -45,7 +45,7 @@
     "/api/logout": {
       "get": {
         "tags": [
-          "Root"
+          "Global"
         ],
         "summary": "Logout",
         "description": "   ✔️ Logs user out <br />   ✔️ Removes auth token from cookies <br />   ",
@@ -76,7 +76,7 @@
     "/api/mobile-app": {
       "get": {
         "tags": [
-          "Root"
+          "Global"
         ],
         "summary": "Mobile app links (rate limited)",
         "description": "   ✔️ Returns the links to download APK & soon IPA <br />   ",
@@ -96,6 +96,28 @@
                 }
               }
             }
+          },
+          "422": {
+            "$ref": "#/components/schemas/422@data-validation",
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/testing/seed-user": {
+      "get": {
+        "tags": [
+          "Testing"
+        ],
+        "summary": "Seeding a user",
+        "description": "  ✔️ Seeds a test user  ✔️ Checks if test user already exists  ",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "User seeded"
+          },
+          "409": {
+            "description": "Test user already exists"
           },
           "422": {
             "$ref": "#/components/schemas/422@data-validation",

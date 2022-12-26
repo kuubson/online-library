@@ -1,0 +1,1 @@
+export { seedUser } from './seedUser'
