@@ -8,7 +8,7 @@
    "scripts": {
       "dev": "yarn lib:build --watch",
       "lint": "eslint . && tsc --noEmit",
-      "lib:build": "tsup src/index.ts --format cjs --dts --external react"
+      "lib:build": "tsup src/index.ts --format esm,cjs --dts --external react"
    },
    "dependencies": {
       "@types/validator": "^13.7.6",
