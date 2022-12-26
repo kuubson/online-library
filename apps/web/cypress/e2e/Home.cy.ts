@@ -1,3 +1,5 @@
+import { API } from '@online-library/config'
+
 describe('Home page', () => {
    it('should allow users to navigate between pages', () => {
       cy.visit('/')
@@ -67,9 +69,11 @@ describe('Home page', () => {
    })
 
    it('should download .apk', () => {
+      const { url } = API['/api/mobile-app'].get.request
+
       cy.intercept({
          method: 'GET',
-         url: '**/api/mobile-app',
+         url: `**/${url}`,
       }).as('getMobileApp')
 
       cy.visit('/')
