@@ -3,7 +3,7 @@
    "private": true,
    "packageManager": "yarn@1.22.19",
    "engines": {
-      "node": "16.17.0"
+      "node": "16.x"
    },
    "scripts": {
       "start": "yarn workspace @online-library/server start",

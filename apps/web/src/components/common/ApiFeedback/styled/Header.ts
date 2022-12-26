@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import { queries } from 'styles'
 
-export const Header = styled.h2`
+export const Header = styled.h2.attrs({ 'data-cy': 'header' })`
    font-size: 22px;
    font-weight: bold;
    @media ${queries.largeDesktop} {
