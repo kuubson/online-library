@@ -191,6 +191,7 @@ socket("socket.io")-->api
 | PostgreSQL credentials                                                                                        | `DATABASE_HOST` `DATABASE_NAME` `DATABASE_PASSWORD` `DATABASE_USERNAME` | ❌                            |
 | secret key for `jsonwebtoken`                                                                                 | `JWT_KEY`                                                               | ❌                            |
 | email address for the email sender (eg. no-reply@online-library.com)                                          | `NODEMAILER_USERNAME`                                                   | ❌                            |
+| nodemailer testing credentials (`nodemailer.createTestAccount`)                                               | `NODEMAILER_TEST_USER` `NODEMAILER_TEST_PASSWORD`                       | ❌                            |
 | SMTP provider (`nodemailer` credentials)                                                                      | `MAILJET_USER` `MAILJET_PASSWORD`                                       | ❌                            |
 | [paypal](https://developer.paypal.com) API credentials                                                        | `PAYPAL_CLIENT_ID` `PAYPAL_CLIENT_SECRET`                               | ❌                            |
 | `web-push` [package](<(https://www.npmjs.com/package/web-push)>) credentials (`web-push generate-vapid-keys`) | `PRIVATE_VAPID_KEY` `VITE_PUBLIC_VAPID_KEY`                             | `VITE_PUBLIC_VAPID_KEY`       |
