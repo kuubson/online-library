@@ -95,6 +95,8 @@ describe('Registration page', () => {
    it('should not allow registrating due to already taken account', () => {
       cy.seedUser()
 
+      // TODO: trigger register endpoint with cy.request to speed up this test
+
       cy.getByCy('input').eq(0).type(TEST_USER.name)
       cy.getByCy('input').eq(1).type(TEST_USER.email)
       cy.getByCy('input').eq(2).type(TEST_USER.password)
