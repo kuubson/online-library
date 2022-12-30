@@ -8,7 +8,7 @@ import { Connection, User } from 'database'
 
 import { yupValidation } from 'middlewares'
 
-import { transporter } from 'helpers'
+import { sendMail } from 'helpers'
 
 import { emailTemplate } from 'utils'
 
@@ -47,7 +47,7 @@ export const register: Route<Body<typeof schema>> = [
             await createdUser.createAuthentication({ activationToken }, { transaction })
 
             try {
-               await transporter.sendMail({
+               await sendMail({
                   to: email,
                   subject: `${header} in the Online Library`,
                   html: emailTemplate(

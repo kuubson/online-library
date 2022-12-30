@@ -1,4 +1,4 @@
-import { API, TEST_USER } from '@online-library/config'
+import { API, SERVER_URL, TEST_USER } from '@online-library/config'
 
 describe('Registration page', () => {
    beforeEach(() => {
@@ -92,34 +92,91 @@ describe('Registration page', () => {
       cy.getByCy('error').should('have.length', 0)
    })
 
-   it('should not allow registrating due to already taken account', () => {
+   it('should validate whole registration flow', () => {
       cy.seedUser()
 
-      // TODO: trigger register endpoint with cy.request to speed up this test
+      const { name, email, password } = TEST_USER
 
-      cy.getByCy('input').eq(0).type(TEST_USER.name)
-      cy.getByCy('input').eq(1).type(TEST_USER.email)
-      cy.getByCy('input').eq(2).type(TEST_USER.password)
-      cy.getByCy('input').eq(3).type(TEST_USER.password)
+      cy.getByCy('input').eq(0).type(name)
+      cy.getByCy('input').eq(1).type(email)
+      cy.getByCy('input').eq(2).type(password)
+      cy.getByCy('input').eq(3).type(password)
+
+      const { request, header, responses } = API['/api/user/auth/register'].post
+
+      cy.intercept({
+         method: request.method,
+         url: `**/${request.url}`,
+      }).as('register')
 
       cy.getByCy('submit').click()
 
-      const {
-         request: { url },
-         header,
-         responses,
-      } = API['/api/user/auth/register'].post
-
-      cy.intercept({
-         method: 'POST',
-         url: `**/${url}`,
-      }).as('register')
+      cy.wait('@register').its('request.body').should('deep.equal', {
+         name,
+         email,
+         password,
+         repeatedPassword: password,
+      })
 
       cy.on('uncaught:exception', allow409)
 
-      cy.getByCy('header').should('be.visible').should('have.text', header)
+      cy.getByCy('apiFeedback-header').should('be.visible').should('have.text', header)
+      cy.getByCy('apiFeedback-message').should('be.visible').should('have.text', responses[409])
 
-      cy.getByCy('message').should('be.visible').should('have.text', responses[409])
+      cy.deleteTestUser()
+      cy.getByCy('apiFeedback-button').should('be.visible').click()
+      cy.getByCy('apiFeedback').should('not.exist')
+
+      cy.getByCy('submit').click()
+
+      cy.wait('@register').its('response.statusCode').should('equal', 200)
+
+      cy.getByCy('apiFeedback-header').should('be.visible').should('have.text', header)
+      cy.getByCy('apiFeedback-message').should('be.visible').should('have.text', responses[200])
+
+      cy.getByCy('apiFeedback-button').should('be.visible').click()
+      cy.getByCy('apiFeedback').should('not.exist')
+
+      const { method, url } = API['/api/testing/ethereal-email'].get.request
+      cy.request({
+         method,
+         url: `${SERVER_URL}${url}`,
+      }).then(response => cy.visit(response.body.url))
+
+      const { patch } = API['/api/user/auth/account']
+      cy.intercept({
+         method: patch.request.method,
+         url: `**/${patch.request.url}`,
+      }).as('activateAccount')
+
+      cy.origin('https://ethereal.email', () => {
+         cy.get('iframe').then($iframe => {
+            const $body = $iframe.contents().find('body')
+
+            cy.wrap($body)
+               .contains('Account registration in the Online Library')
+               .should('be.visible')
+
+            cy.wrap($body).contains('To activate the account click the button').should('be.visible')
+
+            cy.wrap($body).contains('Activate account').should('be.visible').click()
+         })
+      })
+
+      cy.url().should('include', '/?activationToken=')
+
+      cy.wait('@activateAccount').its('response.statusCode').should('equal', 200)
+
+      cy.getByCy('apiFeedback-header').should('be.visible').should('have.text', patch.header)
+
+      cy.getByCy('apiFeedback-message')
+         .should('be.visible')
+         .should('have.text', patch.responses[200])
+
+      cy.getByCy('apiFeedback-button').should('be.visible').click()
+      cy.getByCy('apiFeedback').should('not.exist')
+
+      cy.location('pathname').should('eq', '/login')
    })
 })
 

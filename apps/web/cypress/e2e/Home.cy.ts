@@ -78,6 +78,7 @@ describe('Home page', () => {
 
       cy.visit('/')
 
+      // TODO: validate request answer (should have apk)
       cy.wait('@getMobileApp').its('response.statusCode').should('be.oneOf', [200, 304])
 
       cy.getByCy('link').first().click()

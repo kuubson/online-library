@@ -8,7 +8,7 @@ import { Connection, User } from 'database'
 
 import { yupValidation } from 'middlewares'
 
-import { transporter } from 'helpers'
+import { sendMail } from 'helpers'
 
 import { emailTemplate } from 'utils'
 
@@ -43,7 +43,7 @@ export const requestPasswordChange: Route<Body<typeof schema>> = [
             await user.update({ passwordToken }, { transaction })
 
             try {
-               await transporter.sendMail({
+               await sendMail({
                   to: email,
                   subject: `${header} in the Online Library`,
                   html: emailTemplate(

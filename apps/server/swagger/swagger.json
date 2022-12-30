@@ -110,14 +110,61 @@
           "Testing"
         ],
         "summary": "Seeding a user",
-        "description": "  ✔️ Seeds a test user  ✔️ Checks if test user already exists  ",
+        "description": "  ✔️ Seeds a test user  ",
         "parameters": [],
         "responses": {
           "200": {
             "description": "User seeded"
           },
-          "409": {
-            "description": "Test user already exists"
+          "422": {
+            "$ref": "#/components/schemas/422@data-validation",
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/testing/test-user": {
+      "delete": {
+        "tags": [
+          "Testing"
+        ],
+        "summary": "Deleting the test user",
+        "description": "  ✔️ Delets the test user  ",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "User deleted"
+          },
+          "422": {
+            "$ref": "#/components/schemas/422@data-validation",
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/testing/ethereal-email": {
+      "get": {
+        "tags": [
+          "Testing"
+        ],
+        "summary": "Ethereal email",
+        "description": "  ✔️ Returns the latest ethereal email  ",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Returns url of ethereal email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/schema@ethereal-email"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/schema@ethereal-email"
+                }
+              }
+            }
           },
           "422": {
             "$ref": "#/components/schemas/422@data-validation",
@@ -886,6 +933,18 @@
   },
   "components": {
     "schemas": {
+      "schema@ethereal-email": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "qt-uri-protocols": [
+              "https"
+            ]
+          }
+        }
+      },
       "schema@role": {
         "type": "object",
         "properties": {
