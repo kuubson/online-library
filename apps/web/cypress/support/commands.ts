@@ -9,6 +9,7 @@ declare global {
          getByCy(dataCy: string): Chainable<JQuery<HTMLElement>>
          checkImage(dataCy: string): Chainable<JQuery<HTMLElement>>
          seedUser(): Chainable
+         deleteTestUser(): Chainable
       }
    }
 }
@@ -24,6 +25,16 @@ Cypress.Commands.add('checkImage', (selector, ...args) =>
 
 Cypress.Commands.add('seedUser', () => {
    const { method, url } = API['/api/testing/seed-user'].get.request
+   cy.request({
+      method,
+      url: `${SERVER_URL}${url}`,
+   })
+      .its('status')
+      .should('equal', 200)
+})
+
+Cypress.Commands.add('deleteTestUser', () => {
+   const { method, url } = API['/api/testing/test-user'].delete.request
    cy.request({
       method,
       url: `${SERVER_URL}${url}`,

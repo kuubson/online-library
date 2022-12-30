@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { seedUser } from '../services/testing'
+import { deteleTestUser, getEtherealEmail, seedUser } from '../services/testing'
 
 export const Testing = Router()
 
@@ -14,4 +14,31 @@ Testing.get(
 */
    '/seed-user',
    ...seedUser
+)
+
+Testing.delete(
+   /**
+      #swagger.summary = "Deleting the test user"
+      #swagger.description = `
+         ✔️ Delets the test user
+      `
+      #swagger.responses[200] = { description: 'User deleted' }  
+*/
+   '/test-user',
+   ...deteleTestUser
+)
+
+Testing.get(
+   /**
+      #swagger.summary = "Ethereal email"
+      #swagger.description = `
+         ✔️ Returns the latest ethereal email
+      `
+      #swagger.responses[200] = { 
+         description: 'Returns url of ethereal email',   
+         schema: { $ref: '#/definitions/schema@ethereal-email' },   
+      }  
+*/
+   '/ethereal-email',
+   ...getEtherealEmail
 )

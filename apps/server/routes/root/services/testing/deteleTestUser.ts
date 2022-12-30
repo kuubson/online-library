@@ -4,23 +4,14 @@ import { User } from 'database'
 
 import type { InitialBody, InitialCookies, InitialQuery, Route } from 'types/express'
 
-export const seedUser: Route<InitialBody, InitialCookies, InitialQuery, 'default', false> = [
+export const deteleTestUser: Route<InitialBody, InitialCookies, InitialQuery, 'default', false> = [
    async (_, res, next) => {
       try {
          const user = await User.findOne({ where: { email: TEST_USER.email } })
 
          if (user) {
-            return res.send()
+            await user.destroy()
          }
-
-         const { activationToken, ...testUser } = TEST_USER
-
-         const newUser = await User.create(testUser)
-
-         await newUser.createAuthentication({
-            activationToken,
-            authenticated: true,
-         })
 
          res.send()
       } catch (error) {

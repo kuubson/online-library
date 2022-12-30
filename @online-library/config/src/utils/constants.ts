@@ -40,4 +40,5 @@ export const TEST_USER = {
    name: 'John',
    email: 'testing@gmail.com',
    password: 'Testing123',
+   activationToken: 'e21huqwdsufygvjfhbkejrqebhdj',
 }
