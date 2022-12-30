@@ -21,17 +21,14 @@ export const transporter = nodemailer.createTransport(
    { from: `"Online Library" <${NODEMAILER_USERNAME}>` }
 )
 
-const testingTransporter = nodemailer.createTransport(
-   {
-      host: 'smtp.ethereal.email',
-      port: 587,
-      auth: {
-         user: NODEMAILER_TEST_USER,
-         pass: NODEMAILER_TEST_PASSWORD,
-      },
+const testingTransporter = nodemailer.createTransport({
+   host: 'smtp.ethereal.email',
+   port: 587,
+   auth: {
+      user: NODEMAILER_TEST_USER,
+      pass: NODEMAILER_TEST_PASSWORD,
    },
-   { from: `"Online Library" <${NODEMAILER_USERNAME}>` }
-)
+})
 
 export const sendMail = async (options: SendMailOptions) => {
    if (!isProd) {
