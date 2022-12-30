@@ -4,6 +4,10 @@
       "dev": { "cache": false },
       "lint": { "outputs": [] },
       "test": { "outputs": [] },
+      "docs": {
+         "dependsOn": ["^lib:build"],
+         "outputs": ["swagger.json"]
+      },
       "build": {
          "dependsOn": ["^lib:build", "docs", "test"],
          "outputs": ["dist/**"]

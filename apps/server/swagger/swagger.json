@@ -14,7 +14,7 @@
     "/api/auth-check": {
       "get": {
         "tags": [
-          "Global"
+          "Root"
         ],
         "summary": "Auth check",
         "description": "   ✔️ Checks existance of <b>auth token</b> in cookies and validates it <br />   ✔️ Returns proper role to the end user <br />   ",
@@ -36,8 +36,7 @@
             }
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           }
         }
       }
@@ -45,7 +44,7 @@
     "/api/logout": {
       "get": {
         "tags": [
-          "Global"
+          "Root"
         ],
         "summary": "Logout",
         "description": "   ✔️ Logs user out <br />   ✔️ Removes auth token from cookies <br />   ",
@@ -67,8 +66,7 @@
             }
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           }
         }
       }
@@ -76,7 +74,7 @@
     "/api/mobile-app": {
       "get": {
         "tags": [
-          "Global"
+          "Root"
         ],
         "summary": "Mobile app links (rate limited)",
         "description": "   ✔️ Returns the links to download APK & soon IPA <br />   ",
@@ -98,8 +96,7 @@
             }
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           }
         }
       }
@@ -110,15 +107,14 @@
           "Testing"
         ],
         "summary": "Seeding a user",
-        "description": "  ✔️ Seeds a test user  ",
+        "description": "   ✔️ Seeds a test user   ",
         "parameters": [],
         "responses": {
           "200": {
             "description": "User seeded"
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           }
         }
       }
@@ -129,15 +125,14 @@
           "Testing"
         ],
         "summary": "Deleting the test user",
-        "description": "  ✔️ Delets the test user  ",
+        "description": "   ✔️ Delets the test user   ",
         "parameters": [],
         "responses": {
           "200": {
             "description": "User deleted"
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           }
         }
       }
@@ -148,7 +143,7 @@
           "Testing"
         ],
         "summary": "Ethereal email",
-        "description": "  ✔️ Returns the latest ethereal email  ",
+        "description": "   ✔️ Returns the latest ethereal email   ",
         "parameters": [],
         "responses": {
           "200": {
@@ -167,8 +162,7 @@
             }
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           }
         }
       }
@@ -189,16 +183,13 @@
             "description": "Email address already taken"
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           },
           "429": {
-            "$ref": "#/components/schemas/429@rate-limit",
-            "description": "Too Many Requests"
+            "description": "Too many requests"
           },
           "502": {
-            "$ref": "#/components/schemas/502@activation-link",
-            "description": "Bad Gateway"
+            "description": "There was a problem sending the activation link"
           }
         },
         "requestBody": {
@@ -231,19 +222,16 @@
             "description": "Account has been activated"
           },
           "403": {
-            "$ref": "#/components/schemas/503@account-activated",
-            "description": "Forbidden"
+            "description": "Account already activated"
           },
           "409": {
             "description": "No authentication associated with this link"
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           },
           "429": {
-            "$ref": "#/components/schemas/429@rate-limit",
-            "description": "Too Many Requests"
+            "description": "Too many requests"
           }
         },
         "requestBody": {
@@ -276,24 +264,19 @@
             "description": "Link with new activation token has been sent"
           },
           "403": {
-            "$ref": "#/components/schemas/503@account-activated",
-            "description": "Forbidden"
+            "description": "Account already activated"
           },
           "404": {
-            "$ref": "#/components/schemas/404@incorrect-email-address",
-            "description": "Not Found"
+            "description": "Provided email address is incorrect"
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           },
           "429": {
-            "$ref": "#/components/schemas/429@rate-limit",
-            "description": "Too Many Requests"
+            "description": "Too many requests"
           },
           "502": {
-            "$ref": "$/definitions/502@activation-link",
-            "description": "Bad Gateway"
+            "description": "There was a problem sending the activation link"
           }
         },
         "requestBody": {
@@ -323,8 +306,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "$ref": "#/components/schemas/200@auth-token",
-            "description": "OK"
+            "description": "Auth token was set in cookies"
           },
           "401": {
             "description": "The given credentials are wrong"
@@ -333,12 +315,10 @@
             "description": "Account not activated"
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           },
           "429": {
-            "$ref": "#/components/schemas/429@rate-limit",
-            "description": "Too Many Requests"
+            "description": "Too many requests"
           }
         },
         "requestBody": {
@@ -368,19 +348,16 @@
         "parameters": [],
         "responses": {
           "200": {
-            "$ref": "#/components/schemas/200@auth-token",
-            "description": "OK"
+            "description": "Auth token was set in cookies"
           },
           "400": {
             "description": "FB authentication has failed"
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           },
           "429": {
-            "$ref": "#/components/schemas/429@rate-limit",
-            "description": "Too Many Requests"
+            "description": "Too many requests"
           }
         },
         "requestBody": {
@@ -413,19 +390,16 @@
             "description": "Link to reset the password has been sent"
           },
           "404": {
-            "$ref": "#/components/schemas/404@incorrect-email-address",
-            "description": "Not Found"
+            "description": "Provided email address is incorrect"
           },
           "409": {
             "description": "Account must be firstly activated"
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           },
           "429": {
-            "$ref": "#/components/schemas/429@rate-limit",
-            "description": "Too Many Requests"
+            "description": "Too many requests"
           },
           "502": {
             "description": "There was a problem sending the link to reset password"
@@ -462,12 +436,10 @@
             "description": "Link to reset the password is invalid"
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           },
           "429": {
-            "$ref": "#/components/schemas/429@rate-limit",
-            "description": "Too Many Requests"
+            "description": "Too many requests"
           }
         },
         "requestBody": {
@@ -533,8 +505,7 @@
             }
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           }
         },
         "security": [
@@ -554,24 +525,19 @@
         "parameters": [],
         "responses": {
           "200": {
-            "$ref": "#/components/schemas/200@purchased-books",
-            "description": "OK"
+            "description": "Successfully purchased new books"
           },
           "402": {
-            "$ref": "#/components/schemas/402@payment-failed",
-            "description": "Payment Required"
+            "description": "Payment has failed"
           },
           "404": {
-            "$ref": "#/components/schemas/404@books-not-available",
-            "description": "Not Found"
+            "description": "Selected books are not available anymore"
           },
           "409": {
-            "$ref": "#/components/schemas/409@books-already-purchased",
-            "description": "Conflict"
+            "description": "Selected books has been already purchased before"
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           }
         },
         "security": [
@@ -624,16 +590,13 @@
             "description": "There was a problem preparing the payment, try again"
           },
           "404": {
-            "$ref": "#/components/schemas/404@books-not-available",
-            "description": "Not Found"
+            "description": "Selected books are not available anymore"
           },
           "409": {
-            "$ref": "#/components/schemas/409@books-already-purchased",
-            "description": "Conflict"
+            "description": "Selected books has been already purchased before"
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           }
         },
         "security": [
@@ -668,12 +631,10 @@
         "parameters": [],
         "responses": {
           "200": {
-            "$ref": "#/components/schemas/200@purchased-books",
-            "description": "OK"
+            "description": "Successfully purchased new books"
           },
           "402": {
-            "$ref": "#/components/schemas/402@payment-failed",
-            "description": "Payment Required"
+            "description": "Payment has failed"
           },
           "404": {
             "description": "Bad payment id"
@@ -682,8 +643,7 @@
             "description": "The order has been already approved"
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           }
         },
         "security": [
@@ -754,8 +714,7 @@
             }
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           }
         },
         "security": [
@@ -776,8 +735,7 @@
             "description": "Message has been sent"
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           }
         },
         "security": [
@@ -868,8 +826,7 @@
             "description": "Subscription has been saved"
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           }
         },
         "security": [
@@ -919,8 +876,7 @@
             }
           },
           "422": {
-            "$ref": "#/components/schemas/422@data-validation",
-            "description": "Unprocessable Entity"
+            "description": "Data validation failed"
           }
         },
         "security": [
@@ -1452,36 +1408,6 @@
             }
           }
         }
-      },
-      "422@data-validation": {
-        "description": "Data validation failed"
-      },
-      "429@rate-limit": {
-        "description": "Too many requests"
-      },
-      "502@activation-link": {
-        "description": "There was a problem sending the activation link"
-      },
-      "503@account-activated": {
-        "description": "Account already activated"
-      },
-      "200@auth-token": {
-        "description": "Auth token was set in cookies"
-      },
-      "404@incorrect-email-address": {
-        "description": "Provided email address is incorrect"
-      },
-      "200@purchased-books": {
-        "description": "Successfully purchased new books"
-      },
-      "404@books-not-available": {
-        "description": "Selected books are not available anymore"
-      },
-      "409@books-already-purchased": {
-        "description": "Selected books has been already purchased before"
-      },
-      "402@payment-failed": {
-        "description": "Payment has failed"
       }
     },
     "securitySchemes": {
