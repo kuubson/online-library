@@ -149,25 +149,25 @@ socket("socket.io")-->api
 
 > **Warning** Remember to bump release tag version (`config.yml`) when pushing to the master branch othwerise CircleCI will fail
 
-| command            | description                                                                                                     |
-| ------------------ | --------------------------------------------------------------------------------------------------------------- |
-| `yarn start`       | triggers `start` script in `/server` ~> runs server production build                                            |
-| `yarn start:local` | triggers `start:local` script in `/server` ~> runs server production build for `CircleCI` + `Cypress` purposes  |
-| `yarn dev`         | triggers `dev` pipeline ~> launches apps, bundles all packages (watchmode)                                      |
-| `yarn lib:dev`     | triggers filtered `dev` pipeline ~> bundles only packages (watchmode)                                           |
-| `yarn lint`        | triggers `lint` pipeline ~> ts & eslint & stylelint check through all apps and packages                         |
-| `yarn test`        | triggers `test` pipeline ~> runs tests for mobile app                                                           |
-| `yarn test:e2e`    | triggers `test:e2e` script in `/web` ~> runs e2e tests for web app                                              |
-| `yarn cypress`     | triggers `cypress` script in `/web` ~> runs e2e tests for web app                                               |
-| `yarn build`       | triggers `build` pipeline ~> build all apps, bundles all packages                                               |
-| `yarn postbuild`   | triggers `yarn lib` script ~> makes sure that all packages are built on top of the newest docs                  |
-| `yarn lib`         | triggers `lib:build` pipeline ~> bundles all packages                                                           |
-| `yarn android`     | triggers `android` script in `/native` ~> runs the android app                                                  |
-| `yarn metro`       | triggers `metro` script in `/native` ~> runs the metro server                                                   |
-| `yarn server`      | triggers `dev` script in `/server` ~> runs the express server                                                   |
-| `yarn docs`        | triggers filtered `docs` pipeline ~> generates the API docs (**OpenAPI**) from comments of the REST controllers |
-| `yarn codegen`     | triggers `graphql codegen` ~> generates hooks & types from graphql schema                                       |
-| `yarn postinstall` | triggers `yarn lib` script ~> makes sure that `build` pipeline runs without any errors                          |
+| command            | description                                                                                                                                                                          |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `yarn start`       | triggers `start` script in `/server` ~> runs server production build                                                                                                                 |
+| `yarn start:local` | triggers `start:local` script in `/server` ~> runs server production build for `CircleCI` + `Cypress` purposes                                                                       |
+| `yarn dev`         | triggers `dev` pipeline ~> launches apps, bundles all packages (watchmode)                                                                                                           |
+| `yarn lib:dev`     | triggers filtered `dev` pipeline ~> bundles only packages (watchmode)                                                                                                                |
+| `yarn lint`        | triggers `lint` pipeline ~> ts & eslint & stylelint check through all apps and packages                                                                                              |
+| `yarn test`        | triggers `test` pipeline ~> runs tests for mobile app                                                                                                                                |
+| `yarn test:e2e`    | triggers `test:e2e` script in `/web` ~> runs e2e tests for web app                                                                                                                   |
+| `yarn cypress`     | triggers `cypress` script in `/web` ~> runs e2e tests for web app                                                                                                                    |
+| `yarn build`       | triggers `build` pipeline ~> build all apps, bundles all packages                                                                                                                    |
+| `yarn postbuild`   | triggers `yarn lib` script ~> makes sure that all packages are built on top of the newest docs                                                                                       |
+| `yarn lib`         | triggers `lib:build` pipeline ~> bundles all packages                                                                                                                                |
+| `yarn android`     | triggers `android` script in `/native` ~> runs the android app                                                                                                                       |
+| `yarn metro`       | triggers `metro` script in `/native` ~> runs the metro server                                                                                                                        |
+| `yarn server`      | triggers `dev` script in `/server` ~> runs the express server                                                                                                                        |
+| `yarn docs`        | triggers combination of `yarn lib` (`/root`) & `yarn docs` (`/server`) ~> generates the API docs (**OpenAPI**) from comments of the REST controllers, updates also `/config` package |
+| `yarn codegen`     | triggers `graphql codegen` ~> generates hooks & types from graphql schema                                                                                                            |
+| `yarn postinstall` | triggers `yarn lib` script ~> makes sure that `build` pipeline runs without any errors                                                                                               |
 
 ## 🔎 Detailed scripts
 
@@ -199,7 +199,7 @@ socket("socket.io")-->api
 | [stripe](https://dashboard.stripe.com) API credentials                                                        | `STRIPE_SECRET_KEY`                                                     | `VITE_STRIPE_PUBLISHABLE_KEY` |
 | set to `true` to re-autogenerate db models from existing tables (generates all methods for associations)      | `SEQUELIZE_AUTO`                                                        | ❌                            |
 | set to `true` to seed db with some random books                                                               | `SEED_BOOKS`                                                            | ❌                            |
-| set to `true` to seed db with a testing user                                                                  | `SEED_USER`                                                             | ❌                            |
+| set to `true` to seed db with a test user                                                                     | `SEED_USER`                                                             | ❌                            |
 
 > **Note** See [envs](https://github.com/kuubson/online-library/tree/master/apps/native#-environment-variables) for the mobile app
 

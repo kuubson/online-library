@@ -20,7 +20,7 @@
       "android": "yarn workspace @online-library/native android",
       "metro": "yarn workspace @online-library/native metro",
       "server": "yarn workspace @online-library/server dev",
-      "docs": "turbo run docs --filter=./apps/server",
+      "docs": "yarn lib && yarn workspace @online-library/server docs && yarn lib",
       "codegen": "graphql-codegen",
       "postinstall": "yarn lib"
    },
