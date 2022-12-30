@@ -93,7 +93,7 @@ describe('Registration page', () => {
    })
 
    it('should validate whole registration flow', () => {
-      cy.seedUser()
+      cy.seedTestUser()
 
       const { name, email, password } = TEST_USER
 

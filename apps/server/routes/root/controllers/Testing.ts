@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { deteleTestUser, getEtherealEmail, seedUser } from '../services/testing'
+import { deteleTestUser, getEtherealEmail, seedTestUser } from '../services/testing'
 
 export const Testing = Router()
 
@@ -12,8 +12,8 @@ Testing.get(
       `
       #swagger.responses[200] = { description: 'User seeded' }  
 */
-   '/seed-user',
-   ...seedUser
+   '/test-user',
+   ...seedTestUser
 )
 
 Testing.delete(

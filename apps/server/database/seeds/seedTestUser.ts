@@ -2,9 +2,9 @@ import axios from 'axios'
 
 import { API, SERVER_URL } from '@online-library/config'
 
-const { request } = API['/api/testing/seed-user'].get
+const { request } = API['/api/testing/test-user'].get
 
-export const seedUser = async () => {
+export const seedTestUser = async () => {
    try {
       await axios.request({
          method: request.method,

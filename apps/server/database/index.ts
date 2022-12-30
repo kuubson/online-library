@@ -11,7 +11,7 @@ import { MessageModel } from './models/Message'
 import { PaymentModel } from './models/Payment'
 import { SubscriptionModel } from './models/Subscription'
 import { UserModel } from './models/User'
-import { seedBooks, seedUser } from './seeds'
+import { seedBooks, seedTestUser } from './seeds'
 
 const connection = new Sequelize(DATABASE_URL, {
    logging: false,
@@ -57,7 +57,7 @@ const initializeDatabase = async () => {
             seedBooks(100)
          }
          if (SEED_USER === 'true') {
-            seedUser()
+            seedTestUser()
          }
          if (SEQUELIZE_AUTO === 'true') {
             sequelizeAuto(connection)

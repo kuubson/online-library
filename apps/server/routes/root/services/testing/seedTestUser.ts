@@ -4,7 +4,7 @@ import { User } from 'database'
 
 import type { InitialBody, InitialCookies, InitialQuery, Route } from 'types/express'
 
-export const seedUser: Route<InitialBody, InitialCookies, InitialQuery, 'default', false> = [
+export const seedTestUser: Route<InitialBody, InitialCookies, InitialQuery, 'default', false> = [
    async (_, res, next) => {
       try {
          const user = await User.findOne({ where: { email: TEST_USER.email } })

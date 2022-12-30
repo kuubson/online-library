@@ -101,7 +101,7 @@
         }
       }
     },
-    "/api/testing/seed-user": {
+    "/api/testing/test-user": {
       "get": {
         "tags": [
           "Testing"
@@ -117,9 +117,7 @@
             "description": "Data validation failed"
           }
         }
-      }
-    },
-    "/api/testing/test-user": {
+      },
       "delete": {
         "tags": [
           "Testing"
