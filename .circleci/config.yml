@@ -42,7 +42,7 @@ jobs:
               name: Run web app tests
               command: |
                  sleep 1m
-                 cd apps/web && yarn test:e2e
+                 yarn test:e2e
    hold:
       docker:
          - image: cimg/node:16.17.0
