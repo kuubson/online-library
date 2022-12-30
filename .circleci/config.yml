@@ -36,7 +36,7 @@ jobs:
               command: yarn build
          - run:
               name: Run the app
-              command: yarn start:local
+              command: yarn start:testing
               background: true
          - run:
               name: Run web app tests

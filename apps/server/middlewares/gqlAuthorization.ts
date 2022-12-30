@@ -11,7 +11,7 @@ export const gqlAuthorization =
          'jwt',
          { session: false },
          (error, { user, role }: CustomRequest['user']) => {
-            // NOTE: isProd prevents auth error when running codegen script
+            // NOTE: isProd prevents auth error when running codegen script during development
             if (isProd) {
                if (error || !user) {
                   next(AuthError)

@@ -7,7 +7,7 @@
    },
    "scripts": {
       "start": "yarn workspace @online-library/server start",
-      "start:local": "yarn workspace @online-library/server start:local",
+      "start:testing": "yarn workspace @online-library/server start:testing",
       "dev": "turbo run dev",
       "lib:dev": "turbo run dev --filter=./@online-library/*",
       "lint": "turbo run lint",
@@ -16,11 +16,10 @@
       "cypress": "yarn workspace @online-library/web cypress",
       "build": "turbo run build",
       "postbuild": "yarn lib",
-      "lib": "turbo run lib:build",
+      "lib": "turbo run lib:build && yarn workspace @online-library/server docs && turbo run lib:build",
       "android": "yarn workspace @online-library/native android",
       "metro": "yarn workspace @online-library/native metro",
       "server": "yarn workspace @online-library/server dev",
-      "docs": "yarn lib && yarn workspace @online-library/server docs && yarn lib",
       "codegen": "graphql-codegen",
       "postinstall": "yarn lib"
    },

@@ -131,7 +131,7 @@ socket("socket.io")-->api
 ## 🎯 Future goals
 
 -  [x] CRA ~> Vite
--  [ ] **test coverage** as high as possible + add e2e tests (**cypress**)
+-  [x] add e2e tests (**cypress**)
 -  [ ] switch stack **graphql** + **sequelize** ~> **tRPC** + **prisma**
 -  [ ] make use of **storybook.js**
 -  [ ] run app in a **Docker** container
@@ -149,37 +149,35 @@ socket("socket.io")-->api
 
 > **Warning** Remember to bump release tag version (`config.yml`) when pushing to the master branch othwerise CircleCI will fail
 
-| command            | description                                                                                                                                                                          |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `yarn start`       | triggers `start` script in `/server` ~> runs server production build                                                                                                                 |
-| `yarn start:local` | triggers `start:local` script in `/server` ~> runs server production build for `CircleCI` + `Cypress` purposes                                                                       |
-| `yarn dev`         | triggers `dev` pipeline ~> launches apps, bundles all packages (watchmode)                                                                                                           |
-| `yarn lib:dev`     | triggers filtered `dev` pipeline ~> bundles only packages (watchmode)                                                                                                                |
-| `yarn lint`        | triggers `lint` pipeline ~> ts & eslint & stylelint check through all apps and packages                                                                                              |
-| `yarn test`        | triggers `test` pipeline ~> runs tests for mobile app                                                                                                                                |
-| `yarn test:e2e`    | triggers `test:e2e` script in `/web` ~> runs e2e tests for web app                                                                                                                   |
-| `yarn cypress`     | triggers `cypress` script in `/web` ~> runs e2e tests for web app                                                                                                                    |
-| `yarn build`       | triggers `build` pipeline ~> build all apps, bundles all packages                                                                                                                    |
-| `yarn postbuild`   | triggers `yarn lib` script ~> makes sure that all packages are built on top of the newest docs                                                                                       |
-| `yarn lib`         | triggers `lib:build` pipeline ~> bundles all packages                                                                                                                                |
-| `yarn android`     | triggers `android` script in `/native` ~> runs the android app                                                                                                                       |
-| `yarn metro`       | triggers `metro` script in `/native` ~> runs the metro server                                                                                                                        |
-| `yarn server`      | triggers `dev` script in `/server` ~> runs the express server                                                                                                                        |
-| `yarn docs`        | triggers combination of `yarn lib` (`/root`) & `yarn docs` (`/server`) ~> generates the API docs (**OpenAPI**) from comments of the REST controllers, updates also `/config` package |
-| `yarn codegen`     | triggers `graphql codegen` ~> generates hooks & types from graphql schema                                                                                                            |
-| `yarn postinstall` | triggers `yarn lib` script ~> makes sure that `build` pipeline runs without any errors                                                                                               |
+| command              | description                                                                                                                   |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `yarn start`         | triggers `start` script in `/server` ~> runs server production build                                                          |
+| `yarn start:testing` | triggers `start:testing` script in `/server` ~> runs server production build for `CircleCI` + `Cypress` purposes              |
+| `yarn dev`           | triggers `dev` pipeline ~> launches apps, bundles all packages (watchmode)                                                    |
+| `yarn lib:dev`       | triggers filtered `dev` pipeline ~> bundles only packages (watchmode)                                                         |
+| `yarn lint`          | triggers `lint` pipeline ~> ts & eslint & stylelint check through all apps and packages                                       |
+| `yarn test`          | triggers `test` pipeline ~> runs tests for mobile app                                                                         |
+| `yarn test:e2e`      | triggers `test:e2e` script in `/web` ~> runs e2e tests for web app                                                            |
+| `yarn cypress`       | triggers `cypress` script in `/web` ~> runs e2e tests for web app                                                             |
+| `yarn build`         | triggers `build` pipeline ~> build all apps, bundles all packages                                                             |
+| `yarn postbuild`     | triggers `yarn lib` script ~> makes sure that all packages are built on top of the newest docs                                |
+| `yarn lib`           | triggers `lib:build` pipeline ~> bundles all packages and updates API (**OpenAPI**) docs (must keep certain order of scripts) |
+| `yarn android`       | triggers `android` script in `/native` ~> runs the android app                                                                |
+| `yarn metro`         | triggers `metro` script in `/native` ~> runs the metro server                                                                 |
+| `yarn server`        | triggers `dev` script in `/server` ~> runs the express server                                                                 |
+| `yarn codegen`       | triggers `graphql codegen` ~> generates hooks & types from graphql schema                                                     |
+| `yarn postinstall`   | triggers `yarn lib` script ~> makes sure that `build` pipeline runs without any errors                                        |
 
 ## 🔎 Detailed scripts
 
-| command            | server                                                                                                                 | web                         | each package                    |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------- | --------------------------- | ------------------------------- |
-| `yarn start`       | runs the server production build (serves also the web app)                                                             | ❌                          | ❌                              |
-| `yarn start:local` | runs the server production build on specific port (needed for `CircleCI` + `Cypress`)                                  | ❌                          | ❌                              |
-| `yarn dev`         | runs express server with `NODE_ENV` set to `development`                                                               | runs the react app          | bundles the package (watchmode) |
-| `yarn lint`        | lint & ts check                                                                                                        | lint & ts & stylelint check | lint & ts check                 |
-| `yarn test:e2e`    | ❌                                                                                                                     | runs e2e tests              | ❌                              |
-| `yarn build`       | builds the express server & copies ([copyfiles](https://www.npmjs.com/package/copyfiles)) gql related files to `/dist` | builds the react app        | bundles the package             |
-| `yarn docs`        | generates API docs (**OpenAPI**) from comments of the REST controllers                                                 | ❌                          | ❌                              |
+| command              | server                                                                                                                 | web                         | each package                    |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------- | ------------------------------- |
+| `yarn start`         | runs the server production build (serves also the web app)                                                             | ❌                          | ❌                              |
+| `yarn start:testing` | runs the server production build with `NODE_ENV` set to `testing` (needed for `CircleCI` + `Cypress`)                  | ❌                          | ❌                              |
+| `yarn dev`           | runs express server with `NODE_ENV` set to `development`                                                               | runs the react app          | bundles the package (watchmode) |
+| `yarn lint`          | lint & ts check                                                                                                        | lint & ts & stylelint check | lint & ts check                 |
+| `yarn test:e2e`      | ❌                                                                                                                     | runs e2e tests              | ❌                              |
+| `yarn build`         | builds the express server & copies ([copyfiles](https://www.npmjs.com/package/copyfiles)) gql related files to `/dist` | builds the react app        | bundles the package             |
 
 > **Note** See [scripts](https://github.com/kuubson/online-library/tree/master/apps/native#-scripts) for the mobile app
 

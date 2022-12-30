@@ -31,7 +31,7 @@ type Env = {
 
    PORT: string | undefined
 
-   NODE_ENV: 'development' | 'production'
+   NODE_ENV: 'development' | 'testing' | 'production'
 }
 
 export const {

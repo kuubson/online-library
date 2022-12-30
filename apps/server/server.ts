@@ -1,7 +1,7 @@
 import express from 'express'
 import http from 'http'
 
-import { isProd } from '@online-library/config'
+import { isProd, isTest } from '@online-library/config'
 
 import 'dotenv/config'
 
@@ -25,7 +25,7 @@ app.use(router)
 
 formatErrors(app)
 
-if (isProd) {
+if (isProd || isTest) {
    serveWeb(app)
 }
 
