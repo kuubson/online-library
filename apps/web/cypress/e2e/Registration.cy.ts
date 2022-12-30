@@ -1,4 +1,4 @@
-import { API, SERVER_URL, TEST_USER } from '@online-library/config'
+import { API, CLIENT_URL, TEST_USER } from '@online-library/config'
 
 describe('Registration page', () => {
    beforeEach(() => {
@@ -151,7 +151,7 @@ describe('Registration page', () => {
       const { method, url } = API['/api/testing/ethereal-email'].get.request
       cy.request({
          method,
-         url: `${SERVER_URL}${url}`,
+         url: `${CLIENT_URL}${url}`,
       }).then(response => cy.visit(response.body.url))
 
       // Watch for a request for the account activation
