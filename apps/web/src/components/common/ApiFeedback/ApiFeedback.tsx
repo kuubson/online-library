@@ -26,7 +26,7 @@ export const ApiFeedback = () => {
    )
 }
 
-const ApiFeedbackContainer = styled(FixedContainer)`
+const ApiFeedbackContainer = styled(FixedContainer).attrs({ 'data-cy': 'apiFeedback' })`
    flex-direction: column;
    animation: ${fadeIn} 0.5s ease-in-out;
    z-index: 6;

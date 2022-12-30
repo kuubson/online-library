@@ -38,7 +38,7 @@ const routes: Router = {
          <Support withPasswordSupport />
       </Guest>
    ),
-   '/password-recovery/:passwordToken': (
+   '/password-recovery': (
       <Guest>
          <PasswordReset />
       </Guest>

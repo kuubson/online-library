@@ -14,7 +14,7 @@ export const HomeButton = ({ withReturnButton }: HomeButtonProps) => (
    </HomeButtonContainer>
 )
 
-const HomeButtonContainer = styled.button`
+const HomeButtonContainer = styled.button.attrs({ 'data-cy': 'home-button' })`
    height: 38px;
    font-size: 13px;
    font-weight: bold;

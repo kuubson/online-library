@@ -8,6 +8,8 @@ type Env = {
    JWT_KEY: string
 
    NODEMAILER_USERNAME: string
+   NODEMAILER_TEST_USER: string
+   NODEMAILER_TEST_PASSWORD: string
 
    MAILJET_USER: string
    MAILJET_PASSWORD: string
@@ -29,7 +31,7 @@ type Env = {
 
    PORT: string | undefined
 
-   NODE_ENV: 'development' | 'production'
+   NODE_ENV: 'development' | 'testing' | 'production'
 }
 
 export const {
@@ -39,6 +41,8 @@ export const {
    DATABASE_URL,
    JWT_KEY,
    NODEMAILER_USERNAME,
+   NODEMAILER_TEST_USER,
+   NODEMAILER_TEST_PASSWORD,
    MAILJET_USER,
    MAILJET_PASSWORD,
    PAYPAL_CLIENT_ID,

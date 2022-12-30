@@ -6,7 +6,7 @@ type StyledProps = {
    withBooksSuggestions?: boolean
 }
 
-export const Input = styled.input<StyledProps>`
+export const Input = styled.input.attrs({ 'data-cy': 'input' })<StyledProps>`
    width: 100%;
    font-size: 13px;
    padding-bottom: 12px;

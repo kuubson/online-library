@@ -7,7 +7,7 @@ type StyledProps = {
    withFacebook?: boolean
 }
 
-export const Submit = styled.button<StyledProps>`
+export const Submit = styled.button.attrs({ 'data-cy': 'submit' })<StyledProps>`
    font-size: 14px;
    padding: 10px 40px;
    margin: 45px auto 0px auto;

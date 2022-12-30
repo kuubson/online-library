@@ -2,11 +2,11 @@ import { Router } from 'express'
 
 import { rateLimiter } from 'middlewares'
 
-import { checkAuth, getMobileApp, logout } from '../services'
+import { checkAuth, getMobileApp, logout } from '../services/global'
 
-export const Root = Router()
+export const Global = Router()
 
-Root.get(
+Global.get(
    /**
       #swagger.summary = "Auth check"
       #swagger.description = `
@@ -22,7 +22,7 @@ Root.get(
    ...checkAuth
 )
 
-Root.get(
+Global.get(
    /**
       #swagger.summary = "Logout"
       #swagger.description = `
@@ -38,7 +38,7 @@ Root.get(
    ...logout
 )
 
-Root.get(
+Global.get(
    /**
       #swagger.summary = "Mobile app links (rate limited)"
       #swagger.description = `

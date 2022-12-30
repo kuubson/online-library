@@ -4,13 +4,8 @@
       "dev": { "cache": false },
       "lint": { "outputs": [] },
       "test": { "outputs": [] },
-      "test:e2e": { "outputs": [] },
-      "docs": {
-         "dependsOn": ["^lib:build"],
-         "outputs": ["swagger.json"]
-      },
       "build": {
-         "dependsOn": ["^lib:build", "docs", "test"],
+         "dependsOn": ["^lib:build", "test"],
          "outputs": ["dist/**"]
       },
       "lib:build": {

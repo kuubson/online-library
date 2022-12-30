@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import { queries } from 'styles'
 
-export const Error = styled.p`
+export const Error = styled.p.attrs({ 'data-cy': 'error' })`
    color: red;
    font-size: 12px;
    margin-top: 10px;

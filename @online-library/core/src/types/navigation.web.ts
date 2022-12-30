@@ -11,7 +11,7 @@ export type RouterPath =
    | '/email-support'
    | '/login'
    | '/password-support'
-   | '/password-recovery/:passwordToken'
+   | '/password-recovery'
    | '/store'
    | '/profile'
    | '/cart'

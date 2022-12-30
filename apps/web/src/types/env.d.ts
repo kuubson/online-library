@@ -9,5 +9,5 @@ interface ImportMetaEnv {
 
    PUBLIC_URL: string
 
-   NODE_ENV: 'development' | 'test' | 'production'
+   NODE_ENV: 'development' | 'testing' | 'production'
 }

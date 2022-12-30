@@ -1,4 +1,4 @@
-import { lowerCase } from 'lodash'
+import { capitalize, lowerCase } from 'lodash'
 import validator from 'validator'
 import * as _yup from 'yup'
 import type Lazy from 'yup/lib/Lazy'
@@ -12,7 +12,7 @@ import type { RequiredStringSchema } from 'yup/lib/string'
 import type { AnyObject, Maybe, Optionals } from 'yup/lib/types'
 import type { Asserts, TypeOf } from 'yup/lib/util/types'
 
-const errorForRequiredProperty = (path: string) => `${lowerCase(path)} is required`
+const errorForRequiredProperty = (path: string) => capitalize(`${lowerCase(path)} is required`)
 
 _yup.setLocale({
    mixed: {

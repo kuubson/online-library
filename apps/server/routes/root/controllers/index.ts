@@ -1,6 +1,9 @@
 import { Router } from 'express'
 
-import { Root } from './Root'
+import { isProd } from '@online-library/config'
+
+import { Global } from './Global'
+import { Testing } from './Testing'
 
 export const RootController = Router()
 
@@ -10,5 +13,16 @@ RootController.use(
    #swagger.responses[422] = { description: 'Data validation failed' }
 */
    '/api',
-   Root
+   Global
 )
+
+if (!isProd) {
+   RootController.use(
+      /*
+   #swagger.tags = ['Testing']
+   #swagger.responses[422] = { description: 'Data validation failed' }
+*/
+      '/api/testing',
+      Testing
+   )
+}

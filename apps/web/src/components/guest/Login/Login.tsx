@@ -1,3 +1,5 @@
+import { TEST_USER } from '@online-library/config'
+
 import { t } from '@online-library/core'
 
 import { useLogin } from '@online-library/logic'
@@ -17,7 +19,7 @@ export const Login = () => {
             <Input
                {...{ control }}
                id="email"
-               label={`${t('inputs.email.label')} (onlinelibraryapplication@gmail.com)`}
+               label={`${t('inputs.email.label')} (${TEST_USER.email})`}
                type="text"
                placeholder={t('inputs.email.placeholder')}
                error={errors.email?.message}
@@ -25,7 +27,7 @@ export const Login = () => {
             <Input
                {...{ control }}
                id="password"
-               label={`${t('inputs.password.label')} (testing)`}
+               label={`${t('inputs.password.label')} (${TEST_USER.password})`}
                type="password"
                placeholder={t('inputs.password.placeholder')}
                error={errors.password?.message}

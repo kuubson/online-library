@@ -6,11 +6,12 @@ import { DATABASE_URL, SEED_BOOKS, SEED_USER, SEQUELIZE_AUTO, sequelizeAuto } fr
 
 import { AuthenticationModel } from './models/Authentication'
 import { BookModel } from './models/Book'
+import { EtherealEmailModel } from './models/EtherealEmail'
 import { MessageModel } from './models/Message'
 import { PaymentModel } from './models/Payment'
 import { SubscriptionModel } from './models/Subscription'
 import { UserModel } from './models/User'
-import { seedBooks, seedUser } from './seeds'
+import { seedBooks, seedTestUser } from './seeds'
 
 const connection = new Sequelize(DATABASE_URL, {
    logging: false,
@@ -26,6 +27,7 @@ export const Book = BookModel(connection)
 export const Message = MessageModel(connection)
 export const Payment = PaymentModel(connection)
 export const Subscription = SubscriptionModel(connection)
+export const EtherealEmail = EtherealEmailModel(connection)
 
 User.hasOne(Authentication)
 Authentication.belongsTo(User)
@@ -55,7 +57,7 @@ const initializeDatabase = async () => {
             seedBooks(100)
          }
          if (SEED_USER === 'true') {
-            seedUser()
+            seedTestUser()
          }
          if (SEQUELIZE_AUTO === 'true') {
             sequelizeAuto(connection)

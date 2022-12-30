@@ -19,6 +19,16 @@ import {
 } from './definitions'
 
 export const schemas = {
+   'schema@ethereal-email': {
+      type: 'object',
+      properties: {
+         url: {
+            type: 'string',
+            format: 'uri',
+            'qt-uri-protocols': ['https'],
+         },
+      },
+   },
    'schema@role': {
       type: 'object',
       properties: {

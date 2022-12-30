@@ -1,6 +1,6 @@
-/// <reference types="cypress" />
+import { API, CLIENT_URL } from '@online-library/config'
 
-export {}
+/// <reference types="cypress" />
 
 declare global {
    // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -8,6 +8,8 @@ declare global {
       interface Chainable {
          getByCy(dataCy: string): Chainable<JQuery<HTMLElement>>
          checkImage(dataCy: string): Chainable<JQuery<HTMLElement>>
+         seedTestUser(): Chainable
+         deleteTestUser(): Chainable
       }
    }
 }
@@ -20,3 +22,23 @@ Cypress.Commands.add('checkImage', (selector, ...args) =>
       expect((image[0] as HTMLImageElement).naturalHeight).to.be.greaterThan(0)
    })
 )
+
+Cypress.Commands.add('seedTestUser', () => {
+   const { method, url } = API['/api/testing/test-user'].get.request
+   cy.request({
+      method,
+      url: `${CLIENT_URL}${url}`,
+   })
+      .its('status')
+      .should('equal', 200)
+})
+
+Cypress.Commands.add('deleteTestUser', () => {
+   const { method, url } = API['/api/testing/test-user'].delete.request
+   cy.request({
+      method,
+      url: `${CLIENT_URL}${url}`,
+   })
+      .its('status')
+      .should('equal', 200)
+})

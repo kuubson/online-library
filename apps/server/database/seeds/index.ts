@@ -1,2 +1,2 @@
 export { seedBooks } from './seedBooks'
-export { seedUser } from './seedUser'
+export { seedTestUser } from './seedTestUser'
