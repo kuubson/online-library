@@ -97,6 +97,7 @@ describe('Registration page', () => {
 
       const { name, email, password } = TEST_USER
 
+      // Fill out form
       cy.getByCy('input').eq(0).type(name)
       cy.getByCy('input').eq(1).type(email)
       cy.getByCy('input').eq(2).type(password)
@@ -109,8 +110,10 @@ describe('Registration page', () => {
          url: `**/${request.url}`,
       }).as('register')
 
+      // Submit form
       cy.getByCy('submit').click()
 
+      // Assert that request body is correct
       cy.wait('@register').its('request.body').should('deep.equal', {
          name,
          email,
@@ -118,64 +121,81 @@ describe('Registration page', () => {
          repeatedPassword: password,
       })
 
+      // Catch 409 error and allow it
       cy.on('uncaught:exception', allow409)
 
+      // Assert that feedback header and message are correct
       cy.getByCy('apiFeedback-header').should('be.visible').should('have.text', header)
       cy.getByCy('apiFeedback-message').should('be.visible').should('have.text', responses[409])
 
+      // Delete test user and close feedback popup
       cy.deleteTestUser()
       cy.getByCy('apiFeedback-button').should('be.visible').click()
       cy.getByCy('apiFeedback').should('not.exist')
 
+      // Submit form again
       cy.getByCy('submit').click()
 
+      // Assert that request is successful
       cy.wait('@register').its('response.statusCode').should('equal', 200)
 
+      // Assert that feedback popup header and message are correct
       cy.getByCy('apiFeedback-header').should('be.visible').should('have.text', header)
       cy.getByCy('apiFeedback-message').should('be.visible').should('have.text', responses[200])
 
+      // Close feedback popup
       cy.getByCy('apiFeedback-button').should('be.visible').click()
       cy.getByCy('apiFeedback').should('not.exist')
 
+      // Get email preview URL
       const { method, url } = API['/api/testing/ethereal-email'].get.request
       cy.request({
          method,
          url: `${SERVER_URL}${url}`,
       }).then(response => cy.visit(response.body.url))
 
+      // Watch for a request for the account activation
       const { patch } = API['/api/user/auth/account']
       cy.intercept({
          method: patch.request.method,
          url: `**/${patch.request.url}`,
       }).as('activateAccount')
 
+      // Activate account
       cy.origin('https://ethereal.email', () => {
          cy.get('iframe').then($iframe => {
             const $body = $iframe.contents().find('body')
 
+            // Assert that the correct message is displayed
             cy.wrap($body)
                .contains('Account registration in the Online Library')
                .should('be.visible')
 
             cy.wrap($body).contains('To activate the account click the button').should('be.visible')
 
+            // Click the button with redirection link
             cy.wrap($body).contains('Activate account').should('be.visible').click()
          })
       })
 
+      // Assert that the URL includes the activation token
       cy.url().should('include', '/?activationToken=')
 
+      // Assert that the account activation request is successful
       cy.wait('@activateAccount').its('response.statusCode').should('equal', 200)
 
+      // Assert that the feedback header and message are correct
       cy.getByCy('apiFeedback-header').should('be.visible').should('have.text', patch.header)
 
       cy.getByCy('apiFeedback-message')
          .should('be.visible')
          .should('have.text', patch.responses[200])
 
+      // TODO: test this behaviour within ApiFeedback.tsx
       cy.getByCy('apiFeedback-button').should('be.visible').click()
       cy.getByCy('apiFeedback').should('not.exist')
 
+      //  // Assert that the location is the login page
       cy.location('pathname').should('eq', '/login')
    })
 })
