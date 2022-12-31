@@ -55,7 +55,7 @@ api-->turborepo
 
 %% --------------------------
 
-turborepo[\turborepo/]-->apps
+turborepo[\Turborepo/]-->apps
 turborepo-->lib("@online-library")
 
 %% --------------------------
@@ -68,23 +68,24 @@ lib-->apps((apps))
 
 %% --------------------------
 
-railway[\Railway/]-->db[("sequelize (sql)")]
+railway[\Railway/]-->db[("PostgreSQL")]
+db[("PostgreSQL")]-->sequelize[\Sequelize/]
+sequelize-->server
 railway-->server
-db-->server
 
-apps-->server{{server}}
-apps-->client(web)
+Cypress[\Cypress/]-->web
+apps-->server(server)
+apps-->web(web)
 apps-->native(native)
 
 Firebase[\Firebase/]-->native
+CircleCI-->Cypress
 online-library-releases-->native
 CircleCI[\CircleCI/]-->online-library-releases{{online-library-releases}}
 
 %% --------------------------
 
-server-->api{API}
-
-auth("auth (jwt)")-->api
+auth("auth (jwt)")-->api{API}
 
 express("express (swagger)")-->api
 
