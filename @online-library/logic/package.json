@@ -7,7 +7,7 @@
    "types": "./dist/index.d.ts",
    "scripts": {
       "dev": "yarn lib:build --watch",
-      "lint": "eslint . && tsc --noEmit",
+      "lint": "eslint . --rule \"object-curly-newline: off\" && tsc --noEmit",
       "lib:build": "tsup src/index.ts --format esm,cjs --dts --external react"
    },
    "dependencies": {

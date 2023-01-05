@@ -5,7 +5,7 @@
    "type": "module",
    "scripts": {
       "dev": "vite",
-      "lint": "eslint . && tsc --noEmit && stylelint src/**/*.{ts,tsx}",
+      "lint": "eslint . --rule \"object-curly-newline: off\" && tsc --noEmit && stylelint src/**/*.{ts,tsx}",
       "test:e2e": "npx cypress run --browser chrome",
       "build": "tsc && vite build",
       "cypress": "npx cypress open"

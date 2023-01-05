@@ -6,7 +6,7 @@
       "android": "react-native run-android",
       "ios": "react-native run-ios",
       "metro": "react-native start",
-      "lint": "eslint . && tsc --noEmit && stylelint src/**/*.{ts,tsx}",
+      "lint": "eslint . --rule \"object-curly-newline: off\" && tsc --noEmit && stylelint src/**/*.{ts,tsx}",
       "test": "jest",
       "test:watch": "jest --watchAll",
       "assets": "react-native bundle --platform android --dev false --entry-file apps/native/index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
