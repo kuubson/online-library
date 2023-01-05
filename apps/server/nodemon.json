@@ -1,4 +1,8 @@
 {
    "ext": "ts,gql,json",
+   "watch": [
+      "../../@online-library/config/dist/index.js",
+      "../../@online-library/config/dist/index.mjs"
+   ],
    "ignore": ["./database/generated/"]
 }
