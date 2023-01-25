@@ -1,4 +1,4 @@
-# 📱 native [app](https://online-library.up.railway.app)
+# 📱 native [app](https://online-library-idvd.onrender.com)
 
 | [Stack](#-stack-) | [Preview](#-app-preview) | [Notes](#-some-notes) | [Distribution](#-distribution) | [Goals](#-future-goals) | [Scripts](#-scripts) | [Env](#-environment-variables) | [Tips](#-tips) |
 | ----------------- | ------------------------ | --------------------- | ------------------------------ | ----------------------- | -------------------- | ------------------------------ | -------------- |
