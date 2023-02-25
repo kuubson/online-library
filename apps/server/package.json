@@ -41,7 +41,7 @@
       "paypal-rest-sdk": "^1.8.1",
       "pg": "^8.8.0",
       "pg-hstore": "^2.3.4",
-      "sequelize": "^6.21.4",
+      "sequelize": "^6.29.0",
       "sharp": "^0.31.0",
       "socket.io": "^4.5.2",
       "stripe": "^10.8.0",
