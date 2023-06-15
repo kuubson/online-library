@@ -6,7 +6,7 @@
       "start": "cross-env NODE_ENV=production node dist/server.js",
       "start:testing": "cross-env NODE_ENV=testing PORT=3000 node dist/server.js",
       "dev": "cross-env NODE_ENV=development nodemon server.ts",
-      "lint": "eslint . && tsc --noEmit",
+      "lint": "eslint . --rule \"object-curly-newline: off\" && tsc --noEmit",
       "build": "tsc && copyfiles gql/**/**/*.gql dist",
       "docs": "npx ts-node swagger/swagger.ts"
    },

@@ -2,7 +2,8 @@ import { isProd } from 'is'
 
 const LOCALHOST = 'localhost'
 
-export const HOST = 'online-library.up.railway.app'
+// NOTE: must be a raw url
+export const HOST = 'online-library-idvd.onrender.com'
 
 export const CLIENT_URL = isProd ? `https://${HOST}` : `http://${LOCALHOST}:3000`
 
